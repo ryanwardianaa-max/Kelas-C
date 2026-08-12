@@ -1,0 +1,3 @@
+import { Bell,Menu,Moon,Sun } from 'lucide-react'
+import type { Theme,UserSettings } from '../types'
+export default function Navbar({settings,theme,onTheme,onMenu}:{settings:UserSettings;theme:Theme;onTheme:()=>void;onMenu:()=>void}){const initials=settings.name?settings.name.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase():'?';return <header className="topbar"><button className="menu icon" onClick={onMenu}><Menu/></button><div><b>KelasKu</b><small>Portal akademik Semester 7</small></div><div className="top-actions"><button className="icon" onClick={onTheme}>{theme==='dark'?<Sun/>:<Moon/>}</button><button className="icon" aria-label="Notifikasi"><Bell/></button><span className="avatar">{initials}</span></div></header>}
