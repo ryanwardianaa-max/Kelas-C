@@ -2,6 +2,8 @@ export type Page = 'Beranda' | 'Jadwal' | 'Tugas' | 'Materi' | 'Referensi' | 'Ka
 export type Theme = 'light' | 'dark'
 export type AIProvider = 'local' | 'cloud'
 export interface Course { id:number; code:string; name:string; sks:number; dayIndex:number; dayName:string; startTime:string; endTime:string; room:string; lecturer:string; color:string; topics:string[] }
+export type MeetingKind='Teori'|'Praktikum'|'UTS'|'UAS'|'Tahap Riset'
+export interface SyllabusMeeting { meeting:number; title:string; summary:string; activity:string; kind:MeetingKind }
 export interface Task { id:string; title:string; courseCode:string; description:string; dueAt:string; completed:boolean; createdAt:string; updatedAt?:string }
 export interface Material { id:string; title:string; courseCode:string; type:'Catatan'|'Dokumen'|'Slide'|'Video'; description:string; url:string; createdAt:string; updatedAt?:string }
 export type ReferenceCategory = 'Jurnal'|'E-Book'|'Website'|'Drive/File'|'Video'|'Catatan'
