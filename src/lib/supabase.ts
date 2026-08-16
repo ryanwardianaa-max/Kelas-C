@@ -87,7 +87,11 @@ export function queueDeletes(kind: CollectionKind, ids: string[]) {
     }
   saveTombstones(queued);
 }
-export async function deleteRow(kind: CollectionKind, id: string) {
+export async function deleteRow(
+  kind: CollectionKind,
+  id: string,
+  signal?: AbortSignal,
+) {
   if (!supabase)
     throw new Error(
       "Supabase belum dikonfigurasi; penghapusan disimpan dalam antrean lokal.",
@@ -96,14 +100,15 @@ export async function deleteRow(kind: CollectionKind, id: string) {
     .from(kind)
     .delete()
     .eq("id", id)
-    .select("id");
+    .select("id")
+    .abortSignal(signal ?? new AbortController().signal);
   if (error) throw error;
   if (!data?.some((row) => row.id === id))
     throw new Error(
       `DELETE ${kind}/${id} tidak terverifikasi (0 row atau RLS menolak).`,
     );
 }
-export async function flushPendingDeletes() {
+export async function flushPendingDeletes(signal?: AbortSignal) {
   const queued = readTombstones();
   if (!queued.length) return;
   if (!supabase)
@@ -113,7 +118,7 @@ export async function flushPendingDeletes() {
   const failed: Tombstone[] = [];
   for (const item of queued) {
     try {
-      await deleteRow(item.kind, item.id);
+      await deleteRow(item.kind, item.id, signal);
     } catch (error) {
       failed.push(item);
       console.error(
@@ -160,11 +165,16 @@ const rows = <T extends { id: string; updatedAt?: string; createdAt?: string }>(
       data: item,
       updated_at: updated(item) || new Date().toISOString(),
     }));
-async function upsert(kind: CollectionKind, value: unknown[]) {
+async function upsert(
+  kind: CollectionKind,
+  value: unknown[],
+  signal?: AbortSignal,
+) {
   if (!supabase || !value.length) return;
   const { error } = await supabase
     .from(kind)
-    .upsert(value, { onConflict: "id" });
+    .upsert(value, { onConflict: "id" })
+    .abortSignal(signal ?? new AbortController().signal);
   if (error) throw error;
 }
 const normalizeRows = <T>(value: unknown, fn: (x: unknown) => T | null): T[] =>
@@ -190,83 +200,108 @@ async function performSync(): Promise<AppData> {
     throw new Error(
       "Supabase belum dikonfigurasi. Data tetap aman secara lokal.",
     );
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 4500);
+  const { signal } = controller;
   try {
-    await flushPendingDeletes();
-  } catch (error) {
-    console.error("Sinkronisasi melanjutkan dengan tombstone aktif.", error);
-  }
-  const local = localSnapshot(),
-    [t, m, r, s, n] = await Promise.all([
-      supabase.from("tasks").select("data"),
-      supabase.from("materials").select("data"),
-      supabase.from("references").select("data"),
+    try {
+      await flushPendingDeletes(signal);
+    } catch (error) {
+      if (signal.aborted)
+        throw new Error(
+          "Batas waktu koneksi cloud tercapai. Menggunakan data lokal.",
+        );
+      console.error("Sinkronisasi melanjutkan dengan tombstone aktif.", error);
+    }
+    const local = localSnapshot(),
+      [t, m, r, s, n] = await Promise.all([
+        supabase.from("tasks").select("data").abortSignal(signal),
+        supabase.from("materials").select("data").abortSignal(signal),
+        supabase.from("references").select("data").abortSignal(signal),
+        supabase
+          .from("app_settings")
+          .select("data")
+          .eq("id", "profile")
+          .abortSignal(signal)
+          .maybeSingle(),
+        supabase.from("meeting_notes").select("data").abortSignal(signal),
+      ]);
+    if (signal.aborted)
+      throw new Error(
+        "Batas waktu koneksi cloud tercapai. Menggunakan data lokal.",
+      );
+    for (const result of [t, m, r, s]) if (result.error) throw result.error;
+    if (n.error && !optionalMissing(n.error)) throw n.error;
+    const remoteSettings =
+      typeof s.data === "object" && s.data !== null
+        ? (s.data as { data?: unknown }).data
+        : undefined;
+    const data: AppData = {
+      tasks: merge("tasks", local.tasks, normalizeRows(t.data, normalizeTask)),
+      materials: merge(
+        "materials",
+        local.materials,
+        normalizeRows(m.data, normalizeMaterial),
+      ),
+      references: merge(
+        "references",
+        local.references,
+        normalizeRows(r.data, normalizeReference),
+      ),
+      meetingNotes: merge(
+        "meeting_notes",
+        local.meetingNotes,
+        n.error ? [] : normalizeRows(n.data, normalizeMeetingNote),
+      ),
+      settings: remoteSettings
+        ? normalizeSettings(remoteSettings)
+        : local.settings,
+    };
+    await Promise.all([
+      upsert("tasks", rows("tasks", data.tasks), signal),
+      upsert("materials", rows("materials", data.materials), signal),
+      upsert("references", rows("references", data.references), signal),
+      n.error
+        ? Promise.resolve()
+        : upsert(
+            "meeting_notes",
+            rows("meeting_notes", data.meetingNotes),
+            signal,
+          ),
       supabase
         .from("app_settings")
-        .select("data")
-        .eq("id", "profile")
-        .maybeSingle(),
-      supabase.from("meeting_notes").select("data"),
+        .upsert(
+          {
+            id: "profile",
+            data: data.settings,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "id" },
+        )
+        .abortSignal(signal)
+        .then(({ error }) => {
+          if (error) throw error;
+        }),
     ]);
-  for (const result of [t, m, r, s]) if (result.error) throw result.error;
-  if (n.error && !optionalMissing(n.error)) throw n.error;
-  const remoteSettings =
-    typeof s.data === "object" && s.data !== null
-      ? (s.data as { data?: unknown }).data
-      : undefined;
-  const data: AppData = {
-    tasks: merge("tasks", local.tasks, normalizeRows(t.data, normalizeTask)),
-    materials: merge(
-      "materials",
-      local.materials,
-      normalizeRows(m.data, normalizeMaterial),
-    ),
-    references: merge(
-      "references",
-      local.references,
-      normalizeRows(r.data, normalizeReference),
-    ),
-    meetingNotes: merge(
-      "meeting_notes",
-      local.meetingNotes,
-      n.error ? [] : normalizeRows(n.data, normalizeMeetingNote),
-    ),
-    settings: remoteSettings
-      ? normalizeSettings(remoteSettings)
-      : local.settings,
-  };
-  await Promise.all([
-    upsert("tasks", rows("tasks", data.tasks)),
-    upsert("materials", rows("materials", data.materials)),
-    upsert("references", rows("references", data.references)),
-    n.error
-      ? Promise.resolve()
-      : upsert("meeting_notes", rows("meeting_notes", data.meetingNotes)),
-    supabase
-      .from("app_settings")
-      .upsert(
-        {
-          id: "profile",
-          data: data.settings,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "id" },
-      )
-      .then(({ error }) => {
-        if (error) throw error;
-      }),
-  ]);
-  saveTasks(data.tasks);
-  saveMaterials(data.materials);
-  saveReferences(data.references);
-  saveMeetingNotes(data.meetingNotes);
-  saveSettings(data.settings);
-  return {
-    ...data,
-    tasks: filterNotDeleted(data.tasks, "tasks"),
-    materials: filterNotDeleted(data.materials, "materials"),
-    references: filterNotDeleted(data.references, "references"),
-    meetingNotes: filterNotDeleted(data.meetingNotes, "meeting_notes"),
-  };
+    if (signal.aborted)
+      throw new Error(
+        "Batas waktu koneksi cloud tercapai. Menggunakan data lokal.",
+      );
+    saveTasks(data.tasks);
+    saveMaterials(data.materials);
+    saveReferences(data.references);
+    saveMeetingNotes(data.meetingNotes);
+    saveSettings(data.settings);
+    return {
+      ...data,
+      tasks: filterNotDeleted(data.tasks, "tasks"),
+      materials: filterNotDeleted(data.materials, "materials"),
+      references: filterNotDeleted(data.references, "references"),
+      meetingNotes: filterNotDeleted(data.meetingNotes, "meeting_notes"),
+    };
+  } finally {
+    window.clearTimeout(timer);
+  }
 }
 export function syncNow() {
   if (!flight)
