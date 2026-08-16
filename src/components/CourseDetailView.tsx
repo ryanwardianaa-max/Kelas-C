@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, Plus } from "./Icons";
+import { ChevronLeft, ExternalLink, Plus } from "./Icons";
 import { SYLLABUS } from "../lib/mockData";
 import type {
   Course,
@@ -152,12 +152,40 @@ export default function CourseDetailView({
         </section>
       ) : tab === "refs" ? (
         <section className="panel scoped-list">
-          {[...materials, ...references]
+          {materials
             .filter((x) => x.courseCode === course.code)
             .map((x) => (
               <article key={x.id}>
                 <b>{x.title}</b>
                 <span>Pertemuan {x.meetingNo ?? "umum"}</span>
+              </article>
+            ))}
+          {references
+            .filter((x) => x.courseCode === course.code)
+            .map((x) => (
+              <article key={x.id}>
+                <b>{x.title}</b>
+                <span>
+                  {x.category} · Pertemuan {x.meetingNo ?? "umum"}
+                </span>
+                {x.description && <p>{x.description}</p>}
+                {x.tags.length > 0 && (
+                  <div className="tags">
+                    {x.tags.map((tag) => (
+                      <span key={tag}>#{tag}</span>
+                    ))}
+                  </div>
+                )}
+                {x.urlOrPath && (
+                  <a
+                    className="button"
+                    href={x.urlOrPath}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ExternalLink /> Buka Tautan
+                  </a>
+                )}
               </article>
             ))}
           {![...materials, ...references].some(

@@ -101,7 +101,7 @@ export default function ReferencesView({
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <ExternalLink /> Buka
+                      <ExternalLink /> Buka Tautan
                     </a>
                     <button
                       className="icon"
