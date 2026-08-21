@@ -9,6 +9,7 @@ import type {
   UserSettings,
 } from "../types";
 import { INITIAL_METNUM_REFERENCES } from "./initialReferences";
+import { INITIAL_MATERIALS } from "./initialMaterials";
 export type DeletedKind =
   "tasks" | "materials" | "references" | "meeting_notes";
 type DeletedEntry = { kind: DeletedKind; id: string; deletedAt: string };
@@ -231,8 +232,15 @@ export const getTasks = () =>
   filterNotDeleted(list(read(K.tasks), normalizeTask), "tasks");
 export const saveTasks = (v: Task[]) =>
   save(K.tasks, filterNotDeleted(list(v, normalizeTask), "tasks"));
-export const getMaterials = () =>
-  filterNotDeleted(list(read(K.materials), normalizeMaterial), "materials");
+export const getMaterials = () => {
+  const stored = list(read(K.materials), normalizeMaterial);
+  const merged = [
+    ...new Map(
+      [...INITIAL_MATERIALS, ...stored].map((item) => [item.id, item]),
+    ).values(),
+  ];
+  return filterNotDeleted(merged, "materials");
+};
 export const saveMaterials = (v: Material[]) =>
   save(K.materials, filterNotDeleted(list(v, normalizeMaterial), "materials"));
 export const getReferences = () => {

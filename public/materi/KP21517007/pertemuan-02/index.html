@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pertemuan 02 — Catatan Kuliah & Pembahasan Lengkap Matematika Ekonomi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --ink: #1e293b;
+      --bg: #f1f5f9;
+      --paper: #ffffff;
+      --brand: #312e81;
+      --accent: #4f46e5;
+      --demand: #dc2626;
+      --supply: #16a34a;
+      --line: #cbd5e1;
+      --soft-blue: #e0e7ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+    }
+    .page {
+      max-width: 920px;
+      margin: 32px auto;
+      padding: 40px 48px;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--line);
+    }
+    header {
+      padding: 26px 30px;
+      background: linear-gradient(135deg, #1e1b4b, #4338ca);
+      color: white;
+      border-radius: 14px;
+      margin-bottom: 24px;
+    }
+    header h1 { margin: 0 0 8px; font-size: 1.85rem; }
+    header p { margin: 3px 0; color: var(--soft-blue); }
+    h2 {
+      margin-top: 38px;
+      color: var(--brand);
+      border-bottom: 2px solid var(--soft-blue);
+      padding-bottom: 8px;
+      font-size: 1.35rem;
+    }
+    h3 { color: #334155; margin-top: 22px; }
+    p { margin: 10px 0; }
+    .card {
+      margin: 16px 0;
+      padding: 18px 22px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+    }
+    .card.demand { border-left: 5px solid var(--demand); background: #fef2f2; }
+    .card.supply { border-left: 5px solid var(--supply); background: #f0fdf4; }
+    .card.notice { border-left: 5px solid var(--accent); background: #eef2ff; }
+    
+    /* Ukuran gambar proporsional & rapi */
+    .image-container {
+      margin: 20px auto;
+      text-align: center;
+      background: #fafcff;
+      padding: 12px;
+      border: 1px solid #dbeafe;
+      border-radius: 14px;
+      max-width: 580px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .image-container.portrait {
+      max-width: 480px;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      display: block;
+      margin: 0 auto;
+    }
+    .image-caption {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .steps {
+      background: #fafcff;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .steps b { color: #1e1b4b; }
+    .formula {
+      text-align: center;
+      padding: 8px 0;
+      overflow-x: auto;
+    }
+    @media (max-width: 720px) {
+      .page { margin: 0; padding: 20px; border-radius: 0; border: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.45rem; }
+      .image-container, .image-container.portrait { max-width: 100%; }
+    }
+    @media print {
+      body { background: white; }
+      .page { margin: 0; max-width: none; border: none; box-shadow: none; }
+      .card, .image-container, .steps { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<main class="page">
+
+  <header>
+    <h1>Fungsi Permintaan, Penawaran & Keseimbangan Pasar</h1>
+    <p><strong>Mata Kuliah:</strong> Matematika Ekonomi (KP21517007) · Kelas C (3 SKS)</p>
+    <p><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd. | <strong>Pertemuan:</strong> 02 (Kamis, 20 Agustus 2026)</p>
+  </header>
+
+  <div class="card notice">
+    <strong>Konvensi Standar Matematika Ekonomi:</strong> Sumbu horizontal adalah Kuantitas \(Q\) (Quantity), sumbu vertikal adalah Harga \(P\) (Price), koordinat titik dinyatakan \((Q, P)\), dan domain ekonomi berlaku pada kuadran positif (\(Q \ge 0, P \ge 0\)).
+  </div>
+
+  <!-- BAGIAN I -->
+  <h2>BAGIAN I — FUNGSI PERMINTAAN (SLIDE 2–6)</h2>
+  <div class="card demand">
+    <h3>1. Konsep & Hukum Permintaan</h3>
+    <p><strong>Permintaan (Demand)</strong> adalah jumlah barang/jasa yang ingin dan mampu dibeli konsumen pada berbagai tingkat harga dalam periode tertentu. Hukum permintaan menyatakan bahwa dengan asumsi faktor lain tetap (<em>ceteris paribus</em>):</p>
+    <div class="formula">
+      \[P \uparrow \implies Q_d \downarrow \quad \text{dan} \quad P \downarrow \implies Q_d \uparrow\]
+    </div>
+    <p>Bentuk umum persamaan linier permintaan:</p>
+    <div class="formula">
+      \[Q_d = a - bP \quad \text{atau} \quad P = a' - b'Q \quad (b > 0)\]
+    </div>
+    <p><strong>Contoh Nyata Sehari-hari:</strong></p>
+    <ul>
+      <li><strong>Diskon Sepatu 50%:</strong> Ketika harga sepasang sepatu turun dari Rp500.000 menjadi Rp250.000, jumlah konsumen yang membeli melonjak drastis. Ini adalah <em>pergerakan di sepanjang kurva permintaan</em> akibat perubahan harga barang itu sendiri.</li>
+      <li><strong>Kenaikan Tarif Ojek Online Jam Sibuk:</strong> Saat hujan lebat atau jam sibuk sore hari, tarif ojek online melonjak tinggi. Sebagian besar konsumen memilih menunda perjalanan atau beralih ke angkutan umum, sehingga jumlah order yang diminta turun.</li>
+    </ul>
+  </div>
+
+  <h3>2. Kasus Khusus Permintaan & Penawaran</h3>
+  <div class="image-container">
+    <img src="grafik_kasus_khusus.jpg" alt="Perbandingan Kurva Permintaan & Penawaran Ekstrim">
+    <div class="image-caption">Gambar 1: Visualisasi 4 Kasus Khusus Permintaan & Penawaran (Buku Berpetak Tulis Tangan)</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>A. Permintaan Horizontal: \(P = k\) (Elastis Sempurna)</h4>
+      <p>Konsumen hanya bersedia membeli pada satu tingkat harga pasar tertentu (\(k\)). Kenaikan harga sedikit saja membuat permintaan seketika menjadi nol karena pembeli 100% beralih ke penjual lain.</p>
+      <p><strong>Contoh Nyata:</strong> Penjual bensin eceran persis di samping SPBU resmi. Jika ia menjual Rp10.000/liter sama dengan SPBU, pembeli ada; namun jika dinaikkan menjadi Rp10.500/liter, pembeli akan masuk ke SPBU sehingga penjual eceran kehilangan seluruh pembelinya.</p>
+    </div>
+    <div class="card">
+      <h4>B. Permintaan Vertikal: \(Q = c\) (Inelastis Sempurna)</h4>
+      <p>Jumlah barang yang dibutuhkan konsumen mutlak tetap (\(c\)) pada tingkat harga berapa pun. Perubahan harga tidak mengubah kuantitas yang wajib dikonsumsi.</p>
+      <p><strong>Contoh Nyata:</strong> Dosis suntikan insulin harian bagi penderita diabetes melitus atau tabung oksigen medis darurat bagi pasien gagal napas di IGD.</p>
+    </div>
+  </div>
+
+  <h3>3. Contoh Soal Nyata Permintaan (Slide 6)</h3>
+  <div class="steps">
+    <p><strong>Soal:</strong> Suatu produk terjual sebanyak 10 unit pada harga Rp500, dan terjual 20 unit pada harga Rp300. Tentukan fungsi permintaan dan gambarkan grafiknya!</p>
+    <p><b>Diketahui:</b> Titik \(A(Q_1=10, P_1=500)\) dan Titik \(B(Q_2=20, P_2=300)\).</p>
+    <p><b>Langkah 1 (Rumus 2 Titik):</b></p>
+    <div class="formula">
+      \[\frac{P - P_1}{P_2 - P_1} = \frac{Q - Q_1}{Q_2 - Q_1} \implies \frac{P - 500}{300 - 500} = \frac{Q - 10}{20 - 10}\]
+    </div>
+    <p><b>Langkah 2 (Penyelesaian Aljabar):</b></p>
+    <div class="formula">
+      \[\frac{P - 500}{-200} = \frac{Q - 10}{10} \implies 10(P - 500) = -200(Q - 10)\]
+      \[P - 500 = -20(Q - 10) \implies P - 500 = -20Q + 200 \implies \boxed{P = 700 - 20Q}\]
+      \[20Q = 700 - P \implies \boxed{Q_d = 35 - 0{,}05P}\]
+    </div>
+    <p><b>Langkah 3 (Titik Potong Kurva):</b></p>
+    <ul>
+      <li>Titik potong sumbu \(P\) (saat \(Q=0\)): \(P = 700 \implies (0, 700)\).</li>
+      <li>Titik potong sumbu \(Q\) (saat \(P=0\)): \(Q = 35 \implies (35, 0)\).</li>
+    </ul>
+  </div>
+
+  <div class="image-container">
+    <img src="grafik_tulis_tangan.jpg" alt="Kurva Permintaan P = 700 - 20Q">
+    <div class="image-caption">Gambar 2: Kurva Permintaan \(P = 700 - 20Q\) di Buku Berpetak (Titik \(A(10, 500)\) dan \(B(20, 300)\))</div>
+  </div>
+
+  <!-- BAGIAN II -->
+  <h2>BAGIAN II — FUNGSI PENAWARAN (SLIDE 7–11)</h2>
+  <div class="card supply">
+    <h3>1. Konsep & Hukum Penawaran</h3>
+    <p><strong>Penawaran (Supply)</strong> adalah jumlah barang/jasa yang ingin dan mampu dijual produsen pada berbagai tingkat harga dalam periode tertentu. Hukum penawaran menyatakan bahwa dengan asumsi <em>ceteris paribus</em>:</p>
+    <div class="formula">
+      \[P \uparrow \implies Q_s \uparrow \quad \text{dan} \quad P \downarrow \implies Q_s \downarrow\]
+    </div>
+    <p>Bentuk umum persamaan linier penawaran:</p>
+    <div class="formula">
+      \[Q_s = -c + dP \quad \text{atau} \quad P = c' + d'Q \quad (d > 0)\]
+    </div>
+    <p><strong>Contoh Nyata Sehari-hari:</strong></p>
+    <ul>
+      <li><strong>Panen Petani Cabai:</strong> Ketika harga cabai di pasar melonjak hingga Rp100.000/kg, petani dan pedagang terdorong memanen dan menjual sebanyak-banyaknya pasokan ke pasar guna meraih margin keuntungan tinggi.</li>
+      <li><strong>Pergeseran Kurva akibat Musim Hujan:</strong> Musim hujan lebat yang merusak tanaman cabai menyebabkan pasokan turun drastis pada setiap tingkat harga, menggeser seluruh kurva penawaran ke kiri dan memicu kenaikan harga pasar.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>A. Penawaran Horizontal: \(P = k\)</h4>
+      <p>Pasokan tersedia dalam jumlah melimpah pada tarif dasar tetap yang ditetapkan oleh penyedia atau regulasi pemerintah.</p>
+      <p><strong>Contoh Nyata:</strong> Tarif dasar air bersih PDAM per meter kubik (\(\text{m}^3\)) atau pulsa listrik prabayar PLN per kWh.</p>
+    </div>
+    <div class="card">
+      <h4>B. Penawaran Vertikal: \(Q = c\)</h4>
+      <p>Kuantitas pasokan mutlak terbatas dan tidak dapat ditambah lagi dalam jangka pendek meskipun harga ditawar berlipat ganda.</p>
+      <p><strong>Contoh Nyata:</strong> Kapasitas 80.000 kursi di Stadion GBK saat pertandingan Final, atau satu-satunya lukisan legendaris karya Raden Saleh.</p>
+    </div>
+  </div>
+
+  <h3>2. Contoh Soal Nyata Penawaran (Slide 11)</h3>
+  <div class="steps">
+    <p><strong>Soal:</strong> Suatu barang ditawarkan 500 unit saat harga Rp2.000, dan bertambah menjadi 1.000 unit saat harga naik menjadi Rp2.500. Tentukan fungsi penawarannya dan gambarkan grafiknya!</p>
+    <p><b>Diketahui:</b> Titik \(A(Q_1=500, P_1=2000)\) dan Titik \(B(Q_2=1000, P_2=2500)\).</p>
+    <p><b>Langkah 1 (Rumus 2 Titik):</b></p>
+    <div class="formula">
+      \[\frac{P - 2000}{2500 - 2000} = \frac{Q - 500}{1000 - 500} \implies \frac{P - 2000}{500} = \frac{Q - 500}{500}\]
+    </div>
+    <p><b>Langkah 2 (Penyelesaian Aljabar):</b></p>
+    <div class="formula">
+      \[P - 2000 = Q - 500 \implies \boxed{P = Q + 1500} \quad \Longleftrightarrow \quad \boxed{Q_s = P - 1500}\]
+    </div>
+    <p><b>Langkah 3 (Titik Minimum & Pembuktian):</b></p>
+    <ul>
+      <li>Harga terendah produsen (saat \(Q=0\)): \(P = 1500 \implies (0, 1500)\).</li>
+      <li>Uji titik: \(P(500) = 2000\) dan \(P(1000) = 2500\) (Terbukti Cocok).</li>
+    </ul>
+  </div>
+
+  <div class="image-container">
+    <img src="grafik_penawaran_slide11.jpg" alt="Kurva Penawaran P = Q + 1500">
+    <div class="image-caption">Gambar 3: Kurva Penawaran \(P = Q + 1500\) di Buku Berpetak (Titik \(A(500, 2000)\) dan \(B(1000, 2500)\))</div>
+  </div>
+
+  <!-- BAGIAN III -->
+  <h2>BAGIAN III — KESEIMBANGAN PASAR (SLIDE 12–15)</h2>
+  <div class="card">
+    <h3>1. Konsep & Mekanisme Ekuilibrium</h3>
+    <p>Keseimbangan pasar tercapai saat jumlah barang yang diminta konsumen sama persis dengan jumlah barang yang ditawarkan produsen pada harga tertentu:</p>
+    <div class="formula">
+      \[Q_d = Q_s \quad \text{atau} \quad P_d = P_s \implies \mathbf{E(Q_e, P_e)}\]
+    </div>
+    <ul>
+      <li><strong>Kondisi Surplus (\(P > P_e\)):</strong> Harga di atas harga keseimbangan menyebabkan barang menumpuk di gudang karena penawaran melebihi permintaan (\(Q_s > Q_d\)). Penjual terpaksa menurunkan harga menuju \(P_e\).</li>
+      <li><strong>Kondisi Shortage / Kelangkaan (\(P < P_e\)):</strong> Harga di bawah harga keseimbangan menyebabkan barang langka dan cepat habis (\(Q_d > Q_s\)). Persaingan antar pembeli mendorong harga naik menuju \(P_e\).</li>
+    </ul>
+    <p><strong>Contoh Nyata:</strong> Proses tawar-menawar harga sayuran di pasar tradisional antara ibu rumah tangga dan pedagang hingga tercapai harga kesepakatan.</p>
+  </div>
+
+  <h3>2. Contoh Soal Keseimbangan Pasar (Slide 15)</h3>
+  <div class="steps">
+    <p><strong>Soal:</strong> Tentukan titik keseimbangan pasar dari fungsi permintaan \(Q_d = 15 - P\) dan fungsi penawaran \(Q_s = -9 + P\)!</p>
+    <p><b>Langkah 1 (Persamaan Ekuilibrium):</b> \(Q_d = Q_s \implies 15 - P = -9 + P\)</p>
+    <p><b>Langkah 2 (Mencari Harga Keseimbangan \(P_e\)):</b> \(15 + 9 = P + P \implies 24 = 2P \implies \mathbf{P_e = 12}\)</p>
+    <p><b>Langkah 3 (Substitusi Mencari Jumlah Keseimbangan \(Q_e\)):</b></p>
+    <div class="formula">
+      \[Q_e = 15 - 12 = 3 \quad \text{atau} \quad Q_e = -9 + 12 = 3 \implies \mathbf{Q_e = 3}\]
+    </div>
+    <p><b>Kesimpulan:</b> Titik Keseimbangan Pasar berada pada \(\mathbf{E(Q_e=3, P_e=12)}\).</p>
+  </div>
+
+  <div class="image-container">
+    <img src="grafik_keseimbangan_slide15.jpg" alt="Grafik Keseimbangan Pasar Slide 15">
+    <div class="image-caption">Gambar 4: Keseimbangan Pasar \(Q_d = 15 - P\) dan \(Q_s = -9 + P\) di Titik \(E(3, 12)\) beserta Area Surplus & Shortage</div>
+  </div>
+
+  <!-- BAGIAN IV -->
+  <h2>BAGIAN IV — KUNCI JAWABAN LATIHAN SOAL LENGKAP (SLIDE 16–20)</h2>
+
+  <h3>1. Pembahasan Latihan Soal Slide 16 s.d. 19 (Kertas Garis Binder)</h3>
+  <div class="image-container portrait">
+    <img src="catatan_latihan_slide16_19.jpg" alt="Pembahasan Latihan Soal Slide 16-19 Kertas Binder">
+    <div class="image-caption">Gambar 5: Lembar Pengerjaan Latihan Soal Slide 16 s.d. 19 pada Kertas Bergaris Binder</div>
+  </div>
+
+  <h3>2. Pembahasan 7 Latihan Soal Keseimbangan Pasar (Slide 20 - Kertas Garis Binder)</h3>
+  <div class="image-container portrait">
+    <img src="catatan_latihan_slide20_part1.jpg" alt="Pembahasan Latihan Slide 20 Part 1 Kertas Binder">
+    <div class="image-caption">Gambar 6: Lembar Pengerjaan Latihan Slide 20 (Part 1: Soal 1, 2, 3, 4) pada Kertas Bergaris Binder</div>
+  </div>
+
+  <div class="image-container portrait">
+    <img src="catatan_latihan_slide20_part2.jpg" alt="Pembahasan Latihan Slide 20 Part 2 Kertas Binder">
+    <div class="image-caption">Gambar 7: Lembar Pengerjaan Latihan Slide 20 (Part 2: Soal 5, 6, 7) pada Kertas Bergaris Binder</div>
+  </div>
+
+  <div class="card notice">
+    <strong>Analisis Khusus Soal 1 Slide 20 (\(P_d = 12 + 5Q\) vs \(P_s = 4 + 4Q\)):</strong><br>
+    Secara aljabar diperoleh titik potong \(E(-8, -28)\). Namun, dalam teori ekonomi hal ini <strong>tidak memiliki keseimbangan riil di Kuadran I</strong> karena fungsi permintaan memiliki kemiringan (slope) positif (\(+5Q\)), yang menyalahi hukum permintaan normal.
+  </div>
+
+</main>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '$', right: '$', display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>

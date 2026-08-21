@@ -291,7 +291,7 @@ function Scoped({
   onAdd,
 }: {
   title: string;
-  items: { id: string; title: string }[];
+  items: { id: string; title: string; url?: string; urlOrPath?: string }[];
   onAdd: () => void;
 }) {
   return (
@@ -305,7 +305,28 @@ function Scoped({
       {items.length ? (
         <ul>
           {items.map((x) => (
-            <li key={x.id}>{x.title}</li>
+            <li key={x.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0" }}>
+              <span>{x.title}</span>
+              {(x.url || x.urlOrPath) && (
+                <a
+                  href={x.url || x.urlOrPath}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button"
+                  style={{
+                    fontSize: "0.8rem",
+                    padding: "4px 10px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap"
+                  }}
+                >
+                  <ExternalLink /> Buka Materi
+                </a>
+              )}
+            </li>
           ))}
         </ul>
       ) : (
