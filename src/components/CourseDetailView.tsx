@@ -33,7 +33,7 @@ export default function CourseDetailView({
   onBack: () => void;
 }) {
   const [tab, setTab] = useState<"meetings" | "tasks" | "refs">("meetings"),
-    [open, setOpen] = useState<number | null>(1),
+    [open, setOpen] = useState<number | null>(null),
     [adding, setAdding] = useState<{ kind: Kind; meetingNo: number } | null>(
       null,
     ),
