@@ -13,6 +13,7 @@ import ScheduleView from "./components/ScheduleView";
 import SettingsView from "./components/SettingsView";
 import Sidebar from "./components/Sidebar";
 import TasksView from "./components/TasksView";
+import ToolsView from "./components/ToolsView";
 import { COURSE_SCHEDULE } from "./lib/mockData";
 import {
   DEFAULT_SETTINGS,
@@ -221,6 +222,9 @@ export default function App() {
           initialTab={search ? "koleksi" : "koleksi"}
         />
       );
+      break;
+    case "Alat Bantu":
+      view = <ToolsView />;
       break;
     case "Referensi":
       view = <ReferencesView items={references} setItems={setReferences} />;

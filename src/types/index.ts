@@ -4,6 +4,7 @@ export type Page =
   | "Jadwal"
   | "Tugas"
   | "Materi"
+  | "Alat Bantu"
   | "Referensi"
   | "Kalender"
   | "Pengaturan";

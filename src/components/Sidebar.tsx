@@ -6,6 +6,7 @@ import {
   Home,
   Library,
   Settings,
+  Sparkles,
   X,
 } from "./Icons";
 import type { Page, UserSettings } from "../types";
@@ -15,6 +16,7 @@ const NAV = [
   ["Jadwal", CalendarDays],
   ["Tugas", CheckSquare],
   ["Materi", BookOpen],
+  ["Alat Bantu", Sparkles],
   ["Referensi", Library],
   ["Kalender", CalendarDays],
   ["Pengaturan", Settings],
