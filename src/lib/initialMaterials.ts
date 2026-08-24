@@ -23,5 +23,17 @@ export const INITIAL_MATERIALS: Material[] = [
     url: "/materi/KP21517003/pertemuan-03/index.html",
     createdAt: "2026-08-24T08:30:00.000Z",
   },
+  {
+    id: "tool-kalkulator-analisis-kompleks",
+    title: "Aplikasi Bantuan: Kalkulator Bilangan Kompleks Edukatif (Step-by-Step & Bidang Argand)",
+    courseCode: "KP21517003",
+    meetingNo: 3,
+    type: "Dokumen",
+    description:
+      "Aplikasi kalkulator interaktif khusus mahasiswa Pendidikan Matematika. Menjabarkan setiap langkah aljabar formal (penjumlahan, pengurangan, perkalian distributif, pembagian sekawan penyebut, modulus, konjugat, polar & Euler) lengkap dengan visualisasi bidang Argand 2D.",
+    url: "/tools/kalkulator-kompleks/index.html",
+    createdAt: "2026-08-24T09:25:00.000Z",
+  },
 ];
+
 
