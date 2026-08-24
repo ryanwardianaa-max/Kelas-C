@@ -111,6 +111,53 @@ export default function CourseDetailView({
           {course.startTime}–{course.endTime}
         </p>
       </header>
+
+      {course.code === "KP21517003" && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            background: "linear-gradient(135deg, #eef2ff, #faf5ff)",
+            border: "1px solid #c7d2fe",
+            borderRadius: "14px",
+            padding: "14px 20px",
+            marginBottom: "20px",
+            gap: "14px",
+            flexWrap: "wrap",
+            boxShadow: "0 2px 8px rgba(99, 102, 241, 0.08)",
+          }}
+        >
+          <div>
+            <strong style={{ color: "#3730a3", fontSize: "1rem", display: "block" }}>
+              ⚡ Aplikasi Bantuan: Kalkulator Analisis Kompleks
+            </strong>
+            <span style={{ color: "#475569", fontSize: "0.85rem" }}>
+              Penjabaran aljabar step-by-step lengkap & visualisasi bidang Argand 2D
+            </span>
+          </div>
+          <a
+            href="/tools/kalkulator-kompleks/index.html"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              background: "#4338ca",
+              color: "white",
+              padding: "9px 18px",
+              borderRadius: "10px",
+              fontWeight: 700,
+              fontSize: "0.88rem",
+              textDecoration: "none",
+              boxShadow: "0 4px 12px rgba(67, 56, 202, 0.25)",
+            }}
+          >
+            🚀 Buka Kalkulator
+          </a>
+        </div>
+      )}
       <div className="chips course-tabs">
         <button
           className={tab === "meetings" ? "active" : ""}
