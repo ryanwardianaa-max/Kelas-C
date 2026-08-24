@@ -12,4 +12,16 @@ export const INITIAL_MATERIALS: Material[] = [
     url: "/materi/KP21517007/pertemuan-02/index.html",
     createdAt: "2026-08-20T12:00:00.000Z",
   },
+  {
+    id: "mat-analisis-kompleks-pertemuan-03",
+    title: "Catatan Kuliah: Pengantar Sistem Bilangan Kompleks & Operasi Aljabar",
+    courseCode: "KP21517003",
+    meetingNo: 3,
+    type: "Catatan",
+    description:
+      "Catatan komprehensif kuliah Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Mencakup definisi bilangan kompleks z = a + bi, hierarki sistem bilangan, operasi aljabar (penjumlahan, pengurangan, perkalian, pembagian), serta sifat-sifat sekawan (konjugat) dilengkapi foto arsip tulisan tangan asli.",
+    url: "/materi/KP21517003/pertemuan-03/index.html",
+    createdAt: "2026-08-24T08:30:00.000Z",
+  },
 ];
+
