@@ -34,6 +34,17 @@ export const INITIAL_MATERIALS: Material[] = [
     url: "/tools/kalkulator-kompleks/index.html",
     createdAt: "2026-08-24T09:25:00.000Z",
   },
+  {
+    id: "tool-kalkulator-integral-kompleks",
+    title: "Aplikasi Bantuan: Kalkulator Integral Kontur & Teorema Residu Cauchy",
+    courseCode: "KP21517003",
+    meetingNo: 9,
+    type: "Dokumen",
+    description:
+      "Alat bantu eksplorasi integral lintasan kurva tertutup pada bidang kompleks. Menentukan letak titik singular (di dalam / luar kurva), Teorema Cauchy-Goursat, Rumus Integral Cauchy, dan Teorema Residu Cauchy dengan bidang Argand interaktif.",
+    url: "/tools/kalkulator-integral-kompleks/index.html",
+    createdAt: "2026-08-24T10:05:00.000Z",
+  },
 ];
 
 
