@@ -34,6 +34,7 @@
     }
 
     html, body {
+      width: 100%;
       max-width: 100vw;
       overflow-x: hidden;
       background: var(--bg);
@@ -44,29 +45,36 @@
 
     .page {
       width: 100%;
-      max-width: 880px;
-      margin: 16px auto 50px;
-      padding: 24px 20px;
+      max-width: 860px;
+      margin: 12px auto 50px;
+      padding: 20px 16px;
       background: var(--paper);
       border-radius: 18px;
       box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
       border: 1px solid var(--line);
     }
 
-    /* Sticky Top Navigation Bar */
+    @media (min-width: 640px) {
+      .page {
+        margin: 20px auto 60px;
+        padding: 30px 32px;
+      }
+    }
+
+    /* Sticky Navigation Bar */
     .top-nav {
       position: sticky;
-      top: 10px;
+      top: 8px;
       z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 14px;
+      padding: 8px 14px;
       background: rgba(30, 27, 75, 0.96);
       backdrop-filter: blur(12px);
       color: white;
       border-radius: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
@@ -81,11 +89,12 @@
       padding: 7px 14px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-back-btn:hover {
@@ -94,7 +103,7 @@
     }
 
     .nav-title {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #c7d2fe;
       font-weight: 500;
       text-align: right;
@@ -106,28 +115,28 @@
 
     /* Header Banner */
     header {
-      padding: 22px 20px;
+      padding: 20px 18px;
       background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
       color: white;
       border-radius: 14px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       box-shadow: 0 6px 16px rgba(67, 56, 202, 0.2);
     }
 
     .badge {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 3px 10px;
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      font-size: 0.75rem;
+      border-radius: 14px;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 800;
       line-height: 1.3;
       margin-bottom: 6px;
@@ -140,16 +149,20 @@
       margin-top: 12px;
       padding-top: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #e0e7ff;
     }
 
     @media (min-width: 640px) {
-      .meta-info {
-        grid-template-columns: 1fr 1fr;
+      header {
+        padding: 26px 28px;
       }
       header h1 {
         font-size: 1.75rem;
+      }
+      .meta-info {
+        grid-template-columns: 1fr 1fr;
+        font-size: 0.85rem;
       }
     }
 
@@ -157,39 +170,43 @@
       color: #ffffff;
     }
 
-    /* Typography & Section Titles */
+    /* Section Headings */
     h2 {
-      margin-top: 32px;
-      margin-bottom: 14px;
+      margin-top: 30px;
+      margin-bottom: 12px;
       color: var(--brand-dark);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       border-bottom: 2px solid var(--accent-soft);
       padding-bottom: 6px;
     }
 
     h3 {
-      margin-top: 22px;
+      margin-top: 20px;
       margin-bottom: 10px;
       color: #334155;
-      font-size: 1.08rem;
+      font-size: 1.02rem;
       font-weight: 600;
     }
 
     p {
       margin-bottom: 10px;
       color: #334155;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
+      word-break: break-word;
     }
 
-    /* Concept & Formula Cards */
+    /* Cards & Callouts */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 16px 18px;
-      margin: 16px 0;
+      padding: 14px 16px;
+      margin: 14px 0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      width: 100%;
     }
 
     .card.highlight {
@@ -213,161 +230,63 @@
       background: #fffbeb;
       border: 1px solid #fde68a;
       border-left: 4px solid var(--warning);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .formula-title {
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: #1e293b;
       margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* Math Step Box - Responsive & Centered */
+    /* Math Box Container - 100% Contained & Beautiful */
     .math-step-box {
       background: #ffffff;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 8px;
       border: 1px solid #e2e8f0;
-      margin: 10px 0;
+      margin: 8px 0;
       text-align: center;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
     }
 
     .katex-display {
-      margin: 0.8em 0 !important;
-      font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+      margin: 0.6em 0 !important;
+      font-size: clamp(0.78rem, 3.2vw, 1rem);
     }
 
     /* =========================================================
-       100% RESPONSIVE VERTICAL TREE HIERARCHY (NO OVERFLOW)
+       BAGAN POHON SISTEM BILANGAN (RESPONSIVE SVG VECTOR CHART)
        ========================================================= */
-    .hierarchy-container {
-      margin: 16px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-    }
-
-    /* Root Node */
-    .h-root {
-      background: linear-gradient(135deg, #4f46e5, #3730a3);
-      color: white;
-      padding: 14px 16px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-    }
-    .h-root-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-    }
-    .h-root-desc {
-      font-size: 0.85rem;
-      color: #e0e7ff;
-      margin-top: 2px;
-    }
-
-    /* Branch Container */
-    .h-branches {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      padding-left: 8px;
-      border-left: 3px solid #cbd5e1;
-      margin-left: 8px;
-    }
-
-    /* Branch Card */
-    .h-card {
-      background: white;
+    .svg-diagram-card {
+      background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    }
-
-    .h-card.real-branch {
-      border-left: 4px solid #3b82f6;
-    }
-
-    .h-card.imag-branch {
-      border-left: 4px solid #8b5cf6;
-      background: #faf5ff;
-    }
-
-    .h-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      margin-bottom: 6px;
-    }
-    .h-tag.blue { background: #dbeafe; color: #1e40af; }
-    .h-tag.purple { background: #ede9fe; color: #5b21b6; }
-    .h-tag.green { background: #dcfce7; color: #166534; }
-    .h-tag.amber { background: #fef3c7; color: #92400e; }
-
-    .h-title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #1e293b;
-    }
-    .h-desc {
-      font-size: 0.85rem;
-      color: #475569;
-      margin-top: 3px;
-    }
-
-    /* Sub-branches within Real */
-    .h-subgroup {
-      margin-top: 10px;
-      padding-left: 10px;
-      border-left: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 12px 8px;
+      margin: 16px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
     }
 
-    .h-subitem {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
+    .svg-wrapper {
+      width: 100%;
+      max-width: 720px;
+      height: auto;
     }
 
-    /* Leaves grid */
-    .h-leaves {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    @media (min-width: 480px) {
-      .h-leaves {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .h-leaf {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-    }
-    .h-leaf strong {
+    .svg-wrapper svg {
+      width: 100%;
+      height: auto;
       display: block;
-      color: #1e293b;
-      margin-bottom: 2px;
-    }
-    .h-leaf span {
-      color: #64748b;
     }
 
     /* =========================================================
@@ -381,7 +300,7 @@
     table.resp-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
     }
 
     table.resp-table th, 
@@ -409,20 +328,20 @@
         width: 100%;
       }
       table.resp-table tr {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         background: #ffffff;
         border: 1px solid var(--line);
         border-radius: 10px;
-        padding: 10px;
+        padding: 10px 12px;
         box-shadow: 0 1px 4px rgba(0,0,0,0.03);
       }
       table.resp-table td {
         border: none;
-        padding: 6px 0;
+        padding: 5px 0;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         border-bottom: 1px dashed #f1f5f9;
       }
       table.resp-table td:last-child {
@@ -432,8 +351,8 @@
         content: attr(data-label);
         font-weight: 700;
         color: #475569;
-        margin-right: 12px;
-        min-width: 90px;
+        margin-right: 10px;
+        min-width: 85px;
         flex-shrink: 0;
       }
     }
@@ -442,8 +361,8 @@
     .photo-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 14px;
+      gap: 14px;
+      margin-top: 12px;
     }
     @media (min-width: 640px) {
       .photo-grid {
@@ -473,7 +392,7 @@
 
     .photo-caption {
       padding: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #475569;
       background: white;
       border-top: 1px solid var(--line);
@@ -488,7 +407,7 @@
   <!-- Sticky Top Navigation -->
   <nav class="top-nav">
     <a class="nav-back-btn" href="/" onclick="handleGoBack(event)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
@@ -523,101 +442,131 @@
       <div class="math-step-box">
         $$z = a + bi$$
       </div>
-      <p style="margin-top: 10px; margin-bottom: 0;">
+      <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.9rem;">
         dimana:
       </p>
-      <ul style="padding-left: 18px; margin-top: 6px; font-size: 0.92rem;">
+      <ul style="padding-left: 18px; margin-top: 4px; font-size: 0.88rem;">
         <li>\(a = \text{Re}(z) \in \mathbb{R}\) adalah <strong>Bagian Real</strong> (*Real part*).</li>
         <li>\(b = \text{Im}(z) \in \mathbb{R}\) adalah <strong>Bagian Imajiner</strong> (*Imaginary part*).</li>
-        <li>\(i\) adalah <strong>Satuan Imajiner</strong> (*imaginary unit*):
-          <span style="color: var(--brand); font-weight: bold; margin-left: 4px;">
-            \(i = \sqrt{-1} \iff i^2 = -1\)
-          </span>
+        <li>\(i\) adalah <strong>Satuan Imajiner</strong> (*imaginary unit*) dengan sifat:
+          <div style="margin-top: 4px; color: var(--brand); font-weight: bold;">
+            $$i = \sqrt{-1} \iff i^2 = -1$$
+          </div>
         </li>
       </ul>
     </div>
 
-    <!-- Section 2: Hirarki Bilangan (100% Mobile Responsive Flow) -->
-    <h2>2. Struktur & Hirarki Sistem Bilangan</h2>
+    <!-- Section 2: Bagan Hirarki Sistem Bilangan (Vector Bagan SVG) -->
+    <h2>2. Bagan Hierarki Sistem Bilangan</h2>
     <p>
-      Bagan pohon hierarki klasifikasi sistem bilangan sesuai lembar catatan perkuliahan (Lembar 1):
+      Berikut adalah bagan struktur hierarki klasifikasi sistem bilangan sesuai catatan kuliah (Lembar 1):
     </p>
 
-    <div class="hierarchy-container">
-      <!-- Root Node -->
-      <div class="h-root">
-        <div class="h-root-title">Bilangan Kompleks (\(\mathbb{C}\))</div>
-        <div class="h-root-desc">Bentuk Umum: \(z = a + bi\) dengan \(a, b \in \mathbb{R}\) dan \(i = \sqrt{-1}\)</div>
-      </div>
+    <div class="svg-diagram-card">
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 700 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gradRoot" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5" />
+              <stop offset="100%" stop-color="#3730a3" />
+            </linearGradient>
+            <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08" />
+            </filter>
+          </defs>
 
-      <!-- Main Branches -->
-      <div class="h-branches">
-        
-        <!-- Branch 1: Real -->
-        <div class="h-card real-branch">
-          <span class="h-tag blue">Cabang 1</span>
-          <div class="h-title">Bilangan Real (\(\mathbb{R}\))</div>
-          <div class="h-desc">Syarat: Bagian imajiner bernilai nol (\(b = 0 \implies z = a\))</div>
-
-          <!-- Subgroups under Real -->
-          <div class="h-subgroup">
+          <!-- CONNECTING LINES -->
+          <g stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <!-- Root to Real & Imaginer -->
+            <path d="M 350 54 L 350 78 M 220 78 L 540 78 M 220 78 L 220 98 M 540 78 L 540 98" />
             
-            <!-- 1.1 Irasional -->
-            <div class="h-subitem">
-              <span class="h-tag amber">1.1 Irasional</span>
-              <div class="h-title" style="font-size:0.9rem;">Bilangan Irasional (\(\mathbb{R} \setminus \mathbb{Q}\))</div>
-              <div class="h-desc">Tidak dapat dibentuk \(\frac{p}{q}\). Desimal tak terhingga & tak berulang. Contoh: \(\sqrt{2}, \sqrt{3}, \pi, e\).</div>
-            </div>
+            <!-- Real to Irasional & Rasional -->
+            <path d="M 220 136 L 220 156 M 110 156 L 330 156 M 110 156 L 110 176 M 330 156 L 330 176" />
+            
+            <!-- Rasional to Pecahan & Bulat -->
+            <path d="M 330 214 L 330 234 M 230 234 L 430 234 M 230 234 L 230 254 M 430 234 L 430 254" />
+            
+            <!-- Bulat to Bulat Negatif & Cacah -->
+            <path d="M 430 292 L 430 312 M 330 312 L 530 312 M 330 312 L 330 332 M 530 312 L 530 332" />
 
-            <!-- 1.2 Rasional -->
-            <div class="h-subitem">
-              <span class="h-tag green">1.2 Rasional</span>
-              <div class="h-title" style="font-size:0.9rem;">Bilangan Rasional (\(\mathbb{Q}\))</div>
-              <div class="h-desc">Dapat dinyatakan dalam bentuk pecahan \(\frac{p}{q}\) (\(q \neq 0, p,q \in \mathbb{Z}\)).</div>
+            <!-- Cacah to Bulat Positif & Nol -->
+            <path d="M 530 370 L 530 390 M 440 390 L 610 390 M 440 390 L 440 410 M 610 390 L 610 410" />
+          </g>
 
-              <!-- Nested under Rasional -->
-              <div class="h-subgroup">
-                <!-- Pecahan -->
-                <div class="h-leaf">
-                  <strong>Pecahan Murni & Campuran</strong>
-                  <span>Desimal terbatas / berulang (misal: \(\frac{1}{2}, \frac{3}{4}, -\frac{2}{5}, 0{,}333\dots\))</span>
-                </div>
+          <!-- NODES / BOXES -->
 
-                <!-- Bilangan Bulat -->
-                <div class="h-subitem" style="background: white;">
-                  <span class="h-tag blue">Bilangan Bulat (\(\mathbb{Z}\))</span>
-                  <div class="h-desc">Himpunan: \(\{\dots, -2, -1, 0, 1, 2, \dots\}\)</div>
+          <!-- 0. ROOT: Bilangan Kompleks -->
+          <g filter="url(#cardShadow)">
+            <rect x="225" y="16" width="250" height="42" rx="10" fill="url(#gradRoot)" stroke="#312e81" stroke-width="1.5" />
+            <text x="350" y="34" fill="#ffffff" font-size="14" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Bilangan Kompleks</text>
+            <text x="350" y="49" fill="#e0e7ff" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle">z = a + bi</text>
+          </g>
 
-                  <!-- Bulat Negatif vs Cacah -->
-                  <div class="h-leaves">
-                    <div class="h-leaf">
-                      <strong style="color:#92400e;">Bulat Negatif</strong>
-                      <span>\(\{-1, -2, -3, \dots\}\)</span>
-                    </div>
-                    <div class="h-leaf">
-                      <strong style="color:#166534;">Bilangan Cacah</strong>
-                      <span>\(\{0, 1, 2, 3, \dots\}\)</span>
-                      <div style="margin-top:4px; font-size:0.78rem; color:#475569;">
-                        • <strong>Nol:</strong> \(\{0\}\)<br>
-                        • <strong>Bulat Positif / Asli (\(\mathbb{N}\)):</strong> \(\{1, 2, 3, \dots\}\)
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <!-- 1. Real & Imaginer -->
+          <g filter="url(#cardShadow)">
+            <!-- Real -->
+            <rect x="135" y="98" width="170" height="38" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8" />
+            <text x="220" y="115" fill="#1e40af" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Real</text>
+            <text x="220" y="128" fill="#475569" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="middle">(b = 0)</text>
 
-              </div>
-            </div>
+            <!-- Imaginer -->
+            <rect x="455" y="98" width="170" height="38" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.8" />
+            <text x="540" y="115" fill="#6b21a8" font-size="13" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Imaginer</text>
+            <text x="540" y="128" fill="#475569" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="middle">(b ≠ 0)</text>
+          </g>
 
-          </div>
-        </div>
+          <!-- 2. Irasional & Rasional -->
+          <g filter="url(#cardShadow)">
+            <!-- Irasional -->
+            <rect x="35" y="176" width="150" height="38" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.6" />
+            <text x="110" y="193" fill="#92400e" font-size="12.5" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Irasional</text>
+            <text x="110" y="206" fill="#78350f" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(√2, π, e)</text>
 
-        <!-- Branch 2: Imajiner -->
-        <div class="h-card imag-branch">
-          <span class="h-tag purple">Cabang 2</span>
-          <div class="h-title">Bilangan Imajiner (\(\mathbb{I}\))</div>
-          <div class="h-desc">Syarat: Bagian imajiner tidak bernilai nol (\(b \neq 0\)). Contoh: \(2i, -3i, 4+2i\).</div>
-        </div>
+            <!-- Rasional -->
+            <rect x="255" y="176" width="150" height="38" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.6" />
+            <text x="330" y="193" fill="#065f46" font-size="12.5" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Rasional</text>
+            <text x="330" y="206" fill="#047857" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(p/q, q ≠ 0)</text>
+          </g>
 
+          <!-- 3. Pecahan & Bilangan Bulat -->
+          <g filter="url(#cardShadow)">
+            <!-- Pecahan -->
+            <rect x="160" y="254" width="140" height="38" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+            <text x="230" y="271" fill="#1e293b" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Pecahan</text>
+            <text x="230" y="284" fill="#64748b" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(1/2, 3/4, ...)</text>
+
+            <!-- Bilangan Bulat -->
+            <rect x="355" y="254" width="150" height="38" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6" />
+            <text x="430" y="271" fill="#1e40af" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Bilangan Bulat</text>
+            <text x="430" y="284" fill="#1d4ed8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">( ℤ )</text>
+          </g>
+
+          <!-- 4. Bulat Negatif & Cacah -->
+          <g filter="url(#cardShadow)">
+            <!-- Bulat Negatif -->
+            <rect x="255" y="332" width="150" height="38" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+            <text x="330" y="349" fill="#9a3412" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Bulat Negatif</text>
+            <text x="330" y="362" fill="#c2410c" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(-1, -2, -3, ...)</text>
+
+            <!-- Cacah -->
+            <rect x="455" y="332" width="150" height="38" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6" />
+            <text x="530" y="349" fill="#166534" font-size="12" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Cacah</text>
+            <text x="530" y="362" fill="#15803d" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(0, 1, 2, 3, ...)</text>
+          </g>
+
+          <!-- 5. Bulat Positif & Nol -->
+          <g filter="url(#cardShadow)">
+            <!-- Bulat Positif -->
+            <rect x="370" y="410" width="140" height="38" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" />
+            <text x="440" y="427" fill="#1e40af" font-size="11.5" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Bulat Positif</text>
+            <text x="440" y="440" fill="#2563eb" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle">(Asli ℕ: 1, 2, 3...)</text>
+
+            <!-- Nol -->
+            <rect x="545" y="410" width="130" height="38" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+            <text x="610" y="427" fill="#334155" font-size="11.5" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">Nol</text>
+            <text x="610" y="440" fill="#64748b" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle">( 0 )</text>
+          </g>
+        </svg>
       </div>
     </div>
 
@@ -692,7 +641,10 @@
     <div class="card formula">
       <div class="formula-title">Rumus Penjumlahan</div>
       <div class="math-step-box">
-        $$z_1 + z_2 = (a + bi) + (c + di) = (a + c) + (b + d)i$$
+        $$\begin{aligned}
+        z_1 + z_2 &= (a + bi) + (c + di) \\[6pt]
+        &= (a + c) + (b + d)i
+        \end{aligned}$$
       </div>
     </div>
 
@@ -713,7 +665,10 @@
     <div class="card formula">
       <div class="formula-title">Rumus Pengurangan</div>
       <div class="math-step-box">
-        $$z_1 - z_2 = (a + bi) - (c + di) = (a - c) + (b - d)i$$
+        $$\begin{aligned}
+        z_1 - z_2 &= (a + bi) - (c + di) \\[6pt]
+        &= (a - c) + (b - d)i
+        \end{aligned}$$
       </div>
     </div>
 
@@ -735,9 +690,8 @@
       <div class="formula-title">Rumus Perkalian</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        z_1 \cdot z_2 &= (a + bi)(c + di) \\[10pt]
-        &= ac + adi + bci + bd(i^2) \\[10pt]
-        &= ac + (ad + bc)i + bd(-1) \\[10pt]
+        z_1 \cdot z_2 &= (a + bi)(c + di) \\[6pt]
+        &= ac + adi + bci + bd(i^2) \\[6pt]
         &= \mathbf{(ac - bd) + (ad + bc)i}
         \end{aligned}$$
       </div>
@@ -813,7 +767,11 @@
       <strong>Sifat Fundamental Perkalian Konjugat:</strong><br>
       Perkalian sebuah bilangan kompleks dengan sekawannya selalu menghasilkan bilangan real tak-negatif:
       <div class="math-step-box" style="margin-top: 8px;">
-        $$z \cdot \bar{z} = (a + bi)(a - bi) = a^2 - b^2(i^2) = a^2 + b^2 = |z|^2$$
+        $$\begin{aligned}
+        z \cdot \bar{z} &= (a + bi)(a - bi) \\[6pt]
+        &= a^2 - b^2(i^2) \\[6pt]
+        &= a^2 + b^2 = |z|^2
+        \end{aligned}$$
       </div>
     </div>
 
@@ -827,10 +785,9 @@
       <div class="formula-title">Rumus Umum Pembagian</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        \frac{z_1}{z_2} &= \frac{a + bi}{c + di} \\[12pt]
-        &= \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di} \\[12pt]
-        &= \frac{(a + bi)(c - di)}{c^2 + d^2} \\[12pt]
-        &= \frac{(ac + bd) + (bc - ad)i}{c^2 + d^2} \\[12pt]
+        \frac{z_1}{z_2} &= \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di} \\[10pt]
+        &= \frac{(a + bi)(c - di)}{c^2 + d^2} \\[10pt]
+        &= \frac{(ac + bd) + (bc - ad)i}{c^2 + d^2} \\[10pt]
         &= \mathbf{\left(\frac{ac + bd}{c^2 + d^2}\right) + \left(\frac{bc - ad}{c^2 + d^2}\right)i}
         \end{aligned}$$
       </div>
