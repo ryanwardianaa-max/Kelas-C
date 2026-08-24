@@ -1,46 +1,1171 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#4338ca">
-<title>Kalkulator Analisis Real</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#4338ca"/>
+<title>Laboratorium Pembuktian &amp; Kalkulator Analisis Real</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"/>
 <style>
-:root{--p:#4338ca;--q:#6366f1;--bg:#f8fafc;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--ok:#15803d;--bad:#b91c1c;--warn:#b45309}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}.top{position:sticky;top:0;z-index:10;color:#fff;background:linear-gradient(120deg,var(--p),var(--q));box-shadow:0 4px 18px #312e8155}.nav{max-width:1120px;margin:auto;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px}.nav-back-btn{color:#fff;text-decoration:none;border:1px solid #ffffff55;border-radius:9px;padding:7px 11px}.brand{text-align:right;font-weight:800}.brand small{display:block;font-weight:400;color:#e0e7ff}.wrap{max-width:1120px;margin:auto;padding:18px 14px 50px}.hero,.card,.result{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 3px 14px #1e293b0c}.hero{padding:18px 20px;background:linear-gradient(135deg,#fff,#eef2ff)}h1{margin:0;color:#312e81;font-size:clamp(1.4rem,4vw,2rem)}h2{font-size:1.08rem;color:#312e81;margin:0 0 13px}h3{margin:.2rem 0;color:#312e81;font-size:1rem}.muted{color:var(--muted);margin:.25rem 0}.modes{display:flex;gap:8px;margin:15px 0}.pill{border:1px solid #c7d2fe;background:#fff;color:#3730a3;border-radius:999px;padding:9px 16px;font-weight:750;cursor:pointer}.pill.active{background:var(--p);color:#fff;border-color:var(--p)}.view[hidden]{display:none}.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:15px}.card,.result{padding:17px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:.82rem;font-weight:700;margin-bottom:4px}.field input{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px;background:#fff}.field input:focus{outline:3px solid #c7d2fe;border-color:var(--q)}.wide{grid-column:1/-1}.error{color:var(--bad);font-weight:700;min-height:1.5em;margin-top:8px}.formula{overflow:auto;padding:10px;background:#f8fafc;border-radius:10px;margin:9px 0}.status{display:inline-block;border-radius:999px;padding:4px 10px;font-weight:800}.convergen{background:#dcfce7;color:var(--ok)}.divergen{background:#fee2e2;color:var(--bad)}.inkonklusif{background:#ffedd5;color:var(--warn)}canvas{display:block;width:100%;height:330px;border:1px solid var(--line);border-radius:11px;background:#fff}.range-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}.range-row input{width:100%}.series-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.series-card{cursor:pointer;transition:.15s}.series-card.active{border-color:var(--q);box-shadow:0 0 0 2px #c7d2fe}.derive{margin-top:14px}.step{border-left:3px solid #818cf8;padding:7px 11px;margin:9px 0;background:#f8fafc}.exact{font-weight:800;color:#3730a3}@media(max-width:760px){.grid{grid-template-columns:1fr}.series-grid{grid-template-columns:1fr}canvas{height:280px}.brand small{display:none}}@media(max-width:430px){.fields{grid-template-columns:1fr}.wide{grid-column:auto}.pill{flex:1;padding:8px}.back{font-size:.8rem}}
+:root{--p:#4338ca;--acc:#6558df;--bg:#f8fafc;--paper:#ffffff;--line:#e2e8f0;--ink:#0f172a;--soft:#334155;--mut:#64748b}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{max-width:100vw;overflow-x:hidden;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,output{font:inherit}
+.top{position:sticky;top:0;z-index:50;background:#fffffff2;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}
+.nav-back-btn{display:inline-flex;align-items:center;color:var(--p);text-decoration:none;font-weight:700;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;transition:border-color .15s,box-shadow .15s;white-space:nowrap}
+.nav-back-btn:hover{border-color:var(--p);box-shadow:0 2px 10px #4338ca26}
+.brand{text-align:right;line-height:1.25;min-width:0}
+.brand b{display:block;font-size:.95rem;color:var(--ink)}
+.brand small{color:var(--mut);font-size:.78rem;display:block}
+.wrap{max-width:1180px;margin:auto;padding:18px 16px 40px}
+.hero{background:linear-gradient(135deg,#ffffff,#eef2ffbf);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:14px}
+.hero h1{margin:0 0 6px;font-size:clamp(1.3rem,3.6vw,1.9rem);color:#312e81}
+.hero p{margin:4px 0;color:var(--soft)}
+.tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:12px 0 16px}
+.tab-card{display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;min-width:0}
+.tab-card .tno{font-size:.7rem;font-weight:800;color:var(--acc);letter-spacing:.08em}
+.tab-card .ttl{font-weight:800;color:var(--ink)}
+.tab-card .tds{font-size:.79rem;color:var(--mut)}
+.tab-card[aria-pressed="true"]{border-color:var(--p);background:#fbfbff;box-shadow:0 0 0 3px #4338ca1f}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.panel h2{margin:0 0 4px;font-size:1.06rem;color:#312e81}
+.panel .lead{margin:0 0 12px;color:var(--mut);font-size:.87rem}
+.card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:8px;margin-bottom:12px}
+.op-card{position:relative;text-align:left;background:#fdfdff;border:2px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:border-color .12s,background .12s;min-width:0}
+.op-card b{display:block;font-size:.92rem;color:var(--ink)}
+.op-card small{color:var(--mut);font-size:.75rem;display:block;margin-top:2px;line-height:1.35}
+.op-card[aria-pressed="true"]{border-color:var(--p);background:#f3f4ff}
+.op-card[aria-pressed="true"]::after{content:"✓";position:absolute;top:7px;right:10px;color:var(--p);font-weight:800}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;align-items:end}
+.field{display:grid;gap:5px;min-width:0}
+.field label{font-size:.8rem;font-weight:700;color:var(--soft)}
+.field input[type="number"],.field input[type="text"]{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:9px 10px;background:#fff;color:var(--ink)}
+.field input:focus-visible,.tab-card:focus-visible,.op-card:focus-visible,.nav-back-btn:focus-visible{outline:3px solid #a5b4fc;outline-offset:1px}
+.slider-field{grid-column:1/-1}
+.slider-field .lab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+input[type="range"]{width:100%;accent-color:var(--p);min-width:0}
+.readout{font-weight:800;color:var(--p)}
+.fnote{grid-column:1/-1;font-size:.82rem;color:var(--mut);background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:8px 10px;margin:0}
+.empty-state{border:2px dashed #c7d2fe;border-radius:18px;background:#ffffffaa;text-align:center;padding:44px 18px;color:var(--mut);margin-bottom:14px}
+.empty-state .ico{font-size:2.1rem;color:var(--acc);line-height:1}
+.empty-state h3{margin:10px 0 4px;color:var(--soft)}
+.empty-state p{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.84rem;color:var(--soft);max-width:100%}
+.chip strong{color:var(--p)}
+.steps{display:grid;gap:10px}
+.step{background:#fcfcfe;border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:12px 14px;min-width:0}
+.step h4{margin:0 0 6px;font-size:.83rem;letter-spacing:.05em;text-transform:uppercase;color:var(--p)}
+.step p{margin:6px 0;color:var(--soft)}
+.math{overflow-x:auto;overflow-y:hidden;padding:4px 2px;border-radius:8px}
+.katex-display{margin:.4em 0;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.katex{font-size:1.02em}
+.canvas-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:14px}
+.canvas-title{font-weight:800;font-size:.95rem;color:#312e81;margin:0 0 8px}
+canvas.plot{width:100%;height:340px;display:block;background:#fff;border:1px solid var(--line);border-radius:12px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:.8rem;color:var(--mut)}
+.legend .it{display:inline-flex;align-items:center;gap:6px}
+.sw{width:16px;height:12px;border-radius:3px;display:inline-block;border:1px solid #cbd5e1}
+.note{margin-top:10px;font-size:.84rem;color:var(--soft);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;overflow-x:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:10px;margin:12px 0}
+.stat{background:#fbfbff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;min-width:0}
+.stat-t{font-size:.73rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.stat-v{font-size:1.12rem;font-weight:800;color:var(--p);margin:4px 0;overflow-x:auto}
+.stat-s{font-size:.77rem;color:var(--mut)}
+.stat-s.ok{color:#166534;font-weight:700}
+.proof{background:#fcfcfe;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:12px;min-width:0}
+.proof h3{margin:0 0 8px;font-size:.95rem;color:#312e81}
+.proof p{margin:7px 0;color:var(--soft)}
+.table-scroll{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:430px;background:#fff;font-size:.88rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{background:#f1f5f9;color:#334155}
+tbody tr.hl{background:#eef2ff}
+tbody tr:last-child td{border-bottom:0}
+td.ok{color:#166534;font-weight:800}
+.badge-lg{display:inline-block;border-radius:999px;padding:9px 18px;font-weight:800;letter-spacing:.03em;margin:10px 0 4px}
+.badge-lg.conv{background:var(--p);color:#fff}
+.badge-lg.div{background:#fff;color:var(--p);border:2px solid var(--p)}
+.badge-lg.warn{background:var(--line);color:var(--soft)}
+.foot{max-width:1180px;margin:auto;padding:0 16px 42px;color:var(--mut);font-size:.78rem}
+@media(max-width:640px){.brand small{display:none}.fields{grid-template-columns:1fr 1fr}.slider-field{grid-column:1/-1}canvas.plot{height:300px}.nav{padding:9px 12px}.wrap{padding:14px 10px 32px}}
 </style>
 </head>
 <body>
-<header class="top"><nav class="nav"><a class="nav-back-btn" href="/" onclick="handleGoBack(event)">← Kembali ke KelasKu</a><div class="brand">Kalkulator Analisis Real<small>Epsilon–Delta & Uji Deret</small></div></nav></header>
+<header class="top">
+<nav class="nav">
+<a class="nav-back-btn" href="/" onclick="handleGoBack(event)">← Kembali ke KelasKu</a>
+<div class="brand"><b>Laboratorium Analisis Real</b><small>Pembuktian ε–δ · Sup/Inf · Barisan · Deret</small></div>
+</nav>
+</header>
 <main class="wrap">
-<section class="hero"><h1>Kalkulator Analisis Real</h1><p class="muted">Pembuktian limit linear dan klasifikasi konvergensi deret, langkah demi langkah.</p></section>
-<nav class="modes" aria-label="Mode kalkulator"><button class="pill active" data-mode="limit" aria-pressed="true">Epsilon–Delta</button><button class="pill" data-mode="series" aria-pressed="false">Uji Deret</button></nav>
-<section class="view" id="limit">
-<div class="grid"><article class="card"><h2>Limit fungsi linear</h2><div class="fields"><div class="field"><label for="m">Kemiringan m</label><input id="m" type="number" step="any"></div><div class="field"><label for="k">Konstanta k</label><input id="k" type="number" step="any"></div><div class="field wide"><label for="c">Titik limit c</label><input id="c" type="number" step="any"></div><div class="field wide"><label for="epsilon">ε: <output id="epsOut"></output></label><div class="range-row"><input id="epsilon" type="range" min="0.01" max="10" step="0.01"><input id="epsNumber" type="number" min="0" step="any" aria-label="Nilai epsilon"></div></div></div><div class="error" id="limitError" role="alert"></div></article>
-<article class="result"><h2>Derivasi formal</h2><div id="limitResult"></div><canvas id="plot" aria-label="Grafik pita epsilon dan delta"></canvas><p class="muted">Biru: pita horizontal L ± ε. Ungu: pita vertikal c ± δ.</p></article></div>
+<section class="hero">
+<h1>Laboratorium Pembuktian &amp; Kalkulator Analisis Real</h1>
+<p>Empat modul interaktif bergaya Bartle &amp; Sherbert: pembukti formal limit ε–δ, penentu sup/inf/max/min dengan Sifat Archimedes, pencari indeks ambang K(ε), dan uji konvergensi deret tak hingga.</p>
+<p>Semua pilihan, parameter, dan slider tersimpan otomatis di peramban Anda (localStorage) — tutup lalu buka kembali, keadaan terakhir tetap utuh.</p>
 </section>
-<section class="view" id="series" hidden>
-<div class="series-grid" id="seriesCards"></div><article class="result derive"><h2>Derivasi dan klasifikasi</h2><div id="seriesResult"></div></article>
+<nav class="tabs" id="tabs" aria-label="Pilih modul">
+<button type="button" class="tab-card" data-tab="m1" aria-pressed="true"><span class="tno">MODUL 1</span><span class="ttl">Limit ε–δ</span><span class="tds">Pembukti formal + visual pita toleransi</span></button>
+<button type="button" class="tab-card" data-tab="m2" aria-pressed="false"><span class="tno">MODUL 2</span><span class="ttl">Sup · Inf · Max · Min</span><span class="tds">Karakterisasi ε &amp; Sifat Archimedes</span></button>
+<button type="button" class="tab-card" data-tab="m3" aria-pressed="false"><span class="tno">MODUL 3</span><span class="ttl">Barisan &amp; Ambang K(ε)</span><span class="tds">Tabel konvergensi + sebaran titik</span></button>
+<button type="button" class="tab-card" data-tab="m4" aria-pressed="false"><span class="tno">MODUL 4</span><span class="ttl">Uji Deret Tak Hingga</span><span class="tds">Rasio · Akar · p · Geometri · Leibniz</span></button>
+</nav>
+<section id="panel-m1" class="module" aria-label="Modul 1 Limit Epsilon Delta">
+<div class="panel">
+<h2>Modul 1 · Pembukti Formal Limit Epsilon-Delta</h2>
+<p class="lead">Pilih bentuk fungsi, atur koefisien beserta titik c, lalu geser ε — aplikasi merangkai draf, batas, pilihan δ, dan bukti formal yang berakhir <em>Terbukti ∎</em>.</p>
+<div class="card-row" id="m1-fn-row" role="group" aria-label="Jenis fungsi">
+<button type="button" class="op-card" data-fn="linear" aria-pressed="true"><b>f(x) = ax + b</b><small>Linear — δ = ε/|a|</small></button>
+<button type="button" class="op-card" data-fn="quadratic" aria-pressed="false"><b>f(x) = ax² + bx + c</b><small>Kuadratik — δ = min(1, ε/M)</small></button>
+<button type="button" class="op-card" data-fn="rational" aria-pressed="false"><b>f(x) = 1/x</b><small>Resiprokal — domain x ≠ 0</small></button>
+</div>
+<div class="fields">
+<div id="m1-par-linear" class="fgroup" style="display:contents">
+<div class="field"><label for="m1-in-linA">Koefisien a</label><input type="number" step="any" id="m1-in-linA"/></div>
+<div class="field"><label for="m1-in-linB">Koefisien b</label><input type="number" step="any" id="m1-in-linB"/></div>
+</div>
+<div id="m1-par-quadratic" class="fgroup" style="display:none">
+<div class="field"><label for="m1-in-quaA">Koefisien a</label><input type="number" step="any" id="m1-in-quaA"/></div>
+<div class="field"><label for="m1-in-quaB">Koefisien b</label><input type="number" step="any" id="m1-in-quaB"/></div>
+<div class="field"><label for="m1-in-quaC">Konstanta c</label><input type="number" step="any" id="m1-in-quaC"/></div>
+</div>
+<div class="field"><label for="m1-in-c">Titik limit c</label><input type="number" step="any" id="m1-in-c"/></div>
+<div class="field slider-field"><div class="lab"><label for="m1-in-eps">Toleransi ε</label><output id="m1-eps-out" class="readout">0.10</output></div><input type="range" id="m1-in-eps" min="0.01" max="1" step="0.01"/></div>
+<p class="fnote" id="m1-par-rational" style="display:none">Fungsi resiprokal tidak punya koefisien — cukup tentukan titik c. Ingat: domain f(x)=1/x adalah x ≠ 0, sehingga c harus c ≠ 0.</p>
+</div>
+<div class="note"><strong>Definisi.</strong> \(\lim_{x\to c}f(x)=L\) jika untuk setiap \(\varepsilon&gt;0\) ada \(\delta&gt;0\) sehingga untuk semua \(x\): \(0&lt;|x-c|&lt;\delta\Rightarrow|f(x)-L|&lt;\varepsilon\).</div>
+</div>
+<div class="empty-state" id="m1-empty" hidden><div class="ico">∅</div><h3>Belum ada pembuktian</h3><p id="m1-empty-msg"></p></div>
+<div id="m1-result">
+<div class="chips" id="m1-chips"></div>
+<ol class="steps" id="m1-steps"></ol>
+<div class="canvas-box" id="m1-canvas-box">
+<h3 class="canvas-title">Visualisasi Pita Toleransi — geser ε dan lihat δ menyesuaikan</h3>
+<canvas id="m1-canvas" class="plot" role="img" aria-label="Kurva f dengan pita L plus minus epsilon dan pita c plus minus delta"></canvas>
+<div class="legend">
+<span class="it"><span class="sw" style="background:#4338ca;height:4px"></span>kurva f(x)</span>
+<span class="it"><span class="sw" style="background:#4338ca26"></span>pita L ± ε</span>
+<span class="it"><span class="sw" style="background:#6558df29"></span>pita c ± δ</span>
+<span class="it"><span class="sw" style="background:#ffffff;border-color:#4338ca;border-radius:50%;width:12px;height:12px"></span>titik (c, L) — berlubang bila di luar domain</span>
+</div>
+<p class="note" id="m1-numcheck"></p>
+</div>
+</div>
+</section>
+<section id="panel-m2" class="module" hidden aria-label="Modul 2 Supremum Infimum Max Min">
+<div class="panel">
+<h2>Modul 2 · Penentu Supremum, Infimum, Maksimum &amp; Minimum</h2>
+<p class="lead">Pilih himpunan preset — interval, barisan diskrit, atau himpunan kuadratik — lalu nilai sup/inf/max/min dihitung disertai pembuktian karakterisasi ε dan Sifat Archimedes.</p>
+<div class="card-row" id="m2-preset-row" role="group" aria-label="Preset himpunan">
+<button type="button" class="op-card" data-preset="iv-oc" aria-pressed="false"><b>S = (a, b]</b><small>interval setengah terbuka</small></button>
+<button type="button" class="op-card" data-preset="iv-co" aria-pressed="false"><b>S = [a, b)</b><small>interval setengah terbuka</small></button>
+<button type="button" class="op-card" data-preset="iv-oo" aria-pressed="false"><b>S = (a, b)</b><small>interval terbuka</small></button>
+<button type="button" class="op-card" data-preset="iv-cc" aria-pressed="false"><b>S = [a, b]</b><small>interval tertutup</small></button>
+<button type="button" class="op-card" data-preset="seq-n1" aria-pressed="true"><b>S = {n/(n+1)}</b><small>barisan, n ∈ ℕ</small></button>
+<button type="button" class="op-card" data-preset="seq-1m" aria-pressed="false"><b>S = {1 − 1/n}</b><small>barisan, n ∈ ℕ</small></button>
+<button type="button" class="op-card" data-preset="seq-alt" aria-pressed="false"><b>S = {(−1)ⁿ + 1/n}</b><small>barisan berganti tanda</small></button>
+<button type="button" class="op-card" data-preset="set-sq" aria-pressed="false"><b>S = {x : x² &lt; k}</b><small>butuh k &gt; 0</small></button>
+</div>
+<div class="fields">
+<div id="m2-par-interval" style="display:none">
+<div class="field"><label for="m2-in-a">Batas a</label><input type="number" step="any" id="m2-in-a"/></div>
+<div class="field"><label for="m2-in-b">Batas b</label><input type="number" step="any" id="m2-in-b"/></div>
+</div>
+<div id="m2-par-k" class="field" style="display:none"><label for="m2-in-k">Nilai k (&gt; 0)</label><input type="number" step="any" id="m2-in-k"/></div>
+<p class="fnote" id="m2-par-seq" style="display:none">Barisan preset tidak memerlukan parameter — analisis langsung dihitung untuk n ∈ ℕ.</p>
+</div>
+<div class="note"><strong>Karakterisasi ε.</strong> \(u=\sup S\) jika dan hanya jika (i) \(u\) batas atas \(S\), dan (ii) untuk setiap \(\varepsilon&gt;0\) ada \(s\in S\) dengan \(s&gt;u-\varepsilon\). <strong>Sifat Archimedes:</strong> untuk setiap \(x\in\mathbb{R}\) ada \(n\in\mathbb{N}\) sehingga \(n&gt;x\).</div>
+</div>
+<div class="empty-state" id="m2-empty" hidden><div class="ico">∅</div><h3>Belum ada analisis</h3><p id="m2-empty-msg"></p></div>
+<div id="m2-result">
+<div class="stats" id="m2-stats"></div>
+<div class="proof"><h3>Pembuktian Karakterisasi ε &amp; Sifat Archimedes</h3><div id="m2-proof"></div></div>
+<div class="canvas-box">
+<h3 class="canvas-title">Garis Bilangan ℝ — sampel elemen S dan penanda batas</h3>
+<canvas id="m2-canvas" class="plot" role="img" aria-label="Garis bilangan dengan titik sampel dan penanda infimum supremum maksimum minimum"></canvas>
+<div class="legend">
+<span class="it"><span class="sw" style="background:#6558df80;width:10px;height:10px;border-radius:50%"></span>sampel elemen S</span>
+<span class="it"><span class="sw" style="background:#4338ca;width:12px;height:12px;border-radius:50%"></span>batas tercapai (tertutup)</span>
+<span class="it"><span class="sw" style="background:#ffffff;border-color:#4338ca;border-radius:50%;width:12px;height:12px"></span>batas tidak tercapai (terbuka)</span>
+</div>
+</div>
+</div>
+</section>
+<section id="panel-m3" class="module" hidden aria-label="Modul 3 Barisan dan Indeks Ambang">
+<div class="panel">
+<h2>Modul 3 · Barisan Real &amp; Pencari Indeks Ambang K(ε)</h2>
+<p class="lead">Hitung indeks asli terkecil K sehingga setiap n ≥ K menjamin |xₙ − L| &lt; ε — lengkap dengan derivasi formal, tabel nilai, dan diagram sebar.</p>
+<div class="card-row" id="m3-seq-row" role="group" aria-label="Rumus barisan">
+<button type="button" class="op-card" data-seq="mobius" aria-pressed="true"><b>xₙ = (an+b)/(cn+d)</b><small>L = a/c · syarat ad−bc ≠ 0</small></button>
+<button type="button" class="op-card" data-seq="power" aria-pressed="false"><b>xₙ = 1/nᵖ</b><small>p &gt; 0 → L = 0</small></button>
+<button type="button" class="op-card" data-seq="geo" aria-pressed="false"><b>xₙ = cⁿ</b><small>|c| &lt; 1 → L = 0</small></button>
+</div>
+<div class="fields">
+<div id="m3-par-mobius" style="display:contents">
+<div class="field"><label for="m3-in-a">a</label><input type="number" step="any" id="m3-in-a"/></div>
+<div class="field"><label for="m3-in-b">b</label><input type="number" step="any" id="m3-in-b"/></div>
+<div class="field"><label for="m3-in-c">c (≠ 0)</label><input type="number" step="any" id="m3-in-c"/></div>
+<div class="field"><label for="m3-in-d">d</label><input type="number" step="any" id="m3-in-d"/></div>
+</div>
+<div id="m3-par-power" class="field" style="display:none"><label for="m3-in-p">Eksponen p (&gt; 0)</label><input type="number" step="any" id="m3-in-p"/></div>
+<div id="m3-par-geo" class="field" style="display:none"><label for="m3-in-g">Basis c (|c| &lt; 1)</label><input type="number" step="any" id="m3-in-g"/></div>
+<div class="field"><label for="m3-in-eps">Toleransi ε</label><input type="number" step="any" min="0" id="m3-in-eps"/></div>
+<div class="field slider-field"><div class="lab"><label for="m3-range-eps">Geser ε (sinkron dengan kolom angka)</label><output id="m3-eps-out" class="readout">0.010</output></div><input type="range" id="m3-range-eps" min="0.0001" max="1" step="0.0001"/></div>
+</div>
+<div class="note"><strong>Definisi.</strong> \(\lim_{n\to\infty}x_n=L\) jika untuk setiap \(\varepsilon&gt;0\) ada \(K\in\mathbb{N}\) sehingga untuk semua \(n\ge K\) berlaku \(|x_n-L|&lt;\varepsilon\). Keberadaan \(K\) untuk ε sembarang dijamin Sifat Archimedes.</div>
+</div>
+<div class="empty-state" id="m3-empty" hidden><div class="ico">∅</div><h3>Belum ada barisan</h3><p id="m3-empty-msg"></p></div>
+<div id="m3-result">
+<div class="chips" id="m3-chips"></div>
+<ol class="steps" id="m3-steps"></ol>
+<div class="table-scroll" id="m3-table"></div>
+<div class="canvas-box">
+<h3 class="canvas-title">Sebaran Titik (n, xₙ) terhadap Asimtot y = L dengan Pita ± ε</h3>
+<canvas id="m3-canvas" class="plot" role="img" aria-label="Diagram sebar titik barisan menuju garis L dengan pita epsilon dan garis ambang K"></canvas>
+<div class="legend">
+<span class="it"><span class="sw" style="background:#6558df;width:11px;height:11px;border-radius:50%"></span>n &lt; K</span>
+<span class="it"><span class="sw" style="background:#4338ca;width:13px;height:13px;border-radius:50%"></span>n ≥ K (di dalam pita)</span>
+<span class="it"><span class="sw" style="background:#6558df26"></span>pita L ± ε</span>
+<span class="it"><span class="sw" style="background:#0f172a;height:3px"></span>garis y = L</span>
+</div>
+</div>
+</div>
+</section>
+<section id="panel-m4" class="module" hidden aria-label="Modul 4 Uji Konvergensi Deret">
+<div class="panel">
+<h2>Modul 4 · Uji Konvergensi Deret Tak Hingga Σ aₙ</h2>
+<p class="lead">Pilih uji deret, isi parameternya, dan baca langkah formal lengkap beserta badge kesimpulan otomatis.</p>
+<div class="card-row" id="m4-test-row" role="group" aria-label="Jenis uji deret">
+<button type="button" class="op-card" data-test="ratio" aria-pressed="true"><b>Uji Rasio</b><small>Σ nᵏrⁿ · ρ = r · ρ=1 gagal</small></button>
+<button type="button" class="op-card" data-test="root" aria-pressed="false"><b>Uji Akar</b><small>Σ rⁿ · ⁿ√|aₙ| = r</small></button>
+<button type="button" class="op-card" data-test="ps" aria-pressed="false"><b>p-Series</b><small>Σ 1/nᵖ · konvergen ⇔ p &gt; 1</small></button>
+<button type="button" class="op-card" data-test="geom" aria-pressed="false"><b>Geometri</b><small>Σ arⁿ · jumlah a/(1−r)</small></button>
+<button type="button" class="op-card" data-test="leib" aria-pressed="false"><b>Leibniz</b><small>Σ (−1)ⁿ⁻¹/n^q · turun → 0</small></button>
+</div>
+<div class="fields">
+<div id="m4-par-ratio" style="display:contents">
+<div class="field"><label for="m4-in-k">Pangkat k (≥ 0, bulat)</label><input type="number" step="1" min="0" id="m4-in-k"/></div>
+<div class="field"><label for="m4-in-r">Rasio r</label><input type="number" step="any" id="m4-in-r"/></div>
+</div>
+<div id="m4-par-root" class="field" style="display:none"><label for="m4-in-rr">Rasio r</label><input type="number" step="any" id="m4-in-rr"/></div>
+<div id="m4-par-ps" class="field" style="display:none"><label for="m4-in-p">Pangkat p (&gt; 0)</label><input type="number" step="any" min="0" id="m4-in-p"/></div>
+<div id="m4-par-geom" style="display:none">
+<div class="field"><label for="m4-in-ga">Koefisien a</label><input type="number" step="any" id="m4-in-ga"/></div>
+<div class="field"><label for="m4-in-gr">Rasio r</label><input type="number" step="any" id="m4-in-gr"/></div>
+</div>
+<div id="m4-par-leib" class="field" style="display:none"><label for="m4-in-q">Pangkat q (&gt; 0)</label><input type="number" step="any" min="0" id="m4-in-q"/></div>
+</div>
+<div class="note"><strong>Catatan.</strong> Uji Rasio dan Uji Akar bersifat memadai ketika \(\rho&lt;1\) atau \(\rho&gt;1\); pada \(\rho=1\) kedua uji gagal dan harus dilanjutkan uji lain (misalnya Uji Suku Nol atau Uji Integral).</div>
+</div>
+<div class="empty-state" id="m4-empty" hidden><div class="ico">∅</div><h3>Belum ada ujian</h3><p id="m4-empty-msg"></p></div>
+<div id="m4-result">
+<div class="chips" id="m4-extra"></div>
+<div id="m4-badge-wrap"></div>
+<ol class="steps" id="m4-steps"></ol>
+</div>
 </section>
 </main>
+<footer class="foot">Alat bantu belajar KP21517004 · Analisis Real (Kelas C) — Laboratorium Pembuktian &amp; Kalkulator. KaTeX 0.16.8 via CDN; seluruh state tersimpan lokal di peramban.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 <script>
-'use strict';
-const $=id=>document.getElementById(id), KEY='realAnalysisCalculatorState';
-const state={mode:'limit',m:2,k:1,c:3,epsilon:1,test:'ratio',values:{ratio:{r:.5},root:{rho:.8},geometric:{a:1,r:.5},pseries:{p:2}}};
-const tests={
- ratio:{title:'Uji Rasio',intro:'Masukkan limit rasio ℓ',fields:[['r','ℓ']],render:v=>{const l=v.r;if(l<0)return invalid('ℓ harus ≥ 0.');const cls=l<1?'convergen':l>1?'divergen':'inkonklusif';return result(cls,`\\ell=\\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|=${num(l)}`,l<1?'Karena ℓ < 1, deret konvergen absolut.':l>1?'Karena ℓ > 1, suku tidak cukup cepat menuju nol; deret divergen.':'Batas ℓ = 1: uji rasio tidak memberi keputusan. Gunakan uji lain.') }},
- root:{title:'Uji Akar',intro:'Masukkan limit superior akar ρ',fields:[['rho','ρ']],render:v=>{const r=v.rho;if(r<0)return invalid('ρ harus ≥ 0.');const cls=r<1?'convergen':r>1?'divergen':'inkonklusif';return result(cls,`\\rho=\\limsup_{n\\to\\infty}\\sqrt[n]{|a_n|}=${num(r)}`,r<1?'Karena ρ < 1, deret konvergen absolut.':r>1?'Karena ρ > 1, deret divergen.':'Batas ρ = 1: uji akar tidak memberi keputusan.')}},
- geometric:{title:'Deret Geometri',intro:'Deret Σ arⁿ, n = 0 sampai ∞',fields:[['a','a'],['r','r']],render:v=>{const q=Math.abs(v.r),ok=q<1,dec=ok?v.a/(1-v.r):null;return result(ok?'convergen':'divergen',`\\sum_{n=0}^{\\infty}${num(v.a)}(${num(v.r)})^n`,ok?`|r|=${num(q)}<1. Jumlah exact: \\frac{${num(v.a)}}{1-(${num(v.r)})}; decimal: ${fmt(dec)}.`:`|r|=${num(q)} ≥ 1. Suku a·rⁿ tidak menuju 0 (kecuali a = 0). ${v.a===0?'Untuk a = 0, deret nol konvergen dengan jumlah 0.':''}`,v.a===0?'convergen':null)}},
- pseries:{title:'Deret-p',intro:'Deret Σ 1/nᵖ, n = 1 sampai ∞',fields:[['p','p']],render:v=>result(v.p>1?'convergen':'divergen',`\\sum_{n=1}^{\\infty}\\frac1{n^{${num(v.p)}}}`,v.p>1?'p > 1. Uji integral: ∫₁∞x⁻ᵖdx = 1/(p−1), hingga; deret konvergen.':v.p===1?'p = 1. Deret harmonik; divergen.':'p < 1. Integral ∫₁∞x⁻ᵖdx tak hingga; deret divergen.')}
+"use strict";
+var STORE_KEY="analisisRealLabStateV1";
+var DEFAULT_STATE={
+ tab:"m1",
+ m1:{fn:"linear",linA:"2",linB:"-1",quaA:"1",quaB:"0",quaC:"-2",ptC:"1",eps:0.1},
+ m2:{preset:"seq-n1",ivA:"0",ivB:"5",kSet:"4"},
+ m3:{seq:"mobius",ma:"2",mb:"1",mc:"1",md:"1",pwP:"2",gcBase:"0.5",epsRaw:"0.01"},
+ m4:{test:"ratio",rk:"2",rr:"0.5",rootR:"0.7",psP:"2",gmA:"1",gmR:"0.5",lzQ:"1"}
 };
-function num(x){return Number.isInteger(x)?String(x):String(Number(x.toPrecision(8)))}function fmt(x){return Number(x).toLocaleString('id-ID',{maximumFractionDigits:8})}function tex(s,display=false){const e=document.createElement(display?'div':'span');if(window.katex)katex.render(s,e,{displayMode:display,throwOnError:false});else e.textContent=s;return e.outerHTML}function invalid(s){return `<p class="error">${s}</p>`}function result(cls,formula,why,override){cls=override||cls;return `<div class="step">${tex(formula,true)}</div><div class="step">${why}</div><span class="status ${cls}">${cls[0].toUpperCase()+cls.slice(1)}</span>`}
-function finite(ids){return ids.every(id=>Number.isFinite(Number($(id).value)))}
-function updateLimit(){if(!finite(['m','k','c','epsNumber'])){$('limitError').textContent='Semua parameter harus berupa bilangan hingga.';$('limitResult').innerHTML='';return}const m=Number($('m').value),k=Number($('k').value),c=Number($('c').value),e=Number($('epsNumber').value);if(e<=0){$('limitError').textContent='Epsilon harus lebih besar dari 0.';$('limitResult').innerHTML='';return}$('limitError').textContent='';Object.assign(state,{m,k,c,epsilon:e});if(e<=10)$('epsilon').value=e;$('epsOut').textContent=fmt(e);const L=m*c+k;if(m===0){$('limitResult').innerHTML=`<div class="formula">${tex(`f(x)=${num(k)},\\quad L=${num(k)}`,true)}</div><div class="step">Untuk setiap ε > 0, |f(x)−L| = 0 < ε.</div><div class="step"><span class="exact">δ bebas:</span> pilih δ = 1 (atau sembarang δ > 0). Tidak ada pembagian dengan |m|.</div>`}else{const d=e/Math.abs(m);$('limitResult').innerHTML=`<div class="formula">${tex(`L=f(c)=${num(m)}(${num(c)})+${num(k)}=${num(L)}`,true)}</div><div class="step">${tex(`|f(x)-L|=|${num(m)}x+${num(k)}-(${num(L)})|=|${num(m)}|\\,|x-${num(c)}|`,true)}</div><div class="step">Pilih ${tex(`\\delta=\\frac{\\varepsilon}{|m|}=\\frac{${num(e)}}{${num(Math.abs(m))}}=${num(d)}`)}. Jika ${tex(`0<|x-c|<\\delta`)}, maka ${tex(`|f(x)-L|<|m|\\delta=\\varepsilon`)}.</div>`}save();draw()}
-function draw(){const cv=$('plot'),r=cv.getBoundingClientRect(),dpr=devicePixelRatio||1;cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);const x=cv.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);const w=r.width,h=r.height,m=state.m,k=state.k,c=state.c,e=state.epsilon,L=m*c+k,d=m===0?1:e/Math.abs(m),sx=w/(Math.max(4,d*4)),sy=h/(Math.max(4,e*4)),X=t=>w/2+(t-c)*sx,Y=t=>h/2-(t-L)*sy;x.clearRect(0,0,w,h);x.fillStyle='#dbeafe';x.fillRect(0,Y(L+e),w,Y(L-e)-Y(L+e));x.fillStyle='#ede9feaa';x.fillRect(X(c-d),0,X(c+d)-X(c-d),h);x.strokeStyle='#94a3b8';x.beginPath();x.moveTo(0,Y(L));x.lineTo(w,Y(L));x.moveTo(X(c),0);x.lineTo(X(c),h);x.stroke();x.strokeStyle='#4338ca';x.lineWidth=3;x.beginPath();x.moveTo(0,Y(m*(c-w/(2*sx))+k));x.lineTo(w,Y(m*(c+w/(2*sx))+k));x.stroke();x.fillStyle='#172033';x.font='12px system-ui';x.fillText(`L = ${fmt(L)}`,8,Y(L)-7);x.fillText(`c = ${fmt(c)}`,Math.min(w-60,X(c)+6),16)}
-function renderCards(){const root=$('seriesCards');root.innerHTML='';Object.entries(tests).forEach(([id,t])=>{const a=document.createElement('article');a.className='card series-card'+(state.test===id?' active':'');a.tabIndex=0;a.setAttribute('role','button');a.innerHTML=`<h3>${t.title}</h3><p class="muted">${t.intro}</p><div class="fields">${t.fields.map(([key,label])=>`<div class="field"><label for="${id}-${key}">${label}</label><input id="${id}-${key}" data-test="${id}" data-key="${key}" type="number" step="any" value="${state.values[id][key]}"></div>`).join('')}</div>`;a.onclick=e=>{if(e.target.tagName!=='INPUT')selectTest(id)};a.onkeydown=e=>{if(e.key==='Enter')selectTest(id)};root.appendChild(a)});root.querySelectorAll('input').forEach(i=>i.oninput=()=>{state.test=i.dataset.test;state.values[state.test][i.dataset.key]=Number(i.value);renderSeries();renderCards();save()});renderSeries()}
-function selectTest(id){state.test=id;renderCards();save()}function renderSeries(){const t=tests[state.test],v=state.values[state.test];$('seriesResult').innerHTML=Object.values(v).every(Number.isFinite)?t.render(v):invalid('Semua parameter harus berupa bilangan hingga.')}
-function setMode(mode){state.mode=mode;document.querySelectorAll('.pill').forEach(b=>{const on=b.dataset.mode===mode;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==mode);save();if(mode==='limit')requestAnimationFrame(draw)}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}function handleGoBack(e){if(history.length>1){e.preventDefault();history.back()}}window.handleGoBack=handleGoBack;function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&['limit','series'].includes(s.mode))Object.assign(state,s)}catch(_){}}
-window.addEventListener('DOMContentLoaded',()=>{load();['m','k','c'].forEach(id=>{$(id).value=state[id];$(id).oninput=updateLimit});$('epsilon').value=Math.min(10,state.epsilon);$('epsNumber').value=state.epsilon;$('epsilon').oninput=()=>{$('epsNumber').value=$('epsilon').value;updateLimit()};$('epsNumber').oninput=updateLimit;document.querySelectorAll('.pill').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));renderCards();setMode(state.mode);updateLimit()});window.addEventListener('resize',()=>{if(state.mode==='limit')draw()});
+function baseState(){return JSON.parse(JSON.stringify(DEFAULT_STATE));}
+var S=loadState();
+function loadState(){
+ try{
+  var raw=localStorage.getItem(STORE_KEY);
+  var merged=baseState();
+  if(raw){
+   var parsed=JSON.parse(raw);
+   Object.keys(parsed||{}).forEach(function(k){
+    if(merged[k]&&typeof merged[k]==="object"&&!Array.isArray(merged[k])&&typeof parsed[k]==="object"&&parsed[k]!==null){Object.assign(merged[k],parsed[k]);}
+    else{merged[k]=parsed[k];}
+   });
+  }
+  return merged;
+ }catch(e){return baseState();}
+}
+var saveTimer=null;
+function save(){
+ if(saveTimer){clearTimeout(saveTimer);}
+ saveTimer=setTimeout(function(){try{localStorage.setItem(STORE_KEY,JSON.stringify(S));}catch(e){}},120);
+}
+function $(sel,root){return (root||document).querySelector(sel);}
+function $all(sel,root){return Array.prototype.slice.call((root||document).querySelectorAll(sel));}
+function num(v){var x=typeof v==="number"?v:parseFloat(String(v).replace(",","."));return isFinite(x)?x:NaN;}
+function bad(x){return !isFinite(x);}
+function fmtPlain(x){
+ if(typeof x!=="number"||!isFinite(x)){return "—";}
+ if(Object.is(x,-0)){x=0;}
+ var a=Math.abs(x);
+ if(a!==0&&(a<1e-4||a>=1e6)){return x.toExponential(3);}
+ return String(parseFloat(x.toPrecision(8)));
+}
+function fm(x){
+ if(typeof x!=="number"||!isFinite(x)){return "\\text{—}";}
+ if(Object.is(x,-0)){x=0;}
+ var a=Math.abs(x);
+ if(a!==0&&(a<1e-4||a>=1e6)){
+  var parts=x.toExponential(3).split("e");
+  return parts[0]+"\\times 10^{"+String(parseInt(parts[1],10))+"}";
+ }
+ return String(parseFloat(x.toPrecision(8)));
+}
+function pn(x){var s=fm(x);return (typeof x==="number"&&x<0)?"\\left("+s+"\\right)":s;}
+function typeset(el){
+ if(window.renderMathInElement){
+  try{
+   window.renderMathInElement(el,{
+    delimiters:[
+     {left:"\\[",right:"\\]",display:true},
+     {left:"\\(",right:"\\)",display:false},
+     {left:"$$",right:"$$",display:true},
+     {left:"$",right:"$",display:false}
+    ],
+    throwOnError:false
+   });
+  }catch(e){}
+ }
+}
+function refineK(est,okFn){
+ var K=Math.max(1,Math.ceil(est)),guard=0;
+ while(K>1&&okFn(K-1)&&guard<300){K--;guard++;}
+ guard=0;
+ while(!okFn(K)&&guard<5000){K++;guard++;}
+ return K;
+}
+function thresholdPowerSeries(eps,p){return refineK(Math.pow(eps,-1/p),function(n){return 1/Math.pow(n,p)<eps;});}
+function rhoRatioTest(r,k){void k;return Math.abs(r);}
+function lcg(seed){
+ var s=(seed>>>0)||987654321;
+ return function(){s=(1103515245*s+12345)%2147483648;return s/2147483648;};
+}
+function ctxSetup(cv){
+ var dpr=window.devicePixelRatio||1;
+ var w=cv.clientWidth||cv.parentElement.clientWidth||640;
+ var h=cv.clientHeight||320;
+ cv.width=Math.max(1,Math.round(w*dpr));
+ cv.height=Math.max(1,Math.round(h*dpr));
+ var ctx=cv.getContext("2d");
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,w,h);
+ ctx.fillStyle="#ffffff";
+ ctx.fillRect(0,0,w,h);
+ return {ctx:ctx,w:w,h:h};
+}
+function makeMap(x0,x1,y0,y1,l,r,t,b,w,h){
+ var iw=w-l-r,ih=h-t-b;
+ return {l:l,r:r,t:t,b:b,w:w,h:h,x0:x0,x1:x1,y0:y0,y1:y1,
+  X:function(x){return l+(x-x0)/(x1-x0)*iw;},
+  Y:function(y){return t+(1-(y-y0)/(y1-y0))*ih;}
+ };
+}
+function ticks(lo,hi,count){
+ var span=hi-lo;
+ if(!(span>0)||!isFinite(span)){return [];}
+ var step=Math.pow(10,Math.floor(Math.log(span/count)/Math.LN10));
+ var err=span/count/step;
+ if(err>=7.5){step*=10;}else if(err>=3.5){step*=5;}else if(err>=1.5){step*=2;}
+ var out=[],v=Math.ceil(lo/step)*step,i=0;
+ while(v<=hi+step*1e-9&&i<40){out.push(Math.abs(v)<step*1e-9?0:v);v+=step;i++;}
+ return out;
+}
+function fmtTick(v){
+ var a=Math.abs(v);
+ if(a!==0&&(a<1e-3||a>=1e5)){return v.toExponential(1);}
+ return String(parseFloat(v.toPrecision(6)));
+}
+function drawGrid(ctx,m,tx,ty){
+ ctx.save();
+ ctx.strokeStyle="#eef1f6";ctx.lineWidth=1;
+ ctx.fillStyle="#94a3b8";ctx.font="11px system-ui,sans-serif";
+ ctx.textAlign="center";ctx.textBaseline="top";
+ tx.forEach(function(v){var px=m.X(v);if(px<m.l-1||px>m.w-m.r+1)return;ctx.beginPath();ctx.moveTo(px,m.t);ctx.lineTo(px,m.h-m.b);ctx.stroke();ctx.fillText(fmtTick(v),px,m.h-m.b+4);});
+ ctx.textAlign="right";ctx.textBaseline="middle";
+ ty.forEach(function(v){var py=m.Y(v);if(py<m.t-1||py>m.h-m.b+1)return;ctx.beginPath();ctx.moveTo(m.l,py);ctx.lineTo(m.w-m.r,py);ctx.stroke();ctx.fillText(fmtTick(v),m.l-5,py);});
+ ctx.strokeStyle="#cbd5e1";ctx.lineWidth=1;
+ if(m.y0<=0&&m.y1>=0){var zy=m.Y(0);ctx.beginPath();ctx.moveTo(m.l,zy);ctx.lineTo(m.w-m.r,zy);ctx.stroke();}
+ if(m.x0<=0&&m.x1>=0){var zx=m.X(0);ctx.beginPath();ctx.moveTo(zx,m.t);ctx.lineTo(zx,m.h-m.b);ctx.stroke();}
+ ctx.restore();
+}
+function texPoly(coeffs){
+ var parts=[],i;
+ for(i=0;i<coeffs.length;i++){
+  var cc=coeffs[i][0],sf=coeffs[i][1];
+  if(cc===0){continue;}
+  parts.push({c:cc,s:sf});
+ }
+ if(parts.length===0){return "0";}
+ var out="";
+ for(i=0;i<parts.length;i++){
+  var pp=parts[i];
+  var body=pn(Math.abs(pp.c))+(pp.s||"");
+  if(i===0){out+=(pp.c<0?"-":"")+body;}
+  else{out+=(pp.c<0?" - ":" + ")+body;}
+ }
+ return out;
+}
+function texLin(a,b){return texPoly([[a,"x"],[b,""]]);}
+function texQuad(a,b,k){return texPoly([[a,"x^{2}"],[b,"x"],[k,""]]);}
+function stepBlock(title,body){return '<li class="step"><h4>'+title+'</h4>'+body+'</li>';}
+function showEmpty(mod,msg){
+ document.getElementById(mod+"-empty").hidden=false;
+ document.getElementById(mod+"-empty-msg").textContent=msg;
+ document.getElementById(mod+"-result").hidden=true;
+ var cb=document.getElementById(mod+"-canvas-box");
+ if(cb){cb.hidden=true;}
+}
+function hideEmpty(mod){
+ document.getElementById(mod+"-empty").hidden=true;
+ document.getElementById(mod+"-result").hidden=false;
+ var cb=document.getElementById(mod+"-canvas-box");
+ if(cb){cb.hidden=false;}
+}
+function chipHtml(label,val){return '<div class="chip"><span>'+label+'&nbsp;</span><strong>'+val+'</strong></div>';}
+
+function m1Params(){
+ var m=S.m1;
+ if(m.fn==="linear"){return {a:num(m.linA),b:num(m.linB),k:null};}
+ if(m.fn==="quadratic"){return {a:num(m.quaA),b:num(m.quaB),k:num(m.quaC)};}
+ return {a:null,b:null,k:null};
+}
+function fEval(fn,p,x){
+ if(fn==="linear"){return p.a*x+p.b;}
+ if(fn==="quadratic"){return p.a*x*x+p.b*x+p.k;}
+ return 1/x;
+}
+function renderM1(){
+ var m=S.m1;
+ $all("#m1-fn-row .op-card").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-fn")===m.fn));});
+ $("#m1-par-linear").style.display=m.fn==="linear"?"contents":"none";
+ $("#m1-par-quadratic").style.display=m.fn==="quadratic"?"contents":"none";
+ $("#m1-par-rational").style.display=m.fn==="rational"?"":"none";
+ var p=m1Params(),c=num(m.ptC),eps=num(m.eps);
+ var fnTex=m.fn==="linear"?texLin(p.a,p.b):(m.fn==="quadratic"?texQuad(p.a,p.b,p.k):"\\dfrac{1}{x}");
+ var err=null;
+ if(bad(c)){err="Masukkan titik c berupa bilangan real yang valid.";}
+ else if(m.fn==="linear"&&(bad(p.a)||bad(p.b))){err="Koefisien a dan b harus bilangan valid.";}
+ else if(m.fn==="quadratic"&&(bad(p.a)||bad(p.b)||bad(p.k))){err="Semua koefisien kuadratik harus bilangan valid.";}
+ else if(!(eps>=0.01&&eps<=1)){err="Toleransi ε harus berada pada rentang 0,01 sampai 1.";}
+ else if(m.fn==="rational"&&c===0){err="Domain f(x)=1/x adalah x ≠ 0, sehingga titik limit harus c ≠ 0. Silakan pilih c lain.";}
+ if(err){showEmpty("m1",err);return;}
+ hideEmpty("m1");
+ var L,delta,M=null,constCase=false;
+ var goal,draft,choice,formal;
+ if(m.fn==="linear"){
+  L=p.a*c+p.b;
+  constCase=Math.abs(p.a)<1e-12;
+  if(constCase){
+   delta=1;
+   draft='<p>Koefisien \\(a=0\\) membuat fungsi konstan: \\(f(x)-L=0\\) untuk semua \\(x\\), tanpa memandang jarak ke \\(c\\). Setiap \\(\\delta\\) pun sah.</p>';
+   choice='<p>Sembarang \\(\\delta&gt;0\\) memadai — aplikasi memilih \\(\\delta=1\\).</p>';
+   formal='<p>Diberikan sembarang \\(\\varepsilon&gt;0\\). Pilih \\(\\delta=1&gt;0\\). Untuk setiap \\(x\\) dengan \\(0&lt;|x-'+pn(c)+'|&lt;\\delta\\) berlaku</p><div class="math">\\[|f(x)-L|=0&lt;\\varepsilon.\\]</div><p>Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{x\\to '+pn(c)+'}f(x)='+pn(L)+'\\). <strong>Terbukti ∎</strong></p>';
+  }else{
+   delta=eps/Math.abs(p.a);
+   draft='<p>Aljabar intinya: selisih fungsi selalu terfaktor oleh \\(|x-c|\\).</p><div class="math">\\[f(x)-L=(ax+b)-(ac+b)=a\\left(x-'+pn(c)+'\\right)\\]</div><div class="math">\\[|f(x)-L|=|a|\\cdot\\left|x-'+pn(c)+'\\right|\\stackrel{!}{&lt;}\\varepsilon\\quad\\Longleftrightarrow\\quad\\left|x-'+pn(c)+'\\right|&lt;\\frac{\\varepsilon}{|a|}=\\frac{'+fm(eps)+'}{'+fm(Math.abs(p.a))+'}='+fm(delta)+'.\\]</div>';
+   choice='<p>Jadi dipilih \\(\\delta=\\dfrac{\\varepsilon}{|a|}='+fm(delta)+'&gt;0\\)</p>';
+   formal='<p>Diberikan sembarang \\(\\varepsilon&gt;0\\) (saat ini \\(\\varepsilon='+fm(eps)+'\\)). Pilih \\(\\delta=\\dfrac{\\varepsilon}{|a|}='+fm(delta)+'\\), yang jelas bernilai positif. Untuk setiap bilangan real \\(x\\) yang memenuhi \\(0&lt;\\left|x-'+pn(c)+'\\right|&lt;\\delta\\), berlaku</p><div class="math">\\[|f(x)-L|=|a|\\cdot\\left|x-'+pn(c)+'\\right|&lt;|a|\\,\\delta=|a|\\cdot\\frac{\\varepsilon}{|a|}=\\varepsilon.\\]</div><p>Karena \\(\\varepsilon&gt;0\\) diambil sembarang, terbukti bahwa \\(\\lim\\limits_{x\\to '+pn(c)+'}\\left('+fnTex+'\\right)='+pn(L)+'\\). <strong>Terbukti ∎</strong></p>';
+  }
+ }else if(m.fn==="quadratic"){
+  L=p.a*c*c+p.b*c+p.k;
+  M=Math.abs(p.a)*(2*Math.abs(c)+1)+Math.abs(p.b);
+  constCase=M<1e-12;
+  if(constCase){
+   delta=1;
+   draft='<p>Koefisien \\(a=b=0\\) membuat fungsi konstan, sehingga \\(|f(x)-L|=0\\) untuk semua \\(x\\). Setiap \\(\\delta\\) memadai.</p>';
+   choice='<p>Ambil sembarang \\(\\delta=1&gt;0\\).</p>';
+   formal='<p>Diberikan sembarang \\(\\varepsilon&gt;0\\), pilih \\(\\delta=1\\). Untuk semua \\(x\\neq '+pn(c)+'\\) berlaku \\(|f(x)-L|=0&lt;\\varepsilon\\) <strong>Terbukti ∎</strong></p>';
+  }else{
+   delta=Math.min(1,eps/M);
+   draft='<p>Faktorkan selisih di sekitar titik \\(c\\) — suku konstanta otomatis gugur:</p><div class="math">\\[f(x)-L=a\\left(x^{2}-c^{2}\\right)+b(x-c)=(x-c)\\underbrace{\\left(a(x+c)+b\\right)}_{g(x)}.\\]</div><p>Batasi dahulu \\(\\delta\\le 1\\). Jika \\(|x-c|&lt;\\delta\\le 1\\), ketaksamaan segitiga memberi batasan kunci:</p><div class="math">\\[|x+c|=\\left|(x-c)+2c\\right|\\le|x-c|+2|c|&lt;1+2|c|='+fm(2*Math.abs(c)+1)+'.\\]</div><p>Sehingga \\(g(x)\\) terikat sempurna:</p><div class="math">\\[M:=|a|\\,(2|c|+1)+|b|='+fm(M)+'&gt;0\\qquad\\Longrightarrow\\qquad\\left|a(x+c)+b\\right|\\le M.\\]</div>';
+   choice='<p>Pilih \\(\\delta=\\min\\!\\left(1,\\ \\dfrac{\\varepsilon}{M}\\right)=\\min\\!\\left(1,\\ '+fm(eps/M)+'\\right)='+fm(delta)+'&gt;0\\)</p>';
+   formal='<p>Diberikan sembarang \\(\\varepsilon&gt;0\\). Pilih \\(\\delta=\\min\\{1,\\ \\varepsilon/M\\}='+fm(delta)+'\\). Ambil sebarang \\(x\\) dengan \\(0&lt;\\left|x-'+pn(c)+'\\right|&lt;\\delta\\). Karena \\(\\delta\\le 1\\) berlaku \\(|x-c|&lt;1\\), maka</p><div class="math">\\[|x+c|\\le|x-c|+2|c|&lt;2|c|+1,\\]</div><p>dan akibatnya</p><div class="math">\\[\\left|a(x+c)+b\\right|\\le|a|\\,|x+c|+|b|&lt;|a|\\,(2|c|+1)+|b|=M.\\]</div><p>Dengan demikian</p><div class="math">\\[|f(x)-L|=\\left|x-c\\right|\\cdot\\left|a(x+c)+b\\right|&lt;\\delta\\,M\\le\\frac{\\varepsilon}{M}\\cdot M=\\varepsilon.\\]</div><p>Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{x\\to '+pn(c)+'}\\left('+fnTex+'\\right)='+pn(L)+'\\). <strong>Terbukti ∎</strong></p>';
+  }
+ }else{
+  L=1/c;
+  M=2/(c*c);
+  delta=Math.min(1,Math.abs(c)/2,eps/M);
+  draft='<div class="math">\\[\\left|\\frac{1}{x}-\\frac{1}{'+pn(c)+'}\\right|=\\frac{\\left|x-'+pn(c)+'\\right|}{|x|\\cdot|c|}.\\]</div><p>Kendalikan penyebut: batasi dahulu \\(\\delta\\le\\tfrac{|c|}{2}\\). Jika \\(|x-c|&lt;\\delta\\), maka</p><div class="math">\\[|x|\\ge|c|-|x-c|&gt;|c|-\\tfrac{|c|}{2}=\\tfrac{|c|}{2}&gt;0\\quad\\Longrightarrow\\quad\\frac{1}{|x|}&lt;\\frac{2}{|c|}.\\]</div><p>Sehingga</p><div class="math">\\[|f(x)-L|&lt;\\underbrace{\\frac{2}{c^{2}}}_{M\\ =\\ '+fm(M)+'}\\cdot\\left|x-'+pn(c)+'\\right|.\\]</div>';
+  choice='<p>Pilih \\(\\delta=\\min\\!\\Bigl(1,\\ \\tfrac{|c|}{2},\\ \\dfrac{\\varepsilon}{M}\\Bigr)=\\min\\!\\Bigl(1,\\ '+fm(Math.abs(c)/2)+',\\ '+fm(eps/M)+'\\Bigr)='+fm(delta)+'&gt;0\\)</p>';
+  formal='<p>Diberikan sembarang \\(\\varepsilon&gt;0\\). Pilih \\(\\delta='+fm(delta)+'\\) seperti di atas. Untuk setiap \\(x\\) dengan \\(0&lt;\\left|x-'+pn(c)+'\\right|&lt;\\delta\\) berlaku \\(|x|\\ge|c|-|x-c|&gt;\\tfrac{|c|}{2}&gt;0\\) — khususnya \\(x\\neq 0\\) sehingga \\(f\\) terdefinisi — dan karena itu</p><div class="math">\\[\\left|\\frac{1}{x}-\\frac{1}{'+pn(c)+'}\\right|=\\frac{\\left|x-'+pn(c)+'\\right|}{|x|\\,|c|}&lt;\\frac{\\left|x-'+pn(c)+'\\right|}{\\tfrac{|c|}{2}\\cdot|c|}=\\frac{2}{c^{2}}\\,\\left|x-'+pn(c)+'\\right|&lt;\\frac{2}{c^{2}}\\,\\delta\\le\\frac{2}{c^{2}}\\cdot\\frac{c^{2}\\,\\varepsilon}{2}=\\varepsilon.\\]</div><p>Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{x\\to '+pn(c)+'}\\dfrac{1}{x}='+pn(L)+'\\). <strong>Terbukti ∎</strong></p>';
+ }
+ goal='<p>Buktikan \\(\\lim\\limits_{x\\to '+pn(c)+'}\\left('+fnTex+'\\right)='+pn(L)+'\\): untuk setiap \\(\\varepsilon&gt;0\\) harus ditemukan \\(\\delta&gt;0\\) sehingga</p><div class="math">\\[0&lt;\\left|x-'+pn(c)+'\\right|&lt;\\delta\\quad\\Longrightarrow\\quad\\left|f(x)-'+pn(L)+'\\right|&lt;\\varepsilon.\\]</div><p>Saat ini \\(\\varepsilon='+fm(eps)+'\\); geser slider dan amati \\(\\delta\\) bergerak mengikuti.</p>';
+ $("#m1-chips").innerHTML=
+  chipHtml("Fungsi","\\(f(x)="+fnTex+"\\)")+
+  chipHtml("Titik c","\\("+pn(c)+"\\)")+
+  chipHtml("L = f(c)","\\("+pn(L)+"\\)")+
+  chipHtml("ε","\\("+fm(eps)+"\\)")+
+  chipHtml("δ","\\("+fm(delta)+"\\)")+
+  (M!==null?chipHtml("M","\\("+fm(M)+"\\)"):"");
+ $("#m1-steps").innerHTML=
+  stepBlock("Langkah 1 · Tujuan Pembuktian",goal)+
+  stepBlock("Langkah 2 · Draf Perhitungan (Scratch Work)",draft)+
+  stepBlock("Langkah 3 · Pembatasan Interval & Penentuan δ",choice)+
+  stepBlock("Langkah 4 · Pembuktian Formal",formal);
+ var maxDiff=-1,i,xv,fv,N=400;
+ for(i=0;i<N;i++){
+  xv=c-delta+(i+0.5)*(2*delta/N);
+  if(S.m1.fn==="rational"&&Math.abs(xv)<1e-12){continue;}
+  fv=fEval(S.m1.fn,p,xv);
+  if(isFinite(fv)){var dd=Math.abs(fv-L);if(dd>maxDiff){maxDiff=dd;}}
+ }
+ if(maxDiff>=0){
+  $("#m1-numcheck").innerHTML="Uji numerik: \\(\\max|f(x)-L|\\approx "+fm(maxDiff)+"&lt;\\varepsilon="+fm(eps)+"\\) ✓ — konsisten dengan definisi limit pada 400 sampel halus di \\(("+fm(c-delta)+",\\ "+fm(c+delta)+")\\setminus\\{"+fm(c)+"}\\).";
+ }else{
+  $("#m1-numcheck").textContent="Uji numerik tidak dapat dijalankan pada parameter ini.";
+ }
+ typeset($("#m1-result"));
+ drawM1(p,L,delta,eps,c);
+}
+
+function analyzeSeqValues(pre){
+ if(pre==="seq-n1"){return {inf:0.5,infAtt:true,sup:1,supAtt:false,min:0.5,max:null};}
+ if(pre==="seq-1m"){return {inf:0,infAtt:true,sup:1,supAtt:false,min:0,max:null};}
+ return {inf:-1,infAtt:false,sup:1.5,supAtt:true,min:null,max:1.5};
+}
+function intervalSamples(a,b,loOpen,roOpen){
+ var out=[],rng=lcg(Math.floor(a*10007+0.5)*31+Math.floor(b*104729+0.5)*17+7),i;
+ if(!loOpen){out.push(a);}
+ if(!roOpen){out.push(b);}
+ for(i=0;i<34;i++){out.push(a+rng()*(b-a));}
+ return out;
+}
+function seqSamples(pre){
+ var out=[],n;
+ for(n=1;n<=24;n++){
+  if(pre==="seq-n1"){out.push(n/(n+1));}
+  else if(pre==="seq-1m"){out.push(1-1/n);}
+  else{out.push((n%2===0?1:-1)+1/n);}
+ }
+ return out;
+}
+function analyzeM2(){
+ var m=S.m2,pre=m.preset;
+ if(pre==="iv-oc"||pre==="iv-co"||pre==="iv-oo"||pre==="iv-cc"){
+  var a=num(m.ivA),b=num(m.ivB);
+  if(bad(a)||bad(b)){return {err:"Masukkan batas a dan b sebagai bilangan real yang valid."};}
+  if(!(a<b)){return {err:"Syarat interval belum terpenuhi: harus a < b (saat ini a ≥ b). Perbaiki nilai a atau b."};}
+  var loOpen=(pre==="iv-oc"||pre==="iv-oo");
+  var roOpen=(pre==="iv-co"||pre==="iv-oo");
+  var r={kind:"interval",loOpen:loOpen,roOpen:roOpen,a:a,b:b,inf:a,infAtt:!loOpen,sup:b,supAtt:!roOpen,min:(!loOpen)?a:null,max:(!roOpen)?b:null};
+  r.samples=intervalSamples(a,b,loOpen,roOpen);
+  return r;
+ }
+ if(pre==="set-sq"){
+  var k=num(m.kSet);
+  if(bad(k)||k<=0){return {err:"Himpunan {x : x² < k} hanya menarik untuk k > 0. Masukkan nilai k positif."};}
+  var s=Math.sqrt(k);
+  return {kind:"setk",k:k,inf:-s,infAtt:false,sup:s,supAtt:false,min:null,max:null,samples:intervalSamples(-s,s,true,true)};
+ }
+ var d=analyzeSeqValues(pre);
+ var r2={kind:"seq",pre:pre};
+ Object.keys(d).forEach(function(kk){r2[kk]=d[kk];});
+ r2.samples=seqSamples(pre);
+ return r2;
+}
+function m2ProofInterval(d){
+ var openL=d.loOpen,openR=d.roOpen,a=d.a,b=d.b;
+ var setTex="\\left"+(openL?"(":"[")+pn(a)+",\\ "+pn(b)+"\\right"+(openR?")":"]");
+ var html="";
+ html+='<p>Misalkan \\(S='+setTex+'\\subset\\mathbb{R}\\). Himpunan ini tak kosong dan terkurung di dalam \\(['+pn(a)+',\\ '+pn(b)+']\\), sehingga oleh kelengkapan \\(\\mathbb{R}\\) nilai \\(\\sup S\\) dan \\(\\inf S\\) dijamin ada.</p>';
+ html+='<p><strong>Batas atas.</strong> Setiap \\(s\\in S\\) memenuhi \\(s\\ '+(openR?"\\le":"&lt;")+'\\ '+pn(b)+'\\), jadi \\('+pn(b)+'\\) adalah batas atas \\(S\\).</p>';
+ if(openR){
+  html+='<p>Karena \\('+pn(b)+'\\in S\\), maka untuk sebarang \\(\\varepsilon&gt;0\\) cukup memilih \\(s='+pn(b)+'\\) dan diperoleh \\(s&gt;'+pn(b)+'-\\varepsilon\\). Batas atas yang merupakan anggota himpunan pastilah elemen terbesar:</p><div class="math">\\[\\sup S=\\max S='+pn(b)+'.\\]</div>';
+ }else{
+  html+='<p>Untuk sebarang \\(\\varepsilon&gt;0\\), pilih \\(s=\\min\\bigl\\{\\,'+pn(b)+'-\\tfrac{\\varepsilon}{2},\\ \\tfrac{'+pn(a)+'+'+pn(b)+'}{2}\\,\\bigr\\}\\in S\\). Maka \\(s&gt;'+pn(b)+'-\\varepsilon\\) — persis karakterisasi supremum:</p><div class="math">\\[\\sup S='+pn(b)+',\\qquad '+pn(b)+'\\notin S\\ \\Rightarrow\\ \\max S\\ \\text{tidak ada}.\\]</div>';
+ }
+ html+='<p><strong>Batas bawah.</strong> Setiap \\(s\\in S\\) memenuhi \\(s\\ '+(openL?"\\ge":"&gt;")+'\\ '+pn(a)+'\\), jadi \\('+pn(a)+'\\) adalah batas bawah \\(S\\).</p>';
+ if(openL){
+  html+='<p>Karena \\('+pn(a)+'\\in S\\), karakterisasi infimum otomatis terpenuhi:</p><div class="math">\\[\\inf S=\\min S='+pn(a)+'.\\]</div>';
+ }else{
+  html+='<p>Untuk sebarang \\(\\varepsilon&gt;0\\), pilih \\(t=\\max\\bigl\\{\\,'+pn(a)+'+\\tfrac{\\varepsilon}{2},\\ \\tfrac{'+pn(a)+'+'+pn(b)+'}{2}\\,\\bigr\\}\\in S\\). Maka \\(t&lt;'+pn(a)+'+\\varepsilon\\), sehingga menurut karakterisasi</p><div class="math">\\[\\inf S='+pn(a)+',\\qquad '+pn(a)+'\\notin S\\ \\Rightarrow\\ \\min S\\ \\text{tidak ada}.\\]</div>';
+ }
+ html+='<p>Catatan: Sifat Archimedes menjamin tidak ada jarak kosong antara himpunan dan batasnya — setiap usulan batas atas yang lebih kecil dari supremum pasti tertembus oleh seorang anggota \\(S\\).</p>';
+ return html;
+}
+function m2ProofSeq(pre){
+ if(pre==="seq-n1"){
+  return '<p>Tulis \\(x_n=\\dfrac{n}{n+1}=1-\\dfrac{1}{n+1}\\). Karena setiap suku bernilai \\(&lt;1\\), angka \\(1\\) adalah batas atas \\(S\\). Barisan ini naik ketat:</p><div class="math">\\[x_{n+1}-x_n=\\frac{(n+2)-(n+1)}{(n+1)(n+2)}=\\frac{1}{(n+1)(n+2)}&gt;0.\\]</div><p>Akibatnya elemen terkecil tercapai di \\(n=1\\):</p><div class="math">\\[\\min S=\\inf S=\\tfrac{1}{2}.\\]</div><p><strong>Karakterisasi ε.</strong> Ambil sebarang \\(\\varepsilon&gt;0\\). Berdasarkan <em>Sifat Archimedes</em>, ada \\(n\\in\\mathbb{N}\\) dengan \\(n+1&gt;1/\\varepsilon\\) — misalnya \\(n=\\lceil 1/\\varepsilon\\rceil\\). Untuk \\(n\\) demikian berlaku \\(\\tfrac{1}{n+1}&lt;\\varepsilon\\), sehingga \\(x_n&gt;1-\\varepsilon\\). Tak ada batas atas yang lebih kecil dari \\(1\\):</p><div class="math">\\[\\sup S=1.\\]</div><p>Namun persamaan \\(\\tfrac{n}{n+1}=1\\) tidak memiliki solusi \\(n\\in\\mathbb{N}\\); artinya \\(1\\notin S\\). Supremum tidak tercapai sehingga \\(\\max S\\) tidak ada.</p>';
+ }
+ if(pre==="seq-1m"){
+  return '<p>Tulis \\(x_n=1-\\dfrac{1}{n}\\). Barisan ini naik ketat sejak \\(x_{n+1}-x_n=\\dfrac{1}{n(n+1)}&gt;0\\), sehingga elemen pertama sekaligus yang terkecil adalah \\(x_1=0\\):</p><div class="math">\\[\\min S=\\inf S=0.\\]</div><p><strong>Batas atas &amp; Archimedes.</strong> Setiap suku bernilai \\(&lt;1\\), jadi \\(1\\) batas atas. Ambil sebarang \\(\\varepsilon&gt;0\\); menurut Sifat Archimedes pilih \\(n\\in\\mathbb{N}\\) dengan \\(n&gt;1/\\varepsilon\\), sehingga \\(\\tfrac{1}{n}&lt;\\varepsilon\\) dan akibatnya \\(x_n&gt;1-\\varepsilon\\). Karakterisasi ε untuk supremum terpenuhi:</p><div class="math">\\[\\sup S=1.\\]</div><p>Persamaan \\(1-\\tfrac{1}{n}=1\\) tak terpecahkan di \\(\\mathbb{N}\\), sehingga \\(1\\notin S\\): supremum tidak tercapai dan \\(\\max S\\) tidak ada.</p>';
+ }
+ return '<p>Pisahkan menurut paritas indeks. Suku genap (\\(n=2m\\)): \\(1+\\tfrac{1}{2m}\\) monoton turun menuju \\(1\\); suku ganjil (\\(n=2m-1\\)): \\(-1+\\tfrac{1}{2m-1}&lt;0\\), juga turun menuju \\(-1\\).</p><p><strong>Maksimum.</strong> Elemen genap terbesar ada pada \\(m=1\\) yakni \\(n=2\\) bernilai \\(\\tfrac{3}{2}\\), sementara semua elemen ganjil kurang dari \\(0\\). Kali ini supremum <em>tercapai</em>:</p><div class="math">\\[\\sup S=\\max S=\\tfrac{3}{2}.\\]</div><p><strong>Infimum.</strong> Setiap suku ganjil memenuhi \\(-1&lt;-1+\\tfrac{1}{2m-1}\\), jadi \\(-1\\) adalah batas bawah. Untuk sebarang \\(\\varepsilon&gt;0\\), Sifat Archimedes memberi \\(m\\) cukup besar dengan \\(2m-1&gt;1/\\varepsilon\\), sehingga \\(-1+\\tfrac{1}{2m-1}&lt;-1+\\varepsilon\\): karakterisasi infimum terpenuhi. Namun \\(\\tfrac{1}{n}&gt;0\\) untuk semua \\(n\\), sehingga tak ada elemen yang menyentuh \\(-1\\):</p><div class="math">\\[\\inf S=-1\\notin S\\ \\Rightarrow\\ \\min S\\ \\text{tidak ada}.\\]</div>';
+}
+function m2ProofSetK(k){
+ var kk=k;
+ return '<p>Untuk \\(k='+pn(kk)+'&gt;0\\), pertidaksamaan \\(x^2&lt;k\\) ekuivalen dengan \\(-\\sqrt{k}&lt;x&lt;\\sqrt{k}\\), sehingga</p><div class="math">\\[S=\\left(-\\sqrt{'+pn(kk)+'},\\ \\sqrt{'+pn(kk)+'}\\right).\\]</div><p><strong>Supremum.</strong> \\(\\sqrt{k}\\) adalah batas atas \\(S\\). Untuk sebarang \\(\\varepsilon&gt;0\\) pilih \\(s=\\sqrt{k}-\\min\\bigl\\{\\tfrac{\\varepsilon}{2},\\tfrac{\\sqrt{k}}{2}\\bigr\\}\\in S\\); maka \\(s&gt;\\sqrt{k}-\\varepsilon\\) — karakterisasi terpenuhi. Karena \\((\\sqrt{k})^2=k\\not&lt;k\\), berlaku \\(\\sqrt{k}\\notin S\\):</p><div class="math">\\[\\sup S=\\sqrt{k},\\qquad \\max S\\ \\text{tidak ada}.\\]</div><p><strong>Infimum.</strong> Sepenuhnya simetris: \\(\\inf S=-\\sqrt{k}\\) dengan \\(-\\sqrt{k}\\notin S\\), sehingga \\(\\min S\\) juga tidak ada. Di sinilah tampak jelas beda konsep: batas-batas himpunan tidak harus menjadi anggotanya.</p>';
+}
+function statTile(title,valueTex,statusTxt,isOk){
+ return '<div class="stat"><div class="stat-t">'+title+'</div><div class="stat-v">\\('+valueTex+'\\)</div><div class="stat-s'+(isOk?" ok":"")+'">'+statusTxt+'</div></div>';
+}
+function renderM2(){
+ var m=S.m2;
+ $all("#m2-preset-row .op-card").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-preset")===m.preset));});
+ var isIv=(m.preset.slice(0,2)==="iv");
+ $("#m2-par-interval").style.display=isIv?"contents":"none";
+ $("#m2-par-k").style.display=m.preset==="set-sq"?"":"none";
+ $("#m2-par-seq").style.display=(!isIv&&m.preset!=="set-sq")?"":"none";
+ var an=analyzeM2();
+ if(an.err){showEmpty("m2",an.err);return;}
+ hideEmpty("m2");
+ $("#m2-stats").innerHTML=
+  statTile("Infimum",pn(an.inf),(an.min===null?"bukan minimum":"= minimum ✓"),an.min!==null)+
+  statTile("Supremum",pn(an.sup),(an.max===null?"bukan maksimum":"= maksimum ✓"),an.max!==null)+
+  statTile("Maksimum",(an.max===null?"\\text{—}":pn(an.max)),(an.max===null?"tidak ada":"ada: "+fmtPlain(an.max)),an.max!==null)+
+  statTile("Minimum",(an.min===null?"\\text{—}":pn(an.min)),(an.min===null?"tidak ada":"ada: "+fmtPlain(an.min)),an.min!==null);
+ var proofHtml;
+ if(an.kind==="interval"){proofHtml=m2ProofInterval(an);}
+ else if(an.kind==="setk"){proofHtml=m2ProofSetK(an.k);}
+ else{proofHtml=m2ProofSeq(an.pre);}
+ $("#m2-proof").innerHTML=proofHtml;
+ typeset($("#m2-result"));
+ drawM2(an);
+}
+function hBand(ctx,m,yLo,yHi,fill,stroke,labTop,labBot){
+ var yt=m.Y(yHi),yb=m.Y(yLo);
+ ctx.save();
+ ctx.fillStyle=fill;
+ ctx.fillRect(m.l,yt,m.w-m.l-m.r,yb-yt);
+ ctx.strokeStyle=stroke;ctx.lineWidth=1.3;ctx.setLineDash([6,4]);
+ [yt,yb].forEach(function(yy){ctx.beginPath();ctx.moveTo(m.l,yy);ctx.lineTo(m.w-m.r,yy);ctx.stroke();});
+ ctx.setLineDash([]);
+ ctx.fillStyle="#4338ca";ctx.font="bold 11px system-ui,sans-serif";ctx.textAlign="right";
+ ctx.textBaseline="bottom";ctx.fillText(labTop,m.w-m.r-6,yt-2);
+ ctx.textBaseline="top";ctx.fillText(labBot,m.w-m.r-6,yb+2);
+ ctx.restore();
+}
+function vBand(ctx,m,xLo,xHi,fill,stroke){
+ var xl=m.X(xLo),xr=m.X(xHi);
+ ctx.save();
+ ctx.fillStyle=fill;
+ ctx.fillRect(xl,m.t,xr-xl,m.h-m.t-m.b);
+ ctx.strokeStyle=stroke;ctx.lineWidth=1.3;ctx.setLineDash([]);
+ [xl,xr].forEach(function(xx){ctx.beginPath();ctx.moveTo(xx,m.t);ctx.lineTo(xx,m.h-m.b);ctx.stroke();});
+ ctx.fillStyle="#6558df";ctx.font="bold 11px system-ui,sans-serif";ctx.textAlign="center";ctx.textBaseline="top";
+ ctx.fillText("c−δ",xl+3,m.t+3);
+ ctx.fillText("c+δ",xr+3,m.t+3);
+ ctx.restore();
+}
+function drawCurve(ctx,m,pts){
+ ctx.save();
+ ctx.beginPath();
+ ctx.rect(m.l,m.t,m.w-m.l-m.r,m.h-m.t-m.b);
+ ctx.clip();
+ ctx.strokeStyle="#4338ca";ctx.lineWidth=2.2;ctx.lineJoin="round";ctx.lineCap="round";
+ ctx.beginPath();
+ var started=false,prevPy=null,i,p,px,py;
+ for(i=0;i<pts.length;i++){
+  p=pts[i];
+  if(p===null){started=false;prevPy=null;continue;}
+  px=m.X(p.x);py=m.Y(p.y);
+  if(started&&prevPy!==null&&Math.abs(py-prevPy)>(m.h-m.t-m.b)*0.8){started=false;}
+  if(!started){ctx.moveTo(px,py);started=true;}else{ctx.lineTo(px,py);}
+  prevPy=py;
+ }
+ ctx.stroke();
+ ctx.restore();
+}
+function drawPoint(ctx,m,x,y,hollow){
+ var px=m.X(x),py=m.Y(y);
+ ctx.beginPath();
+ ctx.arc(px,py,6,0,Math.PI*2);
+ if(hollow){
+  ctx.fillStyle="#ffffff";ctx.fill();
+  ctx.lineWidth=2.6;ctx.strokeStyle="#4338ca";ctx.stroke();
+ }else{
+  ctx.fillStyle="#4338ca";ctx.fill();
+  ctx.lineWidth=2.2;ctx.strokeStyle="#ffffff";ctx.stroke();
+ }
+}
+function drawM1(p,L,delta,eps,c){
+ var cv=document.getElementById("m1-canvas");
+ if(!cv){return;}
+ var cs=ctxSetup(cv),ctx=cs.ctx,w=cs.w,h=cs.h;
+ var lft=52,rgt=14,tp=16,bt=30;
+ var R=Math.max(delta*4,1e-9);
+ var x0=c-R,x1=c+R;
+ var fname=S.m1.fn,N=480,pts=[],maxDev=0,i;
+ for(i=0;i<N;i++){
+  var xv=x0+(i+0.5)*(R*2)/N;
+  if(fname==="rational"&&Math.abs(xv)<(R*2)/N*0.5){pts.push(null);continue;}
+  var yv=fEval(fname,p,xv);
+  if(isFinite(yv)){
+   pts.push({x:xv,y:yv});
+   var dy=Math.abs(yv-L);
+   if(dy>maxDev){maxDev=dy;}
+  }else{pts.push(null);}
+ }
+ var yHalf=Math.max(2.5*eps,Math.min(maxDev*1.08||0,40*eps));
+ var mm=makeMap(x0,x1,L-yHalf,L+yHalf,lft,rgt,tp,bt,w,h);
+ drawGrid(ctx,mm,ticks(x0,x1,6),ticks(L-yHalf,L+yHalf,5));
+ hBand(ctx,mm,L-eps,L+eps,"#4338ca1a","#4338ca99","L+ε","L−ε");
+ vBand(ctx,mm,c-delta,c+delta,"#6558df24","#6558dfcc");
+ drawCurve(ctx,mm,pts);
+ if(fname==="rational"&&x0<0&&x1>0){
+  ctx.save();
+  ctx.strokeStyle="#6558df";ctx.setLineDash([7,5]);ctx.lineWidth=1.6;
+  var ax=mm.X(0);
+  ctx.beginPath();ctx.moveTo(ax,tp);ctx.lineTo(ax,h-bt);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#6558df";ctx.font="bold 11px system-ui,sans-serif";ctx.textAlign="center";ctx.textBaseline="top";
+  ctx.fillText("asimtot x = 0",ax,tp+4);
+  ctx.restore();
+ }
+ drawPoint(ctx,mm,c,L,fname==="rational"&&Math.abs(c)<1e-15);
+}
+function drawM2(an){
+ var cv=document.getElementById("m2-canvas");
+ if(!cv){return;}
+ var cs=ctxSetup(cv),ctx=cs.ctx,w=cs.w,h=cs.h;
+ var vals=an.samples.concat([an.inf,an.sup]);
+ var lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals);
+ var pad=(hi-lo)*0.15;
+ if(!(pad>0)){pad=1;}
+ lo-=pad;hi+=pad;
+ var cy=h*0.56;
+ var m={l:30,r:30,t:26,b:40,w:w,h:h,X:function(x){return 30+(x-lo)/(hi-lo)*(w-60);},Y:function(){return cy;}};
+ var xi=m.X(Math.min(an.inf,an.sup)),xsr=m.X(Math.max(an.inf,an.sup));
+ ctx.fillStyle="#4338ca0d";
+ ctx.fillRect(xi,m.t,Math.max(0,xsr-xi),h-m.t-m.b);
+ ctx.strokeStyle="#94a3b8";ctx.lineWidth=1.6;
+ ctx.beginPath();ctx.moveTo(m.l-10,cy);ctx.lineTo(w-m.r+12,cy);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(w-m.r+12,cy);ctx.lineTo(w-m.r+4,cy-4);ctx.lineTo(w-m.r+4,cy+4);ctx.closePath();
+ ctx.fillStyle="#94a3b8";ctx.fill();
+ ctx.font="11px system-ui,sans-serif";ctx.fillStyle="#64748b";ctx.textAlign="center";ctx.textBaseline="top";
+ ticks(lo,hi,6).forEach(function(v){
+  var px=m.X(v);
+  ctx.strokeStyle="#cbd5e1";
+  ctx.beginPath();ctx.moveTo(px,cy-4);ctx.lineTo(px,cy+4);ctx.stroke();
+  ctx.fillText(fmtTick(v),px,cy+9);
+ });
+ ctx.fillStyle="#6558df66";
+ an.samples.forEach(function(v){ctx.beginPath();ctx.arc(m.X(v),cy,2.6,0,Math.PI*2);ctx.fill();});
+ var marks=[
+  {v:an.inf,label:(an.min===null?"inf":"inf = min"),closed:an.infAttained},
+  {v:an.sup,label:(an.max===null?"sup":"sup = max"),closed:an.supAttained}
+ ].sort(function(u,v2){return u.v-v2.v;});
+ marks.forEach(function(mk,idx){
+  var px=m.X(mk.v);
+  var rowOff=idx===0?44:24;
+  ctx.strokeStyle="#4338ca66";ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(px,cy-rowOff);ctx.lineTo(px,cy-9);ctx.stroke();
+  ctx.beginPath();ctx.arc(px,cy,7,0,Math.PI*2);
+  if(mk.closed){ctx.fillStyle="#4338ca";ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#ffffff";ctx.stroke();}
+  else{ctx.fillStyle="#ffffff";ctx.fill();ctx.lineWidth=2.4;ctx.strokeStyle="#4338ca";ctx.stroke();}
+  ctx.fillStyle="#4338ca";ctx.font="bold 12px system-ui,sans-serif";ctx.textAlign="center";ctx.textBaseline="bottom";
+  ctx.fillText(mk.label+" = "+fmtPlain(mk.v),px,cy-rowOff-3);
+ });
+ ctx.fillStyle="#64748b";ctx.font="11px system-ui,sans-serif";ctx.textAlign="right";ctx.textBaseline="top";
+ ctx.fillText("ℝ",w-m.r,cy+9);
+}
+
+function analyzeM3(){
+ var m=S.m3,eps=num(m.epsRaw);
+ if(bad(eps)||eps<=0){return {err:"Toleransi ε harus bilangan positif yang valid (contoh: 0.05 atau 0.01)."};}
+ if(m.seq==="mobius"){
+  var a=num(m.ma),b=num(m.mb),cc=num(m.mc),d=num(m.md);
+  if(bad(a)||bad(b)||bad(cc)||bad(d)){return {err:"Semua koefisien a, b, c, d harus berupa bilangan valid."};}
+  if(cc===0){return {err:"Syarat rumus: c ≠ 0, sebab limit yang dituju adalah a/c. Perbaiki nilai c."};}
+  if(Math.abs(a*d-b*cc)<1e-13){return {err:"Barisan kurang menarik: ad − bc = 0 membuat xₙ konstan (kasus trivial). Ubah koefisien agar ad − bc ≠ 0."};}
+  var L=a/cc,T=Math.abs(a*d-b*cc)/(Math.abs(cc)*eps);
+  var est=cc>0?(T-d)/cc:(T+d)/Math.abs(cc);
+  var seq=function(n){return (a*n+b)/(cc*n+d);};
+  var K=refineK(est,function(n){return Math.abs(seq(n)-L)<eps;});
+  return {kind:"mobius",a:a,b:b,c:cc,d:d,L:L,eps:eps,T:T,est:est,K:K,seq:seq,cPos:cc>0};
+ }
+ if(m.seq==="power"){
+  var pp=num(m.pwP);
+  if(bad(pp)||pp<=0){return {err:"Eksponen p harus bilangan positif (p > 0)."};}
+  var sq=function(n){return 1/Math.pow(n,pp);};
+  var e2=Math.pow(eps,-1/pp);
+  return {kind:"power",p:pp,L:0,eps:eps,est:e2,K:refineK(e2,function(n){return sq(n)<eps;}),seq:sq};
+ }
+ var cb=num(m.gcBase);
+ if(bad(cb)){return {err:"Basis c harus berupa bilangan valid."};}
+ if(Math.abs(cb)>=1){return {err:"Syarat barisan geometri: |c| < 1 (saat ini |c| = "+fmtPlain(Math.abs(cb))+"), sehingga xₙ tidak menuju 0."};}
+ var sg=function(n){return Math.pow(cb,n);};
+ var eg=(cb===0)?1:Math.log(eps)/Math.log(Math.abs(cb));
+ var Kg=(cb===0)?1:refineK(eg,function(n){return Math.pow(Math.abs(cb),n)<eps;});
+ return {kind:"geo",c:cb,L:0,eps:eps,est:eg,K:Kg,seq:sg,trivial:cb===0};
+}
+function buildM3Table(an){
+ var seen={},list=[];
+ function add(n){if(!seen[n]){seen[n]=true;list.push(n);}}
+ var i;
+ for(i=1;i<=8;i++){add(i);}
+ for(i=Math.max(1,an.K);i<=an.K+3;i++){add(i);}
+ list.sort(function(u,v){return u-v;});
+ var rows=list.map(function(n){
+  var xv=an.seq(n),diff=Math.abs(xv-an.L);
+  return '<tr'+(n>=an.K?' class="hl"':'')+'><td>'+n+'</td><td>'+fmtPlain(xv)+'</td><td>'+fmtPlain(diff)+'</td><td'+(diff<an.eps?' class="ok"':'')+'>'+(diff<an.eps?'✓':'—')+'</td></tr>';
+ }).join("");
+ return '<table><thead><tr><th>n</th><th>xₙ</th><th>|xₙ − L|</th><th>&lt; ε ?</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function integerTicks(a,b){
+ var out=[],step=Math.max(1,Math.ceil((b-a)/12)),i;
+ for(i=a;i<=b;i+=step){out.push(i);}
+ return out;
+}
+function renderM3(){
+ var m=S.m3;
+ $all("#m3-seq-row .op-card").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-seq")===m.seq));});
+ $("#m3-par-mobius").style.display=m.seq==="mobius"?"contents":"none";
+ $("#m3-par-power").style.display=m.seq==="power"?"":"none";
+ $("#m3-par-geo").style.display=m.seq==="geo"?"":"none";
+ var epsOut=document.getElementById("m3-eps-out");
+ if(epsOut){var ev=num(m.epsRaw);epsOut.textContent=isFinite(ev)?fmtPlain(ev):"?";}
+ var an=analyzeM3();
+ if(an.err){showEmpty("m3",an.err);return;}
+ hideEmpty("m3");
+ var seqTex,chipsHtml,s1,s2,s3;
+ if(an.kind==="mobius"){
+  var sym="\\frac{"+pn(an.a)+"n+"+pn(an.b)+"}{"+pn(an.c)+"n+"+pn(an.d)+"}";
+  seqTex="\\(x_n="+sym+"\\)";
+  s1='<p>Barisan \\(x_n='+sym+'\\) memiliki limit kandidat \\(L=\\dfrac{a}{c}='+pn(an.L)+'\\). Kita mencari \\(K\\in\\mathbb{N}\\) terkecil sehingga untuk semua \\(n\\ge K\\) berlaku \\(|x_n-L|&lt;\\varepsilon\\) — saat ini \\(\\varepsilon='+fm(an.eps)+'\\)</p>';
+  s2='<div class="math">\\[\\left|x_n-L\\right|=\\left|\\frac{an+b}{cn+d}-\\frac{a}{c}\\right|=\\frac{\\left|c(an+b)-a(cn+d)\\right|}{|c|\\cdot\\left|cn+d\\right|}=\\frac{|ad-bc|}{|c|\\cdot\\left|cn+d\\right|}.\\]</div><p>Dengan parameter saat ini \\(|ad-bc|='+fm(Math.abs(an.a*an.d-an.b*an.c))+'\\), sehingga syarat yang setara adalah</p><div class="math">\\[\\left|cn+d\\right|&gt;\\frac{|ad-bc|}{|c|\\,\\varepsilon}=:T='+fm(an.T)+'.\\]</div>'+(an.cPos?'<p>Karena \\(c&gt;0\\), untuk \\(n\\) cukup besar \\(cn+d&gt;0\\) dan pertidaksamaan itu ekuivalen dengan</p><div class="math">\\[cn+d&gt;T\\quad\\Longleftrightarrow\\quad n&gt;\\frac{T-d}{c}='+fm(an.est)+',\\]</div><p>sehingga dipilih \\(K=\\left\\lceil\\tfrac{T-d}{c}\\right\\rceil='+fm(an.K)+'\\)</p>':'<p>Karena \\(c&lt;0\\), untuk \\(n\\) besar berlaku \\(cn+d&lt;0\\) sehingga \\(|cn+d|=-(cn+d)\\); syaratnya menjadi</p><div class="math">\\[-(cn+d)&gt;T\\quad\\Longleftrightarrow\\quad n&gt;\\frac{T+d}{|c|}='+fm(an.est)+',\\]</div><p>sehingga dipilih \\(K=\\left\\lceil\\tfrac{T+d}{|c|}\\right\\rceil='+fm(an.K)+'\\)</p>');
+  s3='<p>Diberikan sembarang \\(\\varepsilon='+fm(an.eps)+'&gt;0\\). Ambil \\(K='+fm(an.K)+'\\in\\mathbb{N}\\) seperti di atas — aplikasi selalu mengambil \\(K\\) terkecil yang benar-benar memenuhi ketaksamaan ketat. Untuk setiap \\(n\\ge K\\) berlaku \\(\\left|cn+d\\right|&gt;T\\), akibatnya</p><div class="math">\\[\\left|x_n-L\\right|=\\frac{|ad-bc|}{|c|\\cdot\\left|cn+d\\right|}&lt;\\frac{|ad-bc|}{|c|\\cdot T}=\\frac{|ad-bc|}{|c|\\cdot\\frac{|ad-bc|}{|c|\\,\\varepsilon}}=\\varepsilon.\\]</div><p>Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{n\\to\\infty}x_n=L='+pn(an.L)+'\\). <strong>Terbukti ∎</strong></p>';
+ }else if(an.kind==="power"){
+  seqTex="\\(x_n=1/n^{"+pn(an.p)+"}\\)";
+  s1='<p>Barisan \\(x_n=\\dfrac{1}{n^{'+pn(an.p)+'}}\\) menuju \\(L=0\\) Kita mencari \\(K\\) sehingga \\(n\\ge K\\Rightarrow|x_n|&lt;\\varepsilon='+fm(an.eps)+'\\)</p>';
+  s2='<div class="math">\\[\\frac{1}{n^{p}}&lt;\\varepsilon\\quad\\Longleftrightarrow\\quad n^{p}&gt;\\frac{1}{\\varepsilon}\\quad\\Longleftrightarrow\\quad n&gt;\\varepsilon^{-1/p}='+fm(an.est)+',\\]</div><p>ekuivalensi sah karena \\(p&gt;0\\) membuat \\(t\\mapsto t^{p}\\) naik tegas pada \\((0,\\infty)\\). Maka</p><div class="math">\\[K=\\left\\lceil\\varepsilon^{-1/p}\\right\\rceil='+fm(an.K)+'.\\]</div>';
+  s3='<p>Diberikan \\(\\varepsilon='+fm(an.eps)+'&gt;0\\) dan ambil \\(K='+fm(an.K)+'\\) Untuk setiap \\(n\\ge K\\) berlaku \\(n&gt;\\varepsilon^{-1/p}\\), sehingga \\(n^{p}&gt;1/\\varepsilon\\) dan karenanya</p><div class="math">\\[\\left|x_n-0\\right|=\\frac{1}{n^{p}}&lt;\\varepsilon.\\]</div><p>Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{n\\to\\infty}x_n=0\\) <strong>Terbukti ∎</strong></p>';
+ }else{
+  seqTex="\\(x_n="+pn(an.c)+"^{n}\\)";
+  if(an.trivial){
+   s1='<p>Barisan \\(x_n=0^{n}\\): untuk setiap \\(n\\ge1\\), \\(0^{n}=0\\) Barisan identik nol.</p>';
+   s2='<p>Syarat \\(|x_n|&lt;\\varepsilon\\) sudah terpenuhi sejak suku pertama untuk sebarang \\(\\varepsilon&gt;0\\), sehingga</p><div class="math">\\[K=1.\\]</div>';
+   s3='<p>Untuk setiap \\(n\\ge K=1\\) berlaku \\(|x_n-0|=0&lt;\\varepsilon\\) Karena \\(\\varepsilon\\) sembarang, \\(\\lim x_n=0\\) <strong>Terbukti ∎</strong></p>';
+  }else{
+   s1='<p>Barisan geometri \\(x_n='+pn(an.c)+'^{n}\\) dengan \\(|c|='+fm(Math.abs(an.c))+'&lt;1\\) menuju \\(L=0\\) Saat ini \\(\\varepsilon='+fm(an.eps)+'\\)</p>';
+   s2='<div class="math">\\[|c|^{n}&lt;\\varepsilon\\quad\\Longleftrightarrow\\quad n\\ln|c|&lt;\\ln\\varepsilon\\quad\\Longleftrightarrow\\quad n&gt;\\frac{\\ln\\varepsilon}{\\ln|c|}='+fm(an.est)+',\\]</div><p>arah pertidaksamaan terbalik saat membagi karena \\(\\ln|c|&lt;0\\) Maka</p><div class="math">\\[K=\\left\\lceil\\frac{\\ln\\varepsilon}{\\ln|c|}\\right\\rceil='+fm(an.K)+'.\\]</div>';
+   s3='<p>Diberikan \\(\\varepsilon='+fm(an.eps)+'&gt;0\\) dan ambil \\(K='+fm(an.K)+'\\) Untuk setiap \\(n\\ge K\\) berlaku langsung \\(|x_n-0|=|c|^{n}&lt;\\varepsilon\\) Karena \\(\\varepsilon\\) sembarang, \\(\\lim\\limits_{n\\to\\infty}x_n=0\\) <strong>Terbukti ∎</strong></p>';
+  }
+ }
+ chipsHtml=
+  chipHtml("Barisan",seqTex)+
+  chipHtml("Limit L","\\("+pn(an.L)+"\\)")+
+  chipHtml("ε","\\("+fm(an.eps)+"\\)")+
+  chipHtml("Ambang K","\\("+fm(an.K)+"\\)")+
+  chipHtml("Status","\\(n\\ge K\\Rightarrow|x_n-L|&lt;\\varepsilon\\)");
+ $("#m3-chips").innerHTML=chipsHtml;
+ $("#m3-steps").innerHTML=
+  stepBlock("Langkah 1 · Tujuan & Limit Kandidat",s1)+
+  stepBlock("Langkah 2 · Derivasi |xₙ − L| & Penentuan K(ε)",s2)+
+  stepBlock("Langkah 3 · Pembuktian Formal",s3);
+ $("#m3-table").innerHTML=buildM3Table(an);
+ typeset($("#m3-result"));
+ drawM3(an);
+}
+function drawM3(an){
+ var cv=document.getElementById("m3-canvas");
+ if(!cv){return;}
+ var cs=ctxSetup(cv),ctx=cs.ctx,w=cs.w,h=cs.h;
+ var lft=58,rgt=18,tp=18,bt=32;
+ var nMax=Math.max(12,an.K+3);
+ var vals=[],i;
+ for(i=1;i<=nMax;i++){vals.push(an.seq(i));}
+ var vMin=Math.min.apply(null,vals),vMax=Math.max.apply(null,vals);
+ var loY=Math.min(vMin,an.L-an.eps*1.7),hiY=Math.max(vMax,an.L+an.eps*1.7);
+ var padY=(hiY-loY)*0.08;
+ if(!(padY>0)){padY=0.1;}
+ var mm=makeMap(0,nMax+1,loY-padY,hiY+padY,lft,rgt,tp,bt,w,h);
+ drawGrid(ctx,mm,integerTicks(0,nMax+1),ticks(loY-padY,hiY+padY,5));
+ ctx.save();
+ ctx.beginPath();ctx.rect(lft,tp,w-lft-rgt,h-tp-bt);ctx.clip();
+ var yt=mm.Y(an.L+an.eps),yb=mm.Y(an.L-an.eps);
+ ctx.fillStyle="#4338ca14";
+ ctx.fillRect(lft,yt,w-lft-rgt,yb-yt);
+ ctx.strokeStyle="#4338ca66";ctx.lineWidth=1.2;ctx.setLineDash([5,4]);
+ [yt,yb].forEach(function(yy){ctx.beginPath();ctx.moveTo(lft,yy);ctx.lineTo(w-rgt,yy);ctx.stroke();});
+ var yl=mm.Y(an.L);
+ ctx.strokeStyle="#0f172a";ctx.lineWidth=1.7;ctx.setLineDash([8,5]);
+ ctx.beginPath();ctx.moveTo(lft,yl);ctx.lineTo(w-rgt,yl);ctx.stroke();
+ ctx.setLineDash([]);
+ ctx.fillStyle="#0f172a";ctx.font="bold 11px system-ui,sans-serif";ctx.textAlign="right";ctx.textBaseline="bottom";
+ ctx.fillText("y = L",w-rgt-4,yl-3);
+ var xk=mm.X(an.K);
+ if(xk>=lft&&xk<=w-rgt){
+  ctx.strokeStyle="#6558df";ctx.lineWidth=1.7;ctx.setLineDash([4,4]);
+  ctx.beginPath();ctx.moveTo(xk,tp);ctx.lineTo(xk,h-bt);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#6558df";ctx.font="bold 11px system-ui,sans-serif";ctx.textAlign="left";ctx.textBaseline="top";
+  ctx.fillText("K = "+an.K,xk+4,tp+2);
+ }
+ for(i=1;i<=nMax;i++){
+  var px=mm.X(i),py=mm.Y(an.seq(i));
+  if(py<tp||py>h-bt){continue;}
+  if(i>=an.K){
+   ctx.fillStyle="#4338ca33";
+   ctx.beginPath();ctx.arc(px,py,9,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle="#4338ca";
+   ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();
+   ctx.lineWidth=1.5;ctx.strokeStyle="#ffffff";ctx.stroke();
+  }else{
+   ctx.fillStyle="#6558dfcc";
+   ctx.beginPath();ctx.arc(px,py,4,0,Math.PI*2);ctx.fill();
+  }
+ }
+ ctx.restore();
+ ctx.fillStyle="#64748b";ctx.font="11px system-ui,sans-serif";ctx.textAlign="right";ctx.textBaseline="top";
+ ctx.fillText("n",w-rgt,h-bt+4);
+ ctx.textAlign="left";ctx.textBaseline="top";
+ ctx.fillText("xₙ",lft+4,tp+2);
+}
+
+function partialSum(fn,N){
+ var s=0,i,t;
+ for(i=1;i<=N;i++){
+  t=fn(i);
+  if(!isFinite(t)){return NaN;}
+  s+=t;
+  if(!isFinite(s)){return NaN;}
+ }
+ return s;
+}
+function renderM4(){
+ var m=S.m4;
+ $all("#m4-test-row .op-card").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-test")===m.test));});
+ $("#m4-par-ratio").style.display=m.test==="ratio"?"contents":"none";
+ $("#m4-par-root").style.display=m.test==="root"?"":"none";
+ $("#m4-par-ps").style.display=m.test==="ps"?"":"none";
+ $("#m4-par-geom").style.display=m.test==="geom"?"contents":"none";
+ $("#m4-par-leib").style.display=m.test==="leib"?"":"none";
+ var s1="",s2="",s3="",verdict=null,extra="";
+ if(m.test==="ratio"){
+  var kk=num(m.rk),rr=num(m.rr);
+  if(bad(kk)||kk<0||Math.floor(kk)!==kk){showEmpty("m4","Pangkat k harus bilangan bulat ≥ 0 (misal 0, 1, 2).");return;}
+  if(bad(rr)){showEmpty("m4","Rasio r harus berupa bilangan valid.");return;}
+  var rho=rhoRatioTest(rr,kk);
+  extra=chipHtml("Deret","\\(\\sum_{n=1}^{\\infty}n^{"+fm(kk)+"}r^{n}\\)")+chipHtml("r","\\("+pn(rr)+"\\)")+chipHtml("ρ","\\("+fm(rho)+"\\)");
+  s1='<p>Deret yang diuji: \\(\\sum_{n=1}^{\\infty}n^{'+fm(kk)+'}r^{n}\\) dengan suku ke-\\(n\\) \\(a_n=n^{'+fm(kk)+'}r^{n}\\). Hitung limit rasio suku berurutan:</p><div class="math">\\[\\left|\\frac{a_{n+1}}{a_n}\\right|=\\frac{(n+1)^{'+fm(kk)+'}\\,|r|^{n+1}}{n^{'+fm(kk)+'}\\,|r|^{n}}=\\left(1+\\frac{1}{n}\\right)^{'+fm(kk)+'}|r|.\\]</div>';
+  s2='<p>Karena \\(\\left(1+\\tfrac{1}{n}\\right)^{'+fm(kk)+'}\\to 1\\), diperoleh</p><div class="math">\\[\\rho=\\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|=|r|='+fm(rho)+'.\\]</div>';
+  if(rho<1-1e-12){
+   verdict={cls:"conv",txt:"KONVERGEN MUTLAK"};
+   s3='<p>Karena \\(\\rho='+fm(rho)+'&lt;1\\), <strong>Uji Rasio d’Alembert</strong> menyimpulkan deret konvergen — bahkan mutlak, sebab rasio nilai mutlaknya memadai.</p>';
+  }else if(rho>1+1e-12){
+   verdict={cls:"div",txt:"DIVERGEN"};
+   s3='<p>Karena \\(\\rho='+fm(rho)+'&gt;1\\), Uji Rasio menyimpulkan deret <strong>divergen</strong>; suku umumnya justru membesar tanpa terikat.</p>';
+  }else{
+   verdict={cls:"warn",txt:"ρ = 1 · UJI RASIO GAGAL"};
+   s3='<p>Kasus batas \\(\\rho=1\\): Uji Rasio <strong>gagal</strong> memberi kesimpulan. Untungnya kita dapat lanjut dengan <strong>Uji Suku Nol</strong>: karena \\(|r|=1\\), berlaku \\(|a_n|=n^{'+fm(kk)+'}\\not\\to 0\\); suku umum tidak menuju nol sehingga deret pun <strong>divergen</strong>.</p>';
+  }
+  if(Math.abs(rr)<=1){
+   var ps1=partialSum(function(n){return Math.pow(n,kk)*Math.pow(rr,n);},60);
+   if(isFinite(ps1)){extra+=chipHtml("Jumlah parsial S₆₀","\\("+fm(ps1)+"\\)");}
+  }
+ }else if(m.test==="root"){
+  var rr2=num(m.rootR);
+  if(bad(rr2)){showEmpty("m4","Rasio r harus berupa bilangan valid.");return;}
+  var rho2=rhoRatioTest(rr2,0);
+  extra=chipHtml("Deret","\\(\\sum_{n=1}^{\\infty}r^{n}\\)")+chipHtml("r","\\("+pn(rr2)+"\\)")+chipHtml("ρ","\\("+fm(rho2)+"\\)");
+  s1='<p>Untuk \\(a_n=r^{n}\\), hitung akar ke-\\(n\\) dari nilai mutlak suku:</p><div class="math">\\[\\sqrt[n]{|a_n|}=\\sqrt[n]{|r|^{n}}=|r|.\\]</div>';
+  s2='<p>Barisan konstan \\(|r|\\) memiliki limit pada dirinya sendiri:</p><div class="math">\\[\\rho=\\lim_{n\\to\\infty}\\sqrt[n]{|a_n|}=|r|='+fm(rho2)+'.\\]</div>';
+  if(rho2<1-1e-12){
+   verdict={cls:"conv",txt:"KONVERGEN MUTLAK"};
+   s3='<p>Karena \\(\\rho='+fm(rho2)+'&lt;1\\), <strong>Uji Akar Cauchy</strong> menyimpulkan deret konvergen mutlak.</p>';
+  }else if(rho2>1+1e-12){
+   verdict={cls:"div",txt:"DIVERGEN"};
+   s3='<p>Karena \\(\\rho='+fm(rho2)+'&gt;1\\), Uji Akar menyimpulkan deret <strong>divergen</strong>.</p>';
+  }else{
+   verdict={cls:"warn",txt:"ρ = 1 · UJI AKAR GAGAL"};
+   s3='<p>Uji Akar gagal memberi kesimpulan pada \\(\\rho=1\\) Namun \\(|a_n|=1\\not\\to 0\\) — suku tidak menuju nol (barisan \\(r^{n}\\) bergoyang antara \\(\\pm1\\) atau mentok di \\(1\\)) — sehingga menurut <strong>Uji Suku Nol</strong> deret tetap <strong>divergen</strong>.</p>';
+  }
+  if(Math.abs(rr2)<=1){
+   var ps2=partialSum(function(n){return Math.pow(rr2,n);},60);
+   if(isFinite(ps2)){extra+=chipHtml("Jumlah parsial S₆₀","\\("+fm(ps2)+"\\)");}
+  }
+ }else if(m.test==="ps"){
+  var pp=num(m.psP);
+  if(bad(pp)||pp<=0){showEmpty("m4","Pangkat p harus bilangan positif (p > 0).");return;}
+  extra=chipHtml("Deret","\\(\\sum_{n=1}^{\\infty}\\dfrac{1}{n^{p}}\\)")+chipHtml("p","\\("+pn(pp)+"\\)");
+  s1='<p>Deret \\(p\\)-series dengan \\(p='+pn(pp)+'\\) Fungsi \\(f(x)=x^{-p}\\) positif, kontinu, dan turun pada \\([1,\\infty)\\), sehingga <strong>Uji Integral Cauchy–Maclaurin</strong> sah digunakan.</p>';
+  s2='<div class="math">\\[\\int_{1}^{\\infty}\\frac{dx}{x^{p}}=\\begin{cases}\\dfrac{1}{p-1},&amp;p&gt;1,\\\\[2mm]+\\infty,&amp;p\\le 1.\\end{cases}\\]</div><p>Nilai integral inilah penentu: deret dan integral pergi-kembali bersama (saling mengikuti konvergensi).</p>';
+  if(pp>1){
+   verdict={cls:"conv",txt:"KONVERGEN (p = "+fmtPlain(pp)+" > 1)"};
+   s3='<p>Karena integralnya berhingga \\(=\\dfrac{1}{p-1}\\), deret \\(\\sum\\tfrac{1}{n^{p}}\\) ikut <strong>konvergen</strong>, bahkan dengan batas kasar \\(\\displaystyle\\sum_{n=1}^{\\infty}\\frac{1}{n^{p}}\\le 1+\\frac{1}{p-1}\\)</p>';
+  }else{
+   verdict={cls:"div",txt:"DIVERGEN (p = "+fmtPlain(pp)+" ≤ 1)"};
+   s3='<p>Karena integralnya meledak ke \\(+\\infty\\), deret <strong>divergen</strong>. Alternatif elementer untuk \\(p\\le1\\): \\(\\tfrac{1}{n^{p}}\\ge\\tfrac{1}{n}\\) dan deret harmonik \\(\\sum\\tfrac{1}{n}\\) divergen (uji perbandingan).</p>';
+  }
+ }else if(m.test==="geom"){
+  var ga=num(m.gmA),gr=num(m.gmR);
+  if(bad(ga)||bad(gr)){showEmpty("m4","Koefisien a dan rasio r harus berupa bilangan valid.");return;}
+  var absr=Math.abs(gr);
+  extra=chipHtml("Deret","\\(\\sum_{n=0}^{\\infty}a\\,r^{n}\\)")+chipHtml("a","\\("+pn(ga)+"\\)")+chipHtml("r","\\("+pn(gr)+"\\)");
+  if(ga===0){
+   verdict={cls:"conv",txt:"KONVERGEN (TRIVIAL · a = 0)"};
+   s1='<p>Semua suku bernilai \\(a\\,r^{n}=0\\) karena \\(a=0\\)</p>';
+   s2='<div class="math">\\[S_N=\\sum_{n=0}^{N}0=0\\quad\\text{untuk setiap }N.\\]</div>';
+   s3='<p>Jumlah parsial selalu nol, jadi deret konvergen ke \\(0\\) — konsisten pula dengan rumus \\(\\tfrac{a}{1-r}=0\\) Terbukti ∎</p>';
+  }else if(absr<1){
+   var Ssum=ga/(1-gr);
+   verdict={cls:"conv",txt:"KONVERGEN · JUMLAH S = "+fmtPlain(Ssum)};
+   extra+=chipHtml("S = a/(1−r)","\\("+fm(Ssum)+"\\)");
+   s1='<p>Deret geometri \\(\\sum_{n=0}^{\\infty}'+pn(ga)+'\\,'+pn(gr)+'^{n}\\) dengan \\(|r|='+fm(absr)+'&lt;1\\)</p>';
+   s2='<p>Jumlah parsial \\(N\\) suku pertama:</p><div class="math">\\[S_N=a\\,\\frac{1-r^{N+1}}{1-r}='+pn(ga)+'\\cdot\\frac{1-'+pn(gr)+'^{N+1}}{1-'+pn(gr)+'}.\\]</div><p>Karena \\(|r|&lt;1\\) maka \\(r^{N+1}\\to 0\\) (barisan geometri menuju nol), sehingga</p><div class="math">\\[\\lim_{N\\to\\infty}S_N=\\frac{a}{1-r}='+fm(Ssum)+'.\\]</div>';
+   s3='<p>Kesimpulan formal: deret geometri <strong>konvergen</strong> dan jumlahnya persis \\(S=\\dfrac{a}{1-r}='+fm(Ssum)+'\\) Terbukti ∎</p>';
+  }else{
+   verdict={cls:"div",txt:"DIVERGEN"};
+   s1='<p>Deret geometri \\(\\sum_{n=0}^{\\infty}'+pn(ga)+'\\,'+pn(gr)+'^{n}\\) dengan \\(|r|='+fm(absr)+'\\ge1\\)</p>';
+   if(Math.abs(absr-1)<1e-12){
+    s2='<p>Pada tepi \\(|r|=1\\): jika \\(r=1\\) maka \\(S_N=(N+1)a\\to\\pm\\infty\\) karena \\(a\\neq0\\); jika \\(r=-1\\) maka \\(S_N\\) bergantian bernilai \\(a\\) dan \\(0\\) tanpa pernah stabil. Keduanya tidak konvergen.</p>';
+   }else{
+    s2='<p>Karena \\(|r|&gt;1\\), suku umum \\(|a|\\,r^{n}\\to\\infty\\) — syarat perlu konvergensi (suku menuju nol) dilanggar secara telak.</p>';
+   }
+   s3='<p>Kesimpulan: untuk \\(a\\neq0\\), deret geometri dengan \\(|r|\\ge1\\) adalah <strong>divergen</strong>; rumus \\(\\tfrac{a}{1-r}\\) hanya sah ketika \\(|r|&lt;1\\)</p>';
+  }
+ }else{
+  var qq=num(m.lzQ);
+  if(bad(qq)||qq<=0){showEmpty("m4","Pangkat q harus bilangan positif (q > 0).");return;}
+  extra=chipHtml("Deret","\\(\\sum_{n=1}^{\\infty}(-1)^{n-1}\\dfrac{1}{n^{q}}\\)")+chipHtml("q","\\("+pn(qq)+"\\)");
+  var pl=partialSum(function(n){return ((n%2===1)?1:-1)/Math.pow(n,qq);},60);
+  if(isFinite(pl)){extra+=chipHtml("Jumlah parsial S₆₀","\\("+fm(pl)+"\\)");}
+  s1='<p>Deret berganti tanda dengan bagian bernilai mutlak \\(b_n=\\dfrac{1}{n^{q}},\\quad q='+pn(qq)+'&gt;0\\) Periksa dua syarat <strong>kriteria Leibniz</strong>.</p>';
+  s2='<div class="math">\\[b_1&gt;b_2&gt;b_3&gt;\\cdots\\ \\text{(monoton turun)},\\qquad\\lim_{n\\to\\infty}b_n=\\lim_{n\\to\\infty}\\frac{1}{n^{q}}=0.\\]</div><p>Kedua syarat terpenuhi, maka deret <strong>konvergen</strong>; sebagai bonus, galat sisa dibatasi oleh suku pertama yang dibuang: \\(|R_N|\\le b_{N+1}\\)</p>';
+  s3='<p>Jenis konvergensinya ditentukan oleh deret nilai mutlak \\(\\sum|u_n|=\\sum\\tfrac{1}{n^{q}}\\) — sebuah \\(p\\)-series:</p><div class="math">\\['+(qq>1?'q='+pn(qq)+'&gt;1\\ \\Rightarrow\\ \\text{deret mutlak konvergen}:\\ \\textbf{konvergen MUTLAK}':'q='+pn(qq)+'\\le1\\ \\Rightarrow\\ \\text{deret mutlak divergen}:\\ \\textbf{konvergen KONDISIONAL}')+'\\]</div>';
+  verdict={cls:"conv",txt:(qq>1?"KONVERGEN MUTLAK":"KONVERGEN KONDISIONAL")};
+ }
+ hideEmpty("m4");
+ $("#m4-badge-wrap").innerHTML='<span class="badge-lg '+verdict.cls+'">'+verdict.txt+'</span>';
+ $("#m4-extra").innerHTML=extra;
+ $("#m4-steps").innerHTML=
+  stepBlock("Langkah 1 · Bentuk Deret & Perhitungan Inti",s1)+
+  stepBlock("Langkah 2 · Evaluasi Limit / Syarat Uji",s2)+
+  stepBlock("Langkah 3 · Kesimpulan Formal",s3);
+ typeset($("#m4-result"));
+}
+
+function bindText(id,setter){
+ var el=document.getElementById(id);
+ if(!el){return;}
+ el.addEventListener("input",function(){setter(el.value);save();renderActive();});
+}
+function clampRange(v){
+ var x=num(v);
+ if(!isFinite(x)){return "0.01";}
+ return String(Math.min(1,Math.max(0.0001,x)));
+}
+function restoreInputs(){
+ var map=[
+  ["m1-in-linA",S.m1.linA],["m1-in-linB",S.m1.linB],
+  ["m1-in-quaA",S.m1.quaA],["m1-in-quaB",S.m1.quaB],["m1-in-quaC",S.m1.quaC],
+  ["m1-in-c",S.m1.ptC],["m1-in-eps",String(S.m1.eps)],
+  ["m2-in-a",S.m2.ivA],["m2-in-b",S.m2.ivB],["m2-in-k",S.m2.kSet],
+  ["m3-in-a",S.m3.ma],["m3-in-b",S.m3.mb],["m3-in-c",S.m3.mc],["m3-in-d",S.m3.md],
+  ["m3-in-p",S.m3.pwP],["m3-in-g",S.m3.gcBase],
+  ["m3-in-eps",S.m3.epsRaw],["m3-range-eps",clampRange(S.m3.epsRaw)],
+  ["m4-in-k",S.m4.rk],["m4-in-r",S.m4.rr],["m4-in-rr",S.m4.rootR],["m4-in-p",S.m4.psP],
+  ["m4-in-ga",S.m4.gmA],["m4-in-gr",S.m4.gmR],["m4-in-q",S.m4.lzQ]
+ ];
+ map.forEach(function(pair){
+  var el=document.getElementById(pair[0]);
+  if(el){el.value=pair[1];}
+ });
+ var out1=document.getElementById("m1-eps-out");
+ if(out1){out1.textContent=Number(S.m1.eps).toFixed(2);}
+}
+function switchTab(id){
+ if(!document.getElementById("panel-"+id)){id="m1";}
+ S.tab=id;
+ save();
+ $all(".tab-card").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-tab")===id));});
+ $all(".module").forEach(function(sec){sec.hidden=(sec.id!=="panel-"+id);});
+ renderActive();
+}
+function renderActive(){
+ if(S.tab==="m2"){renderM2();}
+ else if(S.tab==="m3"){renderM3();}
+ else if(S.tab==="m4"){renderM4();}
+ else{renderM1();}
+}
+function wire(){
+ $all(".tab-card").forEach(function(b){b.addEventListener("click",function(){switchTab(b.getAttribute("data-tab"));});});
+ $all("#m1-fn-row .op-card").forEach(function(b){b.addEventListener("click",function(){S.m1.fn=b.getAttribute("data-fn");save();renderActive();});});
+ $all("#m2-preset-row .op-card").forEach(function(b){b.addEventListener("click",function(){S.m2.preset=b.getAttribute("data-preset");save();renderActive();});});
+ $all("#m3-seq-row .op-card").forEach(function(b){b.addEventListener("click",function(){S.m3.seq=b.getAttribute("data-seq");save();renderActive();});});
+ $all("#m4-test-row .op-card").forEach(function(b){b.addEventListener("click",function(){S.m4.test=b.getAttribute("data-test");save();renderActive();});});
+ bindText("m1-in-linA",function(v){S.m1.linA=v;});
+ bindText("m1-in-linB",function(v){S.m1.linB=v;});
+ bindText("m1-in-quaA",function(v){S.m1.quaA=v;});
+ bindText("m1-in-quaB",function(v){S.m1.quaB=v;});
+ bindText("m1-in-quaC",function(v){S.m1.quaC=v;});
+ bindText("m1-in-c",function(v){S.m1.ptC=v;});
+ bindText("m2-in-a",function(v){S.m2.ivA=v;});
+ bindText("m2-in-b",function(v){S.m2.ivB=v;});
+ bindText("m2-in-k",function(v){S.m2.kSet=v;});
+ bindText("m3-in-a",function(v){S.m3.ma=v;});
+ bindText("m3-in-b",function(v){S.m3.mb=v;});
+ bindText("m3-in-c",function(v){S.m3.mc=v;});
+ bindText("m3-in-d",function(v){S.m3.md=v;});
+ bindText("m3-in-p",function(v){S.m3.pwP=v;});
+ bindText("m3-in-g",function(v){S.m3.gcBase=v;});
+ bindText("m4-in-k",function(v){S.m4.rk=v;});
+ bindText("m4-in-r",function(v){S.m4.rr=v;});
+ bindText("m4-in-rr",function(v){S.m4.rootR=v;});
+ bindText("m4-in-p",function(v){S.m4.psP=v;});
+ bindText("m4-in-ga",function(v){S.m4.gmA=v;});
+ bindText("m4-in-gr",function(v){S.m4.gmR=v;});
+ bindText("m4-in-q",function(v){S.m4.lzQ=v;});
+ var e1=document.getElementById("m1-in-eps");
+ if(e1){
+  e1.addEventListener("input",function(){
+   var x=parseFloat(e1.value);
+   if(isFinite(x)){S.m1.eps=x;var o=document.getElementById("m1-eps-out");if(o){o.textContent=x.toFixed(2);}}
+   save();renderActive();
+  });
+ }
+ var en=document.getElementById("m3-in-eps"),er=document.getElementById("m3-range-eps");
+ if(en){
+  en.addEventListener("input",function(){S.m3.epsRaw=en.value;if(er){er.value=clampRange(en.value);}save();renderActive();});
+ }
+ if(er){
+  er.addEventListener("input",function(){S.m3.epsRaw=er.value;if(en){en.value=er.value;}save();renderActive();});
+ }
+ var rz=null;
+ window.addEventListener("resize",function(){
+  if(rz){clearTimeout(rz);}
+  rz=setTimeout(renderActive,160);
+ });
+}
+function handleGoBack(e){
+ if(window.opener&&!window.opener.closed){window.close();return;}
+ if(window.history.length>1&&document.referrer&&document.referrer.indexOf(window.location.host)!==-1){
+  if(e)e.preventDefault();
+  window.history.back();
+ }
+}
+window.handleGoBack=handleGoBack;
+function selfCheck(){
+ try{
+  var anSeq=analyzeSeqValues("seq-n1");
+  console.assert(Math.abs(anSeq.sup-1)<1e-12,"[Self-check] sup{n/(n+1)} harus sama dengan 1");
+  var kp=thresholdPowerSeries(0.01,2);
+  console.assert(kp===11,"[Self-check] K p-series (ε=0.01, p=2) harus 11, diperoleh "+kp);
+  console.assert(rhoRatioTest(0.5,3)===0.5,"[Self-check] ρ uji rasio pada Σ n^k r^n harus |r| = 0.5");
+ }catch(e){}
+}
+function init(){
+ restoreInputs();
+ wire();
+ switchTab(typeof S.tab==="string"?S.tab:"m1");
+ selfCheck();
+ typeset(document.body);
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}else{init();}
 </script>
 </body>
 </html>
