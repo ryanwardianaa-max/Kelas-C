@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Pertemuan 02 — Catatan Kuliah Analisis Real (KP21517004)</title>
+
+  <!-- KaTeX for Equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #1e293b;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --brand: #4338ca;
+      --brand-dark: #312e81;
+      --brand-light: #6366f1;
+      --accent: #6558df;
+      --accent-soft: #f5f3ff;
+      --line: #e2e8f0;
+      --card-bg: #ffffff;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --warning: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 860px;
+      margin: 12px auto 50px;
+      padding: 20px 16px;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--line);
+    }
+
+    @media (min-width: 640px) {
+      .page {
+        margin: 20px auto 60px;
+        padding: 30px 32px;
+      }
+    }
+
+    /* Sticky Navigation Bar */
+    .top-nav {
+      position: sticky;
+      top: 8px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      background: rgba(30, 27, 75, 0.96);
+      backdrop-filter: blur(12px);
+      color: white;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-back-btn:hover {
+      background: #7c70e9;
+      transform: translateX(-2px);
+    }
+
+    .nav-title {
+      font-size: 0.78rem;
+      color: #c7d2fe;
+      font-weight: 500;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    /* Header Banner */
+    header {
+      padding: 20px 18px;
+      background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
+      color: white;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.2);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    header p {
+      margin: 4px 0 12px;
+      color: #c7d2fe !important;
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .meta-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      color: #e0e7ff;
+    }
+
+    @media (min-width: 640px) {
+      header {
+        padding: 26px 28px;
+      }
+      header h1 {
+        font-size: 1.75rem;
+      }
+      .meta-info {
+        grid-template-columns: 1fr 1fr;
+        font-size: 0.85rem;
+      }
+    }
+
+    .meta-info span strong {
+      color: #ffffff;
+    }
+
+    /* Section Headings */
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 12px;
+      color: var(--brand-dark);
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 6px;
+    }
+
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #334155;
+      font-size: 1.02rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+      font-size: 0.92rem;
+      word-break: break-word;
+    }
+
+    ul.styled-list {
+      padding-left: 18px;
+      margin: 8px 0 10px;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    ul.styled-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Cards & Callouts */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      width: 100%;
+    }
+
+    .card.highlight {
+      background: #faf8ff;
+      border-left: 4px solid var(--accent);
+    }
+
+    .card.formula {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .card.example {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid var(--success);
+    }
+
+    .card.notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid var(--warning);
+      font-size: 0.88rem;
+    }
+
+    .formula-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #1e293b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Math Box Container */
+    .math-step-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 10px 8px;
+      border: 1px solid #e2e8f0;
+      margin: 8px 0;
+      text-align: center;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .katex-display {
+      margin: 0.6em 0 !important;
+      font-size: clamp(0.78rem, 3.2vw, 1rem);
+    }
+
+    /* Responsive Table */
+    .table-container {
+      width: 100%;
+      margin: 14px 0;
+    }
+
+    table.resp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    table.resp-table th,
+    table.resp-table td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    table.resp-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      table.resp-table thead {
+        display: none;
+      }
+      table.resp-table,
+      table.resp-table tbody,
+      table.resp-table tr,
+      table.resp-table td {
+        display: block;
+        width: 100%;
+      }
+      table.resp-table tr {
+        margin-bottom: 10px;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      }
+      table.resp-table td {
+        border: none;
+        padding: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 0.82rem;
+        border-bottom: 1px dashed #f1f5f9;
+      }
+      table.resp-table td:last-child {
+        border-bottom: none;
+      }
+      table.resp-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #475569;
+        margin-right: 10px;
+        min-width: 85px;
+        flex-shrink: 0;
+      }
+    }
+
+    /* Analogi Kardus */
+    .box-analogy {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      width: 100%;
+      margin: 12px 0;
+    }
+
+    .box-card {
+      flex: 1 1 240px;
+      min-width: 0;
+      border: 2px dashed var(--brand);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      background: #fdfdff;
+    }
+
+    .box-card .box-label {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--brand-dark);
+    }
+
+    .box-card .box-inner {
+      min-height: 74px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      background: #ffffff;
+    }
+
+    .box-nested {
+      width: 58px;
+      height: 46px;
+      border: 2px dashed var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: #fdfdff;
+    }
+
+    .box-count {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
+    /* Diagram Venn Interaktif */
+    .svg-diagram-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 12px;
+      margin: 16px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .svg-wrapper {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+    }
+
+    .svg-wrapper svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .venn-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .venn-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #ffffff;
+      border: 1px solid transparent;
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1.35;
+      text-align: left;
+      max-width: 100%;
+    }
+
+    .venn-btn:hover {
+      background: #7c70e9;
+      transform: translateY(-1px);
+    }
+
+    .venn-btn.active {
+      background: var(--brand-dark);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
+    }
+
+    .venn-btn.compare-btn {
+      background: #0f766e;
+    }
+
+    .venn-btn.compare-btn:hover {
+      background: #0d9488;
+    }
+
+    .venn-btn.compare-btn.active {
+      background: #134e4a;
+    }
+
+    .venn-btn:focus-visible {
+      outline: 3px solid rgba(67, 56, 202, 0.45);
+      outline-offset: 2px;
+    }
+
+    .venn-caption {
+      margin-top: 12px;
+      width: 100%;
+      max-width: 680px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--brand);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: #334155;
+      text-align: center;
+    }
+
+    .venn-caption.mode-compare {
+      background: #f0fdfa;
+      border-color: #99f6e4;
+      border-left-color: #0f766e;
+    }
+
+    .venn-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .venn-legend .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      color: #475569;
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      display: inline-block;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+
+    .swatch.solid-lhs { background: #4338ca; }
+    .swatch.striped-rhs {
+      background: repeating-linear-gradient(45deg, #6558df 0px, #6558df 4px, rgba(101,88,223,0.25) 4px, rgba(101,88,223,0.25) 8px);
+    }
+
+    /* Region shading states */
+    .venn-region {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    #venn-figure[data-mode="lhs"] #venn-region-lhs,
+    #venn-figure[data-mode="rhs"] #venn-region-rhs,
+    #venn-figure[data-mode="compare"] #venn-region-lhs,
+    #venn-figure[data-mode="compare"] #venn-region-rhs {
+      opacity: 1;
+    }
+
+    #venn-figure .rhs-stripe-fill { display: none; }
+    #venn-figure[data-mode="compare"] .rhs-stripe-fill { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <!-- Sticky Top Navigation -->
+  <nav class="top-nav">
+    <a class="nav-back-btn" href="/" onclick="handleGoBack(event)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Kembali ke KelasKu
+    </a>
+    <div class="nav-title">Analisis Real (Kelas C)</div>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="badge">Pertemuan 02</div>
+    <h1>Teori Himpunan, Notasi Formal &amp; Pembuktian Hukum De Morgan</h1>
+    <p>Catatan Lengkap Perkuliahan &amp; Pembuktian Teorema 1.1.4 dengan Double Inclusion</p>
+
+    <div class="meta-info">
+      <span><strong>Mata Kuliah:</strong> Analisis Real (KP21517004)</span>
+      <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
+      <span><strong>SKS / Kelas:</strong> 2 SKS / Kelas C</span>
+      <span><strong>Jadwal:</strong> Kamis 07.00 - 08.40 @ FKIP K.D.2.4 (Sesi Zoom)</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================================================
+         BAGIAN 1: NOTASI & SIMBOL FORMAL
+         ============================================================ -->
+    <h2>1. Simbol &amp; Notasi Formal dalam Analisis Real</h2>
+    <p>
+      Bahasa matematika dibangun di atas simbol-simbol logika yang presisi. Dalam analisis real,
+      ketepatan membaca dan menulis notasi adalah prasyarat mutlak sebelum menyusun pembuktian.
+      Tabel berikut merangkum notasi kuantor dan simbol fundamental yang dipakai sepanjang semester.
+    </p>
+
+    <div class="table-container">
+      <table class="resp-table">
+        <thead>
+          <tr>
+            <th style="width:14%">Notasi</th>
+            <th style="width:22%">Nama</th>
+            <th style="width:30%">Kaedah Membaca</th>
+            <th style="width:34%">Contoh Pemakaian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(\forall\)</td>
+            <td>Kuantor universal (<em>forall</em>)</td>
+            <td data-label="Kaedah">&ldquo;untuk setiap&rdquo; / &ldquo;untuk semua&rdquo;</td>
+            <td data-label="Contoh">\(\forall x \in \mathbb{R},\ x^2 \geq 0\)</td>
+          </tr>
+          <tr>
+            <td>\(\exists\)</td>
+            <td>Kuantor eksistensial (<em>exists</em>)</td>
+            <td data-label="Kaedah">&ldquo;ada&rdquo; / &ldquo;terdapat sekurang-kurangnya satu&rdquo;</td>
+            <td data-label="Contoh">\(\exists x \in \mathbb{R}\) sehingga \(x^2 = 4\)</td>
+          </tr>
+          <tr>
+            <td>\(\exists!\)</td>
+            <td>Kuantor keunikan</td>
+            <td data-label="Kaedah">&ldquo;ada tepat satu&rdquo;</td>
+            <td data-label="Contoh">\(\exists!\ x \in \mathbb{R}\) dengan \(x + 0 = x\)</td>
+          </tr>
+          <tr>
+            <td>\(:=\)</td>
+            <td>Sama dengan definisi</td>
+            <td data-label="Kaedah">&ldquo;didefinisikan sebagai&rdquo;</td>
+            <td data-label="Contoh">\(A \setminus B := \{x \mid x \in A,\ x \notin B\}\)</td>
+          </tr>
+          <tr>
+            <td>\(\setminus\)</td>
+            <td>Selisih himpunan</td>
+            <td data-label="Kaedah">&ldquo;A dikurangi B&rdquo;</td>
+            <td data-label="Contoh">\(\mathbb{R} \setminus \mathbb{Q}\) = bilangan irasional</td>
+          </tr>
+          <tr>
+            <td>\(\emptyset\)</td>
+            <td>Himpunan kosong (<em>emptyset</em>)</td>
+            <td data-label="Kaedah">Himpunan tanpa anggota sama sekali</td>
+            <td data-label="Contoh">\(\{x \in \mathbb{R} \mid x \neq x\} = \emptyset\)</td>
+          </tr>
+          <tr>
+            <td>\(\epsilon\)</td>
+            <td>Epsilon</td>
+            <td data-label="Kaedah">Bilangan real positif sekecil apa pun, \(\epsilon &gt; 0\)</td>
+            <td data-label="Contoh">\(\forall \epsilon &gt; 0\ \exists n:\ |a_n - a| &lt; \epsilon\)</td>
+          </tr>
+          <tr>
+            <td>\(\delta\)</td>
+            <td>Delta</td>
+            <td data-label="Kaedah">Jari-jari tetanggaan di sekitar titik</td>
+            <td data-label="Contoh">\(|x - c| &lt; \delta \Rightarrow |f(x)-L| &lt; \epsilon\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card notice">
+      <div class="formula-title">Catatan Penting</div>
+      <p style="margin-bottom:0;">
+        Urutan kuantor sangat menentukan makna: \(\forall \epsilon\ \exists \delta\) tidak sama dengan
+        \(\exists \delta\ \forall \epsilon\). Pada pola pertama \(\delta\) boleh bergantung pada \(\epsilon\);
+        pada pola kedua satu \(\delta\) harus melayani semua \(\epsilon\) sekaligus.
+      </p>
+    </div>
+
+    <!-- ============================================================
+         BAGIAN 2: OPERASI HIMPUNAN
+         ============================================================ -->
+    <h2>2. Operasi Himpunan: Irisan, Gabungan, dan Selisih</h2>
+    <p>
+      Misalkan \(A\) dan \(B\) adalah himpunan-himpunan bagian dari semesta \(U\).
+      Ketiga operasi dasar berikut didefinisikan secara formal menggunakan notasi pembentuk himpunan
+      (<em>set-builder notation</em>).
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Definisi Irisan</div>
+      <div class="math-step-box">
+        $$A \cap B := \{\, x \in U \mid x \in A \ \wedge\ x \in B \,\}$$
+      </div>
+      <p style="margin-bottom:0;">
+        \(x\) menjadi anggota irisan jika dan hanya jika \(x\) terletak di <strong>A dan B sekaligus</strong>.
+      </p>
+    </div>
+
+    <div class="card formula">
+      <div class="formula-title">Definisi Gabungan</div>
+      <div class="math-step-box">
+        $$A \cup B := \{\, x \in U \mid x \in A \ \vee\ x \in B \,\}$$
+      </div>
+      <p style="margin-bottom:0;">
+        \(x\) menjadi anggota gabungan jika \(x\) terletak di <strong>A atau B</strong> (atau keduanya),
+        karena kata &ldquo;atau&rdquo; di sini bersifat inklusif.
+      </p>
+    </div>
+
+    <div class="card formula">
+      <div class="formula-title">Definisi Selisih</div>
+      <div class="math-step-box">
+        $$A \setminus B := \{\, x \in U \mid x \in A \ \wedge\ x \notin B \,\}$$
+      </div>
+      <p style="margin-bottom:0;">
+        Selisih menghapus dari \(A\) semua anggota yang juga milik \(B\). Perhatikan identitas penting:
+        \(A \setminus B = A \cap B^{c}\), sehingga selisih sesungguhnya adalah irisan terselubung.
+      </p>
+    </div>
+
+    <!-- ============================================================
+         BAGIAN 3: HIMPUNAN KOSONG
+         ============================================================ -->
+    <h2>3. Himpunan Kosong: \(\emptyset\) vs \(\{\emptyset\}\)</h2>
+
+    <div class="card highlight">
+      <div class="formula-title">Definisi Formal</div>
+      <div class="math-step-box">
+        $$\emptyset := \{\, x \in \mathbb{R} \mid x \neq x \,\}$$
+      </div>
+      <p style="margin-bottom:0;">
+        Tidak ada bilangan real yang tidak sama dengan dirinya sendiri (kesamaan bersifat refleksif),
+        sehingga himpunan ini tidak memiliki anggota. Sifat ekstensionalitas menjamin bahwa himpunan kosong
+        <strong>tunggal</strong>: hanya ada satu \(\emptyset\).
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Sifat Vacuously True: \(\emptyset \subseteq A\) untuk Setiap \(A\)</div>
+      <div class="math-step-box">
+        $$\emptyset \subseteq A \iff \forall x\, \bigl( x \in \emptyset \Rightarrow x \in A \bigr)$$
+      </div>
+      <p>
+        Anteseden \(x \in \emptyset\) selalu <strong>salah</strong>, maka implikasinya otomatis bernilai
+        benar tanpa perlu memeriksa konsekuen &mdash; inilah <em>vacuously true</em> (benar secara vakui).
+        Karena tidak ada counterexample yang bisa ditawarkan, klaim \(\emptyset \subseteq A\) tak terbantahkan.
+      </p>
+    </div>
+
+    <div class="card notice">
+      <div class="formula-title">Perbedaan Kritis: \(|\emptyset| = 0\) tetapi \(|\{\emptyset\}| = 1\)</div>
+      <p>
+        \(\emptyset\) adalah kardus tanpa isi; \(\{\emptyset\}\) adalah kardus yang berisi
+        <strong>satu barang</strong> &mdash; meskipun barang itu sendiri sebuah kardus kosong.
+        Keduanya bukan himpunan yang sama!
+      </p>
+
+      <div class="box-analogy">
+        <div class="box-card">
+          <div class="box-label">\(\emptyset\) &mdash; kardus kosong</div>
+          <div class="box-inner">(tidak ada isi)</div>
+          <div class="box-count">Banyak anggota: \(|\emptyset| = 0\)</div>
+        </div>
+        <div class="box-card">
+          <div class="box-label">\(\{\emptyset\}\) &mdash; kardus berisi kardus</div>
+          <div class="box-inner"><span class="box-nested">∅</span></div>
+          <div class="box-count">Banyak anggota: \(|\{\emptyset\}| = 1\)</div>
+        </div>
+      </div>
+
+      <p style="margin-bottom:0;">
+        Kesalahan klasik mahasiswa adalah menjawab \(\emptyset \in \emptyset\). Itu salah:
+        yang benar \(\emptyset \in \{\emptyset\}\), sedangkan \(\emptyset \subseteq \emptyset\) benar
+        sebagai konsekuensi sifat vakui di atas.
+      </p>
+    </div>
+
+    <!-- ============================================================
+         BAGIAN 4: TEOREMA 1.1.4 DE MORGAN
+         ============================================================ -->
+    <h2>4. Teorema 1.1.4 (De Morgan untuk Selisih Himpunan)</h2>
+
+    <div class="card highlight">
+      <div class="formula-title">Pernyataan Teorema</div>
+      <p style="font-size:0.92rem;">
+        Untuk setiap himpunan \(A\), \(B\), dan \(C\) (semesta \(U\)):
+      </p>
+      <div class="math-step-box">
+        $$A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C)$$
+      </div>
+      <p style="margin-bottom:0;">
+        Dalam bentuk notasi pembentuk himpunan standar, kedua ruas ekuivalen dengan:
+      </p>
+      <div class="math-step-box">
+        $$\{\, x \in U \mid x \in A \ \wedge\ \neg(x \in B \vee x \in C) \,\} = \{\, x \in U \mid (x \in A \wedge x \notin B) \ \wedge\ (x \in A \wedge x \notin C) \,\}$$
+      </div>
+    </div>
+
+    <h3>Strategi: Double Inclusion (Inklusi Ganda)</h3>
+    <p>
+      Kita tunjukkan dua inklusi secara terpisah:
+      \(A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C)\) dan
+      \((A \setminus B) \cap (A \setminus C) \subseteq A \setminus (B \cup C)\).
+      Karena setiap langkah di bawah berupa biimplikasi \((\iff)\), rantai tersebut dapat dibaca dua arah.
+    </p>
+
+    <div class="card">
+      <div class="formula-title">Langkah 1 &mdash; Buktikan \(A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C)\)</div>
+      <p>
+        Ambil sembarang \(x\) sehingga \(x \in A \setminus (B \cup C)\). Tinjau rantai ekuivalensi berikut:
+      </p>
+      <div class="math-step-box">
+        $$
+        \begin{aligned}
+          x \in A \setminus (B \cup C)
+            &amp;\iff x \in A \ \wedge\ x \notin (B \cup C)\\[2pt]
+            &amp;\iff x \in A \ \wedge\ \neg\,(x \in B \ \vee\ x \in C)\\[2pt]
+            &amp;\iff x \in A \ \wedge\ \bigl(\neg(x \in B) \ \wedge\ \neg(x \in C)\bigr)\\[2pt]
+            &amp;\iff x \in A \ \wedge\ x \notin B \ \wedge\ x \notin C\\[2pt]
+            &amp;\iff \bigl(x \in A \ \wedge\ x \notin B\bigr) \ \wedge\ \bigl(x \in A \ \wedge\ x \notin C\bigr)\\[2pt]
+            &amp;\iff x \in (A \setminus B) \ \wedge\ x \in (A \setminus C)\\[2pt]
+            &amp;\iff x \in (A \setminus B) \cap (A \setminus C).
+        \end{aligned}
+        $$
+      </div>
+      <p style="margin-bottom:0;">
+        Baris ketiga memakai hukum De Morgan logika proposisional
+        \(\neg(p \vee q) \iff \neg p \wedge \neg q\).
+        Karena \(x\) sembarang, terbukti
+        \(A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C)\).
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="formula-title">Langkah 2 &mdash; Buktikan \((A \setminus B) \cap (A \setminus C) \subseteq A \setminus (B \cup C)\)</div>
+      <p>
+        Ambil sembarang \(y\) sehingga \(y \in (A \setminus B) \cap (A \setminus C)\). Bacalah rantai
+        Langkah 1 dari bawah ke atas &mdash; setiap tanda \(\iff\) membolehkan pembacaan mundur:
+      </p>
+      <div class="math-step-box">
+        $$
+        \begin{aligned}
+          y \in (A \setminus B) \cap (A \setminus C)
+            &amp;\iff y \in (A \setminus B) \ \wedge\ y \in (A \setminus C)\\[2pt]
+            &amp;\iff \bigl(y \in A \ \wedge\ y \notin B\bigr) \ \wedge\ \bigl(y \in A \ \wedge\ y \notin C\bigr)\\[2pt]
+            &amp;\iff y \in A \ \wedge\ y \notin B \ \wedge\ y \notin C\\[2pt]
+            &amp;\iff y \in A \ \wedge\ \neg\,(y \in B \ \vee\ y \in C)\\[2pt]
+            &amp;\iff y \in A \ \wedge\ y \notin (B \cup C)\\[2pt]
+            &amp;\iff y \in A \setminus (B \cup C).
+        \end{aligned}
+        $$
+      </div>
+      <p style="margin-bottom:0;">
+        Karena \(y\) sembarang, terbukti
+        \((A \setminus B) \cap (A \setminus C) \subseteq A \setminus (B \cup C)\).
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Kesimpulan</div>
+      <p>
+        Kedua inklusi ganda telah terpenuhi, maka berdasarkan sifat antisimetri subset,
+        kedua himpunan saling berisi dan karenanya identik:
+      </p>
+      <div class="math-step-box">
+        $$A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C). \qquad \blacksquare$$
+      </div>
+      <p style="margin-bottom:0;">
+        Intuisinya: mengeluarkan gabungan sekaligus sama saja dengan mengeluarkan masing-masing lalu
+        mencari potongan bersamanya &mdash; versi himpunan dari &ldquo;TIDAK (ini ATAU itu) = TIDAK ini DAN TIDAK itu&rdquo;.
+      </p>
+    </div>
+
+    <h3>Visualisasi Interaktif: Diagram Venn 3 Himpunan</h3>
+    <p>
+      Klik tombol-tombol berikut untuk mengarsir kedua ruas identitas De Morgan.
+      Tombol <strong>Bandingkan</strong> menampilkan kedua arsiran sekaligus &mdash;
+      amati bahwa keduanya menutupi wilayah yang sama persis.
+    </p>
+
+    <figure class="svg-diagram-card" id="venn-figure" data-mode="none" aria-label="Diagram Venn interaktif tiga himpunan A, B, dan C untuk memvisualisasikan hukum De Morgan">
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="venn-desc">
+          <title id="venn-desc">Diagram Venn tiga lingkaran A, B, C dengan arsiran wilayah A di luar gabungan B dan C</title>
+          <defs>
+            <clipPath id="venn-clip-A">
+              <circle cx="245" cy="175" r="128"></circle>
+            </clipPath>
+            <mask id="venn-mask-notB" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="480">
+              <rect x="0" y="0" width="640" height="480" fill="#ffffff"></rect>
+              <circle cx="395" cy="175" r="128" fill="#000000"></circle>
+            </mask>
+            <mask id="venn-mask-notC" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="480">
+              <rect x="0" y="0" width="640" height="480" fill="#ffffff"></rect>
+              <circle cx="320" cy="295" r="128" fill="#000000"></circle>
+            </mask>
+            <mask id="venn-mask-a-minus-buc" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="480">
+              <rect x="0" y="0" width="640" height="480" fill="#000000"></rect>
+              <circle cx="245" cy="175" r="128" fill="#ffffff"></circle>
+              <circle cx="395" cy="175" r="128" fill="#000000"></circle>
+              <circle cx="320" cy="295" r="128" fill="#000000"></circle>
+            </mask>
+            <pattern id="venn-stripes" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+              <rect width="12" height="12" fill="#6558df" opacity="0.95"></rect>
+              <rect width="6" height="12" fill="rgba(255,255,255,0.55)"></rect>
+            </pattern>
+          </defs>
+
+          <!-- Semesta U -->
+          <rect x="8" y="8" width="624" height="464" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+          <text x="30" y="42" font-size="20" font-style="italic" font-weight="700" fill="#94a3b8">U</text>
+
+          <!-- Isi lingkaran tipis (latar) -->
+          <circle cx="245" cy="175" r="128" fill="#eef2ff"></circle>
+          <circle cx="395" cy="175" r="128" fill="#eef2ff"></circle>
+          <circle cx="320" cy="295" r="128" fill="#eef2ff"></circle>
+
+          <!-- Wilayah LHS: A \ (B ∪ C) -->
+          <g id="venn-region-lhs" class="venn-region">
+            <rect x="0" y="0" width="640" height="480" fill="#4338ca" mask="url(#venn-mask-a-minus-buc)"></rect>
+          </g>
+
+          <!-- Wilayah RHS: (A \ B) ∩ (A \ C) -->
+          <g id="venn-region-rhs" class="venn-region">
+            <g clip-path="url(#venn-clip-A)">
+              <g mask="url(#venn-mask-notB)">
+                <g mask="url(#venn-mask-notC)">
+                  <rect x="0" y="0" width="640" height="480" fill="#6558df"></rect>
+                  <rect x="0" y="0" width="640" height="480" fill="url(#venn-stripes)" class="rhs-stripe-fill"></rect>
+                </g>
+              </g>
+            </g>
+          </g>
+
+          <!-- Garis tepi lingkaran -->
+          <circle cx="245" cy="175" r="128" fill="none" stroke="#4338ca" stroke-width="3"></circle>
+          <circle cx="395" cy="175" r="128" fill="none" stroke="#6558df" stroke-width="3"></circle>
+          <circle cx="320" cy="295" r="128" fill="none" stroke="#312e81" stroke-width="3"></circle>
+
+          <!-- Label huruf -->
+          <text x="150" y="112" font-size="30" font-weight="800" fill="#312e81" paint-order="stroke" stroke="#ffffff" stroke-width="6">A</text>
+          <text x="468" y="112" font-size="30" font-weight="800" fill="#312e81" paint-order="stroke" stroke="#ffffff" stroke-width="6">B</text>
+          <text x="308" y="420" font-size="30" font-weight="800" fill="#312e81" paint-order="stroke" stroke="#ffffff" stroke-width="6">C</text>
+        </svg>
+      </div>
+
+      <div class="venn-controls" role="group" aria-label="Kontrol arsiran diagram Venn">
+        <button type="button" class="venn-btn" id="venn-btn-lhs" aria-pressed="false" onclick="setVennMode('lhs')">
+          Arsir \(A \setminus (B \cup C)\)
+        </button>
+        <button type="button" class="venn-btn" id="venn-btn-rhs" aria-pressed="false" onclick="setVennMode('rhs')">
+          Arsir \((A \setminus B) \cap (A \setminus C)\)
+        </button>
+        <button type="button" class="venn-btn compare-btn" id="venn-btn-compare" aria-pressed="false" onclick="setVennMode('compare')">
+          Bandingkan Keduanya
+        </button>
+      </div>
+
+      <div class="venn-legend" aria-hidden="true">
+        <span class="chip"><span class="swatch solid-lhs"></span>\(A \setminus (B \cup C)\)</span>
+        <span class="chip"><span class="swatch striped-rhs"></span>\((A \setminus B) \cap (A \setminus C)\)</span>
+      </div>
+
+      <div class="venn-caption mode-none" id="venn-caption" aria-live="polite">
+        Belum ada wilayah yang diarsir. Silakan klik salah satu tombol arsiran atau tombol Bandingkan.
+      </div>
+
+      <figcaption class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+        Kedua wilayah hasil arsiran selalu identik karena hukum De Morgan untuk selisih himpunan.
+      </figcaption>
+    </figure>
+
+    <script>
+      function setVennMode(mode) {
+        var fig = document.getElementById('venn-figure');
+        if (!fig) return;
+        var validModes = ['lhs', 'rhs', 'compare'];
+        if (validModes.indexOf(mode) === -1) return;
+        var current = fig.getAttribute('data-mode') || 'none';
+        var next = (current === mode) ? 'none' : mode;
+        fig.setAttribute('data-mode', next);
+
+        var btnIds = { lhs: 'venn-btn-lhs', rhs: 'venn-btn-rhs', compare: 'venn-btn-compare' };
+        validModes.forEach(function (m) {
+          var btn = document.getElementById(btnIds[m]);
+          if (!btn) return;
+          var isActive = (m === next);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          btn.classList.toggle('active', isActive);
+        });
+
+        var messages = {
+          none: 'Belum ada wilayah yang diarsir. Silakan klik salah satu tombol arsiran atau tombol Bandingkan.',
+          lhs: 'Diarsir: \\(A \\setminus (B \\cup C)\\) — dihitung dengan satu operasi besar: ambil seluruh A, lalu kurangi gabungan B dan C sekaligus.',
+          rhs: 'Diarsir: \\((A \\setminus B) \\cap (A \\setminus C)\\) — dihitung bertahap: keluarkan B dari A, keluarkan C dari A, kemudian iriskan kedua hasilnya.',
+          compare: 'Kedua arsiran ditampilkan sekaligus: pola garis menutupi persis di atas area dasar tanpa sisa maupun celah. Terbukti secara visual bahwa \\(A \\setminus (B \\cup C)\\) dan \\((A \\setminus B) \\cap (A \\setminus C)\\) adalah wilayah yang IDENTIK.'
+        };
+
+        var caption = document.getElementById('venn-caption');
+        if (caption) {
+          caption.className = 'venn-caption mode-' + next;
+          caption.textContent = messages[next];
+          if (window.renderMathInElement) {
+            renderMathInElement(caption, {
+              delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '\\[', right: '\\]', display: true },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '$', right: '$', display: false }
+              ],
+              throwOnError: false
+            });
+          }
+        }
+      }
+    </script>
+  </main>
+</div>
+
+<script>
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) {
+      if (e) e.preventDefault();
+      window.close();
+      return;
+    }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault();
+      window.history.back();
+      return;
+    }
+    // Otherwise fallback naturally to href="/"
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>

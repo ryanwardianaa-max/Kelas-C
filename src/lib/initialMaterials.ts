@@ -45,6 +45,17 @@ export const INITIAL_MATERIALS: Material[] = [
     url: "/tools/kalkulator-integral-kompleks/index.html",
     createdAt: "2026-08-24T10:05:00.000Z",
   },
+  {
+    id: "mat-analisis-real-pertemuan-02",
+    title: "Catatan Kuliah: Landasan Teori Himpunan & Pembuktian Teorema De Morgan",
+    courseCode: "KP21517004",
+    meetingNo: 2,
+    type: "Catatan",
+    description:
+      "Catatan komprehensif kuliah Analisis Real bersama Ibu Linda Herawati, S.Pd., M.Pd. Mencakup notasi kuantor formal, operasi himpunan (irisan, gabungan, selisih), himpunan kosong ({ } vs {∅}), dan pembuktian formal Teorema 1.1.4 De Morgan dilengkapi Diagram Venn interaktif.",
+    url: "/materi/KP21517004/pertemuan-02/index.html",
+    createdAt: "2026-08-24T15:30:00.000Z",
+  },
 ];
 
 

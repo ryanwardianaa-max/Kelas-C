@@ -178,4 +178,22 @@ export const INITIAL_METNUM_REFERENCES: ReferenceItem[] = [
     ],
     createdAt: "2026-08-16T00:08:00.000Z",
   },
+  {
+    id: "ref-real-bartle-sherbert",
+    title: "Introduction to Real Analysis (4th Edition) — Robert G. Bartle & Donald R. Sherbert",
+    courseCode: "KP21517004",
+    meetingNo: 2,
+    category: "E-Book",
+    urlOrPath: "https://www.google.com/search?q=Introduction+to+Real+Analysis+Bartle+Sherbert",
+    description:
+      "Buku teks rujukan utama perkuliahan Analisis Real (John Wiley & Sons). Memuat bab pendahuluan teori himpunan, pembuktian induksi matematika, sifat aljabar & kelengkapan bilangan real, barisan & deret, hingga konsep limit (ε-δ).",
+    tags: [
+      "Buku Utama",
+      "Bartle & Sherbert",
+      "Analisis Real",
+      "Teori Himpunan",
+      "Pembuktian Formal",
+    ],
+    createdAt: "2026-08-24T15:30:00.000Z",
+  },
 ];
