@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Pertemuan 03 — Catatan Kuliah Analisis Kompleks (KP21517003)</title>
   
   <!-- KaTeX for Equations -->
@@ -19,9 +19,9 @@
       --brand-dark: #312e81;
       --brand-light: #6366f1;
       --accent: #6558df;
-      --accent-soft: #f3f0ff;
+      --accent-soft: #f5f3ff;
       --line: #e2e8f0;
-      --card-bg: #fdfdfd;
+      --card-bg: #ffffff;
       --text-muted: #64748b;
       --success: #10b981;
       --warning: #d97706;
@@ -33,56 +33,59 @@
       padding: 0;
     }
 
-    body {
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
       background: var(--bg);
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.8;
-      padding-bottom: 70px;
+      line-height: 1.7;
     }
 
     .page {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 32px 36px;
+      width: 100%;
+      max-width: 880px;
+      margin: 16px auto 50px;
+      padding: 24px 20px;
       background: var(--paper);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
       border: 1px solid var(--line);
     }
 
-    /* Sticky Navigation Bar */
+    /* Sticky Top Navigation Bar */
     .top-nav {
       position: sticky;
-      top: 12px;
+      top: 10px;
       z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 18px;
+      padding: 10px 14px;
       background: rgba(30, 27, 75, 0.96);
       backdrop-filter: blur(12px);
       color: white;
-      border-radius: 14px;
-      margin-bottom: 24px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .nav-back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: var(--accent);
       color: white;
       border: none;
-      padding: 8px 18px;
-      border-radius: 10px;
+      padding: 7px 14px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .nav-back-btn:hover {
@@ -91,87 +94,102 @@
     }
 
     .nav-title {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #c7d2fe;
       font-weight: 500;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: 8px;
     }
 
     /* Header Banner */
     header {
-      padding: 28px 30px;
+      padding: 22px 20px;
       background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
       color: white;
-      border-radius: 16px;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 20px rgba(67, 56, 202, 0.22);
+      border-radius: 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.2);
     }
 
     .badge {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 4px 10px;
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      font-size: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     header h1 {
-      font-size: 1.85rem;
+      font-size: 1.5rem;
       font-weight: 800;
       line-height: 1.3;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .meta-info {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px 16px;
-      margin-top: 14px;
-      padding-top: 14px;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #e0e7ff;
+    }
+
+    @media (min-width: 640px) {
+      .meta-info {
+        grid-template-columns: 1fr 1fr;
+      }
+      header h1 {
+        font-size: 1.75rem;
+      }
     }
 
     .meta-info span strong {
       color: #ffffff;
     }
 
-    /* Typography & Sections */
+    /* Typography & Section Titles */
     h2 {
-      margin-top: 40px;
-      margin-bottom: 16px;
+      margin-top: 32px;
+      margin-bottom: 14px;
       color: var(--brand-dark);
-      font-size: 1.38rem;
+      font-size: 1.25rem;
       font-weight: 700;
       border-bottom: 2px solid var(--accent-soft);
-      padding-bottom: 8px;
+      padding-bottom: 6px;
     }
 
     h3 {
-      margin-top: 26px;
-      margin-bottom: 12px;
+      margin-top: 22px;
+      margin-bottom: 10px;
       color: #334155;
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 600;
     }
 
     p {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       color: #334155;
+      font-size: 0.95rem;
     }
 
     /* Concept & Formula Cards */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 22px 24px;
-      margin: 20px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 16px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .card.highlight {
@@ -195,132 +213,242 @@
       background: #fffbeb;
       border: 1px solid #fde68a;
       border-left: 4px solid var(--warning);
-      font-size: 0.94rem;
+      font-size: 0.9rem;
     }
 
     .formula-title {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: #1e293b;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* KaTeX Display Spacing Enhancement */
-    .katex-display {
-      margin: 1.4em 0 !important;
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 8px 0;
-    }
-
+    /* Math Step Box - Responsive & Centered */
     .math-step-box {
       background: #ffffff;
       border-radius: 10px;
-      padding: 16px 18px;
+      padding: 12px 14px;
       border: 1px solid #e2e8f0;
-      margin: 12px 0;
-      overflow-x: auto;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .katex-display {
+      margin: 0.8em 0 !important;
+      font-size: clamp(0.85rem, 3.2vw, 1.05rem);
     }
 
     /* =========================================================
-       NATIVE CSS TREE HIERARCHY (NO EXTERNAL JS DEPENDENCY)
+       100% RESPONSIVE VERTICAL TREE HIERARCHY (NO OVERFLOW)
        ========================================================= */
-    .tree-container {
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 24px 16px;
-      margin: 22px 0;
-      overflow-x: auto;
-    }
-
-    .tree-branch {
+    .hierarchy-container {
+      margin: 16px 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      min-width: 580px;
-    }
-
-    .tree-card {
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.92rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      border: 2px solid;
-      background: white;
-    }
-
-    .tree-card.root {
-      background: #4f46e5;
-      color: white;
-      border-color: #3730a3;
-      font-size: 1.05rem;
-      padding: 12px 24px;
-    }
-
-    .tree-card.level-1 {
-      background: #f5f3ff;
-      color: #5b21b6;
-      border-color: #8b5cf6;
-    }
-
-    .tree-card.level-2 {
-      background: #eff6ff;
-      color: #1e40af;
-      border-color: #60a5fa;
-    }
-
-    .tree-card.level-3 {
-      background: #f0fdf4;
-      color: #166534;
-      border-color: #4ade80;
-    }
-
-    .tree-card.level-4 {
-      background: #fffbeb;
-      color: #92400e;
-      border-color: #fcd34d;
-    }
-
-    .tree-line-v {
-      width: 2px;
-      height: 20px;
-      background: #94a3b8;
-    }
-
-    .tree-row {
-      display: flex;
-      justify-content: space-around;
+      gap: 12px;
       width: 100%;
-      position: relative;
-      margin-top: 4px;
     }
 
-    .tree-col {
+    /* Root Node */
+    .h-root {
+      background: linear-gradient(135deg, #4f46e5, #3730a3);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .h-root-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .h-root-desc {
+      font-size: 0.85rem;
+      color: #e0e7ff;
+      margin-top: 2px;
+    }
+
+    /* Branch Container */
+    .h-branches {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      flex: 1;
-      padding: 0 6px;
+      gap: 12px;
+      width: 100%;
+      padding-left: 8px;
+      border-left: 3px solid #cbd5e1;
+      margin-left: 8px;
     }
 
-    .tree-connect-bar {
-      height: 2px;
-      background: #94a3b8;
-      width: 50%;
-      margin: 0 auto;
+    /* Branch Card */
+    .h-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
-    /* Image Gallery & Original Notes */
+    .h-card.real-branch {
+      border-left: 4px solid #3b82f6;
+    }
+
+    .h-card.imag-branch {
+      border-left: 4px solid #8b5cf6;
+      background: #faf5ff;
+    }
+
+    .h-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+    .h-tag.blue { background: #dbeafe; color: #1e40af; }
+    .h-tag.purple { background: #ede9fe; color: #5b21b6; }
+    .h-tag.green { background: #dcfce7; color: #166534; }
+    .h-tag.amber { background: #fef3c7; color: #92400e; }
+
+    .h-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+    .h-desc {
+      font-size: 0.85rem;
+      color: #475569;
+      margin-top: 3px;
+    }
+
+    /* Sub-branches within Real */
+    .h-subgroup {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 2px dashed #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .h-subitem {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    /* Leaves grid */
+    .h-leaves {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    @media (min-width: 480px) {
+      .h-leaves {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .h-leaf {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+    }
+    .h-leaf strong {
+      display: block;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+    .h-leaf span {
+      color: #64748b;
+    }
+
+    /* =========================================================
+       RESPONSIVE TABLE (CARD ON MOBILE, TABLE ON DESKTOP)
+       ========================================================= */
+    .table-container {
+      width: 100%;
+      margin: 14px 0;
+    }
+
+    table.resp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.resp-table th, 
+    table.resp-table td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    table.resp-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      table.resp-table thead {
+        display: none;
+      }
+      table.resp-table, 
+      table.resp-table tbody, 
+      table.resp-table tr, 
+      table.resp-table td {
+        display: block;
+        width: 100%;
+      }
+      table.resp-table tr {
+        margin-bottom: 12px;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      }
+      table.resp-table td {
+        border: none;
+        padding: 6px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 0.85rem;
+        border-bottom: 1px dashed #f1f5f9;
+      }
+      table.resp-table td:last-child {
+        border-bottom: none;
+      }
+      table.resp-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #475569;
+        margin-right: 12px;
+        min-width: 90px;
+        flex-shrink: 0;
+      }
+    }
+
+    /* Photo Gallery */
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 18px;
-      margin-top: 18px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (min-width: 640px) {
+      .photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .photo-card {
@@ -328,71 +456,29 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .photo-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
     .photo-card img {
       width: 100%;
-      height: 380px;
+      height: 320px;
       object-fit: cover;
       display: block;
-      cursor: pointer;
+    }
+    @media (min-width: 640px) {
+      .photo-card img {
+        height: 360px;
+      }
     }
 
     .photo-caption {
-      padding: 12px;
-      font-size: 0.82rem;
+      padding: 10px;
+      font-size: 0.8rem;
       color: #475569;
       background: white;
       border-top: 1px solid var(--line);
       text-align: center;
       font-weight: 600;
-    }
-
-    /* Table Styles */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 18px 0;
-      font-size: 0.92rem;
-    }
-
-    th, td {
-      border: 1px solid var(--line);
-      padding: 12px 14px;
-      text-align: left;
-    }
-
-    th {
-      background: #f1f5f9;
-      color: #1e293b;
-      font-weight: 600;
-    }
-
-    tr:nth-child(even) {
-      background: #f8fafc;
-    }
-
-    @media (max-width: 768px) {
-      .page {
-        padding: 20px 14px;
-        margin: 8px 4px;
-      }
-      header {
-        padding: 20px 16px;
-      }
-      header h1 {
-        font-size: 1.4rem;
-      }
-      .photo-card img {
-        height: 280px;
-      }
     }
   </style>
 </head>
@@ -402,7 +488,7 @@
   <!-- Sticky Top Navigation -->
   <nav class="top-nav">
     <a class="nav-back-btn" href="/" onclick="handleGoBack(event)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
@@ -440,161 +526,159 @@
       <p style="margin-top: 10px; margin-bottom: 0;">
         dimana:
       </p>
-      <ul style="padding-left: 20px; margin-top: 6px;">
+      <ul style="padding-left: 18px; margin-top: 6px; font-size: 0.92rem;">
         <li>\(a = \text{Re}(z) \in \mathbb{R}\) adalah <strong>Bagian Real</strong> (*Real part*).</li>
         <li>\(b = \text{Im}(z) \in \mathbb{R}\) adalah <strong>Bagian Imajiner</strong> (*Imaginary part*).</li>
-        <li>\(i\) adalah <strong>Satuan Imajiner</strong> (*imaginary unit*) dengan sifat fundamental:
-          <span style="color: var(--brand); font-weight: bold; margin-left: 6px;">
+        <li>\(i\) adalah <strong>Satuan Imajiner</strong> (*imaginary unit*):
+          <span style="color: var(--brand); font-weight: bold; margin-left: 4px;">
             \(i = \sqrt{-1} \iff i^2 = -1\)
           </span>
         </li>
       </ul>
     </div>
 
-    <!-- Section 2: Hirarki Bilangan -->
+    <!-- Section 2: Hirarki Bilangan (100% Mobile Responsive Flow) -->
     <h2>2. Struktur & Hirarki Sistem Bilangan</h2>
     <p>
-      Berikut adalah bagan hierarki klasifikasi sistem bilangan sesuai lembar catatan perkuliahan (Lembar 1):
+      Bagan pohon hierarki klasifikasi sistem bilangan sesuai lembar catatan perkuliahan (Lembar 1):
     </p>
 
-    <!-- Native Responsive CSS Tree Structure -->
-    <div class="tree-container">
-      <div class="tree-branch">
-        <!-- Root -->
-        <div class="tree-card root">Bilangan Kompleks (\(z = a + bi\))</div>
-        <div class="tree-line-v"></div>
-        <div class="tree-connect-bar" style="width: 50%;"></div>
+    <div class="hierarchy-container">
+      <!-- Root Node -->
+      <div class="h-root">
+        <div class="h-root-title">Bilangan Kompleks (\(\mathbb{C}\))</div>
+        <div class="h-root-desc">Bentuk Umum: \(z = a + bi\) dengan \(a, b \in \mathbb{R}\) dan \(i = \sqrt{-1}\)</div>
+      </div>
+
+      <!-- Main Branches -->
+      <div class="h-branches">
         
-        <!-- Level 1: Real vs Imaginer -->
-        <div class="tree-row">
-          <div class="tree-col">
-            <div class="tree-line-v"></div>
-            <div class="tree-card level-1">Bilangan Real (\(b = 0\))</div>
-            <div class="tree-line-v"></div>
-            <div class="tree-connect-bar" style="width: 60%;"></div>
+        <!-- Branch 1: Real -->
+        <div class="h-card real-branch">
+          <span class="h-tag blue">Cabang 1</span>
+          <div class="h-title">Bilangan Real (\(\mathbb{R}\))</div>
+          <div class="h-desc">Syarat: Bagian imajiner bernilai nol (\(b = 0 \implies z = a\))</div>
+
+          <!-- Subgroups under Real -->
+          <div class="h-subgroup">
             
-            <!-- Level 2: Irasional vs Rasional -->
-            <div class="tree-row">
-              <div class="tree-col">
-                <div class="tree-line-v"></div>
-                <div class="tree-card level-2">Irasional<br><small style="font-size:0.75rem; color:#475569;">(\(\sqrt{2}, \pi, e\))</small></div>
-              </div>
-              <div class="tree-col">
-                <div class="tree-line-v"></div>
-                <div class="tree-card level-2">Rasional<br><small style="font-size:0.75rem; color:#475569;">(\(\frac{p}{q}, q \neq 0\))</small></div>
-                <div class="tree-line-v"></div>
-                <div class="tree-connect-bar" style="width: 60%;"></div>
+            <!-- 1.1 Irasional -->
+            <div class="h-subitem">
+              <span class="h-tag amber">1.1 Irasional</span>
+              <div class="h-title" style="font-size:0.9rem;">Bilangan Irasional (\(\mathbb{R} \setminus \mathbb{Q}\))</div>
+              <div class="h-desc">Tidak dapat dibentuk \(\frac{p}{q}\). Desimal tak terhingga & tak berulang. Contoh: \(\sqrt{2}, \sqrt{3}, \pi, e\).</div>
+            </div>
 
-                <!-- Level 3: Pecahan vs Bulat -->
-                <div class="tree-row">
-                  <div class="tree-col">
-                    <div class="tree-line-v"></div>
-                    <div class="tree-card level-3">Pecahan</div>
-                  </div>
-                  <div class="tree-col">
-                    <div class="tree-line-v"></div>
-                    <div class="tree-card level-3">Bilangan Bulat (\(\mathbb{Z}\))</div>
-                    <div class="tree-line-v"></div>
-                    <div class="tree-connect-bar" style="width: 60%;"></div>
+            <!-- 1.2 Rasional -->
+            <div class="h-subitem">
+              <span class="h-tag green">1.2 Rasional</span>
+              <div class="h-title" style="font-size:0.9rem;">Bilangan Rasional (\(\mathbb{Q}\))</div>
+              <div class="h-desc">Dapat dinyatakan dalam bentuk pecahan \(\frac{p}{q}\) (\(q \neq 0, p,q \in \mathbb{Z}\)).</div>
 
-                    <!-- Level 4: Bulat Negatif vs Cacah -->
-                    <div class="tree-row">
-                      <div class="tree-col">
-                        <div class="tree-line-v"></div>
-                        <div class="tree-card level-4">Bulat Negatif<br><small style="font-size:0.75rem;">(\(-1, -2, \dots\))</small></div>
-                      </div>
-                      <div class="tree-col">
-                        <div class="tree-line-v"></div>
-                        <div class="tree-card level-4">Cacah<br><small style="font-size:0.75rem;">(\(0, 1, 2, \dots\))</small></div>
-                        <div class="tree-line-v"></div>
-                        <div class="tree-connect-bar" style="width: 60%;"></div>
+              <!-- Nested under Rasional -->
+              <div class="h-subgroup">
+                <!-- Pecahan -->
+                <div class="h-leaf">
+                  <strong>Pecahan Murni & Campuran</strong>
+                  <span>Desimal terbatas / berulang (misal: \(\frac{1}{2}, \frac{3}{4}, -\frac{2}{5}, 0{,}333\dots\))</span>
+                </div>
 
-                        <!-- Level 5: Bulat Positif vs Nol -->
-                        <div class="tree-row">
-                          <div class="tree-col">
-                            <div class="tree-line-v"></div>
-                            <div class="tree-card" style="background:#f1f5f9; border-color:#94a3b8; font-size:0.82rem;">Bulat Positif (\(\mathbb{N}\))<br><small>(\(1, 2, 3, \dots\))</small></div>
-                          </div>
-                          <div class="tree-col">
-                            <div class="tree-line-v"></div>
-                            <div class="tree-card" style="background:#f1f5f9; border-color:#94a3b8; font-size:0.82rem;">Nol<br><small>(\(0\))</small></div>
-                          </div>
-                        </div>
+                <!-- Bilangan Bulat -->
+                <div class="h-subitem" style="background: white;">
+                  <span class="h-tag blue">Bilangan Bulat (\(\mathbb{Z}\))</span>
+                  <div class="h-desc">Himpunan: \(\{\dots, -2, -1, 0, 1, 2, \dots\}\)</div>
 
+                  <!-- Bulat Negatif vs Cacah -->
+                  <div class="h-leaves">
+                    <div class="h-leaf">
+                      <strong style="color:#92400e;">Bulat Negatif</strong>
+                      <span>\(\{-1, -2, -3, \dots\}\)</span>
+                    </div>
+                    <div class="h-leaf">
+                      <strong style="color:#166534;">Bilangan Cacah</strong>
+                      <span>\(\{0, 1, 2, 3, \dots\}\)</span>
+                      <div style="margin-top:4px; font-size:0.78rem; color:#475569;">
+                        • <strong>Nol:</strong> \(\{0\}\)<br>
+                        • <strong>Bulat Positif / Asli (\(\mathbb{N}\)):</strong> \(\{1, 2, 3, \dots\}\)
                       </div>
                     </div>
-
                   </div>
                 </div>
 
               </div>
             </div>
-          </div>
 
-          <div class="tree-col" style="flex: 0.5;">
-            <div class="tree-line-v"></div>
-            <div class="tree-card level-1">Bilangan Imajiner (\(b \neq 0\))<br><small style="font-size:0.75rem; color:#475569;">(misal: \(2i, 3+4i\))</small></div>
           </div>
         </div>
+
+        <!-- Branch 2: Imajiner -->
+        <div class="h-card imag-branch">
+          <span class="h-tag purple">Cabang 2</span>
+          <div class="h-title">Bilangan Imajiner (\(\mathbb{I}\))</div>
+          <div class="h-desc">Syarat: Bagian imajiner tidak bernilai nol (\(b \neq 0\)). Contoh: \(2i, -3i, 4+2i\).</div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Tabel Rangkuman Klasifikasi -->
+    <!-- Tabel Rangkuman Klasifikasi Bilangan (Responsive) -->
     <h3>Tabel Rangkuman Klasifikasi Bilangan</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Himpunan Bilangan</th>
-          <th>Notasi</th>
-          <th>Syarat & Bentuk Aljabar</th>
-          <th>Contoh</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Bilangan Kompleks</strong></td>
-          <td>\(\mathbb{C}\)</td>
-          <td>\(z = a + bi\) dengan \(a, b \in \mathbb{R}\) dan \(i = \sqrt{-1}\)</td>
-          <td>\(4 - 3i, 2 + i, 5, 2i\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Real</strong></td>
-          <td>\(\mathbb{R}\)</td>
-          <td>Bagian imajiner nol (\(b = 0 \implies z = a\))</td>
-          <td>\(-5, 0, \frac{3}{4}, \sqrt{2}, \pi\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Imajiner</strong></td>
-          <td>\(\mathbb{I}\)</td>
-          <td>Bagian imajiner tidak nol (\(b \neq 0\))</td>
-          <td>\(2i, -3i, 4+2i\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Rasional</strong></td>
-          <td>\(\mathbb{Q}\)</td>
-          <td>Dapat dinyatakan dalam bentuk pecahan \(\frac{p}{q}\) (\(q \neq 0, p, q \in \mathbb{Z}\))</td>
-          <td>\(\frac{1}{2}, -\frac{3}{5}, 4, 0{,}333\dots\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Irasional</strong></td>
-          <td>\(\mathbb{R} \setminus \mathbb{Q}\)</td>
-          <td>Tidak dapat dibentuk \(\frac{p}{q}\) (desimal tak terhingga tak berulang)</td>
-          <td>\(\sqrt{2}, \sqrt{3}, \pi, e\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Bulat</strong></td>
-          <td>\(\mathbb{Z}\)</td>
-          <td>Himpunan bilangan bulat negatif, nol, dan positif</td>
-          <td>\(\{\dots, -2, -1, 0, 1, 2, \dots\}\)</td>
-        </tr>
-        <tr>
-          <td><strong>Bilangan Asli (Positif)</strong></td>
-          <td>\(\mathbb{N}\)</td>
-          <td>Bilangan bulat mulai dari satu ke atas</td>
-          <td>\(\{1, 2, 3, 4, \dots\}\)</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table class="resp-table">
+        <thead>
+          <tr>
+            <th>Himpunan Bilangan</th>
+            <th>Notasi</th>
+            <th>Syarat & Bentuk</th>
+            <th>Contoh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Kompleks</strong></td>
+            <td data-label="Notasi">\(\mathbb{C}\)</td>
+            <td data-label="Syarat">\(z = a + bi\) (\(a, b \in \mathbb{R}, i = \sqrt{-1}\))</td>
+            <td data-label="Contoh">\(4 - 3i, 2 + i, 5, 2i\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Real</strong></td>
+            <td data-label="Notasi">\(\mathbb{R}\)</td>
+            <td data-label="Syarat">\(b = 0 \implies z = a\)</td>
+            <td data-label="Contoh">\(-5, 0, \frac{3}{4}, \sqrt{2}, \pi\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Imajiner</strong></td>
+            <td data-label="Notasi">\(\mathbb{I}\)</td>
+            <td data-label="Syarat">\(b \neq 0\)</td>
+            <td data-label="Contoh">\(2i, -3i, 4+2i\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Rasional</strong></td>
+            <td data-label="Notasi">\(\mathbb{Q}\)</td>
+            <td data-label="Syarat">\(\frac{p}{q}\) (\(q \neq 0, p, q \in \mathbb{Z}\))</td>
+            <td data-label="Contoh">\(\frac{1}{2}, -\frac{3}{5}, 4, 0{,}333\dots\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Irasional</strong></td>
+            <td data-label="Notasi">\(\mathbb{R} \setminus \mathbb{Q}\)</td>
+            <td data-label="Syarat">Desimal tak berhingga tak berulang</td>
+            <td data-label="Contoh">\(\sqrt{2}, \sqrt{3}, \pi, e\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Bulat</strong></td>
+            <td data-label="Notasi">\(\mathbb{Z}\)</td>
+            <td data-label="Syarat">\(\{\dots, -2, -1, 0, 1, 2, \dots\}\)</td>
+            <td data-label="Contoh">\(-3, 0, 7\)</td>
+          </tr>
+          <tr>
+            <td data-label="Himpunan"><strong>Bilangan Asli</strong></td>
+            <td data-label="Notasi">\(\mathbb{N}\)</td>
+            <td data-label="Syarat">Bulat positif \(\{1, 2, 3, \dots\}\)</td>
+            <td data-label="Contoh">\(1, 2, 3, \dots\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Section 3: Operasi Aljabar -->
     <h2>3. Operasi Aljabar pada Bilangan Kompleks</h2>
@@ -690,43 +774,45 @@
 
     <div class="card">
       <div class="formula-title">Tabel Contoh Konjugat Sesuai Catatan:</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Bilangan Kompleks (\(z\))</th>
-            <th>Konjugat Sekawan (\(\bar{z}\))</th>
-            <th>Keterangan Analisis</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>\(z = 2\)</td>
-            <td>\(\bar{z} = 2\)</td>
-            <td>Bilangan real murni (\(b = 0\)), nilai konjugat tetap sama.</td>
-          </tr>
-          <tr>
-            <td>\(z = -i\)</td>
-            <td>\(\bar{z} = i\)</td>
-            <td>Imajiner murni (\(a = 0, b = -1\)), tanda berbalik menjadi positif.</td>
-          </tr>
-          <tr>
-            <td>\(z = i\)</td>
-            <td>\(\bar{z} = -i\)</td>
-            <td>Imajiner murni (\(a = 0, b = 1\)), tanda berbalik menjadi negatif.</td>
-          </tr>
-          <tr>
-            <td>\(z = 2 - 3i\)</td>
-            <td>\(\bar{z} = 2 + 3i\)</td>
-            <td>Bagian imajiner \(-3i\) dinegasikan menjadi \(+3i\).</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="resp-table">
+          <thead>
+            <tr>
+              <th>Bilangan Kompleks (\(z\))</th>
+              <th>Konjugat Sekawan (\(\bar{z}\))</th>
+              <th>Keterangan Analisis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Bilangan (z)">\(z = 2\)</td>
+              <td data-label="Sekawan (z̄)">\(\bar{z} = 2\)</td>
+              <td data-label="Keterangan">Real murni (\(b = 0\)), nilai konjugat tetap sama.</td>
+            </tr>
+            <tr>
+              <td data-label="Bilangan (z)">\(z = -i\)</td>
+              <td data-label="Sekawan (z̄)">\(\bar{z} = i\)</td>
+              <td data-label="Keterangan">Imajiner murni (\(b = -1\)), tanda berbalik positif.</td>
+            </tr>
+            <tr>
+              <td data-label="Bilangan (z)">\(z = i\)</td>
+              <td data-label="Sekawan (z̄)">\(\bar{z} = -i\)</td>
+              <td data-label="Keterangan">Imajiner murni (\(b = 1\)), tanda berbalik negatif.</td>
+            </tr>
+            <tr>
+              <td data-label="Bilangan (z)">\(z = 2 - 3i\)</td>
+              <td data-label="Sekawan (z̄)">\(\bar{z} = 2 + 3i\)</td>
+              <td data-label="Keterangan">Bagian imajiner \(-3i\) dinegasikan menjadi \(+3i\).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="card notice">
       <strong>Sifat Fundamental Perkalian Konjugat:</strong><br>
       Perkalian sebuah bilangan kompleks dengan sekawannya selalu menghasilkan bilangan real tak-negatif:
-      <div class="math-step-box" style="margin-top: 10px;">
+      <div class="math-step-box" style="margin-top: 8px;">
         $$z \cdot \bar{z} = (a + bi)(a - bi) = a^2 - b^2(i^2) = a^2 + b^2 = |z|^2$$
       </div>
     </div>
@@ -754,7 +840,6 @@
       <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan Langkah demi Langkah (Sesuai Catatan Kuliah):</div>
       <p>Diketahui \(z_1 = 2 + 3i\) dan \(z_2 = 2 - i\). Hitunglah \(\frac{z_1}{z_2}\)!</p>
       
-      <!-- Spaced out aligned steps to avoid vertical cramped fractions -->
       <div class="math-step-box">
         $$\begin{aligned}
         \frac{z_1}{z_2} &= \frac{2 + 3i}{2 - i} \\[14pt]
