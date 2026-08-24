@@ -10,12 +10,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-  <!-- Mermaid.js for Diagrams -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-  </script>
-
   <style>
     :root {
       --ink: #1e293b;
@@ -25,12 +19,12 @@
       --brand-dark: #312e81;
       --brand-light: #6366f1;
       --accent: #6558df;
-      --accent-soft: #ede9fe;
+      --accent-soft: #f3f0ff;
       --line: #e2e8f0;
       --card-bg: #fdfdfd;
       --text-muted: #64748b;
       --success: #10b981;
-      --warning: #f59e0b;
+      --warning: #d97706;
     }
 
     * {
@@ -43,14 +37,14 @@
       background: var(--bg);
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.75;
-      padding-bottom: 60px;
+      line-height: 1.8;
+      padding-bottom: 70px;
     }
 
     .page {
       max-width: 900px;
-      margin: 24px auto;
-      padding: 36px 40px;
+      margin: 20px auto;
+      padding: 32px 36px;
       background: var(--paper);
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
@@ -60,13 +54,13 @@
     /* Sticky Navigation Bar */
     .top-nav {
       position: sticky;
-      top: 14px;
+      top: 12px;
       z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px 18px;
-      background: rgba(30, 27, 75, 0.95);
+      background: rgba(30, 27, 75, 0.96);
       backdrop-filter: blur(12px);
       color: white;
       border-radius: 14px;
@@ -104,12 +98,12 @@
 
     /* Header Banner */
     header {
-      padding: 30px 32px;
+      padding: 28px 30px;
       background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
       color: white;
       border-radius: 16px;
       margin-bottom: 28px;
-      box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+      box-shadow: 0 8px 20px rgba(67, 56, 202, 0.22);
     }
 
     .badge {
@@ -128,7 +122,7 @@
       font-size: 1.85rem;
       font-weight: 800;
       line-height: 1.3;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .meta-info {
@@ -151,18 +145,15 @@
       margin-top: 40px;
       margin-bottom: 16px;
       color: var(--brand-dark);
-      font-size: 1.4rem;
+      font-size: 1.38rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       border-bottom: 2px solid var(--accent-soft);
       padding-bottom: 8px;
     }
 
     h3 {
-      margin-top: 24px;
-      margin-bottom: 10px;
+      margin-top: 26px;
+      margin-bottom: 12px;
       color: #334155;
       font-size: 1.15rem;
       font-weight: 600;
@@ -178,13 +169,13 @@
       background: var(--card-bg);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 20px 24px;
-      margin: 18px 0;
+      padding: 22px 24px;
+      margin: 20px 0;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     .card.highlight {
-      background: #faf5ff;
+      background: #faf8ff;
       border-left: 4px solid var(--accent);
     }
 
@@ -204,41 +195,131 @@
       background: #fffbeb;
       border: 1px solid #fde68a;
       border-left: 4px solid var(--warning);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
 
     .formula-title {
       font-weight: 700;
       font-size: 0.95rem;
       color: #1e293b;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .math-display {
-      margin: 12px 0;
-      text-align: center;
+    /* KaTeX Display Spacing Enhancement */
+    .katex-display {
+      margin: 1.4em 0 !important;
       overflow-x: auto;
-      padding: 6px 0;
+      overflow-y: hidden;
+      padding: 8px 0;
     }
 
-    /* Diagram Container */
-    .mermaid-box {
+    .math-step-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border: 1px solid #e2e8f0;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    /* =========================================================
+       NATIVE CSS TREE HIERARCHY (NO EXTERNAL JS DEPENDENCY)
+       ========================================================= */
+    .tree-container {
       background: #ffffff;
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 20px;
-      margin: 20px 0;
+      padding: 24px 16px;
+      margin: 22px 0;
+      overflow-x: auto;
+    }
+
+    .tree-branch {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      min-width: 580px;
+    }
+
+    .tree-card {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 2px solid;
+      background: white;
+    }
+
+    .tree-card.root {
+      background: #4f46e5;
+      color: white;
+      border-color: #3730a3;
+      font-size: 1.05rem;
+      padding: 12px 24px;
+    }
+
+    .tree-card.level-1 {
+      background: #f5f3ff;
+      color: #5b21b6;
+      border-color: #8b5cf6;
+    }
+
+    .tree-card.level-2 {
+      background: #eff6ff;
+      color: #1e40af;
+      border-color: #60a5fa;
+    }
+
+    .tree-card.level-3 {
+      background: #f0fdf4;
+      color: #166534;
+      border-color: #4ade80;
+    }
+
+    .tree-card.level-4 {
+      background: #fffbeb;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    .tree-line-v {
+      width: 2px;
+      height: 20px;
+      background: #94a3b8;
+    }
+
+    .tree-row {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .tree-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      padding: 0 6px;
+    }
+
+    .tree-connect-bar {
+      height: 2px;
+      background: #94a3b8;
+      width: 50%;
+      margin: 0 auto;
     }
 
     /* Image Gallery & Original Notes */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
+      gap: 18px;
       margin-top: 18px;
     }
 
@@ -271,7 +352,7 @@
       background: white;
       border-top: 1px solid var(--line);
       text-align: center;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* Table Styles */
@@ -284,7 +365,7 @@
 
     th, td {
       border: 1px solid var(--line);
-      padding: 10px 14px;
+      padding: 12px 14px;
       text-align: left;
     }
 
@@ -298,26 +379,16 @@
       background: #f8fafc;
     }
 
-    /* Steps list */
-    ol.step-list {
-      padding-left: 20px;
-      margin: 12px 0;
-    }
-
-    ol.step-list li {
-      margin-bottom: 8px;
-    }
-
     @media (max-width: 768px) {
       .page {
-        padding: 20px 16px;
-        margin: 10px 8px;
+        padding: 20px 14px;
+        margin: 8px 4px;
       }
       header {
-        padding: 20px;
+        padding: 20px 16px;
       }
       header h1 {
-        font-size: 1.45rem;
+        font-size: 1.4rem;
       }
       .photo-card img {
         height: 280px;
@@ -330,13 +401,13 @@
 <div class="page">
   <!-- Sticky Top Navigation -->
   <nav class="top-nav">
-    <button class="nav-back-btn" onclick="handleGoBack()">
+    <a class="nav-back-btn" href="/" onclick="handleGoBack(event)">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
       Kembali ke KelasKu
-    </button>
+    </a>
     <div class="nav-title">Analisis Kompleks (Kelas C)</div>
   </nav>
 
@@ -344,7 +415,7 @@
   <header>
     <div class="badge">Pertemuan 03</div>
     <h1>Pengantar Sistem Bilangan Kompleks & Operasi Aljabar</h1>
-    <p>Catatan Lengkap Perkuliahan & Analisis Matematis</p>
+    <p>Catatan Lengkap Perkuliahan & Analisis Pendidikan Matematika</p>
     
     <div class="meta-info">
       <span><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003)</span>
@@ -358,21 +429,21 @@
     <!-- Section 1: Definisi -->
     <h2>1. Definisi Bilangan Kompleks</h2>
     <p>
-      Bilangan kompleks merupakan perluasan dari himpunan bilangan real yang memungkinkan penyelesaian persamaan kuadrat dengan diskriminan negatif (misalnya \(x^2 + 1 = 0\)).
+      Bilangan kompleks merupakan himpunan bilangan terbesar (\(\mathbb{C}\)) yang dibentuk untuk memperluas himpunan bilangan real (\(\mathbb{R}\)) sehingga persamaan polinomial seperti \(x^2 + 1 = 0\) memiliki solusi.
     </p>
 
     <div class="card highlight">
       <div class="formula-title">Bentuk Standar Bilangan Kompleks</div>
-      <div class="math-display">
+      <div class="math-step-box">
         $$z = a + bi$$
       </div>
       <p style="margin-top: 10px; margin-bottom: 0;">
         dimana:
       </p>
       <ul style="padding-left: 20px; margin-top: 6px;">
-        <li>\(a = \text{Re}(z) \in \mathbb{R}\) adalah <strong>Bagian Real</strong>.</li>
-        <li>\(b = \text{Im}(z) \in \mathbb{R}\) adalah <strong>Bagian Imajiner</strong>.</li>
-        <li>\(i\) adalah <strong>Satuan Imajiner (*imaginary unit*)</strong> dengan definisi dasar:
+        <li>\(a = \text{Re}(z) \in \mathbb{R}\) adalah <strong>Bagian Real</strong> (*Real part*).</li>
+        <li>\(b = \text{Im}(z) \in \mathbb{R}\) adalah <strong>Bagian Imajiner</strong> (*Imaginary part*).</li>
+        <li>\(i\) adalah <strong>Satuan Imajiner</strong> (*imaginary unit*) dengan sifat fundamental:
           <span style="color: var(--brand); font-weight: bold; margin-left: 6px;">
             \(i = \sqrt{-1} \iff i^2 = -1\)
           </span>
@@ -383,34 +454,152 @@
     <!-- Section 2: Hirarki Bilangan -->
     <h2>2. Struktur & Hirarki Sistem Bilangan</h2>
     <p>
-      Sistem bilangan kompleks berada pada puncak hierarki bilangan yang memayungi seluruh jenis bilangan lainnya:
+      Berikut adalah bagan hierarki klasifikasi sistem bilangan sesuai lembar catatan perkuliahan (Lembar 1):
     </p>
 
-    <div class="mermaid-box">
-      <div class="mermaid">
-        graph TD
-          BK["Bilangan Kompleks (z = a + bi)"]
-          BK --> Real["Bilangan Real (b = 0)"]
-          BK --> Imaginer["Bilangan Imajiner (b ≠ 0)"]
-          
-          Real --> Irasional["Bilangan Irasional (e.g., √2, π)"]
-          Real --> Rasional["Bilangan Rasional (p/q, q ≠ 0)"]
-          
-          Rasional --> Pecahan["Pecahan"]
-          Rasional --> Bulat["Bilangan Bulat (Z)"]
-          
-          Bulat --> BulatNeg["Bulat Negatif (..., -2, -1)"]
-          Bulat --> Cacah["Bilangan Cacah (0, 1, 2, ...)"]
-          
-          Cacah --> Nol["Nol (0)"]
-          Cacah --> BulatPos["Bulat Positif / Asli (1, 2, ...)"]
+    <!-- Native Responsive CSS Tree Structure -->
+    <div class="tree-container">
+      <div class="tree-branch">
+        <!-- Root -->
+        <div class="tree-card root">Bilangan Kompleks (\(z = a + bi\))</div>
+        <div class="tree-line-v"></div>
+        <div class="tree-connect-bar" style="width: 50%;"></div>
+        
+        <!-- Level 1: Real vs Imaginer -->
+        <div class="tree-row">
+          <div class="tree-col">
+            <div class="tree-line-v"></div>
+            <div class="tree-card level-1">Bilangan Real (\(b = 0\))</div>
+            <div class="tree-line-v"></div>
+            <div class="tree-connect-bar" style="width: 60%;"></div>
+            
+            <!-- Level 2: Irasional vs Rasional -->
+            <div class="tree-row">
+              <div class="tree-col">
+                <div class="tree-line-v"></div>
+                <div class="tree-card level-2">Irasional<br><small style="font-size:0.75rem; color:#475569;">(\(\sqrt{2}, \pi, e\))</small></div>
+              </div>
+              <div class="tree-col">
+                <div class="tree-line-v"></div>
+                <div class="tree-card level-2">Rasional<br><small style="font-size:0.75rem; color:#475569;">(\(\frac{p}{q}, q \neq 0\))</small></div>
+                <div class="tree-line-v"></div>
+                <div class="tree-connect-bar" style="width: 60%;"></div>
+
+                <!-- Level 3: Pecahan vs Bulat -->
+                <div class="tree-row">
+                  <div class="tree-col">
+                    <div class="tree-line-v"></div>
+                    <div class="tree-card level-3">Pecahan</div>
+                  </div>
+                  <div class="tree-col">
+                    <div class="tree-line-v"></div>
+                    <div class="tree-card level-3">Bilangan Bulat (\(\mathbb{Z}\))</div>
+                    <div class="tree-line-v"></div>
+                    <div class="tree-connect-bar" style="width: 60%;"></div>
+
+                    <!-- Level 4: Bulat Negatif vs Cacah -->
+                    <div class="tree-row">
+                      <div class="tree-col">
+                        <div class="tree-line-v"></div>
+                        <div class="tree-card level-4">Bulat Negatif<br><small style="font-size:0.75rem;">(\(-1, -2, \dots\))</small></div>
+                      </div>
+                      <div class="tree-col">
+                        <div class="tree-line-v"></div>
+                        <div class="tree-card level-4">Cacah<br><small style="font-size:0.75rem;">(\(0, 1, 2, \dots\))</small></div>
+                        <div class="tree-line-v"></div>
+                        <div class="tree-connect-bar" style="width: 60%;"></div>
+
+                        <!-- Level 5: Bulat Positif vs Nol -->
+                        <div class="tree-row">
+                          <div class="tree-col">
+                            <div class="tree-line-v"></div>
+                            <div class="tree-card" style="background:#f1f5f9; border-color:#94a3b8; font-size:0.82rem;">Bulat Positif (\(\mathbb{N}\))<br><small>(\(1, 2, 3, \dots\))</small></div>
+                          </div>
+                          <div class="tree-col">
+                            <div class="tree-line-v"></div>
+                            <div class="tree-card" style="background:#f1f5f9; border-color:#94a3b8; font-size:0.82rem;">Nol<br><small>(\(0\))</small></div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="tree-col" style="flex: 0.5;">
+            <div class="tree-line-v"></div>
+            <div class="tree-card level-1">Bilangan Imajiner (\(b \neq 0\))<br><small style="font-size:0.75rem; color:#475569;">(misal: \(2i, 3+4i\))</small></div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Tabel Rangkuman Klasifikasi -->
+    <h3>Tabel Rangkuman Klasifikasi Bilangan</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Himpunan Bilangan</th>
+          <th>Notasi</th>
+          <th>Syarat & Bentuk Aljabar</th>
+          <th>Contoh</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Bilangan Kompleks</strong></td>
+          <td>\(\mathbb{C}\)</td>
+          <td>\(z = a + bi\) dengan \(a, b \in \mathbb{R}\) dan \(i = \sqrt{-1}\)</td>
+          <td>\(4 - 3i, 2 + i, 5, 2i\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Real</strong></td>
+          <td>\(\mathbb{R}\)</td>
+          <td>Bagian imajiner nol (\(b = 0 \implies z = a\))</td>
+          <td>\(-5, 0, \frac{3}{4}, \sqrt{2}, \pi\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Imajiner</strong></td>
+          <td>\(\mathbb{I}\)</td>
+          <td>Bagian imajiner tidak nol (\(b \neq 0\))</td>
+          <td>\(2i, -3i, 4+2i\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Rasional</strong></td>
+          <td>\(\mathbb{Q}\)</td>
+          <td>Dapat dinyatakan dalam bentuk pecahan \(\frac{p}{q}\) (\(q \neq 0, p, q \in \mathbb{Z}\))</td>
+          <td>\(\frac{1}{2}, -\frac{3}{5}, 4, 0{,}333\dots\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Irasional</strong></td>
+          <td>\(\mathbb{R} \setminus \mathbb{Q}\)</td>
+          <td>Tidak dapat dibentuk \(\frac{p}{q}\) (desimal tak terhingga tak berulang)</td>
+          <td>\(\sqrt{2}, \sqrt{3}, \pi, e\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Bulat</strong></td>
+          <td>\(\mathbb{Z}\)</td>
+          <td>Himpunan bilangan bulat negatif, nol, dan positif</td>
+          <td>\(\{\dots, -2, -1, 0, 1, 2, \dots\}\)</td>
+        </tr>
+        <tr>
+          <td><strong>Bilangan Asli (Positif)</strong></td>
+          <td>\(\mathbb{N}\)</td>
+          <td>Bilangan bulat mulai dari satu ke atas</td>
+          <td>\(\{1, 2, 3, 4, \dots\}\)</td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- Section 3: Operasi Aljabar -->
     <h2>3. Operasi Aljabar pada Bilangan Kompleks</h2>
     <p>
-      Diberikan dua buah bilangan kompleks dalam bentuk aljabar:
+      Misalkan diberikan dua bilangan kompleks:
       \[ z_1 = a + bi \quad \text{dan} \quad z_2 = c + di \]
     </p>
 
@@ -418,21 +607,18 @@
     <h3>A. Penjumlahan Bilangan Kompleks</h3>
     <div class="card formula">
       <div class="formula-title">Rumus Penjumlahan</div>
-      <div class="math-display">
+      <div class="math-step-box">
         $$z_1 + z_2 = (a + bi) + (c + di) = (a + c) + (b + d)i$$
       </div>
-      <p style="font-size: 0.9rem; color: #475569; margin: 0;">
-        <em>Prinsip: Jumlahkan bagian real dengan bagian real, dan bagian imajiner dengan bagian imajiner.</em>
-      </p>
     </div>
 
     <div class="card example">
       <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan (Sesuai Catatan Kuliah):</div>
       <p>Diketahui \(z_1 = 4 - 3i\) dan \(z_2 = 6 + 2i\). Tentukan \(z_1 + z_2\)!</p>
-      <div class="math-display">
+      <div class="math-step-box">
         $$\begin{aligned}
-        z_1 + z_2 &= (4 - 3i) + (6 + 2i) \\
-        &= (4 + 6) + (-3 + 2)i \\
+        z_1 + z_2 &= (4 - 3i) + (6 + 2i) \\[10pt]
+        &= (4 + 6) + (-3 + 2)i \\[10pt]
         &= \mathbf{10 - i}
         \end{aligned}$$
       </div>
@@ -442,7 +628,7 @@
     <h3>B. Pengurangan Bilangan Kompleks</h3>
     <div class="card formula">
       <div class="formula-title">Rumus Pengurangan</div>
-      <div class="math-display">
+      <div class="math-step-box">
         $$z_1 - z_2 = (a + bi) - (c + di) = (a - c) + (b - d)i$$
       </div>
     </div>
@@ -450,10 +636,10 @@
     <div class="card example">
       <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan (Sesuai Catatan Kuliah):</div>
       <p>Diketahui \(z_1 = 4 - 3i\) dan \(z_2 = 6 + 2i\). Tentukan \(z_1 - z_2\)!</p>
-      <div class="math-display">
+      <div class="math-step-box">
         $$\begin{aligned}
-        z_1 - z_2 &= (4 - 3i) - (6 + 2i) \\
-        &= (4 - 6) + (-3 - 2)i \\
+        z_1 - z_2 &= (4 - 3i) - (6 + 2i) \\[10pt]
+        &= (4 - 6) + (-3 - 2)i \\[10pt]
         &= \mathbf{-2 - 5i}
         \end{aligned}$$
       </div>
@@ -463,11 +649,11 @@
     <h3>C. Perkalian Bilangan Kompleks</h3>
     <div class="card formula">
       <div class="formula-title">Rumus Perkalian</div>
-      <div class="math-display">
+      <div class="math-step-box">
         $$\begin{aligned}
-        z_1 \cdot z_2 &= (a + bi)(c + di) \\
-        &= ac + adi + bci + bd(i^2) \\
-        &= ac + (ad + bc)i + bd(-1) \\
+        z_1 \cdot z_2 &= (a + bi)(c + di) \\[10pt]
+        &= ac + adi + bci + bd(i^2) \\[10pt]
+        &= ac + (ad + bc)i + bd(-1) \\[10pt]
         &= \mathbf{(ac - bd) + (ad + bc)i}
         \end{aligned}$$
       </div>
@@ -476,14 +662,14 @@
     <div class="card example">
       <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan (Sesuai Catatan Kuliah):</div>
       <p>Diketahui \(z_1 = 4 - 3i\) dan \(z_2 = 6 + 2i\). Tentukan \(z_1 \cdot z_2\)!</p>
-      <div class="math-display">
+      <div class="math-step-box">
         $$\begin{aligned}
-        z_1 \cdot z_2 &= (4 - 3i)(6 + 2i) \\
-        &= 4(6) + 4(2i) - 3i(6) - 3i(2i) \\
-        &= 24 + 8i - 18i - 6(i^2) \\
-        &= 24 - 10i - 6(-1) \\
-        &= 24 - 10i + 6 \\
-        &= (24 + 6) + (-10)i \\
+        z_1 \cdot z_2 &= (4 - 3i)(6 + 2i) \\[10pt]
+        &= 4(6) + 4(2i) - 3i(6) - 3i(2i) \\[10pt]
+        &= 24 + 8i - 18i - 6(i^2) \\[10pt]
+        &= 24 - 10i - 6(-1) \\[10pt]
+        &= 24 - 10i + 6 \\[10pt]
+        &= (24 + 6) + (-10)i \\[10pt]
         &= \mathbf{30 - 10i}
         \end{aligned}$$
       </div>
@@ -492,46 +678,46 @@
     <!-- Section 4: Sekawan -->
     <h2>4. Bilangan Kompleks Sekawan (Konjugat)</h2>
     <p>
-      Konjugat kompleks dari bilangan \(z = a + bi\) dinotasikan dengan \(\bar{z}\) (*z bar*), yang diperoleh dengan mengubah tanda pada komponen imajinernya:
+      Konjugat kompleks dari bilangan \(z = a + bi\) dinotasikan dengan \(\bar{z}\) (*z bar*), yang diperoleh dengan menegasikan bagian imajinernya:
     </p>
 
     <div class="card highlight">
       <div class="formula-title">Definisi Konjugat</div>
-      <div class="math-display">
+      <div class="math-step-box">
         $$\overline{z} = \overline{a + bi} = a - bi$$
       </div>
     </div>
 
     <div class="card">
-      <div class="formula-title">Contoh Konjugat dari Catatan:</div>
+      <div class="formula-title">Tabel Contoh Konjugat Sesuai Catatan:</div>
       <table>
         <thead>
           <tr>
             <th>Bilangan Kompleks (\(z\))</th>
             <th>Konjugat Sekawan (\(\bar{z}\))</th>
-            <th>Keterangan</th>
+            <th>Keterangan Analisis</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>\(z = 2\)</td>
             <td>\(\bar{z} = 2\)</td>
-            <td>Bilangan real murni (\(b=0\)), konjugatnya bernilai tetap.</td>
+            <td>Bilangan real murni (\(b = 0\)), nilai konjugat tetap sama.</td>
           </tr>
           <tr>
             <td>\(z = -i\)</td>
             <td>\(\bar{z} = i\)</td>
-            <td>Imajiner murni, tanda berbalik.</td>
+            <td>Imajiner murni (\(a = 0, b = -1\)), tanda berbalik menjadi positif.</td>
           </tr>
           <tr>
             <td>\(z = i\)</td>
             <td>\(\bar{z} = -i\)</td>
-            <td>Imajiner murni, tanda berbalik.</td>
+            <td>Imajiner murni (\(a = 0, b = 1\)), tanda berbalik menjadi negatif.</td>
           </tr>
           <tr>
             <td>\(z = 2 - 3i\)</td>
             <td>\(\bar{z} = 2 + 3i\)</td>
-            <td>Komponen imajiner \(-3i\) berubah menjadi \(+3i\).</td>
+            <td>Bagian imajiner \(-3i\) dinegasikan menjadi \(+3i\).</td>
           </tr>
         </tbody>
       </table>
@@ -540,38 +726,44 @@
     <div class="card notice">
       <strong>Sifat Fundamental Perkalian Konjugat:</strong><br>
       Perkalian sebuah bilangan kompleks dengan sekawannya selalu menghasilkan bilangan real tak-negatif:
-      \[ z \cdot \bar{z} = (a + bi)(a - bi) = a^2 - b^2(i^2) = a^2 + b^2 = |z|^2 \]
+      <div class="math-step-box" style="margin-top: 10px;">
+        $$z \cdot \bar{z} = (a + bi)(a - bi) = a^2 - b^2(i^2) = a^2 + b^2 = |z|^2$$
+      </div>
     </div>
 
     <!-- Section 5: Pembagian -->
     <h2>5. Pembagian Bilangan Kompleks</h2>
     <p>
-      Operasi pembagian bilangan kompleks \(\frac{z_1}{z_2}\) (dengan \(z_2 \neq 0\)) dilakukan dengan merasionalkan penyebut, yaitu mengalikan pembilang dan penyebut dengan sekawan dari \(z_2\):
+      Operasi pembagian \(\frac{z_1}{z_2}\) (dengan \(z_2 \neq 0\)) dilakukan dengan merasionalkan penyebut, yaitu mengalikan pembilang dan penyebut dengan sekawan dari \(z_2\):
     </p>
 
     <div class="card formula">
-      <div class="formula-title">Rumus Pembagian</div>
-      <div class="math-display">
+      <div class="formula-title">Rumus Umum Pembagian</div>
+      <div class="math-step-box">
         $$\begin{aligned}
-        \frac{z_1}{z_2} &= \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di} \\
-        &= \frac{(a + bi)(c - di)}{c^2 + d^2} \\
+        \frac{z_1}{z_2} &= \frac{a + bi}{c + di} \\[12pt]
+        &= \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di} \\[12pt]
+        &= \frac{(a + bi)(c - di)}{c^2 + d^2} \\[12pt]
+        &= \frac{(ac + bd) + (bc - ad)i}{c^2 + d^2} \\[12pt]
         &= \mathbf{\left(\frac{ac + bd}{c^2 + d^2}\right) + \left(\frac{bc - ad}{c^2 + d^2}\right)i}
         \end{aligned}$$
       </div>
     </div>
 
     <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan (Sesuai Catatan Kuliah):</div>
+      <div class="formula-title" style="color: var(--success);">Contoh Pengerjaan Langkah demi Langkah (Sesuai Catatan Kuliah):</div>
       <p>Diketahui \(z_1 = 2 + 3i\) dan \(z_2 = 2 - i\). Hitunglah \(\frac{z_1}{z_2}\)!</p>
-      <div class="math-display">
+      
+      <!-- Spaced out aligned steps to avoid vertical cramped fractions -->
+      <div class="math-step-box">
         $$\begin{aligned}
-        \frac{z_1}{z_2} &= \frac{2 + 3i}{2 - i} \\
-        &= \frac{2 + 3i}{2 - i} \cdot \frac{2 + i}{2 + i} \\
-        &= \frac{(2 + 3i)(2 + i)}{(2 - i)(2 + i)} \\
-        &= \frac{4 + 2i + 6i + 3(i^2)}{2^2 + (-1)^2} \\
-        &= \frac{4 + 8i + 3(-1)}{4 + 1} \\
-        &= \frac{4 + 8i - 3}{5} \\
-        &= \frac{1 + 8i}{5} \\
+        \frac{z_1}{z_2} &= \frac{2 + 3i}{2 - i} \\[14pt]
+        &= \frac{2 + 3i}{2 - i} \cdot \frac{2 + i}{2 + i} \\[14pt]
+        &= \frac{(2 + 3i)(2 + i)}{(2 - i)(2 + i)} \\[14pt]
+        &= \frac{4 + 2i + 6i + 3(i^2)}{2^2 + (-1)^2} \\[14pt]
+        &= \frac{4 + 8i + 3(-1)}{4 + 1} \\[14pt]
+        &= \frac{4 + 8i - 3}{5} \\[14pt]
+        &= \frac{1 + 8i}{5} \\[14pt]
         &= \mathbf{\frac{1}{5} + \frac{8}{5}i} \quad \text{atau} \quad \mathbf{0{,}2 + 1{,}6i}
         \end{aligned}$$
       </div>
@@ -599,12 +791,18 @@
 </div>
 
 <script>
-  function handleGoBack() {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = '/';
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) {
+      if (e) e.preventDefault();
+      window.close();
+      return;
     }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault();
+      window.history.back();
+      return;
+    }
+    // Otherwise fallback naturally to href="/"
   }
 
   window.addEventListener('DOMContentLoaded', () => {
