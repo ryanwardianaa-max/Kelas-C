@@ -669,10 +669,46 @@
             <td data-label="Contoh">\(A \setminus B := \{x \mid x \in A,\ x \notin B\}\)</td>
           </tr>
           <tr>
+            <td>\(\in,\ \notin\)</td>
+            <td>Keanggotaan</td>
+            <td data-label="Kaedah">&ldquo;anggota dari&rdquo; / &ldquo;bukan anggota dari&rdquo;</td>
+            <td data-label="Contoh">\(x\in A\): “x anggota A”</td>
+          </tr>
+          <tr>
+            <td>\(\subseteq,\ \supseteq\)</td>
+            <td>Subhimpunan</td>
+            <td data-label="Kaedah">&ldquo;himpunan bagian dari&rdquo; / &ldquo;memuat&rdquo;</td>
+            <td data-label="Contoh">\(A\subseteq B\): “A himpunan bagian dari B”</td>
+          </tr>
+          <tr>
+            <td>\(\cap\)</td>
+            <td>Irisan</td>
+            <td data-label="Kaedah">&ldquo;A irisan B&rdquo;; bermakna dan</td>
+            <td data-label="Contoh">\(x\in A\cap B\): “x anggota A dan B”</td>
+          </tr>
+          <tr>
+            <td>\(\cup\)</td>
+            <td>Gabungan</td>
+            <td data-label="Kaedah">&ldquo;A gabungan B&rdquo;; bermakna atau</td>
+            <td data-label="Contoh">\(x\in A\cup B\): “x anggota A atau B, mungkin keduanya”</td>
+          </tr>
+          <tr>
             <td>\(\setminus\)</td>
             <td>Selisih himpunan</td>
-            <td data-label="Kaedah">&ldquo;A dikurangi B&rdquo;</td>
-            <td data-label="Contoh">\(\mathbb{R} \setminus \mathbb{Q}\) = bilangan irasional</td>
+            <td data-label="Kaedah">&ldquo;A tanpa B&rdquo; / &ldquo;A dikurangi B&rdquo;</td>
+            <td data-label="Contoh">\(x\in A\setminus B\): “x anggota A, tetapi bukan anggota B”</td>
+          </tr>
+          <tr>
+            <td>\(\neg,\ \wedge,\ \vee\)</td>
+            <td>Negasi, konjungsi, disjungsi</td>
+            <td data-label="Kaedah">&ldquo;tidak&rdquo;, &ldquo;dan&rdquo;, &ldquo;atau&rdquo;</td>
+            <td data-label="Contoh">\(\neg(p\vee q)\): “tidak benar bahwa p atau q”</td>
+          </tr>
+          <tr>
+            <td>\(\Rightarrow,\ \iff\)</td>
+            <td>Implikasi, biimplikasi</td>
+            <td data-label="Kaedah">&ldquo;mengakibatkan&rdquo; / &ldquo;jika dan hanya jika&rdquo;</td>
+            <td data-label="Contoh">\(p\Rightarrow q\): “jika p, maka q”</td>
           </tr>
           <tr>
             <td>\(\emptyset\)</td>
@@ -813,17 +849,39 @@
         Untuk setiap himpunan \(A\), \(B\), dan \(C\) (semesta \(U\)):
       </p>
       <div class="math-step-box">
-        $$A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C)$$
+        $$\begin{aligned}
+        \text{(a)}\quad A \setminus (B \cup C)&=(A \setminus B) \cap (A \setminus C),\\
+        \text{(b)}\quad A \setminus (B \cap C)&=(A \setminus B) \cup (A \setminus C).
+        \end{aligned}$$
       </div>
+      <p><strong>Cara membaca (a):</strong> “A tanpa gabungan B dan C sama dengan irisan antara A tanpa B dan A tanpa C.”</p>
+      <p><strong>Cara membaca (b):</strong> “A tanpa irisan B dan C sama dengan gabungan antara A tanpa B dan A tanpa C.”</p>
       <p style="margin-bottom:0;">
-        Dalam bentuk notasi pembentuk himpunan standar, kedua ruas ekuivalen dengan:
+        Untuk bentuk (a), kedua ruas ekuivalen dengan notasi pembentuk himpunan berikut:
       </p>
       <div class="math-step-box">
         $$\{\, x \in U \mid x \in A \ \wedge\ \neg(x \in B \vee x \in C) \,\} = \{\, x \in U \mid (x \in A \wedge x \notin B) \ \wedge\ (x \in A \wedge x \notin C) \,\}$$
       </div>
     </div>
 
-    <h3>Strategi: Double Inclusion (Inklusi Ganda)</h3>
+    <div class="card formula">
+      <div class="formula-title">Bukti Bentuk (b)</div>
+      <p>Ambil sembarang \(x\). Dengan definisi selisih, irisan, gabungan, dan Hukum De Morgan:</p>
+      <div class="math-step-box">$$\begin{aligned}
+      x\in A\setminus(B\cap C)
+      &\iff x\in A\ \wedge\ x\notin(B\cap C)\\
+      &\iff x\in A\ \wedge\ \neg(x\in B\ \wedge\ x\in C)\\
+      &\iff x\in A\ \wedge\ (x\notin B\ \vee\ x\notin C)\\
+      &\iff (x\in A\ \wedge\ x\notin B)\ \vee\ (x\in A\ \wedge\ x\notin C)\\
+      &\iff x\in(A\setminus B)\ \vee\ x\in(A\setminus C)\\
+      &\iff x\in(A\setminus B)\cup(A\setminus C).
+      \end{aligned}$$</div>
+      <p><strong>Cara membaca baris awal:</strong> “x anggota A tanpa irisan B dan C jika dan hanya jika x anggota A dan x bukan anggota irisan B dan C.”</p>
+      <p><strong>Cara membaca kesimpulan:</strong> “Untuk setiap x, x berada di ruas kiri jika dan hanya jika x berada di ruas kanan. Jadi, A tanpa irisan B dan C sama dengan gabungan A tanpa B dan A tanpa C.”</p>
+      <div class="math-step-box">$$A\setminus(B\cap C)=(A\setminus B)\cup(A\setminus C).\qquad\blacksquare$$</div>
+    </div>
+
+    <h3>Strategi Bentuk (a): Double Inclusion (Inklusi Ganda)</h3>
     <p>
       Kita tunjukkan dua inklusi secara terpisah:
       \(A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C)\) dan
@@ -1001,11 +1059,11 @@
     <p>Gunakan definisi anggota dan metode inklusi ganda. Jangan hanya mengandalkan gambar.</p>
     <div class="card example">
       <ol style="padding-left:20px;">
-        <li>\((A\setminus B)\cup(B\setminus A)=(A\cup B)\setminus(A\cap B)\)</li>
-        <li>\(A\cap B=A\setminus(A\setminus B)\)</li>
-        <li>\(A=(A\cap B)\cup(A\setminus B)\)</li>
+        <li>\((A\setminus B)\cup(B\setminus A)=(A\cup B)\setminus(A\cap B)\)<br><strong>Cara membaca:</strong> “Gabungan A tanpa B dan B tanpa A sama dengan gabungan A dan B tanpa irisan A dan B.”</li>
+        <li>\(A\cap B=A\setminus(A\setminus B)\)<br><strong>Cara membaca:</strong> “Irisan A dan B sama dengan A tanpa bagian A yang bukan anggota B.”</li>
+        <li>\(A=(A\cap B)\cup(A\setminus B)\)<br><strong>Cara membaca:</strong> “A sama dengan gabungan bagian A yang juga anggota B dan bagian A yang bukan anggota B.”</li>
       </ol>
-      <p style="margin:10px 0 0;"><strong>Petunjuk:</strong> ambil sembarang \(x\), ubah ke kalimat “\(x\) anggota ...”, lalu gunakan kata logika <em>dan</em>, <em>atau</em>, dan <em>tidak</em>.</p>
+      <p style="margin:10px 0 0;"><strong>Petunjuk membaca pembuktian:</strong> mulai dengan “misalkan \(x\) anggota ruas kiri”, uraikan simbol menjadi kata <em>dan</em>, <em>atau</em>, serta <em>tidak</em>, lalu akhiri dengan “maka \(x\) anggota ruas kanan”.</p>
     </div>
 
     <h2>6. Jawaban Latihan</h2>
@@ -1013,13 +1071,15 @@
     <div class="answer-grid">
       <article class="card">
         <div class="formula-title">Jawaban Nomor 1</div>
-        <a href="jawaban/Latihan_Pertemuan_02_Nomor_1.jpg" target="_blank" rel="noopener">
-          <img class="answer-photo" src="jawaban/Latihan_Pertemuan_02_Nomor_1.jpg" alt="Jawaban tulisan tangan latihan Analisis Real Pertemuan 02 nomor 1" width="896" height="1200" loading="lazy">
+        <p><strong>Cara membaca kesimpulan:</strong> “Gabungan A tanpa B dan B tanpa A sama dengan gabungan A dan B tanpa irisan A dan B.”</p>
+        <a href="jawaban/Latihan_Pertemuan_02_Nomor_1.jpg?v=20260825-2" target="_blank" rel="noopener">
+          <img class="answer-photo" src="jawaban/Latihan_Pertemuan_02_Nomor_1.jpg?v=20260825-2" alt="Jawaban tulisan tangan latihan Analisis Real Pertemuan 02 nomor 1" width="896" height="1200" loading="lazy">
           <span class="answer-link">Buka gambar ukuran penuh</span>
         </a>
       </article>
       <article class="card">
         <div class="formula-title">Jawaban Nomor 2</div>
+        <p><strong>Cara membaca kesimpulan:</strong> “Irisan A dan B sama dengan A tanpa bagian A yang bukan anggota B.”</p>
         <a href="jawaban/Latihan_Pertemuan_02_Nomor_2.jpg" target="_blank" rel="noopener">
           <img class="answer-photo" src="jawaban/Latihan_Pertemuan_02_Nomor_2.jpg" alt="Jawaban tulisan tangan latihan Analisis Real Pertemuan 02 nomor 2" width="896" height="1200" loading="lazy">
           <span class="answer-link">Buka gambar ukuran penuh</span>
@@ -1027,6 +1087,7 @@
       </article>
       <article class="card">
         <div class="formula-title">Jawaban Nomor 3</div>
+        <p><strong>Cara membaca kesimpulan:</strong> “A sama dengan gabungan bagian A yang juga anggota B dan bagian A yang bukan anggota B.”</p>
         <a href="jawaban/Latihan_Pertemuan_02_Nomor_3.jpg" target="_blank" rel="noopener">
           <img class="answer-photo" src="jawaban/Latihan_Pertemuan_02_Nomor_3.jpg" alt="Jawaban tulisan tangan latihan Analisis Real Pertemuan 02 nomor 3" width="896" height="1200" loading="lazy">
           <span class="answer-link">Buka gambar ukuran penuh</span>
