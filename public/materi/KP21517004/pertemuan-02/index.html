@@ -571,8 +571,8 @@
   <!-- Header -->
   <header>
     <div class="badge">Pertemuan 02</div>
-    <h1>Teori Himpunan, Notasi Formal &amp; Pembuktian Hukum De Morgan</h1>
-    <p>Catatan Lengkap Perkuliahan &amp; Pembuktian Teorema 1.1.4 dengan Double Inclusion</p>
+    <h1>Himpunan dan Operasinya</h1>
+    <p>Catatan sederhana berdasarkan PPT Himpunan dan Bartle–Sherbert, Bab 1 §1.1</p>
 
     <div class="meta-info">
       <span><strong>Mata Kuliah:</strong> Analisis Real (KP21517004)</span>
@@ -586,12 +586,27 @@
     <!-- ============================================================
          BAGIAN 1: NOTASI & SIMBOL FORMAL
          ============================================================ -->
-    <h2>1. Simbol &amp; Notasi Formal dalam Analisis Real</h2>
+    <h2>1. Anggota, Himpunan, dan Subhimpunan</h2>
     <p>
-      Bahasa matematika dibangun di atas simbol-simbol logika yang presisi. Dalam analisis real,
-      ketepatan membaca dan menulis notasi adalah prasyarat mutlak sebelum menyusun pembuktian.
-      Tabel berikut merangkum notasi kuantor dan simbol fundamental yang dipakai sepanjang semester.
+      Himpunan adalah kumpulan objek. Objek di dalamnya disebut <strong>anggota</strong> atau
+      <strong>elemen</strong>. Jika <em>x</em> anggota dari <em>A</em>, tulis \(x \in A\); jika bukan,
+      tulis \(x \notin A\). Inilah bahasa dasar yang dipakai dalam PPT dan Bartle–Sherbert §1.1.
     </p>
+
+    <div class="card example">
+      <div class="formula-title">Contoh dari PPT</div>
+      <div class="math-step-box">$$\{x \in \mathbb{N} \mid 6 &lt; x &lt; 9\}=\{7,8\}$$</div>
+      <p style="margin-bottom:0;">Tanda garis \(\mid\) dibaca “sedemikian sehingga”. Kita mencari bilangan asli yang lebih besar dari 6 sekaligus lebih kecil dari 9.</p>
+    </div>
+
+    <div class="card highlight">
+      <div class="formula-title">Subhimpunan dan Kesamaan Himpunan</div>
+      <p>Jika setiap anggota \(A\) juga anggota \(B\), maka \(A\subseteq B\).</p>
+      <div class="math-step-box">$$A=B \iff A\subseteq B\ \text{dan}\ B\subseteq A$$</div>
+      <p style="margin-bottom:0;">Jadi, dua himpunan sama bukan karena namanya sama, tetapi karena anggotanya tepat sama. Cara membuktikannya disebut <strong>inklusi ganda</strong>.</p>
+    </div>
+
+    <p>Tabel berikut merangkum notasi yang diperlukan pada pertemuan ini.</p>
 
     <div class="table-container">
       <table class="resp-table">
@@ -620,7 +635,7 @@
             <td>\(\exists!\)</td>
             <td>Kuantor keunikan</td>
             <td data-label="Kaedah">&ldquo;ada tepat satu&rdquo;</td>
-            <td data-label="Contoh">\(\exists!\ x \in \mathbb{R}\) dengan \(x + 0 = x\)</td>
+            <td data-label="Contoh">\(\exists!\ x \in \mathbb{R}\) dengan \(x + 1 = 0\), yaitu \(x=-1\)</td>
           </tr>
           <tr>
             <td>\(:=\)</td>
@@ -640,29 +655,14 @@
             <td data-label="Kaedah">Himpunan tanpa anggota sama sekali</td>
             <td data-label="Contoh">\(\{x \in \mathbb{R} \mid x \neq x\} = \emptyset\)</td>
           </tr>
-          <tr>
-            <td>\(\epsilon\)</td>
-            <td>Epsilon</td>
-            <td data-label="Kaedah">Bilangan real positif sekecil apa pun, \(\epsilon &gt; 0\)</td>
-            <td data-label="Contoh">\(\forall \epsilon &gt; 0\ \exists n:\ |a_n - a| &lt; \epsilon\)</td>
-          </tr>
-          <tr>
-            <td>\(\delta\)</td>
-            <td>Delta</td>
-            <td data-label="Kaedah">Jari-jari tetanggaan di sekitar titik</td>
-            <td data-label="Contoh">\(|x - c| &lt; \delta \Rightarrow |f(x)-L| &lt; \epsilon\)</td>
-          </tr>
         </tbody>
       </table>
     </div>
 
     <div class="card notice">
-      <div class="formula-title">Catatan Penting</div>
-      <p style="margin-bottom:0;">
-        Urutan kuantor sangat menentukan makna: \(\forall \epsilon\ \exists \delta\) tidak sama dengan
-        \(\exists \delta\ \forall \epsilon\). Pada pola pertama \(\delta\) boleh bergantung pada \(\epsilon\);
-        pada pola kedua satu \(\delta\) harus melayani semua \(\epsilon\) sekaligus.
-      </p>
+      <div class="formula-title">Himpunan Bilangan yang Sering Dipakai</div>
+      <div class="math-step-box">$$\mathbb{N}\subseteq\mathbb{Z}\subseteq\mathbb{Q}\subseteq\mathbb{R}$$</div>
+      <p style="margin-bottom:0;">\(\mathbb N\): bilangan asli, \(\mathbb Z\): bilangan bulat, \(\mathbb Q\): bilangan rasional, dan \(\mathbb R\): bilangan real. Bartle–Sherbert memakai \(\mathbb N=\{1,2,3,\ldots\}\).</p>
     </div>
 
     <!-- ============================================================
@@ -767,7 +767,20 @@
     <!-- ============================================================
          BAGIAN 4: TEOREMA 1.1.4 DE MORGAN
          ============================================================ -->
-    <h2>4. Teorema 1.1.4 (De Morgan untuk Selisih Himpunan)</h2>
+    <h2>4. Sifat Operasi Himpunan dan Teorema De Morgan</h2>
+
+    <div class="card formula">
+      <div class="formula-title">Ringkasan Sifat dari PPT</div>
+      <div class="math-step-box">$$\begin{aligned}
+      A\cap A&=A, & A\cup A&=A &&\text{(idempoten)}\\
+      A\cap B&=B\cap A, & A\cup B&=B\cup A &&\text{(komutatif)}\\
+      (A\cap B)\cap C&=A\cap(B\cap C), & (A\cup B)\cup C&=A\cup(B\cup C) &&\text{(asosiatif)}\\
+      A\cap(B\cup C)&=(A\cap B)\cup(A\cap C), & A\cup(B\cap C)&=(A\cup B)\cap(A\cup C) &&\text{(distributif)}
+      \end{aligned}$$</div>
+      <p style="margin-bottom:0;">Nama sifat membantu mengingat pola, tetapi pembuktiannya tetap harus kembali pada anggota himpunan.</p>
+    </div>
+
+    <h3>Teorema 1.1.4 Bartle–Sherbert</h3>
 
     <div class="card highlight">
       <div class="formula-title">Pernyataan Teorema</div>
@@ -958,6 +971,28 @@
         Kedua wilayah hasil arsiran selalu identik karena hukum De Morgan untuk selisih himpunan.
       </figcaption>
     </figure>
+
+    <h2>5. Latihan dari PPT</h2>
+    <p>Gunakan definisi anggota dan metode inklusi ganda. Jangan hanya mengandalkan gambar.</p>
+    <div class="card example">
+      <ol style="padding-left:20px;">
+        <li>\((A\setminus B)\cup(B\setminus A)=(A\cup B)\setminus(A\cap B)\)</li>
+        <li>\(A\cap B=A\setminus(A\setminus B)\)</li>
+        <li>\(A=(A\cap B)\cup(A\setminus B)\)</li>
+      </ol>
+      <p style="margin:10px 0 0;"><strong>Petunjuk:</strong> ambil sembarang \(x\), ubah ke kalimat “\(x\) anggota ...”, lalu gunakan kata logika <em>dan</em>, <em>atau</em>, dan <em>tidak</em>.</p>
+    </div>
+
+    <h2>6. Ringkasan dan Referensi</h2>
+    <div class="card highlight">
+      <ul class="styled-list">
+        <li>Keanggotaan memakai \(\in\); hubungan antarhimpunan memakai \(\subseteq\).</li>
+        <li>Kesamaan himpunan dibuktikan dengan dua arah inklusi.</li>
+        <li>\(\cap\) berarti “dan”, \(\cup\) berarti “atau” inklusif, \(\setminus\) berarti “di dalam yang pertama, tetapi tidak di dalam yang kedua”.</li>
+        <li>Hukum De Morgan mengubah negasi “atau” menjadi “dan” dari negasinya.</li>
+      </ul>
+      <p style="margin-bottom:0;"><strong>Sumber:</strong> PPT dosen <em>Himpunan (3)</em>, slide 2–6 dan 14; Robert G. Bartle &amp; Donald R. Sherbert, <em>Introduction to Real Analysis</em>, Edisi Keempat (2011), Bab 1 §1.1, khususnya Definisi 1.1.1, Definisi 1.1.3, dan Teorema 1.1.4, hlm. 1–3.</p>
+    </div>
 
     <script>
       function setVennMode(mode) {
