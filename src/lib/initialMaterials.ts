@@ -13,6 +13,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-08-20T12:00:00.000Z",
   },
   {
+    id: "mat-mateko-pertemuan-03",
+    title: "Catatan Kuliah: Pengaruh Pajak, Subsidi, & Keseimbangan Multi-Pasar (2 Komoditas)",
+    courseCode: "KP21517007",
+    meetingNo: 3,
+    type: "Catatan",
+    description:
+      "Catatan komprehensif kuliah Matematika Ekonomi Pertemuan 03: Pengaruh Pajak spesifik (t), Pajak proporsional (r), dan Subsidi spesifik (s) terhadap pergeseran kurva, insidensi beban konsumen/produsen, total kas pemerintah, serta metode 4 langkah eliminasi SPLDV pada pasar 2 komoditas.",
+    url: "/materi/KP21517007/pertemuan-03/index.html",
+    createdAt: "2026-08-27T17:00:00.000Z",
+  },
+  {
     id: "mat-analisis-kompleks-pertemuan-03",
     title: "Catatan Kuliah: Pengantar Sistem Bilangan Kompleks & Operasi Aljabar",
     courseCode: "KP21517003",
