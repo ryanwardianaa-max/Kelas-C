@@ -56,6 +56,17 @@ export const INITIAL_MATERIALS: Material[] = [
     url: "/materi/KP21517004/pertemuan-02/index.html",
     createdAt: "2026-08-24T15:30:00.000Z",
   },
+  {
+    id: "mat-analisis-real-pertemuan-03",
+    title: "Catatan Kuliah: Teorema 1.1.4 Bartle, Inklusi Ganda & Pembuktian Aljabar Himpunan",
+    courseCode: "KP21517004",
+    meetingNo: 3,
+    type: "Catatan",
+    description:
+      "Catatan resmi kuliah Analisis Real Pertemuan 03: Bedah Teorema 1.1.4 (a) & (b) De Morgan buku Bartle menggunakan metode Double Inclusion (Inklusi Ganda), rantai ekuivalensi notasi pembentuk himpunan (:=), manipulasi A \\ A = ∅, dan galeri lembar catatan tulis tangan asli SiDU Campus.",
+    url: "/materi/KP21517004/pertemuan-03/index.html",
+    createdAt: "2026-08-27T08:00:00.000Z",
+  },
 ];
 
 

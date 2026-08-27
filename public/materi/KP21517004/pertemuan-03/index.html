@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Pertemuan 03 — Catatan Kuliah Analisis Real (KP21517004)</title>
+
+  <!-- KaTeX for Equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #1e293b;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --brand: #4338ca;
+      --brand-dark: #312e81;
+      --brand-light: #6366f1;
+      --accent: #6558df;
+      --accent-soft: #f5f3ff;
+      --line: #e2e8f0;
+      --card-bg: #ffffff;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --warning: #d97706;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 860px;
+      margin: 12px auto 50px;
+      padding: 20px 16px;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--line);
+    }
+    @media (min-width: 640px) {
+      .page { margin: 20px auto 60px; padding: 30px 32px; }
+    }
+
+    /* Sticky Navigation Bar */
+    .top-nav {
+      position: sticky;
+      top: 8px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      background: rgba(30, 27, 75, 0.96);
+      backdrop-filter: blur(12px);
+      color: white;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .nav-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-back-btn:hover { background: #4f46e5; transform: translateY(-1px); }
+    .nav-meta-title { font-size: 0.85rem; font-weight: 700; color: #e0e7ff; text-align: right; }
+
+    header {
+      background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+      color: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(49, 46, 129, 0.2);
+    }
+    header h1 { font-size: 1.45rem; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+    header p { color: #e0e7ff; font-size: 0.9rem; margin-bottom: 0; }
+    .meta-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      color: #e0e7ff;
+    }
+    @media (min-width: 640px) {
+      .meta-info { grid-template-columns: 1fr 1fr; font-size: 0.85rem; }
+    }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 12px;
+      color: var(--brand-dark);
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 6px;
+    }
+    h3 { margin-top: 20px; margin-bottom: 10px; color: #334155; font-size: 1.02rem; font-weight: 600; }
+    p { margin-bottom: 10px; color: #334155; font-size: 0.92rem; word-break: break-word; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .card.highlight { background: #faf8ff; border-left: 4px solid var(--accent); }
+    .card.formula { background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #3b82f6; }
+    .card.example { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid var(--success); }
+    .card.notice { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid var(--warning); }
+    .formula-title { font-weight: 700; color: var(--brand-dark); font-size: 0.98rem; margin-bottom: 8px; }
+
+    .math-step-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      overflow-x: auto;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (min-width: 640px) {
+      .answer-grid { grid-template-columns: 1fr; }
+    }
+    .answer-photo {
+      width: 100%;
+      height: auto;
+      max-width: 680px;
+      display: block;
+      margin: 10px auto;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
+    }
+    .answer-photo:hover { transform: scale(1.01); }
+    .answer-link {
+      display: block;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brand);
+      text-decoration: none;
+      margin-top: 6px;
+    }
+    .answer-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <!-- Sticky Nav -->
+  <nav class="top-nav">
+    <a class="nav-back-btn" href="/" onclick="handleGoBack(event)">← Kembali ke KelasKu</a>
+    <div class="nav-meta-title">Pertemuan 03 · Analisis Real</div>
+  </nav>
+
+  <header>
+    <h1>Catatan Kuliah: Teorema 1.1.4 Bartle &amp; Pembuktian Aljabar Himpunan</h1>
+    <p>Rujukan Resmi: Robert G. Bartle &amp; Donald R. Sherbert (<em>Introduction to Real Analysis</em>, 4th Ed, Bab 1 §1.1)</p>
+    <div class="meta-info">
+      <span><strong>Mata Kuliah:</strong> Analisis Real (KP21517004)</span>
+      <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
+      <span><strong>Pertemuan:</strong> 03 (Sesi Daring Zoom)</span>
+      <span><strong>Materi:</strong> Teorema 1.1.4 &amp; Metode Inklusi Ganda</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- BAGIAN 1: STANDAR BUKU BARTLE -->
+    <h2>1. Definisi Standar &amp; Kaidah Notasi Buku Bartle</h2>
+    <p>
+      Sesuai koreksi dan arahan dosen, seluruh pembuktian teori himpunan dalam mata kuliah Analisis Real mengacu secara ketat pada <strong>Definisi 1.1.3 buku Bartle &amp; Sherbert</strong>:
+    </p>
+
+    <div class="card highlight">
+      <div class="formula-title">Definisi 1.1.3 Bartle–Sherbert (hlm. 2)</div>
+      <ul style="padding-left: 20px; font-size: 0.92rem;">
+        <li><strong>(a) Gabungan (Union):</strong> \(A \cup B := \{x : x \in A \text{ or } x \in B\}\)</li>
+        <li><strong>(b) Irisan (Intersection):</strong> \(A \cap B := \{x : x \in A \text{ and } x \in B\}\)</li>
+        <li><strong>(c) Komplemen Relatif (Selisih):</strong> \(A \setminus B := \{x : x \in A \text{ and } x \notin B\}\)</li>
+      </ul>
+      <p style="margin-top: 8px; margin-bottom: 0; font-size: 0.88rem; color: #4338ca;">
+        <strong>Aturan Penting:</strong> Dilarang memakai simbol logika proposisi \(\land, \lor, \neg\). Gunakan kata penghubung alami matematis <em>"dan"</em>, <em>"atau"</em>, serta simbol keanggotaan murni \(\in\) dan \(\notin\).
+      </p>
+    </div>
+
+    <!-- BAGIAN 2: TEOREMA 1.1.4 -->
+    <h2>2. Teorema 1.1.4 Bartle–Sherbert (Hukum De Morgan untuk Selisih)</h2>
+    <div class="card formula">
+      <div class="formula-title">Pernyataan Teorema 1.1.4</div>
+      <p>Jika \(A, B,\) dan \(C\) adalah himpunan sembarang, maka:</p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{(a)}\quad A \setminus (B \cup C) &= (A \setminus B) \cap (A \setminus C) \\
+        \text{(b)}\quad A \setminus (B \cap C) &= (A \setminus B) \cup (A \setminus C)
+        \end{aligned}$$
+      </div>
+    </div>
+
+    <!-- BAGIAN 3: BUKTI TEOREMA 1.1.4 (a) DUA ARAH -->
+    <h2>3. Pembuktian Teorema 1.1.4 (a) — Metode Inklusi Ganda (Double Inclusion)</h2>
+    <p>
+      Untuk membuktikan kesamaan dua himpunan \(X = Y\), kita membuktikan dua arah inklusi secara terpisah sesuai buku Bartle:
+    </p>
+
+    <div class="card">
+      <div class="formula-title">Bagian 1: Buktikan \(A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C)\)</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        &\text{Ambil sembarang } x \in A \setminus (B \cup C). \\
+        &\implies x \in A \text{ dan } x \notin (B \cup C) && \text{[Definisi selisih]} \\
+        &\implies x \in A \text{ dan } (x \notin B \text{ dan } x \notin C) && \text{[Definisi gabungan]} \\
+        &\implies (x \in A \text{ dan } x \notin B) \text{ dan } (x \in A \text{ dan } x \notin C) && \text{[Hukum distributif]} \\
+        &\implies x \in (A \setminus B) \text{ dan } x \in (A \setminus C) && \text{[Definisi selisih]} \\
+        &\implies x \in (A \setminus B) \cap (A \setminus C) && \text{[Definisi irisan]} \\
+        &\text{Maka terbukti } A \setminus (B \cup C) \subseteq (A \setminus B) \cap (A \setminus C) \quad \dots (1)
+        \end{aligned}$$
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="formula-title">Bagian 2: Buktikan \((A \setminus B) \cap (A \setminus C) \subseteq A \setminus (B \cup C)\)</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        &\text{Ambil sembarang } x \in (A \setminus B) \cap (A \setminus C). \\
+        &\implies x \in (A \setminus B) \text{ dan } x \in (A \setminus C) && \text{[Definisi irisan]} \\
+        &\implies (x \in A \text{ dan } x \notin B) \text{ dan } (x \in A \text{ dan } x \notin C) && \text{[Definisi selisih]} \\
+        &\implies x \in A \text{ dan } (x \notin B \text{ dan } x \notin C) && \text{[Hukum distributif]} \\
+        &\implies x \in A \text{ dan } x \notin (B \cup C) && \text{[Definisi gabungan]} \\
+        &\implies x \in A \setminus (B \cup C) && \text{[Definisi selisih]} \\
+        &\text{Maka terbukti } (A \setminus B) \cap (A \setminus C) \subseteq A \setminus (B \cup C) \quad \dots (2)
+        \end{aligned}$$
+      </div>
+      <p style="margin-top: 8px; margin-bottom: 0; font-weight: 700; color: #047857;">
+        • Dari (1) dan (2), terbukti sah bahwa \(A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C)\). \(\blacksquare\)
+      </p>
+    </div>
+
+    <!-- BAGIAN 4: BUKTI TEOREMA 1.1.4 (b) -->
+    <h2>4. Pembuktian Teorema 1.1.4 (b) — Rantai Ekuivalensi Notasi Pembentuk Himpunan</h2>
+    <div class="card example">
+      <div class="formula-title">Pembuktian \(A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C)\)</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        A \setminus (B \cap C) &:= \{ x \mid x \in A \text{ dan } x \notin (B \cap C) \} && \text{[Definisi selisih]} \\
+        &:= \{ x \mid x \in A \text{ dan } (x \notin B \text{ atau } x \notin C) \} && \text{[Definisi irisan \& De Morgan]} \\
+        &:= \{ x \mid (x \in A \text{ dan } x \notin B) \text{ atau } (x \in A \text{ dan } x \notin C) \} && \text{[Hukum distributif]} \\
+        &:= \{ x \mid x \in (A \setminus B) \text{ atau } x \in (A \setminus C) \} && \text{[Definisi selisih]} \\
+        &:= (A \setminus B) \cup (A \setminus C) && \text{[Definisi gabungan]}
+        \end{aligned}$$
+      </div>
+      <p style="margin-top: 8px; margin-bottom: 0; font-weight: 700; color: #047857;">
+        • Kesimpulan : Terbukti \(A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C)\). \(\blacksquare\)
+      </p>
+    </div>
+
+    <!-- BAGIAN 5: PEMBAHASAN SOAL WHITEBOARD -->
+    <h2>5. Pembahasan Soal Whiteboard Dosen: \(A \cap B = A \setminus (A \setminus B)\)</h2>
+    <div class="card notice">
+      <div class="formula-title">Manipulasi Identitas Himpunan Kosong (\(A \setminus A = \emptyset\))</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        A \cap B &= (A \cap B) \cup (A \setminus A) && \text{[Karena } A \setminus A = \emptyset\text{]} \\
+        &:= \{ x \mid (x \in A \text{ dan } x \in B) \text{ atau } (x \in A \text{ dan } x \notin A) \} && \text{[Definisi gabungan \& selisih]} \\
+        &:= \{ x \mid x \in A \text{ dan } (x \in B \text{ atau } x \notin A) \} && \text{[Hukum distributif]} \\
+        &:= \{ x \mid x \in A \text{ dan } x \notin (A \setminus B) \} && \text{[Hukum De Morgan]} \\
+        &:= \{ x \mid x \in A \setminus (A \setminus B) \} && \text{[Definisi selisih]} \\
+        &:= A \setminus (A \setminus B)
+        \end{aligned}$$
+      </div>
+      <p style="margin-top: 8px; margin-bottom: 0; font-weight: 700; color: #047857;">
+        • Kesimpulan : Terbukti \(A \cap B = A \setminus (A \setminus B)\). \(\blacksquare\)
+      </p>
+    </div>
+
+    <!-- BAGIAN 6: FOTO CATATAN TULIS TANGAN RESMI -->
+    <h2>6. Galeri Catatan Tulis Tangan Asli (SiDU Campus 7mm)</h2>
+    <p>Berikut lembar catatan tulisan tangan resmi mahasiswa di buku bergaris SiDU Campus sesuai seluruh kaidah perkuliahan. Tekan gambar untuk melihat resolusi penuh.</p>
+
+    <div class="answer-grid">
+      <!-- FOTO 1: TEOREMA 1.1.4 (a) -->
+      <article class="card">
+        <div class="formula-title">📄 Lembar 1: Teorema 1.1.4 (a) — Inklusi Ganda (Double Inclusion)</div>
+        <p><strong>Pernyataan:</strong> \(A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C)\)</p>
+        <a href="jawaban/Teorema_1_1_4_a_De_Morgan.jpg?v=20260827" target="_blank" rel="noopener">
+          <img class="answer-photo" src="jawaban/Teorema_1_1_4_a_De_Morgan.jpg?v=20260827" alt="Catatan Tulis Tangan Teorema 1.1.4 a Bartle Inklusi Ganda" width="896" height="1200" loading="lazy">
+          <span class="answer-link">🔍 Buka gambar ukuran penuh</span>
+        </a>
+      </article>
+
+      <!-- FOTO 2: TEOREMA 1.1.4 (b) -->
+      <article class="card">
+        <div class="formula-title">📄 Lembar 2: Teorema 1.1.4 (b) — Rantai Ekuivalensi Notasi Himpunan</div>
+        <p><strong>Pernyataan:</strong> \(A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C)\)</p>
+        <a href="jawaban/Teorema_1_1_4_b_De_Morgan.jpg?v=20260827" target="_blank" rel="noopener">
+          <img class="answer-photo" src="jawaban/Teorema_1_1_4_b_De_Morgan.jpg?v=20260827" alt="Catatan Tulis Tangan Teorema 1.1.4 b Bartle Rantai Ekuivalensi" width="896" height="1200" loading="lazy">
+          <span class="answer-link">🔍 Buka gambar ukuran penuh</span>
+        </a>
+      </article>
+
+      <!-- FOTO 3: SOAL NOMOR 2 WHITEBOARD -->
+      <article class="card">
+        <div class="formula-title">📄 Lembar 3: Pembahasan Soal Whiteboard (\(A \setminus A = \emptyset\))</div>
+        <p><strong>Pernyataan:</strong> \(A \cap B = A \setminus (A \setminus B)\)</p>
+        <a href="jawaban/Pembuktian_Soal_Nomor_02_Papan_Tulis.jpg?v=20260827" target="_blank" rel="noopener">
+          <img class="answer-photo" src="jawaban/Pembuktian_Soal_Nomor_02_Papan_Tulis.jpg?v=20260827" alt="Catatan Tulis Tangan Soal 2 Whiteboard Analisis Real" width="896" height="1200" loading="lazy">
+          <span class="answer-link">🔍 Buka gambar ukuran penuh</span>
+        </a>
+      </article>
+    </div>
+  </main>
+</div>
+
+<script>
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) {
+      if (e) e.preventDefault();
+      window.close();
+      return;
+    }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault();
+      window.history.back();
+      return;
+    }
+    // Fallback naturally
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>
