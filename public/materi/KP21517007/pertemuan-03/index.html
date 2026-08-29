@@ -2,30 +2,619 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pertemuan 03 — Kebijakan Pemerintah dan Multi-Pasar</title>
+<title>Pertemuan 03 — Keseimbangan Pasar, Pajak, Subsidi & Multi-Pasar</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <style>
-:root{--navy:#172554;--blue:#2563eb;--cyan:#0891b2;--red:#dc2626;--green:#16a34a;--amber:#d97706;--ink:#1e293b;--muted:#64748b;--line:#dbe4f0;--paper:#fff;--bg:#eef3f9}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#e8eef8,#f8fafc);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}.top-nav{position:sticky;top:0;z-index:20;background:#172554;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff}.top-nav a{color:#fff;text-decoration:none;border:1px solid #ffffff44;border-radius:8px;padding:6px 12px;font-weight:600;font-size:0.88rem}.page{width:min(100% - 28px,980px);margin:24px auto;background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 55px #0f172a14;overflow:hidden}header{padding:52px clamp(24px,6vw,64px);color:#fff;background:radial-gradient(circle at 90% 15%,#38bdf855,transparent 28%),linear-gradient(130deg,#172554,#1d4ed8)}header .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:#bae6fd;font-size:.8rem}h1{font-size:clamp(2rem,5vw,3.25rem);line-height:1.12;margin:.5rem 0 1rem;max-width:800px}header p{max-width:730px;color:#dbeafe;margin:.35rem 0}.content{padding:20px clamp(18px,6vw,64px) 60px}.toc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 32px}.toc a{padding:12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;text-align:center;font-size:.88rem}h2{margin:42px 0 14px;color:var(--navy);font-size:1.55rem;border-bottom:2px solid #dbeafe;padding-bottom:8px}h3{color:#1e3a8a;margin-top:26px}.card,.example,.warning{border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:16px 0;background:#f8fafc;break-inside:avoid}.example{border-left:5px solid var(--blue);background:#f8fbff}.warning{border-left:5px solid var(--amber);background:#fffbeb}.formula{overflow-x:auto;text-align:center;padding:5px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:15px 0}th,td{padding:11px;border:1px solid var(--line);text-align:left}th{background:#eff6ff;color:#1e3a8a}.chart{margin:22px auto;padding:12px;border:1px solid var(--line);border-radius:16px;background:#fff;max-width:720px}.chart svg{display:block;width:100%;height:auto}.caption{text-align:center;color:var(--muted);font-size:.88rem;margin-top:8px}.legend{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:.85rem}.swatch{display:inline-block;width:18px;height:4px;vertical-align:middle;margin-right:5px}.exact{color:#1d4ed8;font-weight:750}footer{text-align:center;color:var(--muted);padding:24px;border-top:1px solid var(--line);font-size:.85rem}@media(max-width:720px){.page{width:100%;margin:0;border:0;border-radius:0}.toc,.grid{grid-template-columns:1fr}.content{padding-top:12px}.katex-display{font-size:.9em}}@media print{body{background:#fff;font-size:11pt}.page{width:100%;margin:0;border:0;box-shadow:none}.toc{display:none}header{padding:28px 38px;-webkit-print-color-adjust:exact;print-color-adjust:exact}.content{padding:10px 38px 30px}h2{break-after:avoid}.chart,.card,.example,.warning,table{break-inside:avoid}a{color:inherit}}
+:root{--navy:#172554;--blue:#2563eb;--cyan:#0891b2;--red:#dc2626;--green:#16a34a;--amber:#d97706;--violet:#7c3aed;--ink:#1e293b;--muted:#64748b;--line:#dbe4f0;--paper:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(135deg,#e8eef8,#f8fafc);color:var(--ink);font:16px/1.75 system-ui,-apple-system,"Segoe UI",sans-serif}
+.page{width:min(100% - 28px,1000px);margin:24px auto;background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 55px #0f172a14;overflow:hidden}
+header{padding:52px clamp(24px,6vw,64px);color:#fff;background:radial-gradient(circle at 90% 15%,#38bdf855,transparent 28%),linear-gradient(130deg,#172554,#1d4ed8)}
+header .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:#bae6fd;font-size:.8rem}
+h1{font-size:clamp(1.9rem,5vw,3rem);line-height:1.12;margin:.5rem 0 1rem;max-width:840px}
+header p{max-width:760px;color:#dbeafe;margin:.35rem 0}
+.content{padding:20px clamp(18px,6vw,64px) 60px}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 34px}
+.toc a{padding:12px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;text-align:center;font-size:.86rem}
+.toc a:hover{background:#dbeafe}
+h2{margin:46px 0 14px;color:var(--navy);font-size:1.6rem;border-bottom:2px solid #dbeafe;padding-bottom:8px}
+h3{color:#1e3a8a;margin-top:28px;font-size:1.15rem}
+h4{color:#334155;margin:20px 0 8px;font-size:1rem}
+.card,.example,.warning,.note,.problem{border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:16px 0;background:#f8fafc;break-inside:avoid}
+.example{border-left:5px solid var(--blue);background:#f8fbff}
+.warning{border-left:5px solid var(--amber);background:#fffbeb}
+.note{border-left:5px solid var(--cyan);background:#ecfeff}
+.problem{border-left:5px solid var(--violet);background:#f5f3ff}
+.formula{overflow-x:auto;text-align:center;padding:6px 0}
+.steps{counter-reset:st;list-style:none;padding-left:0}
+.steps>li{position:relative;padding:2px 0 10px 44px;margin-bottom:8px}
+.steps>li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.9rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.94rem}
+th,td{padding:10px 11px;border:1px solid var(--line);text-align:left}
+th{background:#eff6ff;color:#1e3a8a}
+tbody tr:nth-child(even){background:#f8fafc}
+.chart{margin:22px auto;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;break-inside:avoid}
+.chart svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:10px;font-size:.88rem;color:var(--muted)}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.caption{text-align:center;color:var(--muted);font-size:.88rem;margin-top:8px;font-style:italic}
+.exact{background:#fef9c3;padding:1px 5px;border-radius:4px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0}
+figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#f8fafc;break-inside:avoid}
+figure img{width:100%;display:block;background:#fff}
+figcaption{padding:10px 12px;font-size:.84rem;color:var(--muted);border-top:1px solid var(--line)}
+kbd{background:#1e293b;color:#fff;border-radius:5px;padding:2px 7px;font-size:.82rem;font-family:ui-monospace,monospace}
+footer{padding:26px clamp(18px,6vw,64px);background:#0f172a;color:#94a3b8;font-size:.88rem;text-align:center}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.top-nav{position:sticky;top:0;z-index:20;background:#172554;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;gap:12px;flex-wrap:wrap}.top-nav a{color:#fff;text-decoration:none;border:1px solid #ffffff44;border-radius:8px;padding:6px 12px;font-weight:600;font-size:.88rem}.top-nav a:hover{background:#ffffff1f}
+@media print{.top-nav{display:none}body{background:#fff}.page{box-shadow:none;border:0;margin:0;width:100%;border-radius:0}.toc{display:none}header{padding:28px}h2{page-break-after:avoid}.card,.example,.warning,.note,.problem,.chart,figure{page-break-inside:avoid}}
 </style>
 </head>
 <body>
-<nav class="top-nav"><a href="/" onclick="if(history.length>1){event.preventDefault();history.back()}">← Kembali ke KelasKu</a><b>Matematika Ekonomi · KP21517007</b></nav>
+<nav class="top-nav"><a href="/?course=KP21517007">← Kembali ke Matematika Ekonomi</a><b>Matematika Ekonomi · KP21517007</b></nav>
 <article class="page">
-<header><div class="eyebrow">KP21517007 · Matematika Ekonomi · Kelas C</div><h1>Kebijakan Pemerintah & Keseimbangan Multi-Pasar</h1><p>Pertemuan 03 · Kamis, 27 Agustus 2026</p><p>Pajak spesifik, pajak proporsional, subsidi, insidensi, penerimaan pemerintah, dan dampak lintas pasar—dengan pecahan eksak.</p></header>
+<header>
+<div class="eyebrow">KP21517007 · Matematika Ekonomi · Kelas C</div>
+<h1>Keseimbangan Pasar, Pajak, Subsidi &amp; Pasar Dua Komoditas</h1>
+<p>Pertemuan 03 · Kamis, 27 Agustus 2026</p>
+<p>Transkripsi lengkap 10 foto catatan tulis tangan: membentuk fungsi dari dua titik, lima variasi keseimbangan pasar murni, pajak spesifik <span>\(t=2\)</span> dengan beban konsumen/produsen dan penerimaan negara, subsidi spesifik <span>\(s=1\)</span>, pajak proporsional 25%, serta SPLDV dua komoditas.</p>
+</header>
 <main class="content">
-<nav class="toc"><a href="#spesifik">Pajak spesifik</a><a href="#proporsional">Pajak proporsional</a><a href="#subsidi">Subsidi</a><a href="#multipasar">Multi-pasar</a></nav>
-<section><h2>1. Kerangka Dasar</h2><div class="card"><p>Sumbu horizontal adalah kuantitas \(Q\), sumbu vertikal harga \(P\), dan titik ditulis \((Q,P)\). Bedakan harga konsumen \(P_c\) dari harga bersih produsen \(P_p\).</p><div class="formula">\[Q_d=a-bP_c,\qquad Q_s=c+dP_p,\qquad b,d&gt;0\]</div><div class="formula">\[P_e=\frac{a-c}{b+d},\qquad Q_e=\frac{ad+bc}{b+d}\]</div></div><div class="warning"><strong>Aturan aman:</strong> tulis hubungan \(P_c\) dan \(P_p\) lebih dahulu. Kebijakan menciptakan selisih harga; keseimbangan tetap memenuhi \(Q_d=Q_s\).</div></section>
-<section id="spesifik"><h2>2. Pajak Spesifik</h2><p>Pajak per unit \(t&gt;0\):</p><div class="formula">\[P_c-P_p=t\quad\Longleftrightarrow\quad P_p=P_c-t\]</div><p>Jika \(Q_s=c+dP_p\), maka \(Q_s^{(t)}=c+d(P_c-t)\). Dalam bentuk invers, \(P_s=\alpha+\beta Q\) bergeser menjadi \(P_s^{(t)}=\alpha+\beta Q+t\).</p><div class="card"><strong>Fenomena sehari-hari:</strong> cukai rokok per batang menaikkan harga dan menekan konsumsi. Pajak BBM dapat menaikkan harga per liter. Pajak barang mewah menaikkan harga mobil premium, perhiasan, atau barang bernilai tinggi; tarif persentase nilai jual termasuk pajak proporsional.</div>
-<div class="example"><h3>Contoh 1</h3><div class="formula">\[Q_d=20-2P_c,\quad Q_s=-4+3P_p,\quad t=\frac52\]</div><p><strong>Awal:</strong> \(20-2P=-4+3P\), sehingga <span class="exact">\(P_e=\frac{24}{5}\)</span> dan <span class="exact">\(Q_e=\frac{52}{5}\)</span>.</p><p><strong>Setelah pajak:</strong></p><div class="formula">\[20-2P_c=-4+3\left(P_c-\frac52\right)\Rightarrow P_c=\frac{63}{10}\]</div><div class="formula">\[P_p=\frac{19}{5},\qquad Q_t=\frac{37}{5}\]</div><p>Insidensi per unit: konsumen \(t_k=\frac32\), produsen \(t_p=1\), dan \(t_k+t_p=\frac52\). Penerimaan:</p><div class="formula">\[T=tQ_t=\frac52\cdot\frac{37}{5}=\boxed{\frac{37}{2}}\]</div><p>Kehilangan bobot mati: \(DWL=\frac12t(Q_e-Q_t)=\boxed{\frac{15}{4}}\).</p></div>
-<div class="chart"><svg viewBox="0 0 700 390" role="img" aria-label="Grafik pajak spesifik"><defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#e2e8f0"/></pattern></defs><rect x="60" y="20" width="600" height="320" fill="url(#g)"/><path d="M60 340H665M60 340V18" stroke="#334155" stroke-width="2"/><path d="M95 50L620 320" stroke="#dc2626" stroke-width="4"/><path d="M100 315L600 70" stroke="#16a34a" stroke-width="4"/><path d="M100 250L600 5" stroke="#2563eb" stroke-width="4"/><path d="M375 179V340M316 210V340" stroke="#64748b" stroke-dasharray="7 6"/><circle cx="375" cy="179" r="6" fill="#172554"/><circle cx="316" cy="140" r="6" fill="#172554"/><path d="M316 140V210" stroke="#d97706" stroke-width="7"/><text x="625" y="325" fill="#334155">Q</text><text x="42" y="25" fill="#334155">P</text><text x="590" y="316" fill="#dc2626">D</text><text x="580" y="82" fill="#16a34a">S</text><text x="580" y="22" fill="#2563eb">S+t</text><text x="383" y="175">E₀</text><text x="325" y="135">E₁</text></svg><div class="legend"><span><i class="swatch" style="background:#dc2626"></i>Permintaan</span><span><i class="swatch" style="background:#16a34a"></i>Penawaran</span><span><i class="swatch" style="background:#2563eb"></i>Setelah pajak</span></div><div class="caption">Pajak mengurangi kuantitas dan menciptakan wedge vertikal sebesar \(t\).</div></div></section>
-<section id="proporsional"><h2>3. Pajak Proporsional</h2><p>Untuk tarif \(\tau\) atas harga bersih produsen:</p><div class="formula">\[P_c=(1+\tau)P_p,\qquad P_p=\frac{P_c}{1+\tau}\]</div><p>Pajak aktual per unit berubah bersama harga: \(P_c-P_p=\tau P_p\). Jika tarif didefinisikan sebagai bagian harga konsumen, gunakan \(P_p=(1-\tau)P_c\); kedua konvensi tidak identik.</p>
-<div class="example"><h3>Contoh 2 — tarif 25%</h3><div class="formula">\[Q_d=30-2P_c,\quad Q_s=-6+3P_p,\quad \tau=\frac14\]</div><p>Awal: <span class="exact">\(P_e=\frac{36}{5}\), \(Q_e=\frac{78}{5}\)</span>. Karena \(P_p=\frac45P_c\):</p><div class="formula">\[30-2P_c=-6+\frac{12}{5}P_c\Rightarrow P_c=\frac{90}{11}\]</div><div class="formula">\[P_p=\frac{72}{11},\quad Q_\tau=\frac{150}{11},\quad P_c-P_p=\frac{18}{11}\]</div><div class="formula">\[T=\frac{18}{11}\cdot\frac{150}{11}=\boxed{\frac{2700}{121}}\]</div></div></section>
-<section id="subsidi"><h2>4. Subsidi Per Unit</h2><p>Subsidi \(s&gt;0\) kepada produsen:</p><div class="formula">\[P_p=P_c+s,\qquad Q_s^{(s)}=c+d(P_c+s)\]</div><p>Kurva invers bergeser turun: \(P_s^{(s)}=\alpha+\beta Q-s\).</p><div class="card"><strong>Fenomena sehari-hari:</strong> subsidi pupuk menurunkan biaya input petani; subsidi listrik menahan tarif rumah tangga sasaran; subsidi atau kompensasi Pertalite membuat harga konsumen lebih rendah daripada biaya keekonomiannya.</div><div class="example"><h3>Contoh 3</h3><div class="formula">\[Q_d=18-P_c,\quad Q_s=-2+2P_p,\quad s=\frac32\]</div><p>Awal: <span class="exact">\(P_e=\frac{20}{3}\), \(Q_e=\frac{34}{3}\)</span>.</p><div class="formula">\[18-P_c=-2+2\left(P_c+\frac32\right)\Rightarrow P_c=\frac{17}{3}\]</div><div class="formula">\[P_p=\frac{43}{6},\qquad Q_s^*=\frac{37}{3}\]</div><p>Subsidi konsumen \(s_k=P_e-P_c=1\); subsidi produsen \(s_p=P_p-P_e=\frac12\); maka \(s_k+s_p=s=\frac32\). Total subsidi atau belanja pemerintah wajib dinotasikan \(S\):</p><div class="formula">\[S=sQ_s^*=\boxed{\frac{37}{2}},\qquad DWL=\boxed{\frac34}\]</div></div></section>
-<section id="multipasar"><h2>5. Keseimbangan Multi-Pasar</h2><p>Harga silang menghubungkan pasar. Koefisien silang positif menunjukkan substitusi. Gunakan notasi pasar \(X\) dan \(Y\); selesaikan SPLDV simultan.</p><div class="example"><h3>Contoh 4 — barang X dan Y</h3><div class="formula">\[\begin{aligned}Q_{dX}&=30-2P_X+P_Y,&Q_{sX}&=-6+2P_X,\\Q_{dY}&=24+P_X-2P_Y,&Q_{sY}&=-3+P_Y.\end{aligned}\]</div><h3>Keseimbangan awal: empat langkah eliminasi SPLDV</h3><ol><li><strong>Pasar X:</strong> \(30-2P_X+P_Y=-6+2P_X\Rightarrow4P_X-P_Y=36\). (1)</li><li><strong>Pasar Y:</strong> \(24+P_X-2P_Y=-3+P_Y\Rightarrow-P_X+3P_Y=27\). (2)</li><li><strong>Eliminasi \(P_Y\):</strong> kalikan (1) dengan 3, lalu jumlahkan dengan (2).<div class="formula">\[\begin{aligned}12P_X-3P_Y&=108\\-P_X+3P_Y&=27\\\hline11P_X&=135\end{aligned}\Rightarrow P_X=\frac{135}{11}\]</div></li><li><strong>Substitusi dan kuantitas:</strong><div class="formula">\[P_Y=\frac{144}{11},\quad Q_X=\frac{204}{11},\quad Q_Y=\frac{111}{11}.\]</div></li></ol><h3>Pajak \(t=3\) pada X: empat langkah eliminasi SPLDV</h3><p>Karena \(P_{Xp}=P_{Xc}-3\), penawaran menjadi \(Q_{sX}^{(t)}=-12+2P_{Xc}\).</p><ol><li><strong>Pasar X:</strong> \(4P_{Xc}-P_Y=42\). (3)</li><li><strong>Pasar Y:</strong> \(-P_{Xc}+3P_Y=27\). (4)</li><li><strong>Eliminasi \(P_Y\):</strong> kalikan (3) dengan 3, lalu jumlahkan dengan (4).<div class="formula">\[\begin{aligned}12P_{Xc}-3P_Y&=126\\-P_{Xc}+3P_Y&=27\\\hline11P_{Xc}&=153\end{aligned}\Rightarrow P_{Xc}=\frac{153}{11}\]</div></li><li><strong>Substitusi, harga produsen, kuantitas:</strong><div class="formula">\[P_Y=\frac{150}{11},\ P_{Xp}=\frac{120}{11},\ Q_X=\frac{174}{11},\ Q_Y=\frac{117}{11}.\]</div></li></ol><p>Dampak: \(\Delta Q_X=-\frac{30}{11}\), \(\Delta Q_Y=\frac{6}{11}\). Penerimaan \(T=3\cdot\frac{174}{11}=\boxed{\frac{522}{11}}\).</p></div>
-<div class="chart"><svg viewBox="0 0 700 330" role="img" aria-label="Dampak lintas dua pasar"><rect x="30" y="25" width="280" height="250" rx="12" fill="#eff6ff"/><rect x="390" y="25" width="280" height="250" rx="12" fill="#f0fdf4"/><text x="115" y="58" font-size="20" font-weight="700" fill="#1e3a8a">Pasar X</text><text x="473" y="58" font-size="20" font-weight="700" fill="#166534">Pasar Y</text><path d="M90 105V230H255" stroke="#334155" stroke-width="2" fill="none"/><path d="M450 105V230H615" stroke="#334155" stroke-width="2" fill="none"/><path d="M110 120L240 215M110 210L240 120" stroke="#2563eb" stroke-width="4"/><path d="M470 120L600 215M470 210L600 120" stroke="#16a34a" stroke-width="4"/><path d="M130 173H215" stroke="#dc2626" stroke-width="5" marker-end="url(#a)"/><path d="M490 173H575" stroke="#16a34a" stroke-width="5"/><polygon points="130,173 144,165 144,181" fill="#dc2626"/><polygon points="575,173 561,165 561,181" fill="#16a34a"/><text x="113" y="258" fill="#dc2626">Q₁ turun 30/11</text><text x="465" y="258" fill="#166534">Q₂ naik 6/11</text><text x="318" y="145" font-size="28" fill="#64748b">pajak</text><text x="315" y="180" font-size="28" fill="#64748b">→</text></svg><div class="caption">Efek kebijakan merambat melalui harga silang barang substitusi.</div></div></section>
-<section><h2>6. Ringkasan dan Pemeriksaan</h2><div class="table-wrap"><table><thead><tr><th>Kebijakan</th><th>Hubungan harga</th><th>Penawaran dalam \(P_c\)</th><th>Arus pemerintah</th></tr></thead><tbody><tr><td>Pajak spesifik</td><td>\(P_p=P_c-t\)</td><td>\(c+d(P_c-t)\)</td><td>\(+tQ\)</td></tr><tr><td>Pajak proporsional</td><td>\(P_p=P_c/(1+\tau)\)</td><td>\(c+dP_c/(1+\tau)\)</td><td>\(+(P_c-P_p)Q\)</td></tr><tr><td>Subsidi</td><td>\(P_p=P_c+s\)</td><td>\(c+d(P_c+s)\)</td><td>\(-sQ\)</td></tr></tbody></table></div><div class="grid"><div class="card"><strong>Urutan kerja</strong><ol><li>Tulis fungsi dan satuan.</li><li>Bedakan \(P_c,P_p\).</li><li>Tulis wedge kebijakan.</li><li>Selesaikan \(Q_d=Q_s\).</li><li>Pertahankan pecahan eksak.</li><li>Uji balik semua persamaan.</li></ol></div><div class="warning"><strong>Hindari</strong><ul><li>Menulis \(Q_s'=Q_s+t\).</li><li>Menyamakan pajak proporsional dengan pajak tetap.</li><li>Memakai \(Q_e\) awal untuk penerimaan.</li><li>Membulatkan terlalu dini.</li><li>Memisahkan sistem multi-pasar.</li></ul></div></div></section>
-</main><footer>Catatan Pertemuan 03 · KP21517007 · Notasi koordinat (Q, P)</footer></article>
-<script>document.addEventListener('DOMContentLoaded',()=>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false}));</script>
+<nav class="toc">
+<a href="#konvensi">0. Konvensi</a>
+<a href="#duatitik">I. Fungsi 2 Titik</a>
+<a href="#murni">II. Keseimbangan</a>
+<a href="#pajak">III. Pajak Spesifik</a>
+<a href="#subsidi">IV. Subsidi</a>
+<a href="#proporsional">V. Proporsional</a>
+<a href="#multi">VI. Dua Komoditas</a>
+<a href="#galeri">Galeri Foto</a>
+</nav>
+
+<section id="konvensi"><h2>0. Konvensi dan Notasi</h2>
+<div class="table-wrap"><table><thead><tr><th>Simbol</th><th>Arti</th></tr></thead><tbody>
+<tr><td>\(Q\)</td><td>kuantitas (sumbu horizontal)</td></tr>
+<tr><td>\(P\)</td><td>harga (sumbu vertikal)</td></tr>
+<tr><td>\(E(Q_e,P_e)\)</td><td>titik keseimbangan, ditulis sebagai pasangan \((Q,P)\)</td></tr>
+<tr><td>\(P_d,Q_d\)</td><td>harga/jumlah pada fungsi <strong>permintaan</strong></td></tr>
+<tr><td>\(P_s,Q_s\)</td><td>harga/jumlah pada fungsi <strong>penawaran</strong></td></tr>
+<tr><td>\(t\)</td><td>pajak per unit barang (pajak spesifik)</td></tr>
+<tr><td>\(s\)</td><td>subsidi per unit barang</td></tr>
+<tr><td>\(P_t,Q_t\)</td><td>harga dan jumlah <strong>setelah</strong> pajak</td></tr>
+<tr><td>\(K\)</td><td>beban pajak yang ditanggung konsumen (total)</td></tr>
+<tr><td>\(t_p\)</td><td>beban pajak yang ditanggung produsen (total)</td></tr>
+<tr><td>\(T\)</td><td>penerimaan pemerintah dari pajak</td></tr>
+<tr><td>\(S\)</td><td>belanja subsidi pemerintah</td></tr>
+</tbody></table></div>
+<div class="note"><strong>Definisi inti (foto 0007 &amp; 0011).</strong> Keseimbangan pasar adalah <strong>titik potong antara fungsi permintaan dan fungsi penawaran</strong>, yaitu keadaan
+<div class="formula">\[P_d=P_s\qquad\text{dan}\qquad Q_d=Q_s.\]</div></div>
+<div class="chart"><svg viewBox="0 0 640 330" role="img" aria-label="Sketsa kurva keseimbangan pasar">
+<defs><pattern id="grid0" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#eef2f7"/></pattern></defs>
+<rect x="70" y="20" width="530" height="260" fill="url(#grid0)"/>
+<path d="M70 280H610M70 280V20" stroke="#334155" stroke-width="2"/>
+<path d="M110 60L520 250" stroke="#dc2626" stroke-width="4"/>
+<path d="M110 250L520 60" stroke="#2563eb" stroke-width="4"/>
+<path d="M315 155V280M70 155H315" stroke="#64748b" stroke-dasharray="6 5"/>
+<circle cx="315" cy="155" r="6" fill="#172554"/>
+<text x="330" y="148" font-weight="700" fill="#172554">E(Qe, Pe)</text>
+<text x="530" y="255" fill="#dc2626" font-weight="700">D</text>
+<text x="530" y="58" fill="#2563eb" font-weight="700">S</text>
+<text x="618" y="285" fill="#334155" font-weight="700">Q</text>
+<text x="58" y="26" fill="#334155" font-weight="700">P</text>
+<text x="300" y="298" fill="#64748b" font-size="13">Qe</text>
+<text x="46" y="160" fill="#64748b" font-size="13">Pe</text>
+</svg>
+<div class="legend"><span><i class="swatch" style="background:#dc2626"></i>Fungsi permintaan (turun)</span><span><i class="swatch" style="background:#2563eb"></i>Fungsi penawaran (naik)</span></div>
+<div class="caption">Sketsa sesuai catatan foto 0011: perpotongan kedua kurva adalah titik keseimbangan.</div></div>
+</section>
+
+<section id="duatitik"><h2>I. Membentuk Fungsi dari Dua Titik</h2>
+<div class="card"><h4>Rumus dua titik</h4>
+<div class="formula">\[\frac{P-P_1}{P_2-P_1}=\frac{Q-Q_1}{Q_2-Q_1}\]</div></div>
+
+<div class="problem"><strong>Soal (foto 0007).</strong> Tentukan fungsi penawaran jika diketahui
+<div class="formula">\[P_1=2000,\qquad P_2=2500,\qquad Q_1=500,\qquad Q_2=1000.\]</div></div>
+
+<div class="example"><h3>Penyelesaian langkah demi langkah</h3>
+<div class="formula">\[\frac{P-P_1}{P_2-P_1}=\frac{Q-Q_1}{Q_2-Q_1}\]</div>
+<div class="formula">\[\Longleftrightarrow\ \frac{P-2000}{2500-2000}=\frac{Q-500}{1000-500}\]</div>
+<div class="formula">\[\Longleftrightarrow\ \frac{P-2000}{500}=\frac{Q-500}{500}\]</div>
+<div class="formula">\[\Longleftrightarrow\ 500\,(P-2000)=500\,(Q-500)\]</div>
+<div class="formula">\[\Longleftrightarrow\ P-2000=Q-500\]</div>
+<div class="formula">\[\Longleftrightarrow\ P=Q-500+2000\]</div>
+<div class="formula">\[\Longleftrightarrow\ \boxed{P=Q+1500}\quad\text{(dalam }P\text{)}\]</div>
+<p>Bentuk dalam \(Q\):</p>
+<div class="formula">\[-Q=1500-P\quad\Longleftrightarrow\quad\boxed{Q=P-1500}\quad\text{(dalam }Q\text{)}\]</div>
+<div class="note">Kemiringan positif \((+1)\) mengonfirmasi bahwa fungsi ini memang <strong>fungsi penawaran</strong>.</div></div>
+
+<h3>Harga tertinggi dan jumlah barang gratis (foto 0010)</h3>
+<p>Contoh untuk fungsi permintaan \(P=36-4Q\).</p>
+<div class="grid">
+<div class="card"><h4>Harga tertinggi</h4><p>Harga saat tidak ada barang yang diminta, substitusi \(Q=0\):</p>
+<div class="formula">\[P=36-4(0)\implies\boxed{P=36}\]</div></div>
+<div class="card"><h4>Jumlah barang jika gratis</h4><p>Jumlah yang diminta saat harga nol, substitusi \(P=0\):</p>
+<div class="formula">\[0=36-4Q\implies 4Q=36\implies\boxed{Q=9}\]</div></div>
+</div>
+<p>Kedua nilai ini adalah titik potong kurva permintaan dengan sumbu \(P\) dan sumbu \(Q\).</p>
+</section>
+
+<section id="murni"><h2>II. Keseimbangan Pasar Murni — 5 Variasi Latihan</h2>
+<div class="problem"><strong>Soal (foto 0010).</strong> Carilah keseimbangan pasar untuk setiap pasangan fungsi berikut.</div>
+
+<div class="example"><h3>Latihan (a) — kedua fungsi dalam bentuk \(P\)</h3>
+<div class="formula">\[P_d=12-5Q,\qquad P_s=4+4Q\]</div>
+<div class="formula">\[P_d=P_s\]</div>
+<div class="formula">\[12-5Q=4+4Q\]</div>
+<div class="formula">\[8=9Q\]</div>
+<div class="formula">\[Q=\frac{8}{9}\]</div>
+<p>Substitusi \(Q\) ke persamaan \(P_d=12-5Q\):</p>
+<div class="formula">\[P_d=12-5\left(\frac{8}{9}\right)=12-\frac{40}{9}=\frac{108-40}{9}=\frac{68}{9}\]</div>
+<p>Karena \(P_d=P_s\), maka \(P_s=\frac{68}{9}\) juga. Jadi</p>
+<div class="formula">\[\boxed{E\left(\frac{8}{9},\ \frac{68}{9}\right)}\]</div></div>
+
+<div class="example"><h3>Latihan (b) — kedua fungsi dalam bentuk \(Q\)</h3>
+<div class="formula">\[Q_d=10-P,\qquad Q_s=2P-5\]</div>
+<div class="formula">\[Q_d=Q_s\]</div>
+<div class="formula">\[10-P=2P-5\]</div>
+<div class="formula">\[15=3P\]</div>
+<div class="formula">\[P=5\]</div>
+<p>Substitusi nilai \(P\) ke persamaan \(Q_d=10-P\):</p>
+<div class="formula">\[Q_d=10-5=5\]</div>
+<p>Karena \(Q_d=Q_s\), maka \(Q_s=5\). Jadi</p>
+<div class="formula">\[\boxed{E(5,\ 5)}\]</div></div>
+
+<div class="example"><h3>Latihan (c) — harga tetap (permintaan horizontal)</h3>
+<div class="formula">\[P=6,\qquad Q=3P-3\]</div>
+<p>Substitusi nilai \(P\) ke persamaan \(Q=3P-3\):</p>
+<div class="formula">\[Q=3(6)-3=18-3=15\]</div>
+<div class="formula">\[\boxed{E(15,\ 6)}\]</div>
+<div class="note">Kasus khusus: permintaan elastis sempurna. Harga sudah tertentu, sehingga kuantitas ditentukan sepenuhnya oleh sisi penawaran.</div></div>
+
+<div class="example"><h3>Latihan (d) — fungsi permintaan implisit</h3>
+<div class="formula">\[8P=40-12Q,\qquad Q=4P-6\]</div>
+<p>Ubah fungsi permintaan menjadi bentuk \(Q\):</p>
+<div class="formula">\[12Q=40-8P\implies Q_d=\frac{40-8P}{12}\]</div>
+<div class="formula">\[Q_d=Q_s\]</div>
+<div class="formula">\[\frac{40-8P}{12}=4P-6\]</div>
+<div class="formula">\[40-8P=12(4P-6)\]</div>
+<div class="formula">\[40-8P=48P-72\]</div>
+<div class="formula">\[112=56P\]</div>
+<div class="formula">\[P=2\]</div>
+<p>Substitusi nilai \(P\) ke persamaan \(Q=4P-6\):</p>
+<div class="formula">\[Q=4(2)-6=2\]</div>
+<div class="formula">\[\boxed{E(2,\ 2)}\]</div></div>
+
+<div class="example"><h3>Latihan (e) — dilengkapi kurva (foto 0011)</h3>
+<div class="formula">\[Q_d=15-P,\qquad Q_s=-9+P\]</div>
+<div class="formula">\[Q_d=Q_s\]</div>
+<div class="formula">\[15-P=-9+P\]</div>
+<div class="formula">\[24=2P\]</div>
+<div class="formula">\[P=12\]</div>
+<p>Substitusi nilai \(P\) ke persamaan \(Q_d=15-P\):</p>
+<div class="formula">\[Q_d=15-12=3\]</div>
+<p>Substitusi nilai \(P\) ke persamaan \(Q_s=-9+P\):</p>
+<div class="formula">\[Q_s=-9+12=3\]</div>
+<p><strong>Uji balik:</strong> \(Q_d=Q_s\implies 3=3\) ✔</p>
+<div class="formula">\[\boxed{E(Q_e,P_e)=E(3,\ 12)}\]</div></div>
+
+<div class="chart"><svg viewBox="0 0 660 360" role="img" aria-label="Grafik keseimbangan Qd=15-P dan Qs=-9+P">
+<defs><pattern id="grid1" width="36" height="30" patternUnits="userSpaceOnUse"><path d="M36 0H0V30" fill="none" stroke="#eef2f7"/></pattern></defs>
+<rect x="70" y="20" width="540" height="300" fill="url(#grid1)"/>
+<path d="M70 320H620M70 320V20" stroke="#334155" stroke-width="2"/>
+<path d="M70 20L610 320" stroke="#dc2626" stroke-width="4"/>
+<path d="M70 320L520 20" stroke="#2563eb" stroke-width="4"/>
+<path d="M250 170V320M70 170H250" stroke="#64748b" stroke-dasharray="6 5"/>
+<circle cx="250" cy="170" r="6" fill="#172554"/>
+<text x="262" y="164" font-weight="700" fill="#172554">E(3, 12)</text>
+<text x="580" y="300" fill="#dc2626" font-weight="700">Qd = 15 − P</text>
+<text x="430" y="40" fill="#2563eb" font-weight="700">Qs = −9 + P</text>
+<text x="628" y="325" fill="#334155" font-weight="700">Q</text>
+<text x="58" y="26" fill="#334155" font-weight="700">P</text>
+<text x="240" y="340" fill="#64748b" font-size="13">3</text>
+<text x="50" y="175" fill="#64748b" font-size="13">12</text>
+</svg>
+<div class="legend"><span><i class="swatch" style="background:#dc2626"></i>Permintaan</span><span><i class="swatch" style="background:#2563eb"></i>Penawaran</span><span><i class="swatch" style="background:#172554"></i>Titik keseimbangan</span></div>
+<div class="caption">Latihan (e): perpotongan pada \(E(3,12)\), dengan konvensi koordinat \((Q,P)\).</div></div>
+
+<h3>Rekapitulasi lima latihan</h3>
+<div class="table-wrap"><table><thead><tr><th>No</th><th>Permintaan</th><th>Penawaran</th><th>\(Q_e\)</th><th>\(P_e\)</th></tr></thead><tbody>
+<tr><td>a</td><td>\(P_d=12-5Q\)</td><td>\(P_s=4+4Q\)</td><td class="exact">\(\frac{8}{9}\)</td><td class="exact">\(\frac{68}{9}\)</td></tr>
+<tr><td>b</td><td>\(Q_d=10-P\)</td><td>\(Q_s=2P-5\)</td><td>\(5\)</td><td>\(5\)</td></tr>
+<tr><td>c</td><td>\(P=6\)</td><td>\(Q=3P-3\)</td><td>\(15\)</td><td>\(6\)</td></tr>
+<tr><td>d</td><td>\(8P=40-12Q\)</td><td>\(Q=4P-6\)</td><td>\(2\)</td><td>\(2\)</td></tr>
+<tr><td>e</td><td>\(Q_d=15-P\)</td><td>\(Q_s=-9+P\)</td><td>\(3\)</td><td>\(12\)</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="pajak"><h2>III. Pengaruh Pajak Spesifik \((t)\)</h2>
+<div class="card"><h4>Bentuk umum (foto 0012)</h4>
+<div class="formula">\[\text{Fungsi penawaran:}\qquad P=a+bQ\]</div>
+<div class="formula">\[\text{Fungsi penawaran dengan pajak:}\qquad\boxed{P=a+bQ+t}\]</div>
+<p>Pajak per unit menggeser kurva penawaran <strong>vertikal ke atas</strong> sebesar \(t\): pada setiap tingkat kuantitas, produsen menuntut harga \(t\) lebih tinggi agar penerimaan bersihnya tidak berubah.</p></div>
+
+<div class="card"><h4>Rumus insidensi dan penerimaan (foto 0008 &amp; 0009)</h4>
+<p>Besar pajak yang <strong>ditanggung konsumen</strong>:</p>
+<div class="formula">\[K=(P_t-P_e)\,Q_t\]</div>
+<p>dengan \(P_t\) = harga setelah pajak, \(P_e\) = harga sebelum pajak, \(Q_t\) = jumlah setelah pajak.</p>
+<p>Penerimaan pemerintah dari pajak:</p>
+<div class="formula">\[T=t\,Q_t\]</div>
+<p>Besar pajak yang <strong>ditanggung produsen</strong>:</p>
+<div class="formula">\[t_p=T-K\]</div></div>
+
+<div class="warning"><strong>Koreksi penting.</strong> Pada foto 0008 baris terakhir tertulis \(t_p=t-K=2-\frac{48}{5}=-\frac{38}{5}\). Hasil ini <strong>tidak konsisten satuan</strong>: \(t\) adalah pajak <em>per unit</em> (Rp/unit), sedangkan \(K\) adalah beban <em>total</em> (Rp), dan beban tidak mungkin negatif. Yang benar adalah \(t_p=T-K\) dengan \(T=t\,Q_t\), sesuai baris "Penerimaan pemerintah dari pajak \(T=t\,Q_t\)" pada foto yang sama.</div>
+
+<h3>Latihan mekanisme pergeseran kurva (foto 0012)</h3>
+<div class="grid">
+<div class="example"><h4>Kasus 1</h4><p>Permintaan \(P=3+2Q\); penawaran \(Q=7+2P\); pajak Rp 2.</p>
+<p>Ubah penawaran ke bentuk \(P\):</p>
+<div class="formula">\[Q=7+2P\implies 2P=Q-7\implies P=\frac{Q-7}{2}\]</div>
+<p>Fungsi penawaran dengan pajak:</p>
+<div class="formula">\[\boxed{P_{st}=\frac{Q-7}{2}+2}\]</div></div>
+<div class="example"><h4>Kasus 2</h4><p>Permintaan \(Q=4+8P\); penawaran \(P=8+3Q\); pajak Rp 3.</p>
+<p>Ubah permintaan ke bentuk \(P\):</p>
+<div class="formula">\[Q=4+8P\implies 8P=Q-4\implies P_d=\frac{Q-4}{8}\]</div>
+<p>Penawaran setelah pajak:</p>
+<div class="formula">\[P=8+3Q+3\implies\boxed{P_{st}=11+3Q}\]</div></div>
+</div>
+<div class="note">Kedua latihan ini hanya melatih <strong>langkah transformasi</strong>; belum diminta sampai titik keseimbangan.</div>
+
+<h3>Soal utama pajak spesifik \(t=2\) (foto 0006, 0008, 0009)</h3>
+<div class="problem"><strong>Soal.</strong> Diketahui fungsi permintaan \(Q=20-2P\) dan fungsi penawaran \(Q=3P-4\). Carilah keseimbangan pasar yang baru jika pemerintah mengenakan pajak sebesar Rp 2,00 per unit barang.</div>
+
+<div class="example">
+<ol class="steps">
+<li><strong>Keseimbangan pasar sebelum pajak</strong>
+<div class="formula">\[Q_d=Q_s\]</div>
+<div class="formula">\[20-2P=3P-4\]</div>
+<div class="formula">\[5P=24\]</div>
+<div class="formula">\[P_e=\frac{24}{5}=4{,}8\]</div>
+<p>Substitusi \(P_e\) ke persamaan \(Q_s=3P-4\):</p>
+<div class="formula">\[Q_s=3\left(\frac{24}{5}\right)-4=\frac{72}{5}-4=\frac{72-20}{5}=\frac{52}{5}=10{,}4\]</div>
+<div class="formula">\[\boxed{E_0\left(\frac{52}{5},\ \frac{24}{5}\right)=E_0(10{,}4;\ 4{,}8)}\]</div></li>
+
+<li><strong>Ubah kedua fungsi ke bentuk \(P\) dan tambahkan pajak</strong>
+<div class="formula">\[Q=20-2P\implies 2P=20-Q\implies P_d=\frac{20-Q}{2}\]</div>
+<div class="formula">\[Q=3P-4\implies 3P=Q+4\implies P_s=\frac{Q+4}{3}\]</div>
+<p>Dengan pajak \(t=2\):</p>
+<div class="formula">\[P_{st}=\frac{Q+4}{3}+2=\frac{Q+4+6}{3}=\frac{Q+10}{3}\]</div></li>
+
+<li><strong>Keseimbangan setelah pajak</strong>
+<div class="formula">\[P_d=P_{st}\]</div>
+<div class="formula">\[\frac{20-Q}{2}=\frac{Q+10}{3}\]</div>
+<div class="formula">\[3(20-Q)=2(Q+10)\]</div>
+<div class="formula">\[60-3Q=2Q+20\]</div>
+<div class="formula">\[5Q=40\]</div>
+<div class="formula">\[Q_t=\frac{40}{5}=8\]</div>
+<p>Substitusi nilai \(Q\) ke persamaan \(P=\frac{Q+10}{3}\):</p>
+<div class="formula">\[P=\frac{8+10}{3}=\frac{18}{3}\implies P_t=6\]</div>
+<div class="formula">\[\boxed{E_t(Q_t,P_t)=E_t(8,\ 6)}\]</div></li>
+
+<li><strong>Penerimaan pemerintah dan pembagian beban</strong>
+<p>Penerimaan pemerintah dari pajak:</p>
+<div class="formula">\[T=t\,Q_t=2\times 8=\boxed{16}\]</div>
+<p>Beban pajak yang ditanggung konsumen:</p>
+<div class="formula">\[K=(P_t-P_e)\,Q_t=\left(6-\frac{24}{5}\right)\times 8=\frac{6}{5}\times 8=\frac{48}{5}=9{,}6\]</div>
+<p>Beban pajak yang ditanggung produsen:</p>
+<div class="formula">\[t_p=T-K=16-\frac{48}{5}=\frac{80-48}{5}=\frac{32}{5}=6{,}4\]</div>
+<p><strong>Uji balik:</strong> \(K+t_p=\frac{48}{5}+\frac{32}{5}=\frac{80}{5}=16=T\) ✔</p>
+<p>Insidensi per unit:</p>
+<div class="formula">\[t_k=P_t-P_e=6-\frac{24}{5}=\frac{6}{5}=1{,}2,\qquad t_{p,\text{unit}}=t-t_k=2-\frac{6}{5}=\frac{4}{5}=0{,}8\]</div>
+<div class="formula">\[t_k+t_{p,\text{unit}}=\frac{6}{5}+\frac{4}{5}=2=t\ \checkmark\]</div></li>
+</ol></div>
+
+<div class="chart"><svg viewBox="0 0 680 380" role="img" aria-label="Grafik pajak spesifik t=2">
+<defs><pattern id="grid2" width="36" height="30" patternUnits="userSpaceOnUse"><path d="M36 0H0V30" fill="none" stroke="#eef2f7"/></pattern></defs>
+<rect x="70" y="20" width="560" height="300" fill="url(#grid2)"/>
+<path d="M70 320H640M70 320V20" stroke="#334155" stroke-width="2"/>
+<path d="M75 40L600 300" stroke="#dc2626" stroke-width="4"/>
+<path d="M100 300L580 60" stroke="#16a34a" stroke-width="4"/>
+<path d="M100 240L560 10" stroke="#2563eb" stroke-width="4" stroke-dasharray="10 6"/>
+<path d="M348 197V320M70 197H348" stroke="#64748b" stroke-dasharray="6 5"/>
+<path d="M290 168V320M70 168H290" stroke="#64748b" stroke-dasharray="6 5"/>
+<path d="M290 168V212" stroke="#d97706" stroke-width="8"/>
+<circle cx="348" cy="197" r="6" fill="#172554"/>
+<circle cx="290" cy="168" r="6" fill="#7c3aed"/>
+<text x="358" y="192" font-weight="700" fill="#172554">E₀(10,4; 4,8)</text>
+<text x="188" y="160" font-weight="700" fill="#7c3aed">Eₜ(8; 6)</text>
+<text x="300" y="205" fill="#d97706" font-size="13" font-weight="700">t = 2</text>
+<text x="570" y="290" fill="#dc2626" font-weight="700">D</text>
+<text x="588" y="66" fill="#16a34a" font-weight="700">S</text>
+<text x="562" y="26" fill="#2563eb" font-weight="700">S + t</text>
+<text x="648" y="325" fill="#334155" font-weight="700">Q</text>
+<text x="58" y="26" fill="#334155" font-weight="700">P</text>
+</svg>
+<div class="legend"><span><i class="swatch" style="background:#dc2626"></i>Permintaan</span><span><i class="swatch" style="background:#16a34a"></i>Penawaran awal</span><span><i class="swatch" style="background:#2563eb"></i>Penawaran + pajak</span><span><i class="swatch" style="background:#d97706"></i>Wedge \(t\)</span></div>
+<div class="caption">Pajak menggeser penawaran ke atas sebesar \(t=2\): harga naik \(4{,}8\to 6\), kuantitas turun \(10{,}4\to 8\).</div></div>
+
+<h3>Ringkasan Bagian III</h3>
+<div class="table-wrap"><table><thead><tr><th>Besaran</th><th>Nilai pecahan</th><th>Desimal</th></tr></thead><tbody>
+<tr><td>\(P_e\) (sebelum pajak)</td><td>\(\frac{24}{5}\)</td><td>\(4{,}8\)</td></tr>
+<tr><td>\(Q_e\) (sebelum pajak)</td><td>\(\frac{52}{5}\)</td><td>\(10{,}4\)</td></tr>
+<tr><td>\(P_t\) (setelah pajak)</td><td>\(6\)</td><td>\(6\)</td></tr>
+<tr><td>\(Q_t\) (setelah pajak)</td><td>\(8\)</td><td>\(8\)</td></tr>
+<tr><td>\(T\) penerimaan pemerintah</td><td class="exact">\(16\)</td><td>\(16\)</td></tr>
+<tr><td>\(K\) beban konsumen</td><td class="exact">\(\frac{48}{5}\)</td><td>\(9{,}6\)</td></tr>
+<tr><td>\(t_p\) beban produsen</td><td class="exact">\(\frac{32}{5}\)</td><td>\(6{,}4\)</td></tr>
+</tbody></table></div>
+<p>Konsumen menanggung \(60\%\) beban \(\left(\frac{48}{5}\div 16\right)\), produsen \(40\%\).</p>
+</section>
+
+<section id="subsidi"><h2>IV. Pengaruh Subsidi Spesifik \((s)\)</h2>
+<div class="card"><h4>Bentuk umum (foto 0009)</h4>
+<div class="formula">\[\text{Fungsi penawaran:}\qquad P=a+bQ\]</div>
+<div class="formula">\[\text{Fungsi penawaran dengan subsidi:}\qquad\boxed{P=a+bQ-s}\]</div>
+<p>Subsidi menggeser kurva penawaran <strong>vertikal ke bawah</strong> sebesar \(s\): produsen bersedia menjual dengan harga \(s\) lebih rendah karena selisihnya ditutup pemerintah.</p></div>
+
+<div class="example"><h3>Latihan mekanisme (foto 0009)</h3>
+<p>Permintaan \(P=3+2Q\); penawaran \(P=4+2Q\); subsidi Rp 3,00.</p>
+<div class="formula">\[P_d=3+2Q\]</div>
+<div class="formula">\[P_s=4+2Q-3=1+2Q\]</div>
+<p>Keseimbangan setelah subsidi:</p>
+<div class="formula">\[P_d=P_s\implies 3+2Q=1+2Q\]</div>
+<div class="warning"><strong>Catatan analisis.</strong> Kedua fungsi memiliki kemiringan sama \((b=2)\), sehingga kurvanya <strong>sejajar dan tidak pernah berpotongan</strong>; mengurangi \(2Q\) di kedua sisi menghasilkan \(3=1\), sebuah kontradiksi. Latihan ini berfungsi melatih <strong>transformasi \(P=a+bQ-s\)</strong>, bukan mencari nilai keseimbangan.</div></div>
+
+<h3>Soal utama subsidi \(s=1\) (foto 0014)</h3>
+<div class="problem"><strong>Soal.</strong> Diketahui fungsi permintaan \(2Q=10-P\) dan fungsi penawarannya \(3Q=2P-2\). Carilah keseimbangan pasar jika pemerintah memberikan subsidi sebesar Rp 1,00 per unit.</div>
+
+<div class="example">
+<ol class="steps">
+<li><strong>Ubah kedua fungsi ke bentuk \(P\)</strong>
+<p>Fungsi permintaan:</p>
+<div class="formula">\[2Q=10-P\implies P_d=10-2Q\]</div>
+<p>Fungsi penawaran:</p>
+<div class="formula">\[3Q=2P-2\implies 2P=3Q+2\implies P_s=\frac{3Q+2}{2}\]</div></li>
+
+<li><strong>Terapkan subsidi \(s=1\)</strong>
+<div class="formula">\[P_{ss}=\frac{3Q+2}{2}-1=\frac{3Q+2-2}{2}=\frac{3Q}{2}\]</div></li>
+
+<li><strong>Keseimbangan setelah subsidi</strong>
+<div class="formula">\[P_d=P_{ss}\]</div>
+<div class="formula">\[10-2Q=\frac{3Q}{2}\]</div>
+<div class="formula">\[2(10-2Q)=3Q\]</div>
+<div class="formula">\[20-4Q=3Q\]</div>
+<div class="formula">\[7Q=20\]</div>
+<div class="formula">\[Q_s=\frac{20}{7}\]</div>
+<p>Substitusi \(Q\) ke persamaan \(P=\frac{3Q}{2}\):</p>
+<div class="formula">\[P=\frac{3\left(\frac{20}{7}\right)}{2}=\frac{\frac{60}{7}}{2}=\frac{30}{7}\]</div>
+<div class="formula">\[\boxed{E_s(Q_e,P_e)=E_s\left(\frac{20}{7},\ \frac{30}{7}\right)}\]</div></li>
+
+<li><strong>Pelengkap: keseimbangan awal dan pembagian subsidi</strong>
+<p>Keseimbangan <strong>sebelum</strong> subsidi:</p>
+<div class="formula">\[10-2Q=\frac{3Q+2}{2}\implies 20-4Q=3Q+2\implies 7Q=18\implies Q_e=\frac{18}{7}\]</div>
+<div class="formula">\[P_e=10-2\left(\frac{18}{7}\right)=\frac{70-36}{7}=\frac{34}{7}\]</div>
+<p>Harga yang <strong>diterima produsen</strong> setelah subsidi:</p>
+<div class="formula">\[P_p=P_c+s=\frac{30}{7}+1=\frac{37}{7}\]</div>
+<p>Uji balik pada penawaran asli:</p>
+<div class="formula">\[P_s=\frac{3\left(\frac{20}{7}\right)+2}{2}=\frac{\frac{60}{7}+\frac{14}{7}}{2}=\frac{\frac{74}{7}}{2}=\frac{37}{7}\ \checkmark\]</div>
+<p>Bagian subsidi yang dinikmati konsumen dan produsen:</p>
+<div class="formula">\[s_k=P_e-P_c=\frac{34}{7}-\frac{30}{7}=\frac{4}{7},\qquad s_p=P_p-P_e=\frac{37}{7}-\frac{34}{7}=\frac{3}{7}\]</div>
+<div class="formula">\[s_k+s_p=\frac{4}{7}+\frac{3}{7}=1=s\ \checkmark\]</div>
+<p>Belanja subsidi pemerintah:</p>
+<div class="formula">\[S=s\,Q_s=1\times\frac{20}{7}=\boxed{\frac{20}{7}\approx 2{,}857}\]</div></li>
+</ol></div>
+
+<div class="chart"><svg viewBox="0 0 680 380" role="img" aria-label="Grafik subsidi spesifik s=1">
+<defs><pattern id="grid3" width="36" height="30" patternUnits="userSpaceOnUse"><path d="M36 0H0V30" fill="none" stroke="#eef2f7"/></pattern></defs>
+<rect x="70" y="20" width="560" height="300" fill="url(#grid3)"/>
+<path d="M70 320H640M70 320V20" stroke="#334155" stroke-width="2"/>
+<path d="M75 40L600 300" stroke="#dc2626" stroke-width="4"/>
+<path d="M100 250L580 30" stroke="#16a34a" stroke-width="4"/>
+<path d="M100 300L580 80" stroke="#059669" stroke-width="4" stroke-dasharray="10 6"/>
+<path d="M300 176V320M70 176H300" stroke="#64748b" stroke-dasharray="6 5"/>
+<path d="M336 194V320M70 194H336" stroke="#64748b" stroke-dasharray="6 5"/>
+<path d="M336 150V194" stroke="#d97706" stroke-width="8"/>
+<circle cx="300" cy="176" r="6" fill="#172554"/>
+<circle cx="336" cy="194" r="6" fill="#059669"/>
+<text x="150" y="170" font-weight="700" fill="#172554">E₀(18/7; 34/7)</text>
+<text x="350" y="215" font-weight="700" fill="#059669">Eₛ(20/7; 30/7)</text>
+<text x="346" y="146" fill="#d97706" font-size="13" font-weight="700">s = 1</text>
+<text x="570" y="290" fill="#dc2626" font-weight="700">D</text>
+<text x="588" y="36" fill="#16a34a" font-weight="700">S</text>
+<text x="588" y="86" fill="#059669" font-weight="700">S − s</text>
+<text x="648" y="325" fill="#334155" font-weight="700">Q</text>
+<text x="58" y="26" fill="#334155" font-weight="700">P</text>
+</svg>
+<div class="legend"><span><i class="swatch" style="background:#dc2626"></i>Permintaan</span><span><i class="swatch" style="background:#16a34a"></i>Penawaran awal</span><span><i class="swatch" style="background:#059669"></i>Penawaran − subsidi</span><span><i class="swatch" style="background:#d97706"></i>Wedge \(s\)</span></div>
+<div class="caption">Subsidi menurunkan harga konsumen \(\frac{34}{7}\to\frac{30}{7}\) dan menaikkan kuantitas \(\frac{18}{7}\to\frac{20}{7}\).</div></div>
+</section>
+
+<section id="proporsional"><h2>V. Pajak Proporsional (<em>Ad Valorem</em>)</h2>
+<div class="card"><h4>Bentuk umum (foto 0015)</h4>
+<div class="formula">\[\text{Keseimbangan pasar untuk pajak proporsional:}\qquad\boxed{P=a+bQ+tP}\]</div>
+<p>Pindahkan suku \(tP\) ke kiri:</p>
+<div class="formula">\[P-tP=a+bQ\implies\boxed{P(1-t)=a+bQ}\]</div>
+<p>Berbeda dari pajak spesifik, besar pajak per unit <strong>tidak konstan</strong> melainkan proporsional terhadap harga: \(tP\). Kurva penawaran <strong>berputar</strong>, bukan bergeser sejajar.</p></div>
+
+<div class="problem"><strong>Soal (foto 0015).</strong> Diketahui fungsi permintaan \(Q=3P-7\), fungsi penawaran \(Q=2P+5\), dan pajak sebesar \(25\%=0{,}25\).</div>
+
+<div class="example">
+<ol class="steps">
+<li><strong>Ubah penawaran ke bentuk \(P\) dan tambahkan pajak proporsional</strong>
+<div class="formula">\[Q=2P+5\implies 2P=Q-5\implies\boxed{P=\frac{Q-5}{2}+0{,}25P}\]</div></li>
+<li><strong>Kumpulkan suku \(P\)</strong>
+<div class="formula">\[P-0{,}25P=\frac{Q-5}{2}\]</div>
+<div class="formula">\[\boxed{0{,}75P=\frac{Q-5}{2}}\]</div>
+<div class="note">Sampai di sini batas catatan tulis tangan pada foto 0015. Langkah berikut adalah kelanjutan yang konsisten dengan rumus di atas.</div></li>
+<li><strong>Kelanjutan: nilai keseimbangan</strong>
+<p>Fungsi permintaan dalam bentuk \(P\):</p>
+<div class="formula">\[Q=3P-7\implies 3P=Q+7\implies P_d=\frac{Q+7}{3}\]</div>
+<p>Penawaran setelah pajak dari langkah 2:</p>
+<div class="formula">\[P_{st}=\frac{Q-5}{2\times 0{,}75}=\frac{Q-5}{1{,}5}=\frac{2(Q-5)}{3}\]</div>
+<div class="formula">\[P_d=P_{st}\]</div>
+<div class="formula">\[\frac{Q+7}{3}=\frac{2(Q-5)}{3}\]</div>
+<div class="formula">\[Q+7=2Q-10\]</div>
+<div class="formula">\[Q_t=17\]</div>
+<div class="formula">\[P_c=\frac{17+7}{3}=\frac{24}{3}=8\]</div>
+<p>Harga bersih yang diterima produsen:</p>
+<div class="formula">\[P_p=(1-t)P_c=0{,}75\times 8=6\]</div>
+<p>Uji balik pada penawaran asli: \(Q=2(6)+5=17\) ✔</p></li>
+<li><strong>Pembanding dan penerimaan pemerintah</strong>
+<p>Keseimbangan sebelum pajak:</p>
+<div class="formula">\[3P-7=2P+5\implies P_e=12,\qquad Q_e=3(12)-7=29\]</div>
+<p>Penerimaan pemerintah:</p>
+<div class="formula">\[T=(P_c-P_p)\,Q_t=(8-6)\times 17=\boxed{34}\]</div>
+<div class="formula">\[\boxed{E_\tau(17,\ 8)},\qquad P_p=6\]</div></li>
+</ol>
+<p>Pajak proporsional \(25\%\) menurunkan kuantitas dari \(29\) menjadi \(17\); pajak aktual per unit \(=2\), tepat \(25\%\) dari \(P_c=8\).</p></div>
+</section>
+
+<section id="multi"><h2>VI. Keseimbangan Pasar Dua Macam Barang</h2>
+<div class="problem"><strong>Soal (foto 0015).</strong> Carilah keseimbangan pasar dua macam barang jika diketahui fungsi permintaan dan penawarannya adalah
+<div class="formula">\[\begin{aligned}
+Q_{dx}&=5-2P_x+P_y, &\qquad Q_{sx}&=-5+4P_x-P_y\\
+Q_{dy}&=6+P_x-P_y,  &\qquad Q_{sy}&=-4-4P_x+3P_y
+\end{aligned}\]</div></div>
+<p>Kedua pasar saling terkait karena harga barang lain (\(P_y\) pada pasar \(X\), \(P_x\) pada pasar \(Y\)) muncul di dalam fungsinya. Karena itu \(P_x\) dan \(P_y\) harus dicari <strong>secara simultan</strong> sebagai SPLDV.</p>
+
+<div class="example">
+<ol class="steps">
+<li><strong>Bentuk persamaan pasar \(X\)</strong>
+<div class="formula">\[Q_{dx}=Q_{sx}\]</div>
+<div class="formula">\[5-2P_x+P_y=-5+4P_x-P_y\]</div>
+<div class="formula">\[5+5=4P_x+2P_x-P_y-P_y\]</div>
+<div class="formula">\[10=6P_x-2P_y\]</div>
+<p>Bagi 2:</p>
+<div class="formula">\[\boxed{3P_x-P_y=5}\tag{1}\]</div></li>
+
+<li><strong>Bentuk persamaan pasar \(Y\)</strong>
+<div class="formula">\[Q_{dy}=Q_{sy}\]</div>
+<div class="formula">\[6+P_x-P_y=-4-4P_x+3P_y\]</div>
+<div class="formula">\[6+4=-4P_x-P_x+3P_y+P_y\]</div>
+<div class="formula">\[10=-5P_x+4P_y\]</div>
+<div class="formula">\[\boxed{-5P_x+4P_y=10}\tag{2}\]</div></li>
+
+<li><strong>Eliminasi \(P_y\)</strong>
+<p>Kalikan (1) dengan \(4\), kalikan (2) dengan \(1\), lalu jumlahkan:</p>
+<div class="formula">\[\begin{aligned}
+12P_x-4P_y&=20\\
+-5P_x+4P_y&=10\\ \hline
+7P_x&=30
+\end{aligned}\]</div>
+<div class="formula">\[\boxed{P_x^*=\frac{30}{7}}\]</div></li>
+
+<li><strong>Substitusi untuk memperoleh \(P_y\)</strong>
+<p>Masukkan \(P_x^*\) ke persamaan (1):</p>
+<div class="formula">\[3\left(\frac{30}{7}\right)-P_y=5\]</div>
+<div class="formula">\[\frac{90}{7}-P_y=5\]</div>
+<div class="formula">\[P_y=\frac{90}{7}-5=\frac{90-35}{7}\]</div>
+<div class="formula">\[\boxed{P_y^*=\frac{55}{7}}\]</div></li>
+
+<li><strong>Hitung kuantitas keseimbangan</strong>
+<div class="formula">\[Q_x^*=5-2P_x+P_y=5-2\left(\frac{30}{7}\right)+\frac{55}{7}=5-\frac{60}{7}+\frac{55}{7}=5-\frac{5}{7}=\boxed{\frac{30}{7}}\]</div>
+<div class="formula">\[Q_y^*=6+P_x-P_y=6+\frac{30}{7}-\frac{55}{7}=6-\frac{25}{7}=\boxed{\frac{17}{7}}\]</div></li>
+
+<li><strong>Uji balik pada fungsi penawaran</strong>
+<div class="formula">\[Q_{sx}=-5+4\left(\frac{30}{7}\right)-\frac{55}{7}=-5+\frac{120}{7}-\frac{55}{7}=-5+\frac{65}{7}=\frac{30}{7}=Q_x^*\ \checkmark\]</div>
+<div class="formula">\[Q_{sy}=-4-4\left(\frac{30}{7}\right)+3\left(\frac{55}{7}\right)=-4-\frac{120}{7}+\frac{165}{7}=-4+\frac{45}{7}=\frac{17}{7}=Q_y^*\ \checkmark\]</div></li>
+</ol>
+<h4>Hasil akhir</h4>
+<div class="formula">\[\boxed{P_x^*=\frac{30}{7}\approx 4{,}286,\quad P_y^*=\frac{55}{7}\approx 7{,}857,\quad Q_x^*=\frac{30}{7}\approx 4{,}286,\quad Q_y^*=\frac{17}{7}\approx 2{,}429}\]</div></div>
+
+<div class="card"><h4>Alternatif: determinan (aturan Cramer)</h4>
+<p>Susun SPLDV dalam bentuk matriks:</p>
+<div class="formula">\[\begin{pmatrix}3&-1\\-5&4\end{pmatrix}\begin{pmatrix}P_x\\P_y\end{pmatrix}=\begin{pmatrix}5\\10\end{pmatrix}\]</div>
+<div class="formula">\[\Delta=(3)(4)-(-1)(-5)=12-5=7\]</div>
+<div class="formula">\[P_x=\frac{\begin{vmatrix}5&-1\\10&4\end{vmatrix}}{\Delta}=\frac{20+10}{7}=\frac{30}{7},\qquad P_y=\frac{\begin{vmatrix}3&5\\-5&10\end{vmatrix}}{\Delta}=\frac{30+25}{7}=\frac{55}{7}\]</div>
+<p>Hasil identik dengan metode eliminasi. Bila \(\Delta=0\), sistem tidak memiliki solusi ekuilibrium tunggal.</p></div>
+
+<div class="note"><strong>Interpretasi ekonomi.</strong> Pada \(Q_{dx}=5-2P_x+P_y\), koefisien \(P_y\) bertanda <strong>positif</strong> \((+1)\): naiknya harga barang \(Y\) meningkatkan permintaan barang \(X\), ciri <strong>barang substitusi</strong>. Sebaliknya, koefisien negatif menandakan <strong>barang komplementer</strong>.</div>
+
+<div class="chart"><svg viewBox="0 0 700 300" role="img" aria-label="Dua pasar saling terkait">
+<rect x="30" y="25" width="290" height="230" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+<rect x="380" y="25" width="290" height="230" rx="12" fill="#f0fdf4" stroke="#bbf7d0"/>
+<text x="130" y="55" font-size="19" font-weight="700" fill="#1e3a8a">Pasar X</text>
+<text x="482" y="55" font-size="19" font-weight="700" fill="#166534">Pasar Y</text>
+<path d="M80 90V220H280" stroke="#334155" stroke-width="2" fill="none"/>
+<path d="M430 90V220H630" stroke="#334155" stroke-width="2" fill="none"/>
+<path d="M95 105L265 210M95 205L265 100" stroke="#2563eb" stroke-width="3.5"/>
+<path d="M445 105L615 210M445 205L615 100" stroke="#16a34a" stroke-width="3.5"/>
+<circle cx="180" cy="155" r="5.5" fill="#172554"/><circle cx="530" cy="155" r="5.5" fill="#166534"/>
+<text x="120" y="245" font-size="14" fill="#1e3a8a" font-weight="700">Px* = 30/7 · Qx* = 30/7</text>
+<text x="470" y="245" font-size="14" fill="#166534" font-weight="700">Py* = 55/7 · Qy* = 17/7</text>
+<path d="M328 130H372" stroke="#7c3aed" stroke-width="4"/><polygon points="372,130 358,123 358,137" fill="#7c3aed"/>
+<path d="M372 175H328" stroke="#7c3aed" stroke-width="4"/><polygon points="328,175 342,168 342,182" fill="#7c3aed"/>
+<text x="318" y="118" font-size="13" fill="#7c3aed" font-weight="700">+Py</text>
+<text x="318" y="196" font-size="13" fill="#7c3aed" font-weight="700">+Px</text>
+</svg>
+<div class="caption">Harga silang bertanda positif di kedua arah: \(X\) dan \(Y\) merupakan barang substitusi, sehingga SPLDV harus diselesaikan simultan.</div></div>
+</section>
+
+<section><h2>VII. Ringkasan Rumus Pertemuan 03</h2>
+<div class="table-wrap"><table><thead><tr><th>Konsep</th><th>Rumus</th></tr></thead><tbody>
+<tr><td>Fungsi dari dua titik</td><td>\(\frac{P-P_1}{P_2-P_1}=\frac{Q-Q_1}{Q_2-Q_1}\)</td></tr>
+<tr><td>Harga tertinggi</td><td>substitusi \(Q=0\)</td></tr>
+<tr><td>Jumlah barang gratis</td><td>substitusi \(P=0\)</td></tr>
+<tr><td>Keseimbangan pasar</td><td>\(P_d=P_s\) dan \(Q_d=Q_s\)</td></tr>
+<tr><td>Penawaran + pajak spesifik</td><td>\(P=a+bQ+t\)</td></tr>
+<tr><td>Penawaran + subsidi</td><td>\(P=a+bQ-s\)</td></tr>
+<tr><td>Penawaran + pajak proporsional</td><td>\(P=a+bQ+tP\iff P(1-t)=a+bQ\)</td></tr>
+<tr><td>Penerimaan pemerintah</td><td>\(T=t\,Q_t\)</td></tr>
+<tr><td>Beban pajak konsumen</td><td>\(K=(P_t-P_e)\,Q_t\)</td></tr>
+<tr><td>Beban pajak produsen</td><td>\(t_p=T-K\)</td></tr>
+<tr><td>Belanja subsidi</td><td>\(S=s\,Q_s\)</td></tr>
+<tr><td>Multi-pasar</td><td>selesaikan \(Q_{dx}=Q_{sx}\) dan \(Q_{dy}=Q_{sy}\) <strong>simultan</strong></td></tr>
+</tbody></table></div>
+
+<div class="grid">
+<div class="card"><strong>Daftar periksa penyelesaian</strong>
+<ol>
+<li>Catat apakah fungsi diberikan dalam bentuk \(P\) atau \(Q\).</li>
+<li>Untuk pajak/subsidi, <strong>wajib</strong> ubah ke \(P=a+bQ\) lebih dahulu.</li>
+<li>Hitung keseimbangan <strong>sebelum</strong> kebijakan; \(P_e\) diperlukan untuk \(K\).</li>
+<li>Terapkan \(+t\) atau \(-s\) pada fungsi penawaran.</li>
+<li>Selesaikan \(P_d=P_s\) atau \(Q_d=Q_s\).</li>
+<li>Substitusi balik untuk pasangan lengkap \((Q,P)\).</li>
+<li>Tulis titik dengan urutan \(E(Q,P)\).</li>
+<li>Hitung \(T\), \(K\), \(t_p\) memakai \(Q_t\), bukan \(Q_e\).</li>
+<li>Pertahankan pecahan eksak; desimal hanya untuk interpretasi.</li>
+<li>Uji balik ke <strong>kedua</strong> persamaan awal.</li>
+</ol></div>
+<div class="warning"><strong>Kesalahan umum</strong>
+<ul>
+<li>Menambahkan pajak pada fungsi bentuk \(Q\) (\(Q_s+t\)). Ubah ke \(P=a+bQ\) dulu.</li>
+<li>Mencampur satuan: \(t_p=t-K\) (per unit dikurangi total). Yang benar \(t_p=T-K\).</li>
+<li>Memakai \(Q_e\) awal untuk menghitung \(T\); harus \(Q_t\).</li>
+<li>Menulis titik sebagai \((P,Q)\) padahal konvensi catatan ini \((Q,P)\).</li>
+<li>Menyamakan pajak proporsional dengan pajak spesifik.</li>
+<li>Menyelesaikan pasar \(X\) dan \(Y\) satu per satu; harus simultan.</li>
+<li>Membulatkan desimal sebelum langkah akhir sehingga \(\frac{68}{9}\) atau \(\frac{30}{7}\) kehilangan ketepatan.</li>
+</ul></div>
+</div>
+</section>
+
+<section id="galeri"><h2>VIII. Galeri Foto Catatan Tulis Tangan</h2>
+<div class="table-wrap"><table><thead><tr><th>Foto</th><th>Isi</th></tr></thead><tbody>
+<tr><td><kbd>WA0006</kbd></td><td>Soal pajak \(t=2\): \(Q_d=20-2P\), \(Q_s=3P-4\), hingga \(E_t(8,6)\)</td></tr>
+<tr><td><kbd>WA0007</kbd></td><td>Rumus dua titik, \(P_1=2000\)…\(Q_2=1000\), hasil \(P=Q+1500\)</td></tr>
+<tr><td><kbd>WA0008</kbd></td><td>Rumus \(K\), \(t_p\), \(T\); keseimbangan sebelum pajak \(\left(\frac{52}{5},\frac{24}{5}\right)\)</td></tr>
+<tr><td><kbd>WA0009</kbd></td><td>\(T=t\,Q_t=16\); bentuk umum subsidi \(P=a+bQ-s\)</td></tr>
+<tr><td><kbd>WA0010</kbd></td><td>\(P=36-4Q\): harga tertinggi &amp; barang gratis; latihan (a) dan (b)</td></tr>
+<tr><td><kbd>WA0011</kbd></td><td>Kurva keseimbangan; \(Q_d=15-P\), \(Q_s=-9+P\), \(E(3,12)\)</td></tr>
+<tr><td><kbd>WA0012</kbd></td><td>Bentuk umum \(P=a+bQ+t\); dua latihan transformasi</td></tr>
+<tr><td><kbd>WA0013</kbd></td><td>Latihan (b), (c), (d): \(E(5,5)\), \(E(15,6)\), \(E(2,2)\)</td></tr>
+<tr><td><kbd>WA0014</kbd></td><td>Soal subsidi \(s=1\): \(2Q=10-P\), \(3Q=2P-2\), \(E_s\left(\frac{20}{7},\frac{30}{7}\right)\)</td></tr>
+<tr><td><kbd>WA0015</kbd></td><td>Pajak proporsional \(25\%\); soal SPLDV dua komoditas</td></tr>
+</tbody></table></div>
+
+<div class="gallery">
+<figure><img src="IMG-20260828-WA0007.jpg" alt="Catatan rumus dua titik dan pembentukan fungsi penawaran" loading="lazy"><figcaption>WA0007 — rumus dua titik, hasil \(P=Q+1500\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0010.jpg" alt="Catatan harga tertinggi, barang gratis, dan latihan keseimbangan a dan b" loading="lazy"><figcaption>WA0010 — harga tertinggi, barang gratis, latihan (a) &amp; (b)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0013.jpg" alt="Catatan penyelesaian latihan b, c, dan d" loading="lazy"><figcaption>WA0013 — latihan (b) \(E(5,5)\), (c) \(E(15,6)\), (d) \(E(2,2)\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0011.jpg" alt="Sketsa kurva keseimbangan pasar dan penyelesaian E(3,12)" loading="lazy"><figcaption>WA0011 — sketsa kurva dan \(E(3,12)\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0012.jpg" alt="Catatan bentuk umum fungsi penawaran dengan pajak" loading="lazy"><figcaption>WA0012 — bentuk umum \(P=a+bQ+t\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0006.jpg" alt="Catatan soal pajak spesifik t sama dengan 2" loading="lazy"><figcaption>WA0006 — soal pajak \(t=2\) sampai \(E_t(8,6)\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0008.jpg" alt="Catatan rumus beban pajak konsumen dan produsen" loading="lazy"><figcaption>WA0008 — rumus \(K\), \(t_p\), keseimbangan awal</figcaption></figure>
+<figure><img src="IMG-20260828-WA0009.jpg" alt="Catatan penerimaan pajak dan bentuk umum subsidi" loading="lazy"><figcaption>WA0009 — \(T=16\) dan \(P=a+bQ-s\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0014.jpg" alt="Catatan soal subsidi spesifik s sama dengan 1" loading="lazy"><figcaption>WA0014 — subsidi \(s=1\), \(E_s\left(\frac{20}{7},\frac{30}{7}\right)\)</figcaption></figure>
+<figure><img src="IMG-20260828-WA0015.jpg" alt="Catatan pajak proporsional 25 persen dan soal SPLDV dua komoditas" loading="lazy"><figcaption>WA0015 — pajak proporsional &amp; SPLDV dua komoditas</figcaption></figure>
+</div>
+</section>
+</main>
+<footer>Catatan Pertemuan 03 · KP21517007 Matematika Ekonomi Kelas C · Konvensi koordinat \((Q,P)\) · Transkripsi 10 foto catatan tulis tangan 28 Agustus 2026</footer>
+</article>
+<script>document.addEventListener('DOMContentLoaded',()=>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false}));</script>
 </body></html>

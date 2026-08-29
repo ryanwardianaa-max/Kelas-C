@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ExternalLink, Plus } from "./Icons";
 import { SYLLABUS } from "../lib/mockData";
 import type {
@@ -9,6 +9,12 @@ import type {
   Task,
 } from "../types";
 type Kind = "task" | "material" | "reference";
+const COURSE_TOOLS = [
+  { courseCode: "KP21517003", title: "Kalkulator Analisis Kompleks", description: "Operasi bilangan kompleks, langkah aljabar, dan bidang Argand.", url: "/tools/kalkulator-kompleks/index.html", color: "#4338ca" },
+  { courseCode: "KP21517001", title: "Kalkulator Metode Numerik", description: "Pilih metode, masukkan fungsi dan toleransi, lalu ikuti tabel iterasi.", url: "/tools/kalkulator-metnum/index.html", color: "#059669" },
+  { courseCode: "KP21517004", title: "Laboratorium Analisis Real", description: "Atur ε dan δ, amati grafik, lalu ikuti penjelasan pembuktian.", url: "/tools/kalkulator-real/index.html", color: "#db2777" },
+  { courseCode: "KP21517007", title: "Kalkulator Matematika Ekonomi", description: "Pilih kasus pasar, isi fungsi, lalu baca hasil dan langkah perhitungannya.", url: "/tools/kalkulator-mateko/index.html", color: "#ea580c" },
+];
 export default function CourseDetailView({
   course,
   tasks,
@@ -39,6 +45,10 @@ export default function CourseDetailView({
     ),
     [title, setTitle] = useState("");
   const meetings = SYLLABUS[course.code] || [];
+  const courseTools = COURSE_TOOLS.filter((tool) => tool.courseCode === course.code);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [course.code]);
   const noteFor = (n: number) =>
     notes.find((x) => x.courseCode === course.code && x.meetingNo === n);
   const saveNote = (meetingNo: number, content: string) => {
@@ -112,8 +122,9 @@ export default function CourseDetailView({
         </p>
       </header>
 
-      {course.code === "KP21517003" && (
+      {courseTools.map((tool) => (
         <div
+          key={tool.url}
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -130,21 +141,21 @@ export default function CourseDetailView({
         >
           <div>
             <strong style={{ color: "#3730a3", fontSize: "1rem", display: "block" }}>
-              ⚡ Aplikasi Bantuan: Kalkulator Analisis Kompleks
+              Aplikasi Bantuan: {tool.title}
             </strong>
             <span style={{ color: "#475569", fontSize: "0.85rem" }}>
-              Penjabaran aljabar step-by-step lengkap & visualisasi bidang Argand 2D
+              1. Pilih fitur · 2. Masukkan data · 3. Ikuti hasil step-by-step. {tool.description}
             </span>
           </div>
           <a
-            href="/tools/kalkulator-kompleks/index.html"
+            href={tool.url}
             target="_blank"
             rel="noreferrer"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              background: "#4338ca",
+              background: tool.color,
               color: "white",
               padding: "9px 18px",
               borderRadius: "10px",
@@ -154,10 +165,10 @@ export default function CourseDetailView({
               boxShadow: "0 4px 12px rgba(67, 56, 202, 0.25)",
             }}
           >
-            🚀 Buka Kalkulator
+            Buka Aplikasi Bantuan
           </a>
         </div>
-      )}
+      ))}
       <div className="chips course-tabs">
         <button
           className={tab === "meetings" ? "active" : ""}

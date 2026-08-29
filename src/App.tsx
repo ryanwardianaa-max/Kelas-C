@@ -53,15 +53,18 @@ import type {
   Theme,
   UserSettings,
 } from "./types";
+const initialCourse = COURSE_SCHEDULE.find(
+  (course) => course.code === new URLSearchParams(window.location.search).get("course"),
+) || null;
 export default function App() {
-  const [page, setPage] = useState<Page>("Beranda"),
+  const [page, setPage] = useState<Page>(initialCourse ? "Mata Kuliah" : "Beranda"),
     [drawer, setDrawer] = useState(false),
     [tasks, setTasksState] = useState<Task[]>(getTasks),
     [materials, setMaterialsState] = useState<Material[]>(getMaterials),
     [references, setReferencesState] = useState<ReferenceItem[]>(getReferences),
     [meetingNotes, setMeetingNotesState] =
       useState<MeetingNote[]>(getMeetingNotes),
-    [selectedCourse, setSelectedCourse] = useState<Course | null>(null),
+    [selectedCourse, setSelectedCourse] = useState<Course | null>(initialCourse),
     [settings, setSettingsState] = useState<UserSettings>(getSettings),
     [theme, setTheme] = useState<Theme>(getTheme),
     [version, setVersion] = useState(0),
