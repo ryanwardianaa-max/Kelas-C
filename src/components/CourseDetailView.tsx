@@ -9,12 +9,8 @@ import type {
   Task,
 } from "../types";
 type Kind = "task" | "material" | "reference";
-const COURSE_TOOLS = [
-  { courseCode: "KP21517003", title: "Kalkulator Analisis Kompleks", description: "Operasi bilangan kompleks, langkah aljabar, dan bidang Argand.", url: "/tools/kalkulator-kompleks/index.html", color: "#4338ca" },
-  { courseCode: "KP21517001", title: "Kalkulator Metode Numerik", description: "Pilih metode, masukkan fungsi dan toleransi, lalu ikuti tabel iterasi.", url: "/tools/kalkulator-metnum/index.html", color: "#059669" },
-  { courseCode: "KP21517004", title: "Laboratorium Analisis Real", description: "Atur ε dan δ, amati grafik, lalu ikuti penjelasan pembuktian.", url: "/tools/kalkulator-real/index.html", color: "#db2777" },
-  { courseCode: "KP21517007", title: "Kalkulator Matematika Ekonomi", description: "Pilih kasus pasar, isi fungsi, lalu baca hasil dan langkah perhitungannya.", url: "/tools/kalkulator-mateko/index.html", color: "#ea580c" },
-];
+import { COURSE_TOOLS } from "../lib/courseTools";
+
 export default function CourseDetailView({
   course,
   tasks,
@@ -105,7 +101,7 @@ export default function CourseDetailView({
   };
   return (
     <>
-      <button className="back-button" onClick={onBack}>
+      <button type="button" className="back-button" onClick={onBack}>
         <ChevronLeft /> Kembali ke Daftar Matkul
       </button>
       <header
@@ -155,7 +151,7 @@ export default function CourseDetailView({
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              background: tool.color,
+              background: tool.badgeColor,
               color: "white",
               padding: "9px 18px",
               borderRadius: "10px",
@@ -170,19 +166,19 @@ export default function CourseDetailView({
         </div>
       ))}
       <div className="chips course-tabs">
-        <button
+        <button type="button"
           className={tab === "meetings" ? "active" : ""}
           onClick={() => setTab("meetings")}
         >
           Pertemuan
         </button>
-        <button
+        <button type="button"
           className={tab === "tasks" ? "active" : ""}
           onClick={() => setTab("tasks")}
         >
           Semua Tugas Matkul
         </button>
-        <button
+        <button type="button"
           className={tab === "refs" ? "active" : ""}
           onClick={() => setTab("refs")}
         >
@@ -267,7 +263,7 @@ export default function CourseDetailView({
               );
             return (
               <section className="panel meeting" key={m.meeting}>
-                <button
+                <button type="button"
                   className="meeting-head"
                   aria-expanded={open === m.meeting}
                   onClick={() => setOpen(open === m.meeting ? null : m.meeting)}
@@ -285,12 +281,17 @@ export default function CourseDetailView({
                 {open === m.meeting && (
                   <div className="meeting-workspace">
                     <label>
-                      Catatan Kuliah <small>tersimpan otomatis</small>
+                      Catatan Kuliah <small>tersimpan saat selesai mengetik</small>
+                      {/* Simpan sekali saat fokus lepas, bukan tiap ketikan:
+                          satu perjalanan ke cloud per catatan, bukan per huruf. */}
                       <textarea
+                        key={`${course.code}-${m.meeting}`}
                         rows={7}
                         placeholder="Tulis catatan kuliah pertemuan ini…"
-                        value={noteFor(m.meeting)?.content || ""}
-                        onChange={(e) => saveNote(m.meeting, e.target.value)}
+                        defaultValue={noteFor(m.meeting)?.content || ""}
+                        onBlur={(e) => {
+                          if (e.target.value !== (noteFor(m.meeting)?.content || "")) saveNote(m.meeting, e.target.value);
+                        }}
                       />
                     </label>
                     <div className="plan">
@@ -327,7 +328,7 @@ export default function CourseDetailView({
                           onChange={(e) => setTitle(e.target.value)}
                           placeholder={`Judul ${adding.kind}`}
                         />
-                        <button onClick={() => setAdding(null)}>Batal</button>
+                        <button type="button" onClick={() => setAdding(null)}>Batal</button>
                         <button className="primary" onClick={add}>
                           Simpan
                         </button>
@@ -356,7 +357,7 @@ function Scoped({
     <section className="meeting-section">
       <div>
         <h3>{title}</h3>
-        <button onClick={onAdd}>
+        <button type="button" onClick={onAdd}>
           <Plus /> Tambah
         </button>
       </div>

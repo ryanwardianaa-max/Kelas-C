@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import AIAssistantDrawer from "./components/AIAssistantDrawer";
 import CalendarView from "./components/CalendarView";
@@ -15,32 +15,11 @@ import Sidebar from "./components/Sidebar";
 import TasksView from "./components/TasksView";
 import ToolsView from "./components/ToolsView";
 import { COURSE_SCHEDULE } from "./lib/mockData";
-import {
-  DEFAULT_SETTINGS,
-  getMaterials,
-  getMeetingNotes,
-  getReferences,
-  filterNotDeleted,
-  markDeletedId,
-  getSettings,
-  getTasks,
-  getTheme,
-  saveMaterials,
-  saveMeetingNotes,
-  saveReferences,
-  saveSettings,
-  saveTasks,
-  validDate,
-} from "./lib/storage";
-import {
-  flushPendingDeletes,
-  pushCollection,
-  pushSettings,
-  queueDeletes,
-  subscribeRealtime,
-  syncNow,
-  type CollectionKind,
-} from "./lib/supabase";
+import { DEFAULT_SETTINGS, validDate } from "./lib/storage";
+import { INITIAL_MATERIALS } from "./lib/initialMaterials";
+import { INITIAL_METNUM_REFERENCES } from "./lib/initialReferences";
+import { commitCollection, commitValue, createWriteGate, errorText, type CloudIO, type CollectionKind } from "./lib/cloudStore";
+import { deleteRows, pushCollection, pushSettings, syncNow } from "./lib/supabase";
 import type {
   AppData,
   Course,
@@ -53,126 +32,202 @@ import type {
   Theme,
   UserSettings,
 } from "./types";
-const initialCourse = COURSE_SCHEDULE.find(
-  (course) => course.code === new URLSearchParams(window.location.search).get("course"),
-) || null;
+
+/** Supabase adalah satu-satunya tempat penyimpanan; tidak ada cadangan lokal. */
+const cloud: CloudIO = { upsert: pushCollection, remove: deleteRows };
+
+const courseFromUrl = () =>
+  COURSE_SCHEDULE.find((course) => course.code === new URLSearchParams(location.search).get("course")) ?? null;
+
+const writeCourseUrl = (code: string | null) => {
+  const url = new URL(location.href);
+  if (code) url.searchParams.set("course", code);
+  else url.searchParams.delete("course");
+  // Tanpa perubahan URL tidak perlu entri riwayat baru, supaya tombol Kembali
+  // tidak perlu ditekan berulang kali.
+  if (url.href !== location.href) history.pushState({}, "", url);
+};
+
+/** Buang nilai ?course= yang tidak dikenal tanpa menambah entri riwayat. */
+const dropUnknownCourseParam = () => {
+  const params = new URLSearchParams(location.search);
+  if (!params.get("course") || courseFromUrl()) return;
+  const url = new URL(location.href);
+  url.searchParams.delete("course");
+  history.replaceState({}, "", url);
+};
+
+const initialCourse = courseFromUrl();
+
+type CloudStatus = "loading" | "idle" | "saving" | "error";
+
 export default function App() {
-  const [page, setPage] = useState<Page>(initialCourse ? "Mata Kuliah" : "Beranda"),
-    [drawer, setDrawer] = useState(false),
-    [tasks, setTasksState] = useState<Task[]>(getTasks),
-    [materials, setMaterialsState] = useState<Material[]>(getMaterials),
-    [references, setReferencesState] = useState<ReferenceItem[]>(getReferences),
-    [meetingNotes, setMeetingNotesState] =
-      useState<MeetingNote[]>(getMeetingNotes),
-    [selectedCourse, setSelectedCourse] = useState<Course | null>(initialCourse),
-    [settings, setSettingsState] = useState<UserSettings>(getSettings),
-    [theme, setTheme] = useState<Theme>(getTheme),
-    [version, setVersion] = useState(0),
-    [search, setSearch] = useState("");
+  /** Kunci AI hanya hidup di memori: baris pengaturan Supabase dapat dibaca publik. */
+  const aiKeys = useRef({ localKey: DEFAULT_SETTINGS.ai.localKey, cloudKey: DEFAULT_SETTINGS.ai.cloudKey });
+  /** Satu penyimpanan pada satu waktu, dijaga di jalur data agar tombol di luar
+   *  area konten (Copilot, tema) tidak bisa menyelinap dengan data lama. */
+  const gate = useRef(createWriteGate());
+  /** Menulis hanya boleh setelah data cloud sungguh termuat; kalau tidak, data
+   *  awal statis bisa menimpa baris cloud yang sebenarnya. */
+  const loaded = useRef(false);
+
+  const [page, setPage] = useState<Page>(initialCourse ? "Mata Kuliah" : "Beranda");
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(initialCourse);
+  const [drawer, setDrawer] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const [tasks, setTasksState] = useState<Task[]>([]);
+  const [materials, setMaterialsState] = useState<Material[]>(INITIAL_MATERIALS);
+  const [references, setReferencesState] = useState<ReferenceItem[]>(INITIAL_METNUM_REFERENCES);
+  const [meetingNotes, setMeetingNotesState] = useState<MeetingNote[]>([]);
+  const [settings, setSettingsState] = useState<UserSettings>(DEFAULT_SETTINGS);
+  const [theme, setTheme] = useState<Theme>("light");
+
+  const [status, setStatus] = useState<CloudStatus>("loading");
+  const [message, setMessage] = useState("Memuat data dari cloud…");
+  const [ready, setReady] = useState(false);
+  /** Selama menunggu cloud atau sebelum data termuat, tidak ada yang boleh diubah. */
+  const locked = status === "loading" || status === "saving" || !ready;
+
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
+
   const apply = (d: AppData) => {
-    setTasksState(filterNotDeleted(d.tasks, "tasks"));
-    setMaterialsState(filterNotDeleted(d.materials, "materials"));
-    setReferencesState(filterNotDeleted(d.references, "references"));
-    setMeetingNotesState(filterNotDeleted(d.meetingNotes, "meeting_notes"));
-    setSettingsState(d.settings);
-    setTheme(d.settings.theme);
+    setTasksState(d.tasks);
+    setMaterialsState(d.materials);
+    setReferencesState(d.references);
+    setMeetingNotesState(d.meetingNotes);
+    const merged = { ...d.settings, ai: { ...d.settings.ai, ...aiKeys.current } };
+    setSettingsState(merged);
+    setTheme(merged.theme);
+    loaded.current = true;
+    setReady(true);
   };
-  useEffect(
-    () =>
-      subscribeRealtime(
-        () =>
-          void syncNow()
-            .then(apply)
-            .catch((error) =>
-              console.error("Sinkronisasi realtime gagal.", error),
-            ),
-      ),
-    [],
-  );
-  const reconcile = <T extends Task | Material | ReferenceItem | MeetingNote>(
+
+  const load = async () => {
+    setStatus("loading");
+    setMessage("Memuat data dari cloud…");
+    try {
+      apply(await syncNow());
+      setStatus("idle");
+      setMessage("Data cloud dimuat.");
+    } catch (e) {
+      loaded.current = false;
+      setReady(false);
+      setStatus("error");
+      setMessage(`Gagal memuat data cloud, penyuntingan dimatikan agar data cloud tidak tertimpa: ${errorText(e)}`);
+    }
+  };
+
+  useEffect(() => {
+    void load();
+    dropUnknownCourseParam();
+    const pop = () => {
+      const course = courseFromUrl();
+      setSelectedCourse(course);
+      setPage(course ? "Mata Kuliah" : "Beranda");
+      dropUnknownCourseParam();
+    };
+    addEventListener("popstate", pop);
+    return () => removeEventListener("popstate", pop);
+  }, []);
+
+  /**
+   * Alur simpan tunggal: kirim ke Supabase, tunggu konfirmasi, baru perbarui
+   * tampilan. Karena state hanya berisi data yang sudah dikonfirmasi cloud,
+   * tidak ada snapshot, antrean, atau pembatalan yang perlu dikelola.
+   * `gate` menolak penyimpanan kedua yang tumpang-tindih, termasuk dari tombol
+   * di luar area data, sehingga tidak ada penulisan berbasis data lama.
+   */
+  const save = async <T extends { id: string }>(
     kind: CollectionKind,
-    current: T[],
+    previous: readonly T[],
     next: T[],
+    commit: (value: T[]) => void,
   ) => {
-    const now = new Date().toISOString(),
-      previous = new Map(current.map((x) => [x.id, x])),
-      n = next.map((x) => {
-        const old = previous.get(x.id);
-        if (!old) return { ...x, updatedAt: x.updatedAt || now };
-        const changed =
-          JSON.stringify({ ...old, updatedAt: undefined }) !==
-          JSON.stringify({ ...x, updatedAt: undefined });
-        return changed ? { ...x, updatedAt: now } : old;
-      }),
-      ids = new Set(n.map((x) => x.id)),
-      removed = current.filter((x) => !ids.has(x.id)).map((x) => x.id);
-    removed.forEach((id) => markDeletedId(id, kind));
-    queueDeletes(kind, removed);
-    void flushPendingDeletes().catch((error) =>
-      console.error(`Penghapusan ${kind} tertunda.`, error),
-    );
-    void pushCollection(kind, n).catch((error) =>
-      console.error(`Sinkronisasi ${kind} gagal.`, error),
-    );
-    return n;
+    if (!loaded.current) {
+      setStatus("error");
+      setMessage("Data cloud belum termuat, perubahan tidak disimpan. Muat ulang dulu.");
+      return;
+    }
+    const outcome = await gate.current.run(async () => {
+      setStatus("saving");
+      setMessage("Menyimpan ke cloud…");
+      return commitCollection(kind, previous, next, cloud);
+    });
+    if (outcome === "busy") {
+      setMessage("Penyimpanan lain sedang berjalan, coba lagi sesaat.");
+      return;
+    }
+    if (outcome.ok) {
+      commit(outcome.value);
+      setStatus("idle");
+      setMessage("Tersimpan di cloud.");
+    } else {
+      setStatus("error");
+      setMessage(`Gagal menyimpan, data belum masuk cloud: ${outcome.error}`);
+    }
   };
-  const setTasks = (v: Task[]) => {
-      const n = reconcile("tasks", tasks, v);
-      setTasksState(n);
-      saveTasks(n);
-    },
-    setMaterials = (v: Material[]) => {
-      const n = reconcile("materials", materials, v);
-      setMaterialsState(n);
-      saveMaterials(n);
-    },
-    setReferences = (v: ReferenceItem[]) => {
-      const n = reconcile("references", references, v);
-      setReferencesState(n);
-      saveReferences(n);
-    },
-    setMeetingNotes = (v: MeetingNote[]) => {
-      const n = reconcile("meeting_notes", meetingNotes, v);
-      setMeetingNotesState(n);
-      saveMeetingNotes(n);
-    },
-    setSettings = (v: UserSettings) => {
+
+  const setTasks = (v: Task[]) => void save("tasks", tasks, v, setTasksState);
+  const setMaterials = (v: Material[]) => void save("materials", materials, v, setMaterialsState);
+  const setReferences = (v: ReferenceItem[]) => void save("references", references, v, setReferencesState);
+  const setMeetingNotes = (v: MeetingNote[]) => void save("meeting_notes", meetingNotes, v, setMeetingNotesState);
+
+  const setSettings = (v: UserSettings) => void (async () => {
+    if (!loaded.current) {
+      setStatus("error");
+      setMessage("Data cloud belum termuat, pengaturan tidak disimpan. Muat ulang dulu.");
+      return;
+    }
+    const outcome = await gate.current.run(async () => {
+      setStatus("saving");
+      setMessage("Menyimpan pengaturan…");
+      return commitValue(pushSettings, v);
+    });
+    if (outcome === "busy") {
+      setMessage("Penyimpanan lain sedang berjalan, coba lagi sesaat.");
+      return;
+    }
+    if (outcome.ok) {
+      aiKeys.current = { localKey: v.ai.localKey, cloudKey: v.ai.cloudKey };
       setSettingsState(v);
       setTheme(v.theme);
-      saveSettings(v);
-      void pushSettings(v).catch(() => {});
-    };
-  const reload = () => {
-      apply({
-        tasks: getTasks(),
-        materials: getMaterials(),
-        references: getReferences(),
-        meetingNotes: getMeetingNotes(),
-        settings: getSettings(),
-      });
-      setVersion((x) => x + 1);
-    },
-    toggleTheme = () =>
-      setSettings({ ...settings, theme: theme === "light" ? "dark" : "light" }),
-    go = (p: Page) => {
-      setPage(p);
-      if (p !== "Mata Kuliah") setSelectedCourse(null);
-    };
+      setStatus("idle");
+      setMessage("Pengaturan tersimpan di cloud.");
+    } else {
+      setStatus("error");
+      setMessage(`Gagal menyimpan pengaturan: ${outcome.error}`);
+    }
+  })();
+
+  const toggleTheme = () => setSettings({ ...settings, theme: theme === "light" ? "dark" : "light" });
+
+  const go = (p: Page) => {
+    setPage(p);
+    setSelectedCourse(null);
+    writeCourseUrl(null);
+  };
+
+  const openCourse = (course: Course) => {
+    setSelectedCourse(course);
+    writeCourseUrl(course.code);
+  };
+
+  const closeCourse = () => {
+    setSelectedCourse(null);
+    writeCourseUrl(null);
+  };
+
   const action = (a: SmartAction) => {
-    if (a.type === "navigate") setPage(a.page);
+    if (a.type === "navigate") go(a.page);
     else if (a.type === "search") {
       setSearch(a.query);
       setPage(a.page);
     } else if (a.type === "add-task") {
-      const dueAt = validDate(a.dueAt)
-          ? new Date(a.dueAt).toISOString()
-          : new Date(Date.now() + 86400000).toISOString(),
-        courseCode = COURSE_SCHEDULE.some((c) => c.code === a.courseCode)
-          ? a.courseCode!
-          : COURSE_SCHEDULE[0].code;
+      const dueAt = validDate(a.dueAt) ? new Date(a.dueAt).toISOString() : new Date(Date.now() + 86400000).toISOString();
+      const courseCode = COURSE_SCHEDULE.some((c) => c.code === a.courseCode) ? a.courseCode! : COURSE_SCHEDULE[0].code;
       setTasks([
         ...tasks,
         {
@@ -187,6 +242,7 @@ export default function App() {
       ]);
     }
   };
+
   let view;
   switch (page) {
     case "Mata Kuliah":
@@ -201,10 +257,10 @@ export default function App() {
           setReferences={setReferences}
           notes={meetingNotes}
           setNotes={setMeetingNotes}
-          onBack={() => setSelectedCourse(null)}
+          onBack={closeCourse}
         />
       ) : (
-        <CoursesView tasks={tasks} onSelect={setSelectedCourse} />
+        <CoursesView tasks={tasks} onSelect={openCourse} />
       );
       break;
     case "Jadwal":
@@ -216,13 +272,12 @@ export default function App() {
     case "Materi":
       view = (
         <MaterialsView
-          key={`materials-${version}`}
           items={materials}
           setItems={setMaterials}
           references={references}
           tasks={tasks}
           go={go}
-          initialTab={search ? "koleksi" : "koleksi"}
+          initialTab="koleksi"
         />
       );
       break;
@@ -236,46 +291,41 @@ export default function App() {
       view = <CalendarView tasks={tasks} />;
       break;
     case "Pengaturan":
-      view = (
-        <SettingsView
-          key={version}
-          settings={settings}
-          setSettings={setSettings}
-          reload={reload}
-          onSynced={apply}
-        />
-      );
+      view = <SettingsView settings={settings} setSettings={setSettings} reload={() => void load()} onSynced={apply} />;
       break;
     default:
       view = <DashboardView tasks={tasks} settings={settings} go={go} />;
   }
+
   return (
     <div className="app">
-      <Sidebar
-        page={page}
-        setPage={setPage}
-        open={drawer}
-        onClose={() => setDrawer(false)}
-        settings={settings}
-      />
+      <Sidebar page={page} setPage={go} open={drawer} onClose={() => setDrawer(false)} settings={settings} />
       <main>
-        <Navbar
-          settings={settings}
-          theme={theme}
-          onTheme={toggleTheme}
-          onMenu={() => setDrawer(true)}
-        />
+        <Navbar settings={settings} theme={theme} onTheme={toggleTheme} onMenu={() => setDrawer(true)} />
         <div className="content">
+          <p className={`cloud-status cloud-status--${status}`} role="status" aria-live="polite">
+            <span aria-hidden="true" className="cloud-status__dot" />
+            {message}
+            {status === "error" && (
+              <button type="button" className="cloud-status__retry" onClick={() => void load()}>
+                Muat ulang data
+              </button>
+            )}
+          </p>
           {search && (page === "Materi" || page === "Referensi") && (
             <div className="search-banner">
               Pencarian AI: <b>{search}</b>
-              <button onClick={() => setSearch("")}>Tutup</button>
+              <button type="button" onClick={() => setSearch("")}>Tutup</button>
             </div>
           )}
-          {view}
+          {/* Selama menunggu cloud atau sebelum data termuat, seluruh area data
+              dinonaktifkan agar tidak ada perubahan berbasis data yang belum pasti. */}
+          <div className="content-body" aria-busy={locked} inert={locked}>
+            {view}
+          </div>
         </div>
       </main>
-      <MobileNav page={page} setPage={setPage} />
+      <MobileNav page={page} setPage={go} />
       <AIAssistantDrawer
         settings={settings}
         setSettings={setSettings}

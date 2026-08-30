@@ -830,6 +830,60 @@ textarea {
   border-radius: 10px;
   z-index: 80;
 }
+/* Status cloud: satu baris tenang, tidak menutupi konten. */
+.cloud-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 14px;
+}
+.cloud-status__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.cloud-status--saving,
+.cloud-status--loading {
+  color: var(--primary);
+}
+.cloud-status--saving .cloud-status__dot,
+.cloud-status--loading .cloud-status__dot {
+  animation: cloud-pulse 1.1s ease-in-out infinite;
+}
+.cloud-status--idle {
+  color: #279b72;
+}
+.cloud-status--error {
+  color: #c0392b;
+  border-color: currentColor;
+}
+.cloud-status__retry {
+  margin-left: auto;
+  min-height: 32px;
+}
+@keyframes cloud-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cloud-status__dot {
+    animation: none;
+  }
+}
+/* Area data saat menunggu cloud: masih terbaca, jelas tidak bisa diubah. */
+.content-body[aria-busy="true"] {
+  opacity: 0.55;
+  cursor: progress;
+}
 .search-banner {
   padding: 10px 14px;
   background: var(--soft);

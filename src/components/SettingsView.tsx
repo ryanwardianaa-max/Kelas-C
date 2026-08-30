@@ -1,26 +1,17 @@
 import {
   Cloud,
-  Download,
   Lock,
   RefreshCw,
-  Trash2,
   Unlock,
-  Upload,
 } from "./Icons";
 import { useEffect, useState } from "react";
 import { setAdminPin, verifyAdminPin } from "../lib/adminPin";
 import { checkCloud, cloudConfigured, syncNow } from "../lib/supabase";
-import {
-  exportDataAsJSON,
-  importDataFromJSON,
-  resetStorage,
-} from "../lib/storage";
 import type { UserSettings } from "../types";
-import ConfirmModal from "./Modals/ConfirmModal";
 export default function SettingsView({
   settings,
   setSettings,
-  reload,
+  reload: _reload,
   onSynced,
 }: {
   settings: UserSettings;
@@ -34,14 +25,17 @@ export default function SettingsView({
     [syncing, setSyncing] = useState(false),
     [adminUnlocked, setAdminUnlocked] = useState(false),
     [pin, setPin] = useState(""),
-    [newPin, setNewPinValue] = useState(""),
-    [resetOpen, setResetOpen] = useState(false);
+    [newPin, setNewPinValue] = useState("");
   useEffect(() => {
     void checkCloud().then(setOnline);
   }, []);
+  // Data cloud bisa tiba setelah halaman ini terbuka; ikuti nilai terbaru.
+  useEffect(() => {
+    setDraft(settings);
+  }, [settings]);
   const save = () => {
       setSettings(draft);
-      setMessage("Pengaturan disimpan.");
+      setMessage("");
     },
     unlock = async () => {
       if (await verifyAdminPin(pin)) {
@@ -57,16 +51,6 @@ export default function SettingsView({
         setMessage("PIN admin berhasil diubah.");
       } catch (e) {
         setMessage(e instanceof Error ? e.message : "PIN gagal diubah.");
-      }
-    },
-    restore = async (f?: File) => {
-      if (!f) return;
-      try {
-        importDataFromJSON(await f.text());
-        reload();
-        setMessage("Data berhasil dipulihkan.");
-      } catch {
-        setMessage("File JSON tidak valid.");
       }
     },
     sync = async () => {
@@ -93,20 +77,7 @@ export default function SettingsView({
           PIN.
         </p>
       </div>
-      {message && <div className="toast">{message}</div>}
-      <ConfirmModal
-        open={resetOpen}
-        title="Reset data lokal?"
-        message="Tugas, materi, referensi, catatan pertemuan, dan pengaturan lokal akan dihapus. Registry penghapusan permanen tetap dipertahankan untuk mencegah data cloud lama hidup kembali."
-        confirmLabel="Reset data"
-        onCancel={() => setResetOpen(false)}
-        onConfirm={() => {
-          resetStorage();
-          reload();
-          setResetOpen(false);
-          setMessage("Data lokal telah direset.");
-        }}
-      />
+      {message && <div className="toast" role="status" aria-live="polite">{message}</div>}
       <div className="settings-grid">
         <form
           className="panel"
@@ -194,8 +165,7 @@ export default function SettingsView({
               <Lock />
               <h2>Bagian ini dikunci</h2>
               <p>
-                Khusus Pemilik/Admin: AI, cloud, Supabase, backup, restore, dan
-                reset.
+                Khusus Pemilik/Admin: AI, cloud, Supabase, dan PIN lokal.
               </p>
               <label>
                 PIN Admin
@@ -323,8 +293,7 @@ export default function SettingsView({
                   Simpan konfigurasi
                 </button>
                 <p className="warning">
-                  Kunci API tetap berada di browser. Backup otomatis meredaksi
-                  kunci AI, dan PIN tidak pernah disinkronkan atau diekspor.
+                  Kunci API AI hanya disimpan di perangkat ini selama sesi berjalan dan tidak pernah dikirim ke Supabase. PIN admin juga tetap lokal.
                 </p>
               </section>
               <section className="panel cloud-panel">
@@ -345,29 +314,6 @@ export default function SettingsView({
                   <RefreshCw />{" "}
                   {syncing ? "Menyinkronkan…" : "Sinkronkan sekarang"}
                 </button>
-              </section>
-              <section className="panel cloud-panel">
-                <h2>Cadangan & data</h2>
-                <div className="form-actions">
-                  <button onClick={exportDataAsJSON}>
-                    <Download /> Backup tanpa AI key
-                  </button>
-                  <label className="button">
-                    <Upload /> Restore
-                    <input
-                      hidden
-                      type="file"
-                      accept="application/json"
-                      onChange={(e) => void restore(e.target.files?.[0])}
-                    />
-                  </label>
-                  <button
-                    className="danger-button"
-                    onClick={() => setResetOpen(true)}
-                  >
-                    <Trash2 /> Reset
-                  </button>
-                </div>
               </section>
               <section className="panel cloud-panel">
                 <h2>Ubah PIN lokal</h2>
