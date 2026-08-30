@@ -743,6 +743,15 @@ textarea {
 .ai-controls select {
   min-width: 0;
 }
+.ai-model-fixed {
+  align-self: center;
+  min-width: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .ai-messages {
   flex: 1;
   overflow: auto;

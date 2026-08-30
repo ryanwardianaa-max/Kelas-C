@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { setAdminPin, verifyAdminPin } from "../lib/adminPin";
 import { checkCloud, cloudConfigured, syncNow } from "../lib/supabase";
-import type { UserSettings } from "../types";
+import type { AIProvider, UserSettings } from "../types";
 export default function SettingsView({
   settings,
   setSettings,
@@ -206,11 +206,12 @@ export default function SettingsView({
                         ...draft,
                         ai: {
                           ...draft.ai,
-                          provider: e.target.value as "local" | "cloud",
+                          provider: e.target.value as AIProvider,
                         },
                       })
                     }
                   >
+                    <option value="server">Opus 5 (GoRouter, kunci di server)</option>
                     <option value="local">9Router lokal</option>
                     <option value="cloud">OpenAI cloud</option>
                   </select>
