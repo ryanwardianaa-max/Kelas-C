@@ -57,6 +57,28 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-08-24T10:05:00.000Z",
   },
   {
+    id: "mat-analisis-kompleks-pertemuan-04",
+    title: "Catatan Kuliah: Modulus, Bidang Argand, Bentuk Polar & Rumus De Moivre",
+    courseCode: "KP21517003",
+    meetingNo: 4,
+    type: "Catatan",
+    description:
+      "Bahan baca mandiri lanjutan Pertemuan 03. Mencakup modulus |z| dan sifat-sifatnya, bidang Argand, argumen & argumen utama Arg z beserta koreksi kuadran, bentuk polar r(cos θ + i sin θ) dan eksponensial Euler re^(iθ), aturan kali-bagi lewat sudut, rumus De Moivre, serta akar pangkat n yang membentuk segi-n beraturan. Dilengkapi tabel rangkuman, diagram SVG, dan 6 latihan mandiri.",
+    url: "/materi/KP21517003/pertemuan-04/index.html",
+    createdAt: "2026-08-31T00:30:00.000Z",
+  },
+  {
+    id: "tool-kalkulator-polar-demoivre",
+    title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
+    courseCode: "KP21517003",
+    meetingNo: 4,
+    type: "Dokumen",
+    description:
+      "Kalkulator empat mode untuk materi Pertemuan 04: konversi ke bentuk polar & Euler dengan pemeriksaan kuadran otomatis, perkalian/pembagian lewat penjumlahan sudut, pemangkatan De Moivre, dan pencarian semua akar pangkat n. Setiap hasil disertai penjabaran langkah dan gambar bidang Argand.",
+    url: "/tools/kalkulator-polar-demoivre/index.html",
+    createdAt: "2026-08-31T00:35:00.000Z",
+  },
+  {
     id: "mat-analisis-real-pertemuan-02",
     title: "Catatan Kuliah: Landasan Teori Himpunan & Pembuktian Teorema De Morgan",
     courseCode: "KP21517004",

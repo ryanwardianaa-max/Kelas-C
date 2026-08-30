@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Kalkulator Polar, De Moivre &amp; Akar Kompleks — Pertemuan 04</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #1e293b; --bg: #f8fafc; --paper: #ffffff;
+      --brand: #4338ca; --brand-dark: #312e81; --accent: #6558df;
+      --accent-soft: #f5f3ff; --line: #e2e8f0; --text-muted: #64748b;
+      --success: #10b981; --warning: #d97706; --danger: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; max-width: 100vw; overflow-x: hidden;
+      background: var(--bg); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    .page {
+      width: 100%; max-width: 880px; margin: 12px auto 50px; padding: 18px 15px;
+      background: var(--paper); border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15,23,42,0.05); border: 1px solid var(--line);
+    }
+    @media (min-width: 640px) { .page { margin: 20px auto 60px; padding: 28px 30px; } }
+
+    .top-nav {
+      position: sticky; top: 8px; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 14px; background: rgba(30,27,75,0.96); backdrop-filter: blur(12px);
+      color: white; border-radius: 12px; margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15,23,42,0.16); border: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-back-btn {
+      display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
+      color: white; border: none; padding: 7px 14px; border-radius: 8px;
+      font-weight: 600; font-size: 0.82rem; cursor: pointer; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-back-btn:hover { background: #7c70e9; }
+    .nav-title { font-size: 0.78rem; color: #c7d2fe; text-align: right; margin-left: 8px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    header {
+      padding: 18px 16px; background: linear-gradient(135deg,#1e1b4b 0%,#3730a3 50%,#4f46e5 100%);
+      color: white; border-radius: 14px; margin-bottom: 20px;
+    }
+    header h1 { font-size: 1.2rem; line-height: 1.35; margin-bottom: 5px; }
+    header p { font-size: 0.87rem; color: #ddd6fe; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28); padding: 3px 11px; border-radius: 999px;
+      font-size: 0.73rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 9px;
+    }
+
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tab {
+      flex: 1 1 auto; min-width: 132px; padding: 9px 10px; border-radius: 10px;
+      border: 1px solid var(--line); background: var(--paper); color: var(--text-muted);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .tab:hover { border-color: #c7d2fe; color: var(--brand); }
+    .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: white; }
+
+    fieldset { border: none; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .input-card {
+      background: var(--accent-soft); border: 1px solid #ddd6fe;
+      border-radius: 12px; padding: 14px; margin-bottom: 14px;
+    }
+    .grid { display: grid; gap: 10px; grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+    .field label {
+      display: block; font-size: 0.78rem; font-weight: 700; color: var(--brand-dark);
+      margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .field input, .field select {
+      width: 100%; padding: 9px 11px; border-radius: 9px; border: 1px solid #c7d2fe;
+      font-size: 0.95rem; font-family: inherit; background: white; color: var(--ink);
+    }
+    .field input:focus, .field select:focus {
+      outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent);
+    }
+    .field .hint { font-size: 0.74rem; color: var(--text-muted); margin-top: 3px; }
+    .row-z { border-top: 1px dashed #c7d2fe; margin-top: 12px; padding-top: 12px; }
+    .row-z:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+    .z-label { font-size: 0.82rem; font-weight: 700; color: var(--brand); margin-bottom: 6px; }
+
+    .btn-run {
+      width: 100%; margin-top: 12px; padding: 12px; border: none; border-radius: 10px;
+      background: var(--accent); color: white; font-size: 0.93rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-run:hover { background: #7c70e9; }
+    .btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .btn-row .btn-run { margin-top: 0; flex: 1 1 140px; }
+    .btn-ghost {
+      flex: 0 0 auto; padding: 12px 14px; border-radius: 10px; cursor: pointer;
+      border: 1px solid #c7d2fe; background: white; color: var(--brand);
+      font-size: 0.85rem; font-weight: 600; font-family: inherit;
+    }
+    .btn-ghost:hover { background: var(--accent-soft); }
+
+    .out { margin-top: 14px; }
+    .card {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+      padding: 13px 15px; margin: 10px 0;
+    }
+    .card.steps { border-left: 4px solid var(--accent); }
+    .card.result { border-left: 4px solid var(--success); background: #f0fdf4; }
+    .card.err { border-left: 4px solid var(--danger); background: #fef2f2; color: #991b1b; }
+    .card.tip { border-left: 4px solid var(--warning); background: #fffbeb; font-size: 0.87rem; }
+    .card-title {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--brand); margin-bottom: 7px;
+    }
+    .card.result .card-title { color: var(--success); }
+    .card.err .card-title { color: var(--danger); }
+    .math-step-box { overflow-x: auto; overflow-y: hidden; padding: 4px 2px; -webkit-overflow-scrolling: touch; }
+    .step-note { font-size: 0.85rem; color: #475569; margin: 6px 0 2px; }
+
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 8px 0; }
+    th, td { border: 1px solid var(--line); padding: 7px 8px; text-align: left; white-space: nowrap; }
+    th { background: var(--accent-soft); color: var(--brand-dark); font-size: 0.78rem; }
+
+    .argand-card { background: #fbfcfe; border: 1px solid var(--line); border-radius: 12px; padding: 10px; margin: 12px 0; }
+    .argand-wrap { width: 100%; overflow-x: auto; }
+    .argand-wrap svg { width: 100%; height: auto; min-width: 300px; display: block; }
+    .legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; justify-content: center; }
+    .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
+
+    footer.page-foot {
+      margin-top: 26px; padding-top: 13px; border-top: 1px solid var(--line);
+      font-size: 0.79rem; color: var(--text-muted); text-align: center;
+    }
+    footer.page-foot a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <nav class="top-nav">
+    <a class="nav-back-btn" href="/?course=KP21517003" onclick="handleGoBack(event)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Kembali ke Analisis Kompleks
+    </a>
+    <div class="nav-title">Analisis Kompleks (Kelas C)</div>
+  </nav>
+
+  <header>
+    <div class="badge">Alat Bantu Pertemuan 04</div>
+    <h1>Kalkulator Polar, De Moivre &amp; Akar Kompleks</h1>
+    <p>Setiap hasil disertai penjabaran langkah, pemeriksaan kuadran, dan gambar bidang Argand.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Pilih jenis perhitungan">
+    <button class="tab" role="tab" id="tab-polar" aria-selected="true" aria-controls="panel-polar">Bentuk Polar</button>
+    <button class="tab" role="tab" id="tab-op" aria-selected="false" aria-controls="panel-op">Kali &amp; Bagi</button>
+    <button class="tab" role="tab" id="tab-pow" aria-selected="false" aria-controls="panel-pow">De Moivre (Pangkat)</button>
+    <button class="tab" role="tab" id="tab-root" aria-selected="false" aria-controls="panel-root">Akar Pangkat n</button>
+  </div>
+
+  <!-- PANEL 1: bentuk polar -->
+  <section class="panel active" id="panel-polar" role="tabpanel" aria-labelledby="tab-polar">
+    <div class="input-card">
+      <fieldset>
+        <legend class="z-label">Masukkan \(z = a + bi\)</legend>
+        <div class="grid two">
+          <div class="field">
+            <label for="p-a">Bagian real (a)</label>
+            <input id="p-a" type="number" step="any" value="-2" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="p-b">Bagian imajiner (b)</label>
+            <input id="p-b" type="number" step="any" value="3.4641016151" inputmode="decimal">
+            <div class="hint">Contoh materi: 2&#8730;3 &#8776; 3,4641</div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="btn-row">
+        <button class="btn-run" id="p-run">Hitung Modulus &amp; Argumen</button>
+        <button class="btn-ghost" data-fill="polar" data-a="3" data-b="4">Contoh 3+4i</button>
+      </div>
+    </div>
+    <div class="out" id="p-out"></div>
+  </section>
+
+  <!-- PANEL 2: kali & bagi -->
+  <section class="panel" id="panel-op" role="tabpanel" aria-labelledby="tab-op">
+    <div class="input-card">
+      <fieldset>
+        <div class="row-z">
+          <div class="z-label">Bilangan pertama \(z_1\)</div>
+          <div class="grid two">
+            <div class="field">
+              <label for="o-a1">a&#8321;</label>
+              <input id="o-a1" type="number" step="any" value="2" inputmode="decimal">
+            </div>
+            <div class="field">
+              <label for="o-b1">b&#8321;</label>
+              <input id="o-b1" type="number" step="any" value="3" inputmode="decimal">
+            </div>
+          </div>
+        </div>
+        <div class="row-z">
+          <div class="z-label">Bilangan kedua \(z_2\)</div>
+          <div class="grid two">
+            <div class="field">
+              <label for="o-a2">a&#8322;</label>
+              <input id="o-a2" type="number" step="any" value="2" inputmode="decimal">
+            </div>
+            <div class="field">
+              <label for="o-b2">b&#8322;</label>
+              <input id="o-b2" type="number" step="any" value="-1" inputmode="decimal">
+            </div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label for="o-op">Operasi</label>
+          <select id="o-op">
+            <option value="mul">Perkalian z&#8321; &middot; z&#8322;</option>
+            <option value="div">Pembagian z&#8321; / z&#8322;</option>
+          </select>
+        </div>
+      </fieldset>
+      <button class="btn-run" id="o-run">Hitung Lewat Bentuk Polar</button>
+    </div>
+    <div class="out" id="o-out"></div>
+  </section>
+
+  <!-- PANEL 3: De Moivre -->
+  <section class="panel" id="panel-pow" role="tabpanel" aria-labelledby="tab-pow">
+    <div class="input-card">
+      <fieldset>
+        <legend class="z-label">Hitung \(z^n\) dengan Rumus De Moivre</legend>
+        <div class="grid two">
+          <div class="field">
+            <label for="w-a">Bagian real (a)</label>
+            <input id="w-a" type="number" step="any" value="1" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="w-b">Bagian imajiner (b)</label>
+            <input id="w-b" type="number" step="any" value="1" inputmode="decimal">
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px;">
+          <label for="w-n">Pangkat n (bilangan bulat)</label>
+          <input id="w-n" type="number" step="1" value="10" inputmode="numeric">
+          <div class="hint">Boleh negatif, misalnya -1 untuk mencari kebalikan 1/z.</div>
+        </div>
+      </fieldset>
+      <div class="btn-row">
+        <button class="btn-run" id="w-run">Hitung z&#8319;</button>
+        <button class="btn-ghost" data-fill="pow" data-a="1.7320508075688772" data-b="1" data-n="6">Contoh (&#8730;3+i)&#8310;</button>
+      </div>
+    </div>
+    <div class="out" id="w-out"></div>
+  </section>
+
+  <!-- PANEL 4: akar -->
+  <section class="panel" id="panel-root" role="tabpanel" aria-labelledby="tab-root">
+    <div class="input-card">
+      <fieldset>
+        <legend class="z-label">Cari semua nilai \(\sqrt[n]{z}\)</legend>
+        <div class="grid two">
+          <div class="field">
+            <label for="r-a">Bagian real (a)</label>
+            <input id="r-a" type="number" step="any" value="8" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="r-b">Bagian imajiner (b)</label>
+            <input id="r-b" type="number" step="any" value="0" inputmode="decimal">
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px;">
+          <label for="r-n">Indeks akar n</label>
+          <input id="r-n" type="number" step="1" min="1" max="24" value="3" inputmode="numeric">
+          <div class="hint">Akan muncul tepat n jawaban, membentuk segi-n beraturan.</div>
+        </div>
+      </fieldset>
+      <div class="btn-row">
+        <button class="btn-run" id="r-run">Cari Semua Akar</button>
+        <button class="btn-ghost" data-fill="root" data-a="16" data-b="0" data-n="4">Contoh z&#8308;=16</button>
+      </div>
+    </div>
+    <div class="out" id="r-out"></div>
+  </section>
+
+  <footer class="page-foot">
+    Alat bantu materi <a href="/materi/KP21517003/pertemuan-04/index.html">Pertemuan 04 &mdash; Modulus, Bidang Argand, Polar &amp; De Moivre</a><br>
+    Analisis Kompleks KP21517003 &middot; Semua sudut ditampilkan sebagai argumen utama pada selang (-180&#176;, 180&#176;].
+  </footer>
+</div>
+
+<script>
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) { if (e) e.preventDefault(); window.close(); return; }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault(); window.history.back();
+    }
+  }
+</script>
+
+<script type="module">
+import {
+  modulus, argPrincipal, toDeg, toPolar, toRect, mulPolar, divPolar,
+  power, roots, normalizeAngle, quadrant, prettyAngle, clean, TAU,
+} from "./core.js";
+
+const $ = (id) => document.getElementById(id);
+const num = (id) => Number.parseFloat($(id).value);
+
+// --- pemformatan ---------------------------------------------------------
+const fx = (x, d = 4) => {
+  const v = clean(x);
+  if (Number.isInteger(v)) return String(v);
+  return v.toFixed(d).replace(/0+$/, "").replace(/\.$/, "");
+};
+const komaID = (s) => String(s).replace(".", ",");
+const fkoma = (x, d = 4) => komaID(fx(x, d));
+
+function zTex(a, b) {
+  const ar = clean(a), br = clean(b);
+  if (br === 0) return fx(ar);
+  if (ar === 0) return `${br === 1 ? "" : br === -1 ? "-" : fx(br)}i`;
+  const sign = br < 0 ? "-" : "+";
+  const mag = Math.abs(br);
+  return `${fx(ar)} ${sign} ${mag === 1 ? "" : fx(mag)}i`;
+}
+
+function polarTex(r, theta) {
+  const pa = prettyAngle(theta);
+  return `${fx(r)}\\left(\\cos ${fkoma(pa.deg)}^\\circ + i\\sin ${fkoma(pa.deg)}^\\circ\\right)`;
+}
+function eulerTex(r, theta) {
+  const pa = prettyAngle(theta);
+  const exp = pa.tex === "0" ? "0" : pa.tex;
+  return `${fx(r)}e^{i${exp === "0" ? "0" : exp}}`;
+}
+
+const card = (cls, title, body) =>
+  `<div class="card ${cls}">${title ? `<div class="card-title">${title}</div>` : ""}${body}</div>`;
+const mbox = (tex) => `<div class="math-step-box">$$${tex}$$</div>`;
+const errCard = (msg) => card("err", "Tidak bisa dihitung", `<p style="margin:0;">${msg}</p>`);
+
+function render(el, html) {
+  el.innerHTML = html;
+  if (window.renderMathInElement) {
+    renderMathInElement(el, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ],
+      throwOnError: false,
+    });
+  }
+}
+
+// --- gambar bidang Argand ----------------------------------------------
+function argand(points, opts = {}) {
+  const W = 640, H = 400, cx = W / 2, cy = H / 2;
+  const maxR = Math.max(1e-9, ...points.map((p) => modulus(p.a, p.b)));
+  const scale = (Math.min(W, H) / 2 - 52) / maxR;
+  const X = (a) => cx + a * scale;
+  const Y = (b) => cy - b * scale;
+
+  const ticks = [];
+  const stepRaw = maxR / 2.2;
+  const mag = Math.pow(10, Math.floor(Math.log10(stepRaw)));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= stepRaw) || mag;
+  for (let v = step; v <= maxR * 1.05; v += step) {
+    ticks.push(`<text x="${X(v)}" y="${cy + 16}" font-size="10" fill="#94a3b8" text-anchor="middle">${komaID(fx(v, 2))}</text>`);
+    ticks.push(`<text x="${cx - 6}" y="${Y(v) + 4}" font-size="10" fill="#94a3b8" text-anchor="end">${komaID(fx(v, 2))}</text>`);
+  }
+
+  const circle = opts.circleR
+    ? `<circle cx="${cx}" cy="${cy}" r="${opts.circleR * scale}" fill="none" stroke="#a5b4fc" stroke-width="1.6" stroke-dasharray="5 5" />`
+    : "";
+
+  const poly = opts.polygon && points.length > 2
+    ? `<polygon points="${points.map((p) => `${X(p.a)},${Y(p.b)}`).join(" ")}" fill="#eef2ff" stroke="#4338ca" stroke-width="1.6" opacity="0.75" />`
+    : "";
+
+  const marks = points.map((p) => {
+    const c = p.color || "#4338ca";
+    return `
+      <line x1="${cx}" y1="${cy}" x2="${X(p.a)}" y2="${Y(p.b)}" stroke="${c}" stroke-width="2.4" opacity="0.85" />
+      <circle cx="${X(p.a)}" cy="${Y(p.b)}" r="5.5" fill="${c}" />
+      <text x="${X(p.a) + (p.a >= 0 ? 9 : -9)}" y="${Y(p.b) + (p.b >= 0 ? -8 : 16)}"
+            font-size="12" font-weight="700" fill="${c}"
+            text-anchor="${p.a >= 0 ? "start" : "end"}">${p.label}</text>`;
+  }).join("");
+
+  return `
+  <div class="argand-card">
+    <div class="argand-wrap">
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Bidang Argand: ${points.map((p) => p.label).join(", ")}">
+        <line x1="24" y1="${cy}" x2="${W - 24}" y2="${cy}" stroke="#94a3b8" stroke-width="1.6" />
+        <line x1="${cx}" y1="${H - 20}" x2="${cx}" y2="20" stroke="#94a3b8" stroke-width="1.6" />
+        <text x="${W - 18}" y="${cy - 8}" font-size="12" fill="#475569" font-weight="600">Re</text>
+        <text x="${cx + 8}" y="26" font-size="12" fill="#475569" font-weight="600">Im</text>
+        ${ticks.join("")}
+        ${circle}${poly}${marks}
+      </svg>
+    </div>
+    ${opts.legend || ""}
+  </div>`;
+}
+
+// --- tab ----------------------------------------------------------------
+const tabs = [...document.querySelectorAll(".tab")];
+tabs.forEach((t) => t.addEventListener("click", () => {
+  tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
+  document.querySelectorAll(".panel").forEach((p) =>
+    p.classList.toggle("active", p.id === t.getAttribute("aria-controls")));
+}));
+
+document.querySelectorAll("[data-fill]").forEach((b) => b.addEventListener("click", () => {
+  const kind = b.dataset.fill;
+  const map = { polar: ["p-a", "p-b"], pow: ["w-a", "w-b", "w-n"], root: ["r-a", "r-b", "r-n"] };
+  const ids = map[kind];
+  $(ids[0]).value = b.dataset.a;
+  $(ids[1]).value = b.dataset.b;
+  if (ids[2] && b.dataset.n) $(ids[2]).value = b.dataset.n;
+  const runner = { polar: "p-run", pow: "w-run", root: "r-run" }[kind];
+  $(runner).click();
+}));
+
+// --- blok penjelasan argumen (dipakai berulang) -------------------------
+function argSteps(a, b) {
+  const q = quadrant(a, b);
+  const raw = a === 0 ? null : toDeg(Math.atan(b / a));
+  const theta = argPrincipal(a, b);
+  const pa = prettyAngle(theta);
+  let note;
+  if (a === 0) {
+    note = `Karena \\(a = 0\\), titik ini tepat di sumbu imajiner sehingga sudutnya langsung \\(${fkoma(pa.deg)}^\\circ\\) tanpa perlu arctan.`;
+  } else if (Math.abs(pa.deg - raw) < 1e-9) {
+    note = `Titik berada di <strong>${q}</strong>, jadi hasil arctan sudah benar apa adanya.`;
+  } else {
+    const koreksi = pa.deg - raw > 0 ? "+180^\\circ" : "-180^\\circ";
+    note = `Titik berada di <strong>${q}</strong>. Kalkulator memberi \\(${fkoma(fx(raw))}^\\circ\\) yang letaknya salah kuadran, jadi dikoreksi \\(${koreksi}\\).`;
+  }
+  const chain = a === 0
+    ? `\\theta = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`
+    : `\\arctan\\!\\left(\\frac{${fx(b)}}{${fx(a)}}\\right) = ${fkoma(fx(raw))}^\\circ
+       \\quad\\Longrightarrow\\quad \\operatorname{Arg} z = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`;
+  return { theta, pa, q, html: `${mbox(chain)}<p class="step-note">${note}</p>` };
+}
+
+// --- PANEL 1: bentuk polar ---------------------------------------------
+$("p-run").addEventListener("click", () => {
+  const out = $("p-out");
+  const a = num("p-a"), b = num("p-b");
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return render(out, errCard("Isi bagian real dan imajiner dengan angka."));
+  if (a === 0 && b === 0) return render(out, errCard("\\(z = 0\\) tidak punya argumen, karena panahnya tidak menunjuk ke mana pun. Modulusnya 0."));
+
+  const r = modulus(a, b);
+  const { theta, pa, html: argHtml } = argSteps(a, b);
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Modulus (Pythagoras)",
+    mbox(`|z| = \\sqrt{(${fx(a)})^2 + (${fx(b)})^2} = \\sqrt{${fkoma(fx(a * a))} + ${fkoma(fx(b * b))}} = \\sqrt{${fkoma(fx(a * a + b * b))}} = ${fkoma(fx(r))}`));
+  html += card("steps", "Langkah 2 — Argumen (periksa kuadran)", argHtml);
+  html += card("result", "Hasil dalam tiga bentuk penulisan",
+    mbox(`\\begin{aligned}
+      z &= ${zTex(a, b)} &&\\text{(standar)} \\\\[6pt]
+      z &= ${polarTex(r, theta)} &&\\text{(polar)} \\\\[6pt]
+      z &= ${eulerTex(r, theta)} &&\\text{(Euler)}
+    \\end{aligned}`));
+
+  const back = toRect(r, theta);
+  html += card("tip", "Pemeriksaan balik",
+    mbox(`${fx(r)}\\cos ${fkoma(pa.deg)}^\\circ = ${fkoma(fx(back.a))} \\;\\checkmark
+          \\qquad ${fx(r)}\\sin ${fkoma(pa.deg)}^\\circ = ${fkoma(fx(back.b))} \\;\\checkmark`));
+
+  html += argand([{ a, b, label: `z = ${zTex(a, b)}` }], {
+    circleR: r,
+    legend: `<div class="legend"><span><i style="background:#4338ca"></i>z</span><span><i style="background:#a5b4fc"></i>lingkaran |z| = ${komaID(fx(r))}</span></div>`,
+  });
+  render(out, html);
+});
+
+// --- PANEL 2: kali & bagi ----------------------------------------------
+$("o-run").addEventListener("click", () => {
+  const out = $("o-out");
+  const a1 = num("o-a1"), b1 = num("o-b1"), a2 = num("o-a2"), b2 = num("o-b2");
+  const op = $("o-op").value;
+  if ([a1, b1, a2, b2].some((v) => !Number.isFinite(v))) return render(out, errCard("Semua kolom harus berupa angka."));
+  if (a1 === 0 && b1 === 0) return render(out, errCard("\\(z_1 = 0\\) tidak punya bentuk polar."));
+  if (a2 === 0 && b2 === 0) {
+    return render(out, errCard(op === "div"
+      ? "Pembagi tidak boleh nol."
+      : "\\(z_2 = 0\\) tidak punya bentuk polar. Hasil kalinya jelas 0."));
+  }
+
+  const z1 = toPolar(a1, b1), z2 = toPolar(a2, b2);
+  const d1 = prettyAngle(z1.theta).deg, d2 = prettyAngle(z2.theta).deg;
+
+  let res, sudutTex, rTex, kata;
+  if (op === "mul") {
+    res = mulPolar(z1, z2);
+    rTex = `r_1 r_2 = ${fkoma(fx(z1.r))} \\times ${fkoma(fx(z2.r))} = ${fkoma(fx(res.r))}`;
+    sudutTex = `\\theta_1 + \\theta_2 = ${fkoma(d1)}^\\circ + ${fkoma(d2)}^\\circ = ${fkoma(fx(d1 + d2))}^\\circ`;
+    kata = "panjang <strong>dikalikan</strong>, sudut <strong>dijumlahkan</strong>";
+  } else {
+    res = divPolar(z1, z2);
+    rTex = `\\frac{r_1}{r_2} = \\frac{${fkoma(fx(z1.r))}}{${fkoma(fx(z2.r))}} = ${fkoma(fx(res.r))}`;
+    sudutTex = `\\theta_1 - \\theta_2 = ${fkoma(d1)}^\\circ - (${fkoma(d2)}^\\circ) = ${fkoma(fx(d1 - d2))}^\\circ`;
+    kata = "panjang <strong>dibagi</strong>, sudut <strong>dikurangkan</strong>";
+  }
+
+  const norm = normalizeAngle(res.theta);
+  const rect = toRect(res.r, res.theta);
+  const perluNormal = Math.abs(toDeg(norm) - toDeg(res.theta)) > 1e-9;
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Ubah keduanya ke bentuk polar",
+    mbox(`\\begin{aligned}
+      z_1 &= ${zTex(a1, b1)} = ${polarTex(z1.r, z1.theta)} \\\\[6pt]
+      z_2 &= ${zTex(a2, b2)} = ${polarTex(z2.r, z2.theta)}
+    \\end{aligned}`));
+  html += card("steps", `Langkah 2 — ${op === "mul" ? "Kalikan" : "Bagi"} (${kata})`,
+    mbox(`\\begin{aligned} & ${rTex} \\\\[8pt] & ${sudutTex} \\end{aligned}`));
+
+  if (perluNormal) {
+    html += card("tip", "Langkah 3 — Kembalikan ke argumen utama",
+      mbox(`${fkoma(fx(toDeg(res.theta)))}^\\circ \\;\\longrightarrow\\; ${fkoma(fx(toDeg(norm)))}^\\circ
+            \\quad (\\text{selisih } 360^\\circ \\text{ tidak mengubah posisi titik})`));
+  }
+
+  html += card("result", "Hasil",
+    mbox(`\\begin{aligned}
+      ${op === "mul" ? "z_1 z_2" : "\\frac{z_1}{z_2}"} &= ${polarTex(res.r, norm)} \\\\[6pt]
+      &= ${eulerTex(res.r, norm)} \\\\[6pt]
+      &= ${zTex(rect.a, rect.b)} &&\\text{(bentuk standar)}
+    \\end{aligned}`));
+
+  // Pembuktian ulang lewat aljabar Pertemuan 03, supaya terlihat hasilnya sama.
+  let alj;
+  if (op === "mul") {
+    alj = `(${zTex(a1, b1)})(${zTex(a2, b2)}) = ${zTex(a1 * a2 - b1 * b2, a1 * b2 + b1 * a2)}`;
+  } else {
+    const den = a2 * a2 + b2 * b2;
+    alj = `\\frac{${zTex(a1, b1)}}{${zTex(a2, b2)}} \\cdot \\frac{${zTex(a2, -b2)}}{${zTex(a2, -b2)}}
+           = \\frac{${zTex(a1 * a2 + b1 * b2, b1 * a2 - a1 * b2)}}{${fkoma(fx(den))}}
+           = ${zTex((a1 * a2 + b1 * b2) / den, (b1 * a2 - a1 * b2) / den)}`;
+  }
+  html += card("tip", "Bandingkan dengan cara aljabar Pertemuan 03",
+    `${mbox(alj)}<p class="step-note" style="margin-bottom:0;">Hasilnya sama. Bentuk polar hanya memotong jalan hitungnya.</p>`);
+
+  html += argand([
+    { a: a1, b: b1, label: "z\u2081", color: "#0284c7" },
+    { a: a2, b: b2, label: "z\u2082", color: "#db2777" },
+    { a: rect.a, b: rect.b, label: op === "mul" ? "z\u2081z\u2082" : "z\u2081/z\u2082", color: "#4338ca" },
+  ], {
+    legend: `<div class="legend">
+      <span><i style="background:#0284c7"></i>z\u2081</span>
+      <span><i style="background:#db2777"></i>z\u2082</span>
+      <span><i style="background:#4338ca"></i>hasil</span></div>`,
+  });
+  render(out, html);
+});
+
+// --- PANEL 3: De Moivre -------------------------------------------------
+$("w-run").addEventListener("click", () => {
+  const out = $("w-out");
+  const a = num("w-a"), b = num("w-b"), n = num("w-n");
+  if (![a, b, n].every(Number.isFinite)) return render(out, errCard("Isi semua kolom dengan angka."));
+  if (!Number.isInteger(n)) return render(out, errCard("Pangkat \\(n\\) harus bilangan bulat. Untuk pangkat pecahan, pakai tab <strong>Akar Pangkat n</strong>."));
+  if (a === 0 && b === 0) {
+    if (n > 0) return render(out, card("result", "Hasil", mbox("0^{" + n + "} = 0")));
+    return render(out, errCard("\\(0\\) tidak bisa dipangkatkan nol atau negatif."));
+  }
+  if (Math.abs(n) > 60) return render(out, errCard("Batasi pangkat sampai 60 supaya hasilnya masih terbaca."));
+
+  const z = toPolar(a, b);
+  const deg = prettyAngle(z.theta).deg;
+  const p = power(z, n);
+  const norm = normalizeAngle(p.theta);
+  const rect = toRect(p.r, p.theta);
+  const perluNormal = Math.abs(toDeg(norm) - toDeg(p.theta)) > 1e-9;
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Ubah ke bentuk polar",
+    mbox(`z = ${zTex(a, b)} = ${polarTex(z.r, z.theta)}
+          \\qquad (|z| = ${fkoma(fx(z.r))},\\ \\operatorname{Arg} z = ${fkoma(deg)}^\\circ)`));
+
+  html += card("steps", "Langkah 2 — Terapkan De Moivre",
+    mbox(`\\begin{aligned}
+      z^{${n}} &= |z|^{${n}}\\left[\\cos(${n} \\cdot ${fkoma(deg)}^\\circ) + i\\sin(${n} \\cdot ${fkoma(deg)}^\\circ)\\right] \\\\[8pt]
+      &= ${fkoma(fx(p.r))}\\left[\\cos ${fkoma(fx(toDeg(p.theta)))}^\\circ + i\\sin ${fkoma(fx(toDeg(p.theta)))}^\\circ\\right]
+    \\end{aligned}`));
+
+  if (perluNormal) {
+    const putaran = Math.round((toDeg(p.theta) - toDeg(norm)) / 360);
+    html += card("tip", "Langkah 3 — Kurangi putaran penuh",
+      mbox(`${fkoma(fx(toDeg(p.theta)))}^\\circ - ${putaran} \\cdot 360^\\circ = ${fkoma(fx(toDeg(norm)))}^\\circ`));
+  }
+
+  html += card("result", "Hasil",
+    mbox(`\\begin{aligned}
+      z^{${n}} &= ${polarTex(p.r, norm)} \\\\[6pt]
+      &= ${eulerTex(p.r, norm)} \\\\[6pt]
+      &= ${zTex(rect.a, rect.b)} &&\\text{(bentuk standar)}
+    \\end{aligned}`));
+
+  const pts = [{ a, b, label: "z", color: "#0284c7" }, { a: rect.a, b: rect.b, label: `z^{${n}}`, color: "#4338ca" }];
+  html += argand(pts, {
+    legend: `<div class="legend"><span><i style="background:#0284c7"></i>z semula</span><span><i style="background:#4338ca"></i>z pangkat ${n}</span></div>`,
+  });
+  render(out, html);
+});
+
+// --- PANEL 4: akar pangkat n -------------------------------------------
+$("r-run").addEventListener("click", () => {
+  const out = $("r-out");
+  const a = num("r-a"), b = num("r-b"), n = num("r-n");
+  if (![a, b, n].every(Number.isFinite)) return render(out, errCard("Isi semua kolom dengan angka."));
+  if (!Number.isInteger(n) || n < 1) return render(out, errCard("Indeks akar \\(n\\) harus bilangan bulat minimal 1."));
+  if (n > 24) return render(out, errCard("Batasi \\(n\\) sampai 24 supaya tabel dan gambarnya masih terbaca."));
+  if (a === 0 && b === 0) return render(out, card("result", "Hasil", mbox(`\\sqrt[${n}]{0} = 0 \\quad (\\text{akar rangkap } ${n})`)));
+
+  const z = toPolar(a, b);
+  const deg = prettyAngle(z.theta).deg;
+  const rr = Math.pow(z.r, 1 / n);
+  const ws = roots(z, n);
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Bentuk polar dari z",
+    mbox(`z = ${zTex(a, b)} = ${polarTex(z.r, z.theta)}
+          \\qquad \\sqrt[${n}]{|z|} = \\sqrt[${n}]{${fkoma(fx(z.r))}} = ${fkoma(fx(rr))}`));
+
+  html += card("steps", "Langkah 2 — Rumus akar pangkat n",
+    `${mbox(`w_k = ${fkoma(fx(rr))}\\left[\\cos\\!\\left(\\frac{${fkoma(deg)}^\\circ + k \\cdot 360^\\circ}{${n}}\\right)
+       + i\\sin\\!\\left(\\frac{${fkoma(deg)}^\\circ + k \\cdot 360^\\circ}{${n}}\\right)\\right],\\quad k = 0,1,\\dots,${n - 1}`)}
+     <p class="step-note">Karena \\(k\\) berjalan dari 0 sampai ${n - 1}, akan didapat tepat <strong>${n} jawaban</strong> yang berselisih sudut \\(${fkoma(fx(360 / n))}^\\circ\\).</p>`);
+
+  const rows = ws.map((w) => {
+    const nt = normalizeAngle(w.theta);
+    const rect = toRect(w.r, nt);
+    return `<tr>
+      <td>k = ${w.k}</td>
+      <td>${komaID(fx(toDeg(nt)))}&#176;</td>
+      <td>\\(${polarTex(w.r, nt)}\\)</td>
+      <td>\\(${zTex(rect.a, rect.b)}\\)</td>
+    </tr>`;
+  }).join("");
+
+  html += card("result", `Hasil — ${n} akar`,
+    `<div class="table-wrap"><table>
+      <thead><tr><th>Indeks</th><th>Sudut</th><th>Bentuk polar</th><th>Bentuk standar</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`);
+
+  // Pembuktian: satu akar dipangkatkan n harus kembali ke z.
+  const w0 = ws[0];
+  const cek = toRect(...(() => { const c = power({ r: w0.r, theta: w0.theta }, n); return [c.r, c.theta]; })());
+  html += card("tip", "Pemeriksaan",
+    mbox(`(w_0)^{${n}} = ${zTex(cek.a, cek.b)} = z \\;\\checkmark`));
+
+  const colors = ["#4338ca", "#0284c7", "#db2777", "#059669", "#d97706", "#7c3aed", "#0891b2", "#be123c"];
+  const pts = ws.map((w) => {
+    const rect = toRect(w.r, w.theta);
+    return { a: rect.a, b: rect.b, label: `w${String(w.k).replace(/\d/g, (d) => "\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089"[+d])}`, color: colors[w.k % colors.length] };
+  });
+  html += argand(pts, {
+    circleR: rr,
+    polygon: n >= 3,
+    legend: `<div class="legend"><span><i style="background:#a5b4fc"></i>lingkaran radius ${komaID(fx(rr))}</span><span>${n >= 3 ? `membentuk segi-${n} beraturan` : "berseberangan 180&#176;"}</span></div>`,
+  });
+  render(out, html);
+});
+
+// Jalankan sekali di awal supaya halaman tidak kosong saat dibuka.
+window.addEventListener("DOMContentLoaded", () => $("p-run").click());
+if (document.readyState !== "loading") $("p-run").click();
+</script>
+</body>
+</html>
