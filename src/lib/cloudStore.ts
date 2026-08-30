@@ -10,8 +10,21 @@ export type CloudIO = {
 
 export const SAVE_TIMEOUT_MS = 15000;
 
-export const errorText = (e: unknown) =>
-  e instanceof Error && e.message ? e.message : typeof e === "string" && e ? e : "Kesalahan tidak diketahui.";
+/**
+ * Supabase melempar `PostgrestError` — objek biasa, bukan `Error`. Tanpa
+ * penanganan ini penyebab asli hilang dan pengguna hanya melihat
+ * "Kesalahan tidak diketahui", sehingga masalah tidak bisa diperbaiki.
+ */
+export const errorText = (e: unknown) => {
+  if (e instanceof Error && e.message) return e.message;
+  if (typeof e === "string" && e) return e;
+  if (typeof e === "object" && e) {
+    const { message, code, hint, details } = e as Record<string, unknown>;
+    const parts = [message, details, hint].filter((x): x is string => typeof x === "string" && x !== "");
+    if (parts.length) return code ? `${parts.join(" — ")} (kode ${String(code)})` : parts.join(" — ");
+  }
+  return "Kesalahan tidak diketahui.";
+};
 
 /** Mencegah tampilan terkunci selamanya bila cloud tidak pernah menjawab. */
 export async function withTimeout<T>(work: Promise<T>, ms = SAVE_TIMEOUT_MS): Promise<T> {

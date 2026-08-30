@@ -2,6 +2,7 @@
 import { createClient } from "@supabase/supabase-js";
 import type { AppData, Material, MeetingNote, ReferenceItem, Task, UserSettings } from "../types";
 import type { CollectionKind } from "./cloudStore";
+import { errorText } from "./cloudStore";
 import { DEFAULT_SETTINGS, normalizeMaterial, normalizeMeetingNote, normalizeReference, normalizeSettings, normalizeTask, validDate } from "./storage";
 export type { CollectionKind };
 const url = import.meta.env.VITE_SUPABASE_URL?.trim(), key = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim();
@@ -24,7 +25,11 @@ export async function syncNow(): Promise<AppData> {
     db.from("meeting_notes").select("data"),
     db.from("app_settings").select("data").eq("id", "profile").maybeSingle(),
   ]);
-  for (const x of [t, m, r, n, s]) if (x.error) throw x.error;
+  // Sebutkan tabel yang gagal: tanpa ini kegagalan satu tabel tampak seperti
+  // kegagalan seluruh cloud dan penyebabnya tidak bisa ditelusuri.
+  for (const [table, res] of [["tasks", t], ["materials", m], ["references", r], ["meeting_notes", n], ["app_settings", s]] as const) {
+    if (res.error) throw new Error(`Tabel ${table}: ${errorText(res.error)}`);
+  }
   return {
     tasks: normalizeRows(t.data, normalizeTask),
     materials: normalizeRows(m.data, normalizeMaterial),

@@ -1,7 +1,7 @@
 // Uji perilaku: menjalankan logika simpan sungguhan dengan cloud tiruan.
 // Bukan pencocokan teks kode seperti uji lama.
 import assert from "node:assert/strict";
-import { commitCollection, commitValue, createWriteGate, removedIds, withTimeout } from "../src/lib/cloudStore.ts";
+import { commitCollection, commitValue, createWriteGate, errorText, removedIds, withTimeout } from "../src/lib/cloudStore.ts";
 
 const item = (id) => ({ id, title: id });
 
@@ -97,6 +97,23 @@ const spyIO = (behaviour = {}) => {
   await assert.rejects(gate.run(async () => { throw new Error("gagal"); }), /gagal/);
   assert.equal(gate.busy, false, "penjaga harus terbuka lagi setelah kegagalan");
   assert.equal(await gate.run(async () => "lagi"), "lagi");
+}
+
+// 9. Kesalahan Supabase adalah objek biasa (PostgrestError), bukan Error.
+//    Penyebabnya harus tetap terbaca, bukan jadi "Kesalahan tidak diketahui".
+{
+  assert.equal(
+    errorText({ message: "Could not find the table 'public.meeting_notes' in the schema cache", code: "PGRST205", details: null, hint: null }),
+    "Could not find the table 'public.meeting_notes' in the schema cache (kode PGRST205)",
+  );
+  assert.equal(errorText({ message: "gagal", details: "rinci", hint: "petunjuk" }), "gagal — rinci — petunjuk");
+  assert.equal(errorText(new Error("biasa")), "biasa");
+  assert.equal(errorText({}), "Kesalahan tidak diketahui.");
+  assert.equal(errorText(null), "Kesalahan tidak diketahui.");
+
+  const failed = await commitValue(async () => { throw { message: "izin ditolak", code: "42501" }; }, 1);
+  assert.equal(failed.ok, false);
+  assert.match(failed.error, /izin ditolak \(kode 42501\)/, "kegagalan objek harus tetap terbaca oleh pengguna");
 }
 
 console.log("cloud store behaviour: OK");
