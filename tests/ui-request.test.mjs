@@ -1,0 +1,18 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+const root = new URL("..", import.meta.url);
+const read = (path) => fs.readFileSync(new URL(path, root), "utf8");
+const dashboard = read("src/components/DashboardView.tsx");
+const tools = read("src/components/ToolsView.tsx");
+const mobile = read("src/components/MobileNav.tsx");
+const app = read("src/App.tsx");
+assert.doesNotMatch(dashboard, /Ringkasan akademikmu mengikuti Waktu Indonesia Barat/);
+assert.doesNotMatch(dashboard, /z = x \+ iy|className="formula"/);
+assert.match(app, /status !== "idle"/);
+assert.doesNotMatch(tools, /Pusat alat bantu hitung umum/);
+assert.doesNotMatch(tools, /tool\.description/);
+assert.doesNotMatch(tools, /<Sparkles \/>/);
+assert.match(tools, /aria-haspopup="listbox"/);
+assert.match(mobile, /Beranda.*Mata Kuliah.*Alat Bantu.*Tugas/s);
+assert.doesNotMatch(mobile, /Referensi/);
+console.log("UI request guard: OK");

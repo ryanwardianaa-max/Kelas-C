@@ -305,15 +305,17 @@ export default function App() {
       <main>
         <Navbar settings={settings} theme={theme} onTheme={toggleTheme} onMenu={() => setDrawer(true)} />
         <div className="content">
-          <p className={`cloud-status cloud-status--${status}`} role="status" aria-live="polite">
-            <span aria-hidden="true" className="cloud-status__dot" />
-            {message}
-            {status === "error" && (
-              <button type="button" className="cloud-status__retry" onClick={() => void load()}>
-                Muat ulang data
-              </button>
-            )}
-          </p>
+          {status !== "idle" && (
+            <p className={`cloud-status cloud-status--${status}`} role="status" aria-live="polite">
+              <span aria-hidden="true" className="cloud-status__dot" />
+              {message}
+              {status === "error" && (
+                <button type="button" className="cloud-status__retry" onClick={() => void load()}>
+                  Muat ulang data
+                </button>
+              )}
+            </p>
+          )}
           {search && (page === "Materi" || page === "Referensi") && (
             <div className="search-banner">
               Pencarian AI: <b>{search}</b>
