@@ -53,12 +53,18 @@ const post = (body, headers = {}) =>
   assert.equal(seen, null, "model tak dikenal tidak boleh diteruskan");
 }
 
-// 4. Setiap entri katalog punya vendor yang dikenal dan kunci env-nya jelas.
+// 4. Setiap entri katalog punya vendor yang dikenal, kunci env-nya jelas, dan
+//    nama yang layak tampil di pemilih model.
 for (const m of MODELS) {
   assert.ok(VENDORS[m.vendor], `vendor tak dikenal pada ${m.id}`);
   assert.ok(VENDORS[m.vendor].keyEnv, `keyEnv kosong untuk vendor ${m.vendor}`);
-  assert.ok(m.label && m.note, `label/note kosong pada ${m.id}`);
+  assert.ok(m.label, `label kosong pada ${m.id}`);
 }
+assert.equal(new Set(MODELS.map((m) => m.label)).size, MODELS.length, "label harus unik");
+assert.equal(new Set(MODELS.map((m) => m.id)).size, MODELS.length, "id harus unik");
+// Ryan meminta pemilih model menampilkan nama saja: tidak ada keterangan skill
+// di katalog, supaya tidak diam-diam muncul lagi di UI.
+for (const m of MODELS) assert.ok(!("note" in m), `${m.id} tidak boleh punya keterangan skill`);
 
 // 5. Balasan ke klien tidak boleh memuat kunci sama sekali.
 {

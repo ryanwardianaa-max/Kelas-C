@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { setAdminPin, verifyAdminPin } from "../lib/adminPin";
 import { checkCloud, cloudConfigured, syncNow } from "../lib/supabase";
-import { MODELS } from "../../ai-catalog.mjs";
+import ModelPicker from "./ModelPicker";
 import type { AIProvider, UserSettings } from "../types";
 export default function SettingsView({
   settings,
@@ -218,21 +218,10 @@ export default function SettingsView({
                 </label>
                 <label>
                   Model server
-                  <select
+                  <ModelPicker
                     value={draft.ai.serverModel}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        ai: { ...draft.ai, serverModel: e.target.value },
-                      })
-                    }
-                  >
-                    {MODELS.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.label} — {m.note}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(id) => setDraft({ ...draft, ai: { ...draft.ai, serverModel: id } })}
+                  />
                 </label>
                 <label>
                   Endpoint lokal

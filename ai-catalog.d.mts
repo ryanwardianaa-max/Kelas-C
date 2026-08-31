@@ -2,7 +2,6 @@ export interface CatalogModel {
   id: string;
   label: string;
   vendor: "gorouter" | "xkiro";
-  note: string;
 }
 export const VENDORS: Record<string, { base: string; keyEnv: string }>;
 export const MODELS: CatalogModel[];

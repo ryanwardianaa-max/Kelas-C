@@ -752,6 +752,157 @@ textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/* Pemilih model: tombol + panel kartu (bukan <select>, yang tak bisa digayakan
+   isinya). Avatar mengambil rona dari --hue yang diisi ModelPicker. */
+.model-picker {
+  position: relative;
+  min-width: 0;
+}
+.model-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.model-trigger:hover {
+  border-color: var(--primary);
+}
+.model-trigger:focus-visible {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+.model-trigger svg {
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  color: var(--muted);
+  transform: rotate(90deg);
+  transition: transform 0.18s;
+}
+.model-trigger[aria-expanded="true"] svg {
+  transform: rotate(-90deg);
+}
+.model-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(140deg, hsl(var(--hue) 68% 58%), hsl(calc(var(--hue) + 38) 72% 46%));
+}
+.model-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.model-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  z-index: 60;
+  /* Tepat 7 kartu, tanpa kartu ke-8 terpotong separuh di tepi bawah:
+     7 x 44px kartu + 6 x 2px jarak + 12px padding + 2px tepi = 334px.
+     scroll-snap menjaga kerapian yang sama setelah panel digulir. */
+  max-height: min(334px, 48vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y proximity;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: color-mix(in srgb, var(--surface) 97%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  box-shadow: 0 16px 40px #0000002e;
+  animation: model-pop 0.14s ease-out;
+}
+@keyframes model-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+/* Scrollbar tipis: tombol panah bawaan Windows membuat panel tampak kaku. */
+.model-pop {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.model-pop::-webkit-scrollbar {
+  width: 8px;
+}
+.model-pop::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+.model-pop::-webkit-scrollbar-track {
+  background: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .model-pop {
+    animation: none;
+  }
+  .model-trigger svg {
+    transition: none;
+  }
+}
+.model-opt {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  text-align: left;
+  scroll-snap-align: start;
+}
+.model-opt:hover,
+.model-opt:focus-visible {
+  background: var(--soft);
+  outline: none;
+}
+.model-opt.is-active {
+  background: var(--soft);
+  font-weight: 600;
+  /* Batang aksen di tepi kiri: di mode gelap perbedaan warna latar saja terlalu
+     halus, jadi pilihan aktif ditandai bentuk, bukan hanya warna. */
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+.model-opt svg {
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  flex: none;
+  color: var(--primary);
+}
+.model-opt.is-active svg {
+  /* Centang harus tetap terbaca di mode gelap, tempat --primary meredup. */
+  color: color-mix(in srgb, var(--primary) 55%, #fff);
+}
 .ai-messages {
   flex: 1;
   overflow: auto;
