@@ -1,4 +1,4 @@
-const CACHE_NAME = "kelasku-pwa-v4";
+const CACHE_NAME = "kelasku-pwa-v5";
 const STATIC_ASSETS = [
   "/index.html",
   "/manifest.json",
@@ -27,6 +27,13 @@ self.addEventListener("activate", (event) => {
       .then(() => self.clients.claim()),
   );
 });
+
+// Rewrite SPA membuat aset yang sudah tidak ada dibalas index.html dengan status
+// 200. HTML itu tidak boleh disimpan maupun disajikan sebagai JS/CSS: browser
+// menolak menjalankannya dan aplikasi gagal mount. Jadi untuk permintaan
+// non-navigasi, respons HTML dianggap tidak sah.
+const isHtml = (response) =>
+  (response?.headers.get("Content-Type") || "").includes("text/html");
 
 const cacheResponse = async (request, response) => {
   if (!response.ok || response.type !== "basic") return;
@@ -72,11 +79,12 @@ self.addEventListener("fetch", (event) => {
       const cached = await caches.match(request);
       const update = fetch(request)
         .then(async (response) => {
-          if (response.ok) await cacheResponse(request, response);
+          if (response.ok && !isHtml(response)) await cacheResponse(request, response);
           return response;
         })
         .catch(() => cached);
-      if (cached) {
+      // Entri HTML beracun dari cache lama diabaikan, bukan disajikan.
+      if (cached && !isHtml(cached)) {
         event.waitUntil(update);
         return cached;
       }
