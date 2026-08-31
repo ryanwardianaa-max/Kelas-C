@@ -12,10 +12,6 @@ export default function CoursesView({
       <div className="page-title">
         <small>SEMESTER 7</small>
         <h1>Mata Kuliah</h1>
-        <p>
-          Pilih mata kuliah untuk membuka pertemuan, catatan, tugas, dan
-          referensinya.
-        </p>
       </div>
       <div className="courses-grid">
         {COURSE_SCHEDULE.map((course) => {

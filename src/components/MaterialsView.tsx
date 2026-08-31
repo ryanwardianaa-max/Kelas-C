@@ -49,7 +49,7 @@ export default function MaterialsView({
         <div>
           <small>PERPUSTAKAAN KELAS</small>
           <h1>Materi kuliah</h1>
-          <p>Simpan materi pribadi dan ikuti master silabus akademik.</p>
+
         </div>
         {tab === "koleksi" && (
           <button className="primary" onClick={() => setEdit(blank())}>

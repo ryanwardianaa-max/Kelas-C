@@ -44,7 +44,7 @@ export default function TasksView({
         <div>
           <small>PRODUKTIVITAS</small>
           <h1>Tugas & deadline</h1>
-          <p>Data tersimpan otomatis pada perangkat ini.</p>
+
         </div>
         <button className="primary" onClick={() => setEdit(blank())}>
           <Plus /> Tambah tugas

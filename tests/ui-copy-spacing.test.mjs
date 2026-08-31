@@ -1,0 +1,18 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+const root = new URL("..", import.meta.url);
+const read = (path) => fs.readFileSync(new URL(path, root), "utf8");
+const dashboard = read("src/components/DashboardView.tsx");
+const courses = read("src/components/CoursesView.tsx");
+const schedule = read("src/components/ScheduleView.tsx");
+const tasks = read("src/components/TasksView.tsx");
+const materials = read("src/components/MaterialsView.tsx");
+const css = read("src/App.css");
+assert.doesNotMatch(courses, /Pilih mata kuliah untuk membuka/);
+assert.doesNotMatch(schedule, /Enam mata kuliah resmi Semester 7 Pendidikan Matematika Kelas C/);
+assert.doesNotMatch(tasks, /Data tersimpan otomatis pada perangkat ini/);
+assert.doesNotMatch(materials, /Simpan materi pribadi dan ikuti master silabus akademik/);
+assert.match(dashboard, /className="row-title"/);
+assert.match(css, /\.row-title\s*\{[\s\S]*?gap:\s*6px/);
+assert.doesNotMatch(dashboard, /formatTimeWIB|z = x \+ iy|className="formula"/);
+console.log("UI copy and spacing guard: OK");

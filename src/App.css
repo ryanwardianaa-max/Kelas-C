@@ -336,6 +336,9 @@ main {
   display: flex;
   flex-direction: column;
 }
+.row-title {
+  gap: 6px;
+}
 .row time {
   color: var(--muted);
   font-size: 13px;
