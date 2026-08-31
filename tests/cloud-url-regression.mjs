@@ -50,7 +50,7 @@ assert.match(app, /role="status" aria-live="polite"/, "status cloud harus diumum
 assert.match(app, /Gagal menyimpan, data belum masuk cloud/, "kegagalan harus dinyatakan jujur");
 
 // Kunci API tidak boleh sampai ke baris Supabase yang dapat dibaca publik.
-assert.match(cloud, /localKey: "", cloudKey: ""/, "kunci AI tidak boleh ditulis ke Supabase");
+assert.match(cloud, /localKey: ""/, "kunci AI tidak boleh ditulis ke Supabase");
 assert.match(app, /aiKeys\.current/, "kunci AI hanya hidup di memori");
 assert.doesNotMatch(settings, /Kunci AI disimpan di Supabase/, "peringatan pengaturan harus akurat");
 

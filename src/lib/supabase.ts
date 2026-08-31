@@ -57,7 +57,7 @@ export async function deleteRows(kind: CollectionKind, ids: string[]) {
 /** Kunci API AI sengaja tidak pernah dikirim: baris ini dapat dibaca klien anonim. */
 const publicSettings = (value: UserSettings) => {
   const safe = normalizeSettings(value);
-  return { ...safe, ai: { ...safe.ai, localKey: "", cloudKey: "" } };
+  return { ...safe, ai: { ...safe.ai, localKey: "" } };
 };
 
 export async function pushSettings(value: UserSettings) {

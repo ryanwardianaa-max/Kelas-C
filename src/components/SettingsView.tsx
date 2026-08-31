@@ -213,7 +213,6 @@ export default function SettingsView({
                   >
                     <option value="server">Opus 5 (GoRouter, kunci di server)</option>
                     <option value="local">9Router lokal</option>
-                    <option value="cloud">OpenAI cloud</option>
                   </select>
                 </label>
                 <label>
@@ -249,43 +248,6 @@ export default function SettingsView({
                       setDraft({
                         ...draft,
                         ai: { ...draft.ai, localModel: e.target.value },
-                      })
-                    }
-                  />
-                </label>
-                <label>
-                  Endpoint cloud
-                  <input
-                    value={draft.ai.cloudEndpoint}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        ai: { ...draft.ai, cloudEndpoint: e.target.value },
-                      })
-                    }
-                  />
-                </label>
-                <label>
-                  API key cloud
-                  <input
-                    type="password"
-                    value={draft.ai.cloudKey}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        ai: { ...draft.ai, cloudKey: e.target.value },
-                      })
-                    }
-                  />
-                </label>
-                <label>
-                  Model cloud
-                  <input
-                    value={draft.ai.cloudModel}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        ai: { ...draft.ai, cloudModel: e.target.value },
                       })
                     }
                   />

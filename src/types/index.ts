@@ -9,7 +9,7 @@ export type Page =
   | "Kalender"
   | "Pengaturan";
 export type Theme = "light" | "dark";
-export type AIProvider = "local" | "cloud" | "server";
+export type AIProvider = "local" | "server";
 export interface Course {
   id: number;
   code: string;
@@ -80,9 +80,6 @@ export interface AISettings {
   localEndpoint: string;
   localKey: string;
   localModel: string;
-  cloudEndpoint: string;
-  cloudKey: string;
-  cloudModel: string;
   timeoutMs: number;
 }
 export interface UserSettings {

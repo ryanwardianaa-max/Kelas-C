@@ -63,7 +63,7 @@ type CloudStatus = "loading" | "idle" | "saving" | "error";
 
 export default function App() {
   /** Kunci AI hanya hidup di memori: baris pengaturan Supabase dapat dibaca publik. */
-  const aiKeys = useRef({ localKey: DEFAULT_SETTINGS.ai.localKey, cloudKey: DEFAULT_SETTINGS.ai.cloudKey });
+  const aiKeys = useRef({ localKey: DEFAULT_SETTINGS.ai.localKey });
   /** Satu penyimpanan pada satu waktu, dijaga di jalur data agar tombol di luar
    *  area konten (Copilot, tema) tidak bisa menyelinap dengan data lama. */
   const gate = useRef(createWriteGate());
@@ -191,7 +191,7 @@ export default function App() {
       return;
     }
     if (outcome.ok) {
-      aiKeys.current = { localKey: v.ai.localKey, cloudKey: v.ai.cloudKey };
+      aiKeys.current = { localKey: v.ai.localKey };
       setSettingsState(v);
       setTheme(v.theme);
       setStatus("idle");
