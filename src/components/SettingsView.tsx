@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { setAdminPin, verifyAdminPin } from "../lib/adminPin";
 import { checkCloud, cloudConfigured, syncNow } from "../lib/supabase";
+import { MODELS } from "../../ai-catalog.mjs";
 import type { AIProvider, UserSettings } from "../types";
 export default function SettingsView({
   settings,
@@ -211,8 +212,26 @@ export default function SettingsView({
                       })
                     }
                   >
-                    <option value="server">Opus 5 (GoRouter, kunci di server)</option>
+                    <option value="server">Server (kunci aman)</option>
                     <option value="local">9Router lokal</option>
+                  </select>
+                </label>
+                <label>
+                  Model server
+                  <select
+                    value={draft.ai.serverModel}
+                    onChange={(e) =>
+                      setDraft({
+                        ...draft,
+                        ai: { ...draft.ai, serverModel: e.target.value },
+                      })
+                    }
+                  >
+                    {MODELS.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.label} — {m.note}
+                      </option>
+                    ))}
                   </select>
                 </label>
                 <label>

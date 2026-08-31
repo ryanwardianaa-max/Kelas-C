@@ -1,11 +1,12 @@
 // Uji proxy /api/chat/completions tanpa Vercel: handler edge dipanggil langsung
 // dengan fetch tiruan. Yang dijaga: kunci tidak pernah bocor ke klien, model
-// ditentukan server, dan penolakan lintas-origin.
+// hanya boleh dari katalog, kunci dipilih sesuai vendor model, dan penolakan
+// lintas-origin.
 import assert from "node:assert/strict";
+import { DEFAULT_MODEL, MODELS, VENDORS } from "../ai-catalog.mjs";
 
-process.env.GOROUTER_API_KEY = "sk-uji-jangan-dipakai";
-process.env.GOROUTER_BASE_URL = "https://gorouter.app/v1";
-process.env.GOROUTER_MODEL = "claude-opus-5";
+process.env.GOROUTER_API_KEY = "sk-uji-gorouter-jangan-dipakai";
+process.env.XKIRO_API_KEY = "sk-xt-uji-jangan-dipakai";
 
 const handler = (await import("../api/chat/completions.js")).default;
 
@@ -24,34 +25,51 @@ const post = (body, headers = {}) =>
     body: JSON.stringify(body),
   }));
 
-// 1. Jalur normal: klien tidak mengirim model maupun kunci; server yang menentukan.
+// 1. Tanpa model: pakai bawaan katalog, kunci vendor yang benar.
 {
   seen = null;
   const res = await post({ messages: [{ role: "user", content: "hai" }] });
   assert.equal(res.status, 200);
   assert.equal((await res.json()).choices[0].message.content, "halo");
-  const sent = JSON.parse(seen.init.body);
-  assert.equal(sent.model, "claude-opus-5", "model harus dipaksa server");
+  assert.equal(JSON.parse(seen.init.body).model, DEFAULT_MODEL);
   assert.equal(seen.url, "https://gorouter.app/v1/chat/completions");
-  assert.equal(seen.init.headers.Authorization, "Bearer sk-uji-jangan-dipakai");
+  assert.equal(seen.init.headers.Authorization, "Bearer sk-uji-gorouter-jangan-dipakai");
 }
 
-// 2. Klien tidak bisa memilih model lain (mis. model mahal) lewat body.
+// 2. Model xkiro diarahkan ke base + kunci xkiro, bukan kunci GoRouter.
 {
   seen = null;
-  await post({ model: "gpt-5.6-sol", messages: [{ role: "user", content: "hai" }] });
-  assert.equal(JSON.parse(seen.init.body).model, "claude-opus-5");
+  await post({ model: "qwen/qwen3.5-flash:free", messages: [{ role: "user", content: "hai" }] });
+  assert.equal(seen.url, "https://api.xkiro.com/v1/chat/completions");
+  assert.equal(seen.init.headers.Authorization, "Bearer sk-xt-uji-jangan-dipakai");
+  assert.equal(JSON.parse(seen.init.body).model, "qwen/qwen3.5-flash:free");
 }
 
-// 3. Balasan ke klien tidak boleh memuat kunci sama sekali.
+// 3. Model di luar katalog ditolak, tidak diteruskan ke vendor mana pun.
+{
+  seen = null;
+  const res = await post({ model: "openai/gpt-5-mahal", messages: [{ role: "user", content: "hai" }] });
+  assert.equal(res.status, 400);
+  assert.equal(seen, null, "model tak dikenal tidak boleh diteruskan");
+}
+
+// 4. Setiap entri katalog punya vendor yang dikenal dan kunci env-nya jelas.
+for (const m of MODELS) {
+  assert.ok(VENDORS[m.vendor], `vendor tak dikenal pada ${m.id}`);
+  assert.ok(VENDORS[m.vendor].keyEnv, `keyEnv kosong untuk vendor ${m.vendor}`);
+  assert.ok(m.label && m.note, `label/note kosong pada ${m.id}`);
+}
+
+// 5. Balasan ke klien tidak boleh memuat kunci sama sekali.
 {
   const res = await post({ messages: [{ role: "user", content: "hai" }] });
   const text = await res.text();
   assert.ok(!text.includes("sk-uji"), "kunci tidak boleh ikut di respons");
+  assert.ok(!text.includes("sk-xt-uji"));
   assert.equal(res.headers.get("Cache-Control"), "no-store");
 }
 
-// 4. Origin dari situs lain ditolak sebelum menyentuh GoRouter.
+// 6. Origin dari situs lain ditolak sebelum menyentuh vendor.
 {
   seen = null;
   const res = await post({ messages: [{ role: "user", content: "hai" }] }, { origin: "https://situs-lain.example" });
@@ -59,13 +77,13 @@ const post = (body, headers = {}) =>
   assert.equal(seen, null, "permintaan lintas-origin tidak boleh diteruskan");
 }
 
-// 5. Origin sendiri diterima.
+// 7. Origin sendiri diterima.
 {
   const res = await post({ messages: [{ role: "user", content: "hai" }] }, { origin: "https://kelas-c-navy.vercel.app" });
   assert.equal(res.status, 200);
 }
 
-// 6. Body tanpa messages ditolak, bukan diteruskan.
+// 8. Body tanpa messages ditolak, bukan diteruskan.
 {
   seen = null;
   assert.equal((await post({})).status, 400);
@@ -74,21 +92,20 @@ const post = (body, headers = {}) =>
   assert.equal(seen, null);
 }
 
-// 7. Peran aneh disaring, isi non-string dibuang.
+// 9. Peran aneh disaring, isi non-string dibuang.
 {
   seen = null;
   await post({ messages: [{ role: "hacker", content: "x" }, { role: "user", content: "sah" }] });
-  const sent = JSON.parse(seen.init.body);
-  assert.deepEqual(sent.messages, [{ role: "user", content: "sah" }]);
+  assert.deepEqual(JSON.parse(seen.init.body).messages, [{ role: "user", content: "sah" }]);
 }
 
-// 8. Metode selain POST ditolak.
+// 10. Metode selain POST ditolak.
 {
   const res = await handler(new Request("https://kelas-c-navy.vercel.app/api/chat/completions", { method: "GET" }));
   assert.equal(res.status, 405);
 }
 
-// 9. Kegagalan upstream dilaporkan apa adanya, tanpa membocorkan kunci.
+// 11. Kegagalan upstream dilaporkan apa adanya, tanpa membocorkan kunci.
 {
   globalThis.fetch = async () => new Response('{"error":{"message":"kredit habis"}}', { status: 402 });
   const res = await post({ messages: [{ role: "user", content: "hai" }] });
@@ -98,16 +115,17 @@ const post = (body, headers = {}) =>
   assert.ok(!body.includes("sk-uji"));
 }
 
-// 10. Kunci belum diatur: gagal jujur, bukan memanggil GoRouter tanpa kunci.
+// 12. Kunci vendor belum diatur: gagal jujur, bukan memanggil tanpa kunci.
 {
   let called = false;
   globalThis.fetch = async () => { called = true; return new Response("{}"); };
-  delete process.env.GOROUTER_API_KEY;
-  const res = await post({ messages: [{ role: "user", content: "hai" }] });
+  delete process.env.XKIRO_API_KEY;
+  const res = await post({ model: "qwen/qwen3.5-flash:free", messages: [{ role: "user", content: "hai" }] });
   assert.equal(res.status, 503);
+  assert.match(await res.text().then((t) => t), /XKIRO_API_KEY/);
   assert.equal(called, false);
-  process.env.GOROUTER_API_KEY = "sk-uji-jangan-dipakai";
+  process.env.XKIRO_API_KEY = "sk-xt-uji-jangan-dipakai";
 }
 
 globalThis.fetch = realFetch;
-console.log("proxy AI behaviour: OK");
+console.log(`proxy AI behaviour: OK (${MODELS.length} model di katalog)`);

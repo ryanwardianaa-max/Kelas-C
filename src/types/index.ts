@@ -77,6 +77,7 @@ export interface MeetingNote {
 }
 export interface AISettings {
   provider: AIProvider;
+  serverModel: string;
   localEndpoint: string;
   localKey: string;
   localModel: string;
