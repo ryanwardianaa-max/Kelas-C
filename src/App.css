@@ -242,6 +242,9 @@ main {
   color: #fff;
   display: flex;
 }
+.hero + .panel {
+  margin-top: 20px;
+}
 .hero > div:first-child {
   position: relative;
   z-index: 2;
