@@ -914,6 +914,16 @@ textarea {
 .error-card {
   max-width: 600px;
 }
+.error-detail {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--surface-2, #f1f2f7);
+  color: var(--text-muted, #555);
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .admin-lock {
   text-align: center;
   display: grid;
