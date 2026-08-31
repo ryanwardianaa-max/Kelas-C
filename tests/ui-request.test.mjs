@@ -15,4 +15,6 @@ assert.doesNotMatch(tools, /<Sparkles \/>/);
 assert.match(tools, /aria-haspopup="listbox"/);
 assert.match(mobile, /Beranda.*Mata Kuliah.*Alat Bantu.*Tugas/s);
 assert.doesNotMatch(mobile, /Referensi/);
+const css = read("src/App.css");
+assert.match(css, /grid-template-columns:\s*repeat\(4,\s*1fr\)/);
 console.log("UI request guard: OK");

@@ -673,7 +673,7 @@ textarea {
   .mobile-nav {
     position: fixed;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     z-index: 20;
     bottom: 0;
     left: 0;
