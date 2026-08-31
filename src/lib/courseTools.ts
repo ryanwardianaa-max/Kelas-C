@@ -72,7 +72,7 @@ export const COURSE_TOOLS: ToolItem[] = [
     courseName: "Analisis Kompleks",
     badgeColor: "#6558df",
     description:
-      "Alat bantu Pertemuan 04: modulus |z|, argumen utama dengan pemeriksaan kuadran otomatis, konversi ke bentuk polar & Euler, perkalian/pembagian lewat sudut, pemangkatan De Moivre, serta pencarian n akar yang digambar sebagai segi-n beraturan di bidang Argand.",
+      "Alat bantu materi bentuk polar: modulus |z|, argumen utama dengan pemeriksaan kuadran otomatis, konversi ke bentuk polar & Euler, perkalian/pembagian lewat sudut, pemangkatan De Moivre, serta pencarian n akar yang digambar sebagai segi-n beraturan di bidang Argand.",
     tags: ["Modulus & Argumen", "Bentuk Polar & Euler", "De Moivre", "Akar Pangkat n"],
     url: "/tools/kalkulator-polar-demoivre/index.html",
   },

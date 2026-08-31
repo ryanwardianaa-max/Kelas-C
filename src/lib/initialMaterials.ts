@@ -58,23 +58,34 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-analisis-kompleks-pertemuan-04",
-    title: "Catatan Kuliah: Modulus, Bidang Argand, Bentuk Polar & Rumus De Moivre",
+    title: "Catatan Kuliah: Sifat Operasi Dasar, Bilangan Sekawan & Nilai Mutlak",
     courseCode: "KP21517003",
     meetingNo: 4,
     type: "Catatan",
     description:
-      "Bahan baca mandiri lanjutan Pertemuan 03. Mencakup modulus |z| dan sifat-sifatnya, bidang Argand, argumen & argumen utama Arg z beserta koreksi kuadran, bentuk polar r(cos θ + i sin θ) dan eksponensial Euler re^(iθ), aturan kali-bagi lewat sudut, rumus De Moivre, serta akar pangkat n yang membentuk segi-n beraturan. Dilengkapi tabel rangkuman, diagram SVG, dan 6 latihan mandiri.",
+      "Catatan kuliah Pertemuan 04 (31 Agustus 2026) hasil pencatatan langsung di kelas. Mencakup 6 sifat operasi dasar pada bilangan kompleks (ketertutupan sampai invers), bilangan sekawan beserta hasil kali/jumlah/selisihnya dengan z, penurunan rumus Re z dan Im z, pembuktian konjugat ganda, nilai mutlak |z|, serta pembahasan dua soal papan tulis dengan pola pangkat i. Dilengkapi 3 lembar catatan tulis tangan asli dan 2 foto papan tulis.",
     url: "/materi/KP21517003/pertemuan-04/index.html",
+    createdAt: "2026-08-31T02:30:00.000Z",
+  },
+  {
+    id: "mat-analisis-kompleks-pertemuan-05",
+    title: "Bahan Baca: Modulus, Bidang Argand, Bentuk Polar & Rumus De Moivre",
+    courseCode: "KP21517003",
+    meetingNo: 5,
+    type: "Catatan",
+    description:
+      "Bahan baca mandiri untuk pertemuan yang akan datang, lanjutan dari nilai mutlak di Pertemuan 04. Mencakup modulus |z| dan sifat-sifatnya, bidang Argand, argumen & argumen utama Arg z beserta koreksi kuadran, bentuk polar r(cos θ + i sin θ) dan eksponensial Euler re^(iθ), aturan kali-bagi lewat sudut, rumus De Moivre, serta akar pangkat n yang membentuk segi-n beraturan. Dilengkapi tabel rangkuman, diagram SVG, dan 6 latihan mandiri.",
+    url: "/materi/KP21517003/pertemuan-05/index.html",
     createdAt: "2026-08-31T00:30:00.000Z",
   },
   {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",
-    meetingNo: 4,
+    meetingNo: 5,
     type: "Dokumen",
     description:
-      "Kalkulator empat mode untuk materi Pertemuan 04: konversi ke bentuk polar & Euler dengan pemeriksaan kuadran otomatis, perkalian/pembagian lewat penjumlahan sudut, pemangkatan De Moivre, dan pencarian semua akar pangkat n. Setiap hasil disertai penjabaran langkah dan gambar bidang Argand.",
+      "Kalkulator empat mode untuk materi bentuk polar: konversi ke bentuk polar & Euler dengan pemeriksaan kuadran otomatis, perkalian/pembagian lewat penjumlahan sudut, pemangkatan De Moivre, dan pencarian semua akar pangkat n. Setiap hasil disertai penjabaran langkah dan gambar bidang Argand.",
     url: "/tools/kalkulator-polar-demoivre/index.html",
     createdAt: "2026-08-31T00:35:00.000Z",
   },

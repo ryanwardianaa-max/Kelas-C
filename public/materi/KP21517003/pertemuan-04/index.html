@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Pertemuan 04 — Modulus, Bidang Argand, Bentuk Polar &amp; De Moivre (KP21517003)</title>
+  <title>Pertemuan 04 — Sifat Operasi Dasar, Bilangan Sekawan &amp; Nilai Mutlak (KP21517003)</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-  <style>
+<style>
     :root {
       --ink: #1e293b; --bg: #f8fafc; --paper: #ffffff;
       --brand: #4338ca; --brand-dark: #312e81; --accent: #6558df;
@@ -125,7 +125,21 @@
       margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line);
       font-size: 0.8rem; color: var(--text-muted); text-align: center;
     }
-  </style>
+  
+    .photo-grid { display: grid; gap: 12px; grid-template-columns: 1fr; margin: 14px 0; }
+    @media (min-width: 600px) { .photo-grid { grid-template-columns: 1fr 1fr; } }
+    .photo-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fbfcfe; }
+    .photo-card img { width: 100%; height: auto; display: block; }
+    .photo-caption { font-size: 0.8rem; color: var(--text-muted); padding: 8px 10px; }
+    .prov { font-size: 0.78rem; color: var(--text-muted); font-style: italic; margin: 4px 0 0; }
+    .qbox { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 10px 12px; margin: 10px 0; }
+    .qbox .qlabel { font-weight: 700; color: var(--brand-dark); font-size: 0.85rem; margin-bottom: 4px; }
+    .card.correct { border-left: 4px solid #dc2626; background: #fef2f2; }
+    .card.correct .formula-title { color: #dc2626; }
+    .ilist { list-style: none; padding-left: 0; }
+    .ilist li { padding: 5px 0 5px 26px; position: relative; }
+    .ilist li::before { content: "▸"; position: absolute; left: 6px; color: var(--accent); font-weight: 700; }
+</style>
 </head>
 <body>
 
@@ -142,541 +156,457 @@
   </nav>
 
   <header>
-    <div class="badge">Pertemuan 04</div>
-    <h1>Modulus, Bidang Argand, Bentuk Polar &amp; Rumus De Moivre</h1>
-    <p>Bahan baca mandiri — lanjutan langsung dari Pertemuan 03 (operasi aljabar &amp; pembagian sekawan)</p>
+    <div class="badge">Pertemuan 04 &middot; 31 Agustus 2026</div>
+    <h1>Sifat-Sifat Operasi Dasar, Bilangan Sekawan &amp; Nilai Mutlak</h1>
+    <p>Catatan kuliah hasil pencatatan di kelas, dirapikan dari lembar tulis tangan dan papan tulis</p>
 
     <div class="meta-info">
       <span><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003)</span>
       <span><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</span>
       <span><strong>SKS / Kelas:</strong> 2 SKS / Kelas C (FKIP C.1.3)</span>
-      <span><strong>Rujukan:</strong> Brown &amp; Churchill, <em>Complex Variables and Applications</em>, Bab 1 §5–§10</span>
+      <span><strong>Sumber:</strong> 3 lembar catatan pribadi + 2 foto papan tulis</span>
     </div>
   </header>
 
   <main>
     <div class="note-plain">
-      <strong>Ringkas dulu.</strong> Pertemuan 03 memandang bilangan kompleks sebagai <em>pasangan angka</em>
-      \(z = a + bi\) lalu menghitungnya secara aljabar. Pertemuan ini memandangnya sebagai <em>titik/panah di
-      bidang</em>: berapa panjangnya (modulus) dan ke arah mana ia menunjuk (argumen). Cara pandang ini membuat
-      perkalian, pembagian, pemangkatan, dan penarikan akar jauh lebih mudah — pekerjaan yang tadinya panjang
-      menjadi sekadar mengalikan panjang dan menjumlahkan sudut.
+      <strong>Alur pertemuan ini.</strong> Dimulai dari delapan sifat operasi dasar pada \(\mathbb{C}\)
+      (ketertutupan sampai invers), lanjut ke bilangan sekawan \(\bar z\) beserta hasil kali, jumlah, dan
+      selisihnya dengan \(z\). Dari situ diturunkan rumus \(\operatorname{Re} z\) dan \(\operatorname{Im} z\),
+      lalu ditutup dengan nilai mutlak \(|z|\) dan dua soal latihan yang dibahas di papan tulis.
     </div>
 
-    <h2>1. Modulus (Nilai Mutlak) Bilangan Kompleks</h2>
+    <h2>1. Sifat-Sifat Operasi Dasar pada Bilangan Kompleks</h2>
     <p>
-      Modulus adalah <strong>jarak titik \(z\) dari titik asal</strong>. Karena \(z = a + bi\) digambar sebagai
-      titik \((a,b)\), jaraknya dihitung memakai Teorema Pythagoras.
+      Apabila \(z_1, z_2, z_3\) adalah bilangan kompleks, maka berlaku sifat-sifat berikut.
+      Sifat-sifat inilah yang membuat \(\mathbb{C}\) berperilaku "wajar" seperti bilangan real ketika dihitung.
     </p>
 
+    <h3>Sifat 1 — Ketertutupan</h3>
     <div class="card formula">
-      <div class="formula-title">Definisi Modulus</div>
-      <div class="math-step-box">
-        $$|z| = |a + bi| = \sqrt{a^2 + b^2}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Nilainya selalu real dan tidak pernah negatif: \(|z| \ge 0\), dan \(|z| = 0\) hanya jika \(z = 0\).
+      <p style="margin-bottom:0;">
+        \(z_1 + z_2\) dan \(z_1 z_2\) tetap merupakan bilangan kompleks.
       </p>
+      <p class="prov">Artinya: menjumlahkan atau mengalikan dua bilangan kompleks tidak akan pernah membawa kita keluar dari \(\mathbb{C}\).</p>
+    </div>
+
+    <h3>Sifat 2 — Komutatif pada penjumlahan dan perkalian</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$z_1 + z_2 = z_2 + z_1 \qquad\text{dan}\qquad z_1 z_2 = z_2 z_1$$
+      </div>
     </div>
 
     <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 1</div>
-      <p>Hitung modulus dari \(z = 3 + 4i\) dan \(w = -2 + 2i\).</p>
+      <div class="formula-title" style="color: var(--success);">Contoh di kelas — \(z_1 = 2+3i\), \(z_2 = 4+2i\)</div>
+      <p><strong>Komutatif penjumlahan:</strong></p>
       <div class="math-step-box">
         $$\begin{aligned}
-        |z| &= \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5 \\[8pt]
-        |w| &= \sqrt{(-2)^2 + 2^2} = \sqrt{4 + 4} = \sqrt{8} = 2\sqrt{2} \approx 2{,}828
+        z_1 + z_2 &= (2+3i) + (4+2i) = (2+4) + (3+2)i = 6 + 5i \\[8pt]
+        z_2 + z_1 &= (4+2i) + (2+3i) = (4+2) + (2+3)i = 6 + 5i
+        \end{aligned}$$
+      </div>
+      <p style="margin-top:10px;"><strong>Komutatif perkalian:</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z_1 z_2 &= (2+3i)(4+2i) = 8 + 4i + 12i + 6i^2 = 8 + 16i + 6(-1) = 8 + 16i - 6 = 2 + 16i \\[8pt]
+        z_2 z_1 &= (4+2i)(2+3i) = 8 + 12i + 4i + 6i^2 = 8 + 16i + 6(-1) = 8 + 16i - 6 = 2 + 16i
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.88rem;">Kedua urutan memberi hasil sama: \(6+5i\) dan \(2+16i\). &#10003;</p>
+    </div>
+
+    <h3>Sifat 3 — Asosiatif</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$z_1 + (z_2 + z_3) = (z_1 + z_2) + z_3 \qquad\text{dan}\qquad z_1(z_2 z_3) = (z_1 z_2) z_3$$
+      </div>
+      <p class="prov">Pengelompokan boleh dipindah; hasilnya tidak berubah.</p>
+    </div>
+
+    <h3>Sifat 4 — Distributif</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$z_1(z_2 + z_3) = z_1 z_2 + z_1 z_3$$
+      </div>
+    </div>
+
+    <h3>Sifat 5 — Unsur identitas</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$z + 0 = 0 + z = z \qquad\text{dan}\qquad z \cdot 1 = 1 \cdot z = z$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        Jadi <strong>0 adalah unsur identitas penjumlahan</strong> dan <strong>1 adalah unsur identitas perkalian</strong>.
+      </p>
+    </div>
+
+    <h3>Sifat 6 — Invers</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z + z^{-1} &= 0 &&\Rightarrow\quad \text{invers penjumlahan dari } z \text{ adalah } -z \\[8pt]
+        z \cdot z^{-1} &= 1 &&\Rightarrow\quad \text{invers perkalian dari } z \text{ adalah } \tfrac{1}{z}
+        \end{aligned}$$
+      </div>
+      <p class="prov">Invers perkalian hanya ada bila \(z \neq 0\).</p>
+    </div>
+
+    <h2>2. Bilangan Kompleks Sekawan (Konjugat)</h2>
+    <div class="card highlight">
+      <div class="math-step-box">
+        $$\text{Apabila } z = a + bi \quad\text{maka}\quad \bar{z} = a - bi$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Yang berubah hanya tanda bagian imajinernya.</p>
+    </div>
+
+    <h3>A. Perkalian \(z\) dengan sekawannya</h3>
+    <div class="card formula">
+      <div class="formula-title">Penurunan di kelas</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z \cdot \bar{z} &= (a+bi)(a-bi) \\[6pt]
+        &= a^2 - abi + abi - b^2 i^2 \\[6pt]
+        &= a^2 - b^2 i^2 \\[6pt]
+        &= a^2 - b^2(-1) \\[6pt]
+        &= \mathbf{a^2 + b^2}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Suku \(-abi\) dan \(+abi\) saling menghapus, sehingga <strong>hasilnya selalu bilangan real</strong>.
+        Inilah alasan sekawan dipakai untuk merasionalkan penyebut pada pembagian (Pertemuan 03).
+      </p>
+    </div>
+
+    <h3>B. Pengurangan \(z\) dengan sekawannya</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z - \bar{z} &= (a+bi) - (a-bi) \\[6pt]
+        &= a + bi - a + bi \\[6pt]
+        &= \mathbf{2bi}
         \end{aligned}$$
       </div>
     </div>
 
-    <h3>Hubungan dengan konjugat (menyambung Pertemuan 03)</h3>
-    <p>
-      Di Pertemuan 03 sudah dibuktikan \(z \cdot \bar{z} = a^2 + b^2\). Sekarang hasil itu punya nama:
-    </p>
-    <div class="card highlight">
+    <div class="card formula">
+      <div class="formula-title">Akibatnya — rumus bagian imajiner</div>
       <div class="math-step-box">
-        $$z \cdot \bar{z} = |z|^2 \qquad \Longleftrightarrow \qquad |z| = \sqrt{z \bar{z}}$$
+        $$\begin{aligned}
+        \operatorname{Im} z &= \frac{1}{2i}\left(z - \bar{z}\right) \\[8pt]
+        &= \frac{1}{2i}\left(2bi\right) \\[8pt]
+        &= \mathbf{b}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Menunjukkan bahwa <strong>bagian imajiner \(z\) terdapat pada variabel \(b\)</strong>.
+      </p>
+    </div>
+
+    <h3>C. Penjumlahan \(z\) dengan sekawannya</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z + \bar{z} &= (a+bi) + (a-bi) \\[6pt]
+        &= (a+a) + \left(b + (-b)\right)i \\[6pt]
+        &= 2a + 0i \\[6pt]
+        &= \mathbf{2a}
+        \end{aligned}$$
       </div>
     </div>
 
-    <h3>Sifat-sifat penting modulus</h3>
+    <div class="card formula">
+      <div class="formula-title">Akibatnya — rumus bagian real</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \operatorname{Re} z &= \frac{1}{2}\left(z + \bar{z}\right) \\[8pt]
+        &= \frac{1}{2}\left(2a\right) \\[8pt]
+        &= \mathbf{a}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Menunjukkan bahwa <strong>bagian real \(z\) terdapat pada variabel \(a\)</strong>.
+      </p>
+    </div>
+
+    <div class="card correct">
+      <div class="formula-title">Perlu diperiksa — kekeliruan tanda di lembar catatan</div>
+      <p>
+        Pada salah satu lembar catatan tertulis \(\operatorname{Re} z = \tfrac{1}{2}(z - \bar z)\).
+        Yang benar adalah <strong>tanda tambah</strong>, sebagaimana tertulis di papan tulis:
+      </p>
+      <div class="math-step-box">
+        $$\operatorname{Re} z = \tfrac{1}{2}\left(z + \bar z\right) = a
+        \qquad\text{sedangkan}\qquad
+        \tfrac{1}{2}\left(z - \bar z\right) = \tfrac{1}{2}(2bi) = bi$$
+      </div>
+      <p style="margin-bottom:0;">
+        Cara mengingatnya: <strong>tambah menghapus \(i\)</strong> (sisa bagian real),
+        <strong>kurang menghapus bagian real</strong> (sisa bagian imajiner). Karena itu rumus
+        \(\operatorname{Im} z\) memakai pembagi \(2i\), bukan \(2\) — supaya \(i\)-nya ikut hilang.
+      </p>
+    </div>
+
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr><th>Sifat</th><th>Rumus</th><th>Cara membacanya</th></tr>
-        </thead>
+        <thead><tr><th>Operasi dengan sekawan</th><th>Hasil</th><th>Jenis hasil</th></tr></thead>
         <tbody>
-          <tr><td>Hasil kali</td><td>\(|z_1 z_2| = |z_1|\,|z_2|\)</td><td>Panjang hasil kali = kali panjangnya</td></tr>
-          <tr><td>Hasil bagi</td><td>\(\left|\dfrac{z_1}{z_2}\right| = \dfrac{|z_1|}{|z_2|}\)</td><td>Berlaku untuk \(z_2 \neq 0\)</td></tr>
-          <tr><td>Konjugat</td><td>\(|\bar{z}| = |z|\)</td><td>Mencerminkan tidak mengubah panjang</td></tr>
-          <tr><td>Pangkat</td><td>\(|z^n| = |z|^n\)</td><td>Dipakai pada De Moivre</td></tr>
-          <tr><td>Ketaksamaan segitiga</td><td>\(|z_1 + z_2| \le |z_1| + |z_2|\)</td><td>Jalan lurus tak pernah lebih panjang dari memutar</td></tr>
-          <tr><td>Jarak dua titik</td><td>\(d(z_1,z_2) = |z_1 - z_2|\)</td><td>Kunci menulis persamaan lingkaran</td></tr>
+          <tr><td>\(z \cdot \bar z\)</td><td>\(a^2 + b^2\)</td><td>real, tidak negatif</td></tr>
+          <tr><td>\(z + \bar z\)</td><td>\(2a\)</td><td>real</td></tr>
+          <tr><td>\(z - \bar z\)</td><td>\(2bi\)</td><td>imajiner murni</td></tr>
+          <tr><td>\(\tfrac{1}{2}(z+\bar z)\)</td><td>\(a = \operatorname{Re} z\)</td><td>real</td></tr>
+          <tr><td>\(\tfrac{1}{2i}(z-\bar z)\)</td><td>\(b = \operatorname{Im} z\)</td><td>real</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="card warn">
-      <div class="formula-title" style="color: var(--warning);">Sering keliru</div>
+    <h2>3. Pembuktian Sifat Sekawan</h2>
+
+    <h3>Bukti 1 — \(\overline{\overline{z}} = z\)</h3>
+    <p>Sekawan dari sekawan mengembalikan bilangan semula. Dibuktikan dengan memulai dari ruas kiri:</p>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{Ruas kiri} &= \overline{\overline{z}} \\[6pt]
+        &= \overline{\overline{(a+bi)}} \\[6pt]
+        &= \overline{(a - bi)} \qquad\text{(sekawan pertama)} \\[6pt]
+        &= a + bi \qquad\text{(sekawan kedua, tanda kembali)} \\[6pt]
+        &= z = \text{Ruas kanan} \qquad \blacksquare
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Secara gambar: mencerminkan titik terhadap sumbu real dua kali akan mengembalikannya ke posisi awal.
+      </p>
+    </div>
+
+    <h3>Bukti 2 — kapan \(\bar z = z\)?</h3>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \bar z &= z \\[6pt]
+        \overline{(a+bi)} &= a + bi \\[6pt]
+        a - bi &= a + bi \\[6pt]
+        -bi &= bi \\[6pt]
+        -2bi &= 0 \quad\Longrightarrow\quad b = 0
+        \end{aligned}$$
+      </div>
+    </div>
+    <div class="card tip">
+      <div class="formula-title" style="color:var(--warning);">Kesimpulan yang penting</div>
       <p style="margin-bottom:0;">
-        \(|z_1 + z_2| \neq |z_1| + |z_2|\) secara umum. Contoh: \(z_1 = 1\), \(z_2 = -1\) memberi
-        \(|z_1+z_2| = 0\) padahal \(|z_1| + |z_2| = 2\). Modulus <strong>bersahabat dengan kali dan bagi</strong>,
-        tetapi <strong>tidak dengan tambah dan kurang</strong>.
+        \(\bar z = z\) <strong>hanya berlaku bila \(b = 0\)</strong>, yaitu ketika \(z\) sesungguhnya bilangan real.
+        Jadi pernyataan ini bukan berlaku untuk semua \(z\), melainkan menjadi <strong>ciri pengenal bilangan real
+        di dalam \(\mathbb{C}\)</strong>: sebuah bilangan kompleks adalah real jika dan hanya jika ia sama dengan
+        sekawannya. Berbeda dengan Bukti 1 yang berlaku untuk semua \(z\).
       </p>
     </div>
 
-    <h3>Kegunaan langsung: menulis lingkaran secara kompleks</h3>
-    <p>Karena \(|z - z_0|\) berarti jarak \(z\) ke \(z_0\), maka:</p>
-    <div class="card formula">
+    <h2>4. Nilai Mutlak (Modulus) pada Bilangan Kompleks</h2>
+    <div class="card highlight">
       <div class="math-step-box">
-        $$|z - z_0| = r \;\;\text{(lingkaran)} \qquad |z - z_0| &lt; r \;\;\text{(cakram dalam)} \qquad |z - z_0| &gt; r \;\;\text{(luar)}$$
+        $$z = a + bi \qquad\Longrightarrow\qquad |z| = \sqrt{a^2 + b^2}$$
       </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Contoh: \(|z - 2i| = 3\) adalah lingkaran berpusat \((0,2)\) dengan radius 3. Notasi ini yang nanti
-        dipakai untuk menyebut kurva \(C\) pada integral kontur.
-      </p>
     </div>
-
-    <h2>2. Bidang Argand (Bidang Kompleks)</h2>
     <p>
-      Bidang Argand adalah bidang koordinat biasa, hanya saja sumbu \(x\) dinamai <strong>sumbu real</strong> dan
-      sumbu \(y\) dinamai <strong>sumbu imajiner</strong>. Setiap bilangan \(z = a+bi\) menjadi satu titik \((a,b)\),
-      atau sebuah panah dari titik asal ke titik itu.
+      Perhatikan kaitannya dengan bagian 2A: karena \(z\bar z = a^2 + b^2\), maka
+      \(|z| = \sqrt{z \bar z}\) dan \(|z|^2 = z\bar z\). Arti geometrinya — panjang panah \(z\) di bidang —
+      dibahas pada pertemuan berikutnya.
     </p>
 
-    <div class="svg-diagram-card">
-      <div class="svg-wrapper">
-        <svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bidang Argand memperlihatkan z sama dengan 3 tambah 4i, modulus 5, dan sudut theta">
-          <defs>
-            <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L9,3 z" fill="#4338ca" />
-            </marker>
-            <marker id="ax" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
-            </marker>
-          </defs>
+    <h2>5. Latihan yang Dibahas di Papan Tulis</h2>
+    <p>Dua soal berikut dikerjakan bersama di kelas. Kuncinya sama: <strong>sederhanakan pangkat \(i\) lebih dulu.</strong></p>
 
-          <!-- grid -->
-          <g stroke="#e2e8f0" stroke-width="1">
-            <path d="M100 60 V380 M180 60 V380 M260 60 V380 M340 60 V380 M420 60 V380 M500 60 V380 M580 60 V380" />
-            <path d="M60 100 H620 M60 180 H620 M60 260 H620 M60 340 H620" />
-          </g>
-
-          <!-- axes -->
-          <g stroke="#64748b" stroke-width="2" marker-end="url(#ax)">
-            <path d="M60 340 H630" />
-            <path d="M180 390 V52" />
-          </g>
-          <text x="636" y="345" font-size="15" fill="#334155" font-weight="600">Re</text>
-          <text x="170" y="46" font-size="15" fill="#334155" font-weight="600">Im</text>
-          <text x="166" y="360" font-size="13" fill="#64748b">O</text>
-
-          <!-- ticks -->
-          <g font-size="12" fill="#64748b" text-anchor="middle">
-            <text x="260" y="360">1</text><text x="340" y="360">2</text>
-            <text x="420" y="360">3</text><text x="500" y="360">4</text>
-          </g>
-          <g font-size="12" fill="#64748b" text-anchor="end">
-            <text x="172" y="265">1</text><text x="172" y="185">2</text>
-            <text x="172" y="105">3</text>
-          </g>
-          <text x="172" y="85" font-size="12" fill="#64748b" text-anchor="end">4</text>
-
-          <!-- projection dashes -->
-          <g stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" fill="none">
-            <path d="M420 340 V80" />
-            <path d="M180 80 H420" />
-          </g>
-
-          <!-- vector z -->
-          <path d="M180 340 L420 80" stroke="#4338ca" stroke-width="3.5" fill="none" marker-end="url(#ah)" />
-          <circle cx="420" cy="80" r="6" fill="#4338ca" />
-          <text x="432" y="72" font-size="16" fill="#312e81" font-weight="700">z = 3 + 4i</text>
-
-          <!-- angle arc -->
-          <path d="M232 340 A 52 52 0 0 0 208 296" stroke="#d97706" stroke-width="2.5" fill="none" />
-          <text x="240" y="316" font-size="15" fill="#b45309" font-weight="700">&#952;</text>
-
-          <!-- labels a, b, r -->
-          <text x="292" y="196" font-size="15" fill="#4338ca" font-weight="700" transform="rotate(-47 292 196)">r = |z| = 5</text>
-          <text x="300" y="362" font-size="13" fill="#475569">a = 3 (bagian real)</text>
-          <text x="428" y="215" font-size="13" fill="#475569">b = 4 (bagian imajiner)</text>
-
-          <!-- conjugate -->
-          <path d="M180 340 L420 600" stroke="none" />
-          <g opacity="0.55">
-            <path d="M180 340 L420 340" stroke="none" />
-          </g>
-        </svg>
-      </div>
-      <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0; text-align:center;">
-        Panah \(z\) punya panjang \(r = |z| = 5\) dan sudut \(\theta\) terhadap sumbu real positif.
-      </p>
-    </div>
-
-    <div class="note-plain">
-      <strong>Kenapa gambar ini penting.</strong> Konjugat \(\bar{z} = 3 - 4i\) adalah pencerminan \(z\) terhadap
-      sumbu real. Penjumlahan \(z_1 + z_2\) mengikuti aturan jajar genjang seperti vektor. Dan \(|z_1 - z_2|\)
-      adalah panjang garis penghubung dua titik. Semua sifat aljabar Pertemuan 03 punya arti geometri di sini.
-    </div>
-
-    <h2>3. Argumen: Arah Panah</h2>
-    <p>
-      Sudut \(\theta\) yang dibentuk panah \(z\) dengan sumbu real positif disebut <strong>argumen</strong>,
-      ditulis \(\arg z\). Dari gambar di atas berlaku \(a = r\cos\theta\) dan \(b = r\sin\theta\), sehingga:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Menentukan Argumen</div>
+    <div class="card highlight">
+      <div class="formula-title">Alat wajib — pola pangkat \(i\) berulang setiap 4</div>
       <div class="math-step-box">
-        $$\tan\theta = \frac{b}{a} \qquad \Longrightarrow \qquad \theta = \arctan\!\left(\frac{b}{a}\right) + k\pi$$
+        $$i^{4n} = 1, \qquad i^{4n+1} = i, \qquad i^{4n+2} = -1, \qquad i^{4n+3} = -i$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Cara pakainya: <strong>bagi pangkatnya dengan 4, lihat sisanya.</strong> Sisa 0 &rarr; 1, sisa 1 &rarr; \(i\),
+        sisa 2 &rarr; \(-1\), sisa 3 &rarr; \(-i\).
+      </p>
+    </div>
+
+    <div class="qbox">
+      <div class="qlabel">Soal &#9312;</div>
+      <div class="math-step-box">
+        $$\frac{i^4 + i^9 + i^{16}}{2 - i^5 + i^{10} - i^{15}}$$
       </div>
     </div>
 
-    <div class="card warn">
-      <div class="formula-title" style="color: var(--warning);">Jangan asal pakai kalkulator</div>
-      <p>
-        Tombol \(\tan^{-1}\) di kalkulator selalu menjawab di kuadran I atau IV. Padahal \(z = -1 - i\) dan
-        \(z = 1 + i\) sama-sama memberi \(\tan\theta = 1\). Karena itu <strong>kuadran wajib diperiksa lewat tanda
-        \(a\) dan \(b\)</strong>, lalu sudutnya dikoreksi:
-      </p>
+    <div class="card steps">
+      <div class="formula-title">Langkah 1 — sederhanakan setiap pangkat</div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Kuadran</th><th>Tanda</th><th>Koreksi terhadap \(\arctan(b/a)\)</th></tr></thead>
+          <thead><tr><th>Pangkat</th><th>Dibagi 4</th><th>Sisa</th><th>Nilai</th></tr></thead>
           <tbody>
-            <tr><td>I</td><td>\(a&gt;0,\ b&gt;0\)</td><td>dipakai apa adanya</td></tr>
-            <tr><td>II</td><td>\(a&lt;0,\ b&gt;0\)</td><td>\(+\,180^\circ\ (+\pi)\)</td></tr>
-            <tr><td>III</td><td>\(a&lt;0,\ b&lt;0\)</td><td>\(-\,180^\circ\ (-\pi)\)</td></tr>
-            <tr><td>IV</td><td>\(a&gt;0,\ b&lt;0\)</td><td>dipakai apa adanya (hasilnya negatif)</td></tr>
+            <tr><td>\(i^4\)</td><td>\(4 = 4(1)\)</td><td>0</td><td>\(1\)</td></tr>
+            <tr><td>\(i^9\)</td><td>\(9 = 4(2)+1\)</td><td>1</td><td>\(i\)</td></tr>
+            <tr><td>\(i^{16}\)</td><td>\(16 = 4(4)\)</td><td>0</td><td>\(1\)</td></tr>
+            <tr><td>\(i^5\)</td><td>\(5 = 4(1)+1\)</td><td>1</td><td>\(i\)</td></tr>
+            <tr><td>\(i^{10}\)</td><td>\(10 = 4(2)+2\)</td><td>2</td><td>\(-1\)</td></tr>
+            <tr><td>\(i^{15}\)</td><td>\(15 = 4(3)+3\)</td><td>3</td><td>\(-i\)</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h3>Argumen utama (principal argument)</h3>
-    <p>
-      Menambah satu putaran penuh tidak mengubah letak titik, jadi \(\arg z\) sesungguhnya tak hingga banyaknya:
-      \(\theta,\ \theta \pm 2\pi,\ \theta \pm 4\pi, \dots\) Agar tunggal, dipilih satu perwakilan pada selang
-      \((-\pi, \pi]\) dan disebut <strong>argumen utama</strong>, ditulis \(\operatorname{Arg} z\) (huruf A besar).
-    </p>
-    <div class="card highlight">
-      <div class="math-step-box">
-        $$\arg z = \operatorname{Arg} z + 2k\pi, \qquad k \in \mathbb{Z}, \qquad -\pi &lt; \operatorname{Arg} z \le \pi$$
-      </div>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 2 — perhatikan kuadrannya</div>
-      <p>Tentukan \(\operatorname{Arg} z\) untuk \(z = -1 + i\).</p>
+    <div class="card steps">
+      <div class="formula-title">Langkah 2 — substitusikan lalu hitung</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        &amp;a = -1 &lt; 0,\quad b = 1 &gt; 0 \;\Rightarrow\; \text{kuadran II} \\[6pt]
-        &amp;\arctan\!\left(\frac{1}{-1}\right) = \arctan(-1) = -45^\circ \quad (\text{ini di kuadran IV, salah}) \\[6pt]
-        &amp;\text{koreksi kuadran II:}\quad -45^\circ + 180^\circ = 135^\circ \\[6pt]
-        &amp;\operatorname{Arg} z = 135^\circ = \tfrac{3\pi}{4}, \qquad |z| = \sqrt{2}
+        \frac{i^4 + i^9 + i^{16}}{2 - i^5 + i^{10} - i^{15}}
+        &= \frac{1 + i + 1}{2 - i + (-1) - (-i)} \\[12pt]
+        &= \frac{2 + i}{2 - i - 1 + i} \\[12pt]
+        &= \frac{2+i}{1} \\[12pt]
+        &= \mathbf{2 + i}
         \end{aligned}$$
       </div>
-    </div>
-
-    <h2>4. Bentuk Polar dan Bentuk Eksponensial</h2>
-    <p>
-      Dengan mengganti \(a = r\cos\theta\) dan \(b = r\sin\theta\) pada bentuk standar, diperoleh tiga cara
-      menulis bilangan yang sama:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Tiga Bentuk Penulisan</div>
-      <div class="math-step-box">
-        $$\underbrace{z = a + bi}_{\text{bentuk standar / rektangular}}
-        \;=\; \underbrace{r(\cos\theta + i\sin\theta)}_{\text{bentuk polar}}
-        \;=\; \underbrace{r\,e^{i\theta}}_{\text{bentuk eksponensial (Euler)}}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Bentuk polar sering diringkas \(r\,\text{cis}\,\theta\) (dibaca "\(r\) cis theta"), dari
-        <em>c</em>osine + <em>i</em> <em>s</em>ine.
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Perhatikan penyebutnya: \(-i\) dan \(+i\) saling menghapus, menyisakan \(2 - 1 = 1\).
       </p>
     </div>
 
-    <div class="note-plain">
-      <strong>Identitas Euler.</strong> \(e^{i\theta} = \cos\theta + i\sin\theta\) adalah jembatan antara
-      eksponen dan trigonometri. Substitusi \(\theta = \pi\) memberi hasil terkenal
-      \(e^{i\pi} + 1 = 0\), yang menautkan \(e\), \(i\), \(\pi\), \(1\), dan \(0\) dalam satu persamaan.
+    <div class="card tip">
+      <div class="formula-title" style="color:var(--warning);">Cara kedua yang juga ditulis di papan</div>
+      <p>Pangkat genap dapat dipecah lewat \(i^2 = -1\), lalu dipakai \((-1)^{\text{genap}} = 1\) dan \((-1)^{\text{ganjil}} = -1\):</p>
+      <div class="math-step-box">
+        $$\frac{(i^2)^2 + (i^2)^4 i + (i^2)^8}{2 - (i^2)^2 i + (i^2)^5 - (i^2)^7 i}
+        = \frac{1 + i + 1}{2 - i - 1 + i} = \frac{2+i}{1} = 2+i$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">Hasilnya sama. Cara pertama (sisa bagi 4) lebih cepat untuk pangkat besar.</p>
     </div>
 
-    <h3>Cara mengubah bentuk standar ke polar</h3>
-    <ol>
-      <li>Hitung \(r = \sqrt{a^2+b^2}\).</li>
-      <li>Tentukan kuadran dari tanda \(a\) dan \(b\).</li>
-      <li>Hitung \(\theta = \arctan(b/a)\), lalu koreksi sesuai kuadran.</li>
-      <li>Tulis \(z = r(\cos\theta + i\sin\theta)\) atau \(z = re^{i\theta}\).</li>
-    </ol>
+    <div class="qbox">
+      <div class="qlabel">Soal &#9313;</div>
+      <div class="math-step-box">
+        $$3\left(\frac{1+i}{1-i}\right)^{2} - 2\left(\frac{1-i}{1+i}\right)^{3}$$
+      </div>
+    </div>
 
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 3 — ubah ke bentuk polar</div>
-      <p>Nyatakan \(z = -2 + 2i\sqrt{3}\) dalam bentuk polar dan eksponensial.</p>
+    <div class="card steps">
+      <div class="formula-title">Langkah 1 — rasionalkan kedua pecahan (teknik sekawan, Pertemuan 03)</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        r &amp;= \sqrt{(-2)^2 + (2\sqrt{3})^2} = \sqrt{4 + 12} = \sqrt{16} = 4 \\[8pt]
-        &amp;a = -2 &lt; 0,\ b = 2\sqrt{3} &gt; 0 \;\Rightarrow\; \text{kuadran II} \\[8pt]
-        \arctan\!\left(\frac{2\sqrt{3}}{-2}\right) &amp;= \arctan(-\sqrt{3}) = -60^\circ \\[8pt]
-        \theta &amp;= -60^\circ + 180^\circ = 120^\circ = \tfrac{2\pi}{3} \\[10pt]
-        z &amp;= 4\left(\cos 120^\circ + i \sin 120^\circ\right) = 4e^{i 2\pi/3}
+        \frac{1+i}{1-i} &= \frac{1+i}{1-i} \cdot \frac{1+i}{1+i}
+        = \frac{1 + i + i + i^2}{1^2 - i^2}
+        = \frac{1 + 2i - 1}{1+1}
+        = \frac{2i}{2} = i \\[14pt]
+        \frac{1-i}{1+i} &= \frac{1-i}{1+i} \cdot \frac{1-i}{1-i}
+        = \frac{1 - i - i + i^2}{1^2 - i^2}
+        = \frac{1 - 2i - 1}{1+1}
+        = \frac{-2i}{2} = -i
         \end{aligned}$$
       </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Pemeriksaan balik: \(4\cos 120^\circ = 4(-\tfrac12) = -2\) &#10003; dan
-        \(4\sin 120^\circ = 4\!\left(\tfrac{\sqrt3}{2}\right) = 2\sqrt3\) &#10003;
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Penyebutnya \((1-i)(1+i) = 1 - i^2 = 1 + 1 = 2\). Kedua pecahan ternyata menyederhana menjadi
+        \(i\) dan \(-i\) — jauh lebih mudah dipangkatkan.
       </p>
     </div>
 
-    <h2>5. Perkalian dan Pembagian dalam Bentuk Polar</h2>
-    <p>
-      Inilah alasan utama bentuk polar dipelajari. Bandingkan dengan perkalian dan pembagian panjang di
-      Pertemuan 03 — di bentuk polar, keduanya hampir tanpa kerja.
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Aturan Kali &amp; Bagi</div>
+    <div class="card steps">
+      <div class="formula-title">Langkah 2 — pangkatkan lalu selesaikan</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        z_1 z_2 &amp;= r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)\right] = r_1 r_2\, e^{i(\theta_1+\theta_2)} \\[10pt]
-        \frac{z_1}{z_2} &amp;= \frac{r_1}{r_2}\left[\cos(\theta_1 - \theta_2) + i\sin(\theta_1-\theta_2)\right] = \frac{r_1}{r_2}\, e^{i(\theta_1-\theta_2)}
+        3\left(\frac{1+i}{1-i}\right)^{2} - 2\left(\frac{1-i}{1+i}\right)^{3}
+        &= 3(i)^2 - 2(-i)^3 \\[10pt]
+        &= 3(-1) - 2\left[(-1)^3 i^3\right] \\[10pt]
+        &= -3 - 2\left[(-1)(-i)\right] \\[10pt]
+        &= -3 - 2(i) \\[10pt]
+        &= \mathbf{-3 - 2i}
         \end{aligned}$$
       </div>
+      <p style="margin-bottom:0; font-size:0.89rem;">
+        Rinciannya: \(i^3 = -i\), sehingga \((-i)^3 = (-1)^3 \cdot i^3 = (-1)(-i) = i\).
+      </p>
     </div>
 
-    <div class="card highlight">
+    <div class="card correct">
+      <div class="formula-title">Beda pangkat antara lembar catatan dan papan tulis</div>
+      <p>
+        Di lembar catatan, suku kedua tertulis berpangkat <strong>2</strong>, sedangkan di papan tulis berpangkat
+        <strong>3</strong>. Keduanya memberi jawaban berbeda, jadi perlu dipastikan mana yang dimaksud dosen:
+      </p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{jika pangkat } 3:\quad &3(i)^2 - 2(-i)^3 = -3 - 2(i) = -3 - 2i \\[8pt]
+        \text{jika pangkat } 2:\quad &3(i)^2 - 2(-i)^2 = 3(-1) - 2(-1) = -3 + 2 = -1
+        \end{aligned}$$
+      </div>
       <p style="margin-bottom:0;">
-        <strong>Kalimat yang perlu diingat:</strong> mengalikan bilangan kompleks berarti
-        <strong>mengalikan panjang dan menjumlahkan sudut</strong>; membagi berarti
-        <strong>membagi panjang dan mengurangkan sudut</strong>. Jadi perkalian dengan \(i\)
-        (\(r=1,\ \theta = 90^\circ\)) sama dengan <em>memutar panah \(90^\circ\) berlawanan arah jam</em>
-        tanpa mengubah panjangnya.
+        Jawaban akhir di papan tulis adalah \(-3-2i\), yang <strong>sesuai dengan pangkat 3</strong>.
+        Jadi versi papan tulis yang dipakai di catatan ini.
       </p>
     </div>
 
-    <h3>Bukti singkat aturan perkalian</h3>
-    <div class="card">
-      <div class="math-step-box">
-        $$\begin{aligned}
-        z_1 z_2 &amp;= r_1(\cos\theta_1 + i\sin\theta_1)\cdot r_2(\cos\theta_2 + i\sin\theta_2) \\[6pt]
-        &amp;= r_1 r_2\left[\cos\theta_1\cos\theta_2 + i\cos\theta_1\sin\theta_2 + i\sin\theta_1\cos\theta_2 + i^2\sin\theta_1\sin\theta_2\right] \\[6pt]
-        &amp;= r_1 r_2\left[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2)\right] \\[6pt]
-        &amp;= r_1 r_2\left[\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)\right]
-        \end{aligned}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Langkah terakhir memakai rumus jumlah sudut trigonometri. Perhatikan \(i^2 = -1\) dari Pertemuan 03
-        yang membuat tanda minus muncul tepat pada tempatnya.
-      </p>
-    </div>
-
-    <h2>6. Rumus De Moivre</h2>
-    <p>
-      Jika aturan perkalian diterapkan pada bilangan yang sama sebanyak \(n\) kali, panjangnya dipangkatkan
-      dan sudutnya dikalikan:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Rumus De Moivre</div>
-      <div class="math-step-box">
-        $$z^n = \left[r(\cos\theta + i\sin\theta)\right]^n = r^n\left(\cos n\theta + i \sin n\theta\right) = r^n e^{in\theta}, \qquad n \in \mathbb{Z}$$
-      </div>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 4 — hitung \((1+i)^{10}\)</div>
-      <p>Menjabarkan dengan binomial butuh 11 suku. Dengan De Moivre cukup tiga baris.</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        r &amp;= \sqrt{1^2+1^2} = \sqrt{2}, \qquad \theta = \arctan\tfrac{1}{1} = 45^\circ \ (\text{kuadran I}) \\[8pt]
-        (1+i)^{10} &amp;= \left(\sqrt{2}\right)^{10}\left[\cos(10 \cdot 45^\circ) + i\sin(10\cdot 45^\circ)\right] \\[8pt]
-        &amp;= 2^{5}\left[\cos 450^\circ + i \sin 450^\circ\right] \\[8pt]
-        &amp;= 32\left[\cos 90^\circ + i\sin 90^\circ\right] \qquad (450^\circ - 360^\circ = 90^\circ)\\[8pt]
-        &amp;= 32\left[0 + i(1)\right] = \mathbf{32i}
-        \end{aligned}$$
-      </div>
-    </div>
-
-    <div class="note-plain">
-      <strong>Bonus untuk calon guru.</strong> De Moivre juga alat menurunkan identitas trigonometri.
-      Ambil \(r=1,\ n=2\): \((\cos\theta + i\sin\theta)^2 = \cos 2\theta + i \sin 2\theta\). Jabarkan ruas kiri,
-      lalu samakan bagian real dan imajinernya — langsung didapat
-      \(\cos 2\theta = \cos^2\theta - \sin^2\theta\) dan \(\sin 2\theta = 2\sin\theta\cos\theta\).
-    </div>
-
-    <h2>7. Akar-Akar Bilangan Kompleks</h2>
-    <p>
-      Di bilangan real, \(\sqrt[3]{8}\) hanya bernilai 2. Di bilangan kompleks, <strong>akar pangkat \(n\)
-      selalu ada tepat \(n\) buah</strong>. Ini salah satu kejutan menyenangkan dari Analisis Kompleks.
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Rumus Akar Pangkat \(n\)</div>
-      <div class="math-step-box">
-        $$z^{1/n} = \sqrt[n]{r}\left[\cos\!\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\!\left(\frac{\theta + 2k\pi}{n}\right)\right], \qquad k = 0, 1, 2, \dots, n-1$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Dalam derajat: \(\dfrac{\theta + k \cdot 360^\circ}{n}\). Suku \(2k\pi\) muncul karena
-        \(\arg z\) memang tak tunggal — dan justru di sinilah \(n\) jawaban itu lahir.
-      </p>
-    </div>
-
-    <div class="card highlight">
-      <p style="margin-bottom:0;">
-        <strong>Gambaran geometrinya rapi sekali.</strong> Ke-\(n\) akar itu semuanya berjarak sama dari titik asal,
-        yaitu \(\sqrt[n]{r}\), dan tersebar merata dengan jarak sudut \(\dfrac{360^\circ}{n}\).
-        Jadi mereka membentuk titik-titik sudut <strong>segi-\(n\) beraturan</strong> pada sebuah lingkaran.
-      </p>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 5 — akar pangkat tiga dari \(8\)</div>
-      <p>Tentukan semua nilai \(\sqrt[3]{8}\) pada bilangan kompleks.</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        z &amp;= 8 = 8 + 0i \;\Rightarrow\; r = 8,\ \theta = 0^\circ, \qquad \sqrt[3]{8} = 2 \\[10pt]
-        k=0:\quad w_0 &amp;= 2\left[\cos 0^\circ + i \sin 0^\circ\right] = 2 \\[8pt]
-        k=1:\quad w_1 &amp;= 2\left[\cos 120^\circ + i\sin 120^\circ\right] = 2\left(-\tfrac12 + i\tfrac{\sqrt3}{2}\right) = -1 + i\sqrt{3} \\[8pt]
-        k=2:\quad w_2 &amp;= 2\left[\cos 240^\circ + i\sin 240^\circ\right] = 2\left(-\tfrac12 - i\tfrac{\sqrt3}{2}\right) = -1 - i\sqrt{3}
-        \end{aligned}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Ketiganya ada di lingkaran radius 2, berselisih sudut \(120^\circ\) — membentuk segitiga sama sisi.
-        Uji satu: \((-1+i\sqrt3)^3 = 8\). Silakan buktikan dengan De Moivre sebagai latihan.
-      </p>
-    </div>
-
-    <div class="svg-diagram-card">
-      <div class="svg-wrapper">
-        <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tiga akar pangkat tiga dari delapan membentuk segitiga sama sisi pada lingkaran radius dua">
-          <defs>
-            <marker id="ax2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
-            </marker>
-          </defs>
-
-          <!-- axes -->
-          <g stroke="#64748b" stroke-width="2" marker-end="url(#ax2)">
-            <path d="M120 200 H620" />
-            <path d="M350 370 V32" />
-          </g>
-          <text x="628" y="205" font-size="14" fill="#334155" font-weight="600">Re</text>
-          <text x="340" y="26" font-size="14" fill="#334155" font-weight="600">Im</text>
-
-          <!-- circle r=2 -->
-          <circle cx="350" cy="200" r="140" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="6 5" />
-          <text x="500" y="120" font-size="12" fill="#6366f1">lingkaran radius 2</text>
-
-          <!-- equilateral triangle -->
-          <polygon points="490,200 280,321 280,79" fill="#eef2ff" stroke="#4338ca" stroke-width="2.5" opacity="0.85" />
-
-          <!-- radii -->
-          <g stroke="#4338ca" stroke-width="2" opacity="0.6">
-            <path d="M350 200 L490 200" />
-            <path d="M350 200 L280 79" />
-            <path d="M350 200 L280 321" />
-          </g>
-
-          <!-- points -->
-          <circle cx="490" cy="200" r="6.5" fill="#4338ca" />
-          <circle cx="280" cy="79" r="6.5" fill="#4338ca" />
-          <circle cx="280" cy="321" r="6.5" fill="#4338ca" />
-
-          <text x="502" y="194" font-size="14" fill="#312e81" font-weight="700">w&#8320; = 2</text>
-          <text x="500" y="212" font-size="11.5" fill="#64748b">(sudut 0&#176;)</text>
-
-          <text x="150" y="72" font-size="14" fill="#312e81" font-weight="700">w&#8321; = -1 + i&#8730;3</text>
-          <text x="176" y="90" font-size="11.5" fill="#64748b">(sudut 120&#176;)</text>
-
-          <text x="150" y="330" font-size="14" fill="#312e81" font-weight="700">w&#8322; = -1 - i&#8730;3</text>
-          <text x="176" y="348" font-size="11.5" fill="#64748b">(sudut 240&#176;)</text>
-
-          <!-- angle marks -->
-          <path d="M395 200 A 45 45 0 0 0 372 161" stroke="#d97706" stroke-width="2.5" fill="none" />
-          <text x="382" y="180" font-size="12" fill="#b45309" font-weight="700">120&#176;</text>
-        </svg>
-      </div>
-      <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0; text-align:center;">
-        Ketiga akar pangkat tiga dari 8 berjarak sudut \(120^\circ\) satu sama lain.
-      </p>
-    </div>
-
-    <h3>Akar-akar satuan (roots of unity)</h3>
-    <p>
-      Kasus khusus \(z = 1\) sangat sering muncul. Karena \(r = 1\) dan \(\theta = 0\):
-    </p>
-    <div class="card formula">
-      <div class="math-step-box">
-        $$1^{1/n} = \cos\frac{2k\pi}{n} + i\sin\frac{2k\pi}{n} = e^{i 2k\pi/n}, \qquad k = 0,1,\dots,n-1$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Semuanya terletak pada lingkaran satuan \(|z| = 1\), dan jumlah seluruh akar satuan selalu \(0\).
-      </p>
-    </div>
-
-    <h2>8. Rangkuman Pertemuan 04</h2>
+    <h2>6. Rangkuman Pertemuan 04</h2>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Konsep</th><th>Rumus inti</th><th>Gunanya</th></tr></thead>
+        <thead><tr><th>Pokok bahasan</th><th>Inti</th></tr></thead>
         <tbody>
-          <tr><td>Modulus</td><td>\(|z| = \sqrt{a^2+b^2}\)</td><td>Panjang panah / jarak dari O</td></tr>
-          <tr><td>Konjugat &amp; modulus</td><td>\(z\bar z = |z|^2\)</td><td>Menyambung Pertemuan 03</td></tr>
-          <tr><td>Argumen</td><td>\(\theta = \arctan(b/a)\) + koreksi kuadran</td><td>Arah panah</td></tr>
-          <tr><td>Argumen utama</td><td>\(-\pi &lt; \operatorname{Arg} z \le \pi\)</td><td>Membuat sudut tunggal</td></tr>
-          <tr><td>Bentuk polar</td><td>\(z = r(\cos\theta + i\sin\theta)\)</td><td>Menyederhanakan kali &amp; bagi</td></tr>
-          <tr><td>Bentuk Euler</td><td>\(z = re^{i\theta}\)</td><td>Notasi paling ringkas</td></tr>
-          <tr><td>Kali &amp; bagi</td><td>panjang dikali, sudut ditambah</td><td>Ganti kerja aljabar panjang</td></tr>
-          <tr><td>De Moivre</td><td>\(z^n = r^n(\cos n\theta + i\sin n\theta)\)</td><td>Pangkat tinggi &amp; identitas trigonometri</td></tr>
-          <tr><td>Akar pangkat \(n\)</td><td>\(\sqrt[n]{r}\,\angle\dfrac{\theta+2k\pi}{n}\)</td><td>Ada \(n\) jawaban, membentuk segi-\(n\)</td></tr>
+          <tr><td>Sifat operasi dasar</td><td>Ketertutupan, komutatif, asosiatif, distributif, identitas (0 dan 1), invers (\(-z\) dan \(1/z\))</td></tr>
+          <tr><td>Sekawan</td><td>\(z = a+bi \Rightarrow \bar z = a - bi\)</td></tr>
+          <tr><td>Hasil kali dengan sekawan</td><td>\(z\bar z = a^2 + b^2\) — selalu real</td></tr>
+          <tr><td>Jumlah &amp; selisih</td><td>\(z + \bar z = 2a\); \(z - \bar z = 2bi\)</td></tr>
+          <tr><td>Bagian real &amp; imajiner</td><td>\(\operatorname{Re} z = \tfrac12(z+\bar z)\); \(\operatorname{Im} z = \tfrac{1}{2i}(z-\bar z)\)</td></tr>
+          <tr><td>Sifat sekawan</td><td>\(\overline{\overline z} = z\) selalu benar; \(\bar z = z\) hanya bila \(z\) real</td></tr>
+          <tr><td>Nilai mutlak</td><td>\(|z| = \sqrt{a^2+b^2} = \sqrt{z \bar z}\)</td></tr>
+          <tr><td>Pangkat \(i\)</td><td>Berulang tiap 4: \(1,\ i,\ -1,\ -i\) — pakai sisa bagi 4</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2>9. Latihan Mandiri</h2>
-    <p>Kerjakan dulu di kertas, lalu cocokkan dengan kalkulator di bawah.</p>
-    <div class="card">
-      <ol>
-        <li>Hitung \(|{-5} + 12i|\) dan \(\operatorname{Arg}(-5+12i)\) dalam derajat.</li>
-        <li>Nyatakan \(z = -3 - 3i\) dalam bentuk polar dan eksponensial.</li>
-        <li>Jika \(z_1 = 2\,\text{cis}\,50^\circ\) dan \(z_2 = 4\,\text{cis}\,20^\circ\), tentukan \(z_1 z_2\) dan \(z_1/z_2\).</li>
-        <li>Gunakan De Moivre untuk menghitung \((\sqrt{3} + i)^{6}\).</li>
-        <li>Tentukan keempat akar dari \(z^4 = 16\), lalu gambar posisinya di bidang Argand.</li>
-        <li>Buktikan \(\cos 3\theta = 4\cos^3\theta - 3\cos\theta\) memakai De Moivre dengan \(n = 3\).</li>
-      </ol>
-    </div>
-
     <div class="tool-cta">
-      <span><strong>Sudah dikerjakan?</strong> Periksa jawabanmu langkah demi langkah dengan kalkulator khusus materi ini.</span>
-      <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Kalkulator Polar &amp; De Moivre</a>
+      <span><strong>Lanjut membaca.</strong> Nilai mutlak \(|z|\) di bagian 4 akan diberi arti gambar sebagai panjang panah, lalu berkembang ke bentuk polar dan rumus De Moivre.</span>
+      <a href="/materi/KP21517003/pertemuan-05/index.html">Buka Bahan Baca Pertemuan 05</a>
     </div>
 
-    <div class="note-plain">
-      <strong>Pertemuan berikutnya (perkiraan).</strong> Setelah bentuk polar dikuasai, Brown &amp; Churchill
-      melanjutkan ke topologi bidang kompleks: himpunan buka/tutup, titik limit, daerah (<em>region</em>),
-      lalu fungsi kompleks \(w = f(z)\) beserta limit dan kekontinuannya. Itu pintu masuk menuju turunan kompleks
-      dan syarat Cauchy-Riemann.
+    <div class="tool-cta" style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5); border-color:#a7f3d0;">
+      <span style="color:#065f46;"><strong>Ingin memeriksa hitungan?</strong> Kalkulator kompleks menyediakan penjabaran langkah untuk operasi aljabar, sekawan, dan modulus.</span>
+      <a href="/tools/kalkulator-kompleks/index.html" style="background:#059669;">Buka Kalkulator Kompleks</a>
+    </div>
+
+    <h2>7. Dokumentasi Catatan Asli</h2>
+    <p>Arsip lembar catatan tulis tangan yang diambil selama perkuliahan:</p>
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="catatan_p04_lembar1.jpg" alt="Lembar catatan 1: sifat-sifat operasi dasar bilangan kompleks" loading="lazy">
+        <div class="photo-caption">Lembar 1: Sifat ketertutupan, komutatif, asosiatif, distributif &amp; identitas</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p04_lembar2.jpg" alt="Lembar catatan 2: invers dan bilangan kompleks sekawan" loading="lazy">
+        <div class="photo-caption">Lembar 2: Invers, bilangan sekawan, perkalian &amp; selisih dengan sekawan</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p04_lembar3.jpg" alt="Lembar catatan 3: bagian real, pembuktian, nilai mutlak dan dua soal latihan" loading="lazy">
+        <div class="photo-caption">Lembar 3: Rumus Re z, pembuktian sekawan, nilai mutlak &amp; dua soal latihan</div>
+      </div>
+    </div>
+
+    <h3>Foto papan tulis</h3>
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="papan_p04_1.jpg" alt="Papan tulis: pembuktian sekawan, nilai mutlak, dan pengerjaan soal pertama" loading="lazy">
+        <div class="photo-caption">Papan 1: Pembuktian sekawan, nilai mutlak, tabel pangkat \(i\) &amp; pengerjaan Soal &#9312;</div>
+      </div>
+      <div class="photo-card">
+        <img src="papan_p04_2.jpg" alt="Papan tulis: pengerjaan soal kedua dan rumus bagian real serta imajiner" loading="lazy">
+        <div class="photo-caption">Papan 2: Pengerjaan Soal &#9313;, rumus Re z &amp; Im z, penjumlahan dengan sekawan</div>
+      </div>
     </div>
   </main>
 
   <footer class="page-foot">
-    Catatan bahan baca mandiri &middot; Analisis Kompleks KP21517003 &middot; Pertemuan 04<br>
-    Disusun sebagai persiapan sebelum kuliah, mengikuti alur Brown &amp; Churchill Bab 1 &sect;5&ndash;&sect;10.
+    Catatan kuliah &middot; Analisis Kompleks KP21517003 &middot; Pertemuan 04 &middot; 31 Agustus 2026<br>
+    Disusun dari 3 lembar catatan pribadi dan 2 foto papan tulis. Dua kekeliruan penulisan ditandai dengan kotak merah.
   </footer>
 </div>
 
 <script>
   function handleGoBack(e) {
-    if (window.opener && !window.opener.closed) {
-      if (e) e.preventDefault();
-      window.close();
-      return;
-    }
+    if (window.opener && !window.opener.closed) { if (e) e.preventDefault(); window.close(); return; }
     if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
-      if (e) e.preventDefault();
-      window.history.back();
-      return;
+      if (e) e.preventDefault(); window.history.back();
     }
   }
 
