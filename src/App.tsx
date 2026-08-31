@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import "./App.css";
-import AIAssistantDrawer from "./components/AIAssistantDrawer";
+/* Copilot dimuat terpisah karena membawa KaTeX (~260 KB): tombolnya muncul
+   sesaat setelah bundel utama, dan halaman pertama tidak menunggu KaTeX. */
+const AIAssistantDrawer = lazy(() => import("./components/AIAssistantDrawer"));
 import CalendarView from "./components/CalendarView";
 import DashboardView from "./components/DashboardView";
 import CoursesView from "./components/CoursesView";
@@ -326,14 +328,16 @@ export default function App() {
         </div>
       </main>
       <MobileNav page={page} setPage={go} />
-      <AIAssistantDrawer
-        settings={settings}
-        setSettings={setSettings}
-        tasks={tasks}
-        materials={materials}
-        references={references}
-        onAction={action}
-      />
+      <Suspense fallback={null}>
+        <AIAssistantDrawer
+          settings={settings}
+          setSettings={setSettings}
+          tasks={tasks}
+          materials={materials}
+          references={references}
+          onAction={action}
+        />
+      </Suspense>
     </div>
   );
 }

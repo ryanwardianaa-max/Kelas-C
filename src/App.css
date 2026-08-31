@@ -772,16 +772,31 @@ textarea {
   color: #fff;
   align-self: flex-end;
 }
-.ai-format p {
-  margin: 4px 0;
+.ai-format {
   white-space: pre-wrap;
 }
-.ai-format code,
-.math {
+.ai-format code {
   font-family: monospace;
   background: #0001;
   padding: 1px 4px;
   border-radius: 4px;
+}
+.math-inline {
+  white-space: normal;
+}
+.math-block {
+  display: block;
+  margin: 8px 0;
+  overflow-x: auto;
+  text-align: center;
+  white-space: normal;
+}
+.math-block math {
+  font-size: 1.15em;
+}
+.katex-error {
+  color: #b3261e;
+  font-family: monospace;
 }
 .ai-prompts {
   display: flex;
