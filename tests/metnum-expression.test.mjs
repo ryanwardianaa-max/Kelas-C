@@ -13,10 +13,11 @@ test('evaluates documented arithmetic and functions safely', () => {
   assert.equal(compileExpression('exp(0)+log(e)+ln(e)+sqrt(4)+abs(-3)')(0), 8);
 });
 
-test('rejects implicit multiplication with Indonesian error', () => {
-  assert.throws(() => compileExpression('2x'), /perkalian implisit.*tidak didukung/i);
-  assert.throws(() => compileExpression('2(x+1)'), /perkalian implisit.*tidak didukung/i);
-  assert.throws(() => compileExpression('(x+1)(x-1)'), /perkalian implisit.*tidak didukung/i);
+test('accepts common implicit multiplication from textbook notation', () => {
+  assert.equal(compileExpression('2x')(3), 6);
+  assert.equal(compileExpression('2(x+1)')(3), 8);
+  assert.equal(compileExpression('(x+1)(x-1)')(3), 8);
+  assert.ok(Math.abs(compileExpression('sin(2x)')(0.23) - Math.sin(0.46)) < 1e-12);
 });
 
 test('rejects unknown identifiers and malformed expressions', () => {

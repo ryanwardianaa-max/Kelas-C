@@ -127,8 +127,8 @@ export function compileExpression(source) {
 
   const parseMultiplicative = () => {
     let left = parseUnary();
-    while (peek().type === '*' || peek().type === '/') {
-      const operator = tokens[position++].type;
+    while (peek().type === '*' || peek().type === '/' || peek().type === 'identifier' || peek().type === '(') {
+      const operator = peek().type === '*' || peek().type === '/' ? tokens[position++].type : '*';
       const right = parseUnary();
       const previous = left;
       left = operator === '*'
