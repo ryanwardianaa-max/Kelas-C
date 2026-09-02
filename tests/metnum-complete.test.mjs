@@ -36,5 +36,19 @@ assert.match(labHtml, /typeof v==='object'/, "nilai langkah bersarang tidak bole
 for (const group of ["galat", "akar", "spl", "interpolasi", "turunan", "integrasi", "pdb"]) {
   assert.match(labHtml, new RegExp(`id==='${group}'`), `kelompok ${group} wajib memiliki grafik`);
 }
+assert.match(labHtml, /function calculationSteps\s*\(/, "setiap hasil wajib memiliki langkah hitung biasa");
+assert.match(labHtml, /Langkah Perhitungan/, "judul langkah perhitungan wajib terlihat");
+assert.match(labHtml, /r\.terms\.map/, "Taylor wajib menjabarkan setiap suku, bukan hanya tabel");
+assert.match(labHtml, /Object\.is\(v,-0\)/, "hasil numerik tidak boleh menampilkan negatif nol");
+for (const label of ["Perbesar", "Perkecil", "Atur ulang"]) {
+  assert.match(labHtml, new RegExp(`aria-label="${label}`), `grafik wajib memiliki kontrol ${label.toLowerCase()}`);
+}
+assert.match(labHtml, /data-base-viewbox/, "grafik wajib dapat dikembalikan ke skala awal");
+assert.match(labHtml, /class="grid-line"/, "grafik Kartesius wajib memiliki garis kisi");
+assert.match(labHtml, /class="tick-label"/, "grafik Kartesius wajib memiliki angka skala");
+assert.match(labHtml, /graphFmt/, "angka sumbu wajib memakai format ringkas");
+assert.match(labHtml, /Math\.abs\(v\)<1e-12\?0:v/, "angka sumbu mendekati nol wajib tampil sebagai 0");
+assert.match(labHtml, /length:5/, "angka sumbu wajib cukup renggang untuk layar ponsel");
+assert.match(labHtml, /Geser tabel ke samping/, "tabel lebar wajib memiliki petunjuk geser");
 assert.ok(fs.existsSync(new URL("public/tools/lab-metode-numerik/index.html", root)));
 console.log("Metode Numerik complete integration: OK");

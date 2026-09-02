@@ -54,6 +54,40 @@ export function calculateErrors(exact, approximate) {
 
 export const calculateError = calculateErrors;
 
+export function numericalDerivative(fn, order, x) {
+  callable(fn);
+  finiteNumber(x, 'x');
+  if (!Number.isInteger(order) || order < 0 || order > 8) throw new RangeError('derivative order must be an integer from 0 to 8');
+  if (order === 0) return evaluate(fn, [x]);
+  const radius = Math.max(4, order);
+  const h = order <= 3 ? 0.03 : order <= 5 ? 0.08 : order <= 7 ? 0.15 : 0.3;
+  const nodes = Array.from({ length: 2 * radius + 1 }, (_, i) => x + (i - radius) * h);
+  const weights = nodes.map(() => Array(order + 1).fill(0));
+  weights[0][0] = 1;
+  let previousProduct = 1;
+  let previousOffset = nodes[0] - x;
+  for (let i = 1; i < nodes.length; i++) {
+    const highest = Math.min(i, order);
+    let product = 1;
+    const offsetBefore = previousOffset;
+    previousOffset = nodes[i] - x;
+    for (let j = 0; j < i; j++) {
+      const difference = nodes[i] - nodes[j];
+      product *= difference;
+      if (j === i - 1) {
+        for (let k = highest; k >= 1; k--) weights[i][k] = previousProduct * (k * weights[i - 1][k - 1] - offsetBefore * weights[i - 1][k]) / product;
+        weights[i][0] = -previousProduct * offsetBefore * weights[i - 1][0] / product;
+      }
+      for (let k = highest; k >= 1; k--) weights[j][k] = (previousOffset * weights[j][k] - k * weights[j][k - 1]) / difference;
+      weights[j][0] = previousOffset * weights[j][0] / difference;
+    }
+    previousProduct = product;
+  }
+  const result = weights.reduce((sum, row, i) => sum + row[order] * evaluate(fn, [nodes[i]]), 0);
+  const rounded = Math.round(result);
+  return Math.abs(result - rounded) <= Math.max(1, Math.abs(result)) * 1e-7 ? rounded : result;
+}
+
 export function taylorSeries(derivatives, x, x0 = 0) {
   if (!Array.isArray(derivatives) || derivatives.length === 0 || derivatives.some(fn => typeof fn !== 'function')) {
     throw new TypeError('derivatives must be a non-empty array of callback functions');

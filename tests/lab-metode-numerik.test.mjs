@@ -6,7 +6,8 @@ import {
   gaussianElimination, gaussJordan, luDecomposition, jacobi, gaussSeidel,
   lagrange, newtonInterpolation, linearRegression, finiteDifference,
   trapezoid, simpson13, simpson38, gaussLegendre, euler, heun, rk4,
-} from '../public/tools/lab-metode-numerik/core.js';
+ numericalDerivative,
+ } from '../public/tools/lab-metode-numerik/core.js';
 
 const close = (actual, expected, tolerance = 1e-8) =>
   assert.ok(Math.abs(actual - expected) <= tolerance, `${actual} != ${expected}`);
@@ -15,6 +16,18 @@ const vectorClose = (actual, expected, tolerance = 1e-8) => {
   actual.forEach((value, index) => close(value, expected[index], tolerance));
 };
 const hasSteps = result => assert.ok(Array.isArray(result.steps) && result.steps.length > 0);
+
+test('numerical Taylor derivatives keep textbook-friendly accuracy', () => {
+  const sin2x = x => Math.sin(2 * x);
+  close(numericalDerivative(sin2x, 0, 0), 0);
+  close(numericalDerivative(sin2x, 1, 0), 2, 1e-8);
+  close(numericalDerivative(sin2x, 2, 0), 0, 1e-8);
+  close(numericalDerivative(sin2x, 3, 0), -8, 1e-7);
+  for (let order = 1; order <= 8; order++) {
+    close(numericalDerivative(Math.exp, order, 0.3), Math.exp(0.3), 1e-4);
+  }
+  assert.throws(() => numericalDerivative(sin2x, 9, 0), /0.*8|order/i);
+});
 
 test('error metrics and Taylor series return UI-ready details', () => {
   assert.deepEqual(calculateErrors(10, 9), { absolute: 1, relative: 0.1, percentage: 10 });
