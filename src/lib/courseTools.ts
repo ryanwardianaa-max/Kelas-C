@@ -77,15 +77,15 @@ export const COURSE_TOOLS: ToolItem[] = [
     url: "/tools/kalkulator-polar-demoivre/index.html",
   },
   {
-    id: "tool-kalkulator-metnum",
-    title: "Kalkulator Metode Numerik (Akar & Integrasi)",
+    id: "tool-lab-metode-numerik",
+    title: "Laboratorium Metode Numerik Lengkap",
     courseCode: "KP21517001",
     courseName: "Metode Numerik",
     badgeColor: "#059669",
     description:
-      "Pencarian akar non-linear (Biseksi, Regula Falsi, Newton-Raphson, Secant) dengan tabel iterasi komplit dan galat toleransi. Integrasi numerik Kaidah Trapesium, Simpson 1/3, dan Simpson 3/8.",
-    tags: ["Newton-Raphson", "Biseksi", "Simpson 1/3", "Tabel Iterasi"],
-    url: "/tools/kalkulator-metnum/index.html",
+      "Tujuh kelompok kalkulator dalam satu tempat: galat dan Taylor, akar persamaan, SPL, interpolasi dan regresi, turunan, integrasi, serta PDB. Setiap hasil menampilkan langkah, tabel, dan grafik.",
+    tags: ["Step-by-Step", "Tabel Iterasi", "Grafik", "16 Pertemuan"],
+    url: "/tools/lab-metode-numerik/index.html",
   },
   {
     id: "tool-kalkulator-mateko",
