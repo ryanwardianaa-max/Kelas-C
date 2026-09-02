@@ -5,6 +5,7 @@ const root = new URL("..", import.meta.url);
 const read = (path) => fs.readFileSync(new URL(path, root), "utf8");
 const materials = read("src/lib/initialMaterials.ts");
 const tools = read("src/lib/courseTools.ts");
+const courseData = read("src/lib/mockData.ts");
 
 for (let n = 1; n <= 16; n++) {
   const nn = String(n).padStart(2, "0");
@@ -21,6 +22,8 @@ for (let n = 1; n <= 16; n++) {
   assert.doesNotMatch(html, /<h2>\d+\.\s+\d+\./, "nomor judul tidak boleh ganda");
   assert.match(materials, new RegExp(`mat-metnum-pertemuan-${nn}`));
 }
+assert.match(courseData, /code:'KP21517001'[\s\S]*?lecturer:'Linda Herawati, S\.Pd\., M\.Pd\.'/);
+assert.doesNotMatch(courseData, /code:'KP21517001'[\s\S]*?lecturer:'Elis Nurhayati, M\.Pd\.'/);
 assert.match(tools, /tool-lab-metode-numerik/);
 assert.match(tools, /\/tools\/lab-metode-numerik\/index\.html/);
 assert.ok(fs.existsSync(new URL("public/tools/lab-metode-numerik/core.js", root)));
