@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Real – 1.3 Finite and Infinite Sets</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8fafc;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #1e293b;
+    }
+    .nav-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #4338ca;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-back:hover { text-decoration: underline; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+    .subhead { color: #475569; margin-bottom: 2rem; border-left: 4px solid #4338ca; padding-left: 1rem; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    h2 { font-size: 1.4rem; margin-bottom: 1rem; color: #1e293b; }
+    h3 { font-size: 1.1rem; margin: 1.2rem 0 0.5rem; }
+    p, li { line-height: 1.7; margin-bottom: 0.5rem; }
+    .math { font-size: 1.1rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .example {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #e2e8f0;
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #334155;
+    }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="nav-back" href="#" onclick="history.back()">← Kembali</a>
+  <h1>Analisis Real – 1.3</h1>
+  <div class="subhead">Himpunan Berhingga dan Tak Hingga • Pertemuan 06 • Kamis, 24 Sep 2026</div>
+
+  <div class="card">
+    <h2>📘 Tujuan Pembelajaran</h2>
+    <ul>
+      <li>Memahami definisi himpunan berhingga dan tak hingga.</li>
+      <li>Mengenal himpunan terhitung (countable) dan tak terhitung (uncountable).</li>
+      <li>Mempelajari teorema dasar tentang kardinalitas himpunan.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🔢 Himpunan Berhingga</h2>
+    <p><strong>Definisi:</strong> Suatu himpunan \(S\) dikatakan <em>berhingga</em> jika \(S = \emptyset\) atau terdapat \(n \in \mathbb{N}\) dan suatu bijeksi \(f: \{1,2,\dots,n\} \to S\).</p>
+    <p>Bilangan \(n\) disebut <em>kardinalitas</em> atau <em>ukuran</em> dari \(S\), ditulis \(|S| = n\).</p>
+    <p><strong>Contoh:</strong> \(S = \{a,b,c\}\) berhingga dengan \(|S|=3\).</p>
+  </div>
+
+  <div class="card">
+    <h2>🔢 Himpunan Tak Hingga</h2>
+    <p><strong>Definisi:</strong> Suatu himpunan \(T\) dikatakan <em>tak hingga</em> jika tidak berhingga.</p>
+    <p>Dengan kata lain, untuk setiap \(n \in \mathbb{N}\), tidak ada bijeksi dari \(\{1,\dots,n\}\) ke \(T\).</p>
+    <p><strong>Contoh:</strong> \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}\) semuanya tak hingga.</p>
+  </div>
+
+  <div class="card">
+    <h2>🔢 Himpunan Terhitung (Countable)</h2>
+    <p><strong>Definisi:</strong> Suatu himpunan \(A\) dikatakan <em>terhitung</em> jika berhingga atau terdapat bijeksi \(f: \mathbb{N} \to A\) (yaitu \(A\) memiliki kardinalitas yang sama dengan \(\mathbb{N}\)).</p>
+    <p>Himpunan terhitung tak hingga sering disebut <em>countably infinite</em>.</p>
+    <p><strong>Contoh:</strong> \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}\) terhitung.</p>
+    <p><strong>Teorema:</strong> Gabungan terhitung dari himpunan terhitung adalah terhitung.</p>
+  </div>
+
+  <div class="card">
+    <h2>🔢 Himpunan Tak Terhitung (Uncountable)</h2>
+    <p><strong>Definisi:</strong> Himpunan yang tidak terhitung disebut <em>tak terhitung</em>.</p>
+    <p><strong>Contoh:</strong> \(\mathbb{R}\) (bilangan real) tak terhitung (diagonal Cantor).</p>
+    <p><strong>Akibat:</strong> Interval \((0,1)\) juga tak terhitung.</p>
+  </div>
+
+  <div class="card">
+    <h2>📐 Teorema Penting</h2>
+    <ul>
+      <li><strong>Teorema 1.3.1:</strong> Setiap subhimpunan dari himpunan berhingga adalah berhingga.</li>
+      <li><strong>Teorema 1.3.2:</strong> \(\mathbb{N} \times \mathbb{N}\) terhitung.</li>
+      <li><strong>Teorema 1.3.3:</strong> \(\mathbb{Q}\) terhitung.</li>
+      <li><strong>Teorema 1.3.4 (Cantor):</strong> \(\mathbb{R}\) tak terhitung.</li>
+      <li><strong>Akibat:</strong> Terdapat tingkat tak hingga yang berbeda.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>✏️ Latihan</h2>
+    <ol>
+      <li>Buktikan bahwa gabungan dua himpunan berhingga adalah berhingga.</li>
+      <li>Buktikan bahwa \(\mathbb{Z}\) terhitung (konstruksi bijeksi dari \(\mathbb{N}\) ke \(\mathbb{Z}\)).</li>
+      <li>Buktikan bahwa \((0,1)\) tak terhitung menggunakan argumen diagonal Cantor.</li>
+      <li>Apakah himpunan semua bilangan rasional di \((0,1)\) terhitung? Jelaskan.</li>
+    </ol>
+  </div>
+
+  <script>
+    function renderMath() {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '\\\\(', right: '\\\\)', display: false},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    }
+    document.addEventListener('DOMContentLoaded', renderMath);
+  </script>
+</body>
+</html>
