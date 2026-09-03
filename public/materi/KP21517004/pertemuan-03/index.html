@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Analisis Real – 1.2.2 Induksi Matematika</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -38,8 +35,8 @@
     h2 { font-size: 1.4rem; margin-bottom: 1rem; color: #1e293b; }
     h3 { font-size: 1.1rem; margin: 1.2rem 0 0.5rem; }
     p, li { line-height: 1.7; margin-bottom: 0.5rem; }
-    .math { font-size: 1.1rem; }
     ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .math { font-size: 1.1rem; font-family: 'Times New Roman', serif; }
     .example {
       background: #f1f5f9;
       padding: 1rem;
@@ -65,14 +62,6 @@
       margin: 1rem 0;
       min-height: 60px;
     }
-    .tag {
-      display: inline-block;
-      background: #e2e8f0;
-      padding: 0.1rem 0.6rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #334155;
-    }
     @media (max-width: 600px) {
       body { padding: 1rem; }
       h1 { font-size: 1.4rem; }
@@ -87,59 +76,51 @@
   <div class="card">
     <h2>📘 Tujuan Pembelajaran</h2>
     <ul>
-      <li>Memahami <em>Well-Ordering Property</em> (Sifat Terurut Baik) pada himpunan bilangan asli.</li>
-      <li>Merumuskan dan membuktikan <em>Prinsip Induksi Matematika</em>.</li>
+      <li>Memahami Sifat Terurut Baik (Well-Ordering Property) pada himpunan bilangan asli.</li>
+      <li>Merumuskan dan membuktikan Prinsip Induksi Matematika.</li>
       <li>Menerapkan induksi untuk membuktikan pernyataan tentang bilangan asli.</li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>🔢 Well-Ordering Property</h2>
-    <p><strong>Definisi:</strong> Setiap subhimpunan tak kosong dari \(\mathbb{N}\) memiliki elemen terkecil.</p>
-    <p>Dengan kata lain, jika \(S \subseteq \mathbb{N}\) dan \(S \neq \emptyset\), maka terdapat \(m \in S\) sedemikian sehingga \(m \le s\) untuk semua \(s \in S\).</p>
-    <p>Properti ini menjadi dasar bagi Prinsip Induksi Matematika.</p>
+    <h2>🔢 Sifat Terurut Baik</h2>
+    <p><strong>Definisi:</strong> Setiap himpunan bagian tak kosong dari ℕ memiliki elemen terkecil.</p>
+    <p>Dengan kata lain, jika S ⊆ ℕ dan S ≠ ∅, maka ada m ∈ S sedemikian sehingga m ≤ s untuk semua s ∈ S.</p>
+    <p>Sifat ini menjadi dasar Prinsip Induksi.</p>
   </div>
 
   <div class="card">
     <h2>📐 Prinsip Induksi Matematika (1.2.2)</h2>
-    <p>Misalkan \(S\) adalah subhimpunan dari \(\mathbb{N}\) yang memenuhi dua kondisi:</p>
+    <p>Misalkan S adalah subhimpunan dari ℕ yang memenuhi dua kondisi:</p>
     <ol>
-      <li><strong>Basis:</strong> \(1 \in S\).</li>
-      <li><strong>Langkah induksi:</strong> Jika \(k \in S\), maka \(k+1 \in S\).</li>
+      <li><strong>Basis:</strong> 1 ∈ S.</li>
+      <li><strong>Langkah induksi:</strong> Jika k ∈ S, maka k+1 ∈ S.</li>
     </ol>
-    <p>Maka \(S = \mathbb{N}\).</p>
-    <p>Dengan kata lain, jika suatu pernyataan \(P(n)\) benar untuk \(n=1\), dan kebenaran \(P(k)\) mengakibatkan kebenaran \(P(k+1)\), maka \(P(n)\) benar untuk semua \(n \in \mathbb{N}\).</p>
+    <p>Maka S = ℕ.</p>
+    <p>Dengan kata lain, jika suatu pernyataan P(n) benar untuk n=1, dan kebenaran P(k) mengakibatkan kebenaran P(k+1), maka P(n) benar untuk semua n ∈ ℕ.</p>
   </div>
 
   <div class="card">
     <h2>🧪 Langkah-Langkah Pembuktian dengan Induksi</h2>
     <ol>
-      <li><strong>Langkah Basis:</strong> Tunjukkan \(P(1)\) benar.</li>
-      <li><strong>Langkah Induksi:</strong> Asumsikan \(P(k)\) benar untuk suatu \(k \ge 1\) (hipotesis induksi), lalu tunjukkan \(P(k+1)\) benar.</li>
-      <li><strong>Kesimpulan:</strong> Dengan Prinsip Induksi, \(P(n)\) benar untuk semua \(n \ge 1\).</li>
+      <li><strong>Langkah Basis:</strong> Tunjukkan P(1) benar.</li>
+      <li><strong>Langkah Induksi:</strong> Asumsikan P(k) benar untuk suatu k ≥ 1 (hipotesis induksi), lalu tunjukkan P(k+1) benar.</li>
+      <li><strong>Kesimpulan:</strong> Dengan Prinsip Induksi, P(n) benar untuk semua n ≥ 1.</li>
     </ol>
   </div>
 
   <div class="card">
     <h2>📝 Contoh: Jumlah Bilangan Asli Pertama</h2>
-    <p><strong>Teorema:</strong> Untuk setiap \(n \in \mathbb{N}\),</p>
-    <div class="math">\[
-      1 + 2 + \cdots + n = \frac{n(n+1)}{2}.
-    \]</div>
+    <p><strong>Teorema:</strong> Untuk setiap n ∈ ℕ,</p>
+    <div class="math">1 + 2 + ... + n = n(n+1)/2</div>
     <p><strong>Bukti (dengan induksi):</strong></p>
     <ul>
-      <li><strong>Basis (n=1):</strong> \(1 = \frac{1(1+1)}{2} = 1\). Benar.</li>
-      <li><strong>Langkah induksi:</strong> Asumsikan benar untuk \(n=k\):
-        \[
-        1+2+\cdots+k = \frac{k(k+1)}{2}.
-        \]
-        Tambahkan \(k+1\) ke kedua ruas:
-        \[
-        1+2+\cdots+k+(k+1) = \frac{k(k+1)}{2} + (k+1)
-        = \frac{k(k+1) + 2(k+1)}{2}
-        = \frac{(k+1)(k+2)}{2}.
-        \]
-        Ini adalah rumus untuk \(n=k+1\). Jadi benar.
+      <li><strong>Basis (n=1):</strong> 1 = 1(1+1)/2 = 1. Benar.</li>
+      <li><strong>Langkah induksi:</strong> Asumsikan benar untuk n=k:
+        <div class="math">1 + 2 + ... + k = k(k+1)/2</div>
+        Tambahkan (k+1) ke kedua ruas:
+        <div class="math">1 + 2 + ... + k + (k+1) = k(k+1)/2 + (k+1) = (k+1)(k+2)/2</div>
+        Ini adalah rumus untuk n=k+1. Jadi benar.
       </li>
     </ul>
     <p>Dengan induksi, teorema terbukti.</p>
@@ -158,36 +139,22 @@
   <div class="card">
     <h2>✏️ Latihan</h2>
     <ol>
-      <li>Buktikan dengan induksi: \(1^2 + 2^2 + \cdots + n^2 = \frac{n(n+1)(2n+1)}{6}\).</li>
-      <li>Buktikan bahwa \(2^n > n\) untuk semua \(n \ge 1\).</li>
-      <li>Buktikan bahwa \(n^3 - n\) habis dibagi 3 untuk semua \(n \ge 1\).</li>
+      <li>Buktikan dengan induksi: 1² + 2² + ... + n² = n(n+1)(2n+1)/6.</li>
+      <li>Buktikan bahwa 2ⁿ > n untuk semua n ≥ 1.</li>
+      <li>Buktikan bahwa n³ – n habis dibagi 3 untuk semua n ≥ 1.</li>
     </ol>
   </div>
 
   <script>
-    function renderMath() {
-      if (typeof renderMathInElement === 'function') {
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '\\\\(', right: '\\\\)', display: false},
-            {left: '$', right: '$', display: false}
-          ]
-        });
-      }
-    }
-    document.addEventListener('DOMContentLoaded', renderMath);
-
     function showStep(step) {
       const display = document.getElementById('stepDisplay');
       const steps = {
-        1: '<strong>Basis (n=1):</strong> \(1 = \\frac{1(1+1)}{2} = 1\). Pernyataan benar untuk \(n=1\).',
-        2: '<strong>Hipotesis Induksi (n=k):</strong> Anggap \(1+2+\\cdots+k = \\frac{k(k+1)}{2}\) benar untuk suatu \(k \\ge 1\).',
-        3: '<strong>Langkah Induksi (n=k+1):</strong> Tambahkan \(k+1\) ke kedua ruas: \[1+2+\\cdots+k+(k+1) = \\frac{k(k+1)}{2} + (k+1) = \\frac{(k+1)(k+2)}{2}\]. Jadi benar untuk \(n=k+1\).',
-        4: '<strong>Kesimpulan:</strong> Dengan Prinsip Induksi, rumus \(1+2+\\cdots+n = \\frac{n(n+1)}{2}\) berlaku untuk semua \(n \\in \\mathbb{N}\).'
+        1: '<strong>Basis (n=1):</strong> 1 = 1(1+1)/2 = 1. Pernyataan benar untuk n=1.',
+        2: '<strong>Hipotesis Induksi (n=k):</strong> Anggap 1 + 2 + ... + k = k(k+1)/2 benar untuk suatu k ≥ 1.',
+        3: '<strong>Langkah Induksi (n=k+1):</strong> Tambahkan (k+1) ke kedua ruas: 1+2+...+k+(k+1) = k(k+1)/2 + (k+1) = (k+1)(k+2)/2. Jadi benar untuk n=k+1.',
+        4: '<strong>Kesimpulan:</strong> Dengan Prinsip Induksi, rumus 1+2+...+n = n(n+1)/2 berlaku untuk semua n ∈ ℕ.'
       };
       display.innerHTML = steps[step] || 'Pilih langkah yang valid.';
-      renderMath();
     }
   </script>
 </body>
