@@ -24,6 +24,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-08-27T17:00:00.000Z",
   },
   {
+    id: "mat-mateko-pertemuan-04",
+    title: "Catatan Kuliah: Fungsi Biaya, Penerimaan, dan Laba",
+    courseCode: "KP21517007",
+    meetingNo: 4,
+    type: "Catatan",
+    description:
+      "Catatan komprehensif kuliah Matematika Ekonomi Pertemuan 04: Fungsi Biaya (biaya tetap, variabel, total, rata-rata, marginal), Fungsi Penerimaan (total, rata-rata, marginal), Laba, dan Titik Impas (BEP). Dilengkapi contoh soal dan latihan.",
+    url: "/materi/KP21517007/pertemuan-04/index.html",
+    createdAt: "2026-09-03T02:00:00.000Z",
+  },
+  {
     id: "mat-analisis-kompleks-pertemuan-03",
     title: "Catatan Kuliah: Pengantar Sistem Bilangan Kompleks & Operasi Aljabar",
     courseCode: "KP21517003",
