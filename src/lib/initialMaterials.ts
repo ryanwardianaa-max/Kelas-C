@@ -35,6 +35,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-03T02:00:00.000Z",
   },
   {
+    id: "tool-kalkulator-mateko",
+    title: "Aplikasi Bantuan: Kalkulator Matematika Ekonomi Lengkap",
+    courseCode: "KP21517007",
+    meetingNo: 4,
+    type: "Dokumen",
+    description:
+      "Kalkulator interaktif untuk pasar, pajak, subsidi, dua komoditas, fungsi biaya, BEP, laba/rugi, fungsi konsumsi, dan tabungan. Angka dapat diubah bebas dan hasil disertai langkah perhitungan.",
+    url: "/tools/kalkulator-mateko/index.html",
+    createdAt: "2026-09-03T05:00:00.000Z",
+  },
+  {
     id: "mat-analisis-kompleks-pertemuan-03",
     title: "Catatan Kuliah: Pengantar Sistem Bilangan Kompleks & Operasi Aljabar",
     courseCode: "KP21517003",

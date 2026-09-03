@@ -89,13 +89,13 @@ export const COURSE_TOOLS: ToolItem[] = [
   },
   {
     id: "tool-kalkulator-mateko",
-    title: "Kalkulator Matematika Ekonomi (Pasar, Pajak & BEP)",
+    title: "Kalkulator Matematika Ekonomi Lengkap",
     courseCode: "KP21517007",
     courseName: "Matematika Ekonomi",
     badgeColor: "#ea580c",
     description:
-      "Keseimbangan pasar Qd = Qs, analisis pergeseran kurva akibat Pajak spesifik (t) dan Subsidi (s), fungsi biaya TC, penerimaan TR, analisis laba/rugi dan titik impas (Break Even Point) dengan grafik 2D.",
-    tags: ["Keseimbangan Pasar", "Pajak & Subsidi", "BEP", "Kurva Ekonomi"],
+      "Keseimbangan pasar, pajak, subsidi, dua komoditas, fungsi biaya dan penerimaan, BEP, laba/rugi, serta fungsi konsumsi dan tabungan dengan langkah terperinci.",
+    tags: ["Pasar", "Pajak & Subsidi", "BEP & Laba", "Konsumsi & Tabungan"],
     url: "/tools/kalkulator-mateko/index.html",
   },
   {
