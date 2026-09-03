@@ -99,6 +99,17 @@ export const COURSE_TOOLS: ToolItem[] = [
     url: "/tools/kalkulator-mateko/index.html",
   },
   {
+    id: "tool-panduan-induksi",
+    title: "Panduan Interaktif Pembuktian Induksi",
+    courseCode: "KP21517004",
+    courseName: "Analisis Real",
+    badgeColor: "#db2777",
+    description:
+      "Checklist basis, hipotesis, target, dan langkah induksi; perbandingan induksi biasa, induksi dari n₀, serta induksi kuat; disertai pemeriksaan jembatan Latihan 4.",
+    tags: ["Prinsip Induksi", "Struktur Bukti", "Bartle 1.2", "Latihan 4"],
+    url: "/tools/panduan-induksi/index.html",
+  },
+  {
     id: "tool-kalkulator-real",
     title: "Laboratorium & Pembukti Analisis Real (ε - δ)",
     courseCode: "KP21517004",
