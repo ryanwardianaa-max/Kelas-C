@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analisis Real – Sifat Operasi Himpunan (1.2.2)</title>
+  <title>Analisis Real – 1.2.2 Induksi Matematika</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -46,7 +46,7 @@
       border-radius: 8px;
       margin: 0.5rem 0;
     }
-    .btn-venn {
+    .btn-step {
       background: #4338ca;
       color: white;
       border: none;
@@ -57,20 +57,13 @@
       margin-right: 0.5rem;
       margin-bottom: 0.5rem;
     }
-    .btn-venn:hover { background: #6558df; }
-    canvas {
-      border: 1px solid #cbd5e1;
+    .btn-step:hover { background: #6558df; }
+    .step-box {
+      background: #f1f5f9;
+      padding: 1rem;
       border-radius: 8px;
-      display: block;
-      margin: 1rem auto;
-      max-width: 100%;
-      background: white;
-    }
-    .flex-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
+      margin: 1rem 0;
+      min-height: 60px;
     }
     .tag {
       display: inline-block;
@@ -89,88 +82,85 @@
 <body>
   <a class="nav-back" href="#" onclick="history.back()">← Kembali</a>
   <h1>Analisis Real – 1.2.2</h1>
-  <div class="subhead">Sifat-Sifat Operasi Himpunan • Pertemuan 03 • Kamis, 03 Sep 2026</div>
+  <div class="subhead">Prinsip Induksi Matematika • Pertemuan 03 • Kamis, 03 Sep 2026</div>
 
   <div class="card">
     <h2>📘 Tujuan Pembelajaran</h2>
     <ul>
-      <li>Memahami dan membuktikan sifat-sifat dasar operasi himpunan (komutatif, asosiatif, distributif, identitas, komplemen).</li>
-      <li>Menggunakan diagram Venn untuk memvisualisasikan sifat-sifat tersebut.</li>
-      <li>Menerapkan sifat-sifat dalam pembuktian identitas himpunan.</li>
+      <li>Memahami <em>Well-Ordering Property</em> (Sifat Terurut Baik) pada himpunan bilangan asli.</li>
+      <li>Merumuskan dan membuktikan <em>Prinsip Induksi Matematika</em>.</li>
+      <li>Menerapkan induksi untuk membuktikan pernyataan tentang bilangan asli.</li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>🔷 Sifat-Sifat Operasi Himpunan</h2>
-    <p>Misalkan <span class="math">A, B, C</span> himpunan bagian dari semesta <span class="math">U</span>. Berlaku:</p>
-
-    <h3>1. Komutatif</h3>
-    <div class="math">
-      \( A \cup B = B \cup A \) <br>
-      \( A \cap B = B \cap A \)
-    </div>
-
-    <h3>2. Asosiatif</h3>
-    <div class="math">
-      \( (A \cup B) \cup C = A \cup (B \cup C) \) <br>
-      \( (A \cap B) \cap C = A \cap (B \cap C) \)
-    </div>
-
-    <h3>3. Distributif</h3>
-    <div class="math">
-      \( A \cap (B \cup C) = (A \cap B) \cup (A \cap C) \) <br>
-      \( A \cup (B \cap C) = (A \cup B) \cap (A \cup C) \)
-    </div>
-
-    <h3>4. Identitas</h3>
-    <div class="math">
-      \( A \cup \varnothing = A \) <br>
-      \( A \cap U = A \)
-    </div>
-
-    <h3>5. Komplemen</h3>
-    <div class="math">
-      \( A \cup A^c = U \) <br>
-      \( A \cap A^c = \varnothing \) <br>
-      \( (A^c)^c = A \)
-    </div>
-
-    <h3>6. Hukum De Morgan</h3>
-    <div class="math">
-      \( (A \cup B)^c = A^c \cap B^c \) <br>
-      \( (A \cap B)^c = A^c \cup B^c \)
-    </div>
+    <h2>🔢 Well-Ordering Property</h2>
+    <p><strong>Definisi:</strong> Setiap subhimpunan tak kosong dari \(\mathbb{N}\) memiliki elemen terkecil.</p>
+    <p>Dengan kata lain, jika \(S \subseteq \mathbb{N}\) dan \(S \neq \emptyset\), maka terdapat \(m \in S\) sedemikian sehingga \(m \le s\) untuk semua \(s \in S\).</p>
+    <p>Properti ini menjadi dasar bagi Prinsip Induksi Matematika.</p>
   </div>
 
   <div class="card">
-    <h2>🧩 Diagram Venn Interaktif – Sifat Distributif</h2>
-    <p>Klik tombol untuk melihat <span class="math">\( A \cap (B \cup C) \)</span> dan <span class="math">\( (A \cap B) \cup (A \cap C) \)</span> – kedua daerah yang diarsir <strong>identik</strong>!</p>
-    <div class="flex-row">
-      <button class="btn-venn" onclick="drawVenn('left')">A ∩ (B ∪ C)</button>
-      <button class="btn-venn" onclick="drawVenn('right')">(A ∩ B) ∪ (A ∩ C)</button>
-      <button class="btn-venn" onclick="drawVenn('both')">Tampilkan Keduanya</button>
-    </div>
-    <canvas id="vennCanvas" width="400" height="400"></canvas>
-    <p class="tag" id="vennLabel">Klik tombol untuk memulai</p>
+    <h2>📐 Prinsip Induksi Matematika (1.2.2)</h2>
+    <p>Misalkan \(S\) adalah subhimpunan dari \(\mathbb{N}\) yang memenuhi dua kondisi:</p>
+    <ol>
+      <li><strong>Basis:</strong> \(1 \in S\).</li>
+      <li><strong>Langkah induksi:</strong> Jika \(k \in S\), maka \(k+1 \in S\).</li>
+    </ol>
+    <p>Maka \(S = \mathbb{N}\).</p>
+    <p>Dengan kata lain, jika suatu pernyataan \(P(n)\) benar untuk \(n=1\), dan kebenaran \(P(k)\) mengakibatkan kebenaran \(P(k+1)\), maka \(P(n)\) benar untuk semua \(n \in \mathbb{N}\).</p>
   </div>
 
   <div class="card">
-    <h2>📝 Contoh Bukti (Distributif)</h2>
-    <p><strong>Teorema:</strong> \( A \cap (B \cup C) = (A \cap B) \cup (A \cap C) \)</p>
-    <p><strong>Bukti (double inclusion):</strong></p>
+    <h2>🧪 Langkah-Langkah Pembuktian dengan Induksi</h2>
+    <ol>
+      <li><strong>Langkah Basis:</strong> Tunjukkan \(P(1)\) benar.</li>
+      <li><strong>Langkah Induksi:</strong> Asumsikan \(P(k)\) benar untuk suatu \(k \ge 1\) (hipotesis induksi), lalu tunjukkan \(P(k+1)\) benar.</li>
+      <li><strong>Kesimpulan:</strong> Dengan Prinsip Induksi, \(P(n)\) benar untuk semua \(n \ge 1\).</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>📝 Contoh: Jumlah Bilangan Asli Pertama</h2>
+    <p><strong>Teorema:</strong> Untuk setiap \(n \in \mathbb{N}\),</p>
+    <div class="math">\[
+      1 + 2 + \cdots + n = \frac{n(n+1)}{2}.
+    \]</div>
+    <p><strong>Bukti (dengan induksi):</strong></p>
     <ul>
-      <li><strong>⊆:</strong> Ambil \( x \in A \cap (B \cup C) \). Maka \( x \in A \) dan \( x \in B \cup C \). Jika \( x \in B \), maka \( x \in A \cap B \); jika \( x \in C \), maka \( x \in A \cap C \). Jadi \( x \in (A \cap B) \cup (A \cap C) \).</li>
-      <li><strong>⊇:</strong> Ambil \( x \in (A \cap B) \cup (A \cap C) \). Maka \( x \in A \cap B \) atau \( x \in A \cap C \). Dalam kedua kasus, \( x \in A \) dan \( x \in B \cup C \). Jadi \( x \in A \cap (B \cup C) \).</li>
+      <li><strong>Basis (n=1):</strong> \(1 = \frac{1(1+1)}{2} = 1\). Benar.</li>
+      <li><strong>Langkah induksi:</strong> Asumsikan benar untuk \(n=k\):
+        \[
+        1+2+\cdots+k = \frac{k(k+1)}{2}.
+        \]
+        Tambahkan \(k+1\) ke kedua ruas:
+        \[
+        1+2+\cdots+k+(k+1) = \frac{k(k+1)}{2} + (k+1)
+        = \frac{k(k+1) + 2(k+1)}{2}
+        = \frac{(k+1)(k+2)}{2}.
+        \]
+        Ini adalah rumus untuk \(n=k+1\). Jadi benar.
+      </li>
     </ul>
-    <p>Karena kedua arah berlaku, terbukti.</p>
+    <p>Dengan induksi, teorema terbukti.</p>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Simulasi Langkah Induksi</h2>
+    <p>Klik tombol untuk melihat langkah-langkah pembuktian contoh di atas secara bertahap.</p>
+    <button class="btn-step" onclick="showStep(1)">Basis (n=1)</button>
+    <button class="btn-step" onclick="showStep(2)">Hipotesis (n=k)</button>
+    <button class="btn-step" onclick="showStep(3)">Langkah (n=k+1)</button>
+    <button class="btn-step" onclick="showStep(4)">Kesimpulan</button>
+    <div id="stepDisplay" class="step-box">Klik tombol untuk melihat langkah.</div>
   </div>
 
   <div class="card">
     <h2>✏️ Latihan</h2>
     <ol>
-      <li>Gunakan hukum De Morgan untuk menyederhanakan \( (A \cap B^c)^c \).</li>
-      <li>Buktikan \( A \cup (B \cap C) = (A \cup B) \cap (A \cup C) \) dengan metode elemen.</li>
-      <li>Gambarkan diagram Venn untuk \( (A \setminus B) \cap C \).</li>
+      <li>Buktikan dengan induksi: \(1^2 + 2^2 + \cdots + n^2 = \frac{n(n+1)(2n+1)}{6}\).</li>
+      <li>Buktikan bahwa \(2^n > n\) untuk semua \(n \ge 1\).</li>
+      <li>Buktikan bahwa \(n^3 - n\) habis dibagi 3 untuk semua \(n \ge 1\).</li>
     </ol>
   </div>
 
@@ -180,7 +170,7 @@
         renderMathInElement(document.body, {
           delimiters: [
             {left: '$$', right: '$$', display: true},
-            {left: '\\(', right: '\\)', display: false},
+            {left: '\\\\(', right: '\\\\)', display: false},
             {left: '$', right: '$', display: false}
           ]
         });
@@ -188,123 +178,17 @@
     }
     document.addEventListener('DOMContentLoaded', renderMath);
 
-    const canvas = document.getElementById('vennCanvas');
-    const ctx = canvas.getContext('2d');
-    const label = document.getElementById('vennLabel');
-
-    // Koordinat lingkaran
-    const circles = {
-      A: { x: 200, y: 170, r: 80 },
-      B: { x: 140, y: 230, r: 80 },
-      C: { x: 260, y: 230, r: 80 }
-    };
-
-    function isInCircle(px, py, cx, cy, r) {
-      return (px - cx) ** 2 + (py - cy) ** 2 <= r ** 2;
+    function showStep(step) {
+      const display = document.getElementById('stepDisplay');
+      const steps = {
+        1: '<strong>Basis (n=1):</strong> \(1 = \\frac{1(1+1)}{2} = 1\). Pernyataan benar untuk \(n=1\).',
+        2: '<strong>Hipotesis Induksi (n=k):</strong> Anggap \(1+2+\\cdots+k = \\frac{k(k+1)}{2}\) benar untuk suatu \(k \\ge 1\).',
+        3: '<strong>Langkah Induksi (n=k+1):</strong> Tambahkan \(k+1\) ke kedua ruas: \[1+2+\\cdots+k+(k+1) = \\frac{k(k+1)}{2} + (k+1) = \\frac{(k+1)(k+2)}{2}\]. Jadi benar untuk \(n=k+1\).',
+        4: '<strong>Kesimpulan:</strong> Dengan Prinsip Induksi, rumus \(1+2+\\cdots+n = \\frac{n(n+1)}{2}\) berlaku untuk semua \(n \\in \\mathbb{N}\).'
+      };
+      display.innerHTML = steps[step] || 'Pilih langkah yang valid.';
+      renderMath();
     }
-
-    function drawVenn(mode) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Gambar lingkaran
-      function drawCircle(cx, cy, r, fill, stroke) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.fillStyle = fill;
-        ctx.fill();
-        ctx.strokeStyle = stroke || '#1e293b';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-
-      // Tentukan mode arsiran
-      let fillA = 'rgba(67, 56, 202, 0.15)';
-      let fillB = 'rgba(67, 56, 202, 0.15)';
-      let fillC = 'rgba(67, 56, 202, 0.15)';
-      let labelText = '';
-
-      if (mode === 'left') {
-        // A ∩ (B ∪ C) → arsir area di A yang juga di B atau C
-        // Kita arsir dengan mengecek pixel per pixel (sederhana)
-        labelText = 'A ∩ (B ∪ C)';
-        // Kita akan melakukan scan pixel
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        for (let y = 0; y < canvas.height; y++) {
-          for (let x = 0; x < canvas.width; x++) {
-            const inA = isInCircle(x, y, circles.A.x, circles.A.y, circles.A.r);
-            const inB = isInCircle(x, y, circles.B.x, circles.B.y, circles.B.r);
-            const inC = isInCircle(x, y, circles.C.x, circles.C.y, circles.C.r);
-            if (inA && (inB || inC)) {
-              const idx = (y * canvas.width + x) * 4;
-              data[idx] = 67;     // R
-              data[idx+1] = 56;   // G
-              data[idx+2] = 202;  // B
-              data[idx+3] = 150;  // A
-            }
-          }
-        }
-        ctx.putImageData(imageData, 0, 0);
-      } else if (mode === 'right') {
-        // (A ∩ B) ∪ (A ∩ C)
-        labelText = '(A ∩ B) ∪ (A ∩ C)';
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        for (let y = 0; y < canvas.height; y++) {
-          for (let x = 0; x < canvas.width; x++) {
-            const inA = isInCircle(x, y, circles.A.x, circles.A.y, circles.A.r);
-            const inB = isInCircle(x, y, circles.B.x, circles.B.y, circles.B.r);
-            const inC = isInCircle(x, y, circles.C.x, circles.C.y, circles.C.r);
-            if ((inA && inB) || (inA && inC)) {
-              const idx = (y * canvas.width + x) * 4;
-              data[idx] = 67;
-              data[idx+1] = 56;
-              data[idx+2] = 202;
-              data[idx+3] = 150;
-            }
-          }
-        }
-        ctx.putImageData(imageData, 0, 0);
-      } else if (mode === 'both') {
-        // Tampilkan kedua dengan warna berbeda? atau sama saja karena identik
-        labelText = 'Kedua daerah identik (sama persis)';
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        for (let y = 0; y < canvas.height; y++) {
-          for (let x = 0; x < canvas.width; x++) {
-            const inA = isInCircle(x, y, circles.A.x, circles.A.y, circles.A.r);
-            const inB = isInCircle(x, y, circles.B.x, circles.B.y, circles.B.r);
-            const inC = isInCircle(x, y, circles.C.x, circles.C.y, circles.C.r);
-            if (inA && (inB || inC)) {
-              const idx = (y * canvas.width + x) * 4;
-              data[idx] = 67;
-              data[idx+1] = 56;
-              data[idx+2] = 202;
-              data[idx+3] = 150;
-            }
-          }
-        }
-        ctx.putImageData(imageData, 0, 0);
-      }
-
-      // Gambar outline lingkaran di atas
-      drawCircle(circles.A.x, circles.A.y, circles.A.r, 'transparent', '#1e293b');
-      drawCircle(circles.B.x, circles.B.y, circles.B.r, 'transparent', '#1e293b');
-      drawCircle(circles.C.x, circles.C.y, circles.C.r, 'transparent', '#1e293b');
-
-      // Label
-      ctx.font = 'bold 18px sans-serif';
-      ctx.fillStyle = '#1e293b';
-      ctx.fillText('A', circles.A.x - 10, circles.A.y - 90);
-      ctx.fillText('B', circles.B.x - 60, circles.B.y + 90);
-      ctx.fillText('C', circles.C.x + 40, circles.C.y + 90);
-
-      // Label bawah
-      label.textContent = labelText || 'Klik tombol untuk memulai';
-    }
-
-    // Inisialisasi
-    drawVenn('both');
   </script>
 </body>
 </html>
