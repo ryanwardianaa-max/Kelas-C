@@ -1,0 +1,681 @@
+[
+  {
+    "no": 5,
+    "title": "Bahan Belajar Pertemuan 05 — Perbandingan Metode Pencarian Akar dan Laju Konvergensi",
+    "bridge": "Pada pertemuan sebelumnya, akar persamaan taklinier dicari dengan beberapa prosedur yang berbeda. Bahan belajar ini menyatukan metode bagi-dua, regula falsi, iterasi titik tetap, Newton–Raphson, dan secant dalam satu kerangka perbandingan. Fokusnya bukan sekadar memperoleh angka akar, tetapi memahami syarat awal, jaminan konvergensi, kecepatan, biaya evaluasi fungsi, serta alasan suatu metode dapat gagal. Pembahasan mengikuti gagasan utama Bab 3 Rinaldi Munir tentang solusi persamaan taklinier.",
+    "sections": [
+      {
+        "title": "1. Kerangka umum masalah akar persamaan",
+        "paragraphs": [
+          "Masalah pencarian akar ditulis sebagai f(x)=0. Nilai r disebut akar jika f(r)=0. Pada komputer, akar eksak jarang diperoleh; yang dicari adalah pendekatan x_k dengan galat atau residu cukup kecil.",
+          "Metode tertutup mempertahankan selang [a,b] yang mengurung akar dan memerlukan perubahan tanda f(a)f(b)<0 untuk akar sederhana pada fungsi kontinu. Metode terbuka memakai satu atau dua tebakan tanpa selalu mempertahankan kurungan; biasanya lebih cepat, tetapi lebih peka terhadap tebakan awal.",
+          "Residu |f(x_k)| mengukur seberapa baik persamaan dipenuhi, sedangkan galat |x_k-r| mengukur jarak terhadap akar sejati. Residu kecil tidak selalu berarti galat kecil jika grafik f sangat landai. Karena r biasanya tidak diketahui, penghentian praktis menggabungkan perubahan iterasi, residu, dan batas iterasi."
+        ],
+        "formulas": [
+          "f(r)=0",
+          "f(a)f(b)<0",
+          "e_k=|x_k-r|",
+          "e_{a,k}=|x_k-x_{k-1}|",
+          "e_{r,k}=\\frac{|x_k-x_{k-1}|}{\\max(1,|x_k|)}"
+        ],
+        "example": {
+          "question": "Apakah selang [1,2] mengurung akar f(x)=x^3-x-2?",
+          "steps": [
+            "Hitung f(1)=1-1-2=-2.",
+            "Hitung f(2)=8-2-2=4.",
+            "Karena fungsi polinom kontinu dan f(1)f(2)=(-2)(4)=-8<0, sedikitnya ada satu akar di (1,2).",
+            "Turunan f'(x)=3x^2-1>0 untuk x di [1,2], sehingga f naik ketat dan akar pada selang tersebut tunggal."
+          ],
+          "answer": "Ya. Selang [1,2] mengurung tepat satu akar."
+        },
+        "warning": "Syarat perubahan tanda menjamin keberadaan akar ganjil/sederhana, tetapi tidak mendeteksi akar berkelipatan genap yang hanya menyentuh sumbu-x. Contoh f(x)=(x-1)^2 tidak berubah tanda di sekitar x=1."
+      },
+      {
+        "title": "2. Metode tertutup: bagi-dua dan regula falsi",
+        "paragraphs": [
+          "Metode bagi-dua memilih titik tengah c=(a+b)/2 lalu mengganti ujung selang yang mempunyai tanda sama dengan f(c). Lebar selang selalu menjadi setengah, sehingga konvergensinya pasti untuk fungsi kontinu yang memenuhi perubahan tanda.",
+          "Regula falsi mengganti titik tengah dengan perpotongan garis secant melalui (a,f(a)) dan (b,f(b)). Informasi besar nilai fungsi dimanfaatkan, sehingga sering lebih cepat pada awal iterasi. Namun salah satu ujung dapat tertahan lama ketika bentuk grafik tidak seimbang.",
+          "Bagi-dua unggul dalam kepastian dan estimasi galat; regula falsi dapat mengurangi iterasi tetapi tidak memiliki penyusutan selang seragam. Keduanya hanya membutuhkan evaluasi f, bukan turunan."
+        ],
+        "formulas": [
+          "c_{\\text{bis}}=\\frac{a+b}{2}",
+          "c_{\\text{rf}}=\\frac{a f(b)-b f(a)}{f(b)-f(a)}",
+          "|r-c_n|\\le \\frac{b_0-a_0}{2^{n+1}}",
+          "n\\ge \\left\\lceil \\log_2\\left(\\frac{b_0-a_0}{\\varepsilon}\\right)\\right\\rceil"
+        ],
+        "example": {
+          "question": "Lakukan dua iterasi bagi-dua untuk f(x)=x^3-x-2 pada [1,2].",
+          "steps": [
+            "Iterasi 1: c_1=(1+2)/2=1,5 dan f(1,5)=3,375-1,5-2=-0,125. Tanda f(c_1) sama dengan f(1), maka selang baru [1,5;2].",
+            "Iterasi 2: c_2=(1,5+2)/2=1,75 dan f(1,75)=5,359375-1,75-2=1,609375. Tanda positif sama dengan f(2), maka selang baru [1,5;1,75].",
+            "Akar kini terkurung pada [1,5;1,75], dengan pendekatan terakhir 1,75."
+          ],
+          "answer": "Dua titik tengahnya 1,5 dan 1,75; setelah dua iterasi akar berada pada [1,5;1,75]."
+        },
+        "warning": "Jangan mengganti ujung selang hanya berdasarkan nilai yang lebih besar atau lebih kecil. Keputusan harus berdasarkan tanda hasil kali agar perubahan tanda tetap terjaga."
+      },
+      {
+        "title": "3. Metode terbuka: titik tetap, Newton–Raphson, dan secant",
+        "paragraphs": [
+          "Iterasi titik tetap mengubah f(x)=0 menjadi x=g(x), lalu menghitung x_{k+1}=g(x_k). Bentuk g tidak unik. Suatu susunan dapat konvergen, sedangkan susunan lain dari persamaan yang sama dapat divergen.",
+          "Newton–Raphson memakai garis singgung di x_k. Metode ini berkonvergensi kuadratik di dekat akar sederhana jika turunan tersedia dan tebakan awal cukup baik. Secant mengganti turunan dengan kemiringan melalui dua pendekatan terakhir; tidak memerlukan rumus turunan dan memiliki orde konvergensi sekitar 1,618.",
+          "Metode terbuka tidak menjamin iterasi tetap dekat akar. Penyebut yang sangat kecil, tebakan pada daerah datar, atau lompatan ke basin akar lain perlu dipantau. Strategi hibrida yang aman adalah mengurung akar terlebih dahulu, lalu memakai Newton atau secant ketika pendekatan sudah dekat."
+        ],
+        "formulas": [
+          "x_{k+1}=g(x_k)",
+          "x_{k+1}=x_k-\\frac{f(x_k)}{f'(x_k)}",
+          "x_{k+1}=x_k-f(x_k)\\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}",
+          "|g'(x)|<1 \\text{ di sekitar titik tetap}"
+        ],
+        "example": {
+          "question": "Gunakan satu langkah Newton–Raphson untuk f(x)=x^3-x-2 dengan x_0=1,5.",
+          "steps": [
+            "Turunkan fungsi: f'(x)=3x^2-1.",
+            "Hitung f(1,5)=-0,125 dan f'(1,5)=3(2,25)-1=5,75.",
+            "Substitusi: x_1=1,5-(-0,125)/5,75=1,52173913.",
+            "Periksa residu: |f(x_1)| jauh lebih kecil daripada |f(x_0)|, sehingga langkah bergerak menuju akar."
+          ],
+          "answer": "x_1≈1,52173913."
+        },
+        "warning": "Newton–Raphson tidak boleh dijalankan ketika f'(x_k)=0, sedangkan secant bermasalah ketika f(x_k)=f(x_{k-1}). Beri pemeriksaan penyebut dan batas iterasi dalam implementasi."
+      },
+      {
+        "title": "4. Laju konvergensi dan kriteria penghentian",
+        "paragraphs": [
+          "Suatu barisan mempunyai orde konvergensi p jika e_{k+1} kira-kira sebanding dengan e_k^p saat k besar. Konvergensi linear memiliki p=1, superlinear memiliki 1<p<2, dan kuadratik memiliki p=2.",
+          "Bagi-dua dan iterasi titik tetap kontraktif umumnya linear. Newton pada akar sederhana umumnya kuadratik. Secant superlinear. Regula falsi klasik umumnya linear dan dapat tersendat. Kecepatan teoritis baru tampak setelah iterasi memasuki lingkungan akar.",
+          "Penghentian yang kuat memakai beberapa syarat: perubahan relatif kecil, residu kecil, dan jumlah iterasi tidak melebihi maksimum. Untuk metode tertutup, lebar selang memberi batas galat tambahan yang dapat dipercaya."
+        ],
+        "formulas": [
+          "\\lim_{k\\to\\infty}\\frac{e_{k+1}}{e_k^p}=C,\\quad 0<C<\\infty",
+          "|x_{k+1}-x_k|\\le \\varepsilon_x\\max(1,|x_{k+1}|)",
+          "|f(x_{k+1})|\\le \\varepsilon_f",
+          "k<k_{\\max}"
+        ],
+        "example": {
+          "question": "Jika galat Newton memenuhi e_{k+1}≈2e_k^2 dan e_k=10^{-3}, perkirakan galat berikutnya.",
+          "steps": [
+            "Gunakan model kuadratik e_{k+1}≈2e_k^2.",
+            "Kuadratkan galat: (10^{-3})^2=10^{-6}.",
+            "Kalikan konstanta 2 sehingga e_{k+1}≈2×10^{-6}."
+          ],
+          "answer": "Galat berikutnya diperkirakan 2×10^{-6}; jumlah digit benar meningkat cepat."
+        },
+        "warning": "Berhenti hanya karena |x_{k+1}-x_k| kecil dapat menipu pada stagnasi. Selalu periksa residu dan laporkan jika batas iterasi tercapai."
+      },
+      {
+        "title": "5. Pemilihan metode dan pola penyelesaian soal",
+        "paragraphs": [
+          "Pilih bagi-dua saat keandalan lebih penting daripada kecepatan dan selang perubahan tanda tersedia. Pilih regula falsi ketika tetap ingin menjaga kurungan sambil memanfaatkan interpolasi linear. Pilih Newton jika turunan murah dan tebakan awal baik. Pilih secant jika turunan sulit, tetapi dua tebakan tersedia. Pilih titik tetap jika bentuk g yang kontraktif mudah dibangun.",
+          "Dalam jawaban ujian, tuliskan fungsi, data awal, rumus iterasi, tabel k, x_k, f(x_k), galat hampiran, keputusan pembaruan, dan alasan berhenti. Hasil angka tanpa jejak iterasi sulit diperiksa.",
+          "Perbandingan adil memakai toleransi dan kriteria berhenti yang sama. Jumlah iterasi saja belum cukup; hitung pula evaluasi f, evaluasi f', kebutuhan memori, dan risiko kegagalan."
+        ],
+        "formulas": [
+          "\\text{biaya Newton per langkah}\\approx 1\\,f+1\\,f'",
+          "\\text{biaya secant per langkah}\\approx 1\\,f \\text{ setelah inisialisasi}",
+          "\\text{efisiensi}\\not\\equiv \\text{jumlah iterasi minimum}"
+        ],
+        "example": {
+          "question": "Metode mana yang sesuai untuk fungsi kontinu dengan selang perubahan tanda, turunan sangat rumit, dan keandalan wajib dijaga?",
+          "steps": [
+            "Turunan rumit mengurangi daya tarik Newton.",
+            "Keandalan wajib berarti kurungan akar harus dipertahankan.",
+            "Bagi-dua memberi jaminan paling sederhana; regula falsi juga mungkin, tetapi dapat mengalami ujung tertahan.",
+            "Gunakan bagi-dua sebagai pilihan dasar, atau hibrida bagi-dua–secant setelah selang cukup sempit."
+          ],
+          "answer": "Bagi-dua paling aman; metode hibrida dapat dipakai untuk percepatan tanpa kehilangan kurungan."
+        },
+        "warning": "Jangan menyatakan satu metode selalu terbaik. Kesimpulan harus dikaitkan dengan data awal, bentuk fungsi, turunan, toleransi, dan tuntutan keandalan."
+      }
+    ],
+    "summary": [
+      "Metode tertutup menjaga selang akar; metode terbuka mengejar kecepatan tanpa jaminan kurungan.",
+      "Bagi-dua pasti konvergen pada fungsi kontinu dengan perubahan tanda dan memiliki batas galat eksplisit.",
+      "Newton umumnya kuadratik dekat akar sederhana; secant superlinear tanpa turunan.",
+      "Konvergensi titik tetap ditentukan oleh pemilihan g dan sifat kontraksi |g'|<1 di sekitar akar.",
+      "Kriteria berhenti sebaiknya menggabungkan perubahan iterasi, residu, dan batas iterasi.",
+      "Perbandingan metode harus mempertimbangkan biaya evaluasi, kebutuhan data, stabilitas, serta risiko gagal."
+    ],
+    "exercises": [
+      {
+        "no": 1,
+        "question": "Untuk f(x)=x^3-4x-9, tunjukkan bahwa [2,3] mengurung akar dan lakukan empat iterasi bagi-dua.",
+        "hint": "Catat selang baru dan nilai f(c) pada setiap iterasi."
+      },
+      {
+        "no": 2,
+        "question": "Gunakan tiga iterasi regula falsi untuk f(x)=e^{-x}-x pada [0,1].",
+        "hint": "Pertahankan pasangan ujung yang berbeda tanda."
+      },
+      {
+        "no": 3,
+        "question": "Bentuk dua fungsi iterasi g dari x^3-x-2=0. Periksa |g'(x)| di sekitar x=1,52 dan prediksi bentuk yang konvergen.",
+        "hint": "Susunan aljabar yang setara belum tentu memiliki sifat numerik yang sama."
+      },
+      {
+        "no": 4,
+        "question": "Lakukan tiga langkah Newton untuk f(x)=cos x-x dengan x_0=0,7 dan toleransi 10^{-6}.",
+        "hint": "Gunakan f'(x)=-sin x-1."
+      },
+      {
+        "no": 5,
+        "question": "Lakukan tiga langkah secant untuk f(x)=x^2-3 dengan x_0=1 dan x_1=2. Bandingkan dengan nilai √3.",
+        "hint": "Hitung galat absolut jika akar acuan diketahui."
+      },
+      {
+        "no": 6,
+        "question": "Susun tabel perbandingan bagi-dua, Newton, dan secant pada satu fungsi yang sama: syarat awal, iterasi, evaluasi fungsi, residu akhir, dan kemungkinan gagal.",
+        "hint": "Gunakan toleransi identik agar perbandingan adil."
+      }
+    ],
+    "next": "Pertemuan 06 beralih ke Bab 4 Rinaldi Munir: sistem persamaan linear. Fokus awalnya eliminasi Gaussian, substitusi balik, dan Gauss–Jordan."
+  },
+  {
+    "no": 6,
+    "title": "Bahan Belajar Pertemuan 06 — Eliminasi Gaussian dan Gauss–Jordan",
+    "bridge": "Setelah menyelesaikan satu persamaan taklinier, pembahasan beralih ke sistem n persamaan linear dengan n peubah. Bab 4 Rinaldi Munir menempatkan eliminasi Gaussian sebagai metode langsung dasar: sistem diubah melalui operasi baris elementer tanpa mengubah himpunan solusinya. Bahan belajar ini menekankan alur hitung, pemilihan pivot, substitusi balik, perbedaan dengan Gauss–Jordan, dan pemeriksaan hasil.",
+    "sections": [
+      {
+        "title": "1. Model matriks dan matriks diperbesar",
+        "paragraphs": [
+          "Sistem linear ditulis Ax=b. Matriks A memuat koefisien, vektor x memuat peubah, dan b memuat ruas kanan. Matriks diperbesar [A|b] menyatukan data agar operasi pada setiap persamaan dapat dicatat sebagai operasi baris.",
+          "Tiga operasi baris elementer adalah menukar dua baris, mengalikan baris dengan bilangan taknol, dan menambahkan kelipatan suatu baris ke baris lain. Ketiganya menghasilkan sistem ekuivalen.",
+          "Sistem persegi dapat mempunyai solusi tunggal, tak hingga banyak solusi, atau tidak mempunyai solusi. Baris [0 ... 0|c] dengan c≠0 menandakan inkonsistensi; baris nol dengan peubah bebas dapat menandakan banyak solusi."
+        ],
+        "formulas": [
+          "A\\mathbf{x}=\\mathbf{b}",
+          "[A|\\mathbf{b}]",
+          "R_i\\leftrightarrow R_j",
+          "R_i\\leftarrow \\alpha R_i,\\quad \\alpha\\ne0",
+          "R_i\\leftarrow R_i+\\alpha R_j"
+        ],
+        "example": {
+          "question": "Tuliskan matriks diperbesar dari 2x-y=1 dan x+3y=8.",
+          "steps": [
+            "Ambil koefisien x dan y secara berurutan.",
+            "Baris pertama menjadi [2,-1|1].",
+            "Baris kedua menjadi [1,3|8]."
+          ],
+          "answer": "Matriks diperbesar adalah \\left[\\begin{array}{cc|c}2&-1&1\\\\1&3&8\\end{array}\\right]."
+        },
+        "warning": "Ketika menukar atau mengubah baris, operasi harus diterapkan juga pada kolom ruas kanan. Mengubah A tanpa b menghasilkan sistem yang berbeda."
+      },
+      {
+        "title": "2. Eliminasi maju pada metode Gaussian",
+        "paragraphs": [
+          "Eliminasi maju mengubah A menjadi matriks segitiga atas U. Pada kolom k, elemen a_kk dipakai sebagai pivot untuk meniadakan elemen di bawahnya.",
+          "Pengali m_ik=a_ik/a_kk menyatakan berapa kali baris pivot dikurangkan dari baris i. Proses dilakukan untuk k=1 sampai n-1. Pivot nol tidak boleh menjadi pembagi; pertukaran baris diperlukan.",
+          "Mencatat pengali secara rapi penting karena pengali tersebut kelak menjadi isi matriks L pada faktorisasi LU. Hindari pembulatan terlalu dini agar galat tidak terakumulasi."
+        ],
+        "formulas": [
+          "m_{ik}=\\frac{a_{ik}^{(k)}}{a_{kk}^{(k)}}",
+          "R_i\\leftarrow R_i-m_{ik}R_k,\\quad i=k+1,\\ldots,n",
+          "U\\mathbf{x}=\\mathbf{c}"
+        ],
+        "example": {
+          "question": "Lakukan eliminasi maju untuk sistem 2x+y-z=8, -3x-y+2z=-11, dan -2x+y+2z=-3.",
+          "steps": [
+            "Pivot pertama 2. Untuk baris 2, m_21=-3/2; lakukan R_2←R_2-(-3/2)R_1 sehingga R_2=[0,1/2,1/2|1].",
+            "Untuk baris 3, m_31=-1; lakukan R_3←R_3+R_1 sehingga R_3=[0,2,1|5].",
+            "Pivot kedua 1/2. Pengali m_32=2/(1/2)=4; lakukan R_3←R_3-4R_2 sehingga R_3=[0,0,-1|1].",
+            "Bentuk segitiga atas: 2x+y-z=8, (1/2)y+(1/2)z=1, dan -z=1."
+          ],
+          "answer": "Matriks segitiga atas memiliki baris [2,1,-1|8], [0,1/2,1/2|1], [0,0,-1|1]."
+        },
+        "warning": "Pengali dapat bernilai negatif. Gunakan rumus R_i←R_i-m_ikR_k secara konsisten; mengganti tanda secara mental sering memunculkan salah hitung."
+      },
+      {
+        "title": "3. Substitusi balik dan pemeriksaan residu",
+        "paragraphs": [
+          "Setelah bentuk segitiga atas diperoleh, peubah dihitung dari persamaan terakhir ke pertama. Setiap x_i memakai nilai x_j dengan j>i yang sudah diketahui.",
+          "Solusi tidak selesai hanya karena substitusi balik memberi angka. Substitusikan ke sistem asli atau hitung residu r=b-Ax. Residu nol secara eksak, atau sangat kecil dalam aritmetika titik mengambang, menunjukkan persamaan dipenuhi.",
+          "Residu kecil mengukur konsistensi hasil terhadap sistem, bukan selalu galat solusi. Pada sistem berkondisi buruk, perubahan data yang kecil dapat menyebabkan perubahan solusi yang besar."
+        ],
+        "formulas": [
+          "x_i=\\frac{c_i-\\sum_{j=i+1}^{n}u_{ij}x_j}{u_{ii}},\\quad i=n,n-1,\\ldots,1",
+          "\\mathbf{r}=\\mathbf{b}-A\\hat{\\mathbf{x}}",
+          "\\|\\mathbf{r}\\|_\\infty=\\max_i|r_i|"
+        ],
+        "example": {
+          "question": "Lanjutkan bentuk segitiga atas pada contoh sebelumnya.",
+          "steps": [
+            "Dari -z=1 diperoleh z=-1.",
+            "Dari (1/2)y+(1/2)z=1: (1/2)y-1/2=1, sehingga y=3.",
+            "Dari 2x+y-z=8: 2x+3+1=8, sehingga x=2.",
+            "Periksa persamaan kedua: -3(2)-3+2(-1)=-11; benar."
+          ],
+          "answer": "Solusinya (x,y,z)=(2,3,-1), dengan residu nol."
+        },
+        "warning": "Jangan memakai matriks yang sudah dieliminasi untuk pemeriksaan akhir lalu menganggap hasil pasti benar. Gunakan A dan b asli agar kesalahan selama eliminasi dapat terdeteksi."
+      },
+      {
+        "title": "4. Metode Gauss–Jordan",
+        "paragraphs": [
+          "Gauss–Jordan meneruskan eliminasi sampai bagian koefisien menjadi bentuk eselon baris tereduksi. Pivot dibuat 1 dan semua elemen di atas maupun di bawah pivot dibuat 0.",
+          "Jika A nonsingular, hasil akhirnya [I|x], sehingga tidak diperlukan substitusi balik. Metode ini mudah dibaca dan berguna untuk mencari invers dengan memperbesar [A|I].",
+          "Dibanding Gaussian untuk satu ruas kanan, Gauss–Jordan melakukan lebih banyak operasi. Karena itu Gaussian umumnya lebih efisien untuk satu solusi, sedangkan Gauss–Jordan cocok untuk demonstrasi struktur solusi dan invers berukuran kecil."
+        ],
+        "formulas": [
+          "[A|\\mathbf{b}]\\longrightarrow[I|\\mathbf{x}]",
+          "R_k\\leftarrow \\frac{1}{a_{kk}}R_k",
+          "R_i\\leftarrow R_i-a_{ik}R_k,\\quad i\\ne k"
+        ],
+        "example": {
+          "question": "Selesaikan 2x+y=5 dan x-y=1 dengan Gauss–Jordan.",
+          "steps": [
+            "Mulai dari \\left[\\begin{array}{cc|c}2&1&5\\\\1&-1&1\\end{array}\\right], lalu tukar R_1 dan R_2 agar pivot pertama 1.",
+            "R_2←R_2-2R_1 menghasilkan [0,3|3].",
+            "R_2←(1/3)R_2 menghasilkan [0,1|1].",
+            "R_1←R_1+R_2 menghasilkan [1,0|2]."
+          ],
+          "answer": "Bentuk akhir [I|x] memberi x=2 dan y=1."
+        },
+        "warning": "Normalisasi pivot terlalu awal dapat menghasilkan banyak pecahan. Secara manual, pertukaran atau eliminasi yang menjaga bilangan bulat sering mengurangi risiko salah hitung."
+      },
+      {
+        "title": "5. Biaya komputasi, singularitas, dan strategi kerja",
+        "paragraphs": [
+          "Eliminasi Gaussian memerlukan orde n^3 operasi untuk eliminasi dan orde n^2 untuk substitusi balik. Ketika n besar, bagian eliminasi mendominasi biaya.",
+          "Pivot nol pada suatu tahap dapat berarti baris perlu ditukar, bukan otomatis matriks singular. Matriks dinyatakan singular bila tidak tersedia pivot taknol yang sesuai setelah pencarian baris.",
+          "Pola kerja yang aman adalah menyimpan matriks asli, memilih pivot, mencatat setiap pengali, menghindari pembulatan prematur, melakukan substitusi balik, lalu memeriksa residu."
+        ],
+        "formulas": [
+          "\\text{biaya eliminasi}\\approx \\frac{2}{3}n^3",
+          "\\det(A)=0\\iff A \\text{ singular}",
+          "\\operatorname{rank}(A)=\\operatorname{rank}([A|b])=n \\Rightarrow \\text{solusi tunggal}"
+        ],
+        "example": {
+          "question": "Apa arti baris akhir [0,0|5] setelah eliminasi?",
+          "steps": [
+            "Baris tersebut mewakili persamaan 0x+0y=5.",
+            "Pernyataan 0=5 mustahil dipenuhi.",
+            "Maka rank matriks diperbesar lebih besar daripada rank A."
+          ],
+          "answer": "Sistem tidak konsisten dan tidak mempunyai solusi."
+        },
+        "warning": "Munculnya baris nol [0,...,0|0] tidak otomatis berarti tidak ada solusi. Baris itu dapat menunjukkan persamaan bergantung dan perlu dianalisis bersama jumlah pivot serta peubah bebas."
+      }
+    ],
+    "summary": [
+      "Sistem linear direpresentasikan sebagai Ax=b dan dihitung melalui matriks diperbesar [A|b].",
+      "Eliminasi Gaussian membentuk matriks segitiga atas, kemudian solusi diperoleh dengan substitusi balik.",
+      "Gauss–Jordan membentuk [I|x] dan tidak memerlukan substitusi balik, tetapi operasinya lebih banyak.",
+      "Pivot nol memerlukan pertukaran baris atau pemeriksaan singularitas.",
+      "Residu b-Ax terhadap sistem asli menjadi pemeriksaan numerik hasil.",
+      "Baris kontradiktif menandakan tidak ada solusi; pivot yang kurang dapat menandakan peubah bebas."
+    ],
+    "exercises": [
+      {
+        "no": 1,
+        "question": "Selesaikan dengan Gaussian: x+2y-z=3, 2x-y+3z=9, dan 3x+y+2z=10.",
+        "hint": "Tulis matriks diperbesar, eliminasi maju, lalu substitusi balik."
+      },
+      {
+        "no": 2,
+        "question": "Selesaikan sistem 3x+2y=7 dan 6x+4y=14. Jelaskan jenis solusinya.",
+        "hint": "Perhatikan baris nol dan peubah bebas."
+      },
+      {
+        "no": 3,
+        "question": "Gunakan Gauss–Jordan untuk 2x-y=0 dan x+2y=5.",
+        "hint": "Target akhir bagian koefisien adalah I."
+      },
+      {
+        "no": 4,
+        "question": "Analisis sistem x+y=2 dan 2x+2y=5 setelah eliminasi.",
+        "hint": "Cari baris kontradiktif."
+      },
+      {
+        "no": 5,
+        "question": "Untuk solusi hampiran (1,001;0,999) pada sistem x+y=2 dan 2x-y=1, hitung vektor residu dan normanya.",
+        "hint": "Gunakan data sistem asli."
+      },
+      {
+        "no": 6,
+        "question": "Bandingkan jumlah dan jenis operasi Gaussian dengan Gauss–Jordan pada matriks 3×3 yang sama.",
+        "hint": "Catat operasi eliminasi di atas pivot dan kebutuhan substitusi balik."
+      }
+    ],
+    "next": "Pertemuan 07 melanjutkan Bab 4 dengan faktorisasi LU, penggunaan satu faktor untuk banyak ruas kanan, perhitungan invers, dan pivoting untuk kestabilan."
+  },
+  {
+    "no": 7,
+    "title": "Bahan Belajar Pertemuan 07 — Faktorisasi LU, Invers Matriks, dan Pivoting",
+    "bridge": "Eliminasi Gaussian pada Pertemuan 06 mengubah A menjadi U melalui pengali eliminasi. Jika pengali itu disimpan, pekerjaan eliminasi dapat ditulis sebagai faktorisasi A=LU. Gagasan pada Bab 4 Rinaldi Munir ini sangat berguna ketika matriks A tetap tetapi ruas kanan b berubah. Bahan belajar ini juga menjelaskan invers sebagai kumpulan solusi, pivoting parsial, serta pemeriksaan faktor dan solusi.",
+    "sections": [
+      {
+        "title": "1. Makna faktorisasi LU",
+        "paragraphs": [
+          "Faktorisasi LU memecah A menjadi matriks segitiga bawah L dan matriks segitiga atas U. Pada bentuk Doolittle, diagonal L bernilai 1, sedangkan U memuat pivot hasil eliminasi.",
+          "Pengali m_ik yang digunakan untuk meniadakan elemen di bawah pivot ditempatkan pada l_ik. Karena itu LU bukan prosedur yang terpisah dari Gaussian, melainkan rekaman terstruktur dari eliminasinya.",
+          "Tanpa pertukaran baris, faktorisasi dapat gagal jika pivot nol muncul. Dengan pivoting, bentuk yang tepat menjadi PA=LU, dengan P matriks permutasi."
+        ],
+        "formulas": [
+          "A=LU",
+          "L=\\begin{bmatrix}1&0&0\\\\m_{21}&1&0\\\\m_{31}&m_{32}&1\\end{bmatrix}",
+          "PA=LU"
+        ],
+        "example": {
+          "question": "Faktorkan A=\\begin{bmatrix}2&1\\\\4&3\\end{bmatrix} dengan Doolittle.",
+          "steps": [
+            "Pivot pertama u_11=2. Pengali m_21=4/2=2.",
+            "L=\\begin{bmatrix}1&0\\\\2&1\\end{bmatrix}.",
+            "Eliminasi baris kedua: [4,3]-2[2,1]=[0,1], sehingga U=\\begin{bmatrix}2&1\\\\0&1\\end{bmatrix}.",
+            "Periksa LU: hasil kali menghasilkan kembali A."
+          ],
+          "answer": "L=\\begin{bmatrix}1&0\\\\2&1\\end{bmatrix} dan U=\\begin{bmatrix}2&1\\\\0&1\\end{bmatrix}."
+        },
+        "warning": "Jangan memasukkan operasi pertukaran baris ke L secara sembarang. Jika pivoting dilakukan, simpan permutasi P dan gunakan relasi PA=LU."
+      },
+      {
+        "title": "2. Menyelesaikan Ax=b melalui dua sistem segitiga",
+        "paragraphs": [
+          "Karena A=LU, persamaan Ax=b menjadi L(Ux)=b. Definisikan y=Ux, lalu selesaikan Ly=b dengan substitusi maju dan Ux=y dengan substitusi balik.",
+          "Faktorisasi dilakukan sekali. Untuk beberapa vektor b, hanya dua substitusi berbiaya orde n^2 yang diulang. Inilah keuntungan utama LU dibanding mengulangi eliminasi Gaussian penuh.",
+          "Jika pivoting dipakai, ruas kanan juga harus dipermutasi: Ly=Pb, kemudian Ux=y."
+        ],
+        "formulas": [
+          "L\\mathbf{y}=\\mathbf{b}",
+          "U\\mathbf{x}=\\mathbf{y}",
+          "y_i=\\frac{b_i-\\sum_{j=1}^{i-1}l_{ij}y_j}{l_{ii}}",
+          "PA\\mathbf{x}=P\\mathbf{b}=LU\\mathbf{x}"
+        ],
+        "example": {
+          "question": "Gunakan faktor pada contoh sebelumnya untuk menyelesaikan Ax=[5,11]^T.",
+          "steps": [
+            "Substitusi maju Ly=b: y_1=5 dan 2y_1+y_2=11, sehingga y_2=1.",
+            "Substitusi balik Ux=y: x_2=1.",
+            "Dari 2x_1+x_2=5 diperoleh x_1=2.",
+            "Periksa Ax=[2(2)+1,4(2)+3(1)]^T=[5,11]^T."
+          ],
+          "answer": "x=[2,1]^T."
+        },
+        "warning": "Urutan tidak boleh dibalik. Selesaikan Ly=b lebih dahulu untuk memperoleh y, baru Ux=y untuk memperoleh x."
+      },
+      {
+        "title": "3. Invers matriks melalui sistem linear",
+        "paragraphs": [
+          "Invers A^{-1} memenuhi AA^{-1}=I dan hanya ada jika A nonsingular. Kolom ke-j dari A^{-1} adalah solusi Ax_j=e_j, dengan e_j kolom ke-j matriks identitas.",
+          "Faktor LU dari A dapat dipakai berulang untuk semua e_j. Cara ini lebih terstruktur daripada menghitung kofaktor, khususnya untuk matriks lebih besar.",
+          "Dalam komputasi, jika tujuan akhirnya menyelesaikan Ax=b, biasanya lebih baik menyelesaikan sistem langsung melalui LU daripada membentuk A^{-1} lalu mengalikan A^{-1}b. Pembentukan invers menambah operasi dan galat pembulatan."
+        ],
+        "formulas": [
+          "AA^{-1}=I",
+          "A\\mathbf{x}_j=\\mathbf{e}_j,\\quad j=1,\\ldots,n",
+          "A^{-1}=[\\mathbf{x}_1\\;\\mathbf{x}_2\\;\\cdots\\;\\mathbf{x}_n]"
+        ],
+        "example": {
+          "question": "Cari invers A=\\begin{bmatrix}2&1\\\\4&3\\end{bmatrix}.",
+          "steps": [
+            "Untuk e_1=[1,0]^T, selesaikan Ax_1=e_1 dan diperoleh x_1=[3/2,-2]^T.",
+            "Untuk e_2=[0,1]^T, selesaikan Ax_2=e_2 dan diperoleh x_2=[-1/2,1]^T.",
+            "Susun kedua solusi sebagai kolom.",
+            "Periksa AA^{-1}=I."
+          ],
+          "answer": "A^{-1}=\\begin{bmatrix}3/2&-1/2\\\\-2&1\\end{bmatrix}."
+        },
+        "warning": "Jangan menyusun solusi sebagai baris. Setiap solusi Ax_j=e_j menjadi kolom ke-j dari A^{-1}."
+      },
+      {
+        "title": "4. Pivoting parsial dan matriks permutasi",
+        "paragraphs": [
+          "Pivoting parsial memilih elemen dengan nilai mutlak terbesar pada kolom aktif dari baris k sampai n, lalu menukarnya ke posisi pivot. Tujuannya menghindari pembagian oleh nol atau bilangan sangat kecil.",
+          "Matriks permutasi P merekam pertukaran baris. Menukar baris A sama dengan mengalikan A dari kiri oleh P. Dalam implementasi, vektor indeks permutasi sering lebih hemat daripada menyimpan P penuh.",
+          "Pivoting tidak menghilangkan semua galat pembulatan, tetapi secara umum membuat eliminasi jauh lebih stabil. Pivoting lengkap juga menukar kolom, namun biaya pencarian dan pelacakan peubah lebih besar."
+        ],
+        "formulas": [
+          "p=\\operatorname*{arg\\,max}_{i=k,\\ldots,n}|a_{ik}^{(k)}|",
+          "R_k\\leftrightarrow R_p",
+          "PA=LU",
+          "L\\mathbf{y}=P\\mathbf{b}"
+        ],
+        "example": {
+          "question": "Tentukan pivot pertama untuk A=\\begin{bmatrix}0,001&1\\\\2&3\\end{bmatrix}.",
+          "steps": [
+            "Bandingkan |0,001| dan |2| pada kolom pertama.",
+            "Nilai terbesar adalah 2 pada baris kedua.",
+            "Tukar R_1 dan R_2 sebelum eliminasi.",
+            "Pengali setelah pertukaran menjadi 0,001/2=0,0005, jauh lebih aman daripada 2/0,001=2000."
+          ],
+          "answer": "Gunakan 2 sebagai pivot pertama dengan menukar kedua baris."
+        },
+        "warning": "Pemilihan pivot didasarkan pada nilai mutlak, bukan nilai aljabar terbesar. Angka -10 lebih baik sebagai pivot daripada 3 karena |-10|>|3|."
+      },
+      {
+        "title": "5. Verifikasi, residu, dan kepekaan sistem",
+        "paragraphs": [
+          "Faktorisasi diperiksa dengan menghitung norma PA-LU. Solusi diperiksa dengan residu b-Ax. Keduanya menguji tahap yang berbeda: faktor yang benar belum menjamin substitusi bebas salah, dan residu kecil belum selalu berarti galat solusi kecil.",
+          "Bilangan kondisi mengukur kepekaan relatif solusi terhadap perubahan data. Jika κ(A) besar, sedikit gangguan pada A atau b dapat menghasilkan perubahan relatif besar pada x.",
+          "Pelaporan yang baik mencantumkan faktor P,L,U, hasil antara y, solusi x, norma residu, dan jumlah digit yang dipertahankan. Jangan membulatkan pengali pada tahap awal."
+        ],
+        "formulas": [
+          "\\|PA-LU\\|",
+          "\\mathbf{r}=\\mathbf{b}-A\\hat{\\mathbf{x}}",
+          "\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|",
+          "\\frac{\\|\\delta x\\|}{\\|x\\|}\\lesssim \\kappa(A)\\frac{\\|\\delta b\\|}{\\|b\\|}"
+        ],
+        "example": {
+          "question": "Sebuah solusi hampiran memiliki ||r||∞=10^{-10}, tetapi κ(A)=10^{12}. Bolehkah langsung disimpulkan x sangat akurat?",
+          "steps": [
+            "Residu kecil menunjukkan Ax hampir sama dengan b.",
+            "Bilangan kondisi sangat besar menunjukkan sistem sangat peka.",
+            "Galat data dan pembulatan dapat diperkuat oleh faktor besar.",
+            "Perlu analisis galat maju, presisi lebih tinggi, atau perbaikan iteratif sebelum menyimpulkan akurasi x."
+          ],
+          "answer": "Tidak. Residu kecil saja tidak menjamin solusi akurat pada sistem berkondisi buruk."
+        },
+        "warning": "Jangan menyamakan residu dengan galat solusi. Keduanya berkaitan melalui kondisi matriks, bukan identik."
+      }
+    ],
+    "summary": [
+      "LU merekam eliminasi Gaussian sebagai A=LU; dengan pertukaran baris bentuknya PA=LU.",
+      "Sistem diselesaikan melalui substitusi maju Ly=Pb dan substitusi balik Ux=y.",
+      "Faktorisasi sekali dapat dipakai untuk banyak ruas kanan sehingga lebih efisien.",
+      "Kolom invers diperoleh dari solusi Ax_j=e_j, tetapi invers tidak perlu dibentuk untuk sekadar menyelesaikan Ax=b.",
+      "Pivoting parsial memilih nilai mutlak terbesar pada kolom aktif untuk meningkatkan kestabilan.",
+      "Norma PA-LU memeriksa faktor; residu b-Ax memeriksa solusi; kondisi A menjelaskan kepekaan."
+    ],
+    "exercises": [
+      {
+        "no": 1,
+        "question": "Faktorkan A=[[4,3],[6,3]] menjadi LU dengan bentuk Doolittle dan periksa hasil kalinya.",
+        "hint": "Diagonal L bernilai 1."
+      },
+      {
+        "no": 2,
+        "question": "Gunakan LU soal 1 untuk menyelesaikan Ax=[10,12]^T.",
+        "hint": "Kerjakan Ly=b lalu Ux=y."
+      },
+      {
+        "no": 3,
+        "question": "Dengan faktor yang sama, selesaikan Ax=[1,0]^T dan Ax=[0,1]^T untuk membentuk A^{-1}.",
+        "hint": "Letakkan solusi sebagai kolom."
+      },
+      {
+        "no": 4,
+        "question": "Tentukan pertukaran baris pertama pada A=[[0,2,1],[5,1,0],[-3,4,2]] dengan pivoting parsial.",
+        "hint": "Bandingkan nilai mutlak elemen kolom pertama."
+      },
+      {
+        "no": 5,
+        "question": "Untuk P,L,U yang diberikan pengajar, hitung PA-LU dan nyatakan apakah faktor konsisten.",
+        "hint": "Gunakan satu norma matriks yang dinyatakan jelas."
+      },
+      {
+        "no": 6,
+        "question": "Jelaskan mengapa menghitung x=A^{-1}b kurang disarankan dibanding dua substitusi segitiga setelah LU.",
+        "hint": "Bandingkan biaya operasi dan sumber galat pembulatan."
+      }
+    ],
+    "next": "Pertemuan 08 membahas metode iteratif Jacobi dan Gauss–Seidel, syarat konvergensi, pemeriksaan residu, serta tinjauan terpadu materi ujian tengah semester."
+  },
+  {
+    "no": 8,
+    "title": "Bahan Belajar Pertemuan 08 — Iterasi Jacobi, Gauss–Seidel, Konvergensi, dan Tinjauan UTS",
+    "bridge": "Metode langsung pada Pertemuan 06–07 berusaha mencapai solusi setelah sejumlah operasi terbatas. Bab 4 Rinaldi Munir juga membahas metode iteratif, yang membangun barisan pendekatan dan cocok untuk sistem besar atau jarang. Bahan belajar ini membandingkan Jacobi dan Gauss–Seidel, menjelaskan syarat konvergensi serta kriteria berhenti, lalu menutup rangkaian dengan tinjauan UTS Bab 3–4.",
+    "sections": [
+      {
+        "title": "1. Dari Ax=b menuju bentuk iterasi",
+        "paragraphs": [
+          "Pisahkan A menjadi D-L-U, dengan D bagian diagonal, -L bagian segitiga bawah, dan -U bagian segitiga atas sesuai konvensi tanda. Setiap persamaan kemudian dipecahkan terhadap peubah diagonalnya.",
+          "Metode iteratif memerlukan tebakan awal x^(0). Dari tebakan itu dibentuk x^(1), x^(2), dan seterusnya sampai perubahan atau residu memenuhi toleransi.",
+          "Keuntungan utamanya adalah tidak perlu membentuk faktor lengkap dan dapat memanfaatkan banyak elemen nol. Kekurangannya, konvergensi tidak otomatis dan jumlah iterasi dapat besar."
+        ],
+        "formulas": [
+          "A=D-L-U",
+          "\\mathbf{x}^{(k+1)}=T\\mathbf{x}^{(k)}+\\mathbf{c}",
+          "\\mathbf{r}^{(k)}=\\mathbf{b}-A\\mathbf{x}^{(k)}"
+        ],
+        "example": {
+          "question": "Ubah 4x-y=3 dan -x+3y=5 menjadi rumus iterasi per komponen.",
+          "steps": [
+            "Dari persamaan pertama: 4x=3+y, sehingga x=(3+y)/4.",
+            "Dari persamaan kedua: 3y=5+x, sehingga y=(5+x)/3.",
+            "Kedua rumus dapat dipakai oleh Jacobi atau Gauss–Seidel dengan aturan waktu pembaruan yang berbeda."
+          ],
+          "answer": "x=(3+y)/4 dan y=(5+x)/3."
+        },
+        "warning": "Pastikan setiap persamaan dipecahkan terhadap peubah yang koefisien diagonalnya tidak nol. Pertukaran urutan persamaan dapat diperlukan sebelum iterasi."
+      },
+      {
+        "title": "2. Metode Jacobi",
+        "paragraphs": [
+          "Jacobi menghitung seluruh komponen baru hanya dari vektor iterasi lama. Nilai baru disimpan terpisah dan digunakan bersama-sama setelah satu sapuan selesai.",
+          "Karena setiap komponen pada satu iterasi tidak saling bergantung, Jacobi mudah diparalelkan. Namun informasi terbaru belum langsung dimanfaatkan sehingga sering memerlukan iterasi lebih banyak daripada Gauss–Seidel.",
+          "Dalam tabel manual, beri superskrip iterasi pada semua nilai agar x_i^(k) tidak tercampur dengan x_i^(k+1)."
+        ],
+        "formulas": [
+          "x_i^{(k+1)}=\\frac{1}{a_{ii}}\\left(b_i-\\sum_{j\\ne i}a_{ij}x_j^{(k)}\\right)",
+          "\\mathbf{x}^{(k+1)}=D^{-1}(L+U)\\mathbf{x}^{(k)}+D^{-1}\\mathbf{b}"
+        ],
+        "example": {
+          "question": "Lakukan dua iterasi Jacobi untuk 4x-y=3 dan -x+3y=5 dengan x^(0)=(0,0).",
+          "steps": [
+            "Iterasi 1: x^(1)=(3+0)/4=0,75 dan y^(1)=(5+0)/3=1,6666667.",
+            "Iterasi 2 memakai seluruh nilai iterasi 1: x^(2)=(3+1,6666667)/4=1,1666667.",
+            "Hitung y^(2)=(5+0,75)/3=1,9166667.",
+            "Nilai eksak sistem adalah x=14/11≈1,272727 dan y=23/11≈2,090909; pendekatan bergerak ke arah solusi."
+          ],
+          "answer": "x^(2)≈(1,166667;1,916667)."
+        },
+        "warning": "Kesalahan paling umum adalah memakai x^(k+1) yang baru dihitung saat mencari komponen berikutnya. Itu bukan Jacobi, melainkan pola Gauss–Seidel."
+      },
+      {
+        "title": "3. Metode Gauss–Seidel",
+        "paragraphs": [
+          "Gauss–Seidel langsung memakai komponen baru yang sudah tersedia dalam sapuan yang sama. Untuk indeks j<i digunakan x_j^(k+1), sedangkan untuk j>i masih digunakan x_j^(k).",
+          "Pemanfaatan informasi terbaru sering mempercepat konvergensi dan mengurangi kebutuhan memori. Hasil setiap iterasi bergantung pada urutan persamaan atau peubah.",
+          "Implementasi dapat memperbarui satu vektor di tempat, tetapi nilai vektor sebelum sapuan perlu disimpan jika galat perubahan akan dihitung."
+        ],
+        "formulas": [
+          "x_i^{(k+1)}=\\frac{1}{a_{ii}}\\left(b_i-\\sum_{j<i}a_{ij}x_j^{(k+1)}-\\sum_{j>i}a_{ij}x_j^{(k)}\\right)",
+          "\\mathbf{x}^{(k+1)}=(D-L)^{-1}U\\mathbf{x}^{(k)}+(D-L)^{-1}\\mathbf{b}"
+        ],
+        "example": {
+          "question": "Lakukan dua iterasi Gauss–Seidel pada sistem dan tebakan awal yang sama.",
+          "steps": [
+            "Iterasi 1: x^(1)=(3+y^(0))/4=0,75.",
+            "Gunakan x baru: y^(1)=(5+x^(1))/3=1,9166667.",
+            "Iterasi 2: x^(2)=(3+y^(1))/4=1,2291667.",
+            "Gunakan x baru lagi: y^(2)=(5+x^(2))/3=2,0763889."
+          ],
+          "answer": "x^(2)≈(1,229167;2,076389), lebih dekat ke solusi daripada hasil Jacobi setelah dua iterasi pada contoh ini."
+        },
+        "warning": "Gauss–Seidel tidak selalu lebih cepat untuk setiap matriks dan urutan. Kesimpulan harus didasarkan pada sifat matriks atau data iterasi, bukan satu contoh."
+      },
+      {
+        "title": "4. Syarat konvergensi dan kriteria penghentian",
+        "paragraphs": [
+          "Untuk iterasi linear x^(k+1)=Tx^(k)+c, syarat perlu dan cukup bagi konvergensi dari setiap tebakan awal adalah jari-jari spektral ρ(T)<1. Karena menghitung nilai eigen dapat mahal, digunakan syarat cukup yang lebih mudah.",
+          "Dominasi diagonal ketat per baris, |a_ii|>Σ_{j≠i}|a_ij|, menjamin konvergensi Jacobi dan Gauss–Seidel. Gauss–Seidel juga konvergen untuk matriks simetris definit positif. Jika syarat cukup gagal, metode belum tentu divergen; analisis ρ(T) atau percobaan terkontrol masih diperlukan.",
+          "Penghentian menggabungkan perubahan relatif dan residu. Batas iterasi mencegah perulangan tanpa akhir. Catat juga pola residu; kenaikan terus-menerus menjadi tanda divergensi."
+        ],
+        "formulas": [
+          "\\rho(T)=\\max_i|\\lambda_i(T)|<1",
+          "|a_{ii}|>\\sum_{j\\ne i}|a_{ij}|",
+          "\\frac{\\|\\mathbf{x}^{(k+1)}-\\mathbf{x}^{(k)}\\|_\\infty}{\\max(1,\\|\\mathbf{x}^{(k+1)}\\|_\\infty)}<\\varepsilon_x",
+          "\\|\\mathbf{b}-A\\mathbf{x}^{(k+1)}\\|_\\infty<\\varepsilon_r"
+        ],
+        "example": {
+          "question": "Apakah A=[[4,-1],[-1,3]] dominan diagonal ketat?",
+          "steps": [
+            "Baris 1: |4|>|-1|, yaitu 4>1.",
+            "Baris 2: |3|>|-1|, yaitu 3>1.",
+            "Kedua baris memenuhi dominasi diagonal ketat.",
+            "Maka Jacobi dan Gauss–Seidel dijamin konvergen dari setiap tebakan awal."
+          ],
+          "answer": "Ya. Kedua metode dijamin konvergen berdasarkan dominasi diagonal ketat."
+        },
+        "warning": "Dominasi diagonal adalah syarat cukup, bukan syarat perlu. Gagal memenuhi uji ini tidak boleh langsung disimpulkan divergen."
+      },
+      {
+        "title": "5. Tinjauan UTS: peta konsep Bab 3–4",
+        "paragraphs": [
+          "Untuk Bab 3, kuasai pembentukan selang akar, rumus iterasi bagi-dua, regula falsi, titik tetap, Newton, dan secant; bedakan galat dengan residu; jelaskan orde konvergensi dan kegagalan khas setiap metode.",
+          "Untuk Bab 4, kuasai representasi Ax=b, operasi baris, eliminasi Gaussian, Gauss–Jordan, substitusi maju/balik, LU, invers sebagai kumpulan sistem, pivoting, Jacobi, Gauss–Seidel, serta pemeriksaan residu.",
+          "Strategi mengerjakan soal: identifikasi jenis masalah dan syarat metode, tulis data awal, tampilkan rumus, hitung dengan tabel atau matriks yang rapi, nyatakan kriteria berhenti, lalu verifikasi. Jawaban numerik harus disertai interpretasi dan alasan pemilihan metode.",
+          "Hubungan antartopik penting: secant mengganti turunan Newton dengan beda hingga; LU menyimpan pengali Gaussian; invers terdiri atas solusi dengan ruas kanan kolom identitas; Jacobi dan Gauss–Seidel sama-sama iterasi linear tetapi berbeda dalam penggunaan nilai terbaru."
+        ],
+        "formulas": [
+          "\\text{akar: }f(x)=0",
+          "\\text{sistem linear: }A\\mathbf{x}=\\mathbf{b}",
+          "\\text{langsung: }PA=LU",
+          "\\text{iteratif: }\\mathbf{x}^{(k+1)}=T\\mathbf{x}^{(k)}+\\mathbf{c}"
+        ],
+        "example": {
+          "question": "Sebuah soal UTS meminta memilih metode untuk sistem besar, jarang, dominan diagonal, dan hanya memerlukan pendekatan toleransi 10^{-6}. Pilihan apa yang logis?",
+          "steps": [
+            "Sistem besar dan jarang menguntungkan metode yang tidak membentuk faktor padat.",
+            "Dominasi diagonal memberi jaminan konvergensi Jacobi dan Gauss–Seidel.",
+            "Gauss–Seidel sering lebih cepat secara iterasi; Jacobi lebih mudah diparalelkan.",
+            "Nyatakan pilihan beserta kriteria residu dan perubahan relatif 10^{-6}."
+          ],
+          "answer": "Gauss–Seidel logis untuk komputasi berurutan; Jacobi logis jika paralelisasi menjadi prioritas."
+        },
+        "warning": "Pada UTS, jangan langsung memasukkan angka sebelum memeriksa syarat metode. Nilai akhir benar tanpa prosedur, kriteria berhenti, atau verifikasi dapat kehilangan banyak penilaian."
+      }
+    ],
+    "summary": [
+      "Jacobi memakai seluruh komponen iterasi lama; Gauss–Seidel segera memakai komponen baru.",
+      "Kedua metode ditulis sebagai iterasi linear x^(k+1)=Tx^(k)+c.",
+      "Syarat umum konvergensi adalah ρ(T)<1; dominasi diagonal ketat merupakan syarat cukup yang mudah diperiksa.",
+      "Penghentian perlu memeriksa perubahan iterasi, residu, dan batas iterasi.",
+      "Metode langsung cocok ketika solusi berpresisi tinggi diperlukan; metode iteratif menarik untuk sistem besar dan jarang.",
+      "Bab 3 berpusat pada akar persamaan taklinier; Bab 4 pada sistem linear langsung dan iteratif.",
+      "Verifikasi merupakan bagian penyelesaian: f(x) untuk akar dan b-Ax untuk sistem linear."
+    ],
+    "exercises": [
+      {
+        "no": 1,
+        "question": "Lakukan empat iterasi Jacobi untuk 10x-y+2z=6, -x+11y-z=25, dan 2x-y+10z=-11 dari x^(0)=0.",
+        "hint": "Gunakan hanya nilai iterasi lama dalam satu sapuan."
+      },
+      {
+        "no": 2,
+        "question": "Ulangi soal 1 dengan Gauss–Seidel, lalu bandingkan norma residu tiap iterasi.",
+        "hint": "Gunakan nilai baru segera setelah tersedia."
+      },
+      {
+        "no": 3,
+        "question": "Periksa dominasi diagonal matriks pada soal 1 dan jelaskan konsekuensinya bagi konvergensi.",
+        "hint": "Bandingkan elemen diagonal dengan jumlah nilai mutlak elemen lainnya per baris."
+      },
+      {
+        "no": 4,
+        "question": "Untuk T dengan nilai eigen 0,2; -0,6; dan 1,1, tentukan apakah iterasi konvergen dari setiap tebakan awal.",
+        "hint": "Hitung jari-jari spektral."
+      },
+      {
+        "no": 5,
+        "question": "Buat tabel ringkas lima metode akar: data awal, rumus, orde konvergensi, kebutuhan turunan, dan kegagalan khas.",
+        "hint": "Masukkan bagi-dua, regula falsi, titik tetap, Newton, dan secant."
+      },
+      {
+        "no": 6,
+        "question": "Selesaikan satu sistem 3×3 dengan Gaussian, bentuk LU-nya, lalu lakukan dua iterasi Gauss–Seidel. Bandingkan hasil dan residunya.",
+        "hint": "Gunakan sistem dominan diagonal agar bagian iteratif mudah dianalisis."
+      }
+    ],
+    "next": "Setelah tinjauan UTS, lanjutkan dengan latihan campuran dan pembahasan soal. Pertahankan kebiasaan memilih metode berdasarkan syarat, menuliskan jejak hitung, serta memeriksa residu sebelum menyimpulkan."
+  }
+]

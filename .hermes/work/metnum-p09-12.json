@@ -1,0 +1,480 @@
+[
+  {
+    "no": 9,
+    "title": "Interpolasi Polinom Lagrange",
+    "bridge": "Data diskrit berupa pasangan titik dapat digunakan untuk memperkirakan nilai yang tidak tercantum di tabel. Mengikuti Bab 5 Rinaldi Munir, pertemuan ini membangun polinom yang melalui tepat semua titik data dengan bentuk Lagrange. Bahan belajar menekankan makna basis, prosedur hitung, verifikasi, serta batas antara interpolasi dan ekstrapolasi.",
+    "sections": [
+      {
+        "title": "1. Masalah Interpolasi dan Syarat Data",
+        "paragraphs": [
+          "Diberikan n+1 titik (x_i,y_i) dengan semua absis berbeda. Interpolasi mencari polinom P_n berderajat paling tinggi n yang memenuhi P_n(x_i)=y_i pada setiap titik. Untuk syarat tersebut terdapat tepat satu polinom.",
+          "Interpolasi menaksir nilai di dalam rentang data. Penaksiran di luar rentang disebut ekstrapolasi dan lebih berisiko karena tidak dikendalikan oleh titik data pada sisi luar.",
+          "Absis harus diperiksa sebelum menghitung. Dua ordinat berbeda pada absis yang sama tidak dapat diwakili sebagai fungsi tunggal y=f(x), dan penyebut basis Lagrange akan nol."
+        ],
+        "formulas": [
+          "P_n(x_i)=y_i,\\quad i=0,1,\\ldots,n",
+          "P_n(x)=a_0+a_1x+\\cdots+a_nx^n",
+          "x_i\\ne x_j\\quad\\text{untuk }i\\ne j"
+        ],
+        "example": {
+          "question": "Apakah data (0,1), (1,3), dan (2,2) mempunyai polinom interpolasi kuadrat?",
+          "steps": [
+            "Ada tiga titik, sehingga derajat maksimum interpolan adalah 3-1=2.",
+            "Absis 0, 1, dan 2 semuanya berbeda.",
+            "Syarat keberadaan dan ketunggalan interpolan terpenuhi."
+          ],
+          "answer": "Ya. Terdapat tepat satu polinom P_2(x) berderajat paling tinggi dua yang melalui ketiga titik."
+        },
+        "warning": "Interpolasi wajib melewati semua titik; pencocokan kurva atau regresi boleh memiliki residual pada titik data."
+      },
+      {
+        "title": "2. Basis Lagrange",
+        "paragraphs": [
+          "Basis ke-i dirancang bernilai satu pada x_i dan nol pada semua absis lainnya. Karena sifat ini, ketika x=x_i hanya suku y_i L_i(x) yang tetap memberikan kontribusi.",
+          "Pembilang memuat faktor yang membuat basis nol di titik lain. Penyebut menormalkan hasil agar L_i(x_i)=1. Jarak antartitik tidak harus seragam, tetapi absis wajib berbeda.",
+          "Polinom akhir adalah jumlah seluruh ordinat yang dikalikan basisnya. Identitas jumlah semua basis sama dengan satu berguna sebagai pemeriksaan hitung."
+        ],
+        "formulas": [
+          "L_i(x)=\\prod_{\\substack{j=0\\\\j\\ne i}}^n\\frac{x-x_j}{x_i-x_j}",
+          "L_i(x_j)=\\begin{cases}1,&i=j,\\\\0,&i\\ne j,\\end{cases}",
+          "P_n(x)=\\sum_{i=0}^n y_iL_i(x)",
+          "\\sum_{i=0}^nL_i(x)=1"
+        ],
+        "example": {
+          "question": "Bangun basis Lagrange untuk absis 0, 1, dan 2.",
+          "steps": [
+            "L_0(x)=\\frac{(x-1)(x-2)}{(0-1)(0-2)}=\\frac{(x-1)(x-2)}{2}.",
+            "L_1(x)=\\frac{x(x-2)}{(1-0)(1-2)}=-x(x-2).",
+            "L_2(x)=\\frac{x(x-1)}{(2-0)(2-1)}=\\frac{x(x-1)}{2}.",
+            "Pemeriksaan pada x=1 memberi L_0(1)=0, L_1(1)=1, dan L_2(1)=0."
+          ],
+          "answer": "Basisnya ialah L_0(x)=\\frac{(x-1)(x-2)}{2}, L_1(x)=-x(x-2), dan L_2(x)=\\frac{x(x-1)}{2}."
+        },
+        "warning": "Pasangan faktor pembilang dan penyebut harus memakai indeks yang sama. Kesalahan urutan pada (x_i-x_j) sering mengubah tanda basis."
+      },
+      {
+        "title": "3. Evaluasi dan Bentuk Polinom",
+        "paragraphs": [
+          "Untuk satu nilai sasaran x*, hitung setiap basis pada x*, kalikan dengan ordinat terkait, lalu jumlahkan. Pengembangan ke bentuk pangkat tidak diperlukan dan sering menambah kesalahan aljabar.",
+          "Jika polinom akan dievaluasi berkali-kali, bentuk basis dapat dikembangkan menjadi bentuk standar. Kebenarannya diverifikasi dengan memasukkan seluruh absis asli dan memastikan residual y_i-P_n(x_i) sama dengan nol.",
+          "Derajat aktual dapat lebih rendah dari n apabila koefisien pangkat tertinggi saling menghapus. Istilah derajat paling tinggi n tidak berarti derajatnya harus tepat n."
+        ],
+        "formulas": [
+          "P_n(x^*)=\\sum_{i=0}^ny_iL_i(x^*)",
+          "r_i=y_i-P_n(x_i)",
+          "P_n(x_i)=y_i"
+        ],
+        "example": {
+          "question": "Untuk data (0,1), (1,3), (2,2), hitung P_2(1,5) dan bentuk pangkatnya.",
+          "steps": [
+            "L_0(1{,}5)=-0{,}125,\\quad L_1(1{,}5)=0{,}75,\\quad L_2(1{,}5)=0{,}375.",
+            "Jumlah basis -0{,}125+0{,}75+0{,}375=1.",
+            "P_2(1{,}5)=1(-0{,}125)+3(0{,}75)+2(0{,}375)=2{,}875.",
+            "Pengembangan memberi P_2(x)=-1{,}5x^2+3{,}5x+1; substitusi x=0,1,2 mengembalikan 1,3,2."
+          ],
+          "answer": "Nilai interpolasi P_2(1{,}5)=2{,}875 dan polinomnya P_2(x)=-1{,}5x^2+3{,}5x+1."
+        },
+        "warning": "Jangan membulatkan nilai basis terlalu awal. Pertahankan pecahan atau cukup banyak angka desimal sampai penjumlahan akhir."
+      },
+      {
+        "title": "4. Galat dan Pemilihan Titik",
+        "paragraphs": [
+          "Jika data berasal dari fungsi halus f, galat interpolasi bergantung pada turunan orde n+1 dan hasil kali jarak titik evaluasi terhadap semua simpul. Rumus galat menjelaskan mengapa lokasi titik penting.",
+          "Menambah titik tidak selalu memperbaiki hasil. Polinom berderajat tinggi pada titik berjarak sama dapat berosilasi di ujung interval, dikenal sebagai fenomena Runge.",
+          "Gunakan titik dekat lokasi evaluasi, derajat secukupnya, dan hindari ekstrapolasi jauh. Untuk data banyak, interpolasi potongan seperti spline sering lebih stabil."
+        ],
+        "formulas": [
+          "f(x)-P_n(x)=\\frac{f^{(n+1)}(\\xi)}{(n+1)!}\\prod_{i=0}^n(x-x_i)",
+          "|f(x)-P_n(x)|\\le\\frac{M}{(n+1)!}\\left|\\prod_{i=0}^n(x-x_i)\\right|"
+        ],
+        "example": {
+          "question": "Batasi galat interpolasi linear e^x pada x_0=0, x_1=1, dan x=0,5.",
+          "steps": [
+            "Untuk n=1 diperlukan f''(x)=e^x.",
+            "Pada [0,1], ambil M=e.",
+            "|(0{,}5-0)(0{,}5-1)|=0{,}25.",
+            "|E_1(0{,}5)|\\le\\frac{e}{2!}(0{,}25)=\\frac{e}{8}\\approx0{,}3398."
+          ],
+          "answer": "Batas galat teoritisnya |E_1(0{,}5)|\\le e/8\\approx0{,}3398; galat aktual tidak harus sebesar batas itu."
+        },
+        "warning": "Jika fungsi asal atau batas turunannya tidak diketahui, jangan mengarang galat teoritis hanya dari tabel data."
+      }
+    ],
+    "summary": [
+      "Lagrange menghasilkan satu polinom yang melalui semua titik berabsis berbeda.",
+      "Basis L_i bernilai satu di simpulnya dan nol di simpul lain.",
+      "Interpolan dapat dievaluasi tanpa mengembangkan bentuk pangkat.",
+      "Jumlah basis sama dengan satu dan residual di titik data harus nol.",
+      "Ekstrapolasi serta derajat tinggi memerlukan kehati-hatian."
+    ],
+    "exercises": [
+      "Bangun polinom Lagrange untuk (1,2), (2,5), (4,17), lalu hitung P(3).",
+      "Untuk (-1,4), (0,1), (2,3), tulis semua L_i(x) dan buktikan jumlahnya satu.",
+      "Interpolasikan f(x)=\\ln x pada x=1,2,4, lalu taksir \\ln 3.",
+      "Jelaskan mengapa data (0,1), (0,2), (1,4) tidak memenuhi syarat interpolasi fungsi.",
+      "Cari batas galat interpolasi linear f(x)=\\sin x pada [0,\\pi/2] di x=\\pi/4.",
+      "Bandingkan interpolasi di x=1,5 dan ekstrapolasi di x=4 untuk data (0,1), (1,2), (2,5)."
+    ],
+    "next": "Pertemuan 10 membangun polinom yang sama melalui tabel beda terbagi Newton, lalu memperkenalkan spline sebagai interpolasi potongan dan membedakan tujuan interpolasi dari regresi linear."
+  },
+  {
+    "no": 10,
+    "title": "Beda Terbagi Newton, Gambaran Spline, dan Perbedaan Regresi",
+    "bridge": "Bentuk Lagrange pada Pertemuan 9 membangun interpolan langsung dari basis. Masih mengikuti Bab 5 Rinaldi Munir, bentuk Newton memperoleh koefisien melalui tabel beda terbagi dan lebih mudah diperbarui saat titik baru datang. Spline kemudian diperkenalkan sebagai alternatif polinom potongan, sedangkan regresi linear dibedakan agar data tepat dan data bising tidak diperlakukan dengan tujuan yang sama.",
+    "sections": [
+      {
+        "title": "1. Tabel Beda Terbagi",
+        "paragraphs": [
+          "Beda terbagi orde pertama adalah rasio perubahan nilai fungsi terhadap perubahan absis. Orde berikutnya dihitung secara rekursif dari dua beda terbagi pada orde sebelumnya.",
+          "Tabel disusun berbentuk segitiga: kolom awal berisi f(x_i), lalu orde satu, orde dua, dan seterusnya. Elemen pertama setiap kolom menjadi koefisien bentuk Newton.",
+          "Jarak absis tidak perlu seragam. Pada orde k, penyebut menggunakan selisih absis paling kanan dan paling kiri, yaitu x_{i+k}-x_i."
+        ],
+        "formulas": [
+          "f[x_i]=f(x_i)",
+          "f[x_i,x_{i+1}]=\\frac{f[x_{i+1}]-f[x_i]}{x_{i+1}-x_i}",
+          "f[x_i,\\ldots,x_{i+k}]=\\frac{f[x_{i+1},\\ldots,x_{i+k}]-f[x_i,\\ldots,x_{i+k-1}]}{x_{i+k}-x_i}"
+        ],
+        "example": {
+          "question": "Hitung beda terbagi data (1,1), (2,4), dan (4,16).",
+          "steps": [
+            "Orde nol: f[1]=1, f[2]=4, f[4]=16.",
+            "f[1,2]=(4-1)/(2-1)=3.",
+            "f[2,4]=(16-4)/(4-2)=6.",
+            "f[1,2,4]=(6-3)/(4-1)=1."
+          ],
+          "answer": "Koefisien pada baris teratas adalah f[1]=1, f[1,2]=3, dan f[1,2,4]=1."
+        },
+        "warning": "Pada beda terbagi orde k, jangan memakai selisih absis bersebelahan sebagai penyebut; gunakan x_{i+k}-x_i."
+      },
+      {
+        "title": "2. Polinom Newton dan Evaluasi Bersarang",
+        "paragraphs": [
+          "Bentuk Newton bersifat bertingkat. Setiap suku baru memuat semua faktor sebelumnya dan satu koefisien beda terbagi baru.",
+          "Interpolan Newton dan Lagrange untuk data yang sama sebenarnya identik karena polinom interpolasi bersifat tunggal. Yang berbeda hanya representasi dan proses menghitung koefisien.",
+          "Evaluasi bersarang dimulai dari koefisien terakhir. Cara ini mengurangi perkalian dan cocok untuk perhitungan berulang."
+        ],
+        "formulas": [
+          "P_n(x)=f[x_0]+f[x_0,x_1](x-x_0)+\\cdots+f[x_0,\\ldots,x_n]\\prod_{j=0}^{n-1}(x-x_j)",
+          "P_3(x)=b_0+(x-x_0)[b_1+(x-x_1)(b_2+(x-x_2)b_3)]",
+          "b_k=f[x_0,\\ldots,x_k]"
+        ],
+        "example": {
+          "question": "Bangun interpolan Newton data (1,1), (2,4), (4,16) dan hitung P(3).",
+          "steps": [
+            "Ambil b_0=1, b_1=3, b_2=1 dari tabel.",
+            "P_2(x)=1+3(x-1)+(x-1)(x-2).",
+            "P_2(3)=1+3(2)+(2)(1)=9.",
+            "Pengembangan memberi P_2(x)=x^2, konsisten dengan semua data."
+          ],
+          "answer": "Polinomnya P_2(x)=1+3(x-1)+(x-1)(x-2)=x^2 dan P_2(3)=9."
+        },
+        "warning": "Jangan mencampur koefisien dari satu urutan titik dengan faktor dari urutan lain. Urutan boleh berubah, tetapi tabel harus dihitung konsisten."
+      },
+      {
+        "title": "3. Penambahan Data dan Gambaran Spline",
+        "paragraphs": [
+          "Jika titik baru ditambahkan, koefisien Newton lama tetap. Tabel cukup diperluas untuk memperoleh satu koefisien baru, lalu satu suku ditambahkan pada polinom.",
+          "Untuk data banyak, satu polinom berderajat tinggi dapat berosilasi. Spline menggantinya dengan polinom berderajat rendah pada tiap subinterval.",
+          "Spline linear kontinu tetapi gradiennya dapat meloncat. Spline kubik biasanya dibuat kontinu hingga turunan kedua; spline alami menambahkan syarat turunan kedua nol di kedua ujung."
+        ],
+        "formulas": [
+          "P_{n+1}(x)=P_n(x)+f[x_0,\\ldots,x_{n+1}]\\prod_{j=0}^{n}(x-x_j)",
+          "S_i(x)=a_i+b_i(x-x_i)+c_i(x-x_i)^2+d_i(x-x_i)^3",
+          "S_i'(x_{i+1})=S_{i+1}'(x_{i+1}),\\quad S_i''(x_{i+1})=S_{i+1}''(x_{i+1})",
+          "S''(x_0)=S''(x_n)=0\\quad\\text{(alami)}"
+        ],
+        "example": {
+          "question": "Tentukan spline linear data (0,1), (1,3), (3,2), lalu hitung S(2).",
+          "steps": [
+            "Pada [0,1], gradien 2 sehingga S_0(x)=1+2x.",
+            "Pada [1,3], gradien (2-3)/(3-1)=-0{,}5.",
+            "Maka S_1(x)=3-0{,}5(x-1).",
+            "Karena 2 berada pada [1,3], S(2)=3-0{,}5=2{,}5."
+          ],
+          "answer": "Spline linearnya S_0(x)=1+2x dan S_1(x)=3-0{,}5(x-1); nilai S(2)=2{,}5."
+        },
+        "warning": "Spline linear hanya kontinu pada nilai fungsi. Jangan menyatakan turunan pertamanya kontinu tanpa memeriksa gradien kiri dan kanan."
+      },
+      {
+        "title": "4. Interpolasi dan Regresi Linear",
+        "paragraphs": [
+          "Interpolasi digunakan ketika titik dianggap tepat dan kurva harus melaluinya. Regresi digunakan untuk data yang mengandung variasi atau galat pengukuran dan bertujuan menangkap kecenderungan umum.",
+          "Regresi linear mencari garis y-hat=a+bx yang meminimumkan jumlah kuadrat residual. Karena tujuan minimisasi global, garis umumnya tidak melewati setiap titik.",
+          "Pilih interpolasi untuk membaca nilai di antara entri tabel yang dipercaya tepat. Pilih regresi untuk merangkum hubungan rata-rata dan membuat model tren dari data bising."
+        ],
+        "formulas": [
+          "e_i=y_i-(a+bx_i)",
+          "S_r=\\sum_{i=1}^m[y_i-(a+bx_i)]^2",
+          "b=\\frac{m\\sum x_iy_i-(\\sum x_i)(\\sum y_i)}{m\\sum x_i^2-(\\sum x_i)^2}",
+          "a=\\bar y-b\\bar x"
+        ],
+        "example": {
+          "question": "Cari garis regresi data (1,2), (2,2), (3,4) dan jelaskan mengapa bukan interpolasi.",
+          "steps": [
+            "m=3, \\sum x=6, \\sum y=8, \\sum x^2=14, \\sum xy=18.",
+            "b=[3(18)-6(8)]/[3(14)-6^2]=1.",
+            "a=8/3-1(2)=2/3.",
+            "Pada x=1, prediksi 5/3 tidak sama dengan data 2, sehingga residual tidak nol."
+          ],
+          "answer": "Garis regresinya \\hat y=\\frac{2}{3}+x. Garis ini bukan interpolan karena tidak melalui seluruh titik."
+        },
+        "warning": "Jangan memaksakan polinom interpolasi berderajat tinggi pada data eksperimen bising; hasilnya dapat mengikuti noise, bukan pola sebenarnya."
+      }
+    ],
+    "summary": [
+      "Beda terbagi membentuk koefisien Newton secara rekursif.",
+      "Newton berlaku pada absis berjarak seragam maupun tidak seragam.",
+      "Bentuk Newton mudah dievaluasi bersarang dan diperbarui.",
+      "Spline memakai polinom potongan untuk menjaga perilaku lokal.",
+      "Interpolasi melewati semua titik; regresi meminimumkan residual."
+    ],
+    "exercises": [
+      "Buat tabel beda terbagi data (0,1), (1,2), (3,10), (4,17).",
+      "Tulis polinom Newton latihan pertama dan evaluasi pada x=2 dengan bentuk bersarang.",
+      "Buktikan bentuk Newton dan Lagrange data (0,1), (1,3), (2,2) identik.",
+      "Tambahkan titik (5,26) pada data latihan pertama dan hitung hanya koefisien baru.",
+      "Susun spline linear data (0,0), (2,4), (5,1), lalu hitung S(1) dan S(4).",
+      "Cari garis regresi serta residual data (1,1), (2,3), (3,2), (4,5)."
+    ],
+    "next": "Pertemuan 11 memanfaatkan selisih nilai fungsi untuk menaksir turunan dengan beda maju, mundur, dan pusat, kemudian membandingkan galat pemotongan serta galat pembulatan."
+  },
+  {
+    "no": 11,
+    "title": "Diferensiasi Numerik: Maju, Mundur, Pusat, dan Galat",
+    "bridge": "Interpolasi menghasilkan fungsi pendekatan dari data diskrit. Pada Bab 6 Rinaldi Munir, deret Taylor dan nilai fungsi di sekitar titik digunakan untuk menaksir turunan ketika rumus analitik tidak tersedia. Pertemuan ini membahas arah rumus beda, orde ketelitian, turunan kedua, dan keseimbangan ukuran langkah h.",
+    "sections": [
+      {
+        "title": "1. Dasar Deret Taylor dan Beda Maju",
+        "paragraphs": [
+          "Turunan menyatakan laju perubahan sesaat, sedangkan data pengukuran tersedia pada titik terpisah. Diferensiasi numerik mengganti limit dengan hasil bagi selisih berlangkah kecil h.",
+          "Beda maju memakai f(x) dan f(x+h), sehingga sesuai di ujung kiri tabel. Deret Taylor menunjukkan bahwa suku dominan yang dibuang sebanding dengan h; rumus dua titik ini berorde satu.",
+          "Notasi O(h) menyatakan laju galat saat h mengecil, bukan nilai galat pasti. Tanda dan besar galat aktual bergantung pada turunan fungsi."
+        ],
+        "formulas": [
+          "f'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}",
+          "f(x+h)=f(x)+hf'(x)+\\frac{h^2}{2}f''(x)+\\cdots",
+          "f'(x)\\approx\\frac{f(x+h)-f(x)}{h},\\quad E_T=O(h)"
+        ],
+        "example": {
+          "question": "Hampiri turunan f(x)=x^2 di x=2 dengan beda maju dan h=0,1.",
+          "steps": [
+            "f(2)=4 dan f(2{,}1)=4{,}41.",
+            "D_h=[4{,}41-4]/0{,}1=4{,}1.",
+            "Nilai eksak f'(2)=4.",
+            "Galat absolut |4-4{,}1|=0{,}1."
+          ],
+          "answer": "Hampiran beda maju 4{,}1 dengan galat absolut 0{,}1."
+        },
+        "warning": "Jangan memakai f(x-h) dalam rumus maju. Arah ditentukan oleh nilai absis, bukan posisi baris pada tabel."
+      },
+      {
+        "title": "2. Beda Mundur",
+        "paragraphs": [
+          "Beda mundur memakai f(x) dan f(x-h), sehingga cocok di ujung kanan tabel atau saat hanya data masa lalu tersedia.",
+          "Rumus berasal dari deret Taylor f(x-h) dan juga mempunyai galat pemotongan O(h). Untuk fungsi melengkung, hasil maju dan mundur dapat berbeda walaupun h sama.",
+          "Perbandingan kedua hasil berguna sebagai pemeriksaan awal, tetapi tidak selalu menjamin nilai eksak terletak di antara keduanya."
+        ],
+        "formulas": [
+          "f'(x)\\approx\\frac{f(x)-f(x-h)}{h}",
+          "f'(x)=\\frac{f(x)-f(x-h)}{h}+\\frac{h}{2}f''(\\xi)",
+          "E_T=O(h)"
+        ],
+        "example": {
+          "question": "Hampiri turunan f(x)=x^2 di x=2 dengan beda mundur dan h=0,1.",
+          "steps": [
+            "f(2)=4 dan f(1{,}9)=3{,}61.",
+            "D_h=[4-3{,}61]/0{,}1=3{,}9.",
+            "Nilai eksak 4.",
+            "Galat absolut |4-3{,}9|=0{,}1."
+          ],
+          "answer": "Hampiran beda mundur 3{,}9 dengan galat absolut 0{,}1."
+        },
+        "warning": "Pastikan h positif dalam rumus standar. Arah mundur sudah diwakili oleh x-h; memasukkan h negatif dapat membalik tanda."
+      },
+      {
+        "title": "3. Beda Pusat dan Turunan Kedua",
+        "paragraphs": [
+          "Beda pusat menggunakan titik simetris x-h dan x+h. Ketika dua deret Taylor dikurangkan, suku galat berorde genap saling menghapus sehingga turunan pertama berorde dua.",
+          "Dengan menjumlahkan kedua deret dan mengurangi 2f(x), diperoleh rumus beda pusat untuk turunan kedua. Rumus ini juga berorde dua.",
+          "Beda pusat biasanya lebih teliti untuk h yang sama, tetapi tidak langsung dapat dipakai pada ujung tabel karena memerlukan data di kedua sisi."
+        ],
+        "formulas": [
+          "f'(x)\\approx\\frac{f(x+h)-f(x-h)}{2h}+O(h^2)",
+          "f''(x)\\approx\\frac{f(x+h)-2f(x)+f(x-h)}{h^2}+O(h^2)",
+          "f'(x)=\\frac{f(x+h)-f(x-h)}{2h}-\\frac{h^2}{6}f'''(\\xi)"
+        ],
+        "example": {
+          "question": "Hampiri f'(2) dan f''(2) untuk f(x)=x^2 dengan h=0,1.",
+          "steps": [
+            "f(2{,}1)=4{,}41, f(2)=4, f(1{,}9)=3{,}61.",
+            "f'(2)\\approx[4{,}41-3{,}61]/0{,}2=4.",
+            "f''(2)\\approx[4{,}41-8+3{,}61]/0{,}01=2.",
+            "Keduanya sama dengan turunan eksak polinom kuadrat."
+          ],
+          "answer": "Diperoleh f'(2)\\approx4 dan f''(2)\\approx2."
+        },
+        "warning": "Penyebut turunan pertama pusat adalah 2h, sedangkan penyebut turunan kedua adalah h^2. Jangan menukarnya."
+      },
+      {
+        "title": "4. Galat dan Pemilihan h",
+        "paragraphs": [
+          "Galat pemotongan muncul karena deret Taylor dihentikan. Membagi h menjadi dua idealnya mengecilkan galat beda maju sekitar dua kali dan galat beda pusat sekitar empat kali.",
+          "Galat pembulatan dapat membesar ketika h terlalu kecil. Nilai f(x+h) dan f(x) menjadi hampir sama; pengurangannya kehilangan digit signifikan sebelum dibagi oleh h.",
+          "Langkah yang baik menyeimbangkan kedua sumber galat. Uji h, h/2, dan h/4; hasil yang mendekati nilai stabil memberi indikasi konvergensi sebelum pembulatan mulai mendominasi."
+        ],
+        "formulas": [
+          "E_{total}\\approx E_{potong}+E_{bulat}",
+          "E_{maju}=O(h),\\quad E_{pusat}=O(h^2)",
+          "\\varepsilon_a=|D_{h/2}-D_h|",
+          "\\varepsilon_r=\\left|\\frac{D_{h/2}-D_h}{D_{h/2}}\\right|100\\%"
+        ],
+        "example": {
+          "question": "Diketahui D_{0,2}=1,9730 dan D_{0,1}=1,9933. Hitung perubahan absolut dan relatif.",
+          "steps": [
+            "\\varepsilon_a=|1{,}9933-1{,}9730|=0{,}0203.",
+            "Gunakan hasil dengan langkah lebih kecil sebagai acuan sementara.",
+            "\\varepsilon_r=(0{,}0203/1{,}9933)100\\%\\approx1{,}0184\\%.",
+            "Nilai ini membandingkan dua hampiran, bukan galat sejati."
+          ],
+          "answer": "Perubahan absolut 0{,}0203 dan relatif sekitar 1{,}0184\\%."
+        },
+        "warning": "Jangan menyebut selisih dua hampiran sebagai galat sejati jika turunan eksak tidak diketahui."
+      }
+    ],
+    "summary": [
+      "Beda maju cocok di ujung kiri dan berorde O(h).",
+      "Beda mundur cocok di ujung kanan dan berorde O(h).",
+      "Beda pusat turunan pertama berorde O(h^2).",
+      "Turunan kedua dapat dihampiri dengan beda pusat tiga titik.",
+      "h terlalu besar memperkuat pemotongan; h terlalu kecil dapat memperkuat pembulatan."
+    ],
+    "exercises": [
+      "Hampiri f'(0) untuk f(x)=e^x dengan beda maju, h=0{,}1, lalu hitung galat.",
+      "Hampiri f'(1) untuk f(x)=\\ln x dengan beda mundur, h=0{,}2.",
+      "Hampiri turunan \\sin x di x=\\pi/4 dengan beda pusat, h=0{,}1.",
+      "Dari f(0,8)=0,71736, f(1)=0,84147, f(1,2)=0,93204, hitung beda maju, mundur, pusat di x=1.",
+      "Hampiri f''(0) untuk e^x dengan beda pusat pada h=0{,}2 dan h=0{,}1.",
+      "Jelaskan mengapa h=10^{-15} tidak otomatis lebih baik daripada h=10^{-5} pada komputer."
+    ],
+    "next": "Pertemuan 12 memakai pendekatan polinom untuk menghitung integral tentu melalui aturan trapesium komposit, Simpson 1/3, dan Simpson 3/8."
+  },
+  {
+    "no": 12,
+    "title": "Integrasi Numerik Komposit: Trapesium dan Aturan Simpson",
+    "bridge": "Diferensiasi numerik menaksir laju perubahan dari nilai fungsi diskrit. Pada Bab 7 Rinaldi Munir, nilai-nilai tersebut digunakan untuk menaksir akumulasi atau integral tentu. Interval dibagi menjadi subinterval sama panjang, lalu luas lokal dijumlahkan dengan aturan trapesium, Simpson 1/3, atau Simpson 3/8.",
+    "sections": [
+      {
+        "title": "1. Partisi dan Trapesium Komposit",
+        "paragraphs": [
+          "Kuadratur numerik diperlukan ketika antiturunan sulit diperoleh atau fungsi hanya tersedia sebagai tabel. Interval [a,b] dibagi menjadi n subinterval sama panjang dengan n+1 titik.",
+          "Aturan trapesium mengganti grafik pada tiap subinterval dengan garis lurus. Pada bentuk komposit, titik ujung berbobot satu dan semua titik interior berbobot dua.",
+          "Galat global berorde O(h^2). Untuk fungsi cembung, garis sekant berada di atas grafik sehingga trapesium cenderung memberi taksiran lebih besar."
+        ],
+        "formulas": [
+          "h=\\frac{b-a}{n},\\quad x_i=a+ih",
+          "T_n=\\frac{h}{2}\\left[f_0+2\\sum_{i=1}^{n-1}f_i+f_n\\right]",
+          "E_T=-\\frac{b-a}{12}h^2f''(\\xi)=O(h^2)"
+        ],
+        "example": {
+          "question": "Hampiri integral x^2 dari 0 sampai 2 dengan trapesium komposit n=4.",
+          "steps": [
+            "h=0{,}5; titiknya 0, 0{,}5, 1, 1{,}5, 2.",
+            "Nilai fungsi: 0, 0{,}25, 1, 2{,}25, 4.",
+            "T_4=\\frac{0{,}5}{2}[0+2(0{,}25+1+2{,}25)+4].",
+            "T_4=0{,}25(11)=2{,}75; nilai eksak 8/3\\approx2{,}6667."
+          ],
+          "answer": "Hasil trapesium T_4=2{,}75, lebih besar sekitar 0{,}0833 dari nilai eksak."
+        },
+        "warning": "n subinterval mempunyai n+1 titik. Jangan memberi bobot dua kepada titik ujung."
+      },
+      {
+        "title": "2. Simpson 1/3 Komposit",
+        "paragraphs": [
+          "Simpson 1/3 memakai polinom kuadrat melalui tiga titik. Satu panel mencakup dua subinterval, sehingga n harus genap.",
+          "Pola bobotnya 1,4,2,4,2,...,4,1. Indeks interior ganjil berbobot empat dan indeks interior genap berbobot dua.",
+          "Galat global berorde O(h^4). Aturan ini tepat untuk polinom sampai derajat tiga dan biasanya lebih teliti daripada trapesium pada fungsi cukup halus."
+        ],
+        "formulas": [
+          "S_{1/3}=\\frac{h}{3}\\left[f_0+4\\sum_{\\substack{i=1\\\\i\\text{ ganjil}}}^{n-1}f_i+2\\sum_{\\substack{i=2\\\\i\\text{ genap}}}^{n-2}f_i+f_n\\right]",
+          "E_{1/3}=-\\frac{b-a}{180}h^4f^{(4)}(\\xi)",
+          "n\\equiv0\\pmod2"
+        ],
+        "example": {
+          "question": "Hampiri integral x^2 dari 0 sampai 2 dengan Simpson 1/3 dan n=4.",
+          "steps": [
+            "Gunakan h=0{,}5 dan nilai fungsi 0, 0{,}25, 1, 2{,}25, 4.",
+            "Terapkan bobot 1,4,2,4,1.",
+            "S_{1/3}=\\frac{0{,}5}{3}[0+4(0{,}25)+2(1)+4(2{,}25)+4].",
+            "Jumlah berbobot 16, sehingga S_{1/3}=16/6=8/3."
+          ],
+          "answer": "Hasilnya 8/3\\approx2{,}6667, tepat karena integran berderajat dua."
+        },
+        "warning": "Jangan memakai Simpson 1/3 komposit untuk n ganjil. Ubah partisi atau gabungkan aturan pada sisa interval."
+      },
+      {
+        "title": "3. Simpson 3/8 Komposit",
+        "paragraphs": [
+          "Simpson 3/8 memakai polinom kubik melalui empat titik. Satu panel mencakup tiga subinterval sehingga n harus kelipatan tiga.",
+          "Titik ujung berbobot satu. Indeks interior yang habis dibagi tiga berbobot dua; indeks interior lainnya berbobot tiga. Faktor luarnya adalah 3h/8.",
+          "Galat global juga O(h^4) dan aturan tepat sampai polinom derajat tiga. Aturan ini berguna saat jumlah subinterval kelipatan tiga atau tiga subinterval tersisa."
+        ],
+        "formulas": [
+          "S_{3/8}=\\frac{3h}{8}\\left[f_0+3\\sum_{\\substack{1\\le i\\le n-1\\\\i\\not\\equiv0\\ (3)}}f_i+2\\sum_{\\substack{3\\le i\\le n-3\\\\i\\equiv0\\ (3)}}f_i+f_n\\right]",
+          "E_{3/8}=-\\frac{b-a}{80}h^4f^{(4)}(\\xi)",
+          "n\\equiv0\\pmod3"
+        ],
+        "example": {
+          "question": "Hampiri integral x^3 dari 0 sampai 3 dengan Simpson 3/8 dan n=3.",
+          "steps": [
+            "h=(3-0)/3=1.",
+            "Nilai fungsi pada 0,1,2,3 adalah 0,1,8,27.",
+            "S_{3/8}=\\frac{3}{8}[0+3(1)+3(8)+27].",
+            "Jumlah berbobot 54, maka hasil 162/8=20{,}25."
+          ],
+          "answer": "Hasil Simpson 3/8 adalah 20{,}25, sama dengan nilai eksak 81/4."
+        },
+        "warning": "Pada banyak panel, indeks interior kelipatan tiga berbobot dua, bukan tiga. Jangan mengulang pola 1,3,3,1 secara mentah."
+      },
+      {
+        "title": "4. Pemilihan, Gabungan, dan Pemeriksaan",
+        "paragraphs": [
+          "Trapesium dapat dipakai untuk setiap n positif. Simpson 1/3 memerlukan n genap, sedangkan Simpson 3/8 memerlukan n kelipatan tiga.",
+          "Jika n tidak cocok untuk satu aturan Simpson, interval boleh dipisah tanpa tumpang tindih. Untuk n=5, dua subinterval dapat memakai Simpson 1/3 dan tiga sisanya Simpson 3/8.",
+          "Periksa jarak seragam, pola bobot, tanda integral, satuan, dan syarat n. Bandingkan hasil n dan 2n untuk melihat konvergensi, tetapi selisih keduanya bukan galat sejati jika nilai eksak belum diketahui."
+        ],
+        "formulas": [
+          "I\\approx S_{1/3,[x_0,x_2]}+S_{3/8,[x_2,x_5]}",
+          "E_a=|I_{2n}-I_n|",
+          "p\\approx\\log_2\\left|\\frac{I_n-I_{2n}}{I_{2n}-I_{4n}}\\right|"
+        ],
+        "example": {
+          "question": "Bagaimana memakai Simpson pada enam titik x_0 sampai x_5 yang membentuk lima subinterval?",
+          "steps": [
+            "Lima bukan genap dan bukan kelipatan tiga.",
+            "Gunakan Simpson 1/3 pada [x_0,x_2], mencakup dua subinterval.",
+            "Gunakan Simpson 3/8 pada [x_2,x_5], mencakup tiga subinterval.",
+            "Jumlahkan kedua hasil; x_2 hanya batas bersama, bukan subinterval ganda."
+          ],
+          "answer": "Gunakan gabungan S_{1/3,[x_0,x_2]}+S_{3/8,[x_2,x_5]}."
+        },
+        "warning": "Satu rumus komposit standar mengasumsikan h seragam. Untuk data tak seragam, pecah per bagian dan pilih aturan yang sesuai."
+      }
+    ],
+    "summary": [
+      "Partisi seragam memakai h=(b-a)/n dan n+1 titik.",
+      "Trapesium berbobot 1,2,\\ldots,2,1 dan berorde O(h^2).",
+      "Simpson 1/3 berpola 1,4,2,\\ldots,4,1, memerlukan n genap, berorde O(h^4).",
+      "Simpson 3/8 memberi bobot dua pada indeks interior kelipatan tiga dan memerlukan n kelipatan tiga.",
+      "Aturan Simpson dapat digabungkan pada bagian interval yang tidak tumpang tindih."
+    ],
+    "exercises": [
+      "Hampiri \\int_0^1e^x\\,dx dengan trapesium n=4 dan bandingkan dengan e-1.",
+      "Hampiri \\int_0^1e^x\\,dx dengan Simpson 1/3 n=4 dan bandingkan galatnya.",
+      "Hampiri \\int_0^{\\pi/2}\\sin x\\,dx dengan Simpson 3/8 n=3.",
+      "Tuliskan bobot trapesium, Simpson 1/3, dan Simpson 3/8 untuk enam subinterval.",
+      "Nyatakan gabungan Simpson untuk lima subinterval dalam f_0,\\ldots,f_5.",
+      "Untuk f(x)=1/(1+x^2) pada [0,1], bandingkan trapesium dan Simpson 1/3 pada n=2 dan n=4 terhadap \\pi/4."
+    ],
+    "next": "Materi dapat dilanjutkan ke estimasi galat dan integrasi adaptif, yaitu memperkecil subinterval hanya pada bagian fungsi yang memerlukan ketelitian lebih tinggi."
+  }
+]

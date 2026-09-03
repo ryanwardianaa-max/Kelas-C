@@ -1,0 +1,603 @@
+[
+  {
+    "no": 13,
+    "title": "Kuadratur Gauss: Integrasi Efisien, Galat, dan Pemilihan Metode",
+    "bridge": "Bahan belajar ini melanjutkan integrasi numerik pada Bab 6 Rinaldi Munir. Jika aturan trapesium dan Simpson memakai titik berjarak sama, Kuadratur Gauss justru memilih letak titik dan bobot secara optimal. Fokus belajar bukan sekadar menghafal tabel, melainkan memahami transformasi interval, derajat ketelitian, sumber galat, serta kapan Gauss lebih layak dipilih daripada Newton–Cotes.",
+    "sections": [
+      {
+        "title": "1. Gagasan Dasar Kuadratur Gauss–Legendre",
+        "paragraphs": [
+          "Integrasi numerik mengganti luas eksak dengan jumlah berbobot nilai fungsi. Pada aturan Newton–Cotes, titik evaluasi ditentukan lebih dahulu dan biasanya berjarak sama. Kuadratur Gauss membebaskan letak titik, lalu memilih titik dan bobot yang membuat sebanyak mungkin suku polinom terintegrasi tepat.",
+          "Untuk integral pada interval standar $[-1,1]$, titik Gauss–Legendre adalah akar polinom Legendre $P_n(t)$. Dengan $n$ titik, aturan ini tepat untuk setiap polinom berderajat paling tinggi $2n-1$. Artinya, dua evaluasi fungsi pada Gauss dua titik dapat menyamai ketelitian aljabar aturan yang memerlukan lebih banyak titik berjarak sama.",
+          "Kata tepat di sini berarti galat pembulatan diabaikan. Untuk fungsi bukan polinom, hasil tetap berupa pendekatan; kualitasnya bergantung pada kehalusan fungsi, panjang interval, jumlah titik, dan ketelitian aritmetika."
+        ],
+        "formulas": [
+          "\\int_{-1}^{1} f(t)\\,dt \\approx \\sum_{i=1}^{n} w_i f(t_i)",
+          "P_n(t_i)=0",
+          "\\deg(f)\\le 2n-1 \\implies \\text{aturan Gauss }n\\text{ titik eksak}"
+        ],
+        "example": {
+          "question": "Mengapa aturan Gauss dua titik dapat mengintegralkan $f(t)=3t^3-2t^2+t+4$ secara eksak pada $[-1,1]$?",
+          "steps": [
+            "Aturan Gauss dua titik mempunyai simpul $t_1=-1/\\sqrt{3}$ dan $t_2=1/\\sqrt{3}$, dengan $w_1=w_2=1$.",
+            "Derajat $f$ adalah 3, sedangkan derajat ketelitian Gauss dua titik adalah $2(2)-1=3$.",
+            "Karena derajat fungsi tidak melebihi derajat ketelitian, tidak perlu menghitung galat pemotongan: hasil kuadratur sama dengan integral polinom eksak.",
+            "Suku ganjil saling meniadakan. Hasilnya $f(-1/\\sqrt{3})+f(1/\\sqrt{3})=8-4/3=20/3$."
+          ],
+          "answer": "$\\displaystyle \\int_{-1}^{1}(3t^3-2t^2+t+4)\\,dt=20/3$, tepat dengan dua evaluasi fungsi."
+        },
+        "warning": "Jangan menyimpulkan Gauss dua titik selalu eksak. Klaim eksak hanya otomatis untuk polinom sampai derajat 3. Fungsi seperti $e^t$, $\\sin t$, atau fungsi rasional tetap memiliki galat walaupun biasanya kecil pada interval yang wajar."
+      },
+      {
+        "title": "2. Transformasi Interval dan Aturan Dua/Tiga Titik",
+        "paragraphs": [
+          "Tabel Gauss–Legendre berlaku pada $[-1,1]$. Integral pada $[a,b]$ harus dipetakan dengan transformasi linier. Faktor pengali tidak boleh hilang karena perubahan variabel juga mengubah elemen panjang $dx$.",
+          "Gauss dua titik memakai simpul $\\pm1/\\sqrt{3}$ dan bobot satu. Gauss tiga titik memakai simpul $0$ dan $\\pm\\sqrt{3/5}$ dengan bobot berturut-turut $8/9$ dan $5/9$. Pilih jumlah titik berdasarkan ketelitian yang dibutuhkan, bukan karena rumus yang paling panjang terlihat paling baik.",
+          "Untuk interval panjang atau fungsi yang berubah tajam, kuadratur Gauss komposit dapat dipakai: pecah $[a,b]$ menjadi beberapa subinterval, terapkan aturan Gauss pada setiap bagian, lalu jumlahkan."
+        ],
+        "formulas": [
+          "x=\\frac{a+b}{2}+\\frac{b-a}{2}t,\\qquad dx=\\frac{b-a}{2}dt",
+          "\\int_a^b f(x)\\,dx=\\frac{b-a}{2}\\int_{-1}^{1} f\\!\\left(\\frac{a+b}{2}+\\frac{b-a}{2}t\\right)dt",
+          "G_2=\\frac{b-a}{2}\\left[f(x_1)+f(x_2)\\right],\\quad x_{1,2}=\\frac{a+b}{2}\\mp\\frac{b-a}{2\\sqrt{3}}",
+          "G_3=\\frac{b-a}{2}\\left[\\frac{5}{9}f(x_1)+\\frac{8}{9}f(x_2)+\\frac{5}{9}f(x_3)\\right]"
+        ],
+        "example": {
+          "question": "Hitung $\\int_0^2(x^3+x)\\,dx$ dengan Gauss dua titik.",
+          "steps": [
+            "Untuk $a=0$ dan $b=2$, diperoleh $x=1+t$ dan $(b-a)/2=1$.",
+            "Simpul pada interval asli ialah $x_1=1-1/\\sqrt{3}$ dan $x_2=1+1/\\sqrt{3}$.",
+            "Gunakan $G_2=f(x_1)+f(x_2)$. Pasangan simetris memberi $x_1+x_2=2$ dan $x_1^3+x_2^3=4$.",
+            "Maka $G_2=(x_1^3+x_2^3)+(x_1+x_2)=4+2=6$."
+          ],
+          "answer": "$G_2=6$. Hasil ini eksak karena $x^3+x$ berderajat 3."
+        },
+        "warning": "Kesalahan paling sering ialah langsung memasukkan $a$ dan $b$ sebagai simpul, atau melupakan faktor $(b-a)/2$. Tuliskan transformasi interval sebelum menyubstitusikan angka."
+      },
+      {
+        "title": "3. Derajat Ketelitian dan Rumus Galat",
+        "paragraphs": [
+          "Derajat ketelitian adalah derajat polinom tertinggi yang diintegralkan tepat oleh sebuah aturan. Ukuran ini berguna untuk membandingkan aturan secara adil, tetapi bukan satu-satunya ukuran kinerja pada fungsi umum.",
+          "Galat Gauss–Legendre melibatkan turunan orde $2n$. Jika turunan itu kecil dan kontinu, galat cenderung kecil. Sebaliknya, titik tak mulus, singularitas, atau osilasi cepat dapat merusak keunggulan Gauss walaupun jumlah titik diperbesar.",
+          "Pada interval $[a,b]$, faktor skala berpangkat $2n+1$ menjelaskan mengapa pemecahan interval efektif. Mengecilkan panjang subinterval dapat menurunkan galat secara drastis selama fungsi cukup mulus."
+        ],
+        "formulas": [
+          "E_n=\\frac{2^{2n+1}(n!)^4}{(2n+1)[(2n)!]^3}f^{(2n)}(\\xi),\\qquad -1<\\xi<1",
+          "E_{n,[a,b]}=\\left(\\frac{b-a}{2}\\right)^{2n+1}\\frac{2^{2n+1}(n!)^4}{(2n+1)[(2n)!]^3}f^{(2n)}(\\xi)",
+          "E_2=\\frac{1}{135}f^{(4)}(\\xi)\\quad\\text{pada }[-1,1]",
+          "E_3=\\frac{1}{15750}f^{(6)}(\\xi)\\quad\\text{pada }[-1,1]"
+        ],
+        "example": {
+          "question": "Tentukan batas galat Gauss dua titik untuk $\\int_{-1}^{1}e^x\\,dx$.",
+          "steps": [
+            "Untuk $n=2$, turunan yang diperlukan adalah turunan keempat.",
+            "$f^{(4)}(x)=e^x$ dan pada $[-1,1]$ berlaku $|e^x|\\le e$.",
+            "Gunakan $|E_2|\\le (1/135)\\max|f^{(4)}(x)|$.",
+            "Diperoleh $|E_2|\\le e/135\\approx0{,}02014$. Batas ini aman, tetapi biasanya jauh lebih besar daripada galat aktual."
+          ],
+          "answer": "$|E_2|\\le e/135\\approx0{,}02014$. Nilai aktual Gauss dua titik sekitar $2\\sinh(1/\\sqrt{3})\\approx2{,}34270$, sedangkan nilai eksak $2\\sinh 1\\approx2{,}35040$."
+        },
+        "warning": "Batas galat bukan estimasi pasti. Jangan menuliskan $E=e/135$; yang benar adalah $|E|\\le e/135$. Pastikan pula turunan yang digunakan berorde $2n$, bukan $n$."
+      },
+      {
+        "title": "4. Perbandingan Trapesium, Simpson, dan Gauss",
+        "paragraphs": [
+          "Perbandingan harus mempertimbangkan jumlah evaluasi fungsi, derajat ketelitian, kemudahan pembagian interval, dan karakter fungsi. Trapesium satu panel memakai dua nilai fungsi dan tepat sampai derajat 1. Simpson $1/3$ satu panel memakai tiga nilai dan tepat sampai derajat 3. Gauss dua titik memakai dua nilai tetapi juga tepat sampai derajat 3.",
+          "Gauss unggul ketika fungsi dapat dievaluasi di sembarang titik dan cukup mulus. Simpson komposit lebih mudah diterapkan pada data tabel berjarak sama. Trapesium tetap berguna untuk data kasar, aturan komposit sederhana, atau pemeriksaan cepat.",
+          "Pada perhitungan nyata, selisih dua pendekatan dapat dipakai sebagai indikator, bukan bukti mutlak. Nilai acuan eksak atau batas teoretis tetap lebih kuat bila tersedia."
+        ],
+        "formulas": [
+          "T_1=\\frac{b-a}{2}[f(a)+f(b)]",
+          "S_{1/3}=\\frac{b-a}{6}\\left[f(a)+4f\\!\\left(\\frac{a+b}{2}\\right)+f(b)\\right]",
+          "E_{\\mathrm{abs}}=|I-I_h|,\\qquad E_{\\mathrm{rel}}=\\frac{|I-I_h|}{|I|}\\times100\\%"
+        ],
+        "example": {
+          "question": "Bandingkan satu panel trapesium, Simpson $1/3$, dan Gauss dua titik untuk $\\int_0^1e^x\\,dx$.",
+          "steps": [
+            "Nilai eksak ialah $I=e-1\\approx1{,}71828183$.",
+            "Trapesium memberi $T_1=(1+e)/2\\approx1{,}85914091$, sehingga galat absolut sekitar $0{,}14085908$.",
+            "Simpson memberi $S=(1+4e^{1/2}+e)/6\\approx1{,}71886115$, sehingga galat sekitar $0{,}00057932$.",
+            "Gauss dua titik memberi $G_2=[e^{0{,}5-1/(2\\sqrt3)}+e^{0{,}5+1/(2\\sqrt3)}]/2\\approx1{,}71789638$, sehingga galat sekitar $0{,}00038545$.",
+            "Dengan dua evaluasi fungsi, Gauss jauh lebih baik daripada trapesium dan sedikit lebih baik daripada Simpson yang memakai tiga evaluasi."
+          ],
+          "answer": "Urutan galat untuk contoh ini: Gauss dua titik $< $ Simpson satu panel $< $ trapesium satu panel. Kesimpulan ini khusus untuk fungsi dan pembagian yang dibandingkan."
+        },
+        "warning": "Jangan membandingkan metode hanya berdasarkan nama. Samakan biaya evaluasi atau jumlah panel terlebih dahulu. Simpson komposit dengan banyak titik tentu tidak adil jika dibandingkan dengan satu aturan Gauss dua titik tanpa menyebut biaya."
+      },
+      {
+        "title": "5. Alur Pemilihan dan Pemeriksaan Hasil Integrasi",
+        "paragraphs": [
+          "Mulailah dari bentuk masukan. Jika hanya tersedia tabel berjarak sama, gunakan Newton–Cotes komposit. Jika tersedia rumus fungsi dan evaluasi bebas, Gauss menjadi calon kuat. Jika ada singularitas, pecah interval atau lakukan transformasi variabel sebelum memakai aturan standar.",
+          "Setelah memperoleh hasil, ulangi dengan orde lebih tinggi atau subinterval lebih kecil. Stabilnya digit penting memberi keyakinan empiris. Periksa pula tanda integral, skala luas, dan batas sederhana agar kesalahan transformasi cepat terlihat.",
+          "Dokumentasi perhitungan minimal memuat fungsi, interval, metode, jumlah titik atau panel, nilai pendekatan, indikator galat, serta alasan pemilihan. Ini menjadikan jawaban dapat ditinjau ulang, bukan sekadar angka akhir."
+        ],
+        "formulas": [
+          "I\\approx\\sum_{j=1}^{m}G_n^{(j)}\\quad\\text{(Gauss komposit)}",
+          "\\Delta=|I_{\\mathrm{lebih\\ teliti}}-I_{\\mathrm{awal}}|",
+          "\\text{terima hasil jika }\\Delta\\le\\varepsilon\\text{ dan pemeriksaan skala terpenuhi}"
+        ],
+        "example": {
+          "question": "Metode apa yang dipilih untuk mengintegralkan data suhu tiap 10 menit dan fungsi analitik $e^{-x^2}$ pada $[0,2]$?",
+          "steps": [
+            "Data suhu hanya tersedia pada titik berjarak sama; simpul Gauss tidak dapat dievaluasi langsung.",
+            "Untuk data suhu, pilih trapesium komposit; Simpson komposit dapat dipilih bila jumlah subinterval sesuai dan data cukup halus.",
+            "Fungsi $e^{-x^2}$ tersedia sebagai rumus, mulus, dan dapat dievaluasi di sembarang titik.",
+            "Untuk $e^{-x^2}$, pilih Gauss–Legendre atau Gauss komposit, lalu cek konvergensi dengan menaikkan jumlah titik atau membagi interval."
+          ],
+          "answer": "Data tabel: Newton–Cotes komposit. Fungsi analitik mulus: Kuadratur Gauss, disertai pemeriksaan galat."
+        },
+        "warning": "Metode berorde tinggi tidak menyembuhkan masukan buruk. Singularitas yang berada di dalam interval, data berisik, atau pembatalan angka tetap harus ditangani sebelum memperbesar orde."
+      }
+    ],
+    "summary": "Kuadratur Gauss–Legendre memilih akar polinom Legendre sebagai simpul dan mencapai derajat ketelitian $2n-1$ dengan $n$ evaluasi. Interval umum harus dipetakan ke $[-1,1]$ beserta faktor Jacobian. Keunggulan Gauss paling terasa pada fungsi analitik yang mulus; data tabel berjarak sama lebih cocok untuk Newton–Cotes. Penilaian hasil wajib mencakup galat, biaya evaluasi, kehalusan fungsi, dan pemeriksaan dengan orde atau pembagian yang lebih teliti.",
+    "exercises": [
+      "Gunakan Gauss dua titik untuk menghitung $\\int_{-1}^{1}(2x^3+5x^2-4x+1)\\,dx$, lalu buktikan hasilnya dengan integral eksak.",
+      "Transformasikan $\\int_2^5\\ln x\\,dx$ ke interval $[-1,1]$ dan tuliskan pendekatan Gauss tiga titik tanpa melewatkan faktor skala.",
+      "Hitung $\\int_0^1\\cos x\\,dx$ dengan trapesium satu panel, Simpson satu panel, dan Gauss dua titik. Bandingkan galat absolutnya.",
+      "Tentukan derajat ketelitian Gauss tiga titik dan jelaskan mengapa polinom berderajat 6 tidak dijamin eksak.",
+      "Turunkan batas galat Gauss dua titik untuk $\\int_0^1 e^x\\,dx$ menggunakan maksimum turunan keempat pada interval tersebut.",
+      "Rancang alur komputasi Gauss komposit dua titik untuk $\\int_0^4(1+x^2)^{-1}\\,dx$ dengan empat subinterval, termasuk pemeriksaan konvergensinya."
+    ],
+    "next": "Pertemuan 14 beralih dari integral ke Persamaan Diferensial Biasa nilai awal pada Bab 8 Rinaldi Munir. Siapkan kembali konsep turunan, kemiringan garis singgung, deret Taylor, dan makna kondisi awal karena semuanya menjadi dasar metode Euler dan Heun."
+  },
+  {
+    "no": 14,
+    "title": "Masalah Nilai Awal PDB: Metode Euler dan Heun",
+    "bridge": "Bahan belajar Bab 8 Rinaldi Munir ini memandang solusi persamaan diferensial sebagai lintasan yang dibangun dari informasi kemiringan. Jika diferensiasi numerik menaksir turunan dari nilai fungsi, penyelesaian PDB melakukan arah sebaliknya: nilai turunan diketahui melalui model, lalu nilai fungsi dicari langkah demi langkah dari kondisi awal.",
+    "sections": [
+      {
+        "title": "1. Mengenali Masalah Nilai Awal dan Medan Arah",
+        "paragraphs": [
+          "Masalah nilai awal orde satu terdiri atas persamaan $y'=f(x,y)$ dan nilai awal $y(x_0)=y_0$. Nilai awal memilih satu lintasan solusi dari keluarga kurva yang memenuhi persamaan diferensial.",
+          "Nilai $f(x,y)$ adalah kemiringan lokal di titik $(x,y)$. Metode langkah tunggal bergerak dari titik yang diketahui menuju titik berikutnya dengan memanfaatkan satu atau beberapa perkiraan kemiringan.",
+          "Sebelum menghitung, tentukan interval, ukuran langkah $h$, jumlah langkah $N=(x_{akhir}-x_0)/h$, dan pastikan arah tanda $h$ sesuai tujuan. Keberadaan solusi, keunikan, serta domain fungsi perlu diperiksa agar iterasi tidak memasuki titik terlarang."
+        ],
+        "formulas": [
+          "y'=f(x,y),\\qquad y(x_0)=y_0",
+          "x_{n+1}=x_n+h",
+          "N=\\frac{x_{\\mathrm{akhir}}-x_0}{h}",
+          "y(x_{n+1})=y(x_n)+\\int_{x_n}^{x_{n+1}}f(x,y(x))\\,dx"
+        ],
+        "example": {
+          "question": "Identifikasi komponen masalah nilai awal $y'=y-x^2+1$, $y(0)=0{,}5$, untuk mencari $y(0{,}6)$ dengan $h=0{,}2$.",
+          "steps": [
+            "Fungsi kemiringan adalah $f(x,y)=y-x^2+1$.",
+            "Titik awal adalah $(x_0,y_0)=(0,0{,}5)$.",
+            "Titik target $0{,}6$ dan ukuran langkah $0{,}2$ menghasilkan $N=(0{,}6-0)/0{,}2=3$ langkah.",
+            "Titik kisi yang dipakai ialah $x_0=0$, $x_1=0{,}2$, $x_2=0{,}4$, dan $x_3=0{,}6$."
+          ],
+          "answer": "Masalah siap diiterasi tiga langkah dengan $f(x,y)=y-x^2+1$ dan kondisi awal $y_0=0{,}5$."
+        },
+        "warning": "Target harus konsisten dengan ukuran langkah. Jika $(x_{akhir}-x_0)/h$ bukan bilangan bulat, ubah langkah terakhir atau pilih $h$ baru; jangan diam-diam melewati titik target."
+      },
+      {
+        "title": "2. Metode Euler: Kemiringan di Pangkal Langkah",
+        "paragraphs": [
+          "Euler eksplisit memakai kemiringan pada titik awal setiap langkah. Secara geometris, solusi diganti oleh garis singgung pendek. Secara analitis, rumus ini berasal dari deret Taylor yang dipotong setelah suku orde pertama.",
+          "Metode Euler sederhana dan murah: satu evaluasi $f$ per langkah. Kelemahannya ialah galat global orde satu, sehingga pengecilan $h$ menjadi setengah umumnya hanya mengecilkan galat sekitar setengah.",
+          "Euler sangat berguna untuk memahami mekanisme solusi numerik, membuat tebakan awal, atau memperoleh gambaran kasar. Untuk akurasi tinggi, jumlah langkahnya dapat menjadi terlalu besar."
+        ],
+        "formulas": [
+          "y(x_n+h)=y(x_n)+hy'(x_n)+\\frac{h^2}{2}y''(\\xi_n)",
+          "y_{n+1}=y_n+h f(x_n,y_n)",
+          "\\tau_{n+1}=O(h^2),\\qquad E_{\\mathrm{global}}=O(h)"
+        ],
+        "example": {
+          "question": "Gunakan Euler satu langkah untuk masalah $y'=y-x^2+1$, $y(0)=0{,}5$, dengan $h=0{,}2$.",
+          "steps": [
+            "Hitung kemiringan awal: $f(0,0{,}5)=0{,}5-0+1=1{,}5$.",
+            "Gunakan $y_1=y_0+h f(x_0,y_0)$.",
+            "$y_1=0{,}5+0{,}2(1{,}5)=0{,}8$.",
+            "Koordinat baru adalah $(x_1,y_1)=(0{,}2,0{,}8)$."
+          ],
+          "answer": "$y(0{,}2)\\approx0{,}8$ dengan metode Euler. Nilai eksaknya sekitar $0{,}82930$, sehingga galat absolut sekitar $0{,}02930$."
+        },
+        "warning": "Selalu evaluasi $f$ dengan pasangan $(x_n,y_n)$ yang sama. Mencampurkan $x_{n+1}$ dengan $y_n$ bukan Euler eksplisit dan menghasilkan metode lain yang tidak boleh diberi label Euler."
+      },
+      {
+        "title": "3. Metode Heun: Prediktor–Korektor Dua Kemiringan",
+        "paragraphs": [
+          "Heun memperbaiki Euler dengan merata-ratakan kemiringan di pangkal dan perkiraan kemiringan di ujung langkah. Nilai ujung belum diketahui, sehingga Euler dipakai lebih dahulu sebagai prediktor.",
+          "Metode ini juga disebut Euler diperbaiki atau metode trapesium eksplisit. Dengan dua evaluasi fungsi per langkah, Heun memiliki galat global orde dua dan biasanya jauh lebih akurat daripada Euler pada ukuran langkah yang sama.",
+          "Tahapan harus ditulis berurutan: kemiringan awal, prediksi, kemiringan ujung berdasarkan prediksi, lalu koreksi. Nilai koreksi menjadi $y_{n+1}$ yang dipakai pada langkah berikutnya."
+        ],
+        "formulas": [
+          "k_1=f(x_n,y_n)",
+          "y_{n+1}^{*}=y_n+h k_1",
+          "k_2=f(x_n+h,y_{n+1}^{*})",
+          "y_{n+1}=y_n+\\frac{h}{2}(k_1+k_2)",
+          "\\tau_{n+1}=O(h^3),\\qquad E_{\\mathrm{global}}=O(h^2)"
+        ],
+        "example": {
+          "question": "Gunakan Heun satu langkah untuk $y'=y-x^2+1$, $y(0)=0{,}5$, $h=0{,}2$.",
+          "steps": [
+            "$k_1=f(0,0{,}5)=1{,}5$.",
+            "Prediktor Euler: $y_1^*=0{,}5+0{,}2(1{,}5)=0{,}8$.",
+            "$k_2=f(0{,}2,0{,}8)=0{,}8-0{,}2^2+1=1{,}76$.",
+            "Korektor: $y_1=0{,}5+(0{,}2/2)(1{,}5+1{,}76)=0{,}826$.",
+            "Bandingkan dengan solusi eksak $y=(x+1)^2-0{,}5e^x$, yang memberi $y(0{,}2)\\approx0{,}82930$."
+          ],
+          "answer": "$y(0{,}2)\\approx0{,}826$; galat absolut sekitar $0{,}00330$, lebih kecil daripada galat Euler $0{,}02930$."
+        },
+        "warning": "Jangan memakai $k_2=f(x_n+h,y_n)$. Kemiringan kedua harus dievaluasi pada nilai prediksi $y_{n+1}^{*}$; jika tidak, manfaat koreksi Heun hilang."
+      },
+      {
+        "title": "4. Galat Lokal, Galat Global, dan Pengaruh Ukuran Langkah",
+        "paragraphs": [
+          "Galat pemotongan lokal adalah kesalahan satu langkah dengan asumsi nilai awal langkah tepat. Galat global adalah akumulasi kesalahan pada titik tertentu setelah seluruh langkah sebelumnya. Perbedaan ini menjelaskan mengapa Euler memiliki galat lokal orde dua tetapi galat global orde satu.",
+          "Jika solusi eksak tersedia, galat dapat dihitung langsung. Jika tidak, lakukan step halving: hitung dengan $h$ dan $h/2$, lalu periksa perubahan hasil. Untuk metode berorde $p$, galat utama berkurang kira-kira dengan faktor $2^p$ saat langkah dibagi dua.",
+          "Ukuran langkah kecil meningkatkan akurasi pemotongan, tetapi menambah biaya dan akumulasi pembulatan. Pilih $h$ cukup kecil untuk toleransi, bukan sekecil mungkin tanpa alasan."
+        ],
+        "formulas": [
+          "E_n=y(x_n)-y_n",
+          "E(h)\\approx C h^p",
+          "\\frac{|E(h)|}{|E(h/2)|}\\approx2^p",
+          "|E(h/2)|\\approx\\frac{|y_{h/2}-y_h|}{2^p-1}"
+        ],
+        "example": {
+          "question": "Pendekatan Heun memberi $y_h(1)=2{,}6900$ untuk $h=0{,}2$ dan $y_{h/2}(1)=2{,}7100$ untuk $h=0{,}1$. Perkirakan galat hasil yang lebih halus.",
+          "steps": [
+            "Heun berorde global $p=2$.",
+            "Selisih dua pendekatan adalah $|2{,}7100-2{,}6900|=0{,}0200$.",
+            "Estimasi galat langkah $h/2$ adalah $0{,}0200/(2^2-1)$.",
+            "Diperoleh estimasi $0{,}00667$."
+          ],
+          "answer": "Galat $y_{h/2}(1)$ diperkirakan sekitar $0{,}00667$. Estimasi ini berlaku bila daerah asimtotik orde dua sudah tercapai."
+        },
+        "warning": "Selisih kecil antara dua hasil tidak selalu menjamin kebenaran. Keduanya dapat sama-sama salah akibat model keliru, ketidakstabilan, atau fungsi yang tidak mulus. Lengkapi dengan pemeriksaan residual, skala, dan perilaku solusi."
+      },
+      {
+        "title": "5. Alur Penyelesaian dan Pemilihan Euler atau Heun",
+        "paragraphs": [
+          "Susun tabel dengan kolom $n$, $x_n$, $y_n$, $k_1$, prediktor, $k_2$, dan nilai koreksi. Tabel menjaga indeks tetap konsisten dan memudahkan penelusuran kesalahan aritmetika.",
+          "Pilih Euler untuk demonstrasi konsep, perkiraan cepat, atau ketika biaya evaluasi fungsi sangat mahal dan akurasi rendah cukup. Pilih Heun ketika dibutuhkan akurasi lebih baik tanpa kompleksitas metode orde tinggi.",
+          "Akhiri proses dengan memeriksa apakah nilai target tercapai, solusi masuk akal terhadap medan arah, hasil stabil saat $h$ diperkecil, dan seluruh nilai perantara berada dalam domain model."
+        ],
+        "formulas": [
+          "\\text{Euler: 1 evaluasi }f\\text{ per langkah}",
+          "\\text{Heun: 2 evaluasi }f\\text{ per langkah}",
+          "\\text{hentikan penghalusan jika }|y_{h/2}-y_h|/(2^p-1)\\le\\varepsilon"
+        ],
+        "example": {
+          "question": "Pilih metode untuk simulasi cepat 100 skenario dan untuk laporan yang menuntut galat di bawah $10^{-3}$.",
+          "steps": [
+            "Pada penyaringan awal 100 skenario, kecepatan dan pola umum lebih penting daripada banyak digit.",
+            "Euler dapat dipakai dengan pemeriksaan beberapa nilai $h$ untuk menyaring skenario.",
+            "Pada laporan, toleransi eksplisit menuntut estimasi galat dan penghalusan langkah.",
+            "Heun menjadi pilihan awal yang lebih efisien; hitung dengan $h$ dan $h/2$, lalu lanjutkan sampai estimasi galat memenuhi $10^{-3}$."
+          ],
+          "answer": "Penyaringan awal: Euler terkontrol. Hasil laporan: Heun dengan step halving dan dokumentasi galat."
+        },
+        "warning": "Jangan memilih metode hanya dari orde. Persamaan kaku dapat membuat Euler dan Heun eksplisit tidak stabil walaupun $h$ tampak kecil. Pola osilasi liar atau pertumbuhan tak wajar adalah tanda untuk mengecilkan $h$ atau memakai metode stabil yang sesuai."
+      }
+    ],
+    "summary": "Masalah nilai awal $y'=f(x,y)$ dibangun langkah demi langkah dari kondisi awal. Euler memakai satu kemiringan dan berorde global satu; Heun memakai prediktor serta rata-rata dua kemiringan dan berorde global dua. Ketelitian dinilai melalui solusi eksak bila ada atau step halving bila tidak. Jawaban yang baik selalu menyebut ukuran langkah, jumlah langkah, nilai antara, estimasi galat, dan pemeriksaan kewajaran solusi.",
+    "exercises": [
+      "Gunakan Euler dengan $h=0{,}1$ untuk memperkirakan $y(0{,}3)$ dari $y'=x+y$, $y(0)=1$. Tampilkan seluruh tabel langkah.",
+      "Ulangi soal pertama dengan Heun. Bandingkan kedua hasil dengan solusi eksak $y=2e^x-x-1$.",
+      "Untuk $y'=-2y$, $y(0)=1$, hitung $y(0{,}4)$ dengan Euler memakai $h=0{,}2$ dan $h=0{,}1$. Nilai pengaruh step halving.",
+      "Jelaskan perbedaan galat pemotongan lokal dan galat global dengan contoh satu langkah Euler.",
+      "Susun pseudocode Heun yang menerima $f$, $x_0$, $y_0$, $h$, dan $N$, lalu mengembalikan tabel iterasi.",
+      "Model pendinginan memenuhi $T'=-0{,}15(T-25)$, $T(0)=90$. Gunakan Heun untuk mencari $T(2)$ dengan $h=0{,}5$ dan periksa apakah hasilnya konsisten secara fisik."
+    ],
+    "next": "Pertemuan 15 memperluas gagasan kemiringan bertahap menjadi Runge–Kutta orde empat. Siapkan bentuk vektor dan cara mengubah PDB orde tinggi menjadi sistem orde satu karena RK4 akan diterapkan pada persamaan tunggal maupun sistem yang saling terkopel."
+  },
+  {
+    "no": 15,
+    "title": "Runge–Kutta Orde Empat untuk Persamaan Tunggal dan Sistem",
+    "bridge": "Bahan belajar Bab 8 Rinaldi Munir ini melanjutkan Euler dan Heun. Alih-alih hanya memakai kemiringan awal atau rata-rata dua kemiringan, RK4 mencampurkan empat kemiringan untuk memperoleh akurasi orde empat tanpa menghitung turunan tinggi secara simbolik. Pertemuan ini menekankan sistem PDB, analisis akurasi, dan pemeriksaan hasil.",
+    "sections": [
+      {
+        "title": "1. Rumus RK4 Klasik dan Makna Empat Tahap",
+        "paragraphs": [
+          "RK4 klasik mengevaluasi kemiringan di awal, dua titik tengah, dan ujung langkah. Bobot $1:2:2:1$ menggabungkan informasi tersebut sehingga suku deret Taylor cocok sampai orde empat.",
+          "Konvensi rumus harus konsisten. Dalam bahan ini, $k_i$ menyimpan nilai kemiringan tanpa faktor $h$; faktor $h$ baru dikalikan pada pembaruan akhir dan pada pembentukan titik antara.",
+          "Biaya satu langkah adalah empat evaluasi fungsi, tetapi galat globalnya $O(h^4)$. Untuk banyak masalah mulus nonkaku, RK4 memberi kompromi kuat antara akurasi, biaya, dan kemudahan implementasi."
+        ],
+        "formulas": [
+          "k_1=f(x_n,y_n)",
+          "k_2=f\\left(x_n+\\frac h2,y_n+\\frac h2k_1\\right)",
+          "k_3=f\\left(x_n+\\frac h2,y_n+\\frac h2k_2\\right)",
+          "k_4=f(x_n+h,y_n+hk_3)",
+          "y_{n+1}=y_n+\\frac h6(k_1+2k_2+2k_3+k_4)"
+        ],
+        "example": {
+          "question": "Lakukan satu langkah RK4 untuk $y'=y$, $y(0)=1$, dengan $h=0{,}1$.",
+          "steps": [
+            "$k_1=1$.",
+            "$k_2=1+0{,}05k_1=1{,}05$.",
+            "$k_3=1+0{,}05k_2=1{,}0525$.",
+            "$k_4=1+0{,}1k_3=1{,}10525$.",
+            "$y_1=1+(0{,}1/6)(1+2(1{,}05)+2(1{,}0525)+1{,}10525)=1{,}105170833$.",
+            "Nilai eksak $e^{0{,}1}\\approx1{,}105170186$."
+          ],
+          "answer": "$y(0{,}1)\\approx1{,}105170833$ dengan galat absolut sekitar $6{,}47\\times10^{-7}$."
+        },
+        "warning": "Ada buku yang mendefinisikan $K_i=hk_i$. Jangan mencampur dua konvensi karena faktor $h$ dapat terhitung dua kali atau hilang. Periksa satuan: $h k_i$ harus mempunyai satuan yang sama dengan $y$."
+      },
+      {
+        "title": "2. Mengubah PDB Orde Tinggi Menjadi Sistem Orde Satu",
+        "paragraphs": [
+          "RK4 paling alami ditulis untuk sistem orde satu. Persamaan orde dua atau lebih tinggi harus diubah dengan memperkenalkan variabel keadaan baru untuk setiap turunan.",
+          "Untuk $y''=g(x,y,y')$, definisikan $u_1=y$ dan $u_2=y'$. Sistemnya menjadi $u_1'=u_2$ dan $u_2'=g(x,u_1,u_2)$. Dua kondisi awal diperlukan, masing-masing untuk posisi dan turunan awal.",
+          "Perubahan ini bukan pendekatan numerik; bentuk sistem ekuivalen secara matematis. Galat baru muncul saat sistem tersebut diintegrasikan dengan ukuran langkah tertentu."
+        ],
+        "formulas": [
+          "u_1=y,\\qquad u_2=y'",
+          "\\begin{bmatrix}u_1'\\\\u_2'\\end{bmatrix}=\\begin{bmatrix}u_2\\\\g(x,u_1,u_2)\\end{bmatrix}",
+          "\\mathbf u'=\\mathbf F(x,\\mathbf u),\\qquad \\mathbf u(x_0)=\\mathbf u_0"
+        ],
+        "example": {
+          "question": "Ubah $y''+3y'+2y=0$, $y(0)=1$, $y'(0)=0$ menjadi sistem orde satu.",
+          "steps": [
+            "Pilih $u_1=y$ dan $u_2=y'$.",
+            "Dari definisi, $u_1'=u_2$.",
+            "Persamaan asal memberi $y''=-3y'-2y$, sehingga $u_2'=-3u_2-2u_1$.",
+            "Kondisi awal menjadi $u_1(0)=1$ dan $u_2(0)=0$."
+          ],
+          "answer": "$\\mathbf u'=(u_2,-2u_1-3u_2)^T$ dengan $\\mathbf u(0)=(1,0)^T$."
+        },
+        "warning": "Jangan kehilangan kondisi awal saat menambah variabel keadaan. PDB orde dua memerlukan dua kondisi awal yang independen; hanya $y(x_0)$ tidak cukup untuk menentukan lintasan tunggal."
+      },
+      {
+        "title": "3. RK4 Vektor untuk Sistem yang Saling Terhubung",
+        "paragraphs": [
+          "Pada sistem, setiap $k_i$ adalah vektor. Semua komponen tahap harus dihitung dari keadaan tahap yang sama. Misalnya, komponen pertama $k_2$ dan komponen kedua $k_2$ sama-sama memakai $\\mathbf u_n+(h/2)\\mathbf k_1$.",
+          "Keterkopelan berarti perubahan satu komponen memengaruhi komponen lain. Karena itu pembaruan komponen secara berurutan menggunakan nilai yang sudah diperbarui dapat mengubah metode dan merusak orde.",
+          "Implementasi yang aman menyimpan vektor tahap lengkap, kemudian baru memperbarui seluruh komponen secara serentak pada akhir langkah."
+        ],
+        "formulas": [
+          "\\mathbf k_1=\\mathbf F(x_n,\\mathbf u_n)",
+          "\\mathbf k_2=\\mathbf F\\left(x_n+\\frac h2,\\mathbf u_n+\\frac h2\\mathbf k_1\\right)",
+          "\\mathbf k_3=\\mathbf F\\left(x_n+\\frac h2,\\mathbf u_n+\\frac h2\\mathbf k_2\\right)",
+          "\\mathbf k_4=\\mathbf F(x_n+h,\\mathbf u_n+h\\mathbf k_3)",
+          "\\mathbf u_{n+1}=\\mathbf u_n+\\frac h6(\\mathbf k_1+2\\mathbf k_2+2\\mathbf k_3+\\mathbf k_4)"
+        ],
+        "example": {
+          "question": "Lakukan satu langkah RK4 untuk $y''+y=0$, $y(0)=1$, $y'(0)=0$, dengan $h=0{,}1$.",
+          "steps": [
+            "Definisikan $u_1=y$, $u_2=y'$, sehingga $\\mathbf F(u_1,u_2)=(u_2,-u_1)^T$.",
+            "$\\mathbf k_1=(0,-1)^T$.",
+            "$\\mathbf k_2=\\mathbf F(1,-0{,}05)=(-0{,}05,-1)^T$.",
+            "$\\mathbf k_3=\\mathbf F(0{,}9975,-0{,}05)=(-0{,}05,-0{,}9975)^T$.",
+            "$\\mathbf k_4=\\mathbf F(0{,}995,-0{,}09975)=(-0{,}09975,-0{,}995)^T$.",
+            "Pembaruan berbobot memberi $\\mathbf u_1\\approx(0{,}995004167,-0{,}099833333)^T$."
+          ],
+          "answer": "$y(0{,}1)\\approx0{,}995004167$ dan $y'(0{,}1)\\approx-0{,}099833333$. Nilai eksaknya adalah $\\cos0{,}1$ dan $-\\sin0{,}1$."
+        },
+        "warning": "Jangan memperbarui $u_1$ sebelum seluruh tahap untuk $u_2$ selesai. RK4 vektor mengharuskan pembaruan serentak; pembaruan berantai memakai campuran waktu lama dan baru."
+      },
+      {
+        "title": "4. Orde Akurasi, Step Halving, dan Ekstrapolasi",
+        "paragraphs": [
+          "RK4 memiliki galat pemotongan lokal $O(h^5)$ dan galat global $O(h^4)$. Selama masalah mulus dan perhitungan berada pada daerah asimtotik, membagi langkah dua menurunkan galat global sekitar faktor 16.",
+          "Tanpa solusi eksak, dua hasil pada kisi berbeda dapat memperkirakan galat. Selisih $y_{h/2}-y_h$ memuat sekitar 15 kali galat hasil yang lebih halus untuk metode orde empat.",
+          "Ekstrapolasi Richardson memakai pola galat tersebut untuk membatalkan suku utama. Hasil terkoreksi berguna, tetapi tetap perlu pemeriksaan tambahan karena asumsi orde dapat gagal pada diskontinuitas, kekakuan, atau pembulatan dominan."
+        ],
+        "formulas": [
+          "\\tau_{n+1}=O(h^5),\\qquad E_{\\mathrm{global}}=O(h^4)",
+          "E_{h/2}\\approx\\frac{y_{h/2}-y_h}{2^4-1}=\\frac{y_{h/2}-y_h}{15}",
+          "y_{\\mathrm{Rich}}=y_{h/2}+\\frac{y_{h/2}-y_h}{15}",
+          "p_{\\mathrm{obs}}=\\log_2\\left(\\frac{|y_h-y_{h/2}|}{|y_{h/2}-y_{h/4}|}\\right)"
+        ],
+        "example": {
+          "question": "RK4 menghasilkan $y_h(1)=2{,}7182100$ dan $y_{h/2}(1)=2{,}7182770$. Perkirakan galat hasil halus dan nilai Richardson.",
+          "steps": [
+            "Selisih bertanda adalah $d=2{,}7182770-2{,}7182100=0{,}0000670$.",
+            "Estimasi koreksi hasil halus adalah $d/15\\approx0{,}0000044667$.",
+            "Estimasi galat absolut $y_{h/2}$ sekitar $4{,}47\\times10^{-6}$.",
+            "Nilai Richardson ialah $2{,}7182770+0{,}0000044667=2{,}7182814667$."
+          ],
+          "answer": "Galat hasil halus diperkirakan $4{,}47\\times10^{-6}$; nilai ekstrapolasi $y_{\\mathrm{Rich}}\\approx2{,}71828147$."
+        },
+        "warning": "Faktor 15 hanya berlaku untuk membandingkan langkah $h$ dan $h/2$ pada metode orde empat. Jangan memakainya pada Euler, Heun, atau rasio langkah lain tanpa menyesuaikan $2^p-1$."
+      },
+      {
+        "title": "5. Akurasi Bukan Stabilitas: Pemilihan Metode yang Bertanggung Jawab",
+        "paragraphs": [
+          "Orde tinggi menjelaskan laju penurunan galat ketika $h$ mengecil, tetapi tidak menjamin kestabilan untuk semua $h$. Pada persamaan uji $y'=\\lambda y$ dengan $\\lambda$ negatif besar, RK4 eksplisit tetap dapat tidak stabil jika $h\\lambda$ berada di luar daerah stabilitas.",
+          "Bandingkan metode berdasarkan biaya total untuk mencapai toleransi. Euler memerlukan satu evaluasi per langkah, Heun dua, dan RK4 empat. RK4 sering menang karena dapat memakai langkah lebih besar pada masalah mulus, tetapi bukan pilihan otomatis untuk sistem kaku.",
+          "Pemeriksaan akhir mencakup step halving, besaran residual atau invariant jika ada, kewajaran fisik, serta grafik lintasan. Untuk osilator tanpa redaman, misalnya, amplitudo atau energi seharusnya tidak tumbuh tanpa sebab."
+        ],
+        "formulas": [
+          "y_{n+1}=R(z)y_n,\\qquad z=h\\lambda",
+          "R_{\\mathrm{RK4}}(z)=1+z+\\frac{z^2}{2}+\\frac{z^3}{6}+\\frac{z^4}{24}",
+          "|R(z)|\\le1\\quad\\text{sebagai syarat stabilitas pada mode meluruh}",
+          "\\text{biaya}=N\\times\\text{evaluasi }\\mathbf F\\text{ per langkah}"
+        ],
+        "example": {
+          "question": "Mengapa hasil RK4 untuk $y'=-100y$, $y(0)=1$, dengan $h=0{,}1$ patut dicurigai?",
+          "steps": [
+            "Hitung $z=h\\lambda=0{,}1(-100)=-10$.",
+            "Faktor amplifikasi RK4 adalah $R(-10)=1-10+50-1000/6+10000/24\\approx291$.",
+            "Karena $|R(-10)|\\gg1$, mode yang secara eksak meluruh justru diperbesar oleh metode numerik.",
+            "Kurangi $h$ sampai $z$ masuk daerah stabilitas atau gunakan metode yang dirancang untuk masalah kaku."
+          ],
+          "answer": "Hasil patut ditolak karena faktor amplifikasi sekitar 291. Orde empat tidak mencegah ketidakstabilan pada langkah yang terlalu besar."
+        },
+        "warning": "Jangan menerima banyak digit hanya karena RK4 dipakai. Digit dapat tampak rapi pada solusi yang tidak stabil atau model yang salah. Akurasi harus didukung oleh penghalusan langkah dan pemeriksaan sifat masalah."
+      }
+    ],
+    "summary": "RK4 klasik memakai empat kemiringan berbobot dan memberi galat global orde empat. Untuk PDB orde tinggi, bentuk dahulu sistem orde satu; pada sistem, semua tahap adalah vektor dan seluruh komponen diperbarui serentak. Step halving memberi estimasi galat dengan penyebut 15, sedangkan ekstrapolasi Richardson dapat meningkatkan nilai. Orde tinggi tetap harus dibedakan dari stabilitas, terutama pada sistem kaku.",
+    "exercises": [
+      "Lakukan satu langkah RK4 untuk $y'=x-y$, $y(0)=1$, $h=0{,}2$. Tulis keempat kemiringan dan hasil akhir.",
+      "Ubah $y''-4y'+4y=0$, $y(0)=1$, $y'(0)=2$ menjadi sistem orde satu lengkap dengan vektor kondisi awal.",
+      "Gunakan RK4 satu langkah untuk sistem $u'=v$, $v'=-4u$, $(u(0),v(0))=(1,0)$, dengan $h=0{,}1$.",
+      "Jika hasil RK4 pada $h=0{,}2$, $0{,}1$, dan $0{,}05$ tersedia, rumuskan cara menghitung orde teramati $p_{\\mathrm{obs}}$.",
+      "Hitung estimasi galat dan nilai Richardson jika $y_h=0{,}36780$ dan $y_{h/2}=0{,}367875$.",
+      "Untuk persamaan uji $y'=-30y$, bandingkan nilai $z=h\\lambda$ pada $h=0{,}1$ dan $h=0{,}01$, lalu jelaskan risiko stabilitas RK4 secara kualitatif."
+    ],
+    "next": "Pertemuan 16 menyatukan seluruh metode dalam tinjauan akhir. Fokus berikutnya bukan menambah rumus baru, melainkan mengenali jenis masalah, memilih metode yang sesuai, menetapkan toleransi, dan membuktikan bahwa hasil numerik dapat dipercaya."
+  },
+  {
+    "no": 16,
+    "title": "Tinjauan Akhir: Peta Metode dan Alur Pemilihan yang Dapat Dipertanggungjawabkan",
+    "bridge": "Bahan belajar penutup ini merangkum perjalanan Metode Numerik, dengan penguatan integrasi Bab 6 dan PDB Bab 8 Rinaldi Munir. Tujuannya bukan menghafal semua rumus sekaligus, melainkan membangun alur kerja: klasifikasikan masalah, periksa data, pilih metode, hitung, ukur galat, verifikasi, lalu komunikasikan hasil beserta keterbatasannya.",
+    "sections": [
+      {
+        "title": "1. Fondasi Bersama: Model, Aproksimasi, Galat, dan Kondisi",
+        "paragraphs": [
+          "Setiap penyelesaian numerik dimulai dari model matematis dan data. Galat pemodelan, galat data, galat pemotongan, serta galat pembulatan berbeda sumbernya. Algoritma yang sangat akurat tidak dapat memperbaiki model atau data yang salah.",
+          "Galat absolut menunjukkan selisih dalam satuan asli, sedangkan galat relatif menunjukkan besar kesalahan dibandingkan skala nilai benar. Jika nilai benar tidak diketahui, gunakan residual, batas galat, perbandingan kisi, atau metode pembanding.",
+          "Kondisi masalah menggambarkan seberapa sensitif jawaban terhadap gangguan data. Stabilitas algoritma menggambarkan apakah proses komputasi memperbesar gangguan secara tidak wajar. Keduanya harus dibedakan saat menilai hasil."
+        ],
+        "formulas": [
+          "E_{\\mathrm{abs}}=|x-\\hat x|",
+          "E_{\\mathrm{rel}}=\\frac{|x-\\hat x|}{|x|}",
+          "r=b-A\\hat x\\quad\\text{untuk sistem linear}",
+          "r=f(\\hat x)\\quad\\text{untuk akar persamaan}",
+          "\\text{galat total}\\approx\\text{galat data} + \\text{galat pemotongan} + \\text{galat pembulatan}"
+        ],
+        "example": {
+          "question": "Dua pendekatan akar memberi $\\hat x=1{,}4142$ dan $f(\\hat x)=3{,}8\\times10^{-6}$ untuk $f(x)=x^2-2$. Pemeriksaan apa yang masih diperlukan?",
+          "steps": [
+            "Residual kecil menunjukkan $\\hat x$ hampir memenuhi persamaan yang dihitung.",
+            "Periksa perubahan iterasi atau lebar selang agar kedekatan terhadap akar juga terukur.",
+            "Periksa bahwa akar berada pada domain dan cabang yang dimaksud; $x^2-2$ juga mempunyai akar negatif.",
+            "Jika nilai acuan $\\sqrt2$ tersedia, hitung galat absolut sekitar $1{,}36\\times10^{-5}$.",
+            "Laporkan kriteria berhenti, bukan hanya empat digit hasil."
+          ],
+          "answer": "Residual perlu dilengkapi dengan galat iterasi atau lebar selang, pemeriksaan domain, dan kriteria berhenti. Residual kecil saja belum menjadi laporan lengkap."
+        },
+        "warning": "Jangan menyamakan banyak angka di belakang koma dengan akurasi. Digit yang dicetak melebihi bukti galat adalah presisi semu."
+      },
+      {
+        "title": "2. Peta Metode Akar Persamaan dan Sistem Linear",
+        "paragraphs": [
+          "Untuk akar persamaan satu variabel, metode tertutup seperti bagi dua mengutamakan jaminan konvergensi ketika tersedia selang perubahan tanda. Regula falsi memanfaatkan garis secant sambil mempertahankan pengurungan. Newton–Raphson dan secant lebih cepat, tetapi memerlukan tebakan baik dan pemeriksaan kegagalan.",
+          "Untuk sistem linear kecil-menengah, eliminasi Gauss dengan pivoting adalah pilihan langsung umum. Dekomposisi LU efisien ketika matriks yang sama dipakai untuk banyak vektor ruas kanan. Jacobi dan Gauss–Seidel bermanfaat pada sistem besar jarang jika syarat konvergensinya memadai.",
+          "Verifikasi akar dengan residual $|f(x)|$ dan verifikasi sistem linear dengan $\\|b-A\\hat x\\|$. Pivot kecil, matriks hampir singular, atau iterasi yang tidak mengecil harus dilaporkan sebagai peringatan."
+        ],
+        "formulas": [
+          "x_{k+1}=\\frac{a_k+b_k}{2}\\quad\\text{(bagi dua)}",
+          "x_{k+1}=x_k-\\frac{f(x_k)}{f'(x_k)}\\quad\\text{(Newton–Raphson)}",
+          "A=LU,\\qquad Ly=b,\\qquad Ux=y",
+          "x_i^{(k+1)}=\\frac{1}{a_{ii}}\\left(b_i-\\sum_{j<i}a_{ij}x_j^{(k+1)}-\\sum_{j>i}a_{ij}x_j^{(k)}\\right)"
+        ],
+        "example": {
+          "question": "Pilih metode untuk: (a) akar kontinu diketahui berada di $[1,2]$ tetapi turunan sulit; (b) 20 ruas kanan dengan matriks $A$ yang sama; (c) sistem sangat besar dan jarang.",
+          "steps": [
+            "Kasus (a) mempunyai selang valid dan prioritas keandalan; pilih bagi dua atau regula falsi.",
+            "Kasus (b) berulang pada matriks yang sama; faktorkan $A=LU$ sekali, lalu lakukan substitusi untuk setiap ruas kanan.",
+            "Kasus (c) membuat penyimpanan matriks penuh mahal; pertimbangkan metode iteratif seperti Gauss–Seidel setelah memeriksa konvergensi.",
+            "Untuk semua kasus, tetapkan toleransi dan hitung residual akhir."
+          ],
+          "answer": "(a) Bagi dua/regula falsi; (b) dekomposisi LU; (c) metode iteratif yang sesuai struktur, semuanya dengan pemeriksaan residual."
+        },
+        "warning": "Newton–Raphson tidak otomatis terbaik hanya karena konvergensinya cepat. Turunan nol, tebakan jauh, akar ganda, atau domain terbatas dapat menyebabkan langkah gagal atau menuju akar yang tidak diinginkan."
+      },
+      {
+        "title": "3. Peta Interpolasi, Regresi, Diferensiasi, dan Integrasi",
+        "paragraphs": [
+          "Interpolasi membangun fungsi yang melewati seluruh titik data, sedangkan regresi mencari kecenderungan dan tidak harus melewati setiap titik. Pilih interpolasi untuk data deterministik yang dipercaya dan regresi untuk data pengamatan yang mengandung noise.",
+          "Polinom Lagrange atau Newton cocok untuk nilai pada titik tertentu dan penambahan data bertahap. Polinom global derajat tinggi dapat berosilasi; spline kubik memberi bentuk potongan yang lebih stabil dan halus pada banyak titik.",
+          "Diferensiasi numerik memperkuat noise, sehingga langkah terlalu kecil belum tentu lebih baik. Integrasi numerik cenderung lebih stabil: trapesium/Simpson cocok untuk tabel berjarak sama, sedangkan Kuadratur Gauss unggul untuk fungsi mulus yang dapat dievaluasi bebas sebagaimana dibahas pada Bab 6."
+        ],
+        "formulas": [
+          "P_n(x)=\\sum_{i=0}^{n}y_i\\prod_{j\\ne i}\\frac{x-x_j}{x_i-x_j}",
+          "f'(x_i)\\approx\\frac{f(x_i+h)-f(x_i-h)}{2h}",
+          "T_h=\\frac h2\\left[f(x_0)+2\\sum_{i=1}^{n-1}f(x_i)+f(x_n)\\right]",
+          "S_h=\\frac h3\\left[f(x_0)+4\\sum_{i\\,ganjil}f(x_i)+2\\sum_{i\\,genap}f(x_i)+f(x_n)\\right]",
+          "G_n=\\frac{b-a}{2}\\sum_{i=1}^{n}w_i f\\left(\\frac{a+b}{2}+\\frac{b-a}{2}t_i\\right)"
+        ],
+        "example": {
+          "question": "Tentukan pendekatan untuk tiga situasi: data eksperimen berisik, turunan dari data sensor, dan integral fungsi analitik mulus.",
+          "steps": [
+            "Data eksperimen berisik memerlukan model kecenderungan; gunakan regresi dan periksa residual, bukan interpolasi semua titik.",
+            "Turunan data sensor sangat peka terhadap noise; lakukan pemulusan yang dapat dipertanggungjawabkan dan gunakan beda pusat dengan studi ukuran langkah.",
+            "Integral fungsi analitik mulus dapat memakai Kuadratur Gauss; naikkan orde atau gunakan pembagian interval untuk verifikasi.",
+            "Pada setiap kasus, pisahkan kesalahan data dari kesalahan metode numerik."
+          ],
+          "answer": "Regresi untuk tren berisik; pemulusan terkontrol plus beda pusat untuk turunan sensor; Kuadratur Gauss untuk integral fungsi mulus."
+        },
+        "warning": "Jangan menginterpolasi data berisik lalu mendiferensiasikan polinom derajat tinggi tanpa pemeriksaan. Kombinasi tersebut dapat memperbesar noise dan osilasi secara ekstrem."
+      },
+      {
+        "title": "4. Peta PDB Nilai Awal: Euler, Heun, dan RK4",
+        "paragraphs": [
+          "Pada Bab 8, semua metode langkah tunggal mendekati integral kemiringan dalam satu langkah. Euler berorde satu dan cocok untuk pembelajaran atau perkiraan kasar. Heun berorde dua dan memakai prediktor–korektor. RK4 berorde empat serta menjadi pilihan umum untuk masalah mulus nonkaku.",
+          "PDB orde tinggi harus diubah menjadi sistem orde satu. Ukuran langkah menentukan akurasi dan stabilitas. Step halving menilai konvergensi: selisih hasil seharusnya turun menurut orde metode ketika asumsi teori terpenuhi.",
+          "Masalah kaku memerlukan perhatian khusus. Metode eksplisit dapat tidak stabil meskipun akurasi lokalnya tinggi. Tanda praktisnya adalah osilasi atau pertumbuhan numerik yang bertentangan dengan perilaku model."
+        ],
+        "formulas": [
+          "\\text{Euler: }y_{n+1}=y_n+hf(x_n,y_n),\\quad p=1",
+          "\\text{Heun: }y_{n+1}=y_n+\\frac h2(k_1+k_2),\\quad p=2",
+          "\\text{RK4: }y_{n+1}=y_n+\\frac h6(k_1+2k_2+2k_3+k_4),\\quad p=4",
+          "E_{h/2}\\approx\\frac{y_{h/2}-y_h}{2^p-1}"
+        ],
+        "example": {
+          "question": "Metode mana yang dipakai untuk sketsa cepat, hasil menengah, hasil akurat nonkaku, dan sistem yang menunjukkan kekakuan?",
+          "steps": [
+            "Sketsa cepat dengan toleransi longgar dapat memakai Euler sambil memeriksa pengaruh $h$.",
+            "Hasil menengah dengan biaya ringan dapat memakai Heun.",
+            "Hasil akurat untuk sistem mulus nonkaku dapat memakai RK4 dengan step halving.",
+            "Sistem kaku tidak boleh dipaksa dengan langkah besar pada metode eksplisit; kecilkan langkah secara drastis atau pilih metode implisit/stiff solver yang sesuai.",
+            "Semua pilihan harus disertai toleransi, biaya, dan pemeriksaan perilaku solusi."
+          ],
+          "answer": "Euler untuk kasar, Heun untuk akurasi menengah, RK4 untuk akurasi tinggi nonkaku, dan metode stabil khusus untuk masalah kaku."
+        },
+        "warning": "Jangan memakai satu ukuran langkah untuk semua komponen sistem tanpa menilai skala waktu. Komponen tercepat sering menentukan batas langkah stabil."
+      },
+      {
+        "title": "5. Workflow Pemilihan Metode dari Soal sampai Hasil",
+        "paragraphs": [
+          "Langkah pertama adalah klasifikasi: apakah yang dicari akar, solusi sistem linear, nilai antara data, turunan, integral, atau lintasan PDB. Langkah kedua adalah audit masukan: rumus atau tabel, halus atau berisik, padat atau jarang, memiliki singularitas atau tidak, serta tersedia tidaknya turunan.",
+          "Langkah ketiga menetapkan tujuan numerik: toleransi, rentang, biaya evaluasi, dan bentuk keluaran. Barulah metode dan parameter dipilih. Mulai dari metode paling sederhana yang memenuhi kebutuhan, lalu tingkatkan jika bukti galat belum cukup.",
+          "Langkah keempat adalah verifikasi berlapis: residual, metode pembanding, penghalusan langkah atau kisi, solusi eksak khusus, batas teoretis, dan kewajaran fisik. Langkah terakhir adalah pelaporan yang memungkinkan orang lain mengulang perhitungan."
+        ],
+        "formulas": [
+          "\\text{masalah}\\to\\text{audit data}\\to\\text{toleransi}\\to\\text{metode}\\to\\text{parameter}\\to\\text{verifikasi}\\to\\text{laporan}",
+          "\\text{terima jika }E_{\\mathrm{estimasi}}\\le\\varepsilon\\text{ dan semua pemeriksaan domain/stabilitas lulus}",
+          "\\text{efisiensi}=\\frac{\\text{akurasi yang terbukti}}{\\text{biaya evaluasi dan penyimpanan}}"
+        ],
+        "example": {
+          "question": "Rancang workflow untuk menghitung luas di bawah $f(x)=e^{-x^2}$ pada $[0,2]$ dengan toleransi $10^{-6}$.",
+          "steps": [
+            "Klasifikasi: integral tentu dari fungsi analitik mulus, tanpa singularitas pada interval.",
+            "Masukan dapat dievaluasi bebas, sehingga Kuadratur Gauss layak dipilih.",
+            "Hitung dengan Gauss orde awal, misalnya dua atau tiga titik, lalu ulangi dengan orde lebih tinggi atau Gauss komposit.",
+            "Gunakan selisih hasil sebagai indikator dan lanjutkan penghalusan sampai di bawah toleransi dengan faktor keamanan.",
+            "Bandingkan dengan Simpson komposit atau nilai acuan berpresisi tinggi sebagai verifikasi independen.",
+            "Laporkan aturan, simpul/panel, jumlah evaluasi, hasil, indikator galat, dan toleransi."
+          ],
+          "answer": "Pilih Kuadratur Gauss bertahap karena fungsi mulus dan evaluasi bebas; terima hasil hanya setelah penghalusan serta pembanding independen memenuhi toleransi $10^{-6}$."
+        },
+        "warning": "Jangan memilih parameter setelah melihat jawaban lalu menyembunyikan proses percobaan. Catat perubahan $h$, jumlah panel, atau toleransi agar keputusan dapat diaudit."
+      },
+      {
+        "title": "6. Strategi Ujian dan Komunikasi Jawaban Numerik",
+        "paragraphs": [
+          "Saat membaca soal, tandai data, target, metode yang diminta, toleransi, dan jumlah iterasi atau langkah. Buat template rumus simbolik sebelum mengganti angka untuk mencegah kesalahan indeks dan faktor skala.",
+          "Tampilkan cukup angka penjaga selama proses dan bulatkan pada akhir. Sertakan tabel iterasi ringkas, kriteria berhenti, satu pemeriksaan, serta satu kalimat interpretasi. Jawaban numerik dinilai dari alasan dan jejak hitung, bukan angka akhir saja.",
+          "Jika hasil mencurigakan, berhenti dan periksa tanda, interval, indeks, satuan, domain, pivot, serta ukuran langkah. Pemeriksaan sederhana seperti substitusi balik atau estimasi orde besaran sering menemukan kesalahan lebih cepat daripada mengulang seluruh hitungan."
+        ],
+        "formulas": [
+          "\\text{digit signifikan yang dilaporkan}\\le\\text{digit yang didukung estimasi galat}",
+          "\\text{kriteria gabungan: }|x_{k+1}-x_k|\\le\\varepsilon_x\\text{ dan }|f(x_{k+1})|\\le\\varepsilon_f",
+          "\\text{laporan minimum}=\\{\\text{metode, parameter, hasil, galat/residual, interpretasi}\\}"
+        ],
+        "example": {
+          "question": "Susun format jawaban singkat tetapi lengkap untuk hasil RK4 $y(1)\\approx2{,}7182815$ dengan $h=0{,}05$.",
+          "steps": [
+            "Nyatakan masalah nilai awal dan metode RK4 orde empat.",
+            "Sebutkan ukuran langkah $h=0{,}05$ dan jumlah langkah yang ditempuh.",
+            "Tampilkan minimal satu baris contoh tahap $k_1$ sampai $k_4$ dan tabel ringkas hasil.",
+            "Bandingkan dengan perhitungan $h=0{,}025$ menggunakan rumus selisih dibagi 15.",
+            "Laporkan $y(1)$ hanya sampai digit yang didukung estimasi galat dan beri interpretasi."
+          ],
+          "answer": "Format lengkap: identitas metode, $h$ dan jumlah langkah, jejak tahap, nilai akhir, estimasi step halving, lalu kesimpulan akurasi."
+        },
+        "warning": "Jangan membulatkan nilai setiap tahap secara kasar. Pembulatan berulang dapat mengubah iterasi; simpan angka penjaga dan bulatkan hasil akhir sesuai bukti galat."
+      }
+    ],
+    "summary": "Tinjauan akhir menyatukan metode melalui satu prinsip: cocokkan struktur masalah dengan algoritma, lalu buktikan kualitas hasil. Akar dan sistem linear diverifikasi dengan residual; interpolasi dibedakan dari regresi; diferensiasi memperkuat noise; integrasi Bab 6 memilih Newton–Cotes atau Gauss berdasarkan bentuk data; PDB Bab 8 memilih Euler, Heun, RK4, atau metode stabil berdasarkan akurasi dan kekakuan. Workflow yang kuat selalu mencakup klasifikasi, audit data, toleransi, pemilihan parameter, verifikasi independen, dan pelaporan transparan.",
+    "exercises": [
+      "Buat tabel keputusan yang membandingkan bagi dua, Newton–Raphson, eliminasi Gauss, LU, interpolasi, regresi, Simpson, Gauss, Euler, Heun, dan RK4 berdasarkan masukan, keunggulan, risiko, serta verifikasi.",
+      "Sebuah data pengukuran berisik diminta untuk dipakai mencari turunan. Jelaskan workflow lengkap dari audit data sampai pelaporan ketidakpastian.",
+      "Pilih metode untuk mencari akar $f(x)=0$ ketika perubahan tanda diketahui tetapi turunan tidak tersedia. Tuliskan alasan, kriteria berhenti, dan verifikasi.",
+      "Rancang dua verifikasi independen untuk integral numerik tanpa nilai eksak dan dua verifikasi untuk solusi sistem linear.",
+      "Bandingkan biaya dan orde Euler, Heun, serta RK4. Jelaskan kondisi ketika metode berorde lebih rendah masih rasional dipilih.",
+      "Kerjakan studi mini: pilih satu masalah dari akar, integral, atau PDB; tetapkan toleransi; gunakan dua resolusi; hitung indikator galat; lalu tulis kesimpulan lima kalimat yang dapat diaudit."
+    ],
+    "next": "Gunakan bahan belajar ini sebagai peta revisi akhir. Latihan terbaik berikutnya adalah mengerjakan satu soal campuran tanpa petunjuk metode, lalu menilai pilihan sendiri dengan lima pertanyaan: apakah masalah sudah diklasifikasikan, asumsi metode terpenuhi, toleransi jelas, galat diverifikasi, dan hasil dilaporkan secara jujur?"
+  }
+]

@@ -1,0 +1,588 @@
+[
+  {
+    "no": 1,
+    "title": "Bahan Belajar Pertemuan 1: Pengantar Metode Numerik",
+    "bridge": "Bahan belajar ini menjadi pintu masuk sebelum membahas algoritma secara lebih khusus. Fokusnya bukan menggantikan catatan kuliah, melainkan membantu mahasiswa Pendidikan Matematika memahami mengapa persoalan matematika yang tampak mudah secara teori sering memerlukan pendekatan numerik ketika dikerjakan dengan data nyata atau komputer. Susunan materi mengacu pada gagasan dasar dalam bab pengantar Metode Numerik karya Rinaldi Munir.",
+    "sections": [
+      {
+        "title": "1. Masalah Matematika dan Kebutuhan Pendekatan Numerik",
+        "paragraphs": [
+          "Dalam matematika, penyelesaian analitik menghasilkan jawaban eksak melalui manipulasi simbolik. Misalnya, persamaan linear sederhana dapat diselesaikan dengan aljabar. Namun, banyak persamaan nonlinear, integral rumit, atau sistem berukuran besar tidak memiliki bentuk solusi eksak yang mudah diperoleh.",
+          "Metode numerik menyusun operasi aritmetika dan logika menjadi algoritma untuk memperoleh nilai hampiran. Jawaban numerik bukan sekadar tebakan: prosesnya memiliki aturan, ukuran galat, kriteria berhenti, serta pemeriksaan kewajaran hasil."
+        ],
+        "formulas": [
+          "f(x)=0",
+          "x_{\\text{eksak}} \\approx x_{\\text{numerik}}",
+          "\\int_a^b f(x)\\,dx \\approx I_n"
+        ],
+        "example": {
+          "question": "Mengapa akar persamaan $x^3+x-1=0$ layak dicari dengan metode numerik?",
+          "steps": [
+            "Persamaan merupakan persamaan nonlinear karena memuat pangkat tiga.",
+            "Rumus akar polinom derajat tiga memang ada, tetapi penggunaannya panjang dan tidak praktis untuk pembelajaran komputasi.",
+            "Periksa perubahan tanda: $f(0)=-1$ dan $f(1)=1$.",
+            "Karena fungsi kontinu dan tanda berubah pada $[0,1]$, terdapat paling sedikit satu akar di interval tersebut.",
+            "Metode numerik dapat mempersempit interval sampai diperoleh akar dengan ketelitian yang diinginkan."
+          ],
+          "answer": "Persamaan tersebut cocok diselesaikan secara numerik karena akarnya dapat dijamin berada pada $[0,1]$, sedangkan penyelesaian simboliknya tidak efisien."
+        },
+        "warning": "Jangan menyebut hasil numerik sebagai jawaban sembarang. Nilai hampiran harus disertai metode, ketelitian, dan alasan bahwa prosesnya menuju solusi yang benar."
+      },
+      {
+        "title": "2. Solusi Eksak, Solusi Hampiran, dan Pemodelan",
+        "paragraphs": [
+          "Sebelum melakukan perhitungan, persoalan nyata diterjemahkan menjadi model matematika. Model dapat berupa persamaan, sistem persamaan, fungsi, atau persamaan diferensial. Hasil numerik merupakan solusi hampiran terhadap model tersebut, bukan kebenaran mutlak tentang dunia nyata.",
+          "Perbedaan antara nilai eksak dan nilai hampiran perlu dipahami sejak awal. Dalam pendidikan matematika, pemahaman ini membantu calon guru menjelaskan bahwa desimal terbatas sering merupakan representasi, bukan nilai yang sama persis dengan bilangan asal."
+        ],
+        "formulas": [
+          "\\sqrt{2}=1.414213562\\ldots",
+          "\\sqrt{2}\\approx1.4142",
+          "\\pi\\approx3.14159"
+        ],
+        "example": {
+          "question": "Tentukan nilai hampiran keliling lingkaran berjari-jari $7$ cm jika digunakan $\\pi\\approx3.14$.",
+          "steps": [
+            "Gunakan model keliling lingkaran $K=2\\pi r$.",
+            "Substitusikan $r=7$ dan $\\pi\\approx3.14$.",
+            "Hitung $K\\approx2(3.14)(7)$.",
+            "Diperoleh $K\\approx43.96$ cm.",
+            "Jika $\\pi$ eksak digunakan, nilainya sekitar $43.9823$ cm; selisih muncul karena pendekatan pada $\\pi$."
+          ],
+          "answer": "$K\\approx43.96$ cm."
+        },
+        "warning": "Ketelitian hasil tidak dapat melebihi ketelitian data secara tidak beralasan. Menulis terlalu banyak angka di belakang koma dapat memberi kesan presisi palsu."
+      },
+      {
+        "title": "3. Tahapan Penyelesaian Masalah Numerik",
+        "paragraphs": [
+          "Penyelesaian numerik yang baik dimulai dari identifikasi masalah, pembentukan model, pemilihan metode, penyusunan algoritma, implementasi, pengujian, lalu interpretasi. Urutan ini mencegah mahasiswa langsung menghitung tanpa memahami apa yang sebenarnya dicari.",
+          "Algoritma harus memiliki masukan, langkah yang terbatas dan jelas, keluaran, serta kriteria berhenti. Untuk metode iteratif, batas galat atau jumlah iterasi maksimum dipakai agar proses tidak berjalan tanpa akhir."
+        ],
+        "formulas": [
+          "x^{(0)},x^{(1)},x^{(2)},\\ldots,x^{(k)}",
+          "|x^{(k)}-x^{(k-1)}|<\\varepsilon",
+          "k\\leq k_{\\max}"
+        ],
+        "example": {
+          "question": "Susun alur sederhana untuk menghampiri $\\sqrt{10}$ dengan mencoba nilai desimal.",
+          "steps": [
+            "Nyatakan masalah sebagai mencari $x>0$ yang memenuhi $x^2=10$.",
+            "Ambil dugaan awal $x=3$ karena $3^2=9<10$.",
+            "Uji $x=3.2$: $3.2^2=10.24>10$, sehingga akar berada di antara $3$ dan $3.2$.",
+            "Uji $x=3.16$: $3.16^2=9.9856<10$.",
+            "Uji $x=3.17$: $3.17^2=10.0489>10$.",
+            "Simpulkan bahwa $\\sqrt{10}$ berada di antara $3.16$ dan $3.17$."
+          ],
+          "answer": "Dengan ketelitian dua angka desimal, $\\sqrt{10}\\approx3.16$; interval penjaminnya adalah $[3.16,3.17]$."
+        },
+        "warning": "Jangan berhenti hanya karena hasil tampak masuk akal. Nyatakan kriteria berhenti, misalnya lebar interval, perubahan antariterasi, atau residu fungsi."
+      },
+      {
+        "title": "4. Sumber Galat dalam Komputasi Numerik",
+        "paragraphs": [
+          "Galat dapat muncul sebelum algoritma dijalankan. Data pengukuran memiliki ketidakpastian, model menyederhanakan kenyataan, metode numerik mengganti proses eksak dengan proses hampiran, dan komputer menyimpan bilangan dengan digit terbatas.",
+          "Empat sumber yang penting dibedakan ialah galat bawaan dari data, galat pemodelan, galat pemotongan, dan galat pembulatan. Pembedaan ini membantu memilih perbaikan yang tepat; menambah iterasi tidak akan memperbaiki model yang keliru."
+        ],
+        "formulas": [
+          "e=x-\\hat{x}",
+          "|e|=|x-\\hat{x}|",
+          "r=f(\\hat{x})"
+        ],
+        "example": {
+          "question": "Bilangan $1/3$ disimpan sebagai $0.3333$. Identifikasi galat dan hitung galat absolutnya.",
+          "steps": [
+            "Nilai eksak adalah $x=1/3$.",
+            "Nilai tersimpan adalah $\\hat{x}=0.3333$.",
+            "Galat muncul karena representasi desimal dipotong atau dibulatkan menjadi empat angka di belakang koma.",
+            "Hitung $|e|=|1/3-0.3333|$.",
+            "Karena $1/3=0.333333\\ldots$, diperoleh $|e|=0.00003333\\ldots$."
+          ],
+          "answer": "Galat representasi atau pembulatan dengan galat absolut sekitar $3.333\\times10^{-5}$."
+        },
+        "warning": "Residu kecil, yaitu $|f(\\hat{x})|$ kecil, tidak selalu berarti galat solusi juga kecil. Hubungannya dipengaruhi bentuk dan kemiringan fungsi."
+      },
+      {
+        "title": "5. Peran Komputer dan Sikap Kritis terhadap Hasil",
+        "paragraphs": [
+          "Komputer unggul dalam mengulang operasi dengan cepat dan konsisten, tetapi tidak memahami makna hasil. Pengguna tetap bertanggung jawab memilih model, metode, nilai awal, toleransi, dan interpretasi. Karena itu, literasi numerik harus berjalan bersama literasi algoritmik.",
+          "Hasil perlu diuji melalui substitusi kembali, perbandingan dengan perkiraan kasar, pemeriksaan satuan, atau penggunaan metode pembanding. Visualisasi grafik juga berguna, tetapi grafik tidak menggantikan pembuktian atau analisis galat."
+        ],
+        "formulas": [
+          "r=f(\\hat{x})",
+          "|r|<\\varepsilon_f",
+          "\\hat{x}\\in D_f"
+        ],
+        "example": {
+          "question": "Sebuah program melaporkan akar $x=2$ untuk $f(x)=x^2-5$. Bagaimana memeriksa hasil tersebut?",
+          "steps": [
+            "Substitusikan nilai program ke fungsi.",
+            "Hitung residu $r=f(2)=2^2-5=-1$.",
+            "Nilai $|r|=1$ cukup besar jika toleransi yang diminta, misalnya, $10^{-4}$.",
+            "Bandingkan dengan perkiraan: karena $2^2<5<3^2$, akar positif memang berada antara $2$ dan $3$, tetapi bukan tepat $2$.",
+            "Perbaiki hasil dengan algoritma pencarian akar sampai residu atau galat memenuhi toleransi."
+          ],
+          "answer": "$x=2$ belum layak diterima sebagai akar; residunya $-1$. Akar positif yang benar sekitar $2.23607$."
+        },
+        "warning": "Jangan menerima keluaran perangkat lunak tanpa pemeriksaan. Kesalahan masukan, formula, domain, atau kriteria berhenti dapat menghasilkan angka yang rapi tetapi salah."
+      }
+    ],
+    "summary": [
+      "Metode numerik menghasilkan solusi hampiran melalui algoritma yang terstruktur.",
+      "Metode numerik dibutuhkan ketika solusi eksak sulit, mahal, atau tidak tersedia.",
+      "Solusi numerik menyelesaikan model matematika, sehingga kualitas model tetap menentukan makna hasil.",
+      "Proses numerik meliputi pemodelan, pemilihan metode, algoritma, implementasi, pengujian, dan interpretasi.",
+      "Galat dapat berasal dari data, model, pemotongan proses tak hingga, dan pembulatan komputer.",
+      "Keluaran komputer harus diperiksa dengan residu, substitusi, satuan, perkiraan, atau metode pembanding."
+    ],
+    "exercises": [
+      "Jelaskan dengan kata-kata sendiri perbedaan solusi eksak dan solusi numerik, lalu berikan satu contoh masing-masing.",
+      "Sebutkan dua masalah matematika sekolah yang dapat diselesaikan secara numerik dan jelaskan alasan pemilihannya.",
+      "Dengan $\\pi\\approx22/7$, hitung luas lingkaran berjari-jari $5$ cm dan bandingkan dengan hasil saat $\\pi\\approx3.14159$.",
+      "Susun pseudolangah pencarian $\\sqrt{7}$ menggunakan pengujian interval hingga dua angka desimal.",
+      "Klasifikasikan sumber galat pada kasus: panjang meja diukur dengan penggaris, lalu volumenya dihitung memakai bentuk balok sempurna.",
+      "Periksa apakah $x=1.4$ merupakan hampiran yang baik untuk akar $x^2-2=0$ dengan menghitung residunya."
+    ],
+    "next": "Bahan belajar berikutnya membahas deret Taylor sebagai alat membangun rumus hampiran, serta cara mengukur galat absolut, galat relatif, pembulatan, dan pemotongan."
+  },
+  {
+    "no": 2,
+    "title": "Bahan Belajar Pertemuan 2: Deret Taylor dan Analisis Galat",
+    "bridge": "Setelah memahami bahwa metode numerik menghasilkan nilai hampiran, langkah berikutnya adalah menilai seberapa baik hampiran tersebut. Deret Taylor menjelaskan bagaimana fungsi dapat didekati oleh polinom, sedangkan ukuran galat memberi bahasa kuantitatif untuk membandingkan hasil numerik dengan nilai acuan. Materi ini disusun sebagai bahan belajar pendamping, mengacu pada pembahasan galat dan deret Taylor dalam bab awal buku Rinaldi Munir.",
+    "sections": [
+      {
+        "title": "1. Deret Taylor sebagai Pendekatan Polinom",
+        "paragraphs": [
+          "Deret Taylor menyatakan fungsi yang cukup mulus di sekitar titik $a$ sebagai gabungan nilai fungsi dan turunannya di titik tersebut. Jika semua suku digunakan dan syarat konvergensi terpenuhi, deret merepresentasikan fungsi. Dalam komputasi, hanya sejumlah suku yang dipakai sehingga diperoleh polinom Taylor.",
+          "Titik pusat $a$ menentukan daerah tempat pendekatan biasanya paling baik. Semakin jauh $x$ dari $a$, suku sisa cenderung membesar, sehingga pemilihan titik pusat merupakan bagian penting dari strategi numerik."
+        ],
+        "formulas": [
+          "f(x)=\\sum_{k=0}^{\\infty}\\frac{f^{(k)}(a)}{k!}(x-a)^k",
+          "P_n(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(a)}{k!}(x-a)^k",
+          "f(x)=P_n(x)+R_n(x)"
+        ],
+        "example": {
+          "question": "Bangun polinom Taylor orde dua untuk $f(x)=e^x$ di sekitar $a=0$.",
+          "steps": [
+            "Hitung $f(0)=e^0=1$.",
+            "Karena semua turunan $e^x$ tetap $e^x$, diperoleh $f'(0)=1$ dan $f''(0)=1$.",
+            "Gunakan $P_2(x)=f(0)+f'(0)x+f''(0)x^2/2!$.",
+            "Substitusi nilai turunan menghasilkan $P_2(x)=1+x+x^2/2$.",
+            "Polinom ini paling sesuai untuk nilai $x$ yang dekat dengan $0$."
+          ],
+          "answer": "$P_2(x)=1+x+\\frac{x^2}{2}$."
+        },
+        "warning": "Jangan melupakan faktor $k!$ pada penyebut. Suku orde dua adalah $f''(a)(x-a)^2/2!$, bukan sekadar $f''(a)(x-a)^2$."
+      },
+      {
+        "title": "2. Suku Sisa dan Galat Pemotongan",
+        "paragraphs": [
+          "Ketika deret Taylor dihentikan pada orde $n$, suku-suku sesudahnya dibuang. Selisih antara fungsi dan polinom Taylor disebut suku sisa atau galat pemotongan. Bentuk Lagrange membantu memberi batas teoritis terhadap galat tersebut.",
+          "Nilai $\\xi$ terletak di antara $a$ dan $x$ dan biasanya tidak diketahui tepat. Untuk memperoleh batas galat, cari batas atas nilai mutlak turunan orde $n+1$ pada interval yang memuat $a$ dan $x$."
+        ],
+        "formulas": [
+          "R_n(x)=\\frac{f^{(n+1)}(\\xi)}{(n+1)!}(x-a)^{n+1}",
+          "|R_n(x)|\\leq\\frac{M}{(n+1)!}|x-a|^{n+1}",
+          "M=\\max_{t\\in[a,x]}|f^{(n+1)}(t)|"
+        ],
+        "example": {
+          "question": "Hampiri $e^{0.1}$ dengan $P_2(x)=1+x+x^2/2$ dan beri batas galat Taylor.",
+          "steps": [
+            "Hitung $P_2(0.1)=1+0.1+0.1^2/2=1.105$.",
+            "Turunan ketiga $e^x$ adalah $e^x$.",
+            "Pada interval $[0,0.1]$, nilai maksimum $e^x$ adalah $e^{0.1}<1.106$, sehingga dapat dipakai $M=1.106$.",
+            "Gunakan $|R_2(0.1)|\\leq M(0.1)^3/3!$.",
+            "Diperoleh $|R_2(0.1)|<1.106(0.001)/6\\approx0.0001844$."
+          ],
+          "answer": "$e^{0.1}\\approx1.105$ dengan batas galat kurang dari $1.844\\times10^{-4}$."
+        },
+        "warning": "Suku pertama yang dibuang sering menjadi perkiraan galat, tetapi bukan selalu batas galat yang sah. Gunakan bentuk sisa dan batas turunan jika diminta jaminan matematis."
+      },
+      {
+        "title": "3. Galat Sejati, Absolut, dan Relatif",
+        "paragraphs": [
+          "Jika nilai sejati $x$ diketahui, galat sejati bertanda didefinisikan sebagai nilai sejati dikurangi nilai hampiran. Galat absolut mengabaikan arah selisih, sedangkan galat relatif membandingkan besar galat terhadap skala nilai sejati.",
+          "Galat relatif lebih informatif saat membandingkan ketelitian dua besaran dengan ukuran berbeda. Galat relatif dapat dinyatakan sebagai pecahan atau persentase. Namun, rumus standar tidak dapat dipakai ketika nilai sejati sama dengan nol."
+        ],
+        "formulas": [
+          "e_t=x-\\hat{x}",
+          "E_a=|x-\\hat{x}|",
+          "E_r=\\frac{|x-\\hat{x}|}{|x|}",
+          "E_{r,\\%}=E_r\\times100\\%"
+        ],
+        "example": {
+          "question": "Nilai sejati adalah $\\pi=3.14159265\\ldots$ dan nilai hampiran $3.14$. Hitung galat sejati, absolut, dan relatif persentase.",
+          "steps": [
+            "Galat sejati: $e_t=3.14159265-3.14=0.00159265$.",
+            "Galat absolut: $E_a=|0.00159265|=0.00159265$.",
+            "Galat relatif: $E_r=0.00159265/3.14159265\\approx0.00050696$.",
+            "Ubah ke persen: $E_{r,\\%}\\approx0.050696\\%$.",
+            "Bulatkan secara wajar menjadi sekitar $0.0507\\%$."
+          ],
+          "answer": "$e_t\\approx0.00159265$, $E_a\\approx0.00159265$, dan $E_{r,\\%}\\approx0.0507\\%$."
+        },
+        "warning": "Jangan membagi dengan nilai hampiran jika definisi yang digunakan meminta nilai sejati. Pada iterasi, ketika nilai sejati tidak diketahui, gunakan galat relatif hampiran dan sebutkan definisinya secara jelas."
+      },
+      {
+        "title": "4. Galat Relatif Hampiran dan Angka Benar",
+        "paragraphs": [
+          "Dalam metode iteratif, nilai sejati biasanya belum diketahui. Karena itu, perubahan antara dua iterasi berturut-turut digunakan sebagai indikator konvergensi. Salah satu definisi umum membagi perubahan absolut dengan nilai iterasi terbaru.",
+          "Kriteria angka benar menghubungkan galat relatif persentase dengan banyaknya digit signifikan yang dapat dipercaya. Kriteria ini adalah pedoman penghentian, bukan bukti tunggal bahwa metode menuju akar yang benar."
+        ],
+        "formulas": [
+          "E_{a,r}^{(k)}=\\left|\\frac{x^{(k)}-x^{(k-1)}}{x^{(k)}}\\right|",
+          "E_{a,r,\\%}^{(k)}=E_{a,r}^{(k)}\\times100\\%",
+          "E_{a,r,\\%}<0.5\\times10^{2-n}\\%"
+        ],
+        "example": {
+          "question": "Dua iterasi berturut-turut menghasilkan $x^{(4)}=1.414$ dan $x^{(5)}=1.4142$. Hitung galat relatif hampiran persentase.",
+          "steps": [
+            "Hitung perubahan absolut: $|1.4142-1.414|=0.0002$.",
+            "Bagi dengan nilai terbaru: $0.0002/1.4142\\approx0.00014142$.",
+            "Kalikan $100\\%$ sehingga diperoleh sekitar $0.014142\\%$.",
+            "Untuk tiga angka signifikan, ambang umum adalah $0.5\\times10^{-1}\\%=0.05\\%$.",
+            "Karena $0.014142\\%<0.05\\%$, perubahan iterasi memenuhi pedoman tiga angka signifikan."
+          ],
+          "answer": "$E_{a,r,\\%}^{(5)}\\approx0.0141\\%$; pedoman tiga angka signifikan terpenuhi."
+        },
+        "warning": "Perubahan kecil antariterasi dapat terjadi pada metode yang stagnan atau menuju solusi yang salah. Periksa juga residu $|f(x^{(k)})|$ dan syarat metode."
+      },
+      {
+        "title": "5. Pembulatan, Pemotongan, dan Perambatan Galat",
+        "paragraphs": [
+          "Pemotongan membuang semua digit setelah posisi tertentu, sedangkan pembulatan mempertimbangkan digit berikutnya. Untuk jumlah digit yang sama, pembulatan biasanya memberi galat representasi lebih kecil daripada pemotongan.",
+          "Operasi berulang dapat memperbesar galat. Pengurangan dua bilangan yang hampir sama sangat berbahaya karena digit penting saling menghilangkan; gejala ini disebut kehilangan angka signifikan atau cancellation."
+        ],
+        "formulas": [
+          "3.14159\\xrightarrow{\\text{potong 3 desimal}}3.141",
+          "3.14159\\xrightarrow{\\text{bulat 3 desimal}}3.142",
+          "\\frac{x^2-y^2}{x-y}=x+y\\quad(x\\neq y)"
+        ],
+        "example": {
+          "question": "Bandingkan pemotongan dan pembulatan $2.71828$ menjadi tiga angka di belakang koma.",
+          "steps": [
+            "Dengan pemotongan, digit setelah tiga desimal dibuang sehingga diperoleh $2.718$.",
+            "Galat absolut pemotongan adalah $|2.71828-2.718|=0.00028$.",
+            "Dengan pembulatan, digit keempat adalah $2<5$, sehingga hasil tetap $2.718$.",
+            "Pada kasus ini hasil pemotongan dan pembulatan sama.",
+            "Sebagai pembanding, untuk $2.71878$, pemotongan memberi $2.718$, sedangkan pembulatan memberi $2.719$."
+          ],
+          "answer": "Untuk $2.71828$, keduanya menghasilkan $2.718$ dengan galat absolut $0.00028$; perbedaannya bergantung pada digit pertama yang dibuang."
+        },
+        "warning": "Hindari menghitung bentuk yang mengurangkan dua bilangan hampir sama jika bentuk aljabar ekuivalen yang lebih stabil tersedia. Penyederhanaan simbolik dapat meningkatkan stabilitas numerik."
+      }
+    ],
+    "summary": [
+      "Deret Taylor mendekati fungsi dengan polinom yang dibangun dari nilai turunan di titik pusat.",
+      "Pemotongan deret menimbulkan suku sisa yang dapat dibatasi dengan bentuk Lagrange.",
+      "Galat absolut mengukur besar selisih, sedangkan galat relatif memperhitungkan skala nilai.",
+      "Ketika nilai sejati tidak diketahui, perubahan antariterasi dapat menjadi indikator galat hampiran.",
+      "Pedoman angka signifikan membantu menentukan toleransi, tetapi tetap perlu pemeriksaan residu.",
+      "Pembulatan dan pemotongan berbeda; operasi berulang serta cancellation dapat memperbesar galat."
+    ],
+    "exercises": [
+      "Tentukan polinom Taylor orde tiga untuk $f(x)=\\sin x$ di sekitar $a=0$.",
+      "Gunakan polinom Taylor orde empat untuk menghampiri $\\cos(0.2)$.",
+      "Berikan batas galat pendekatan $e^{0.2}\\approx1+0.2+0.2^2/2$ dengan bentuk sisa Lagrange.",
+      "Jika nilai sejati $50.00$ dan nilai hampiran $49.65$, hitung galat sejati, absolut, relatif, dan persentasenya.",
+      "Diberikan iterasi $2.1000$, $2.0500$, dan $2.0475$. Hitung galat relatif hampiran pada dua perpindahan terakhir.",
+      "Bandingkan galat hasil pemotongan dan pembulatan $8.97654$ menjadi dua angka di belakang koma."
+    ],
+    "next": "Bahan belajar berikutnya menggunakan gagasan galat dan kriteria berhenti untuk mencari akar persamaan nonlinear dengan metode tertutup: biseksi dan regula falsi."
+  },
+  {
+    "no": 3,
+    "title": "Bahan Belajar Pertemuan 3: Metode Tertutup untuk Akar Persamaan",
+    "bridge": "Deret Taylor dan analisis galat memberi dasar untuk menilai ketelitian suatu hampiran. Sekarang perhatian diarahkan pada persoalan $f(x)=0$. Metode tertutup mempertahankan sebuah interval yang mengurung akar melalui perubahan tanda. Bahan belajar ini membahas biseksi dan regula falsi sebagai pendamping belajar berdasarkan topik akar persamaan pada bab awal Rinaldi Munir.",
+    "sections": [
+      {
+        "title": "1. Akar Persamaan dan Interval Pengurung",
+        "paragraphs": [
+          "Akar persamaan adalah nilai $x=r$ yang membuat $f(r)=0$. Secara grafik, akar real merupakan absis titik potong kurva $y=f(x)$ dengan sumbu-$x$. Metode tertutup memulai proses dengan dua ujung interval, $a$ dan $b$, yang mengurung akar.",
+          "Jika $f$ kontinu pada $[a,b]$ dan $f(a)f(b)<0$, Teorema Nilai Antara menjamin paling sedikit satu akar di dalam interval terbuka $(a,b)$. Syarat ini tidak menyatakan bahwa akarnya hanya satu."
+        ],
+        "formulas": [
+          "f(r)=0",
+          "f(a)f(b)<0",
+          "r\\in(a,b)"
+        ],
+        "example": {
+          "question": "Tunjukkan bahwa $f(x)=x^3-x-2$ mempunyai akar pada $[1,2]$.",
+          "steps": [
+            "Fungsi polinom kontinu untuk semua bilangan real.",
+            "Hitung $f(1)=1-1-2=-2$.",
+            "Hitung $f(2)=8-2-2=4$.",
+            "Perkalian $f(1)f(2)=(-2)(4)=-8<0$.",
+            "Menurut Teorema Nilai Antara, terdapat paling sedikit satu akar pada $(1,2)$."
+          ],
+          "answer": "Interval $[1,2]$ mengurung paling sedikit satu akar karena fungsi kontinu dan terjadi perubahan tanda."
+        },
+        "warning": "Syarat perubahan tanda gagal mendeteksi akar berkelipatan genap, misalnya $f(x)=(x-1)^2$, karena tanda fungsi tidak berubah saat melewati akar."
+      },
+      {
+        "title": "2. Algoritma Metode Biseksi",
+        "paragraphs": [
+          "Metode biseksi membagi interval pengurung menjadi dua sama panjang. Titik tengah diperiksa, lalu setengah interval yang masih menunjukkan perubahan tanda dipertahankan. Proses ini diulang sampai lebar interval atau ukuran galat memenuhi toleransi.",
+          "Kelebihan biseksi adalah sederhana dan konvergensinya terjamin jika asumsi awal terpenuhi. Kekurangannya, laju konvergensi relatif lambat karena informasi yang digunakan hanya tanda fungsi."
+        ],
+        "formulas": [
+          "c_k=\\frac{a_k+b_k}{2}",
+          "f(a_k)f(c_k)<0\\Rightarrow[a_{k+1},b_{k+1}]=[a_k,c_k]",
+          "f(c_k)f(b_k)<0\\Rightarrow[a_{k+1},b_{k+1}]=[c_k,b_k]"
+        ],
+        "example": {
+          "question": "Lakukan tiga iterasi biseksi untuk $f(x)=x^2-2$ pada $[1,2]$.",
+          "steps": [
+            "Awal: $f(1)=-1$ dan $f(2)=2$, sehingga akar terkurung.",
+            "Iterasi 1: $c_1=(1+2)/2=1.5$ dan $f(c_1)=0.25>0$; interval baru $[1,1.5]$.",
+            "Iterasi 2: $c_2=(1+1.5)/2=1.25$ dan $f(c_2)=-0.4375<0$; interval baru $[1.25,1.5]$.",
+            "Iterasi 3: $c_3=(1.25+1.5)/2=1.375$ dan $f(c_3)=-0.109375<0$; interval baru $[1.375,1.5]$.",
+            "Hampiran setelah tiga iterasi dapat dilaporkan sebagai titik terakhir $c_3=1.375$, disertai interval baru."
+          ],
+          "answer": "$c_3=1.375$ dan akar tetap terkurung pada $[1.375,1.5]$."
+        },
+        "warning": "Setelah menghitung titik tengah, jangan memilih interval berdasarkan kedekatan nilai fungsi. Pilih interval yang memenuhi perubahan tanda."
+      },
+      {
+        "title": "3. Batas Galat dan Jumlah Iterasi Biseksi",
+        "paragraphs": [
+          "Setiap iterasi biseksi membagi dua panjang interval. Karena akar tetap berada di dalam interval, panjang interval memberikan jaminan ketelitian yang mudah dihitung sebelum iterasi dilakukan.",
+          "Jika hampiran diambil sebagai titik tengah interval setelah pembagian, galat terhadap akar paling besar setengah panjang interval saat itu. Rumus jumlah iterasi harus dibulatkan ke atas agar toleransi benar-benar terpenuhi."
+        ],
+        "formulas": [
+          "L_n=\\frac{b_0-a_0}{2^n}",
+          "|r-c_n|\\leq\\frac{b_0-a_0}{2^{n+1}}",
+          "n\\geq\\log_2\\left(\\frac{b_0-a_0}{2\\varepsilon}\\right)"
+        ],
+        "example": {
+          "question": "Berapa iterasi biseksi minimum pada interval awal $[1,2]$ agar galat titik tengah tidak melebihi $10^{-3}$?",
+          "steps": [
+            "Panjang interval awal adalah $b_0-a_0=1$.",
+            "Gunakan batas $1/2^{n+1}\\leq10^{-3}$.",
+            "Ini setara dengan $2^{n+1}\\geq1000$.",
+            "Karena $2^9=512$ dan $2^{10}=1024$, diperlukan $n+1=10$.",
+            "Jadi, diperlukan sedikitnya $n=9$ pembagian menurut penomoran batas ini."
+          ],
+          "answer": "Sedikitnya $9$ iterasi pembagian menjamin galat titik tengah tidak melebihi $10^{-3}$, dengan definisi $c_n$ sebagai titik tengah interval setelah $n$ pembagian."
+        },
+        "warning": "Perhatikan konvensi penomoran iterasi. Sebagian buku menyebut titik tengah awal sebagai iterasi pertama; tuliskan definisi $n$ agar tidak terjadi selisih satu iterasi."
+      },
+      {
+        "title": "4. Metode Regula Falsi",
+        "paragraphs": [
+          "Regula falsi juga mempertahankan interval dengan perubahan tanda, tetapi titik baru diperoleh dari perpotongan garis secan melalui $(a,f(a))$ dan $(b,f(b))$ dengan sumbu-$x$. Titik baru karena itu dipengaruhi besar nilai fungsi, bukan hanya letak tengah interval.",
+          "Setelah titik $c$ dihitung, interval diperbarui dengan aturan perubahan tanda seperti pada biseksi. Konvergensi sering lebih cepat daripada biseksi, tetapi salah satu ujung interval dapat bertahan lama jika bentuk fungsi tidak seimbang."
+        ],
+        "formulas": [
+          "c=b-\\frac{f(b)(b-a)}{f(b)-f(a)}",
+          "c=\\frac{a f(b)-b f(a)}{f(b)-f(a)}",
+          "f(a)f(c)<0\\Rightarrow b\\leftarrow c",
+          "f(c)f(b)<0\\Rightarrow a\\leftarrow c"
+        ],
+        "example": {
+          "question": "Lakukan dua iterasi regula falsi untuk $f(x)=x^2-2$ pada $[1,2]$.",
+          "steps": [
+            "Nilai awal: $f(1)=-1$ dan $f(2)=2$.",
+            "Iterasi 1: $c_1=2-2(2-1)/(2-(-1))=4/3\\approx1.333333$.",
+            "Hitung $f(c_1)=16/9-2=-2/9<0$, maka interval baru $[4/3,2]$.",
+            "Iterasi 2: gunakan $a=4/3$, $f(a)=-2/9$, $b=2$, dan $f(b)=2$.",
+            "Diperoleh $c_2=2-2(2-4/3)/(2-(-2/9))=1.4$.",
+            "Karena $f(1.4)=1.96-2=-0.04<0$, interval baru menjadi $[1.4,2]$."
+          ],
+          "answer": "$c_1\\approx1.333333$ dan $c_2=1.4$; setelah dua iterasi akar terkurung pada $[1.4,2]$."
+        },
+        "warning": "Jangan memakai rumus secan lalu mengabaikan pengurungan. Regula falsi wajib memperbarui salah satu ujung berdasarkan tanda agar akar tetap terkurung."
+      },
+      {
+        "title": "5. Membandingkan Biseksi dan Regula Falsi",
+        "paragraphs": [
+          "Kedua metode memerlukan fungsi kontinu dan interval awal yang menunjukkan perubahan tanda. Biseksi memiliki penyusutan interval yang pasti, sedangkan regula falsi memakai informasi nilai fungsi untuk menempatkan titik baru secara adaptif.",
+          "Pemilihan metode tidak hanya berdasarkan banyaknya iterasi. Pertimbangkan biaya evaluasi fungsi, jaminan konvergensi, kemudahan implementasi, kebutuhan batas galat, dan perilaku fungsi pada interval."
+        ],
+        "formulas": [
+          "c_{\\text{biseksi}}=\\frac{a+b}{2}",
+          "c_{\\text{RF}}=\\frac{a f(b)-b f(a)}{f(b)-f(a)}",
+          "|f(c_k)|<\\varepsilon_f\\quad\\text{atau}\\quad|b_k-a_k|<\\varepsilon_x"
+        ],
+        "example": {
+          "question": "Untuk $f(x)=x^2-2$ pada $[1,2]$, bandingkan titik pertama biseksi dan regula falsi.",
+          "steps": [
+            "Biseksi memberi $c_B=(1+2)/2=1.5$.",
+            "Residu biseksi adalah $f(1.5)=0.25$.",
+            "Regula falsi memberi $c_R=4/3\\approx1.333333$.",
+            "Residu regula falsi adalah $f(4/3)=-2/9\\approx-0.222222$.",
+            "Pada langkah pertama ini, $|f(c_R)|<|f(c_B)|$, tetapi satu langkah belum cukup untuk menyimpulkan metode selalu lebih cepat."
+          ],
+          "answer": "Biseksi menghasilkan $1.5$, regula falsi menghasilkan $1.333333$; regula falsi memiliki residu sedikit lebih kecil pada langkah pertama."
+        },
+        "warning": "Jangan menilai metode hanya dari satu contoh. Regula falsi dapat mengalami stagnasi ujung interval, sedangkan biseksi mempunyai laju penyusutan yang konsisten."
+      }
+    ],
+    "summary": [
+      "Metode tertutup mencari akar sambil mempertahankan interval pengurung.",
+      "Perubahan tanda pada fungsi kontinu menjamin paling sedikit satu akar dalam interval.",
+      "Biseksi memakai titik tengah dan membagi panjang interval menjadi dua pada setiap iterasi.",
+      "Batas galat biseksi dapat ditentukan langsung dari panjang interval awal dan jumlah iterasi.",
+      "Regula falsi memakai perpotongan garis secan, lalu memperbarui interval berdasarkan tanda.",
+      "Biseksi stabil dan terjamin; regula falsi dapat lebih cepat tetapi dapat mengalami stagnasi.",
+      "Kriteria berhenti sebaiknya melibatkan lebar interval, perubahan hampiran, atau residu fungsi."
+    ],
+    "exercises": [
+      "Tentukan dua interval panjang satu yang masing-masing mengurung akar berbeda dari $f(x)=x^3-4x$.",
+      "Lakukan empat iterasi biseksi untuk $f(x)=x^3-x-2$ pada $[1,2]$.",
+      "Tentukan jumlah iterasi biseksi minimum pada interval $[0,5]$ agar galat titik tengah paling besar $10^{-4}$.",
+      "Lakukan tiga iterasi regula falsi untuk $f(x)=x^3-x-2$ pada $[1,2]$.",
+      "Bandingkan titik dan residu dua iterasi pertama biseksi serta regula falsi untuk $f(x)=e^{-x}-x$ pada $[0,1]$.",
+      "Jelaskan mengapa metode perubahan tanda tidak menjamin menemukan akar $x=2$ dari $f(x)=(x-2)^2$ pada interval $[1,3]$."
+    ],
+    "next": "Bahan belajar berikutnya membahas metode terbuka yang tidak selalu mempertahankan interval pengurung: iterasi titik tetap, Newton-Raphson, dan secant."
+  },
+  {
+    "no": 4,
+    "title": "Bahan Belajar Pertemuan 4: Metode Terbuka untuk Akar Persamaan",
+    "bridge": "Metode biseksi dan regula falsi aman karena akar tetap dikurung, tetapi kecepatannya dapat terbatas. Metode terbuka memanfaatkan satu atau dua tebakan tanpa kewajiban mempertahankan perubahan tanda. Keuntungannya adalah potensi konvergensi lebih cepat; risikonya adalah divergensi atau menuju akar yang tidak diinginkan. Bahan belajar ini mengulas iterasi titik tetap, Newton-Raphson, dan secant berdasarkan pembahasan akar persamaan dalam Rinaldi Munir.",
+    "sections": [
+      {
+        "title": "1. Ciri Metode Terbuka dan Konvergensi",
+        "paragraphs": [
+          "Metode terbuka menghasilkan barisan hampiran $x_0,x_1,x_2,\\ldots$ dari nilai awal. Tidak ada interval yang selalu menjamin akar berada di antara dua batas. Oleh sebab itu, pemilihan tebakan awal dan bentuk fungsi iterasi sangat memengaruhi hasil.",
+          "Barisan dikatakan konvergen ke $r$ jika $x_k$ semakin mendekati $r$. Dalam praktik, konvergensi dipantau melalui perubahan antariterasi dan residu fungsi. Jumlah iterasi maksimum diperlukan untuk menangani kegagalan konvergensi."
+        ],
+        "formulas": [
+          "\\lim_{k\\to\\infty}x_k=r",
+          "|x_{k+1}-x_k|<\\varepsilon_x",
+          "|f(x_{k+1})|<\\varepsilon_f",
+          "k<k_{\\max}"
+        ],
+        "example": {
+          "question": "Barisan iterasi memberi $1.5$, $1.42$, $1.4143$, dan $1.414214$. Apakah barisan tampak menuju akar $x^2-2=0$?",
+          "steps": [
+            "Perubahan berturut-turut adalah $0.08$, $0.0057$, dan $0.000086$; besarnya mengecil.",
+            "Hitung residu nilai terakhir: $(1.414214)^2-2\\approx1.2378\\times10^{-6}$.",
+            "Perubahan yang mengecil menunjukkan pola konvergen.",
+            "Residu yang dekat nol menguatkan bahwa limitnya merupakan akar persamaan.",
+            "Nilai juga dekat dengan $\\sqrt{2}\\approx1.41421356$."
+          ],
+          "answer": "Ya, barisan tampak konvergen ke akar positif $\\sqrt{2}$ karena perubahan mengecil dan residu terakhir sangat kecil."
+        },
+        "warning": "Perubahan kecil saja tidak cukup. Barisan dapat stagnan sebelum mencapai akar; selalu periksa juga $|f(x_k)|$ dan batas iterasi."
+      },
+      {
+        "title": "2. Metode Iterasi Titik Tetap",
+        "paragraphs": [
+          "Pada iterasi titik tetap, persamaan $f(x)=0$ diubah menjadi bentuk ekuivalen $x=g(x)$. Mulai dari $x_0$, nilai berikutnya dihitung dengan $x_{k+1}=g(x_k)$. Titik $r$ yang memenuhi $r=g(r)$ disebut titik tetap.",
+          "Tidak semua penyusunan ulang menghasilkan konvergensi. Secara lokal, jika $g$ terdiferensialkan dan $|g'(x)|<1$ di sekitar titik tetap, iterasi cenderung konvergen. Jika $|g'(r)|>1$, gangguan kecil justru membesar."
+        ],
+        "formulas": [
+          "f(x)=0\\Longleftrightarrow x=g(x)",
+          "x_{k+1}=g(x_k)",
+          "|g'(x)|<1"
+        ],
+        "example": {
+          "question": "Gunakan tiga iterasi titik tetap $x_{k+1}=\\frac{1}{2}(x_k+2/x_k)$ untuk menghampiri $\\sqrt{2}$ dari $x_0=1$.",
+          "steps": [
+            "Iterasi 1: $x_1=(1+2/1)/2=1.5$.",
+            "Iterasi 2: $x_2=(1.5+2/1.5)/2=1.416666667$.",
+            "Iterasi 3: $x_3=(1.416666667+2/1.416666667)/2\\approx1.414215686$.",
+            "Hitung residu: $x_3^2-2\\approx6.007\\times10^{-6}$.",
+            "Nilai iterasi mendekati $\\sqrt{2}$."
+          ],
+          "answer": "$x_3\\approx1.414215686$."
+        },
+        "warning": "Bentuk $x=g(x)$ harus dipilih dengan analisis. Dua bentuk aljabar yang sama-sama ekuivalen dengan $f(x)=0$ dapat memiliki perilaku konvergensi yang sangat berbeda."
+      },
+      {
+        "title": "3. Metode Newton-Raphson",
+        "paragraphs": [
+          "Metode Newton-Raphson memakai garis singgung kurva di titik $(x_k,f(x_k))$. Perpotongan garis singgung dengan sumbu-$x$ menjadi hampiran berikutnya. Jika tebakan awal cukup dekat dengan akar sederhana dan fungsi berperilaku baik, konvergensinya biasanya sangat cepat.",
+          "Metode ini memerlukan turunan pertama dan gagal bila $f'(x_k)=0$. Tebakan awal yang buruk dapat membuat iterasi menjauh, berosilasi, atau menuju akar lain."
+        ],
+        "formulas": [
+          "x_{k+1}=x_k-\\frac{f(x_k)}{f'(x_k)}",
+          "f'(x_k)\\neq0",
+          "e_{k+1}\\approx C e_k^2"
+        ],
+        "example": {
+          "question": "Lakukan tiga iterasi Newton-Raphson untuk $f(x)=x^2-2$ dari $x_0=1$.",
+          "steps": [
+            "Turunan fungsi adalah $f'(x)=2x$.",
+            "Rumus iterasi menjadi $x_{k+1}=x_k-(x_k^2-2)/(2x_k)=\\frac{1}{2}(x_k+2/x_k)$.",
+            "Iterasi 1: $x_1=1-(1-2)/2=1.5$.",
+            "Iterasi 2: $x_2=1.5-(2.25-2)/3=1.416666667$.",
+            "Iterasi 3: $x_3=1.416666667-(1.416666667^2-2)/(2(1.416666667))\\approx1.414215686$.",
+            "Residu terakhir sekitar $6.007\\times10^{-6}$."
+          ],
+          "answer": "$x_3\\approx1.414215686$, sangat dekat dengan $\\sqrt{2}$."
+        },
+        "warning": "Jangan membagi dengan turunan yang nol atau sangat kecil. Langkah Newton dapat menjadi sangat besar dan merusak konvergensi."
+      },
+      {
+        "title": "4. Metode Secant",
+        "paragraphs": [
+          "Metode secant mengganti turunan Newton dengan kemiringan garis melalui dua hampiran terakhir. Karena tidak memerlukan rumus turunan, metode ini berguna saat turunan sulit dihitung atau evaluasinya mahal.",
+          "Secant membutuhkan dua nilai awal, tetapi tidak wajib mengurung akar. Berbeda dari regula falsi, kedua titik lama selalu digeser menjadi dua iterasi terbaru; akibatnya tidak ada jaminan perubahan tanda dipertahankan."
+        ],
+        "formulas": [
+          "x_{k+1}=x_k-f(x_k)\\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}",
+          "f(x_k)-f(x_{k-1})\\neq0",
+          "x_{k-1}\\leftarrow x_k,\\quad x_k\\leftarrow x_{k+1}"
+        ],
+        "example": {
+          "question": "Lakukan dua langkah secant untuk $f(x)=x^2-2$ dengan $x_0=1$ dan $x_1=2$.",
+          "steps": [
+            "Hitung $f(x_0)=f(1)=-1$ dan $f(x_1)=f(2)=2$.",
+            "Langkah pertama: $x_2=2-2(2-1)/(2-(-1))=4/3\\approx1.333333$.",
+            "Hitung $f(x_2)=(4/3)^2-2=-2/9$.",
+            "Langkah kedua memakai $x_1=2$ dan $x_2=4/3$.",
+            "Diperoleh $x_3=4/3-(-2/9)((4/3)-2)/((-2/9)-2)=1.4$.",
+            "Residu $f(1.4)=-0.04$."
+          ],
+          "answer": "$x_2\\approx1.333333$ dan $x_3=1.4$."
+        },
+        "warning": "Jangan menyamakan secant dengan regula falsi. Rumus titik barunya serupa, tetapi aturan pembaruan titik berbeda: secant memakai dua titik terbaru, regula falsi menjaga interval perubahan tanda."
+      },
+      {
+        "title": "5. Pemilihan Metode dan Strategi Aman",
+        "paragraphs": [
+          "Titik tetap mudah diterapkan tetapi sangat bergantung pada bentuk $g(x)$. Newton cepat dekat akar tetapi membutuhkan turunan. Secant tidak membutuhkan turunan dan biasanya lebih cepat daripada metode berkonvergensi linear, namun kurang stabil dibanding metode tertutup.",
+          "Strategi praktis dapat menggabungkan metode: mulai dengan biseksi untuk memperoleh interval sempit dan tebakan aman, lalu beralih ke Newton atau secant untuk mempercepat. Pendekatan hibrida memanfaatkan keamanan metode tertutup dan kecepatan metode terbuka."
+        ],
+        "formulas": [
+          "E_k=|x_k-x_{k-1}|",
+          "R_k=|f(x_k)|",
+          "E_k<\\varepsilon_x\\;\\land\\;R_k<\\varepsilon_f"
+        ],
+        "example": {
+          "question": "Pilih metode yang sesuai ketika $f(x)$ kontinu, interval perubahan tanda diketahui, tetapi rumus $f'(x)$ sangat rumit.",
+          "steps": [
+            "Interval perubahan tanda memberi dasar aman untuk biseksi atau regula falsi.",
+            "Turunan yang rumit membuat Newton kurang menarik jika turunan analitik harus dihitung pada setiap iterasi.",
+            "Biseksi dipilih bila jaminan galat dan keandalan menjadi prioritas.",
+            "Regula falsi dapat dicoba bila ingin memakai besar nilai fungsi sambil tetap mengurung akar.",
+            "Secant dapat dipakai setelah memperoleh dua tebakan baik, tetapi harus dilengkapi pemeriksaan penyebut, residu, dan batas iterasi."
+          ],
+          "answer": "Mulai dengan biseksi atau regula falsi; bila perlu percepatan tanpa turunan, lanjutkan dengan secant menggunakan dua hampiran yang sudah baik."
+        },
+        "warning": "Metode tercepat secara teori belum tentu terbaik untuk semua soal. Biaya turunan, kualitas nilai awal, akar ganda, bentuk fungsi, dan kebutuhan jaminan harus dipertimbangkan."
+      }
+    ],
+    "summary": [
+      "Metode terbuka tidak mempertahankan interval pengurung dan sangat dipengaruhi nilai awal.",
+      "Iterasi titik tetap memerlukan bentuk $x=g(x)$; kondisi lokal $|g'(x)|<1$ mendukung konvergensi.",
+      "Newton-Raphson memakai garis singgung dan umumnya berkonvergensi sangat cepat dekat akar sederhana.",
+      "Newton memerlukan turunan yang tidak nol dan dapat gagal jika tebakan awal buruk.",
+      "Secant mendekati turunan dengan dua titik terbaru sehingga tidak membutuhkan turunan analitik.",
+      "Secant berbeda dari regula falsi karena tidak wajib menjaga perubahan tanda.",
+      "Kriteria berhenti yang baik memeriksa perubahan hampiran, residu, dan jumlah iterasi maksimum.",
+      "Metode hibrida dapat menggabungkan keamanan biseksi dengan kecepatan Newton atau secant."
+    ],
+    "exercises": [
+      "Untuk $f(x)=x^3+x-1$, susun satu bentuk $x=g(x)$ dan periksa nilai $|g'(x)|$ di sekitar akar yang diperkirakan.",
+      "Lakukan lima iterasi titik tetap $x_{k+1}=\\cos x_k$ dari $x_0=0.5$.",
+      "Lakukan empat iterasi Newton-Raphson untuk $f(x)=x^3-x-2$ dari $x_0=1.5$.",
+      "Jelaskan apa yang terjadi jika Newton-Raphson diterapkan pada titik dengan $f'(x_0)=0$.",
+      "Lakukan empat langkah secant untuk $f(x)=e^{-x}-x$ dengan $x_0=0$ dan $x_1=1$.",
+      "Bandingkan Newton dan secant dari sisi data awal, kebutuhan turunan, kecepatan lokal, risiko kegagalan, dan biaya evaluasi fungsi."
+    ],
+    "next": "Bahan belajar selanjutnya dapat memperdalam analisis konvergensi dan implementasi algoritma pencarian akar, termasuk tabel iterasi, kriteria berhenti gabungan, serta penanganan kasus gagal."
+  }
+]
