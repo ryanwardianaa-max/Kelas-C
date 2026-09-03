@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pertemuan 04 — Fungsi Biaya, Penerimaan, dan Laba</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#e8eef8,#f8fafc);color:#1e293b;font:16px/1.75 system-ui,-apple-system,sans-serif}.page{width:min(100% - 28px,1000px);margin:24px auto;background:#fff;border:1px solid #dbe4f0;border-radius:22px;box-shadow:0 20px 55px #0f172a14;overflow:hidden}header{padding:52px clamp(24px,6vw,64px);color:#fff;background:radial-gradient(circle at 90% 15%,#38bdf855,transparent 28%),linear-gradient(130deg,#172554,#1d4ed8)}header .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:#bae6fd;font-size:.8rem}h1{font-size:clamp(1.9rem,5vw,3rem);line-height:1.12;margin:.5rem 0 1rem;max-width:840px}header p{max-width:760px;color:#dbeafe;margin:.35rem 0}.content{padding:20px clamp(18px,6vw,64px) 60px}.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 34px}.toc a{padding:12px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;text-align:center;font-size:.86rem}.toc a:hover{background:#dbeafe}h2{margin:46px 0 14px;color:#172554;font-size:1.6rem;border-bottom:2px solid #dbeafe;padding-bottom:8px}h3{color:#1e3a8a;margin-top:28px;font-size:1.15rem}h4{color:#334155;margin:20px 0 8px;font-size:1rem}.card,.example,.warning,.note,.problem{border:1px solid #dbe4f0;border-radius:14px;padding:18px 22px;margin:16px 0;background:#f8fafc;break-inside:avoid}.example{border-left:5px solid #2563eb;background:#f8fbff}.warning{border-left:5px solid #d97706;background:#fffbeb}.note{border-left:5px solid #0891b2;background:#ecfeff}.problem{border-left:5px solid #7c3aed;background:#f5f3ff}.formula{overflow-x:auto;text-align:center;padding:6px 0;font-size:1.1rem;font-family:'Times New Roman',serif}.steps{counter-reset:st;list-style:none;padding-left:0}.steps>li{position:relative;padding:2px 0 10px 44px;margin-bottom:8px}.steps>li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:#2563eb;color:#fff;font-weight:700;display:grid;place-items:center;font-size:.9rem}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.94rem}th,td{padding:10px 11px;border:1px solid #dbe4f0;text-align:left}th{background:#eff6ff;color:#1e3a8a}tbody tr:nth-child(even){background:#f8fafc}.chart{margin:22px auto;padding:12px;border:1px solid #dbe4f0;border-radius:14px;background:#fff;break-inside:avoid}.chart svg{width:100%;height:auto;display:block}.legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:10px;font-size:.88rem;color:#64748b}.swatch{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px}.caption{text-align:center;color:#64748b;font-size:.88rem;margin-top:8px;font-style:italic}.exact{background:#fef9c3;padding:1px 5px;border-radius:4px}footer{padding:26px clamp(18px,6vw,64px);background:#0f172a;color:#94a3b8;font-size:.88rem;text-align:center}@media(max-width:720px){.grid{grid-template-columns:1fr}}@media print{body{background:#fff}.page{box-shadow:none;border:0;margin:0;width:100%;border-radius:0}.toc{display:none}header{padding:28px}h2{page-break-after:avoid}.card,.example,.warning,.note,.problem,.chart{page-break-inside:avoid}}
+</style>
+</head>
+<body><article class="page">
+<header>
+<div class="eyebrow">KP21517007 · Matematika Ekonomi · Kelas C</div>
+<h1>Fungsi Biaya, Penerimaan, dan Laba</h1>
+<p>Pertemuan 04 · Kamis, 03 September 2026</p>
+<p>Konsep biaya produksi (tetap, variabel, total, rata-rata, marginal), penerimaan total, laba, dan titik impas (BEP).</p>
+</header>
+<main class="content">
+<nav class="toc">
+<a href="#biaya">I. Fungsi Biaya</a>
+<a href="#penerimaan">II. Fungsi Penerimaan</a>
+<a href="#laba">III. Laba & BEP</a>
+<a href="#contoh">IV. Contoh Soal</a>
+<a href="#latihan">V. Latihan</a>
+</nav>
+
+<section id="biaya"><h2>I. Fungsi Biaya</h2>
+
+<div class="card"><h4>Biaya Total (Total Cost — TC)</h4>
+<p>TC adalah seluruh biaya yang dikeluarkan untuk memproduksi sejumlah barang. Terdiri dari:</p>
+<ul>
+<li><strong>Biaya Tetap (Fixed Cost — FC)</strong>: biaya yang tidak tergantung pada jumlah produksi (sewa, gaji tetap, penyusutan). FC konstan berapapun Q.</li>
+<li><strong>Biaya Variabel (Variable Cost — VC)</strong>: biaya yang berubah sesuai jumlah produksi (bahan baku, upah tenaga kerja langsung). VC = f(Q), biasanya naik.</li>
+</ul>
+<div class="formula">TC = FC + VC</div>
+</div>
+
+<div class="card"><h4>Biaya Rata-rata (Average Cost — AC)</h4>
+<p>Biaya total per unit barang. Dihitung dengan membagi TC dengan jumlah produksi Q.</p>
+<div class="formula">AC = TC / Q</div>
+<p>AC juga bisa dipecah menjadi:</p>
+<div class="formula">AC = AFC + AVC</div>
+<p>dengan AFC = FC/Q (biaya tetap rata-rata) dan AVC = VC/Q (biaya variabel rata-rata).</p>
+</div>
+
+<div class="card"><h4>Biaya Marginal (Marginal Cost — MC)</h4>
+<p>Tambahan biaya total akibat menambah produksi satu unit barang.</p>
+<div class="formula">MC = ΔTC / ΔQ</div>
+<p>Jika fungsi TC kontinu, MC adalah turunan TC terhadap Q: MC = dTC/dQ.</p>
+<p>MC mencerminkan <strong>hukum hasil yang semakin menurun</strong>: pada awalnya MC turun (efisiensi), lalu naik setelah kapasitas optimal tercapai.</p>
+</div>
+
+<div class="note"><strong>Bentuk umum fungsi biaya:</strong> sering diasumsikan sebagai fungsi kuadrat <span class="formula" style="text-align:left;display:inline-block;">TC = aQ² + bQ + c</span> dengan c = FC, dan a,b konstanta. Fungsi linier juga sering dipakai: TC = bQ + c.</div>
+</section>
+
+<section id="penerimaan"><h2>II. Fungsi Penerimaan (Revenue)</h2>
+
+<div class="card"><h4>Penerimaan Total (Total Revenue — TR)</h4>
+<p>Hasil penjualan seluruh barang: harga jual per unit (P) dikali jumlah barang (Q).</p>
+<div class="formula">TR = P × Q</div>
+<p>Jika harga konstan (pasar persaingan sempurna), TR linier: TR = P·Q. Jika harga tergantung Q (monopoli), TR berbentuk fungsi kuadrat: TR = P(Q)·Q.</p>
+</div>
+
+<div class="card"><h4>Penerimaan Rata-rata (Average Revenue — AR)</h4>
+<p>Penerimaan per unit = harga jual per unit.</p>
+<div class="formula">AR = TR / Q = P</div>
+<p>Jadi AR sama dengan harga.</p>
+</div>
+
+<div class="card"><h4>Penerimaan Marginal (Marginal Revenue — MR)</h4>
+<p>Tambahan penerimaan akibat menjual satu unit tambahan.</p>
+<div class="formula">MR = ΔTR / ΔQ</div>
+<p>Jika TR kontinu, MR = dTR/dQ. Dalam pasar persaingan sempurna, MR = P (konstan). Dalam monopoli, MR menurun.</p>
+</div>
+</section>
+
+<section id="laba"><h2>III. Laba dan Titik Impas (BEP)</h2>
+
+<div class="card"><h4>Laba (Profit — π)</h4>
+<p>Selisih antara penerimaan total dan biaya total.</p>
+<div class="formula">π = TR - TC</div>
+<p>Laba positif jika TR > TC, rugi jika TR < TC, dan <strong>impas (BEP)</strong> jika TR = TC.</p>
+</div>
+
+<div class="card"><h4>Titik Impas (Break-Even Point — BEP)</h4>
+<p>Tingkat produksi Q di mana TR = TC, sehingga laba = 0.</p>
+<p>BEP dapat dihitung dengan menyelesaikan persamaan:</p>
+<div class="formula">TR = TC</div>
+<p>atau</p>
+<div class="formula">P × Q = FC + VC(Q)</div>
+<p>Dalam kasus linier (TR = P·Q, TC = bQ + c):</p>
+<div class="formula">P·Q = bQ + c  →  Q_BEP = c / (P - b)</div>
+<p>dengan (P - b) = margin kontribusi per unit.</p>
+</div>
+
+<div class="warning"><strong>Catatan:</strong> BEP adalah titik minimum agar tidak rugi. Untuk laba tertentu, gunakan π target: TR - TC = π_target.</div>
+</section>
+
+<section id="contoh"><h2>IV. Contoh Soal</h2>
+
+<div class="problem"><strong>Soal 1.</strong> Sebuah perusahaan memiliki biaya tetap FC = 1000 dan biaya variabel VC = 5Q. Harga jual per unit P = 15. Tentukan fungsi biaya total, fungsi penerimaan total, titik impas, dan laba saat Q = 300.</div>
+
+<div class="example">
+<h4>Penyelesaian</h4>
+<ol class="steps">
+<li><strong>Fungsi biaya total:</strong> TC = FC + VC = 1000 + 5Q.</li>
+<li><strong>Fungsi penerimaan total:</strong> TR = P × Q = 15Q.</li>
+<li><strong>Titik impas (BEP):</strong> TR = TC → 15Q = 1000 + 5Q → 10Q = 1000 → Q_BEP = 100.</li>
+<li><strong>Laba saat Q = 300:</strong> π = TR - TC = 15(300) - (1000 + 5·300) = 4500 - (1000 + 1500) = 4500 - 2500 = 2000.</li>
+</ol>
+<p>Jadi BEP terjadi pada Q = 100 unit; pada Q = 300 laba Rp 2.000.</p>
+</div>
+
+<div class="problem"><strong>Soal 2.</strong> Diketahui TC = 0,5Q² + 3Q + 200 dan permintaan P = 20 - Q (monopoli). Tentukan TR, MR, MC, dan Q yang memaksimumkan laba.</div>
+
+<div class="example">
+<h4>Penyelesaian</h4>
+<ol class="steps">
+<li><strong>Fungsi TR:</strong> TR = P × Q = (20 - Q)Q = 20Q - Q².</li>
+<li><strong>Fungsi MR:</strong> MR = dTR/dQ = 20 - 2Q.</li>
+<li><strong>Fungsi MC:</strong> MC = dTC/dQ = Q + 3.</li>
+<li><strong>Maksimum laba:</strong> syarat MR = MC → 20 - 2Q = Q + 3 → 17 = 3Q → Q = 17/3 ≈ 5,67.</li>
+<li><strong>Harga dan laba:</strong> P = 20 - 5,67 = 14,33. TC = 0,5(5,67²) + 3(5,67) + 200 ≈ 16,11 + 17,01 + 200 = 233,12. TR = 14,33 × 5,67 ≈ 81,25. π ≈ 81,25 - 233,12 = -151,87 (rugi). Ini menunjukkan biaya tetap terlalu tinggi; perusahaan mungkin tutup jika tidak ada subsidi.</li>
+</ol>
+</div>
+</section>
+
+<section id="latihan"><h2>V. Latihan</h2>
+<ol>
+<li>Diketahui FC = 2000, VC = 10Q, harga jual P = 25. Tentukan BEP dan laba pada Q = 400.</li>
+<li>Sebuah perusahaan monopoli menghadapi permintaan P = 100 - 2Q dan TC = 4Q² + 10Q + 500. Tentukan TR, MR, MC, dan Q optimal untuk laba maksimum.</li>
+<li>Jika TC = 3Q² - 2Q + 50, hitung MC pada Q = 10.</li>
+<li>Jelaskan mengapa kurva AC berbentuk U (menurun lalu naik) dalam jangka pendek.</li>
+</ol>
+</section>
+
+<footer>Catatan pertemuan 04 — Matematika Ekonomi. Dosen: Vepi Apiati, S.Pd., M.Pd.</footer>
+</main>
+</article>
+</body>
+</html>
