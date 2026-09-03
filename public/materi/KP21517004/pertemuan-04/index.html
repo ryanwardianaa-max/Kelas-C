@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Real – 1.2.3 Induksi Kuat</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8fafc;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #1e293b;
+    }
+    .nav-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #4338ca;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-back:hover { text-decoration: underline; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+    .subhead { color: #475569; margin-bottom: 2rem; border-left: 4px solid #4338ca; padding-left: 1rem; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    h2 { font-size: 1.4rem; margin-bottom: 1rem; color: #1e293b; }
+    h3 { font-size: 1.1rem; margin: 1.2rem 0 0.5rem; }
+    p, li { line-height: 1.7; margin-bottom: 0.5rem; }
+    .math { font-size: 1.1rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .example {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+    }
+    .btn-step {
+      background: #4338ca;
+      color: white;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .btn-step:hover { background: #6558df; }
+    .step-box {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      min-height: 60px;
+    }
+    .tag {
+      display: inline-block;
+      background: #e2e8f0;
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #334155;
+    }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="nav-back" href="#" onclick="history.back()">← Kembali</a>
+  <h1>Analisis Real – 1.2.3</h1>
+  <div class="subhead">Prinsip Induksi Kuat (Strong Induction) • Pertemuan 04 • Kamis, 10 Sep 2026</div>
+
+  <div class="card">
+    <h2>📘 Tujuan Pembelajaran</h2>
+    <ul>
+      <li>Memahami perbedaan induksi biasa dan induksi kuat.</li>
+      <li>Menyatakan dan membuktikan Prinsip Induksi Kuat.</li>
+      <li>Menerapkan induksi kuat pada pembuktian teorema faktorisasi prima.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🔁 Prinsip Induksi Kuat</h2>
+    <p>Misalkan \(S\) subhimpunan \(\mathbb{N}\) yang memenuhi:</p>
+    <ol>
+      <li><strong>Basis:</strong> \(1 \in S\).</li>
+      <li><strong>Langkah induksi kuat:</strong> Jika \(1,2,\dots,k \in S\) untuk suatu \(k \ge 1\), maka \(k+1 \in S\).</li>
+    </ol>
+    <p>Maka \(S = \mathbb{N}\).</p>
+    <p>Dengan kata lain: jika \(P(n)\) benar untuk semua \(n \le k\) mengakibatkan \(P(k+1)\) benar, maka \(P(n)\) benar untuk semua \(n\).</p>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Langkah Pembuktian Induksi Kuat</h2>
+    <ol>
+      <li><strong>Basis:</strong> Buktikan \(P(1)\) benar (dan mungkin \(P(2)\) jika diperlukan).</li>
+      <li><strong>Langkah induksi:</strong> Asumsikan \(P(1), P(2), \dots, P(k)\) benar (untuk suatu \(k \ge 1\)), lalu buktikan \(P(k+1)\).</li>
+      <li><strong>Kesimpulan:</strong> Dengan induksi kuat, \(P(n)\) benar untuk semua \(n \ge 1\).</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>📝 Contoh: Faktorisasi Prima (Teorema Dasar Aritmetika – bagian eksistensi)</h2>
+    <p><strong>Teorema:</strong> Setiap bilangan bulat \(n \ge 2\) dapat ditulis sebagai hasil kali bilangan-bilangan prima.</p>
+    <p><strong>Bukti dengan induksi kuat:</strong></p>
+    <ul>
+      <li><strong>Basis (n=2):</strong> 2 adalah prima. Benar.</li>
+      <li><strong>Langkah induksi:</strong> Asumsikan pernyataan benar untuk semua \(2 \le m \le k\). Perhatikan \(n = k+1\).</li>
+        <ul>
+          <li>Jika \(n\) prima, selesai.</li>
+          <li>Jika \(n\) komposit, maka \(n = ab\) dengan \(2 \le a, b < n\). Dengan hipotesis induksi, \(a\) dan \(b\) dapat difaktorkan menjadi prima. Hasil kali faktor-faktor prima \(a\) dan \(b\) memberikan faktorisasi prima untuk \(n\).</li>
+        </ul>
+      </ul>
+    <p>Dengan induksi kuat, teorema terbukti.</p>
+  </div>
+
+  <div class="card">
+    <h2>🔄 Simulasi Langkah Induksi Kuat</h2>
+    <p>Klik tombol untuk melihat langkah-langkah pembuktian faktorisasi prima secara bertahap.</p>
+    <button class="btn-step" onclick="showStep(1)">Basis (n=2)</button>
+    <button class="btn-step" onclick="showStep(2)">Hipotesis (2..k)</button>
+    <button class="btn-step" onclick="showStep(3)">Kasus komposit (k+1)</button>
+    <button class="btn-step" onclick="showStep(4)">Kesimpulan</button>
+    <div id="stepDisplay" class="step-box">Klik tombol untuk melihat langkah.</div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ Latihan</h2>
+    <ol>
+      <li>Buktikan bahwa setiap \(n \ge 2\) memiliki faktor prima (gunakan induksi kuat).</li>
+      <li>Definisikan barisan Fibonacci: \(F_1=1, F_2=1, F_{n}=F_{n-1}+F_{n-2}\). Buktikan \(F_n < 2^n\) untuk semua \(n \ge 1\) dengan induksi kuat.</li>
+      <li>Buktikan bahwa untuk semua \(n \ge 1\), \(n\) dapat dinyatakan sebagai penjumlahan dari pangkat dua yang berbeda (representasi biner).</li>
+    </ol>
+  </div>
+
+  <script>
+    function renderMath() {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '\\\\(', right: '\\\\)', display: false},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    }
+    document.addEventListener('DOMContentLoaded', renderMath);
+
+    function showStep(step) {
+      const display = document.getElementById('stepDisplay');
+      const steps = {
+        1: '<strong>Basis (n=2):</strong> 2 adalah bilangan prima. Jadi pernyataan benar untuk \(n=2\).',
+        2: '<strong>Hipotesis Induksi Kuat:</strong> Anggap semua bilangan bulat \(2,3,\\dots,k\) dapat difaktorkan menjadi prima.',
+        3: '<strong>Kasus \(n=k+1\):</strong> Jika \(k+1\) prima, selesai. Jika komposit, \(k+1 = ab\) dengan \(2 \\le a,b < k+1\). Dengan hipotesis, \(a\) dan \(b\) punya faktorisasi prima, sehingga \(k+1\) juga punya.',
+        4: '<strong>Kesimpulan:</strong> Dengan Prinsip Induksi Kuat, semua \(n \\ge 2\) memiliki faktorisasi prima.'
+      };
+      display.innerHTML = steps[step] || 'Pilih langkah yang valid.';
+      renderMath();
+    }
+  </script>
+</body>
+</html>
