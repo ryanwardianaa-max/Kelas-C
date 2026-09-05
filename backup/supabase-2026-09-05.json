@@ -1,0 +1,774 @@
+{
+  "takenAt": "2026-09-05T12:45:46.187Z",
+  "tables": {
+    "tasks": [
+      {
+        "id": "f0d19d95-4e20-4339-85ae-2fc1d573841b",
+        "data": {
+          "id": "f0d19d95-4e20-4339-85ae-2fc1d573841b",
+          "dueAt": "2026-08-18T00:00:00.000Z",
+          "title": "baca baca matari",
+          "completed": true,
+          "createdAt": "2026-08-12T10:38:38.372Z",
+          "updatedAt": "2026-08-19T05:44:01.856Z",
+          "courseCode": "KP21517001",
+          "description": "baca baca materi sebelum masuk matkul"
+        },
+        "updated_at": "2026-08-19T05:44:01.856+00:00"
+      },
+      {
+        "id": "eeceba41-2013-4c0f-a8bb-39ec08ce474d",
+        "data": {
+          "id": "eeceba41-2013-4c0f-a8bb-39ec08ce474d",
+          "dueAt": "2026-08-26T00:00:00.000Z",
+          "title": "Tugas Kelompok",
+          "completed": true,
+          "createdAt": "2026-08-19T05:44:02.817Z",
+          "meetingNo": 2,
+          "updatedAt": "2026-08-21T09:55:57.225Z",
+          "courseCode": "KP21517001",
+          "description": "PPT Tugas Kelompok"
+        },
+        "updated_at": "2026-08-21T09:55:57.225+00:00"
+      },
+      {
+        "id": "c61e567b-d5d0-4f75-8201-75ac6467a432",
+        "data": {
+          "id": "c61e567b-d5d0-4f75-8201-75ac6467a432",
+          "dueAt": "2026-09-07T02:00:00.000Z",
+          "title": "Mengkaji Teori Minimal 40 Artikel",
+          "completed": false,
+          "createdAt": "2026-08-31T05:45:14.008298Z",
+          "meetingNo": 11,
+          "updatedAt": "2026-08-31T05:45:14.008298Z",
+          "courseCode": "KP21517006",
+          "description": "Tugas Seminar Pendidikan Matematika. Kaji teori berdasarkan judul rencana penelitian menggunakan minimal 40 artikel terbit 5 tahun terakhir. Jurnal nasional SINTA 1–6; jurnal internasional Scopus Q1–Q4. Jelaskan model penelitian dan metode penelitian. Tenggat belum diberikan dosen. Template akan dikirim melalui Google Classroom. Pengingat sementara: cek template dan tenggat pada pertemuan berikutnya."
+        },
+        "updated_at": "2026-08-31T05:45:14.008298+00:00"
+      }
+    ],
+    "materials": [
+      {
+        "id": "mat-analisis-kompleks-pertemuan-03",
+        "data": {
+          "id": "mat-analisis-kompleks-pertemuan-03",
+          "url": "/materi/KP21517003/pertemuan-03/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Pengantar Sistem Bilangan Kompleks & Operasi Aljabar",
+          "createdAt": "2026-08-24T08:30:00.000Z",
+          "meetingNo": 3,
+          "courseCode": "KP21517003",
+          "description": "Catatan komprehensif kuliah Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Mencakup definisi bilangan kompleks z = a + bi, hierarki sistem bilangan, operasi aljabar (penjumlahan, pengurangan, perkalian, pembagian), serta sifat-sifat sekawan (konjugat) dilengkapi foto arsip tulisan tangan asli."
+        },
+        "updated_at": "2026-08-24T08:30:00+00:00"
+      },
+      {
+        "id": "tool-kalkulator-analisis-kompleks",
+        "data": {
+          "id": "tool-kalkulator-analisis-kompleks",
+          "url": "/tools/kalkulator-kompleks/index.html",
+          "type": "Dokumen",
+          "title": "Aplikasi Bantuan: Kalkulator Bilangan Kompleks Edukatif (Step-by-Step & Bidang Argand)",
+          "createdAt": "2026-08-24T09:25:00.000Z",
+          "meetingNo": 3,
+          "courseCode": "KP21517003",
+          "description": "Aplikasi kalkulator interaktif khusus mahasiswa Pendidikan Matematika. Menjabarkan setiap langkah aljabar formal (penjumlahan, pengurangan, perkalian distributif, pembagian sekawan penyebut, modulus, konjugat, polar & Euler) lengkap dengan visualisasi bidang Argand 2D."
+        },
+        "updated_at": "2026-08-24T09:25:00+00:00"
+      },
+      {
+        "id": "tool-kalkulator-integral-kompleks",
+        "data": {
+          "id": "tool-kalkulator-integral-kompleks",
+          "url": "/tools/kalkulator-integral-kompleks/index.html",
+          "type": "Dokumen",
+          "title": "Aplikasi Bantuan: Kalkulator Integral Kontur & Teorema Residu Cauchy",
+          "createdAt": "2026-08-24T10:05:00.000Z",
+          "meetingNo": 9,
+          "courseCode": "KP21517003",
+          "description": "Alat bantu eksplorasi integral lintasan kurva tertutup pada bidang kompleks. Menentukan letak titik singular (di dalam / luar kurva), Teorema Cauchy-Goursat, Rumus Integral Cauchy, dan Teorema Residu Cauchy dengan bidang Argand interaktif."
+        },
+        "updated_at": "2026-08-24T10:05:00+00:00"
+      },
+      {
+        "id": "mat-mateko-pertemuan-02",
+        "data": {
+          "id": "mat-mateko-pertemuan-02",
+          "url": "/materi/KP21517007/pertemuan-02/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah & Pembahasan Lengkap: Permintaan, Penawaran & Keseimbangan Pasar",
+          "createdAt": "2026-08-20T12:00:00.000Z",
+          "meetingNo": 2,
+          "courseCode": "KP21517007",
+          "description": "Rangkuman komprehensif 20 slide PPT dosen (Ibu Vepi Apiati). Dilengkapi narasi contoh nyata sehari-hari, grafik kurva di buku berpetak, serta pembahasan step-by-step latihan soal slide 16–20 pada kertas bergaris binder."
+        },
+        "updated_at": "2026-08-20T12:00:00+00:00"
+      },
+      {
+        "id": "mat-mateko-pertemuan-03",
+        "data": {
+          "id": "mat-mateko-pertemuan-03",
+          "url": "/materi/KP21517007/pertemuan-03/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Pengaruh Pajak, Subsidi, & Keseimbangan Multi-Pasar (2 Komoditas)",
+          "createdAt": "2026-08-27T17:00:00.000Z",
+          "meetingNo": 3,
+          "courseCode": "KP21517007",
+          "description": "Catatan komprehensif kuliah Matematika Ekonomi Pertemuan 03: Pengaruh Pajak spesifik (t), Pajak proporsional (r), dan Subsidi spesifik (s) terhadap pergeseran kurva, insidensi beban konsumen/produsen, total kas pemerintah, serta metode 4 langkah eliminasi SPLDV pada pasar 2 komoditas."
+        },
+        "updated_at": "2026-08-27T17:00:00+00:00"
+      },
+      {
+        "id": "mat-analisis-kompleks-pertemuan-04",
+        "data": {
+          "id": "mat-analisis-kompleks-pertemuan-04",
+          "url": "/materi/KP21517003/pertemuan-04/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Sifat Operasi Dasar, Bilangan Sekawan & Nilai Mutlak",
+          "createdAt": "2026-08-31T02:30:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517003",
+          "description": "Catatan kuliah Pertemuan 04 (31 Agustus 2026) hasil pencatatan langsung di kelas. Mencakup 6 sifat operasi dasar pada bilangan kompleks (ketertutupan sampai invers), bilangan sekawan beserta hasil kali/jumlah/selisihnya dengan z, penurunan rumus Re z dan Im z, pembuktian konjugat ganda, nilai mutlak |z|, serta pembahasan dua soal papan tulis dengan pola pangkat i. Dilengkapi 3 lembar catatan tulis tangan asli dan 2 foto papan tulis."
+        },
+        "updated_at": "2026-08-31T02:30:00+00:00"
+      },
+      {
+        "id": "mat-analisis-kompleks-pertemuan-05",
+        "data": {
+          "id": "mat-analisis-kompleks-pertemuan-05",
+          "url": "/materi/KP21517003/pertemuan-05/index.html",
+          "type": "Catatan",
+          "title": "Bahan Baca: Modulus, Bidang Argand, Bentuk Polar & Rumus De Moivre",
+          "createdAt": "2026-08-31T00:30:00.000Z",
+          "meetingNo": 5,
+          "courseCode": "KP21517003",
+          "description": "Bahan baca mandiri untuk pertemuan yang akan datang, lanjutan dari nilai mutlak di Pertemuan 04. Mencakup modulus |z| dan sifat-sifatnya, bidang Argand, argumen & argumen utama Arg z beserta koreksi kuadran, bentuk polar r(cos θ + i sin θ) dan eksponensial Euler re^(iθ), aturan kali-bagi lewat sudut, rumus De Moivre, serta akar pangkat n yang membentuk segi-n beraturan. Dilengkapi tabel rangkuman, diagram SVG, dan 6 latihan mandiri."
+        },
+        "updated_at": "2026-08-31T00:30:00+00:00"
+      },
+      {
+        "id": "tool-kalkulator-polar-demoivre",
+        "data": {
+          "id": "tool-kalkulator-polar-demoivre",
+          "url": "/tools/kalkulator-polar-demoivre/index.html",
+          "type": "Dokumen",
+          "title": "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
+          "createdAt": "2026-08-31T00:35:00.000Z",
+          "meetingNo": 5,
+          "courseCode": "KP21517003",
+          "description": "Kalkulator empat mode untuk materi bentuk polar: konversi ke bentuk polar & Euler dengan pemeriksaan kuadran otomatis, perkalian/pembagian lewat penjumlahan sudut, pemangkatan De Moivre, dan pencarian semua akar pangkat n. Setiap hasil disertai penjabaran langkah dan gambar bidang Argand."
+        },
+        "updated_at": "2026-08-31T00:35:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-02",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-02",
+          "url": "/materi/KP21517004/pertemuan-02/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Landasan Teori Himpunan & Pembuktian Teorema De Morgan",
+          "createdAt": "2026-08-24T15:30:00.000Z",
+          "meetingNo": 2,
+          "courseCode": "KP21517004",
+          "description": "Catatan komprehensif kuliah Analisis Real bersama Ibu Linda Herawati, S.Pd., M.Pd. Mencakup notasi kuantor formal, operasi himpunan (irisan, gabungan, selisih), himpunan kosong ({ } vs {∅}), dan pembuktian formal Teorema 1.1.4 De Morgan dilengkapi Diagram Venn interaktif."
+        },
+        "updated_at": "2026-08-24T15:30:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-03",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-03",
+          "url": "/materi/KP21517004/pertemuan-03/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Teorema 1.1.4 Bartle, Inklusi Ganda & Pembuktian Aljabar Himpunan",
+          "createdAt": "2026-08-27T08:00:00.000Z",
+          "meetingNo": 3,
+          "courseCode": "KP21517004",
+          "description": "Catatan resmi kuliah Analisis Real Pertemuan 03: Bedah Teorema 1.1.4 (a) & (b) De Morgan buku Bartle menggunakan metode Double Inclusion (Inklusi Ganda), rantai ekuivalensi notasi pembentuk himpunan (:=), manipulasi A \\ A = ∅, dan galeri lembar catatan tulis tangan asli SiDU Campus."
+        },
+        "updated_at": "2026-08-27T08:00:00+00:00"
+      },
+      {
+        "id": "mat-mateko-pertemuan-04",
+        "data": {
+          "id": "mat-mateko-pertemuan-04",
+          "url": "/materi/KP21517007/pertemuan-04/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Fungsi Biaya, Penerimaan, dan Laba",
+          "createdAt": "2026-09-03T02:00:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517007",
+          "description": "Catatan komprehensif kuliah Matematika Ekonomi Pertemuan 04: Fungsi Biaya (biaya tetap, variabel, total, rata-rata, marginal), Fungsi Penerimaan (total, rata-rata, marginal), Laba, dan Titik Impas (BEP). Dilengkapi contoh soal dan latihan."
+        },
+        "updated_at": "2026-09-03T02:00:00+00:00"
+      },
+      {
+        "id": "tool-kalkulator-mateko",
+        "data": {
+          "id": "tool-kalkulator-mateko",
+          "url": "/tools/kalkulator-mateko/index.html",
+          "type": "Dokumen",
+          "title": "Aplikasi Bantuan: Kalkulator Matematika Ekonomi Lengkap",
+          "createdAt": "2026-09-03T05:00:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517007",
+          "description": "Kalkulator interaktif untuk pasar, pajak, subsidi, dua komoditas, fungsi biaya, BEP, laba/rugi, fungsi konsumsi, dan tabungan. Angka dapat diubah bebas dan hasil disertai langkah perhitungan."
+        },
+        "updated_at": "2026-09-03T05:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-01",
+        "data": {
+          "id": "mat-metnum-pertemuan-01",
+          "url": "/materi/KP21517001/pertemuan-01/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 1: Pengantar Metode Numerik",
+          "createdAt": "2026-09-02T01:00:00.000Z",
+          "meetingNo": 1,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 01 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T01:00:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-04",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-04",
+          "url": "/materi/KP21517004/pertemuan-04/index.html",
+          "type": "Catatan",
+          "title": "Catatan Kuliah: Sifat Terurut Baik dan Prinsip Induksi Matematika",
+          "createdAt": "2026-09-03T01:00:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517004",
+          "description": "Materi aktual kuliah 3 September 2026 berdasarkan Bartle 1.2.1–1.2.2: Sifat Terurut Baik, pernyataan dan pembuktian Prinsip Induksi Matematika, kesalahan umum, serta pembuktian rinci Latihan 4."
+        },
+        "updated_at": "2026-09-03T01:00:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-05",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-05",
+          "url": "/materi/KP21517004/pertemuan-05/index.html",
+          "type": "Catatan",
+          "title": "Bahan Baca: Induksi dari Basis Tertentu dan Contoh (Bartle 1.2.3–1.2.4)",
+          "createdAt": "2026-09-03T01:05:00.000Z",
+          "meetingNo": 5,
+          "courseCode": "KP21517004",
+          "description": "Bahan persiapan yang belum diklaim sebagai catatan kuliah: prinsip induksi mulai n₀ dan contoh-contoh penerapan menurut Bartle 1.2.3–1.2.4."
+        },
+        "updated_at": "2026-09-03T01:05:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-06",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-06",
+          "url": "/materi/KP21517004/pertemuan-06/index.html",
+          "type": "Catatan",
+          "title": "Bahan Baca: Induksi Kuat (Bartle 1.2.5)",
+          "createdAt": "2026-09-03T01:10:00.000Z",
+          "meetingNo": 6,
+          "courseCode": "KP21517004",
+          "description": "Bahan persiapan yang belum diklaim sebagai catatan kuliah: perbedaan induksi biasa dan induksi kuat, disertai contoh faktorisasi prima."
+        },
+        "updated_at": "2026-09-03T01:10:00+00:00"
+      },
+      {
+        "id": "mat-analisis-real-pertemuan-07",
+        "data": {
+          "id": "mat-analisis-real-pertemuan-07",
+          "url": "/materi/KP21517004/pertemuan-07/index.html",
+          "type": "Catatan",
+          "title": "Bahan Baca: Himpunan Berhingga dan Tak Hingga (Bartle 1.3)",
+          "createdAt": "2026-09-03T01:15:00.000Z",
+          "meetingNo": 7,
+          "courseCode": "KP21517004",
+          "description": "Bahan persiapan Section 1.3: definisi himpunan berhingga, tak hingga, denumerabel, terhitung, tak terhitung, dan teorema-teorema utama dengan penomoran yang dikoreksi."
+        },
+        "updated_at": "2026-09-03T01:15:00+00:00"
+      },
+      {
+        "id": "tool-panduan-induksi",
+        "data": {
+          "id": "tool-panduan-induksi",
+          "url": "/tools/panduan-induksi/index.html",
+          "type": "Dokumen",
+          "title": "Alat Bantu: Panduan Interaktif Pembuktian Induksi",
+          "createdAt": "2026-09-03T01:20:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517004",
+          "description": "Checklist struktur bukti, perbandingan tiga jenis induksi, serta pemeriksa jembatan Latihan 4. Pemeriksaan angka membantu memahami pola tanpa menggantikan bukti formal."
+        },
+        "updated_at": "2026-09-03T01:20:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-02",
+        "data": {
+          "id": "mat-metnum-pertemuan-02",
+          "url": "/materi/KP21517001/pertemuan-02/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 2: Deret Taylor dan Analisis Galat",
+          "createdAt": "2026-09-02T02:00:00.000Z",
+          "meetingNo": 2,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 02 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T02:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-03",
+        "data": {
+          "id": "mat-metnum-pertemuan-03",
+          "url": "/materi/KP21517001/pertemuan-03/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 3: Metode Tertutup untuk Akar Persamaan",
+          "createdAt": "2026-09-02T03:00:00.000Z",
+          "meetingNo": 3,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 03 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T03:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-04",
+        "data": {
+          "id": "mat-metnum-pertemuan-04",
+          "url": "/materi/KP21517001/pertemuan-04/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 4: Metode Terbuka untuk Akar Persamaan",
+          "createdAt": "2026-09-02T04:00:00.000Z",
+          "meetingNo": 4,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 04 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T04:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-05",
+        "data": {
+          "id": "mat-metnum-pertemuan-05",
+          "url": "/materi/KP21517001/pertemuan-05/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 05 — Perbandingan Metode Pencarian Akar dan Laju Konvergensi",
+          "createdAt": "2026-09-02T05:00:00.000Z",
+          "meetingNo": 5,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 05 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T05:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-06",
+        "data": {
+          "id": "mat-metnum-pertemuan-06",
+          "url": "/materi/KP21517001/pertemuan-06/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 06 — Eliminasi Gaussian dan Gauss–Jordan",
+          "createdAt": "2026-09-02T06:00:00.000Z",
+          "meetingNo": 6,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 06 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T06:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-07",
+        "data": {
+          "id": "mat-metnum-pertemuan-07",
+          "url": "/materi/KP21517001/pertemuan-07/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 07 — Faktorisasi LU, Invers Matriks, dan Pivoting",
+          "createdAt": "2026-09-02T07:00:00.000Z",
+          "meetingNo": 7,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 07 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T07:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-08",
+        "data": {
+          "id": "mat-metnum-pertemuan-08",
+          "url": "/materi/KP21517001/pertemuan-08/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 08 — Iterasi Jacobi, Gauss–Seidel, Konvergensi, dan Tinjauan UTS",
+          "createdAt": "2026-09-02T08:00:00.000Z",
+          "meetingNo": 8,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 08 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T08:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-09",
+        "data": {
+          "id": "mat-metnum-pertemuan-09",
+          "url": "/materi/KP21517001/pertemuan-09/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 09: Interpolasi Polinom Lagrange",
+          "createdAt": "2026-09-02T09:00:00.000Z",
+          "meetingNo": 9,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 09 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T09:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-10",
+        "data": {
+          "id": "mat-metnum-pertemuan-10",
+          "url": "/materi/KP21517001/pertemuan-10/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 10: Beda Terbagi Newton, Gambaran Spline, dan Perbedaan Regresi",
+          "createdAt": "2026-09-02T10:00:00.000Z",
+          "meetingNo": 10,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 10 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T10:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-11",
+        "data": {
+          "id": "mat-metnum-pertemuan-11",
+          "url": "/materi/KP21517001/pertemuan-11/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 11: Diferensiasi Numerik: Maju, Mundur, Pusat, dan Galat",
+          "createdAt": "2026-09-02T11:00:00.000Z",
+          "meetingNo": 11,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 11 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T11:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-12",
+        "data": {
+          "id": "mat-metnum-pertemuan-12",
+          "url": "/materi/KP21517001/pertemuan-12/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 12: Integrasi Numerik Komposit: Trapesium dan Aturan Simpson",
+          "createdAt": "2026-09-02T12:00:00.000Z",
+          "meetingNo": 12,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 12 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T12:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-13",
+        "data": {
+          "id": "mat-metnum-pertemuan-13",
+          "url": "/materi/KP21517001/pertemuan-13/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 13: Kuadratur Gauss: Integrasi Efisien, Galat, dan Pemilihan Metode",
+          "createdAt": "2026-09-02T13:00:00.000Z",
+          "meetingNo": 13,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 13 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T13:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-14",
+        "data": {
+          "id": "mat-metnum-pertemuan-14",
+          "url": "/materi/KP21517001/pertemuan-14/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 14: Masalah Nilai Awal PDB: Metode Euler dan Heun",
+          "createdAt": "2026-09-02T14:00:00.000Z",
+          "meetingNo": 14,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 14 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T14:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-15",
+        "data": {
+          "id": "mat-metnum-pertemuan-15",
+          "url": "/materi/KP21517001/pertemuan-15/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 15: Runge–Kutta Orde Empat untuk Persamaan Tunggal dan Sistem",
+          "createdAt": "2026-09-02T15:00:00.000Z",
+          "meetingNo": 15,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 15 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T15:00:00+00:00"
+      },
+      {
+        "id": "mat-metnum-pertemuan-16",
+        "data": {
+          "id": "mat-metnum-pertemuan-16",
+          "url": "/materi/KP21517001/pertemuan-16/index.html",
+          "type": "Catatan",
+          "title": "Bahan Belajar Pertemuan 16: Tinjauan Akhir: Peta Metode dan Alur Pemilihan yang Dapat Dipertanggungjawabkan",
+          "createdAt": "2026-09-02T16:00:00.000Z",
+          "meetingNo": 16,
+          "courseCode": "KP21517001",
+          "description": "Materi terstruktur Pertemuan 16 Metode Numerik: konsep inti, rumus yang dirender rapi, contoh bertahap, ringkasan, enam latihan mandiri, sumber Rinaldi Munir, dan tautan ke laboratorium interaktif."
+        },
+        "updated_at": "2026-09-02T16:00:00+00:00"
+      },
+      {
+        "id": "tool-lab-metode-numerik",
+        "data": {
+          "id": "tool-lab-metode-numerik",
+          "url": "/tools/lab-metode-numerik/index.html",
+          "type": "Dokumen",
+          "title": "Laboratorium Metode Numerik Lengkap: Langkah, Tabel & Grafik",
+          "createdAt": "2026-09-02T17:00:00.000Z",
+          "meetingNo": 1,
+          "courseCode": "KP21517001",
+          "description": "Tujuh kelompok kalkulator dalam satu tempat: galat dan Taylor, akar persamaan, SPL, interpolasi dan regresi, turunan, integrasi, serta PDB. Semua menampilkan langkah, tabel, dan grafik yang mudah dibaca."
+        },
+        "updated_at": "2026-09-02T17:00:00+00:00"
+      }
+    ],
+    "references": [
+      {
+        "id": "ref-metnum-buku-utama",
+        "data": {
+          "id": "ref-metnum-buku-utama",
+          "tags": [
+            "Buku Utama",
+            "STEI ITB",
+            "Rinaldi Munir",
+            "Metode Numerik",
+            "Teori & Algoritma"
+          ],
+          "title": "Buku Metode Numerik — Dr. Rinaldi Munir (STEI ITB)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:00:00.000Z",
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/",
+          "courseCode": "KP21517001",
+          "description": "Buku teks utama perkuliahan Metode Numerik berbahasa Indonesia oleh Dr. Rinaldi Munir (Informatika STEI ITB). Memuat panduan komprehensif mulai dari dasar komputasi, analisis galat, pencarian akar, sistem persamaan lanjar, interpolasi, integrasi & turunan numerik, hingga persamaan diferensial biasa."
+        },
+        "updated_at": "2026-08-16T00:00:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-01",
+        "data": {
+          "id": "ref-metnum-bab-01",
+          "tags": [
+            "Bab 1",
+            "Pengantar",
+            "Analitik vs Numerik",
+            "Hampiran",
+            "Komputasi"
+          ],
+          "title": "Bab 01 — Metode Numerik Secara Umum",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:01:00.000Z",
+          "meetingNo": 1,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/BAb-%2001%20Metode%20Numerik%20Secara%20Umum.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Mengapa butuh metode numerik? Metode analitik (hitung tangan eksak) sering kali mentok saat menghadapi persamaan rumit di dunia nyata. Metode numerik adalah teknik mencari solusi 'hampiran' (taksiran yang sangat akurat) dengan memanfaatkan operasi hitung aritmetika yang dapat diulang ribuan kali oleh komputer."
+        },
+        "updated_at": "2026-08-16T00:01:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-02",
+        "data": {
+          "id": "ref-metnum-bab-02",
+          "tags": [
+            "Bab 2",
+            "Deret Taylor",
+            "Galat",
+            "Error Analysis",
+            "Floating Point"
+          ],
+          "title": "Bab 02 — Deret Taylor dan Analisis Galat (Error)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:02:00.000Z",
+          "meetingNo": 2,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2002%20Deret%20Taylor%20dan%20Analisis%20Galat.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Komputer punya batas memori dan angka desimal. Karena itu, timbul selisih antara nilai sebenarnya dengan nilai hitungan komputer (disebut Galat / Error). Bab ini mengajarkan Deret Taylor untuk 'memotong' rumus rumit dan cara mengendalikan galat pemotongan serta pembulatan agar hitungan tetap presisi."
+        },
+        "updated_at": "2026-08-16T00:02:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-03",
+        "data": {
+          "id": "ref-metnum-bab-03",
+          "tags": [
+            "Bab 3",
+            "Akar Persamaan",
+            "Biseksi",
+            "Regula Falsi",
+            "Newton-Raphson",
+            "Secant"
+          ],
+          "title": "Bab 03 — Solusi Persamaan Nirlanjar (Pencarian Akar)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:03:00.000Z",
+          "meetingNo": 3,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2003%20Solusi%20Persamaan%20Nirlanjar.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Trik mencari nilai x yang membuat f(x) = 0 saat fungsinya tidak bisa difaktorkan manual. Mempelajari Metode Tertutup/Kurung (Biseksi yang membagi dua interval secara aman, Regula Falsi) dan Metode Terbuka yang lebih cepat (Newton-Raphson berbasis turunan & Secant)."
+        },
+        "updated_at": "2026-08-16T00:03:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-04",
+        "data": {
+          "id": "ref-metnum-bab-04",
+          "tags": [
+            "Bab 4",
+            "SPL",
+            "Eliminasi Gauss",
+            "Gauss-Jordan",
+            "Dekomposisi LU",
+            "Iterasi Jacobi",
+            "Gauss-Seidel"
+          ],
+          "title": "Bab 04 — Solusi Sistem Persamaan Lanjar (SPL)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:04:00.000Z",
+          "meetingNo": 6,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2004%20Solusi%20Sistem%20Persamaan%20Lanjar.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Cara menyelesaikan banyak persamaan dengan banyak variabel sekaligus (matriks Ax = b). Membahas metode langsung (Eliminasi Gauss, Gauss-Jordan, Matriks Balikan, Dekomposisi LU) dan metode iteratif yang hemat memori untuk matriks raksasa (Metode Jacobi & Gauss-Seidel)."
+        },
+        "updated_at": "2026-08-16T00:04:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-05",
+        "data": {
+          "id": "ref-metnum-bab-05",
+          "tags": [
+            "Bab 5",
+            "Interpolasi",
+            "Polinom Lagrange",
+            "Polinom Newton",
+            "Spline",
+            "Pencocokan Kurva"
+          ],
+          "title": "Bab 05 — Interpolasi Polinom",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:05:00.000Z",
+          "meetingNo": 9,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2005%20Interpolasi%20Polinom.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Menghubungkan titik-titik data eksperimen menjadi kurva grafik yang mulus. Jika kita punya beberapa titik data terpisah, interpolasi (Polinom Lagrange, Polinom Newton, Spline) memungkinkan kita menebak nilai fungsi pada titik manapun di antara data tersebut secara akurat."
+        },
+        "updated_at": "2026-08-16T00:05:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-07",
+        "data": {
+          "id": "ref-metnum-bab-07",
+          "tags": [
+            "Bab 7",
+            "Turunan Numerik",
+            "Diferensiasi",
+            "Selisih Maju",
+            "Selisih Mundur",
+            "Selisih Pusat"
+          ],
+          "title": "Bab 07 — Turunan Numerik (Diferensiasi Numerik)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:06:00.000Z",
+          "meetingNo": 11,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2007%20Turunan%20Numerik.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Menghitung gradien kemiringan grafik / kecepatan perubahan f'(x) ketika rumus analitik fungsinya tidak diketahui atau hanya tersedia tabel titik data. Menggunakan pendekatan beda hingga: Selisih Maju, Selisih Mundur, dan Selisih Pusat (orde ketelitian lebih tinggi)."
+        },
+        "updated_at": "2026-08-16T00:06:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-06",
+        "data": {
+          "id": "ref-metnum-bab-06",
+          "tags": [
+            "Bab 6",
+            "Integrasi Numerik",
+            "Aturan Trapesium",
+            "Simpson 1/3",
+            "Simpson 3/8",
+            "Kuadratur Gauss"
+          ],
+          "title": "Bab 06 — Integrasi Numerik",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:07:00.000Z",
+          "meetingNo": 12,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2006%20Integrasi%20Numerik.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Menghitung luas daerah di bawah kurva (integral tentu) ketika fungsi integran sulit/mustahil diintegralkan secara analitik. Area dipecah menjadi pias bidang trapesium (Aturan Trapesium) atau potongan kurva parabola (Aturan Simpson 1/3 dan 3/8) lalu dijumlahkan."
+        },
+        "updated_at": "2026-08-16T00:07:00+00:00"
+      },
+      {
+        "id": "ref-metnum-bab-08",
+        "data": {
+          "id": "ref-metnum-bab-08",
+          "tags": [
+            "Bab 8",
+            "PDB",
+            "Masalah Nilai Awal",
+            "Metode Euler",
+            "Metode Heun",
+            "Runge-Kutta Orde 4"
+          ],
+          "title": "Bab 08 — Solusi Persamaan Diferensial Biasa (PDB)",
+          "category": "E-Book",
+          "createdAt": "2026-08-16T00:08:00.000Z",
+          "meetingNo": 14,
+          "urlOrPath": "https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2008%20Solusi%20Persamaan%20Diferensial%20Biasa.pdf",
+          "courseCode": "KP21517001",
+          "description": "Konsep Sederhana: Memprediksi grafik perkembangan sistem (seperti peluruhan, dinamika fluida, atau rangkaian listrik) dari kondisi nilai awal dy/dx = f(x,y). Menggunakan langkah beruntun step-by-step: Metode Euler (sederhana), Metode Heun (prediktor-korektor), dan Metode Runge-Kutta (standar industri dengan akurasi tinggi)."
+        },
+        "updated_at": "2026-08-16T00:08:00+00:00"
+      },
+      {
+        "id": "ref-real-bartle-sherbert",
+        "data": {
+          "id": "ref-real-bartle-sherbert",
+          "tags": [
+            "Buku Utama",
+            "Bartle & Sherbert",
+            "Analisis Real",
+            "Teori Himpunan",
+            "Pembuktian Formal"
+          ],
+          "title": "Introduction to Real Analysis (4th Edition) — Robert G. Bartle & Donald R. Sherbert",
+          "category": "E-Book",
+          "createdAt": "2026-08-24T15:30:00.000Z",
+          "meetingNo": 2,
+          "urlOrPath": "https://www.google.com/search?q=Introduction+to+Real+Analysis+Bartle+Sherbert",
+          "courseCode": "KP21517004",
+          "description": "Buku teks rujukan utama perkuliahan Analisis Real (John Wiley & Sons). Memuat bab pendahuluan teori himpunan, pembuktian induksi matematika, sifat aljabar & kelengkapan bilangan real, barisan & deret, hingga konsep limit (ε-δ)."
+        },
+        "updated_at": "2026-08-24T15:30:00+00:00"
+      }
+    ],
+    "meeting_notes": [],
+    "app_settings": [
+      {
+        "id": "profile",
+        "data": {
+          "ai": {
+            "localKey": "",
+            "provider": "server",
+            "timeoutMs": 20000,
+            "localModel": "cx/gpt-5.6-sol",
+            "serverModel": "deepseek/deepseek-v4-pro",
+            "localEndpoint": "http://127.0.0.1:20128/v1"
+          },
+          "nim": "232151098",
+          "name": "Ryan",
+          "email": "232151098@student.unsil.ac.id",
+          "sound": true,
+          "theme": "light",
+          "target": "",
+          "program": "Pendidikan Matematika",
+          "semester": "7",
+          "className": "C",
+          "notifications": true
+        },
+        "updated_at": "2026-09-02T15:01:16.943+00:00"
+      }
+    ]
+  }
+}

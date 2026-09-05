@@ -21,13 +21,15 @@ export default async function handler(request) {
   if (request.method !== 'POST') return json(405, { error: 'Hanya POST.' })
 
   // Batasi ke permintaan dari aplikasi sendiri; menahan pemakaian lintas situs.
+  // Origin wajib ada: browser selalu mengirimnya pada fetch lintas-asal maupun
+  // sesama asal, sedangkan curl/skrip tidak. Tanpa syarat ini, endpoint terbuka
+  // untuk siapa pun yang tahu URL-nya dan kredit vendor ikut terpakai.
   const origin = request.headers.get('origin')
-  if (origin) {
-    const host = request.headers.get('host')
-    let same = false
-    try { same = new URL(origin).host === host } catch { same = false }
-    if (!same) return json(403, { error: 'Origin tidak diizinkan.' })
-  }
+  if (!origin) return json(403, { error: 'Origin wajib ada.' })
+  const host = request.headers.get('host')
+  let same = false
+  try { same = new URL(origin).host === host } catch { same = false }
+  if (!same) return json(403, { error: 'Origin tidak diizinkan.' })
 
   const raw = await request.text()
   if (raw.length > MAX_BODY) return json(413, { error: 'Permintaan terlalu besar.' })

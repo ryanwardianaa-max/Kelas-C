@@ -18,7 +18,7 @@ globalThis.fetch = async (url, init) => {
   return new Response(JSON.stringify(okReply), { status: 200, headers: { "Content-Type": "application/json" } });
 };
 
-const post = (body, headers = {}) =>
+const post = (body, headers = { origin: "https://kelas-c-navy.vercel.app" }) =>
   handler(new Request("https://kelas-c-navy.vercel.app/api/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json", host: "kelas-c-navy.vercel.app", ...headers },
@@ -87,6 +87,19 @@ for (const m of MODELS) assert.ok(!("note" in m), `${m.id} tidak boleh punya ket
 {
   const res = await post({ messages: [{ role: "user", content: "hai" }] }, { origin: "https://kelas-c-navy.vercel.app" });
   assert.equal(res.status, 200);
+}
+
+// 7b. Tanpa header Origin ditolak: curl/Postman/skrip tidak mengirimnya, jadi
+//     inilah yang menahan orang lain memakai kredit AI hanya karena tahu URL.
+{
+  seen = null;
+  const res = await handler(new Request("https://kelas-c-navy.vercel.app/api/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", host: "kelas-c-navy.vercel.app" },
+    body: JSON.stringify({ messages: [{ role: "user", content: "hai" }] }),
+  }));
+  assert.equal(res.status, 403);
+  assert.equal(seen, null, "permintaan tanpa Origin tidak boleh diteruskan");
 }
 
 // 8. Body tanpa messages ditolak, bukan diteruskan.
