@@ -5,6 +5,11 @@ const mock = readFileSync("src/lib/mockData.ts", "utf8");
 const materials = readFileSync("src/lib/initialMaterials.ts", "utf8");
 const tools = readFileSync("src/lib/courseTools.ts", "utf8");
 
+// Judul diperiksa dari data hasil impor, bukan dari teks sumber: silabus kini
+// dibangun sebagian oleh helper blank(), jadi judul "(Belum diisi)" tidak lagi
+// muncul sebagai literal di dalam berkas.
+const { SYLLABUS } = await import("../src/lib/mockData.ts");
+const titles = SYLLABUS.KP21517004.map((m) => m.title);
 const expectedTitles = [
   "Pertemuan 01 (Belum diisi)",
   "Landasan Himpunan dan Teorema De Morgan",
@@ -15,8 +20,9 @@ const expectedTitles = [
   "Bahan Baca: Himpunan Berhingga dan Tak Hingga (Bartle 1.3)",
   ...Array.from({ length: 9 }, (_, i) => `Pertemuan ${String(i + 8).padStart(2, "0")} (Belum diisi)`),
 ];
-for (const title of expectedTitles) assert.ok(mock.includes(title), `judul silabus hilang: ${title}`);
-assert.doesNotMatch(mock, /KP21517004:regular\(\['Aksioma Lapangan/);
+assert.deepEqual(titles, expectedTitles, "judul silabus Analisis Real berubah");
+// Helper regular() dulu mengarang 16 judul per matkul; jangan sampai kembali.
+assert.doesNotMatch(mock, /const regular=/);
 
 for (let meeting = 2; meeting <= 7; meeting++) {
   const mm = String(meeting).padStart(2, "0");

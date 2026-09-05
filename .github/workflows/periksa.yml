@@ -1,0 +1,23 @@
+# lint + build + tes otomatis setiap push, supaya kesalahan tertangkap
+# sebelum Vercel menerbitkannya.
+name: Periksa
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  periksa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      # Semua tes memakai node:assert dan keluar dengan kode 1 saat gagal.
+      - run: for f in tests/*.mjs; do echo "== $f"; node "$f" || exit 1; done
