@@ -127,22 +127,16 @@ export default function CourseDetailView({
             alignItems: "center",
             background: "linear-gradient(135deg, #eef2ff, #faf5ff)",
             border: "1px solid #c7d2fe",
-            borderRadius: "14px",
-            padding: "14px 20px",
-            marginBottom: "20px",
-            gap: "14px",
-            flexWrap: "wrap",
-            boxShadow: "0 2px 8px rgba(99, 102, 241, 0.08)",
+            borderRadius: "12px",
+            padding: "10px 16px",
+            marginBottom: "10px",
+            gap: "12px",
+            boxShadow: "0 2px 6px rgba(99, 102, 241, 0.06)",
           }}
         >
-          <div>
-            <strong style={{ color: "#3730a3", fontSize: "1rem", display: "block" }}>
-              Aplikasi Bantuan: {tool.title}
-            </strong>
-            <span style={{ color: "#475569", fontSize: "0.85rem" }}>
-              1. Pilih fitur · 2. Masukkan data · 3. Ikuti hasil step-by-step. {tool.description}
-            </span>
-          </div>
+          <strong style={{ color: "#3730a3", fontSize: "0.92rem", flex: 1, minWidth: 0 }}>
+            {tool.title}
+          </strong>
           <a
             href={tool.url}
             target="_blank"
@@ -150,18 +144,20 @@ export default function CourseDetailView({
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "8px",
+              gap: "6px",
               background: tool.badgeColor,
               color: "white",
-              padding: "9px 18px",
-              borderRadius: "10px",
+              padding: "7px 14px",
+              borderRadius: "8px",
               fontWeight: 700,
-              fontSize: "0.88rem",
+              fontSize: "0.82rem",
               textDecoration: "none",
-              boxShadow: "0 4px 12px rgba(67, 56, 202, 0.25)",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              boxShadow: "0 2px 8px rgba(67, 56, 202, 0.2)",
             }}
           >
-            Buka Aplikasi Bantuan
+            Buka Aplikasi
           </a>
         </div>
       ))}
