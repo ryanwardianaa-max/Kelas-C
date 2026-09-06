@@ -237,15 +237,281 @@
       </p>
     </div>
 
-    <h3>Kegunaan langsung: menulis lingkaran secara kompleks</h3>
-    <p>Karena \(|z - z_0|\) berarti jarak \(z\) ke \(z_0\), maka:</p>
+    <h3>Kegunaan Langsung Modulus: Persamaan Lingkaran dan Daerah Cakram</h3>
+    <p>
+      Mengapa rumus modulus mendadak digunakan untuk menulis persamaan lingkaran? 
+      Mari kita pelajari jembatan logikanya secara bertahap dari konsep jarak geometri paling dasar.
+    </p>
+
+    <div class="card note">
+      <div class="formula-title">1. Jembatan Konsep: Dari Jarak Bilangan Real ke Jarak Kompleks</div>
+      <p>
+        Di garis bilangan real \(\mathbb{R}\), jarak antara dua titik \(x\) dan \(x_0\) adalah nilai mutlak selisihnya:
+        \[d(x, x_0) = |x - x_0|\]
+        Contoh sederhana: jarak dari titik 5 ke titik 2 adalah \(|5 - 2| = 3\).
+      </p>
+      <p>
+        Hal yang sama persis berlaku di bidang kompleks \(\mathbb{C}\). Misalkan kita memiliki dua bilangan kompleks:
+        \[z = x + iy \quad \text{dan} \quad z_0 = x_0 + iy_0\]
+        Vektor selisih dari titik acuan \(z_0\) menuju titik sembarang \(z\) adalah:
+        \[z - z_0 = (x - x_0) + i(y - y_0)\]
+        Panjang (modulus) dari vektor selisih ini dihitung dengan rumus Pythagoras:
+        \[|z - z_0| = \sqrt{(x - x_0)^2 + (y - y_0)^2}\]
+        Rumus di atas persis rumus jarak Euclidean antara titik \((x,y)\) dan titik pusat \((x_0,y_0)\) pada bidang Kartesius!
+      </p>
+    </div>
+
     <div class="card formula">
+      <div class="formula-title">2. Mengapa \(|z - z_0| = r\) Menyatakan Lingkaran?</div>
+      <p>
+        Menurut definisi geometri paling dasar: <em>"Lingkaran adalah himpunan semua titik yang berjarak sama (\(r\)) terhadap satu titik pusat tertentu (\(z_0\))."</em>
+      </p>
+      <p>
+        Jika jarak titik \(z\) ke pusat \(z_0\) selalu tepat sama dengan jari-jari \(r\), maka dalam notasi kompleks dituliskan secara sangat ringkas:
+      </p>
       <div class="math-step-box">
-        $$|z - z_0| = r \;\;\text{(lingkaran)} \qquad |z - z_0| &lt; r \;\;\text{(cakram dalam)} \qquad |z - z_0| &gt; r \;\;\text{(luar)}$$
+        $$|z - z_0| = r$$
       </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Contoh: \(|z - 2i| = 3\) adalah lingkaran berpusat \((0,2)\) dengan radius 3. Notasi ini yang nanti
-        dipakai untuk menyebut kurva \(C\) pada integral kontur.
+      <p>
+        Kita buktikan kesetaraannya dengan rumus persamaan lingkaran Kartesius yang sudah dipelajari di SMA:
+      </p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+          |z - z_0| &= r \\[6pt]
+          \sqrt{(x - x_0)^2 + (y - y_0)^2} &= r \quad \xrightarrow{\text{kuadratkan kedua ruas}} \\[8pt]
+          \mathbf{(x - x_0)^2 + (y - y_0)^2} &= \mathbf{r^2}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        Terbukti! Kedua bentuk ini setara 100%. Di mata kuliah Analisis Kompleks, notasi \(|z - z_0| = r\) lebih disukai karena jauh lebih padat dan langsung memperlihatkan titik pusat \(z_0\) serta radius \(r\).
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="formula-title">3. Pembagian Wilayah: Keliling, Cakram Dalam, Cakram Luar, dan Anulus</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Bentuk Kompleks</th>
+              <th>Bentuk Kartesius</th>
+              <th>Nama Geometri</th>
+              <th>Keterangan Wilayah</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(|z - z_0| = r\)</td>
+              <td>\((x-x_0)^2 + (y-y_0)^2 = r^2\)</td>
+              <td><strong>Keliling Lingkaran</strong></td>
+              <td>Hanya garis batas tepinya saja (kurva tertutup \(C\)).</td>
+            </tr>
+            <tr>
+              <td>\(|z - z_0| < r\)</td>
+              <td>\((x-x_0)^2 + (y-y_0)^2 < r^2\)</td>
+              <td><strong>Cakram Terbuka (Open Disk)</strong></td>
+              <td>Semua titik di dalam lingkaran, <em>tanpa</em> garis batas kelilingnya.</td>
+            </tr>
+            <tr>
+              <td>\(|z - z_0| \le r\)</td>
+              <td>\((x-x_0)^2 + (y-y_0)^2 \le r^2\)</td>
+              <td><strong>Cakram Tertutup (Closed Disk)</strong></td>
+              <td>Semua titik di dalam lingkaran <em>beserta</em> garis batas kelilingnya.</td>
+            </tr>
+            <tr>
+              <td>\(|z - z_0| > r\)</td>
+              <td>\((x-x_0)^2 + (y-y_0)^2 > r^2\)</td>
+              <td><strong>Daerah Luar (Exterior)</strong></td>
+              <td>Seluruh daerah yang berada di luar batas lingkaran.</td>
+            </tr>
+            <tr>
+              <td>\(r_1 < |z - z_0| < r_2\)</td>
+              <td>\(r_1^2 < (x-x_0)^2 + (y-y_0)^2 < r_2^2\)</td>
+              <td><strong>Cincin / Anulus (Annulus)</strong></td>
+              <td>Daerah di antara dua lingkaran sepusat berjejari \(r_1\) dan \(r_2\). Sangat penting pada Deret Laurent!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Diagram SVG Lingkaran Kompleks -->
+    <div class="svg-diagram-card">
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visualisasi lingkaran dan cakram pada bidang kompleks berpusat di 2i dengan radius 3">
+          <defs>
+            <marker id="ar1" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
+            </marker>
+          </defs>
+
+          <!-- Grid garis tipis -->
+          <g stroke="#f1f5f9" stroke-width="1.5">
+            <line x1="80" y1="50" x2="600" y2="50" />
+            <line x1="80" y1="120" x2="600" y2="120" />
+            <line x1="80" y1="190" x2="600" y2="190" />
+            <line x1="80" y1="260" x2="600" y2="260" />
+            <line x1="160" y1="40" x2="160" y2="300" />
+            <line x1="250" y1="40" x2="250" y2="300" />
+            <line x1="340" y1="40" x2="340" y2="300" />
+            <line x1="430" y1="40" x2="430" y2="300" />
+            <line x1="520" y1="40" x2="520" y2="300" />
+          </g>
+
+          <!-- Sumbu Re dan Im -->
+          <line x1="80" y1="260" x2="620" y2="260" stroke="#64748b" stroke-width="2" marker-end="url(#ar1)" />
+          <line x1="340" y1="310" x2="340" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#ar1)" />
+          <text x="626" y="265" font-size="14" fill="#334155" font-weight="700">Re</text>
+          <text x="348" y="24" font-size="14" fill="#334155" font-weight="700">Im</text>
+          <text x="328" y="280" font-size="12" fill="#64748b">0</text>
+
+          <!-- Cakram dalam (arsiran lembut) -->
+          <circle cx="340" cy="120" r="105" fill="#eef2ff" opacity="0.85" />
+
+          <!-- Keliling lingkaran |z - 2i| = 3 -->
+          <circle cx="340" cy="120" r="105" fill="none" stroke="#4338ca" stroke-width="2.5" />
+
+          <!-- Titik pusat z0 = 2i (cx=340, cy=120) -->
+          <circle cx="340" cy="120" r="4.5" fill="#dc2626" />
+          <text x="350" y="115" font-size="13" font-weight="700" fill="#dc2626">z₀ = 2i (Pusat)</text>
+
+          <!-- Garis jari-jari r = 3 -->
+          <line x1="340" y1="120" x2="445" y2="120" stroke="#4338ca" stroke-width="2" stroke-dasharray="4 4" />
+          <text x="380" y="112" font-size="12" font-weight="600" fill="#4338ca">r = 3</text>
+
+          <!-- Label kurva lingkaran dan daerah cakram -->
+          <text x="455" y="80" font-size="13" font-weight="700" fill="#4338ca">|z - 2i| = 3 (Keliling)</text>
+          <text x="260" y="150" font-size="12" font-weight="600" fill="#4f46e5">|z - 2i| &lt; 3 (Cakram dalam)</text>
+
+          <!-- Titik uji z1 = 1 + i (cx = 340 + 35 = 375, cy = 260 - 70 = 190) -->
+          <circle cx="375" cy="190" r="4" fill="#10b981" />
+          <text x="383" y="194" font-size="11" font-weight="700" fill="#10b981">z₁ = 1+i (di dalam)</text>
+
+          <!-- Titik uji z2 = 3 + 2i (cx = 340 + 105 = 445, cy = 120) -->
+          <circle cx="445" cy="120" r="4" fill="#d97706" />
+          <text x="450" y="132" font-size="11" font-weight="700" fill="#d97706">z₂ = 3+2i (pada garis)</text>
+
+          <!-- Titik uji z3 = -2 + 5i (cx = 340 - 70 = 270, cy = 120 - 105 = 15) -->
+          <circle cx="270" cy="35" r="4" fill="#991b1b" />
+          <text x="180" y="38" font-size="11" font-weight="700" fill="#991b1b">z₃ = -2+5i (di luar)</text>
+        </svg>
+      </div>
+      <p class="svg-caption">
+        Gambar: Lingkaran \(|z - 2i| = 3\) pada bidang kompleks. Titik pusat berada di \(2i = (0,2)\), jari-jari \(r = 3\), daerah biru muda adalah cakram dalam \(|z - 2i| < 3\).
+      </p>
+    </div>
+
+    <!-- 3 Contoh Soal Bertahap -->
+    <div class="card example">
+      <div class="formula-title">Contoh Soal 1 — Menentukan Titik Pusat dan Jari-Jari Lingkaran</div>
+      <p><strong>Soal:</strong> Tentukan titik pusat dan panjang jari-jari dari masing-masing persamaan lingkaran berikut:</p>
+      <ol class="steps">
+        <li>\(|z - 2i| = 3\)</li>
+        <li>\(|z + 3 - 4i| = 5\)</li>
+      </ol>
+      <p><strong>Langkah Penyelesaian:</strong></p>
+      <ol class="steps">
+        <li>
+          <strong>Bagian (a):</strong> Ubah persamaan ke bentuk baku \(|z - z_0| = r\):
+          \[|z - (0 + 2i)| = 3\]
+          Diperoleh:
+          <ul>
+            <li>Titik pusat \(z_0 = 0 + 2i\) (pada koordinat Kartesius adalah titik \((0, 2)\)).</li>
+            <li>Panjang jari-jari \(r = 3\).</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Bagian (b):</strong> Persamaan memiliki tanda plus, kita faktorkan tanda minus agar menjadi bentuk baku \(|z - z_0|\):
+          \[|z - (-3 + 4i)| = 5\]
+          Diperoleh:
+          <ul>
+            <li>Titik pusat \(z_0 = -3 + 4i\) (pada koordinat Kartesius adalah titik \((-3, 4)\)).</li>
+            <li>Panjang jari-jari \(r = 5\).</li>
+          </ul>
+        </li>
+      </ol>
+      <p class="answer">
+        <strong>Jawaban:</strong><br>
+        (a) Pusat di \((0,2)\) atau \(z_0 = 2i\), jari-jari \(r = 3\).<br>
+        (b) Pusat di \((-3,4)\) atau \(z_0 = -3+4i\), jari-jari \(r = 5\).
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal 2 — Menyelidiki Posisi Titik terhadap Lingkaran</div>
+      <p><strong>Soal:</strong> Diberikan persamaan lingkaran \(|z - 2i| = 3\). Selidiki apakah titik-titik berikut berada di <strong>dalam cakram</strong>, tepat <strong>pada keliling lingkaran</strong>, atau di <strong>luar lingkaran</strong>:</p>
+      <ol class="steps">
+        <li>\(z_1 = 1 + i\)</li>
+        <li>\(z_2 = 3 + 2i\)</li>
+        <li>\(z_3 = -2 + 5i\)</li>
+      </ol>
+      <p><strong>Langkah Penyelesaian:</strong></p>
+      <p class="step-note">Hitung jarak tiap titik ke pusat \(z_0 = 2i\) dengan menghitung modulus selisihnya, lalu bandingkan dengan nilai radius \(r = 3\):</p>
+      <ol class="steps">
+        <li>
+          <strong>Uji titik \(z_1 = 1 + i\):</strong>
+          \[\begin{aligned}
+            |z_1 - 2i| &= |(1 + i) - 2i| = |1 - i| \\[6pt]
+            &= \sqrt{1^2 + (-1)^2} = \sqrt{1 + 1} = \sqrt{2} \approx 1{,}414
+          \end{aligned}\]
+          Karena \(\sqrt{2} \approx 1{,}414 < 3\) (jaraknya lebih kecil dari radius), maka titik \(z_1\) berada di <strong>dalam cakram lingkaran</strong>.
+        </li>
+        <li>
+          <strong>Uji titik \(z_2 = 3 + 2i\):</strong>
+          \[\begin{aligned}
+            |z_2 - 2i| &= |(3 + 2i) - 2i| = |3 + 0i| = 3
+          \end{aligned}\]
+          Karena nilainya tepat sama dengan 3, maka titik \(z_2\) terletak tepat <strong>pada garis keliling lingkaran</strong>.
+        </li>
+        <li>
+          <strong>Uji titik \(z_3 = -2 + 5i\):</strong>
+          \[\begin{aligned}
+            |z_3 - 2i| &= |(-2 + 5i) - 2i| = |-2 + 3i| \\[6pt]
+            &= \sqrt{(-2)^2 + 3^2} = \sqrt{4 + 9} = \sqrt{13} \approx 3{,}606
+          \end{aligned}\]
+          Karena \(\sqrt{13} \approx 3{,}606 > 3\) (jaraknya lebih besar dari radius), maka titik \(z_3\) berada di <strong>luar lingkaran</strong>.
+        </li>
+      </ol>
+      <p class="answer">
+        <strong>Jawaban:</strong><br>
+        \(z_1\) di dalam cakram (\(|z_1 - 2i| = \sqrt{2} < 3\)), \(z_2\) tepat pada lingkaran (\(|z_2 - 2i| = 3\)), dan \(z_3\) di luar lingkaran (\(|z_3 - 2i| = \sqrt{13} > 3\)).
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal 3 — Mengubah Persamaan Kartesius ke Notasi Kompleks</div>
+      <p><strong>Soal:</strong> Nyatakan persamaan lingkaran Kartesius \((x - 1)^2 + (y + 2)^2 = 16\) ke dalam bentuk persamaan peubah kompleks \(|z - z_0| = r\).</p>
+      <p><strong>Langkah Penyelesaian:</strong></p>
+      <ol class="steps">
+        <li>
+          Identifikasi titik pusat \((x_0, y_0)\) dari persamaan Kartesius:
+          \[(x - 1)^2 + (y - (-2))^2 = 4^2\]
+          Maka titik pusatnya adalah \((x_0, y_0) = (1, -2)\).
+        </li>
+        <li>
+          Nyatakan titik pusat tersebut sebagai bilangan kompleks \(z_0\):
+          \[z_0 = x_0 + i y_0 = 1 - 2i\]
+        </li>
+        <li>
+          Identifikasi panjang jari-jarinya:
+          \[r = \sqrt{16} = 4\]
+        </li>
+        <li>
+          Susun ke dalam rumus baku \(|z - z_0| = r\):
+          \[|z - (1 - 2i)| = 4 \quad \Longleftrightarrow \quad |z - 1 + 2i| = 4\]
+        </li>
+      </ol>
+      <p class="answer">
+        <strong>Jawaban:</strong> Bentuk persamaan kompleksnya adalah \(|z - (1 - 2i)| = 4\) atau \(|z - 1 + 2i| = 4\).
+      </p>
+    </div>
+
+    <div class="card highlight">
+      <div class="formula-title">Mengapa Notasi Ini Sangat Penting di Pertemuan Berikutnya?</div>
+      <p style="margin-bottom:0;">
+        Di materi Analisis Kompleks selanjutnya:
+        <br>&bull; <strong>Pertemuan 06 (Limit &amp; Turunan Kompleks):</strong> Konsep lingkungan (\(\varepsilon\)-neighborhood) didefinisikan sebagai cakram terbuka \(|z - z_0| < \varepsilon\).
+        <br>&bull; <strong>Pertemuan 11–12 (Integral Kontur &amp; Teorema Cauchy):</strong> Lintasan kurva tertutup \(C\) hampir selalu didefinisikan sebagai keliling lingkaran, misalnya \(\oint_C \frac{1}{z - z_0}\,dz\) dengan lintasan \(C: |z - z_0| = r\).
       </p>
     </div>
 

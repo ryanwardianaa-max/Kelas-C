@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   modulus, argPrincipal, toDeg, toRad, toPolar, toRect,
   mulPolar, divPolar, power, roots, normalizeAngle, quadrant, prettyAngle, clean,
+  parseNum,
 } from "../public/tools/kalkulator-polar-demoivre/core.js";
 
 const near = (a, b, eps = 1e-9) =>
@@ -182,5 +183,14 @@ assert.equal(prettyAngle(toRad(120)).tex, "\\frac{2\\pi}{3}");
 assert.equal(prettyAngle(toRad(180)).tex, "\\pi");
 assert.equal(prettyAngle(0).tex, "0");
 assert.equal(prettyAngle(toRad(-135)).tex, "-\\frac{3\\pi}{4}");
+
+// 12. parseNum menerima desimal koma, bentuk akar, dan pecahan
+near(parseNum("-2"), -2);
+near(parseNum("3,4641016151"), 3.4641016151);
+near(parseNum("2√3"), 2 * Math.sqrt(3));
+near(parseNum("2*sqrt(3)"), 2 * Math.sqrt(3));
+near(parseNum("1/2"), 0.5);
+assert.ok(Number.isNaN(parseNum("abc")));
+assert.ok(Number.isNaN(parseNum("")));
 
 console.log("polar/De Moivre behaviour: OK");

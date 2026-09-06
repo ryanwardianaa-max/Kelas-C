@@ -91,3 +91,33 @@ export function prettyAngle(theta) {
 
 // Membulatkan sisa hitungan mendekati nol supaya tidak muncul 1.2e-16.
 export const clean = (x, eps = 1e-10) => (Math.abs(x) < eps ? 0 : x);
+
+// Parser angka ramah mahasiswa: menerima desimal titik (3.14), desimal koma
+// Indonesia (3,14), bentuk akar (2√3, sqrt(3)), pecahan (1/2), dan perkalian.
+export function parseNum(raw) {
+  if (raw == null) return NaN;
+  if (typeof raw === "number") return Number.isFinite(raw) ? raw : NaN;
+  let s = String(raw).trim();
+  if (!s) return NaN;
+  // Ganti koma desimal Indonesia menjadi titik
+  s = s.replace(/,/g, ".");
+  // Dukung simbol akar kuadrat: 2√3 -> 2*sqrt(3), √3 -> sqrt(3)
+  s = s.replace(/√\s*([0-9.]+)/g, "sqrt($1)");
+  s = s.replace(/(\d)\s*(sqrt|\()/gi, "$1*$2");
+  s = s.replace(/sqrt\s*\(\s*([0-9.]+)\s*\)/gi, "Math.sqrt($1)");
+  s = s.replace(/pi/gi, "Math.PI");
+  s = s.replace(/×/g, "*").replace(/÷/g, "/").replace(/:/g, "/");
+  // Keamanan: hanya izinkan digit, operator dasar, tanda kurung, titik, dan Math.(sqrt|PI)
+  if (/[^0-9+\-*/().\s]/i.test(s.replace(/Math\.(sqrt|PI)/g, ""))) {
+    const d = Number.parseFloat(s);
+    return Number.isFinite(d) ? d : NaN;
+  }
+  try {
+    const val = Function(`"use strict"; return (${s});`)();
+    return typeof val === "number" && Number.isFinite(val) ? val : NaN;
+  } catch {
+    const d = Number.parseFloat(s);
+    return Number.isFinite(d) ? d : NaN;
+  }
+}
+
