@@ -3,6 +3,12 @@ import { useState } from "react";
 import { COURSE_SCHEDULE, SYLLABUS } from "../lib/mockData";
 import type { Material, Page, ReferenceItem, Task } from "../types";
 
+const displayMeetingTitle = (raw: string) => {
+  const stripped = raw.replace(/^(?:Pertemuan|Tahap)\s+\d+\s*[:\-–]?\s*/i, "");
+  const m = stripped.match(/^\((.*)\)$/);
+  return m ? m[1] : (stripped || raw);
+};
+
 export default function MeetingsView({
   materials,
   references,
@@ -122,7 +128,7 @@ export default function MeetingsView({
                 <small>
                   {course === "KF21518001" ? "TAHAP" : "PERTEMUAN"} {m.meeting}
                 </small>
-                <b>{m.title}</b>
+                <b>{displayMeetingTitle(m.title)}</b>
               </span>
               <em className={`badge ${m.kind.toLowerCase().replace(" ", "-")}`}>
                 {m.kind}

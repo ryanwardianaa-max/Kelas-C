@@ -11,6 +11,12 @@ import type {
 type Kind = "task" | "material" | "reference";
 import { COURSE_TOOLS } from "../lib/courseTools";
 
+const displayMeetingTitle = (raw: string) => {
+  const stripped = raw.replace(/^(?:Pertemuan|Tahap)\s+\d+\s*[:\-–]?\s*/i, "");
+  const m = stripped.match(/^\((.*)\)$/);
+  return m ? m[1] : (stripped || raw);
+};
+
 export default function CourseDetailView({
   course,
   tasks,
@@ -268,7 +274,7 @@ export default function CourseDetailView({
                   <span>
                     <b>
                       {course.name === "Skripsi" ? "Tahap" : "Pertemuan"}{" "}
-                      {m.meeting}: {m.title}
+                      {m.meeting}: {displayMeetingTitle(m.title)}
                     </b>
                     <small>{m.kind}</small>
                   </span>
@@ -292,7 +298,7 @@ export default function CourseDetailView({
                     </label>
                     <div className="plan">
                       <span className="badge">Draft / Rencana Bahasan</span>
-                      <h3>{m.title}</h3>
+                      <h3>{displayMeetingTitle(m.title)}</h3>
                       <p>{m.summary}</p>
                     </div>
                     <Scoped

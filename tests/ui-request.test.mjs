@@ -18,6 +18,8 @@ assert.doesNotMatch(detail, /tool\.description/);
 assert.doesNotMatch(detail, /Aplikasi Bantuan:/);
 assert.doesNotMatch(detail, /Buka Aplikasi Bantuan/);
 assert.match(detail, />\s*Buka Aplikasi\s*</);
+assert.match(detail, /displayMeetingTitle/);
+assert.doesNotMatch(detail, /\{m\.meeting\}:\s*\{m\.title\}/);
 assert.match(mobile, /Beranda.*Mata Kuliah.*Alat Bantu.*Tugas/s);
 assert.doesNotMatch(mobile, /Referensi/);
 const css = read("src/App.css");
