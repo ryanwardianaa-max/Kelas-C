@@ -121,3 +121,77 @@ export function parseNum(raw) {
   }
 }
 
+// Penyederhanaan akar kuadrat eksak: sqrt(50) -> 5√2, sqrt(8) -> 2√2
+export function simplifyRadical(n) {
+  if (!Number.isInteger(n) || n < 0) return null;
+  if (n === 0) return { outside: 0, inside: 0, tex: "0" };
+  let outside = 1;
+  let inside = n;
+  for (let i = Math.floor(Math.sqrt(n)); i >= 2; i--) {
+    if (inside % (i * i) === 0) {
+      outside *= i;
+      inside = Math.round(inside / (i * i));
+      break;
+    }
+  }
+  let tex;
+  if (inside === 1) tex = String(outside);
+  else if (outside === 1) tex = `\\sqrt{${inside}}`;
+  else tex = `${outside}\\sqrt{${inside}}`;
+  return { outside, inside, tex };
+}
+
+export function gcd(a, b) {
+  a = Math.abs(a);
+  b = Math.abs(b);
+  while (b) {
+    const t = b;
+    b = a % b;
+    a = t;
+  }
+  return a;
+}
+
+// Konversi sudut derajat bulat ke bentuk pecahan pi eksak
+export function degToPiFrac(deg) {
+  deg = Math.round(deg * 1e4) / 1e4;
+  if (deg === 0) return "0";
+  for (let den = 1; den <= 36; den++) {
+    const num = (deg * den) / 180;
+    if (Math.abs(num - Math.round(num)) < 1e-5) {
+      let n = Math.round(num);
+      let d = den;
+      const g = gcd(n, d);
+      n /= g;
+      d /= g;
+      const sign = n < 0 ? "-" : "";
+      const an = Math.abs(n);
+      if (d === 1) return an === 1 ? `${sign}\\pi` : `${sign}${an}\\pi`;
+      return `${sign}\\frac{${an === 1 ? "" : an}\\pi}{${d}}`;
+    }
+  }
+  return null;
+}
+
+// Perkalian titik (dot product) bilangan kompleks
+export const dotProduct = (a1, b1, a2, b2) => a1 * a2 + b1 * b2;
+
+// Perkalian silang (cross product) bilangan kompleks (determinan 2x2)
+export const crossProduct = (a1, b1, a2, b2) => a1 * b2 - b1 * a2;
+
+// Jarak euclides antara dua titik bilangan kompleks
+export function complexDistance(a1, b1, a2, b2) {
+  const da = a1 - a2;
+  const db = b1 - b2;
+  const distSq = clean(da * da + db * db);
+  const rad = Number.isInteger(distSq) ? simplifyRadical(distSq) : null;
+  return {
+    da,
+    db,
+    distSq,
+    radTex: rad ? rad.tex : null,
+    dist: Math.sqrt(distSq),
+  };
+}
+
+

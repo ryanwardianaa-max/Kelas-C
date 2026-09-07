@@ -27,8 +27,9 @@ const analisisKompleksMeetings:SyllabusMeeting[]=[
 {meeting:2,title:'Pertemuan 02 (Libur / penyesuaian jadwal)',kind:'Teori',summary:'Catatan Pertemuan 03 mencatat pertemuan 1 dan 2 sebagai libur atau penyesuaian jadwal awal perkuliahan.',activity:'Tidak ada materi yang tercatat.'},
 {meeting:3,title:'Pengantar Sistem Bilangan Kompleks, Sekawan, dan Operasi Aljabar Dasar',kind:'Teori',summary:'Bentuk z = a + bi, bagian real dan imajiner, hirarki sistem bilangan, konjugat, serta operasi aljabar dasar.',activity:'Menelaah catatan kuliah beserta foto catatan asli tiga lembar.'},
 {meeting:4,title:'Sifat Operasi Dasar, Bilangan Sekawan, dan Nilai Mutlak',kind:'Teori',summary:'Ketertutupan, komutatif, asosiatif, sifat konjugat ganda, dan nilai mutlak. Catatan mentah hasil foto papan tulis; papan berhenti di sifat asosiatif.',activity:'Mencocokkan catatan papan tulis dengan bukti tertulis dan melengkapi bagian yang terpotong.'},
-{meeting:5,title:'Modulus, Bidang Argand, Bentuk Polar, dan Rumus De Moivre',kind:'Teori',summary:'Bahan baca mandiri (bukan catatan kuliah): arti gambar dari |z|, bidang Argand, bentuk polar, dan De Moivre. Rujukan Brown & Churchill Bab 1 §5–§10.',activity:'Baca sebagai lanjutan Pertemuan 04, lalu cocokkan dengan materi kuliah.'},
-...blank(6,16)
+{meeting:5,title:'Perkalian Titik, Silang, Geometri Vektor, dan Bentuk Polar',kind:'Teori',summary:'Catatan kuliah: perkalian titik dan silang, aturan jajar genjang, jarak 2 titik, bentuk polar, dan alur 4 tahap menentukan argumen.',activity:'Menelaah catatan kuliah resmi beserta 7 lembar foto catatan tulis tangan asli.'},
+{meeting:6,title:'Bahan Baca: Rumus De Moivre dan Akar Bilangan Kompleks',kind:'Teori',summary:'Materi persiapan: perkalian/pembagian sudut polar, rumus De Moivre zⁿ, dan penarikan n akar kompleks segi-n beraturan.',activity:'Baca mandiri sebagai persiapan materi lanjutan setelah bentuk polar.'},
+...blank(7,16)
 ]
 const seminarMeetings:SyllabusMeeting[]=[
 {meeting:1,title:'Kontrak Kuliah, Visi-Misi, dan Alur Materi Perkuliahan',kind:'Teori',summary:'Kontrak perkuliahan, visi-misi UNSIL/FKIP/Jurusan, empat pilar materi, serta standar sumber rujukan (buku akademik, SINTA 1–4, jurnal internasional bereputasi).',activity:'Mencatat aturan perkuliahan dan mendaftar portal jurnal resmi yang direkomendasikan.'},

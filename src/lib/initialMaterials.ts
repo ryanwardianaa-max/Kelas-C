@@ -91,14 +91,25 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-analisis-kompleks-pertemuan-05",
-    title: "Bahan Baca: Modulus, Bidang Argand, Bentuk Polar & Rumus De Moivre",
+    title: "Catatan Kuliah: Perkalian Titik, Silang, Geometri Vektor & Bentuk Polar",
     courseCode: "KP21517003",
     meetingNo: 5,
     type: "Catatan",
     description:
-      "Bahan baca mandiri untuk pertemuan yang akan datang, lanjutan dari nilai mutlak di Pertemuan 04. Mencakup modulus |z| dan sifat-sifatnya, bidang Argand, argumen & argumen utama Arg z beserta koreksi kuadran, bentuk polar r(cos θ + i sin θ) dan eksponensial Euler re^(iθ), aturan kali-bagi lewat sudut, rumus De Moivre, serta akar pangkat n yang membentuk segi-n beraturan. Dilengkapi tabel rangkuman, diagram SVG, dan 6 latihan mandiri.",
+      "Catatan resmi perkuliahan Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Mencakup perkalian titik (dot product), perkalian silang (cross product), geometri vektor pada bidang Argand (aturan jajar genjang dan jarak euclides), persamaan lingkaran kompleks, bentuk kutub (polar), rumus Euler, serta alur 4 tahap penentuan argumen dengan arsip 7 lembar catatan tulis tangan asli.",
     url: "/materi/KP21517003/pertemuan-05/index.html",
-    createdAt: "2026-08-31T00:30:00.000Z",
+    createdAt: "2026-09-07T06:30:00.000Z",
+  },
+  {
+    id: "mat-analisis-kompleks-pertemuan-06",
+    title: "Bahan Baca: Rumus De Moivre, Pemangkatan & Penarikan Akar Kompleks",
+    courseCode: "KP21517003",
+    meetingNo: 6,
+    type: "Catatan",
+    description:
+      "Bahan baca mandiri persiapan perkuliahan lanjutan dari bentuk polar. Mencakup aturan perkalian dan pembagian sudut polar, rumus De Moivre untuk pemangkatan zⁿ beserta bukti induksi, dan penarikan n akar kompleks yang membentuk segi-n beraturan di bidang Argand.",
+    url: "/materi/KP21517003/pertemuan-06/index.html",
+    createdAt: "2026-09-07T07:00:00.000Z",
   },
   {
     id: "tool-kalkulator-polar-demoivre",
@@ -107,7 +118,7 @@ export const INITIAL_MATERIALS: Material[] = [
     meetingNo: 5,
     type: "Dokumen",
     description:
-      "Kalkulator empat mode untuk materi bentuk polar: konversi ke bentuk polar & Euler dengan pemeriksaan kuadran otomatis, perkalian/pembagian lewat penjumlahan sudut, pemangkatan De Moivre, dan pencarian semua akar pangkat n. Setiap hasil disertai penjabaran langkah dan gambar bidang Argand.",
+      "Kalkulator lengkap langkah demi langkah untuk materi Analisis Kompleks: konversi ke bentuk polar & Euler dengan alur 4 tahap dosen, pecahan pi eksak, bentuk akar modulus, perkalian titik & silang, grafik jajar genjang, jarak 2 titik, pemangkatan De Moivre, dan pencarian n akar kompleks.",
     url: "/tools/kalkulator-polar-demoivre/index.html",
     createdAt: "2026-08-31T00:35:00.000Z",
   },

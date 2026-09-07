@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {
   modulus, argPrincipal, toDeg, toRad, toPolar, toRect,
   mulPolar, divPolar, power, roots, normalizeAngle, quadrant, prettyAngle, clean,
-  parseNum,
+  parseNum, simplifyRadical, degToPiFrac, dotProduct, crossProduct, complexDistance,
 } from "../public/tools/kalkulator-polar-demoivre/core.js";
 
 const near = (a, b, eps = 1e-9) =>
@@ -192,5 +192,31 @@ near(parseNum("2*sqrt(3)"), 2 * Math.sqrt(3));
 near(parseNum("1/2"), 0.5);
 assert.ok(Number.isNaN(parseNum("abc")));
 assert.ok(Number.isNaN(parseNum("")));
+
+// 13. simplifyRadical: menyederhanakan akar eksak (catatan P05)
+assert.equal(simplifyRadical(50).tex, "5\\sqrt{2}");
+assert.equal(simplifyRadical(8).tex, "2\\sqrt{2}");
+assert.equal(simplifyRadical(25).tex, "5");
+assert.equal(simplifyRadical(13).tex, "\\sqrt{13}");
+
+// 14. degToPiFrac: pecahan pi eksak untuk sudut istimewa
+assert.equal(degToPiFrac(135), "\\frac{3\\pi}{4}");
+assert.equal(degToPiFrac(225), "\\frac{5\\pi}{4}");
+assert.equal(degToPiFrac(315), "\\frac{7\\pi}{4}");
+assert.equal(degToPiFrac(180), "\\pi");
+
+// 15. dotProduct & crossProduct: Latihan Soal 1 P05
+// z1 = 2 + 5i, z2 = 3 - i
+assert.equal(dotProduct(2, 5, 3, -1), 1);
+assert.equal(dotProduct(3, -1, 2, 5), 1); // komutatif
+assert.equal(crossProduct(2, 5, 3, -1), -17);
+assert.equal(crossProduct(3, -1, 2, 5), 17); // antikomutatif
+
+// 16. complexDistance: Latihan Soal 2 P05
+// z1 = 4 + 3i, z2 = 6 + i -> dist = 2√2
+const distRes = complexDistance(4, 3, 6, 1);
+assert.equal(distRes.distSq, 8);
+assert.equal(distRes.radTex, "2\\sqrt{2}");
+near(distRes.dist, 2 * Math.sqrt(2));
 
 console.log("polar/De Moivre behaviour: OK");

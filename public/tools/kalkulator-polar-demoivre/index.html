@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Kalkulator Polar, De Moivre &amp; Akar Kompleks — Pertemuan 05</title>
+  <title>Kalkulator Analisis Kompleks — Pertemuan 05 (Polar, Vektor &amp; Geometri)</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -24,7 +24,7 @@
       line-height: 1.65;
     }
     .page {
-      width: 100%; max-width: 880px; margin: 12px auto 50px; padding: 18px 15px;
+      width: 100%; max-width: 900px; margin: 12px auto 50px; padding: 18px 15px;
       background: var(--paper); border-radius: 18px;
       box-shadow: 0 4px 20px rgba(15,23,42,0.05); border: 1px solid var(--line);
     }
@@ -60,21 +60,14 @@
     }
 
     .tabs {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    @media (min-width: 640px) {
-      .tabs {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px; margin-bottom: 16px;
     }
     .tab {
-      width: 100%; min-width: 0; padding: 10px 8px; border-radius: 10px;
+      flex: 1 0 auto; min-width: 140px; padding: 10px 12px; border-radius: 10px;
       border: 1px solid var(--line); background: var(--paper); color: var(--text-muted);
-      font-size: 0.84rem; font-weight: 600; cursor: pointer; font-family: inherit;
-      text-align: center; transition: all 0.15s ease;
+      font-size: 0.84rem; font-weight: 700; cursor: pointer; font-family: inherit;
+      text-align: center; transition: all 0.15s ease; white-space: nowrap;
     }
     .tab:hover { border-color: #c7d2fe; color: var(--brand); }
     .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: white; }
@@ -115,11 +108,13 @@
     .btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
     .btn-row .btn-run { margin-top: 0; flex: 1 1 140px; }
     .btn-ghost {
-      flex: 0 0 auto; padding: 12px 14px; border-radius: 10px; cursor: pointer;
+      flex: 0 0 auto; padding: 8px 12px; border-radius: 8px; cursor: pointer;
       border: 1px solid #c7d2fe; background: white; color: var(--brand);
-      font-size: 0.85rem; font-weight: 600; font-family: inherit;
+      font-size: 0.82rem; font-weight: 600; font-family: inherit; transition: background 0.15s ease;
     }
-    .btn-ghost:hover { background: var(--accent-soft); }
+    .btn-ghost:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .presets-wrap { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+    .presets-label { font-size: 0.78rem; font-weight: 700; color: var(--brand); margin-right: 4px; }
 
     .out { margin-top: 14px; }
     .card {
@@ -146,7 +141,7 @@
 
     .argand-card { background: #fbfcfe; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 14px 0; }
     .argand-wrap { width: 100%; overflow-x: auto; }
-    .argand-wrap svg { width: 100%; height: auto; min-width: 300px; display: block; }
+    .argand-wrap svg { width: 100%; height: auto; min-width: 320px; display: block; }
     .legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; justify-content: center; }
     .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
 
@@ -173,95 +168,171 @@
   </nav>
 
   <header>
-    <div class="badge">Alat Bantu Pertemuan 05</div>
-    <h1>Kalkulator Polar, De Moivre &amp; Akar Kompleks</h1>
-    <p>Setiap hasil disertai penjabaran langkah, pemeriksaan kuadran, dan gambar bidang Argand.</p>
+    <div class="badge">Alat Bantu Pertemuan 05 &middot; Sesuai Catatan Kuliah</div>
+    <h1>Kalkulator Analisis Kompleks Edukatif</h1>
+    <p>Penjabaran langkah formal bertahap, bentuk pecahan &amp; akar eksak, pembuktian sifat, dan diagram grafik Bidang Argand.</p>
   </header>
 
   <div class="tabs" role="tablist" aria-label="Pilih jenis perhitungan">
-    <button class="tab" role="tab" id="tab-polar" aria-selected="true" aria-controls="panel-polar">Bentuk Polar</button>
-    <button class="tab" role="tab" id="tab-op" aria-selected="false" aria-controls="panel-op">Kali &amp; Bagi</button>
-    <button class="tab" role="tab" id="tab-pow" aria-selected="false" aria-controls="panel-pow">De Moivre (Pangkat)</button>
-    <button class="tab" role="tab" id="tab-root" aria-selected="false" aria-controls="panel-root">Akar Pangkat n</button>
+    <button class="tab" role="tab" id="tab-polar" aria-selected="true" aria-controls="panel-polar">1. Bentuk Polar &amp; Argumen</button>
+    <button class="tab" role="tab" id="tab-dotcross" aria-selected="false" aria-controls="panel-dotcross">2. Dot &amp; Cross Product</button>
+    <button class="tab" role="tab" id="tab-geom" aria-selected="false" aria-controls="panel-geom">3. Vektor &amp; Jarak 2 Titik</button>
+    <button class="tab" role="tab" id="tab-rect" aria-selected="false" aria-controls="panel-rect">4. Polar &rarr; Aljabar</button>
+    <button class="tab" role="tab" id="tab-pow" aria-selected="false" aria-controls="panel-pow">5. De Moivre (P06)</button>
+    <button class="tab" role="tab" id="tab-root" aria-selected="false" aria-controls="panel-root">6. Akar n (P06)</button>
   </div>
 
   <!-- PANEL 1: bentuk polar -->
   <section class="panel active" id="panel-polar" role="tabpanel" aria-labelledby="tab-polar">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Masukkan <span class="math-eq">\(z = a + bi\)</span></legend>
+        <legend class="z-label">Konversi \(z = a + bi\) ke Bentuk Polar &amp; Argumen (Alur Dosen)</legend>
         <div class="grid two">
           <div class="field">
             <label for="p-a">Bagian real (a)</label>
-            <input id="p-a" type="text" inputmode="decimal" value="-2" placeholder="contoh: -2">
+            <input id="p-a" type="text" inputmode="decimal" value="-5" placeholder="contoh: -5">
           </div>
           <div class="field">
             <label for="p-b">Bagian imajiner (b)</label>
-            <input id="p-b" type="text" inputmode="decimal" value="3,4641016151" placeholder="contoh: 3,4641 atau 2√3">
-            <div class="hint">Contoh materi: <span class="math-eq">\(2\sqrt{3} \approx 3{,}4641\)</span></div>
+            <input id="p-b" type="text" inputmode="decimal" value="5" placeholder="contoh: 5 atau 2√3">
+            <div class="hint">Mendukung angka pecahan, koma, dan akar (contoh: <code>5</code>, <code>2√3</code>, <code>-π</code>).</div>
           </div>
         </div>
+        <div class="presets-wrap">
+          <span class="presets-label">Latihan Kuliah:</span>
+          <button type="button" class="btn-ghost" data-set-polar data-a="-5" data-b="5">Latihan 2c (-5+5i)</button>
+          <button type="button" class="btn-ghost" data-set-polar data-a="1" data-b="-1">Latihan 1a (1-i)</button>
+          <button type="button" class="btn-ghost" data-set-polar data-a="-3.14159265" data-b="-3.14159265">Latihan 1b (-π-πi)</button>
+          <button type="button" class="btn-ghost" data-set-polar data-a="3" data-b="4">Latihan 1c (3+4i)</button>
+          <button type="button" class="btn-ghost" data-set-polar data-a="3" data-b="-4">Latihan 1d (3-4i)</button>
+          <button type="button" class="btn-ghost" data-set-polar data-a="-2" data-b="3.4641016">Contoh (-2+2√3i)</button>
+        </div>
       </fieldset>
-      <div class="btn-row">
-        <button class="btn-run" id="p-run">Hitung Modulus &amp; Argumen</button>
-        <button class="btn-ghost" data-fill="polar" data-a="3" data-b="4">Contoh 3+4i</button>
-      </div>
+      <button class="btn-run" id="p-run">Hitung Modulus, Argumen &amp; Bentuk Polar</button>
     </div>
     <div class="out" id="p-out"></div>
   </section>
 
-  <!-- PANEL 2: kali & bagi -->
-  <section class="panel" id="panel-op" role="tabpanel" aria-labelledby="tab-op">
+  <!-- PANEL 2: Dot & Cross Product -->
+  <section class="panel" id="panel-dotcross" role="tabpanel" aria-labelledby="tab-dotcross">
     <div class="input-card">
       <fieldset>
+        <legend class="z-label">Perkalian Titik (Dot) &amp; Silang (Cross) Dua Bilangan Kompleks</legend>
         <div class="row-z">
-          <div class="z-label">Bilangan pertama <span class="math-eq">\(z_1\)</span></div>
+          <div class="z-label">Bilangan pertama \(z_1 = a_1 + b_1 i\)</div>
           <div class="grid two">
             <div class="field">
-              <label for="o-a1">a&#8321; (Real)</label>
-              <input id="o-a1" type="text" inputmode="decimal" value="2" placeholder="contoh: 2">
+              <label for="dc-a1">a&#8321; (Real)</label>
+              <input id="dc-a1" type="text" inputmode="decimal" value="2" placeholder="contoh: 2">
             </div>
             <div class="field">
-              <label for="o-b1">b&#8321; (Imajiner)</label>
-              <input id="o-b1" type="text" inputmode="decimal" value="3" placeholder="contoh: 3">
+              <label for="dc-b1">b&#8321; (Imajiner)</label>
+              <input id="dc-b1" type="text" inputmode="decimal" value="5" placeholder="contoh: 5">
             </div>
           </div>
         </div>
         <div class="row-z">
-          <div class="z-label">Bilangan kedua <span class="math-eq">\(z_2\)</span></div>
+          <div class="z-label">Bilangan kedua \(z_2 = a_2 + b_2 i\)</div>
           <div class="grid two">
             <div class="field">
-              <label for="o-a2">a&#8322; (Real)</label>
-              <input id="o-a2" type="text" inputmode="decimal" value="2" placeholder="contoh: 2">
+              <label for="dc-a2">a&#8322; (Real)</label>
+              <input id="dc-a2" type="text" inputmode="decimal" value="3" placeholder="contoh: 3">
             </div>
             <div class="field">
-              <label for="o-b2">b&#8322; (Imajiner)</label>
-              <input id="o-b2" type="text" inputmode="decimal" value="-1" placeholder="contoh: -1">
+              <label for="dc-b2">b&#8322; (Imajiner)</label>
+              <input id="dc-b2" type="text" inputmode="decimal" value="-1" placeholder="contoh: -1">
             </div>
           </div>
         </div>
-        <div class="field" style="margin-top:12px;">
-          <label for="o-op">Operasi</label>
-          <select id="o-op">
-            <option value="mul">Perkalian z&#8321; &middot; z&#8322; (sudut dijumlahkan)</option>
-            <option value="div">Pembagian z&#8321; / z&#8322; (sudut dikurangkan)</option>
-          </select>
+        <div class="presets-wrap">
+          <span class="presets-label">Latihan Kuliah:</span>
+          <button type="button" class="btn-ghost" data-set-dc data-a1="2" data-b1="5" data-a2="3" data-b2="-1">Latihan 1 (2+5i &amp; 3-i)</button>
         </div>
       </fieldset>
-      <button class="btn-run" id="o-run">Hitung Lewat Bentuk Polar</button>
+      <button class="btn-run" id="dc-run">Hitung Dot &amp; Cross Product Step-by-Step</button>
     </div>
-    <div class="out" id="o-out"></div>
+    <div class="out" id="dc-out"></div>
   </section>
 
-  <!-- PANEL 3: De Moivre -->
+  <!-- PANEL 3: Vektor & Jarak 2 Titik -->
+  <section class="panel" id="panel-geom" role="tabpanel" aria-labelledby="tab-geom">
+    <div class="input-card">
+      <fieldset>
+        <legend class="z-label">Geometri Vektor Kompleks: Jajar Genjang Penjumlahan &amp; Jarak 2 Titik</legend>
+        <div class="row-z">
+          <div class="z-label">Titik Vektor Pertama \(z_1 = (a_1, b_1)\)</div>
+          <div class="grid two">
+            <div class="field">
+              <label for="g-a1">a&#8321; (Real)</label>
+              <input id="g-a1" type="text" inputmode="decimal" value="4" placeholder="contoh: 4">
+            </div>
+            <div class="field">
+              <label for="g-b1">b&#8321; (Imajiner)</label>
+              <input id="g-b1" type="text" inputmode="decimal" value="3" placeholder="contoh: 3">
+            </div>
+          </div>
+        </div>
+        <div class="row-z">
+          <div class="z-label">Titik Vektor Kedua \(z_2 = (a_2, b_2)\)</div>
+          <div class="grid two">
+            <div class="field">
+              <label for="g-a2">a&#8322; (Real)</label>
+              <input id="g-a2" type="text" inputmode="decimal" value="5" placeholder="contoh: 5">
+            </div>
+            <div class="field">
+              <label for="g-b2">b&#8322; (Imajiner)</label>
+              <input id="g-b2" type="text" inputmode="decimal" value="2" placeholder="contoh: 2">
+            </div>
+          </div>
+        </div>
+        <div class="presets-wrap">
+          <span class="presets-label">Latihan Kuliah:</span>
+          <button type="button" class="btn-ghost" data-set-g data-a1="4" data-b1="3" data-a2="5" data-b2="2">Latihan 2.1 Jajar Genjang (4+3i &amp; 5+2i)</button>
+          <button type="button" class="btn-ghost" data-set-g data-a1="4" data-b1="3" data-a2="6" data-b2="1">Latihan 2.2 Jarak 2 Titik (4+3i &amp; 6+i)</button>
+        </div>
+      </fieldset>
+      <button class="btn-run" id="g-run">Gambarkan Vektor &amp; Hitung Jarak Eksak</button>
+    </div>
+    <div class="out" id="g-out"></div>
+  </section>
+
+  <!-- PANEL 4: Polar ke Aljabar -->
+  <section class="panel" id="panel-rect" role="tabpanel" aria-labelledby="tab-rect">
+    <div class="input-card">
+      <fieldset>
+        <legend class="z-label">Konversi Bentuk Polar \(z = r(\cos\theta + i\sin\theta)\) ke Aljabar \(a + bi\)</legend>
+        <div class="grid two">
+          <div class="field">
+            <label for="rc-r">Jari-jari Modulus (r)</label>
+            <input id="rc-r" type="text" inputmode="decimal" value="2.8284271" placeholder="contoh: 2.828 atau √8 atau 2√2">
+            <div class="hint">Boleh berupa bentuk akar, contoh: <code>√8</code> atau <code>5√2</code>.</div>
+          </div>
+          <div class="field">
+            <label for="rc-deg">Sudut Argumen &theta; (derajat atau pecahan &pi;)</label>
+            <input id="rc-deg" type="text" inputmode="decimal" value="45" placeholder="contoh: 45 atau π/4 atau 135">
+            <div class="hint">Mendukung derajat (contoh: <code>45</code>) atau pecahan pi (contoh: <code>π/4</code>, <code>3π/4</code>).</div>
+          </div>
+        </div>
+        <div class="presets-wrap">
+          <span class="presets-label">Latihan Kuliah:</span>
+          <button type="button" class="btn-ghost" data-set-rc data-r="2.8284271" data-deg="45">Latihan 3d (r=√8, θ=π/4)</button>
+          <button type="button" class="btn-ghost" data-set-rc data-r="7.0710678" data-deg="135">Contoh (r=5√2, θ=3π/4)</button>
+        </div>
+      </fieldset>
+      <button class="btn-run" id="rc-run">Ubah ke Bentuk Aljabar Eksak (a + bi)</button>
+    </div>
+    <div class="out" id="rc-out"></div>
+  </section>
+
+  <!-- PANEL 5: De Moivre (P06) -->
   <section class="panel" id="panel-pow" role="tabpanel" aria-labelledby="tab-pow">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Hitung <span class="math-eq">\(z^n\)</span> dengan Rumus De Moivre</legend>
+        <legend class="z-label">Pemangkatan \(z^n\) Menggunakan Rumus De Moivre (Materi Lanjutan P06)</legend>
         <div class="grid two">
           <div class="field">
             <label for="w-a">Bagian real (a)</label>
-            <input id="w-a" type="text" inputmode="decimal" value="1" placeholder="contoh: 1 atau √3">
+            <input id="w-a" type="text" inputmode="decimal" value="1" placeholder="contoh: 1">
           </div>
           <div class="field">
             <label for="w-b">Bagian imajiner (b)</label>
@@ -270,27 +341,23 @@
         </div>
         <div class="field" style="margin-top:10px;">
           <label for="w-n">Pangkat n (bilangan bulat)</label>
-          <input id="w-n" type="text" inputmode="numeric" value="10" placeholder="contoh: 6 atau 10">
-          <div class="hint">Boleh negatif, misalnya -1 untuk mencari kebalikan 1/z.</div>
+          <input id="w-n" type="text" inputmode="numeric" value="10" placeholder="contoh: 10 atau 6">
         </div>
       </fieldset>
-      <div class="btn-row">
-        <button class="btn-run" id="w-run">Hitung z&#8319;</button>
-        <button class="btn-ghost" data-fill="pow" data-a="1,7320508" data-b="1" data-n="6">Contoh (&#8730;3+i)&#8310;</button>
-      </div>
+      <button class="btn-run" id="w-run">Hitung \(z^n\) dengan Rumus De Moivre</button>
     </div>
     <div class="out" id="w-out"></div>
   </section>
 
-  <!-- PANEL 4: akar -->
+  <!-- PANEL 6: akar pangkat n (P06) -->
   <section class="panel" id="panel-root" role="tabpanel" aria-labelledby="tab-root">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Cari semua nilai <span class="math-eq">\(\sqrt[n]{z}\)</span></legend>
+        <legend class="z-label">Cari Semua Nilai \(\sqrt[n]{z}\) (Membentuk Segi-n Beraturan di Bidang Argand)</legend>
         <div class="grid two">
           <div class="field">
             <label for="r-a">Bagian real (a)</label>
-            <input id="r-a" type="text" inputmode="decimal" value="8" placeholder="contoh: 8 atau 16">
+            <input id="r-a" type="text" inputmode="decimal" value="8" placeholder="contoh: 8">
           </div>
           <div class="field">
             <label for="r-b">Bagian imajiner (b)</label>
@@ -300,20 +367,16 @@
         <div class="field" style="margin-top:10px;">
           <label for="r-n">Indeks akar n</label>
           <input id="r-n" type="text" inputmode="numeric" value="3" placeholder="contoh: 3 atau 4">
-          <div class="hint">Akan muncul tepat n jawaban, membentuk segi-n beraturan di bidang Argand.</div>
         </div>
       </fieldset>
-      <div class="btn-row">
-        <button class="btn-run" id="r-run">Cari Semua Akar</button>
-        <button class="btn-ghost" data-fill="root" data-a="16" data-b="0" data-n="4">Contoh z&#8308;=16</button>
-      </div>
+      <button class="btn-run" id="r-run">Cari Seluruh Akar Kompleks</button>
     </div>
     <div class="out" id="r-out"></div>
   </section>
 
   <footer class="page-foot">
-    Alat bantu materi <a href="/materi/KP21517003/pertemuan-05/index.html">Pertemuan 05 &mdash; Modulus, Bidang Argand, Polar &amp; De Moivre</a><br>
-    Analisis Kompleks KP21517003 &middot; Semua sudut ditampilkan sebagai argumen utama pada selang (-180&#176;, 180&#176;].
+    Alat bantu materi <a href="/materi/KP21517003/pertemuan-05/index.html">Pertemuan 05 &mdash; Perkalian Titik, Silang, Geometri Vektor &amp; Bentuk Polar</a><br>
+    Analisis Kompleks KP21517003 &middot; Program Studi Pendidikan Matematika FKIP UNSIL
   </footer>
 </div>
 
@@ -349,8 +412,7 @@
 
 <script>
 // =========================================================================
-// INTI PERHITUNGAN MATEMATIKA (SELF-CONTAINED)
-// Dibuat mandiri di dalam berkas agar tidak terhambat cache modul / service worker.
+// INTI PERHITUNGAN MATEMATIKA LENGKAP & MANDIRI (SELF-CONTAINED)
 // =========================================================================
 
 const TAU = Math.PI * 2;
@@ -366,12 +428,6 @@ const toDeg = (rad) => (rad * 180) / Math.PI;
 const toRad = (deg) => (deg * Math.PI) / 180;
 const toPolar = (a, b) => ({ r: modulus(a, b), theta: argPrincipal(a, b) });
 const toRect = (r, theta) => ({ a: r * Math.cos(theta), b: r * Math.sin(theta) });
-const mulPolar = (z1, z2) => ({ r: z1.r * z2.r, theta: z1.theta + z2.theta });
-
-function divPolar(z1, z2) {
-  if (z2.r === 0) throw new Error("Pembagi tidak boleh nol.");
-  return { r: z1.r / z2.r, theta: z1.theta - z2.theta };
-}
 
 function power(z, n) {
   if (!Number.isInteger(n)) throw new Error("Pangkat harus bilangan bulat.");
@@ -402,27 +458,62 @@ function quadrant(a, b) {
   if (a < 0 && b === 0) return "sumbu real negatif";
   if (a === 0 && b > 0) return "sumbu imajiner positif";
   if (a === 0 && b < 0) return "sumbu imajiner negatif";
-  if (a > 0 && b > 0) return "kuadran I";
-  if (a < 0 && b > 0) return "kuadran II";
-  if (a < 0 && b < 0) return "kuadran III";
-  return "kuadran IV";
+  if (a > 0 && b > 0) return "Kuadran I";
+  if (a < 0 && b > 0) return "Kuadran II";
+  if (a < 0 && b < 0) return "Kuadran III";
+  return "Kuadran IV";
 }
 
-function prettyAngle(theta) {
-  const deg = toDeg(theta);
-  const rounded = Math.round(deg * 1e6) / 1e6;
-  for (let den = 1; den <= 12; den += 1) {
-    const numVal = (rounded * den) / 180;
-    if (Math.abs(numVal - Math.round(numVal)) < 1e-9) {
-      const n = Math.round(numVal);
-      if (n === 0) return { deg: rounded, tex: "0" };
-      const sign = n < 0 ? "-" : "";
-      const an = Math.abs(n);
-      if (den === 1) return { deg: rounded, tex: `${sign}${an === 1 ? "" : an}\\pi` };
-      return { deg: rounded, tex: `${sign}\\frac{${an === 1 ? "" : an}\\pi}{${den}}` };
+function gcd(a, b) {
+  a = Math.abs(a);
+  b = Math.abs(b);
+  while (b) {
+    const t = b;
+    b = a % b;
+    a = t;
+  }
+  return a;
+}
+
+// Penyederhanaan bentuk akar eksak: sqrt(50) -> 5√2
+function simplifyRadical(n) {
+  if (!Number.isInteger(n) || n < 0) return null;
+  if (n === 0) return { outside: 0, inside: 0, tex: "0" };
+  let outside = 1;
+  let inside = n;
+  for (let i = Math.floor(Math.sqrt(n)); i >= 2; i--) {
+    if (inside % (i * i) === 0) {
+      outside *= i;
+      inside = Math.round(inside / (i * i));
+      break;
     }
   }
-  return { deg: rounded, tex: `${rounded.toFixed(4)}^\\circ` };
+  let tex;
+  if (inside === 1) tex = String(outside);
+  else if (outside === 1) tex = `\\sqrt{${inside}}`;
+  else tex = `${outside}\\sqrt{${inside}}`;
+  return { outside, inside, tex };
+}
+
+// Konversi sudut derajat bulat ke bentuk pecahan pi eksak
+function degToPiFrac(deg) {
+  deg = Math.round(deg * 1e4) / 1e4;
+  if (deg === 0) return "0";
+  for (let den = 1; den <= 36; den++) {
+    const numVal = (deg * den) / 180;
+    if (Math.abs(numVal - Math.round(numVal)) < 1e-5) {
+      let n = Math.round(numVal);
+      let d = den;
+      const g = gcd(n, d);
+      n /= g;
+      d /= g;
+      const sign = n < 0 ? "-" : "";
+      const an = Math.abs(n);
+      if (d === 1) return an === 1 ? `${sign}\\pi` : `${sign}${an}\\pi`;
+      return `${sign}\\frac{${an === 1 ? "" : an}\\pi}{${d}}`;
+    }
+  }
+  return null;
 }
 
 const clean = (x, eps = 1e-10) => (Math.abs(x) < eps ? 0 : x);
@@ -436,7 +527,7 @@ function parseNum(raw) {
   s = s.replace(/√\s*([0-9.]+)/g, "sqrt($1)");
   s = s.replace(/(\d)\s*(sqrt|\()/gi, "$1*$2");
   s = s.replace(/sqrt\s*\(\s*([0-9.]+)\s*\)/gi, "Math.sqrt($1)");
-  s = s.replace(/pi/gi, "Math.PI");
+  s = s.replace(/pi/gi, "Math.PI").replace(/π/g, "Math.PI");
   s = s.replace(/×/g, "*").replace(/÷/g, "/").replace(/:/g, "/");
   if (/[^0-9+\-*/().\s]/i.test(s.replace(/Math\.(sqrt|PI)/g, ""))) {
     const d = Number.parseFloat(s);
@@ -480,17 +571,6 @@ function zTex(a, b) {
   return `${fx(ar)} ${sign} ${mag === 1 ? "" : fx(mag)}i`;
 }
 
-function polarTex(r, theta) {
-  const pa = prettyAngle(theta);
-  return `${fkoma(r)}\\left(\\cos ${fkoma(pa.deg)}^\\circ + i\\sin ${fkoma(pa.deg)}^\\circ\\right)`;
-}
-
-function eulerTex(r, theta) {
-  const pa = prettyAngle(theta);
-  const exp = pa.tex === "0" ? "0" : pa.tex;
-  return `${fkoma(r)}e^{i(${exp})}`;
-}
-
 const card = (cls, title, body) =>
   `<div class="card ${cls}">${title ? `<div class="card-title">${title}</div>` : ""}${body}</div>`;
 const mbox = (tex) => `<div class="math-step-box">$$${tex}$$</div>`;
@@ -515,59 +595,7 @@ function render(el, html) {
   }
 }
 
-// --- gambar bidang Argand ----------------------------------------------
-function argand(points, opts = {}) {
-  const W = 640, H = 400, cx = W / 2, cy = H / 2;
-  const maxR = Math.max(1e-9, ...points.map((p) => modulus(p.a, p.b)));
-  const scale = (Math.min(W, H) / 2 - 52) / maxR;
-  const X = (a) => cx + a * scale;
-  const Y = (b) => cy - b * scale;
-
-  const ticks = [];
-  const stepRaw = maxR / 2.2;
-  const mag = Math.pow(10, Math.floor(Math.log10(stepRaw)));
-  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= stepRaw) || mag;
-  for (let v = step; v <= maxR * 1.05; v += step) {
-    ticks.push(`<text x="${X(v)}" y="${cy + 16}" font-size="10" fill="#94a3b8" text-anchor="middle">${komaID(fx(v, 2))}</text>`);
-    ticks.push(`<text x="${cx - 6}" y="${Y(v) + 4}" font-size="10" fill="#94a3b8" text-anchor="end">${komaID(fx(v, 2))}</text>`);
-  }
-
-  const circle = opts.circleR
-    ? `<circle cx="${cx}" cy="${cy}" r="${opts.circleR * scale}" fill="none" stroke="#a5b4fc" stroke-width="1.6" stroke-dasharray="5 5" />`
-    : "";
-
-  const poly = opts.polygon && points.length > 2
-    ? `<polygon points="${points.map((p) => `${X(p.a)},${Y(p.b)}`).join(" ")}" fill="#eef2ff" stroke="#4338ca" stroke-width="1.6" opacity="0.75" />`
-    : "";
-
-  const marks = points.map((p) => {
-    const c = p.color || "#4338ca";
-    return `
-      <line x1="${cx}" y1="${cy}" x2="${X(p.a)}" y2="${Y(p.b)}" stroke="${c}" stroke-width="2.4" opacity="0.85" />
-      <circle cx="${X(p.a)}" cy="${Y(p.b)}" r="5.5" fill="${c}" />
-      <text x="${X(p.a) + (p.a >= 0 ? 9 : -9)}" y="${Y(p.b) + (p.b >= 0 ? -8 : 16)}"
-            font-size="12" font-weight="700" fill="${c}"
-            text-anchor="${p.a >= 0 ? "start" : "end"}">${p.label}</text>`;
-  }).join("");
-
-  return `
-  <div class="argand-card">
-    <div class="argand-wrap">
-      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img"
-           aria-label="Bidang Argand: ${points.map((p) => p.label).join(", ")}">
-        <line x1="24" y1="${cy}" x2="${W - 24}" y2="${cy}" stroke="#94a3b8" stroke-width="1.6" />
-        <line x1="${cx}" y1="${H - 20}" x2="${cx}" y2="20" stroke="#94a3b8" stroke-width="1.6" />
-        <text x="${W - 18}" y="${cy - 8}" font-size="12" fill="#475569" font-weight="600">Re</text>
-        <text x="${cx + 8}" y="26" font-size="12" fill="#475569" font-weight="600">Im</text>
-        ${ticks.join("")}
-        ${circle}${poly}${marks}
-      </svg>
-    </div>
-    ${opts.legend || ""}
-  </div>`;
-}
-
-// --- navigasi tab -------------------------------------------------------
+// Navigasi Tab
 const tabs = [...document.querySelectorAll(".tab")];
 tabs.forEach((t) => t.addEventListener("click", () => {
   tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
@@ -576,293 +604,405 @@ tabs.forEach((t) => t.addEventListener("click", () => {
   if (window.renderAllMath) window.renderAllMath();
 }));
 
-document.querySelectorAll("[data-fill]").forEach((b) => b.addEventListener("click", () => {
-  const kind = b.dataset.fill;
-  const map = { polar: ["p-a", "p-b"], pow: ["w-a", "w-b", "w-n"], root: ["r-a", "r-b", "r-n"] };
-  const ids = map[kind];
-  if ($(ids[0])) $(ids[0]).value = b.dataset.a;
-  if ($(ids[1])) $(ids[1]).value = b.dataset.b;
-  if (ids[2] && b.dataset.n && $(ids[2])) $(ids[2]).value = b.dataset.n;
-  const runner = { polar: "p-run", pow: "w-run", root: "r-run" }[kind];
-  if ($(runner)) $(runner).click();
+// Setup Tombol Preset
+document.querySelectorAll("[data-set-polar]").forEach((b) => b.addEventListener("click", () => {
+  $("p-a").value = b.dataset.a;
+  $("p-b").value = b.dataset.b;
+  calculatePolar();
 }));
 
-// --- blok penjelasan argumen bertahap ------------------------------------
-function argSteps(a, b) {
-  const q = quadrant(a, b);
-  const theta = argPrincipal(a, b);
-  const pa = prettyAngle(theta);
-  const absA = Math.abs(a);
-  const absB = Math.abs(b);
+document.querySelectorAll("[data-set-dc]").forEach((b) => b.addEventListener("click", () => {
+  $("dc-a1").value = b.dataset.a1;
+  $("dc-b1").value = b.dataset.b1;
+  $("dc-a2").value = b.dataset.a2;
+  $("dc-b2").value = b.dataset.b2;
+  calculateDotCross();
+}));
 
-  if (a === 0) {
-    const degDirect = b > 0 ? 90 : -90;
-    const note = `Titik terletak tepat pada <strong>${q}</strong> (karena \\(a = 0\\)). Arah panah langsung menghadap ke atas (\\(+90^\\circ\\)) atau bawah (\\(-90^\\circ\\)) tanpa memerlukan rumus arcus tangen.`;
-    const chain = `\\operatorname{Arg}(z) = ${fkoma(degDirect)}^\\circ = ${pa.tex}`;
-    return { theta, pa, q, html: `${mbox(chain)}<p class="step-note">${note}</p>` };
-  }
+document.querySelectorAll("[data-set-g]").forEach((b) => b.addEventListener("click", () => {
+  $("g-a1").value = b.dataset.a1;
+  $("g-b1").value = b.dataset.b1;
+  $("g-a2").value = b.dataset.a2;
+  $("g-b2").value = b.dataset.b2;
+  calculateGeom();
+}));
 
-  const alphaRad = Math.atan(absB / absA);
-  const alphaDeg = toDeg(alphaRad);
+document.querySelectorAll("[data-set-rc]").forEach((b) => b.addEventListener("click", () => {
+  $("rc-r").value = b.dataset.r;
+  $("rc-deg").value = b.dataset.deg;
+  calculateRect();
+}));
 
-  let ruleTex = "";
-  let noteKuadran = "";
-  if (q === "kuadran I") {
-    ruleTex = `\\theta = \\alpha = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`;
-    noteKuadran = `Titik berada di <strong>Kuadran I</strong> (karena \\(a > 0\\) dan \\(b > 0\\)). Argumen utama sama dengan sudut acuan.`;
-  } else if (q === "kuadran II") {
-    ruleTex = `\\theta = 180^\\circ - \\alpha = 180^\\circ - ${fkoma(alphaDeg)}^\\circ = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`;
-    noteKuadran = `Titik berada di <strong>Kuadran II</strong> (karena \\(a < 0\\) dan \\(b > 0\\)). Sudut diukur berlawanan arah jarum jam dari sumbu real positif.`;
-  } else if (q === "kuadran III") {
-    ruleTex = `\\theta = -(180^\\circ - \\alpha) = -(180^\\circ - ${fkoma(alphaDeg)}^\\circ) = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`;
-    noteKuadran = `Titik berada di <strong>Kuadran III</strong> (karena \\(a < 0\\) dan \\(b < 0\\)). Pada selang argumen utama \\((-180^\\circ, 180^\\circ]\\), arah sudut diukur searah jarum jam sehingga bernilai negatif.`;
-  } else {
-    ruleTex = `\\theta = -\\alpha = -${fkoma(alphaDeg)}^\\circ = ${fkoma(pa.deg)}^\\circ = ${pa.tex}`;
-    noteKuadran = `Titik berada di <strong>Kuadran IV</strong> (karena \\(a > 0\\) dan \\(b < 0\\)). Sudut diukur searah jarum jam sehingga bernilai negatif.`;
-  }
+// --- GAMBAR BIDANG ARGAND UMUM -----------------------------------------
+function drawArgand(points, lines = [], opts = {}) {
+  const W = 640, H = 400, cx = W / 2, cy = H / 2;
+  const allX = points.map(p => p.a).concat(lines.map(l => [l.x1, l.x2]).flat());
+  const allY = points.map(p => p.b).concat(lines.map(l => [l.y1, l.y2]).flat());
+  const maxVal = Math.max(1, ...allX.map(Math.abs), ...allY.map(Math.abs));
+  const scale = (Math.min(W, H) / 2 - 50) / maxVal;
+  const X = (a) => cx + a * scale;
+  const Y = (b) => cy - b * scale;
 
-  const chain = `\\begin{aligned}
-    \\text{1. Sudut acuan } \\alpha &= \\arctan\\!\\left|\\frac{b}{a}\\right| = \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right) = ${fkoma(alphaDeg)}^\\circ \\\\[6pt]
-    \\text{2. Kuadran posisi} &: (${fkoma(a)}, ${fkoma(b)}) \\in \\text{${q}} \\\\[6pt]
-    \\text{3. Argumen Utama } \\operatorname{Arg}(z) &: ${ruleTex}
-  \\end{aligned}`;
+  const linesSvg = lines.map(l => {
+    const dash = l.dashed ? `stroke-dasharray="5 5"` : "";
+    return `<line x1="${X(l.x1)}" y1="${Y(l.y1)}" x2="${X(l.x2)}" y2="${Y(l.y2)}" stroke="${l.color || '#4338ca'}" stroke-width="${l.width || 2}" ${dash} />`;
+  }).join("");
 
-  return { theta, pa, q, html: `${mbox(chain)}<p class="step-note">${noteKuadran}</p>` };
+  const circleSvg = opts.circleR
+    ? `<circle cx="${cx}" cy="${cy}" r="${opts.circleR * scale}" fill="none" stroke="#a5b4fc" stroke-width="1.8" stroke-dasharray="5 5" />`
+    : "";
+
+  const marks = points.map(p => {
+    const c = p.color || "#4338ca";
+    const showVector = p.vector !== false;
+    const arrow = showVector
+      ? `<line x1="${cx}" y1="${cy}" x2="${X(p.a)}" y2="${Y(p.b)}" stroke="${c}" stroke-width="2.5" />`
+      : "";
+    return `
+      ${arrow}
+      <circle cx="${X(p.a)}" cy="${Y(p.b)}" r="5.5" fill="${c}" />
+      <text x="${X(p.a) + (p.a >= 0 ? 10 : -10)}" y="${Y(p.b) + (p.b >= 0 ? -10 : 18)}"
+            font-size="13" font-weight="700" fill="${c}"
+            text-anchor="${p.a >= 0 ? "start" : "end"}">${p.label}</text>`;
+  }).join("");
+
+  return `
+  <div class="argand-card">
+    <div class="argand-wrap">
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bidang Kompleks Argand">
+        <line x1="20" y1="${cy}" x2="${W - 20}" y2="${cy}" stroke="#94a3b8" stroke-width="1.8" />
+        <line x1="${cx}" y1="${H - 20}" x2="${cx}" y2="20" stroke="#94a3b8" stroke-width="1.8" />
+        <text x="${W - 16}" y="${cy - 8}" font-size="13" fill="#334155" font-weight="700">Re</text>
+        <text x="${cx + 8}" y="24" font-size="13" fill="#334155" font-weight="700">Im</text>
+        ${circleSvg}
+        ${linesSvg}
+        ${marks}
+      </svg>
+    </div>
+    ${opts.legend || ""}
+  </div>`;
 }
 
-// --- PANEL 1: bentuk polar ---------------------------------------------
+// =========================================================================
+// 1. PANEL BENTUK POLAR (ALUR LENGKAP 4 TAHAP BU VEPI)
+// =========================================================================
 function calculatePolar() {
   const out = $("p-out");
   const a = num("p-a"), b = num("p-b");
   if (!Number.isFinite(a) || !Number.isFinite(b)) {
-    return render(out, errCard("Isi bagian real dan imajiner dengan angka yang sah (contoh: <code>-2</code> atau <code>3,4641</code> atau <code>2√3</code>)."));
+    return render(out, errCard("Isi bagian real dan imajiner dengan angka yang sah (contoh: <code>-5</code>, <code>5</code>, <code>2√3</code>)."));
   }
   if (a === 0 && b === 0) {
-    return render(out, errCard("\\(z = 0\\) berada di titik asal (0,0). Titik ini tidak memiliki arah panah sehingga argumennya tidak terdefinisi. Modulusnya \\(|0| = 0\\)."));
+    return render(out, errCard("Titik berada tepat di titik asal \\((0,0)\\). Titik ini tidak memiliki arah sudut panah sehingga argumennya tidak terdefinisi. Modulusnya \\(|0| = 0\\)."));
   }
 
-  const r = modulus(a, b);
-  const { theta, pa, html: argHtml } = argSteps(a, b);
+  const q = quadrant(a, b);
+  const rSq = clean(a * a + b * b);
+  const rVal = Math.sqrt(rSq);
+  const rad = Number.isInteger(rSq) ? simplifyRadical(rSq) : null;
+  const rTex = rad ? rad.tex : fkoma(rVal);
+
+  const absA = Math.abs(a);
+  const absB = Math.abs(b);
+  const alphaRad = Math.atan(absB / absA);
+  const alphaDeg = Math.round(toDeg(alphaRad) * 1e4) / 1e4;
+
+  let thetaDeg;
+  let ruleTex = "";
+  let formulaKeterangan = "";
+  let symbolicTex = null;
+
+  if (a === 0) {
+    thetaDeg = b > 0 ? 90 : 270;
+    ruleTex = `\\theta = ${thetaDeg}^\\circ`;
+    formulaKeterangan = `Karena bagian real \\(a = 0\\), titik terletak tepat di ${q}. Sudut langsung menghadap tegak tanpa rumus arctan.`;
+  } else {
+    // Periksa apakah rasio adalah sudut istimewa
+    const isSpecial = [0, 30, 45, 60, 90].includes(Math.round(alphaDeg));
+    if (q === "Kuadran I") {
+      thetaDeg = alphaDeg;
+      ruleTex = isSpecial ? `\\theta = \\alpha = ${fkoma(thetaDeg)}^\\circ` : `\\theta = \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+      symbolicTex = `\\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+    } else if (q === "Kuadran II") {
+      thetaDeg = 180 - alphaDeg;
+      ruleTex = isSpecial ? `\\theta = 180^\\circ - \\alpha = 180^\\circ - ${fkoma(alphaDeg)}^\\circ = ${fkoma(thetaDeg)}^\\circ` : `\\theta = 180^\\circ - \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+      symbolicTex = `\\pi - \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+    } else if (q === "Kuadran III") {
+      thetaDeg = 180 + alphaDeg;
+      ruleTex = isSpecial ? `\\theta = 180^\\circ + \\alpha = 180^\\circ + ${fkoma(alphaDeg)}^\\circ = ${fkoma(thetaDeg)}^\\circ` : `\\theta = 180^\\circ + \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+      symbolicTex = `\\pi + \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+    } else {
+      thetaDeg = 360 - alphaDeg;
+      ruleTex = isSpecial ? `\\theta = 360^\\circ - \\alpha = 360^\\circ - ${fkoma(alphaDeg)}^\\circ = ${fkoma(thetaDeg)}^\\circ` : `\\theta = 360^\\circ - \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right) \\quad \\text{atau } 2\\pi - \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+      symbolicTex = `2\\pi - \\arctan\\!\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right)`;
+    }
+  }
+
+  const piFrac = degToPiFrac(thetaDeg);
+  const finalThetaTex = piFrac ? `${piFrac} \\;\\; (${fkoma(thetaDeg)}^\\circ)` : (symbolicTex ? `${symbolicTex} \\;\\; (\\approx ${fkoma(thetaDeg)}^\\circ)` : `${fkoma(thetaDeg)}^\\circ`);
 
   let html = "";
-  html += card("steps", "Langkah 1 — Modulus (Jarak ke Titik Asal via Teorema Pythagoras)",
-    `<p class="step-note">Modulus \\(|z|\\) merepresentasikan panjang vektor dari titik asal \\((0,0)\\) ke titik \\((${fkoma(a)}, ${fkoma(b)})\\) pada bidang kompleks:</p>` +
+  html += card("steps", "Tahap 1 — Identifikasi Komponen & Hitung Modulus Eksak",
     mbox(`\\begin{aligned}
-      |z| = r &= \\sqrt{a^2 + b^2} \\\\[6pt]
-      &= \\sqrt{(${fkoma(a)})^2 + (${fkoma(b)})^2} \\\\[6pt]
-      &= \\sqrt{${fkoma(a * a)} + ${fkoma(b * b)}} \\\\[6pt]
-      &= \\sqrt{${fkoma(a * a + b * b)}} = \\mathbf{${fkoma(r)}}
+      z &= ${zTex(a, b)} \\\\[6pt]
+      r &= |z| = \\sqrt{a^2 + b^2} = \\sqrt{(${fkoma(a)})^2 + (${fkoma(b)})^2} \\\\[6pt]
+      &= \\sqrt{${fkoma(a * a)} + ${fkoma(b * b)}} = \\sqrt{${fkoma(rSq)}} = \\mathbf{${rTex}}
+    \\end{aligned}`) +
+    `<p class="step-note">Modulus \\(r\\) adalah panjang jarak titik \\((${fkoma(a)}, ${fkoma(b)})\\) ke titik asal. Hasil disederhanakan dalam bentuk akar eksak (tanpa desimal kasar).</p>`);
+
+  html += card("steps", "Tahap 2 — Perhitungan Sudut Acuan (Teta Acuan)",
+    mbox(`\\alpha = \\arctan\\left|\\frac{b}{a}\\right| = \\arctan\\left(\\frac{${fkoma(absB)}}{${fkoma(absA)}}\\right) = \\mathbf{${fkoma(alphaDeg)}^\\circ}`) +
+    `<p class="step-note">Sudut acuan selalu bernilai lancip positif \\(0^\\circ \\le \\alpha \\le 90^\\circ\\).</p>`);
+
+  html += card("steps", "Tahap 3 — Identifikasi Letak Kuadran Titik",
+    mbox(`z = ${zTex(a, b)} \\implies P(${fkoma(a)}, ${fkoma(b)}) \\in \\mathbf{\\text{${q}}}`) +
+    `<p class="step-note">Posisi kuadran ditentukan langsung dari tanda bagian real \\(a\\) dan bagian imajiner \\(b\\).</p>`);
+
+  html += card("steps", "Tahap 4 — Penyesuaian Sudut Kuadran (Alur Kuliah pada Rentang [0, 360°))",
+    mbox(`\\begin{aligned}
+      \\text{Aturan ${q}} &: ${ruleTex} \\\\[8pt]
+      \\text{Kesimpulan Argumen } \\theta &: \\mathbf{${finalThetaTex}}
+    \\end{aligned}`) +
+    `<p class="step-note">Sesuai konvensi perkuliahan Ibu Vepi di kelas, sudut disesuaikan memutar berlawanan arah jarum jam dari sumbu Real positif sehingga selalu menghasilkan pecahan \\(\\pi\\) eksak.</p>`);
+
+  const thetaForPolar = piFrac ? piFrac : `${fkoma(thetaDeg)}^\\circ`;
+  html += card("result", "Bentuk Polar & Bentuk Eksponen Euler",
+    mbox(`\\begin{aligned}
+      \\text{1. Bentuk Polar} &: z = r(\\cos\\theta + i\\sin\\theta) = \\mathbf{${rTex}\\left[\\cos\\left(${thetaForPolar}\\right) + i\\sin\\left(${thetaForPolar}\\right)\\right]} \\\\[10pt]
+      \\text{2. Bentuk Euler} &: z = r e^{i\\theta} = \\mathbf{${rTex} e^{i(${thetaForPolar})}}
     \\end{aligned}`));
 
-  html += card("steps", "Langkah 2 — Argumen Utama (Sudut Arah & Pemeriksaan Kuadran)",
-    `<p class="step-note">Sudut arah dihitung dengan mencari sudut acuan lancip \\(\\alpha\\), lalu disesuaikan dengan posisi kuadran titik agar masuk ke selang argumen utama \\((-180^\\circ, 180^\\circ]\\):</p>` +
-    argHtml);
+  html += drawArgand(
+    [{ a, b, label: `P(${fkoma(a)}, ${fkoma(b)})`, color: "#4338ca" }],
+    [],
+    {
+      circleR: rVal,
+      legend: `<div class="legend"><span><i style="background:#4338ca"></i>vektor z</span><span><i style="background:#a5b4fc"></i>lingkaran modulus r = ${rTex}</span><span>sudut &theta; = ${finalThetaTex}</span></div>`
+    }
+  );
 
-  html += card("result", "Langkah 3 — Hasil Akhir dalam Tiga Bentuk Penulisan",
-    mbox(`\\begin{aligned}
-      \\text{1. Bentuk Aljabar (Kartesius)} &: z = ${zTex(a, b)} \\\\[8pt]
-      \\text{2. Bentuk Polar (Trigonometri)} &: z = r(\\cos \\theta + i\\sin \\theta) = ${polarTex(r, theta)} \\\\[8pt]
-      \\text{3. Bentuk Eksponensial (Euler)} &: z = r e^{i\\theta} = ${eulerTex(r, theta)}
-    \\end{aligned}`));
-
-  const back = toRect(r, theta);
-  html += card("tip", "Langkah 4 — Uji Balik (Verifikasi dari Polar ke Kartesius)",
-    `<p class="step-note">Kita buktikan kembali bahwa koordinat polar \\(r\\) dan \\(\\theta\\) menghasilkan kembali bagian real \\(a\\) dan bagian imajiner \\(b\\):</p>` +
-    mbox(`\\begin{aligned}
-      a &= r\\cos\\theta = ${fkoma(r)} \\times \\cos(${fkoma(pa.deg)}^\\circ) = ${fkoma(back.a)} \\quad \\checkmark \\\\[6pt]
-      b &= r\\sin\\theta = ${fkoma(r)} \\times \\sin(${fkoma(pa.deg)}^\\circ) = ${fkoma(back.b)} \\quad \\checkmark
-    \\end{aligned}`));
-
-  html += argand([{ a, b, label: `z = ${zTex(a, b)}` }], {
-    circleR: r,
-    legend: `<div class="legend"><span><i style="background:#4338ca"></i>vektor z</span><span><i style="background:#a5b4fc"></i>lingkaran modulus |z| = ${fkoma(r)}</span></div>`,
-  });
   render(out, html);
 }
 
 if ($("p-run")) $("p-run").addEventListener("click", calculatePolar);
 
-// --- PANEL 2: kali & bagi ----------------------------------------------
-function calculateOp() {
-  const out = $("o-out");
-  const a1 = num("o-a1"), b1 = num("o-b1"), a2 = num("o-a2"), b2 = num("o-b2");
-  const op = $("o-op").value;
-  if ([a1, b1, a2, b2].some((v) => !Number.isFinite(v))) {
-    return render(out, errCard("Semua kolom bagian real dan imajiner harus diisi angka yang sah."));
-  }
-  if (a1 === 0 && b1 === 0) return render(out, errCard("\\(z_1 = 0\\) tidak memiliki arah sudut polar."));
-  if (a2 === 0 && b2 === 0) {
-    return render(out, errCard(op === "div"
-      ? "Pembagian tidak bisa dilakukan karena penyebut \\(z_2 = 0\\)."
-      : "\\(z_2 = 0\\) tidak punya sudut polar. Hasil perkaliannya bernilai 0."));
+// =========================================================================
+// 2. PANEL PERKALIAN TITIK (DOT) & SILANG (CROSS)
+// =========================================================================
+function calculateDotCross() {
+  const out = $("dc-out");
+  const a1 = num("dc-a1"), b1 = num("dc-b1"), a2 = num("dc-a2"), b2 = num("dc-b2");
+  if (![a1, b1, a2, b2].every(Number.isFinite)) {
+    return render(out, errCard("Isi semua komponen bilangan kompleks dengan angka yang sah."));
   }
 
-  const z1 = toPolar(a1, b1), z2 = toPolar(a2, b2);
-  const d1 = prettyAngle(z1.theta).deg, d2 = prettyAngle(z2.theta).deg;
-
-  let res, sudutTex, rTex, kata;
-  if (op === "mul") {
-    res = mulPolar(z1, z2);
-    rTex = `r = r_1 \\times r_2 = ${fkoma(z1.r)} \\times ${fkoma(z2.r)} = ${fkoma(res.r)}`;
-    sudutTex = `\\theta = \\theta_1 + \\theta_2 = ${fkoma(d1)}^\\circ + (${fkoma(d2)}^\\circ) = ${fkoma(d1 + d2)}^\\circ`;
-    kata = "panjang modulus <strong>dikalikan</strong>, sedangkan sudut arah <strong>dijumlahkan</strong>";
-  } else {
-    res = divPolar(z1, z2);
-    rTex = `r = \\frac{r_1}{r_2} = \\frac{${fkoma(z1.r)}}{${fkoma(z2.r)}} = ${fkoma(res.r)}`;
-    sudutTex = `\\theta = \\theta_1 - \\theta_2 = ${fkoma(d1)}^\\circ - (${fkoma(d2)}^\\circ) = ${fkoma(d1 - d2)}^\\circ`;
-    kata = "panjang modulus <strong>dibagi</strong>, sedangkan sudut arah <strong>dikurangkan</strong>";
-  }
-
-  const norm = normalizeAngle(res.theta);
-  const rect = toRect(res.r, res.theta);
-  const perluNormal = Math.abs(toDeg(norm) - toDeg(res.theta)) > 1e-9;
+  const dot12 = a1 * a2 + b1 * b2;
+  const dot21 = a2 * a1 + b2 * b1;
+  const cross12 = a1 * b2 - b1 * a2;
+  const cross21 = a2 * b1 - b2 * a1;
 
   let html = "";
-  html += card("steps", "Langkah 1 — Nyatakan Kedua Bilangan ke Bentuk Polar",
+  html += card("steps", "Langkah 1 — Identifikasi Komponen Koordinat",
     mbox(`\\begin{aligned}
-      z_1 &= ${zTex(a1, b1)} = ${polarTex(z1.r, z1.theta)} \\\\[6pt]
-      z_2 &= ${zTex(a2, b2)} = ${polarTex(z2.r, z2.theta)}
+      z_1 &= ${zTex(a1, b1)} \\implies a_1 = ${fkoma(a1)}, \\quad b_1 = ${fkoma(b1)} \\\\[6pt]
+      z_2 &= ${zTex(a2, b2)} \\implies a_2 = ${fkoma(a2)}, \\quad b_2 = ${fkoma(b2)}
     \\end{aligned}`));
 
-  html += card("steps", `Langkah 2 — Operasi Geometri Bentuk Polar (${op === "mul" ? "Perkalian" : "Pembagian"})`,
-    `<p class="step-note">Aturan geometri polar: ${kata}.</p>` +
+  html += card("steps", "Langkah 2 — Perkalian Titik (Dot Product) & Sifat Komutatif",
     mbox(`\\begin{aligned}
-      \\text{Modulus baru} &: ${rTex} \\\\[8pt]
-      \\text{Sudut baru} &: ${sudutTex}
+      z_1 \\cdot z_2 &= a_1 a_2 + b_1 b_2 = (${fkoma(a1)})(${fkoma(a2)}) + (${fkoma(b1)})(${fkoma(b2)}) \\\\[6pt]
+      &= ${fkoma(a1 * a2)} + (${fkoma(b1 * b2)}) = \\mathbf{${fkoma(dot12)}} \\\\[10pt]
+      z_2 \\cdot z_1 &= a_2 a_1 + b_2 b_1 = (${fkoma(a2)})(${fkoma(a1)}) + (${fkoma(b2)})(${fkoma(b1)}) = \\mathbf{${fkoma(dot21)}}
+    \\end{aligned}`) +
+    `<p class="step-note"><strong>Terbukti Komutatif:</strong> \\(z_1 \\cdot z_2 = z_2 \\cdot z_1 = ${fkoma(dot12)}\\).</p>`);
+
+  html += card("steps", "Langkah 3 — Perkalian Silang (Cross Product) & Sifat Antikomutatif",
+    mbox(`\\begin{aligned}
+      z_1 \\times z_2 &= \\begin{vmatrix} a_1 & b_1 \\\\ a_2 & b_2 \\end{vmatrix} = a_1 b_2 - b_1 a_2 \\\\[6pt]
+      &= (${fkoma(a1)})(${fkoma(b2)}) - (${fkoma(b1)})(${fkoma(a2)}) = ${fkoma(a1 * b2)} - (${fkoma(b1 * a2)}) = \\mathbf{${fkoma(cross12)}} \\\\[10pt]
+      z_2 \\times z_1 &= \\begin{vmatrix} a_2 & b_2 \\\\ a_1 & b_1 \\end{vmatrix} = a_2 b_1 - b_2 a_1 \\\\[6pt]
+      &= (${fkoma(a2)})(${fkoma(b1)}) - (${fkoma(b2)})(${fkoma(a1)}) = ${fkoma(a2 * b1)} - (${fkoma(b2 * a1)}) = \\mathbf{${fkoma(cross21)}}
+    \\end{aligned}`) +
+    `<p class="step-note"><strong>Terbukti Antikomutatif:</strong> \\(z_1 \\times z_2 = -(z_2 \\times z_1) = ${fkoma(cross12)}\\).</p>`);
+
+  html += card("result", "Hasil Akhir Perkalian Vektor",
+    mbox(`\\begin{aligned}
+      \\text{Dot Product } (z_1 \\cdot z_2) &= \\mathbf{${fkoma(dot12)}} \\\\[8pt]
+      \\text{Cross Product } (z_1 \\times z_2) &= \\mathbf{${fkoma(cross12)}}
     \\end{aligned}`));
 
-  if (perluNormal) {
-    html += card("tip", "Langkah 3 — Normalisasi ke Argumen Utama (-180° sampai 180°]",
-      `<p class="step-note">Karena sudut hasil hitungan melebihi rentang argumen utama, kita kurangkan/tambahkan putaran penuh \\(360^\\circ\\):</p>` +
-      mbox(`${fkoma(toDeg(res.theta))}^\\circ \\;\\longrightarrow\\; ${fkoma(toDeg(norm))}^\\circ
-            \\quad (\\text{posisi panah tidak berubah})`));
-  }
-
-  html += card("result", "Hasil Akhir Operasi",
-    mbox(`\\begin{aligned}
-      ${op === "mul" ? "z_1 \\cdot z_2" : "\\frac{z_1}{z_2}"} &= ${polarTex(res.r, norm)} &&\\text{(polar)} \\\\[6pt]
-      &= ${eulerTex(res.r, norm)} &&\\text{(Euler)} \\\\[6pt]
-      &= ${zTex(rect.a, rect.b)} &&\\text{(bentuk standar } a+bi\\text{)}
-    \\end{aligned}`));
-
-  let alj;
-  if (op === "mul") {
-    alj = `(${zTex(a1, b1)})(${zTex(a2, b2)}) = ${zTex(a1 * a2 - b1 * b2, a1 * b2 + b1 * a2)}`;
-  } else {
-    const den = a2 * a2 + b2 * b2;
-    alj = `\\frac{${zTex(a1, b1)}}{${zTex(a2, b2)}} \\cdot \\frac{${zTex(a2, -b2)}}{${zTex(a2, -b2)}}
-           = \\frac{${zTex(a1 * a2 + b1 * b2, b1 * a2 - a1 * b2)}}{${fkoma(den)}}
-           = ${zTex((a1 * a2 + b1 * b2) / den, (b1 * a2 - a1 * b2) / den)}`;
-  }
-  html += card("tip", "Pembuktian: Dibandingkan dengan Cara Aljabar Biasa (Pertemuan 03)",
-    `<p class="step-note">Jika dikerjakan dengan aljabar distributif / sekawan penyebut:</p>` +
-    `${mbox(alj)}<p class="step-note" style="margin-bottom:0;">Hasilnya persis sama. Bentuk polar sangat menghemat waktu terutama untuk perhitungan sudut dan arah.</p>`);
-
-  html += argand([
-    { a: a1, b: b1, label: "z\u2081", color: "#0284c7" },
-    { a: a2, b: b2, label: "z\u2082", color: "#db2777" },
-    { a: rect.a, b: rect.b, label: op === "mul" ? "z\u2081z\u2082" : "z\u2081/z\u2082", color: "#4338ca" },
-  ], {
-    legend: `<div class="legend">
-      <span><i style="background:#0284c7"></i>z\u2081</span>
-      <span><i style="background:#db2777"></i>z\u2082</span>
-      <span><i style="background:#4338ca"></i>hasil operasi</span></div>`,
+  html += drawArgand([
+    { a: a1, b: b1, label: `z₁ (${fkoma(a1)}, ${fkoma(b1)})`, color: "#0284c7" },
+    { a: a2, b: b2, label: `z₂ (${fkoma(a2)}, ${fkoma(b2)})`, color: "#db2777" },
+  ], [], {
+    legend: `<div class="legend"><span><i style="background:#0284c7"></i>z₁</span><span><i style="background:#db2777"></i>z₂</span></div>`
   });
+
   render(out, html);
 }
 
-if ($("o-run")) $("o-run").addEventListener("click", calculateOp);
+if ($("dc-run")) $("dc-run").addEventListener("click", calculateDotCross);
 
-// --- PANEL 3: De Moivre -------------------------------------------------
+// =========================================================================
+// 3. PANEL GEOMETRI VEKTOR & JARAK 2 TITIK
+// =========================================================================
+function calculateGeom() {
+  const out = $("g-out");
+  const a1 = num("g-a1"), b1 = num("g-b1"), a2 = num("g-a2"), b2 = num("g-b2");
+  if (![a1, b1, a2, b2].every(Number.isFinite)) {
+    return render(out, errCard("Isi koordinat titik dengan angka yang sah."));
+  }
+
+  // Penjumlahan (Aturan Jajar Genjang)
+  const sumA = a1 + a2;
+  const sumB = b1 + b2;
+
+  // Jarak Antara 2 Titik
+  const da = a1 - a2;
+  const db = b1 - b2;
+  const distSq = clean(da * da + db * db);
+  const distVal = Math.sqrt(distSq);
+  const rad = Number.isInteger(distSq) ? simplifyRadical(distSq) : null;
+  const distTex = rad ? rad.tex : fkoma(distVal);
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Penjumlahan Secara Grafik (Aturan Jajar Genjang)",
+    mbox(`\\begin{aligned}
+      z_1 + z_2 &= (${fkoma(a1)} + ${fkoma(a2)}) + (${fkoma(b1)} + ${fkoma(b2)})i \\\\[6pt]
+      &= \\mathbf{${zTex(sumA, sumB)}} \\implies (${fkoma(sumA)}, ${fkoma(sumB)})
+    \\end{aligned}`) +
+    `<p class="step-note">Resultan \\(z_1 + z_2\\) adalah titik diagonal utama jajar genjang yang dibentuk dari vektor \\(z_1\\) dan \\(z_2\\).</p>`);
+
+  html += card("steps", "Langkah 2 — Jarak Antara Titik z₁ dan z₂ (|z₁ - z₂|)",
+    mbox(`\\begin{aligned}
+      |z_1 - z_2| &= \\sqrt{(a_1 - a_2)^2 + (b_1 - b_2)^2} \\\\[6pt]
+      &= \\sqrt{(${fkoma(a1)} - ${fkoma(a2)})^2 + (${fkoma(b1)} - ${fkoma(b2)})^2} \\\\[6pt]
+      &= \\sqrt{(${fkoma(da)})^2 + (${fkoma(db)})^2} = \\sqrt{${fkoma(da * da)} + ${fkoma(db * db)}} \\\\[6pt]
+      &= \\sqrt{${fkoma(distSq)}} = \\mathbf{${distTex}}
+    \\end{aligned}`) +
+    `<p class="step-note">Jarak euclides antara kedua titik ditampilkan dalam bentuk akar eksak paling sederhana.</p>`);
+
+  html += card("result", "Hasil Perhitungan Geometri",
+    mbox(`\\begin{aligned}
+      \\text{Vektor Resultan } (z_1 + z_2) &= \\mathbf{${zTex(sumA, sumB)}} \\implies (${fkoma(sumA)}, ${fkoma(sumB)}) \\\\[8pt]
+      \\text{Jarak Antara 2 Titik } (|z_1 - z_2|) &= \\mathbf{${distTex}}
+    \\end{aligned}`));
+
+  const pts = [
+    { a: a1, b: b1, label: `z₁ (${fkoma(a1)},${fkoma(b1)})`, color: "#0284c7" },
+    { a: a2, b: b2, label: `z₂ (${fkoma(a2)},${fkoma(b2)})`, color: "#db2777" },
+    { a: sumA, b: sumB, label: `z₁+z₂ (${fkoma(sumA)},${fkoma(sumB)})`, color: "#4338ca" },
+  ];
+
+  const lines = [
+    { x1: a1, y1: b1, x2: sumA, y2: sumB, color: "#a5b4fc", dashed: true },
+    { x1: a2, y1: b2, x2: sumA, y2: sumB, color: "#a5b4fc", dashed: true },
+    { x1: a1, y1: b1, x2: a2, y2: b2, color: "#dc2626", width: 3 },
+  ];
+
+  html += drawArgand(pts, lines, {
+    legend: `<div class="legend"><span><i style="background:#0284c7"></i>z₁</span><span><i style="background:#db2777"></i>z₂</span><span><i style="background:#4338ca"></i>resultan z₁+z₂</span><span><i style="background:#dc2626"></i>ruas jarak = ${distTex}</span></div>`
+  });
+
+  render(out, html);
+}
+
+if ($("g-run")) $("g-run").addEventListener("click", calculateGeom);
+
+// =========================================================================
+// 4. PANEL POLAR KE ALJABAR (REKTANGULAR)
+// =========================================================================
+function calculateRect() {
+  const out = $("rc-out");
+  const r = num("rc-r");
+  const degRaw = $("rc-deg")?.value?.trim();
+  let thetaDeg = parseNum(degRaw);
+
+  if (!Number.isFinite(r) || !Number.isFinite(thetaDeg)) {
+    return render(out, errCard("Isi nilai modulus r dan sudut argumen dengan benar."));
+  }
+
+  const thetaRad = toRad(thetaDeg);
+  const a = clean(r * Math.cos(thetaRad));
+  const b = clean(r * Math.sin(thetaRad));
+
+  let html = "";
+  html += card("steps", "Langkah 1 — Bentuk Umum Aljabar",
+    mbox(`z = a + bi = r\\cos\\theta + i(r\\sin\\theta)`));
+
+  html += card("steps", "Langkah 2 — Menghitung Komponen Real (a)",
+    mbox(`\\begin{aligned}
+      a &= r\\cos\\theta = (${fkoma(r)}) \\cdot \\cos(${fkoma(thetaDeg)}^\\circ) = \\mathbf{${fkoma(a)}}
+    \\end{aligned}`));
+
+  html += card("steps", "Langkah 3 — Menghitung Komponen Imajiner (b)",
+    mbox(`\\begin{aligned}
+      b &= r\\sin\\theta = (${fkoma(r)}) \\cdot \\sin(${fkoma(thetaDeg)}^\\circ) = \\mathbf{${fkoma(b)}}
+    \\end{aligned}`));
+
+  html += card("result", "Hasil Akhir Bentuk Aljabar Standar",
+    mbox(`\\mathbf{z = ${zTex(a, b)}}`));
+
+  html += drawArgand([{ a, b, label: `z = ${zTex(a, b)}`, color: "#4338ca" }], [], {
+    circleR: r,
+    legend: `<div class="legend"><span><i style="background:#4338ca"></i>z = ${zTex(a,b)}</span></div>`
+  });
+
+  render(out, html);
+}
+
+if ($("rc-run")) $("rc-run").addEventListener("click", calculateRect);
+
+// =========================================================================
+// 5. PANEL DE MOIVRE (P06)
+// =========================================================================
 function calculatePow() {
   const out = $("w-out");
   const a = num("w-a"), b = num("w-b"), n = num("w-n");
-  if (![a, b, n].every(Number.isFinite)) {
-    return render(out, errCard("Isi bagian real, imajiner, dan pangkat dengan angka yang sah."));
-  }
-  if (!Number.isInteger(n)) {
-    return render(out, errCard("Pangkat \\(n\\) harus bilangan bulat. Untuk pangkat pecahan atau mencari akar, gunakan tab <strong>Akar Pangkat n</strong>."));
-  }
-  if (a === 0 && b === 0) {
-    if (n > 0) return render(out, card("result", "Hasil", mbox("0^{" + n + "} = 0")));
-    return render(out, errCard("\\(0\\) tidak dapat dipangkatkan nol atau negatif."));
-  }
-  if (Math.abs(n) > 60) {
-    return render(out, errCard("Batasi nilai pangkat maksimal 60 agar hasil angka tetap proporsional dan mudah dibaca."));
-  }
+  if (![a, b, n].every(Number.isFinite)) return render(out, errCard("Isi semua kolom dengan angka."));
+  if (!Number.isInteger(n)) return render(out, errCard("Pangkat n harus bilangan bulat."));
 
   const z = toPolar(a, b);
-  const deg = prettyAngle(z.theta).deg;
   const p = power(z, n);
   const norm = normalizeAngle(p.theta);
   const rect = toRect(p.r, p.theta);
-  const perluNormal = Math.abs(toDeg(norm) - toDeg(p.theta)) > 1e-9;
+  const deg = toDeg(z.theta);
 
   let html = "";
-  html += card("steps", "Langkah 1 — Ubah Bilangan Kompleks ke Bentuk Polar",
-    mbox(`z = ${zTex(a, b)} = ${polarTex(z.r, z.theta)}
-          \\qquad (|z| = ${fkoma(z.r)},\\ \\operatorname{Arg}(z) = ${fkoma(deg)}^\\circ)`));
+  html += card("steps", "Langkah 1 — Ubah ke Bentuk Polar",
+    mbox(`z = ${zTex(a, b)} = ${fkoma(z.r)}\\left(\\cos ${fkoma(deg)}^\\circ + i\\sin ${fkoma(deg)}^\\circ\\right)`));
 
   html += card("steps", "Langkah 2 — Terapkan Rumus De Moivre",
-    `<p class="step-note">Rumus De Moivre: \\([r(\\cos\\theta + i\\sin\\theta)]^n = r^n [\\cos(n\\theta) + i\\sin(n\\theta)]\\):</p>` +
     mbox(`\\begin{aligned}
-      z^{${n}} &= (${fkoma(z.r)})^{${n}}\\left[\\cos(${n} \\times ${fkoma(deg)}^\\circ) + i\\sin(${n} \\times ${fkoma(deg)}^\\circ)\\right] \\\\[8pt]
-      &= ${fkoma(p.r)}\\left[\\cos(${fkoma(toDeg(p.theta))}^\\circ) + i\\sin(${fkoma(toDeg(p.theta))}^\\circ)\\right]
+      z^{${n}} &= (${fkoma(z.r)})^{${n}} \\left[\\cos(${n} \\times ${fkoma(deg)}^\\circ) + i\\sin(${n} \\times ${fkoma(deg)}^\\circ)\\right] \\\\[6pt]
+      &= ${fkoma(p.r)} \\left[\\cos ${fkoma(toDeg(p.theta))}^\\circ + i\\sin ${fkoma(toDeg(p.theta))}^\\circ\\right]
     \\end{aligned}`));
 
-  if (perluNormal) {
-    const putaran = Math.round((toDeg(p.theta) - toDeg(norm)) / 360);
-    html += card("tip", "Langkah 3 — Sederhanakan Sudut ke Argumen Utama (-180° sampai 180°]",
-      mbox(`${fkoma(toDeg(p.theta))}^\\circ - (${putaran} \\times 360^\\circ) = ${fkoma(toDeg(norm))}^\\circ`));
-  }
+  html += card("result", "Hasil Akhir Pemangkatan",
+    mbox(`\\mathbf{z^{${n}} = ${zTex(rect.a, rect.b)}}`));
 
-  html += card("result", "Hasil Akhir Perpangkatan",
-    mbox(`\\begin{aligned}
-      z^{${n}} &= ${polarTex(p.r, norm)} &&\\text{(polar)} \\\\[6pt]
-      &= ${eulerTex(p.r, norm)} &&\\text{(Euler)} \\\\[6pt]
-      &= \\mathbf{${zTex(rect.a, rect.b)}} &&\\text{(bentuk standar } a+bi\\text{)}
-    \\end{aligned}`));
-
-  const pts = [{ a, b, label: "z", color: "#0284c7" }, { a: rect.a, b: rect.b, label: `z^{${n}}`, color: "#4338ca" }];
-  html += argand(pts, {
-    legend: `<div class="legend"><span><i style="background:#0284c7"></i>z asal</span><span><i style="background:#4338ca"></i>z pangkat ${n}</span></div>`,
-  });
   render(out, html);
 }
 
 if ($("w-run")) $("w-run").addEventListener("click", calculatePow);
 
-// --- PANEL 4: akar pangkat n -------------------------------------------
+// =========================================================================
+// 6. PANEL AKAR PANGKAT N (P06)
+// =========================================================================
 function calculateRoot() {
   const out = $("r-out");
   const a = num("r-a"), b = num("r-b"), n = num("r-n");
-  if (![a, b, n].every(Number.isFinite)) {
-    return render(out, errCard("Isi bagian real, imajiner, dan indeks akar dengan angka yang sah."));
-  }
-  if (!Number.isInteger(n) || n < 1) {
-    return render(out, errCard("Indeks akar \\(n\\) harus berupa bilangan bulat positif minimal 1."));
-  }
-  if (n > 24) {
-    return render(out, errCard("Batasi indeks akar sampai 24 agar tampilan tabel dan poligon tetap nyaman dibaca."));
-  }
-  if (a === 0 && b === 0) {
-    return render(out, card("result", "Hasil", mbox(`\\sqrt[${n}]{0} = 0 \\quad (\\text{akar rangkap } ${n})`)));
-  }
+  if (![a, b, n].every(Number.isFinite)) return render(out, errCard("Isi kolom dengan angka sah."));
+  if (!Number.isInteger(n) || n < 1) return render(out, errCard("Indeks akar harus bulat positif >= 1."));
 
   const z = toPolar(a, b);
-  const deg = prettyAngle(z.theta).deg;
+  const deg = toDeg(z.theta);
   const rr = Math.pow(z.r, 1 / n);
   const ws = roots(z, n);
 
   let html = "";
-  html += card("steps", "Langkah 1 — Bentuk Polar dan Jari-Jari Akar",
-    mbox(`z = ${zTex(a, b)} = ${polarTex(z.r, z.theta)}
-          \\qquad r_{\\text{akar}} = \\sqrt[${n}]{|z|} = \\sqrt[${n}]{${fkoma(z.r)}} = \\mathbf{${fkoma(rr)}}`));
-
-  html += card("steps", "Langkah 2 — Rumus Pembagian Sudut Akar Pangkat n",
-    `${mbox(`w_k = ${fkoma(rr)}\\left[\\cos\\!\\left(\\frac{${fkoma(deg)}^\\circ + k \\cdot 360^\\circ}{${n}}\\right)
-       + i\\sin\\!\\left(\\frac{${fkoma(deg)}^\\circ + k \\cdot 360^\\circ}{${n}}\\right)\\right],\\quad k = 0,1,\\dots,${n - 1}`)}
-     <p class="step-note">Dengan mengganti nilai \\(k\\) dari 0 sampai ${n - 1}, diperoleh tepat <strong>${n} buah akar berbeda</strong> yang berselisih sudut rata \\(${fkoma(360 / n)}^\\circ\\).</p>`);
+  html += card("steps", "Langkah 1 — Jari-jari & Rumus Pembagian Sudut",
+    mbox(`r_{\\text{akar}} = \\sqrt[${n}]{${fkoma(z.r)}} = \\mathbf{${fkoma(rr)}}, \\quad \\text{selisih sudut} = \\frac{360^\\circ}{${n}} = \\mathbf{${fkoma(360 / n)}^\\circ}`));
 
   const rows = ws.map((w) => {
     const nt = normalizeAngle(w.theta);
@@ -870,38 +1010,32 @@ function calculateRoot() {
     return `<tr>
       <td><strong>k = ${w.k}</strong></td>
       <td>${fkoma(toDeg(nt))}&#176;</td>
-      <td>\\(${polarTex(w.r, nt)}\\)</td>
       <td><strong>\\(${zTex(rect.a, rect.b)}\\)</strong></td>
     </tr>`;
   }).join("");
 
-  html += card("result", `Hasil Akhir — Daftar Lengkap ${n} Buah Akar`,
+  html += card("result", `Hasil Lengkap ${n} Buah Akar Kompleks`,
     `<div class="table-wrap"><table>
-      <thead><tr><th>Indeks (k)</th><th>Sudut Arah</th><th>Bentuk Polar</th><th>Bentuk Standar (a+bi)</th></tr></thead>
+      <thead><tr><th>Indeks (k)</th><th>Sudut</th><th>Bentuk Standar (a+bi)</th></tr></thead>
       <tbody>${rows}</tbody></table></div>`);
 
-  const w0 = ws[0];
-  const cek = toRect(...(() => { const c = power({ r: w0.r, theta: w0.theta }, n); return [c.r, c.theta]; })());
-  html += card("tip", "Uji Balik (Verifikasi Akar)",
-    `<p class="step-note">Jika akar pertama dipangkatkan kembali dengan \\(n\\), hasilnya harus kembali ke \\(z\\) semula:</p>` +
-    mbox(`(w_0)^{${n}} = ${zTex(cek.a, cek.b)} = z \\quad \\checkmark`));
-
-  const colors = ["#4338ca", "#0284c7", "#db2777", "#059669", "#d97706", "#7c3aed", "#0891b2", "#be123c"];
+  const colors = ["#4338ca", "#0284c7", "#db2777", "#059669", "#d97706", "#7c3aed"];
   const pts = ws.map((w) => {
     const rect = toRect(w.r, w.theta);
-    return { a: rect.a, b: rect.b, label: `w${String(w.k).replace(/\d/g, (d) => "\u2080\u2081\u2082\u2083\u2084\u2085\u2086\u2087\u2088\u2089"[+d])}`, color: colors[w.k % colors.length] };
+    return { a: rect.a, b: rect.b, label: `w${w.k}`, color: colors[w.k % colors.length] };
   });
-  html += argand(pts, {
+
+  html += drawArgand(pts, [], {
     circleR: rr,
-    polygon: n >= 3,
-    legend: `<div class="legend"><span><i style="background:#a5b4fc"></i>lingkaran radius ${fkoma(rr)}</span><span>${n >= 3 ? `titik-titik membentuk segi-${n} beraturan` : "dua titik berseberangan 180&#176;"}</span></div>`,
+    legend: `<div class="legend"><span><i style="background:#a5b4fc"></i>lingkaran radius ${fkoma(rr)}</span><span>membentuk segi-${n} beraturan</span></div>`
   });
+
   render(out, html);
 }
 
 if ($("r-run")) $("r-run").addEventListener("click", calculateRoot);
 
-// Jalankan kalkulator pertama kali saat halaman terbuka
+// Jalankan saat pertama kali dibuka
 function init() {
   renderAllMath(document.body);
   calculatePolar();

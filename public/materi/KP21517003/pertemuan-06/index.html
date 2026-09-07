@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Pertemuan 06 — Bahan Baca: Rumus De Moivre, Pemangkatan &amp; Akar Kompleks (KP21517003)</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #1e293b; --bg: #f8fafc; --paper: #ffffff;
+      --brand: #4338ca; --brand-dark: #312e81; --accent: #6558df;
+      --accent-soft: #f5f3ff; --line: #e2e8f0; --text-muted: #64748b;
+      --success: #10b981; --warning: #d97706;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; max-width: 100vw; overflow-x: hidden;
+      background: var(--bg); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+    }
+    .page {
+      width: 100%; max-width: 860px; margin: 12px auto 50px; padding: 20px 16px;
+      background: var(--paper); border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05); border: 1px solid var(--line);
+    }
+    @media (min-width: 640px) { .page { margin: 20px auto 60px; padding: 30px 32px; } }
+
+    .top-nav {
+      position: sticky; top: 8px; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 14px; background: rgba(30, 27, 75, 0.96); backdrop-filter: blur(12px);
+      color: white; border-radius: 12px; margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16); border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .nav-back-btn {
+      display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
+      color: white; border: none; padding: 7px 14px; border-radius: 8px;
+      font-weight: 600; font-size: 0.82rem; cursor: pointer; text-decoration: none;
+      transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-back-btn:hover { background: #7c70e9; transform: translateX(-2px); }
+    .nav-title {
+      font-size: 0.78rem; color: #c7d2fe; font-weight: 500; text-align: right;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 8px;
+    }
+
+    header {
+      padding: 20px 18px; background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
+      color: white; border-radius: 14px; margin-bottom: 22px;
+    }
+    header h1 { font-size: 1.32rem; line-height: 1.35; margin-bottom: 6px; }
+    header p { font-size: 0.9rem; color: #ddd6fe; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28);
+      padding: 3px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.04em; margin-bottom: 10px;
+    }
+    .meta-info {
+      display: grid; gap: 4px; margin-top: 14px; padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.18); font-size: 0.8rem; color: #e0e7ff;
+    }
+
+    main h2 {
+      font-size: 1.08rem; color: var(--brand-dark); margin: 30px 0 10px;
+      padding-bottom: 7px; border-bottom: 2px solid var(--accent-soft);
+    }
+    main h3 { font-size: 0.97rem; color: var(--brand); margin: 20px 0 8px; }
+    main p { margin-bottom: 10px; font-size: 0.93rem; }
+    main ul, main ol { padding-left: 20px; margin-bottom: 10px; font-size: 0.92rem; }
+    main li { margin-bottom: 5px; }
+
+    .card {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; margin: 12px 0;
+    }
+    .card.highlight { background: var(--accent-soft); border-color: #c7d2fe; }
+    .card.formula { border-left: 4px solid var(--accent); }
+    .card.example { border-left: 4px solid var(--success); background: #f0fdf4; }
+    .card.warn { border-left: 4px solid var(--warning); background: #fffbeb; }
+    .formula-title {
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--brand); margin-bottom: 8px;
+    }
+    .math-step-box {
+      overflow-x: auto; overflow-y: hidden; padding: 6px 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .note-plain {
+      background: #f1f5f9; border-radius: 10px; padding: 11px 14px;
+      font-size: 0.89rem; color: #334155; margin: 10px 0;
+    }
+    .note-plain strong { color: var(--brand-dark); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 12px 0; }
+    th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; }
+    th { background: var(--accent-soft); color: var(--brand-dark); font-size: 0.8rem; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    .svg-diagram-card {
+      background: #fbfcfe; border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px; margin: 14px 0;
+    }
+    .svg-wrapper { width: 100%; overflow-x: auto; }
+    .svg-wrapper svg { width: 100%; height: auto; min-width: 320px; display: block; }
+    .svg-caption { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 8px; }
+
+    .tool-cta {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+      border: 1px solid #c7d2fe; border-radius: 12px; padding: 14px 16px; margin: 18px 0;
+    }
+    .tool-cta a {
+      background: var(--accent); color: white; text-decoration: none;
+      padding: 9px 16px; border-radius: 9px; font-weight: 700; font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .tool-cta a:hover { background: #7c70e9; }
+    .tool-cta span { font-size: 0.87rem; color: #3730a3; flex: 1 1 200px; }
+
+    footer.page-foot {
+      margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line);
+      font-size: 0.8rem; color: var(--text-muted); text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <nav class="top-nav">
+    <a class="nav-back-btn" href="/?course=KP21517003" onclick="handleGoBack(event)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Kembali ke Analisis Kompleks
+    </a>
+    <div class="nav-title">Analisis Kompleks (Kelas C)</div>
+  </nav>
+
+  <header>
+    <div class="badge">Bahan Baca / Perkiraan · Pertemuan 06</div>
+    <h1>Rumus De Moivre, Pemangkatan &amp; Penarikan Akar Kompleks</h1>
+    <p>Materi persiapan perkuliahan — kelanjutan langsung setelah Bentuk Polar dan Rumus Euler di Pertemuan 05.</p>
+
+    <div class="meta-info">
+      <div><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003) &middot; 2 SKS &middot; Kelas C</div>
+      <div><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</div>
+      <div><strong>Rujukan:</strong> Brown &amp; Churchill, <em>Complex Variables and Applications</em>, Bab 1 &sect;7–&sect;10</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="note-plain">
+      <strong>Ringkas dulu jembatan materi:</strong> Di Pertemuan 05, kita telah mempelajari perkalian titik, perkalian silang, geometri vektor, bentuk polar \(z = r(\cos\theta + i\sin\theta)\), dan rumus Euler \(z = r e^{i\theta}\). Modul ini melanjutkan kekuatan bentuk polar untuk operasi tingkat tinggi: bagaimana mengalikan banyak bilangan kompleks secara cepat, menghitung pemangkatan besar \(z^n\) menggunakan Rumus De Moivre, serta mencari semua \(n\) buah akar kompleks \(\sqrt[n]{z}\).
+    </div>
+
+    <h2>1. Operasi Kali &amp; Bagi dalam Bentuk Polar</h2>
+    <p>
+      Salah satu alasan utama bilangan kompleks diubah ke bentuk polar adalah kemudahan operasi perkalian dan pembagian. Pada bentuk aljabar Kartesius, perkalian memerlukan sifat distributif dan pembagian memerlukan sekawan penyebut. Pada bentuk polar, operasi berubah menjadi geometri murni:
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Teorema Perkalian &amp; Pembagian Polar</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z_1 \cdot z_2 &= [r_1(\cos\theta_1 + i\sin\theta_1)] \cdot [r_2(\cos\theta_2 + i\sin\theta_2)] \\[6pt]
+        &= \mathbf{r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i\sin(\theta_1 + \theta_2)\right]} = r_1 r_2 e^{i(\theta_1 + \theta_2)} \\[10pt]
+        \frac{z_1}{z_2} &= \mathbf{\frac{r_1}{r_2} \left[\cos(\theta_1 - \theta_2) + i\sin(\theta_1 - \theta_2)\right]} = \frac{r_1}{r_2} e^{i(\theta_1 - \theta_2)} \quad (z_2 \neq 0)
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        <strong>Aturan Emas:</strong> <em>Modulus dikalikan/dibagi, sedangkan sudut argumen dijumlahkan/dikurangkan!</em>
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal — Perkalian Cepat via Polar</div>
+      <p>Diberikan \(z_1 = 2(\cos 50^\circ + i\sin 50^\circ)\) dan \(z_2 = 4(\cos 20^\circ + i\sin 20^\circ)\). Tentukan \(z_1 z_2\) dan \(\frac{z_1}{z_2}\).</p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z_1 z_2 &= (2 \cdot 4)\left[\cos(50^\circ + 20^\circ) + i\sin(50^\circ + 20^\circ)\right] = \mathbf{8(\cos 70^\circ + i\sin 70^\circ)} \\[8pt]
+        \frac{z_1}{z_2} &= \left(\frac{2}{4}\right)\left[\cos(50^\circ - 20^\circ) + i\sin(50^\circ - 20^\circ)\right] = \mathbf{\frac{1}{2}(\cos 30^\circ + i\sin 30^\circ)}
+        \end{aligned}$$
+      </div>
+    </div>
+
+    <h2>2. Rumus De Moivre untuk Pemangkatan</h2>
+    <p>
+      Jika kita mengalikan bilangan kompleks yang sama sebanyak \(n\) kali (\(z \cdot z \cdots z\)), kita memperoleh teorema fundamental yang dirumuskan oleh Abraham de Moivre (1707):
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Rumus De Moivre (De Moivre's Theorem)</div>
+      <div class="math-step-box">
+        $$\mathbf{\left[r(\cos\theta + i\sin\theta)\right]^n = r^n \left[\cos(n\theta) + i\sin(n\theta)\right]}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        Untuk bilangan kompleks ber-modulus satu (\(r = 1\)):
+        \[(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta) \quad (\forall n \in \mathbb{Z})\]
+      </p>
+    </div>
+
+    <div class="card note-plain">
+      <strong>Catatan Pembuktian (Menautkan ke Analisis Real):</strong> Rumus De Moivre untuk \(n\) bilangan asli dibuktikan secara formal menggunakan <strong>Prinsip Induksi Matematika</strong> yang telah kita pelajari di matkul Analisis Real:
+      <br>1. <em>Basis Induksi (\(n = 1\)):</em> Jelas benar.
+      <br>2. <em>Langkah Induksi:</em> Asumsikan benar untuk \(n = k\), lalu kalikan dengan \((\cos\theta + i\sin\theta)\). Aturan penjumlahan sudut langsung membuktikan kebenaran untuk \(n = k+1\).
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal — Menghitung Pangkat Besar</div>
+      <p>Hitung nilai dari \((1 + i)^{10}\) tanpa mengalikan satu per satu!</p>
+      <p><strong>Langkah Penyelesaian:</strong></p>
+      <ol class="steps">
+        <li>
+          Ubah \(z = 1 + i\) ke bentuk polar:
+          \[r = \sqrt{1^2 + 1^2} = \sqrt{2} \qquad \theta = \arctan(1/1) = 45^\circ = \frac{\pi}{4}\]
+          \[z = \sqrt{2}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right)\]
+        </li>
+        <li>
+          Terapkan Rumus De Moivre dengan \(n = 10\):
+          \[\begin{aligned}
+          z^{10} &= (\sqrt{2})^{10} \left[\cos\left(10 \cdot \frac{\pi}{4}\right) + i\sin\left(10 \cdot \frac{\pi}{4}\right)\right] \\[6pt]
+          &= 2^5 \left[\cos\left(\frac{5\pi}{2}\right) + i\sin\left(\frac{5\pi}{2}\right)\right]
+          \end{aligned}\]
+        </li>
+        <li>
+          Sederhanakan sudut: \(\frac{5\pi}{2} = 2\pi + \frac{\pi}{2}\) (ekuivalen dengan \(\frac{\pi}{2}\) atau \(90^\circ\)):
+          \[\cos\left(\frac{5\pi}{2}\right) = 0 \qquad \sin\left(\frac{5\pi}{2}\right) = 1\]
+        </li>
+        <li>
+          Substitusikan:
+          \[z^{10} = 32(0 + 1i) = \mathbf{32i}\]
+        </li>
+      </ol>
+      <p class="answer"><strong>Jawaban:</strong> \((1 + i)^{10} = 32i\).</p>
+    </div>
+
+    <h2>3. Penarikan Akar-Akar Bilangan Kompleks</h2>
+    <p>
+      Pada sistem bilangan real, \(\sqrt[n]{x}\) paling banyak memiliki 1 atau 2 nilai real. Namun pada sistem bilangan kompleks \(\mathbb{C}\), setiap bilangan kompleks tak-nol memiliki <strong>tepat \(n\) buah akar berbeda</strong>!
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Rumus Akar Pangkat n</div>
+      <p>Akar-akar ke-\(n\) dari \(z = r(\cos\theta + i\sin\theta)\) dinotasikan dengan \(w_k\) dan dirumuskan sebagai:</p>
+      <div class="math-step-box">
+        $$\mathbf{w_k = \sqrt[n]{r} \left[ \cos\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\left(\frac{\theta + 2k\pi}{n}\right) \right]}, \quad k = 0, 1, 2, \dots, n-1$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        Dalam satuan derajat:
+        \[w_k = \sqrt[n]{r} \left[ \cos\left(\frac{\theta + k \cdot 360^\circ}{n}\right) + i\sin\left(\frac{\theta + k \cdot 360^\circ}{n}\right) \right]\]
+      </p>
+    </div>
+
+    <div class="card highlight">
+      <div class="formula-title">Geometri Luar Biasa: Segi-n Beraturan di Bidang Argand</div>
+      <p style="margin-bottom:0;">
+        Perhatikan bahwa semua akar \(w_k\) memiliki panjang jari-jari yang persis sama, yaitu \(\sqrt[n]{r}\), dan berselisih sudut yang sama rata sebesar \(\frac{360^\circ}{n}\) atau \(\frac{2\pi}{n}\). 
+        Artinya: <strong>Ke-\(n\) buah akar kompleks selalu terletak pada keliling lingkaran berpusat di titik asal dan membentuk titik-titik sudut dari segi-\(n\) beraturan (*regular polygon*)!</strong>
+      </p>
+    </div>
+
+    <div class="svg-diagram-card">
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Akar pangkat 3 dari 8 membentuk segitiga sama sisi pada lingkaran berjejari 2">
+          <defs>
+            <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
+            </marker>
+          </defs>
+
+          <!-- Sumbu Re dan Im -->
+          <line x1="80" y1="180" x2="600" y2="180" stroke="#64748b" stroke-width="2" marker-end="url(#ar2)" />
+          <line x1="340" y1="330" x2="340" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#ar2)" />
+          <text x="606" y="185" font-size="14" fill="#334155" font-weight="700">Re</text>
+          <text x="348" y="24" font-size="14" fill="#334155" font-weight="700">Im</text>
+          <text x="326" y="198" font-size="12" fill="#64748b">0</text>
+
+          <!-- Lingkaran r = 2 (skala 65px per unit -> radius 130px) -->
+          <circle cx="340" cy="180" r="130" fill="#f8fafc" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" />
+
+          <!-- Poligon segitiga sama sisi w0(2, 0), w1(-1, sqrt(3)), w2(-1, -sqrt(3)) -->
+          <!-- w0: (340 + 130, 180) = (470, 180) -->
+          <!-- w1: (340 - 65, 180 - 112.58) = (275, 67.4) -->
+          <!-- w2: (340 - 65, 180 + 112.58) = (275, 292.6) -->
+          <polygon points="470,180 275,67.4 275,292.6" fill="#eef2ff" stroke="#4338ca" stroke-width="2.5" opacity="0.8" />
+
+          <!-- Vektor panah -->
+          <line x1="340" y1="180" x2="470" y2="180" stroke="#4338ca" stroke-width="2.2" />
+          <circle cx="470" cy="180" r="5" fill="#4338ca" />
+          <text x="480" y="175" font-size="13" font-weight="700" fill="#4338ca">w₀ = 2 (0°)</text>
+
+          <line x1="340" y1="180" x2="275" y2="67.4" stroke="#0284c7" stroke-width="2.2" />
+          <circle cx="275" cy="67.4" r="5" fill="#0284c7" />
+          <text x="180" y="62" font-size="13" font-weight="700" fill="#0284c7">w₁ = -1 + i√3 (120°)</text>
+
+          <line x1="340" y1="180" x2="275" y2="292.6" stroke="#db2777" stroke-width="2.2" />
+          <circle cx="275" cy="292.6" r="5" fill="#db2777" />
+          <text x="175" y="310" font-size="13" font-weight="700" fill="#db2777">w₂ = -1 - i√3 (240°)</text>
+
+          <text x="350" y="140" font-size="12" font-weight="600" fill="#6366f1">Radius = 2</text>
+        </svg>
+      </div>
+      <p class="svg-caption">
+        Gambar: Tiga akar kompleks dari \(\sqrt[3]{8}\). Ketiga titik membentuk segitiga sama sisi pada lingkaran berjari-jari 2.
+      </p>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal — Menentukan Semua Akar Kompleks</div>
+      <p>Tentukan seluruh penyelesaian dari persamaan \(z^3 = 8\)!</p>
+      <p><strong>Langkah Penyelesaian:</strong></p>
+      <ol class="steps">
+        <li>
+          Nyatakan \(8\) ke dalam bentuk polar:
+          \[8 = 8 + 0i \implies r = 8, \quad \theta = 0^\circ\]
+        </li>
+        <li>
+          Hitung jari-jari akar:
+          \[r_{\text{akar}} = \sqrt[3]{8} = 2\]
+        </li>
+        <li>
+          Gunakan rumus akar dengan \(n = 3\) dan \(k = 0, 1, 2\):
+          \[w_k = 2\left[\cos\left(\frac{0^\circ + k \cdot 360^\circ}{3}\right) + i\sin\left(\frac{0^\circ + k \cdot 360^\circ}{3}\right)\right]\]
+        </li>
+        <li>
+          Hitung untuk tiap nilai \(k\):
+          <ul>
+            <li><strong>Untuk \(k = 0\):</strong>
+              \[w_0 = 2(\cos 0^\circ + i\sin 0^\circ) = 2(1 + 0) = \mathbf{2}\]
+            </li>
+            <li><strong>Untuk \(k = 1\):</strong>
+              \[w_1 = 2(\cos 120^\circ + i\sin 120^\circ) = 2\left(-\frac{1}{2} + i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 + i\sqrt{3}}\]
+            </li>
+            <li><strong>Untuk \(k = 2\):</strong>
+              \[w_2 = 2(\cos 240^\circ + i\sin 240^\circ) = 2\left(-\frac{1}{2} - i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 - i\sqrt{3}}\]
+            </li>
+          </ul>
+        </li>
+      </ol>
+      <p class="answer">
+        <strong>Jawaban:</strong> Ketiga akar dari \(z^3 = 8\) adalah \(w_0 = 2\), \(w_1 = -1 + i\sqrt{3}\), dan \(w_2 = -1 - i\sqrt{3}\).
+      </p>
+    </div>
+
+    <h2>4. Rangkuman Pertemuan 06</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Konsep</th><th>Rumus Matematis</th><th>Makna Geometris</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Perkalian Polar</strong></td>
+            <td>\(z_1 z_2 = r_1 r_2 [\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)]\)</td>
+            <td>Rotasi vektor sebesar \(\theta_2\) dan penskalaan panjang sebesar \(r_2\).</td>
+          </tr>
+          <tr>
+            <td><strong>Pembagian Polar</strong></td>
+            <td>\(\frac{z_1}{z_2} = \frac{r_1}{r_2} [\cos(\theta_1-\theta_2) + i\sin(\theta_1-\theta_2)]\)</td>
+            <td>Rotasi berlawanan arah sebesar \(\theta_2\) dan pembagian panjang.</td>
+          </tr>
+          <tr>
+            <td><strong>De Moivre</strong></td>
+            <td>\(z^n = r^n [\cos(n\theta) + i\sin(n\theta)]\)</td>
+            <td>Pemangkatan aljabar berubah menjadi kelipatan sudut \(n\theta\).</td>
+          </tr>
+          <tr>
+            <td><strong>Akar Pangkat n</strong></td>
+            <td>\(w_k = \sqrt[n]{r} \left[\cos\left(\frac{\theta+2k\pi}{n}\right) + i\sin\left(\frac{\theta+2k\pi}{n}\right)\right]\)</td>
+            <td>Tepat \(n\) buah titik yang membagi lingkaran menjadi segi-\(n\) beraturan.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tool-cta">
+      <span>Gunakan kalkulator pendamping untuk memeriksa hasil pemangkatan De Moivre dan memvisualisasikan segi-\(n\) akar secara langsung:</span>
+      <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Kalkulator Polar &amp; De Moivre</a>
+    </div>
+
+    <div class="note-plain" style="margin-top: 25px;">
+      <strong>Pratinjau Pertemuan 07:</strong> Setelah aljabar dan geometri bilangan kompleks tuntas dikuasai, kita akan mulai memasuki gerbang kalkulus kompleks sejati: <strong>Topologi Bidang Kompleks &amp; Fungsi Peubah Kompleks</strong> (himpunan terbuka, tertutup, titik batas, konsep limit, dan kekontinuan fungsi \(f(z) = u(x,y) + i v(x,y)\)).
+    </div>
+  </main>
+
+  <footer class="page-foot">
+    Analisis Kompleks (KP21517003) &middot; FKIP Universitas Siliwangi &middot; Modul Kuliah Mandiri
+  </footer>
+</div>
+
+<script>
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) {
+      if (e) e.preventDefault();
+      window.close();
+      return;
+    }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault();
+      window.history.back();
+      return;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>

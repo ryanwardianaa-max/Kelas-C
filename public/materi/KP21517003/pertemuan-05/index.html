@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Pertemuan 05 — Bidang Argand, Bentuk Polar &amp; De Moivre (KP21517003)</title>
+  <title>Pertemuan 05 — Perkalian Titik, Silang, Geometri Vektor &amp; Bentuk Polar (KP21517003)</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -107,6 +107,7 @@
     }
     .svg-wrapper { width: 100%; overflow-x: auto; }
     .svg-wrapper svg { width: 100%; height: auto; min-width: 320px; display: block; }
+    .svg-caption { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 8px; }
 
     .tool-cta {
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -120,6 +121,26 @@
     }
     .tool-cta a:hover { background: #7c70e9; }
     .tool-cta span { font-size: 0.87rem; color: #3730a3; flex: 1 1 200px; }
+
+    /* Photo Grid Dokumentasi Asli */
+    .photo-grid {
+      display: grid; grid-template-columns: 1fr; gap: 16px; margin: 16px 0 25px;
+    }
+    @media (min-width: 600px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .photo-card {
+      background: #f8fafc; border: 1px solid var(--line); border-radius: 12px;
+      overflow: hidden; display: flex; flexDirection: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .photo-card img {
+      width: 100%; height: auto; display: block; object-fit: contain; background: #e2e8f0;
+    }
+    .photo-caption {
+      padding: 10px 12px; font-size: 0.82rem; color: var(--ink);
+      background: white; border-top: 1px solid var(--line); font-weight: 600;
+    }
 
     footer.page-foot {
       margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line);
@@ -142,804 +163,398 @@
   </nav>
 
   <header>
-    <div class="badge">Pertemuan 05</div>
-    <h1>Modulus, Bidang Argand, Bentuk Polar &amp; Rumus De Moivre</h1>
-    <p>Bahan baca mandiri — lanjutan langsung dari Pertemuan 04 (sifat operasi, sekawan &amp; nilai mutlak)</p>
+    <div class="badge">Catatan Kuliah · Pertemuan 05</div>
+    <h1>Perkalian Titik, Silang, Geometri Vektor &amp; Bentuk Polar</h1>
+    <p>Catatan resmi perkuliahan Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Disertai dokumentasi catatan tulis tangan asli 7 lembar.</p>
 
     <div class="meta-info">
-      <span><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003)</span>
-      <span><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</span>
-      <span><strong>SKS / Kelas:</strong> 2 SKS / Kelas C (FKIP C.1.3)</span>
-      <span><strong>Rujukan:</strong> Brown &amp; Churchill, <em>Complex Variables and Applications</em>, Bab 1 §5–§10</span>
-      <span><strong>Catatan asli Pertemuan 04:</strong> <a href="/materi/KP21517003/pertemuan-04/index.html" style="color:#c7d2fe;">buka di sini</a></span>
+      <div><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003) &middot; 2 SKS &middot; Kelas C</div>
+      <div><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</div>
+      <div><strong>Rujukan Materi:</strong> Catatan Kuliah Asli, Spiegel (Schaum's) Bab 1, Brown &amp; Churchill Bab 1</div>
     </div>
   </header>
 
   <main>
     <div class="note-plain">
-      <strong>Ringkas dulu.</strong> Pertemuan 04 menutup dengan nilai mutlak \(|z| = \sqrt{a^2+b^2}\) — masih
-      berupa rumus. Pertemuan ini memberi rumus itu arti gambar: \(|z|\) adalah <em>panjang panah</em> \(z\) di
-      bidang, dan arah panah itu disebut argumen. Cara pandang ini membuat perkalian, pembagian, pemangkatan, dan
-      penarikan akar jauh lebih mudah — pekerjaan yang tadinya panjang menjadi sekadar mengalikan panjang dan
-      menjumlahkan sudut.
+      <strong>Ringkas dulu jembatan materi:</strong> Di Pertemuan 04 kemarin, kita telah menuntaskan sifat-sifat operasi aljabar dasar (komutatif, asosiatif, distributif), sifat konjugat ganda \(\overline{\overline{z}} = z\), siklus pangkat \(i\), dan penyederhanaan pecahan kompleks. Pada Pertemuan 05 hari ini, perkuliahan melangkah ke operasi vektor tingkat lanjut: <strong>Perkalian Titik (*Dot Product*)</strong> dan <strong>Perkalian Silang (*Cross Product*)</strong>, representasi geometri vektor pada <strong>Bidang Argand</strong> (aturan jajar genjang dan jarak dua titik), serta fondasi <strong>Bentuk Kutub (*Polar Form*)</strong> dan rumus Euler.
     </div>
 
-    <div class="card tip" style="margin-top:12px;">
-      <div class="formula-title" style="color:#d97706;">Sudah sampai mana?</div>
-      <p style="margin-bottom:0;">
-        Materi ini adalah <strong>bahan baca untuk pertemuan yang akan datang</strong>, bukan catatan kuliah yang
-        sudah berlangsung. Catatan asli Pertemuan 04 (sifat operasi dasar, invers, bilangan sekawan, nilai mutlak,
-        dan pembahasan dua soal papan tulis) ada di
-        <a href="/materi/KP21517003/pertemuan-04/index.html" style="color:var(--brand); font-weight:600;">halaman Pertemuan 04</a>.
-      </p>
-    </div>
-
-    <h2>1. Modulus (Nilai Mutlak) Bilangan Kompleks</h2>
+    <h2>1. Perkalian Titik Bilangan Kompleks (Dot Product)</h2>
     <p>
-      Modulus adalah <strong>jarak titik \(z\) dari titik asal</strong>. Karena \(z = a + bi\) digambar sebagai
-      titik \((a,b)\), jaraknya dihitung memakai Teorema Pythagoras.
+      Diberikan dua buah bilangan kompleks:
+      \[z_1 = a_1 + b_1 i \quad \text{dan} \quad z_2 = a_2 + b_2 i\]
+      Perkalian titik (*dot product*) dinotasikan dengan \(z_1 \cdot z_2\) dan memiliki empat bentuk representasi yang setara:
     </p>
 
     <div class="card formula">
-      <div class="formula-title">Definisi Modulus</div>
-      <div class="math-step-box">
-        $$|z| = |a + bi| = \sqrt{a^2 + b^2}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Nilainya selalu real dan tidak pernah negatif: \(|z| \ge 0\), dan \(|z| = 0\) hanya jika \(z = 0\).
-      </p>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 1</div>
-      <p>Hitung modulus dari \(z = 3 + 4i\) dan \(w = -2 + 2i\).</p>
+      <div class="formula-title">Empat Bentuk Ekuivalen Dot Product</div>
       <div class="math-step-box">
         $$\begin{aligned}
-        |z| &= \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5 \\[8pt]
-        |w| &= \sqrt{(-2)^2 + 2^2} = \sqrt{4 + 4} = \sqrt{8} = 2\sqrt{2} \approx 2{,}828
-        \end{aligned}$$
-      </div>
-    </div>
-
-    <h3>Hubungan dengan konjugat (menyambung Pertemuan 04)</h3>
-    <p>
-      Di Pertemuan 04 sudah dibuktikan \(z \cdot \bar{z} = a^2 + b^2\). Sekarang hasil itu punya nama:
-    </p>
-    <div class="card highlight">
-      <div class="math-step-box">
-        $$z \cdot \bar{z} = |z|^2 \qquad \Longleftrightarrow \qquad |z| = \sqrt{z \bar{z}}$$
-      </div>
-    </div>
-
-    <h3>Sifat-sifat penting modulus</h3>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Sifat</th><th>Rumus</th><th>Cara membacanya</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Hasil kali</td><td>\(|z_1 z_2| = |z_1|\,|z_2|\)</td><td>Panjang hasil kali = kali panjangnya</td></tr>
-          <tr><td>Hasil bagi</td><td>\(\left|\dfrac{z_1}{z_2}\right| = \dfrac{|z_1|}{|z_2|}\)</td><td>Berlaku untuk \(z_2 \neq 0\)</td></tr>
-          <tr><td>Konjugat</td><td>\(|\bar{z}| = |z|\)</td><td>Mencerminkan tidak mengubah panjang</td></tr>
-          <tr><td>Pangkat</td><td>\(|z^n| = |z|^n\)</td><td>Dipakai pada De Moivre</td></tr>
-          <tr><td>Ketaksamaan segitiga</td><td>\(|z_1 + z_2| \le |z_1| + |z_2|\)</td><td>Jalan lurus tak pernah lebih panjang dari memutar</td></tr>
-          <tr><td>Jarak dua titik</td><td>\(d(z_1,z_2) = |z_1 - z_2|\)</td><td>Kunci menulis persamaan lingkaran</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card warn">
-      <div class="formula-title" style="color: var(--warning);">Sering keliru</div>
-      <p style="margin-bottom:0;">
-        \(|z_1 + z_2| \neq |z_1| + |z_2|\) secara umum. Contoh: \(z_1 = 1\), \(z_2 = -1\) memberi
-        \(|z_1+z_2| = 0\) padahal \(|z_1| + |z_2| = 2\). Modulus <strong>bersahabat dengan kali dan bagi</strong>,
-        tetapi <strong>tidak dengan tambah dan kurang</strong>.
-      </p>
-    </div>
-
-    <h3>Kegunaan Langsung Modulus: Persamaan Lingkaran dan Daerah Cakram</h3>
-    <p>
-      Mengapa rumus modulus mendadak digunakan untuk menulis persamaan lingkaran? 
-      Mari kita pelajari jembatan logikanya secara bertahap dari konsep jarak geometri paling dasar.
-    </p>
-
-    <div class="card note">
-      <div class="formula-title">1. Jembatan Konsep: Dari Jarak Bilangan Real ke Jarak Kompleks</div>
-      <p>
-        Di garis bilangan real \(\mathbb{R}\), jarak antara dua titik \(x\) dan \(x_0\) adalah nilai mutlak selisihnya:
-        \[d(x, x_0) = |x - x_0|\]
-        Contoh sederhana: jarak dari titik 5 ke titik 2 adalah \(|5 - 2| = 3\).
-      </p>
-      <p>
-        Hal yang sama persis berlaku di bidang kompleks \(\mathbb{C}\). Misalkan kita memiliki dua bilangan kompleks:
-        \[z = x + iy \quad \text{dan} \quad z_0 = x_0 + iy_0\]
-        Vektor selisih dari titik acuan \(z_0\) menuju titik sembarang \(z\) adalah:
-        \[z - z_0 = (x - x_0) + i(y - y_0)\]
-        Panjang (modulus) dari vektor selisih ini dihitung dengan rumus Pythagoras:
-        \[|z - z_0| = \sqrt{(x - x_0)^2 + (y - y_0)^2}\]
-        Rumus di atas persis rumus jarak Euclidean antara titik \((x,y)\) dan titik pusat \((x_0,y_0)\) pada bidang Kartesius!
-      </p>
-    </div>
-
-    <div class="card formula">
-      <div class="formula-title">2. Mengapa \(|z - z_0| = r\) Menyatakan Lingkaran?</div>
-      <p>
-        Menurut definisi geometri paling dasar: <em>"Lingkaran adalah himpunan semua titik yang berjarak sama (\(r\)) terhadap satu titik pusat tertentu (\(z_0\))."</em>
-      </p>
-      <p>
-        Jika jarak titik \(z\) ke pusat \(z_0\) selalu tepat sama dengan jari-jari \(r\), maka dalam notasi kompleks dituliskan secara sangat ringkas:
-      </p>
-      <div class="math-step-box">
-        $$|z - z_0| = r$$
-      </div>
-      <p>
-        Kita buktikan kesetaraannya dengan rumus persamaan lingkaran Kartesius yang sudah dipelajari di SMA:
-      </p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-          |z - z_0| &= r \\[6pt]
-          \sqrt{(x - x_0)^2 + (y - y_0)^2} &= r \quad \xrightarrow{\text{kuadratkan kedua ruas}} \\[8pt]
-          \mathbf{(x - x_0)^2 + (y - y_0)^2} &= \mathbf{r^2}
+        \text{1. Bentuk Geometris (Polar)} &: z_1 \cdot z_2 = |z_1| |z_2| \cos\theta \\[6pt]
+        \text{2. Bentuk Koordinat Aljabar} &: z_1 \cdot z_2 = a_1 a_2 + b_1 b_2 \\[6pt]
+        \text{3. Bentuk Bagian Real dari Sekawan} &: z_1 \cdot z_2 = \operatorname{Re}(\bar{z}_1 z_2) \\[6pt]
+        \text{4. Bentuk Aljabar Simetris Sekawan} &: z_1 \cdot z_2 = \frac{1}{2}(\bar{z}_1 z_2 + z_1 \bar{z}_2)
         \end{aligned}$$
       </div>
       <p style="margin-bottom:0; font-size:0.9rem;">
-        Terbukti! Kedua bentuk ini setara 100%. Di mata kuliah Analisis Kompleks, notasi \(|z - z_0| = r\) lebih disukai karena jauh lebih padat dan langsung memperlihatkan titik pusat \(z_0\) serta radius \(r\).
+        <em>Keterangan:</em> \(\theta\) adalah besar sudut antara vektor posisi \(z_1\) dan \(z_2\). Perkalian titik menghasilkan skalar bilangan real murni.
       </p>
     </div>
 
-    <div class="card">
-      <div class="formula-title">3. Pembagian Wilayah: Keliling, Cakram Dalam, Cakram Luar, dan Anulus</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Bentuk Kompleks</th>
-              <th>Bentuk Kartesius</th>
-              <th>Nama Geometri</th>
-              <th>Keterangan Wilayah</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>\(|z - z_0| = r\)</td>
-              <td>\((x-x_0)^2 + (y-y_0)^2 = r^2\)</td>
-              <td><strong>Keliling Lingkaran</strong></td>
-              <td>Hanya garis batas tepinya saja (kurva tertutup \(C\)).</td>
-            </tr>
-            <tr>
-              <td>\(|z - z_0| < r\)</td>
-              <td>\((x-x_0)^2 + (y-y_0)^2 < r^2\)</td>
-              <td><strong>Cakram Terbuka (Open Disk)</strong></td>
-              <td>Semua titik di dalam lingkaran, <em>tanpa</em> garis batas kelilingnya.</td>
-            </tr>
-            <tr>
-              <td>\(|z - z_0| \le r\)</td>
-              <td>\((x-x_0)^2 + (y-y_0)^2 \le r^2\)</td>
-              <td><strong>Cakram Tertutup (Closed Disk)</strong></td>
-              <td>Semua titik di dalam lingkaran <em>beserta</em> garis batas kelilingnya.</td>
-            </tr>
-            <tr>
-              <td>\(|z - z_0| > r\)</td>
-              <td>\((x-x_0)^2 + (y-y_0)^2 > r^2\)</td>
-              <td><strong>Daerah Luar (Exterior)</strong></td>
-              <td>Seluruh daerah yang berada di luar batas lingkaran.</td>
-            </tr>
-            <tr>
-              <td>\(r_1 < |z - z_0| < r_2\)</td>
-              <td>\(r_1^2 < (x-x_0)^2 + (y-y_0)^2 < r_2^2\)</td>
-              <td><strong>Cincin / Anulus (Annulus)</strong></td>
-              <td>Daerah di antara dua lingkaran sepusat berjejari \(r_1\) dan \(r_2\). Sangat penting pada Deret Laurent!</td>
-            </tr>
-          </tbody>
-        </table>
+    <h2>2. Perkalian Silang Bilangan Kompleks (Cross Product)</h2>
+    <p>
+      Perkalian silang (*cross product*) dua bilangan kompleks dinotasikan dengan \(z_1 \times z_2\) dan memiliki empat representasi ekuivalen:
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Empat Bentuk Ekuivalen Cross Product</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{1. Bentuk Geometris (Polar)} &: z_1 \times z_2 = |z_1| |z_2| \sin\theta \\[6pt]
+        \text{2. Bentuk Determinan } 2\times 2 &: z_1 \times z_2 = a_1 b_2 - b_1 a_2 = \begin{vmatrix} a_1 & b_1 \\ a_2 & b_2 \end{vmatrix} \\[6pt]
+        \text{3. Bentuk Bagian Imajiner Sekawan} &: z_1 \times z_2 = \operatorname{Im}(\bar{z}_1 z_2) \\[6pt]
+        \text{4. Bentuk Antisimetris Sekawan} &: z_1 \times z_2 = \frac{1}{2i}(\bar{z}_1 z_2 - z_1 \bar{z}_2)
+        \end{aligned}$$
       </div>
     </div>
 
-    <!-- Diagram SVG Lingkaran Kompleks -->
-    <div class="svg-diagram-card">
-      <div class="svg-wrapper">
-        <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visualisasi lingkaran dan cakram pada bidang kompleks berpusat di 2i dengan radius 3">
-          <defs>
-            <marker id="ar1" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
-            </marker>
-          </defs>
-
-          <!-- Grid garis tipis -->
-          <g stroke="#f1f5f9" stroke-width="1.5">
-            <line x1="80" y1="50" x2="600" y2="50" />
-            <line x1="80" y1="120" x2="600" y2="120" />
-            <line x1="80" y1="190" x2="600" y2="190" />
-            <line x1="80" y1="260" x2="600" y2="260" />
-            <line x1="160" y1="40" x2="160" y2="300" />
-            <line x1="250" y1="40" x2="250" y2="300" />
-            <line x1="340" y1="40" x2="340" y2="300" />
-            <line x1="430" y1="40" x2="430" y2="300" />
-            <line x1="520" y1="40" x2="520" y2="300" />
-          </g>
-
-          <!-- Sumbu Re dan Im -->
-          <line x1="80" y1="260" x2="620" y2="260" stroke="#64748b" stroke-width="2" marker-end="url(#ar1)" />
-          <line x1="340" y1="310" x2="340" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#ar1)" />
-          <text x="626" y="265" font-size="14" fill="#334155" font-weight="700">Re</text>
-          <text x="348" y="24" font-size="14" fill="#334155" font-weight="700">Im</text>
-          <text x="328" y="280" font-size="12" fill="#64748b">0</text>
-
-          <!-- Cakram dalam (arsiran lembut) -->
-          <circle cx="340" cy="120" r="105" fill="#eef2ff" opacity="0.85" />
-
-          <!-- Keliling lingkaran |z - 2i| = 3 -->
-          <circle cx="340" cy="120" r="105" fill="none" stroke="#4338ca" stroke-width="2.5" />
-
-          <!-- Titik pusat z0 = 2i (cx=340, cy=120) -->
-          <circle cx="340" cy="120" r="4.5" fill="#dc2626" />
-          <text x="350" y="115" font-size="13" font-weight="700" fill="#dc2626">z₀ = 2i (Pusat)</text>
-
-          <!-- Garis jari-jari r = 3 -->
-          <line x1="340" y1="120" x2="445" y2="120" stroke="#4338ca" stroke-width="2" stroke-dasharray="4 4" />
-          <text x="380" y="112" font-size="12" font-weight="600" fill="#4338ca">r = 3</text>
-
-          <!-- Label kurva lingkaran dan daerah cakram -->
-          <text x="455" y="80" font-size="13" font-weight="700" fill="#4338ca">|z - 2i| = 3 (Keliling)</text>
-          <text x="260" y="150" font-size="12" font-weight="600" fill="#4f46e5">|z - 2i| &lt; 3 (Cakram dalam)</text>
-
-          <!-- Titik uji z1 = 1 + i (cx = 340 + 35 = 375, cy = 260 - 70 = 190) -->
-          <circle cx="375" cy="190" r="4" fill="#10b981" />
-          <text x="383" y="194" font-size="11" font-weight="700" fill="#10b981">z₁ = 1+i (di dalam)</text>
-
-          <!-- Titik uji z2 = 3 + 2i (cx = 340 + 105 = 445, cy = 120) -->
-          <circle cx="445" cy="120" r="4" fill="#d97706" />
-          <text x="450" y="132" font-size="11" font-weight="700" fill="#d97706">z₂ = 3+2i (pada garis)</text>
-
-          <!-- Titik uji z3 = -2 + 5i (cx = 340 - 70 = 270, cy = 120 - 105 = 15) -->
-          <circle cx="270" cy="35" r="4" fill="#991b1b" />
-          <text x="180" y="38" font-size="11" font-weight="700" fill="#991b1b">z₃ = -2+5i (di luar)</text>
-        </svg>
+    <div class="card example">
+      <div class="formula-title">Pembahasan Latihan Soal 1 (Catatan Asli Lembar 1)</div>
+      <p><strong>Soal:</strong> Diketahui \(z_1 = 2 + 5i\) dan \(z_2 = 3 - i\). Tentukan:</p>
+      <ol class="steps">
+        <li>\(z_1 \cdot z_2\)</li>
+        <li>\(z_2 \cdot z_1\)</li>
+        <li>\(z_1 \times z_2\)</li>
+        <li>\(z_2 \times z_1\)</li>
+      </ol>
+      <p><strong>Penyelesaian:</strong></p>
+      <p class="step-note">Identifikasi komponen: \(a_1 = 2, b_1 = 5\) dan \(a_2 = 3, b_2 = -1\).</p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{a. } z_1 \cdot z_2 &= (2)(3) + (5)(-1) = 6 - 5 = \mathbf{1} \\[6pt]
+        \text{b. } z_2 \cdot z_1 &= (3)(2) + (-1)(5) = 6 - 5 = \mathbf{1} \quad \implies \text{Bersifat Komutatif!} \\[8pt]
+        \text{c. } z_1 \times z_2 &= (2)(-1) - (5)(3) = -2 - 15 = \mathbf{-17} \\[6pt]
+        \text{d. } z_2 \times z_1 &= (3)(5) - (-1)(2) = 15 + 2 = \mathbf{17} \quad \implies \text{Bersifat Antikomutatif!}
+        \end{aligned}$$
       </div>
-      <p class="svg-caption">
-        Gambar: Lingkaran \(|z - 2i| = 3\) pada bidang kompleks. Titik pusat berada di \(2i = (0,2)\), jari-jari \(r = 3\), daerah biru muda adalah cakram dalam \(|z - 2i| < 3\).
-      </p>
     </div>
 
-    <!-- 3 Contoh Soal Bertahap -->
-    <div class="card example">
-      <div class="formula-title">Contoh Soal 1 — Menentukan Titik Pusat dan Jari-Jari Lingkaran</div>
-      <p><strong>Soal:</strong> Tentukan titik pusat dan panjang jari-jari dari masing-masing persamaan lingkaran berikut:</p>
-      <ol class="steps">
-        <li>\(|z - 2i| = 3\)</li>
-        <li>\(|z + 3 - 4i| = 5\)</li>
-      </ol>
-      <p><strong>Langkah Penyelesaian:</strong></p>
-      <ol class="steps">
-        <li>
-          <strong>Bagian (a):</strong> Ubah persamaan ke bentuk baku \(|z - z_0| = r\):
-          \[|z - (0 + 2i)| = 3\]
-          Diperoleh:
-          <ul>
-            <li>Titik pusat \(z_0 = 0 + 2i\) (pada koordinat Kartesius adalah titik \((0, 2)\)).</li>
-            <li>Panjang jari-jari \(r = 3\).</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Bagian (b):</strong> Persamaan memiliki tanda plus, kita faktorkan tanda minus agar menjadi bentuk baku \(|z - z_0|\):
-          \[|z - (-3 + 4i)| = 5\]
-          Diperoleh:
-          <ul>
-            <li>Titik pusat \(z_0 = -3 + 4i\) (pada koordinat Kartesius adalah titik \((-3, 4)\)).</li>
-            <li>Panjang jari-jari \(r = 5\).</li>
-          </ul>
-        </li>
-      </ol>
-      <p class="answer">
-        <strong>Jawaban:</strong><br>
-        (a) Pusat di \((0,2)\) atau \(z_0 = 2i\), jari-jari \(r = 3\).<br>
-        (b) Pusat di \((-3,4)\) atau \(z_0 = -3+4i\), jari-jari \(r = 5\).
-      </p>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title">Contoh Soal 2 — Menyelidiki Posisi Titik terhadap Lingkaran</div>
-      <p><strong>Soal:</strong> Diberikan persamaan lingkaran \(|z - 2i| = 3\). Selidiki apakah titik-titik berikut berada di <strong>dalam cakram</strong>, tepat <strong>pada keliling lingkaran</strong>, atau di <strong>luar lingkaran</strong>:</p>
-      <ol class="steps">
-        <li>\(z_1 = 1 + i\)</li>
-        <li>\(z_2 = 3 + 2i\)</li>
-        <li>\(z_3 = -2 + 5i\)</li>
-      </ol>
-      <p><strong>Langkah Penyelesaian:</strong></p>
-      <p class="step-note">Hitung jarak tiap titik ke pusat \(z_0 = 2i\) dengan menghitung modulus selisihnya, lalu bandingkan dengan nilai radius \(r = 3\):</p>
-      <ol class="steps">
-        <li>
-          <strong>Uji titik \(z_1 = 1 + i\):</strong>
-          \[\begin{aligned}
-            |z_1 - 2i| &= |(1 + i) - 2i| = |1 - i| \\[6pt]
-            &= \sqrt{1^2 + (-1)^2} = \sqrt{1 + 1} = \sqrt{2} \approx 1{,}414
-          \end{aligned}\]
-          Karena \(\sqrt{2} \approx 1{,}414 < 3\) (jaraknya lebih kecil dari radius), maka titik \(z_1\) berada di <strong>dalam cakram lingkaran</strong>.
-        </li>
-        <li>
-          <strong>Uji titik \(z_2 = 3 + 2i\):</strong>
-          \[\begin{aligned}
-            |z_2 - 2i| &= |(3 + 2i) - 2i| = |3 + 0i| = 3
-          \end{aligned}\]
-          Karena nilainya tepat sama dengan 3, maka titik \(z_2\) terletak tepat <strong>pada garis keliling lingkaran</strong>.
-        </li>
-        <li>
-          <strong>Uji titik \(z_3 = -2 + 5i\):</strong>
-          \[\begin{aligned}
-            |z_3 - 2i| &= |(-2 + 5i) - 2i| = |-2 + 3i| \\[6pt]
-            &= \sqrt{(-2)^2 + 3^2} = \sqrt{4 + 9} = \sqrt{13} \approx 3{,}606
-          \end{aligned}\]
-          Karena \(\sqrt{13} \approx 3{,}606 > 3\) (jaraknya lebih besar dari radius), maka titik \(z_3\) berada di <strong>luar lingkaran</strong>.
-        </li>
-      </ol>
-      <p class="answer">
-        <strong>Jawaban:</strong><br>
-        \(z_1\) di dalam cakram (\(|z_1 - 2i| = \sqrt{2} < 3\)), \(z_2\) tepat pada lingkaran (\(|z_2 - 2i| = 3\)), dan \(z_3\) di luar lingkaran (\(|z_3 - 2i| = \sqrt{13} > 3\)).
-      </p>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title">Contoh Soal 3 — Mengubah Persamaan Kartesius ke Notasi Kompleks</div>
-      <p><strong>Soal:</strong> Nyatakan persamaan lingkaran Kartesius \((x - 1)^2 + (y + 2)^2 = 16\) ke dalam bentuk persamaan peubah kompleks \(|z - z_0| = r\).</p>
-      <p><strong>Langkah Penyelesaian:</strong></p>
-      <ol class="steps">
-        <li>
-          Identifikasi titik pusat \((x_0, y_0)\) dari persamaan Kartesius:
-          \[(x - 1)^2 + (y - (-2))^2 = 4^2\]
-          Maka titik pusatnya adalah \((x_0, y_0) = (1, -2)\).
-        </li>
-        <li>
-          Nyatakan titik pusat tersebut sebagai bilangan kompleks \(z_0\):
-          \[z_0 = x_0 + i y_0 = 1 - 2i\]
-        </li>
-        <li>
-          Identifikasi panjang jari-jarinya:
-          \[r = \sqrt{16} = 4\]
-        </li>
-        <li>
-          Susun ke dalam rumus baku \(|z - z_0| = r\):
-          \[|z - (1 - 2i)| = 4 \quad \Longleftrightarrow \quad |z - 1 + 2i| = 4\]
-        </li>
-      </ol>
-      <p class="answer">
-        <strong>Jawaban:</strong> Bentuk persamaan kompleksnya adalah \(|z - (1 - 2i)| = 4\) atau \(|z - 1 + 2i| = 4\).
-      </p>
-    </div>
+    <h2>3. Penyajian Secara Grafik Bilangan Kompleks (Bidang Argand)</h2>
+    <p>
+      Setiap bilangan kompleks \(z = a + bi\) dapat dituliskan dalam bentuk pasangan terurut \((a, b)\) pada bidang koordinat datar:
+      <br>&bull; Sumbu horizontal dinamai <strong>Sumbu Real</strong> (\(\text{Re}\) atau \(a\)).
+      <br>&bull; Sumbu vertikal dinamai <strong>Sumbu Imajiner</strong> (\(\text{Im}\) atau \(b\)).
+    </p>
 
     <div class="card highlight">
-      <div class="formula-title">Mengapa Notasi Ini Sangat Penting di Pertemuan Berikutnya?</div>
-      <p style="margin-bottom:0;">
-        Di materi Analisis Kompleks selanjutnya:
-        <br>&bull; <strong>Pertemuan 06 (Limit &amp; Turunan Kompleks):</strong> Konsep lingkungan (\(\varepsilon\)-neighborhood) didefinisikan sebagai cakram terbuka \(|z - z_0| < \varepsilon\).
-        <br>&bull; <strong>Pertemuan 11–12 (Integral Kontur &amp; Teorema Cauchy):</strong> Lintasan kurva tertutup \(C\) hampir selalu didefinisikan sebagai keliling lingkaran, misalnya \(\oint_C \frac{1}{z - z_0}\,dz\) dengan lintasan \(C: |z - z_0| = r\).
-      </p>
-    </div>
-
-    <h2>2. Bidang Argand (Bidang Kompleks)</h2>
-    <p>
-      Bidang Argand adalah bidang koordinat biasa, hanya saja sumbu \(x\) dinamai <strong>sumbu real</strong> dan
-      sumbu \(y\) dinamai <strong>sumbu imajiner</strong>. Setiap bilangan \(z = a+bi\) menjadi satu titik \((a,b)\),
-      atau sebuah panah dari titik asal ke titik itu.
-    </p>
-
-    <div class="svg-diagram-card">
-      <div class="svg-wrapper">
-        <svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bidang Argand memperlihatkan z sama dengan 3 tambah 4i, modulus 5, dan sudut theta">
-          <defs>
-            <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L9,3 z" fill="#4338ca" />
-            </marker>
-            <marker id="ax" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
-            </marker>
-          </defs>
-
-          <!-- grid -->
-          <g stroke="#e2e8f0" stroke-width="1">
-            <path d="M100 60 V380 M180 60 V380 M260 60 V380 M340 60 V380 M420 60 V380 M500 60 V380 M580 60 V380" />
-            <path d="M60 100 H620 M60 180 H620 M60 260 H620 M60 340 H620" />
-          </g>
-
-          <!-- axes -->
-          <g stroke="#64748b" stroke-width="2" marker-end="url(#ax)">
-            <path d="M60 340 H630" />
-            <path d="M180 390 V52" />
-          </g>
-          <text x="636" y="345" font-size="15" fill="#334155" font-weight="600">Re</text>
-          <text x="170" y="46" font-size="15" fill="#334155" font-weight="600">Im</text>
-          <text x="166" y="360" font-size="13" fill="#64748b">O</text>
-
-          <!-- ticks -->
-          <g font-size="12" fill="#64748b" text-anchor="middle">
-            <text x="260" y="360">1</text><text x="340" y="360">2</text>
-            <text x="420" y="360">3</text><text x="500" y="360">4</text>
-          </g>
-          <g font-size="12" fill="#64748b" text-anchor="end">
-            <text x="172" y="265">1</text><text x="172" y="185">2</text>
-            <text x="172" y="105">3</text>
-          </g>
-          <text x="172" y="85" font-size="12" fill="#64748b" text-anchor="end">4</text>
-
-          <!-- projection dashes -->
-          <g stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" fill="none">
-            <path d="M420 340 V80" />
-            <path d="M180 80 H420" />
-          </g>
-
-          <!-- vector z -->
-          <path d="M180 340 L420 80" stroke="#4338ca" stroke-width="3.5" fill="none" marker-end="url(#ah)" />
-          <circle cx="420" cy="80" r="6" fill="#4338ca" />
-          <text x="432" y="72" font-size="16" fill="#312e81" font-weight="700">z = 3 + 4i</text>
-
-          <!-- angle arc -->
-          <path d="M232 340 A 52 52 0 0 0 208 296" stroke="#d97706" stroke-width="2.5" fill="none" />
-          <text x="240" y="316" font-size="15" fill="#b45309" font-weight="700">&#952;</text>
-
-          <!-- labels a, b, r -->
-          <text x="292" y="196" font-size="15" fill="#4338ca" font-weight="700" transform="rotate(-47 292 196)">r = |z| = 5</text>
-          <text x="300" y="362" font-size="13" fill="#475569">a = 3 (bagian real)</text>
-          <text x="428" y="215" font-size="13" fill="#475569">b = 4 (bagian imajiner)</text>
-
-          <!-- conjugate -->
-          <path d="M180 340 L420 600" stroke="none" />
-          <g opacity="0.55">
-            <path d="M180 340 L420 340" stroke="none" />
-          </g>
-        </svg>
-      </div>
-      <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0; text-align:center;">
-        Panah \(z\) punya panjang \(r = |z| = 5\) dan sudut \(\theta\) terhadap sumbu real positif.
-      </p>
-    </div>
-
-    <div class="note-plain">
-      <strong>Kenapa gambar ini penting.</strong> Konjugat \(\bar{z} = 3 - 4i\) adalah pencerminan \(z\) terhadap
-      sumbu real. Penjumlahan \(z_1 + z_2\) mengikuti aturan jajar genjang seperti vektor. Dan \(|z_1 - z_2|\)
-      adalah panjang garis penghubung dua titik. Semua sifat aljabar dari Pertemuan 03 dan 04 punya arti geometri di sini.
-    </div>
-
-    <h2>3. Argumen: Arah Panah</h2>
-    <p>
-      Sudut \(\theta\) yang dibentuk panah \(z\) dengan sumbu real positif disebut <strong>argumen</strong>,
-      ditulis \(\arg z\). Dari gambar di atas berlaku \(a = r\cos\theta\) dan \(b = r\sin\theta\), sehingga:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Menentukan Argumen</div>
-      <div class="math-step-box">
-        $$\tan\theta = \frac{b}{a} \qquad \Longrightarrow \qquad \theta = \arctan\!\left(\frac{b}{a}\right) + k\pi$$
-      </div>
-    </div>
-
-    <div class="card warn">
-      <div class="formula-title" style="color: var(--warning);">Jangan asal pakai kalkulator</div>
-      <p>
-        Tombol \(\tan^{-1}\) di kalkulator selalu menjawab di kuadran I atau IV. Padahal \(z = -1 - i\) dan
-        \(z = 1 + i\) sama-sama memberi \(\tan\theta = 1\). Karena itu <strong>kuadran wajib diperiksa lewat tanda
-        \(a\) dan \(b\)</strong>, lalu sudutnya dikoreksi:
-      </p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Kuadran</th><th>Tanda</th><th>Koreksi terhadap \(\arctan(b/a)\)</th></tr></thead>
-          <tbody>
-            <tr><td>I</td><td>\(a&gt;0,\ b&gt;0\)</td><td>dipakai apa adanya</td></tr>
-            <tr><td>II</td><td>\(a&lt;0,\ b&gt;0\)</td><td>\(+\,180^\circ\ (+\pi)\)</td></tr>
-            <tr><td>III</td><td>\(a&lt;0,\ b&lt;0\)</td><td>\(-\,180^\circ\ (-\pi)\)</td></tr>
-            <tr><td>IV</td><td>\(a&gt;0,\ b&lt;0\)</td><td>dipakai apa adanya (hasilnya negatif)</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <h3>Argumen utama (principal argument)</h3>
-    <p>
-      Menambah satu putaran penuh tidak mengubah letak titik, jadi \(\arg z\) sesungguhnya tak hingga banyaknya:
-      \(\theta,\ \theta \pm 2\pi,\ \theta \pm 4\pi, \dots\) Agar tunggal, dipilih satu perwakilan pada selang
-      \((-\pi, \pi]\) dan disebut <strong>argumen utama</strong>, ditulis \(\operatorname{Arg} z\) (huruf A besar).
-    </p>
-    <div class="card highlight">
-      <div class="math-step-box">
-        $$\arg z = \operatorname{Arg} z + 2k\pi, \qquad k \in \mathbb{Z}, \qquad -\pi &lt; \operatorname{Arg} z \le \pi$$
-      </div>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 2 — perhatikan kuadrannya</div>
-      <p>Tentukan \(\operatorname{Arg} z\) untuk \(z = -1 + i\).</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        &amp;a = -1 &lt; 0,\quad b = 1 &gt; 0 \;\Rightarrow\; \text{kuadran II} \\[6pt]
-        &amp;\arctan\!\left(\frac{1}{-1}\right) = \arctan(-1) = -45^\circ \quad (\text{ini di kuadran IV, salah}) \\[6pt]
-        &amp;\text{koreksi kuadran II:}\quad -45^\circ + 180^\circ = 135^\circ \\[6pt]
-        &amp;\operatorname{Arg} z = 135^\circ = \tfrac{3\pi}{4}, \qquad |z| = \sqrt{2}
-        \end{aligned}$$
-      </div>
-    </div>
-
-    <h2>4. Bentuk Polar dan Bentuk Eksponensial</h2>
-    <p>
-      Dengan mengganti \(a = r\cos\theta\) dan \(b = r\sin\theta\) pada bentuk standar, diperoleh tiga cara
-      menulis bilangan yang sama:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Tiga Bentuk Penulisan</div>
-      <div class="math-step-box">
-        $$\underbrace{z = a + bi}_{\text{bentuk standar / rektangular}}
-        \;=\; \underbrace{r(\cos\theta + i\sin\theta)}_{\text{bentuk polar}}
-        \;=\; \underbrace{r\,e^{i\theta}}_{\text{bentuk eksponensial (Euler)}}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Bentuk polar sering diringkas \(r\,\text{cis}\,\theta\) (dibaca "\(r\) cis theta"), dari
-        <em>c</em>osine + <em>i</em> <em>s</em>ine.
-      </p>
-    </div>
-
-    <div class="note-plain">
-      <strong>Identitas Euler.</strong> \(e^{i\theta} = \cos\theta + i\sin\theta\) adalah jembatan antara
-      eksponen dan trigonometri. Substitusi \(\theta = \pi\) memberi hasil terkenal
-      \(e^{i\pi} + 1 = 0\), yang menautkan \(e\), \(i\), \(\pi\), \(1\), dan \(0\) dalam satu persamaan.
-    </div>
-
-    <h3>Cara mengubah bentuk standar ke polar</h3>
-    <ol>
-      <li>Hitung \(r = \sqrt{a^2+b^2}\).</li>
-      <li>Tentukan kuadran dari tanda \(a\) dan \(b\).</li>
-      <li>Hitung \(\theta = \arctan(b/a)\), lalu koreksi sesuai kuadran.</li>
-      <li>Tulis \(z = r(\cos\theta + i\sin\theta)\) atau \(z = re^{i\theta}\).</li>
-    </ol>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 3 — ubah ke bentuk polar</div>
-      <p>Nyatakan \(z = -2 + 2i\sqrt{3}\) dalam bentuk polar dan eksponensial.</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        r &amp;= \sqrt{(-2)^2 + (2\sqrt{3})^2} = \sqrt{4 + 12} = \sqrt{16} = 4 \\[8pt]
-        &amp;a = -2 &lt; 0,\ b = 2\sqrt{3} &gt; 0 \;\Rightarrow\; \text{kuadran II} \\[8pt]
-        \arctan\!\left(\frac{2\sqrt{3}}{-2}\right) &amp;= \arctan(-\sqrt{3}) = -60^\circ \\[8pt]
-        \theta &amp;= -60^\circ + 180^\circ = 120^\circ = \tfrac{2\pi}{3} \\[10pt]
-        z &amp;= 4\left(\cos 120^\circ + i \sin 120^\circ\right) = 4e^{i 2\pi/3}
-        \end{aligned}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Pemeriksaan balik: \(4\cos 120^\circ = 4(-\tfrac12) = -2\) &#10003; dan
-        \(4\sin 120^\circ = 4\!\left(\tfrac{\sqrt3}{2}\right) = 2\sqrt3\) &#10003;
-      </p>
-    </div>
-
-    <h2>5. Perkalian dan Pembagian dalam Bentuk Polar</h2>
-    <p>
-      Inilah alasan utama bentuk polar dipelajari. Bandingkan dengan perkalian dan pembagian panjang di
-      Pertemuan 04 — di bentuk polar, keduanya hampir tanpa kerja.
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Aturan Kali &amp; Bagi</div>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        z_1 z_2 &amp;= r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i\sin(\theta_1+\theta_2)\right] = r_1 r_2\, e^{i(\theta_1+\theta_2)} \\[10pt]
-        \frac{z_1}{z_2} &amp;= \frac{r_1}{r_2}\left[\cos(\theta_1 - \theta_2) + i\sin(\theta_1-\theta_2)\right] = \frac{r_1}{r_2}\, e^{i(\theta_1-\theta_2)}
-        \end{aligned}$$
-      </div>
-    </div>
-
-    <div class="card highlight">
-      <p style="margin-bottom:0;">
-        <strong>Kalimat yang perlu diingat:</strong> mengalikan bilangan kompleks berarti
-        <strong>mengalikan panjang dan menjumlahkan sudut</strong>; membagi berarti
-        <strong>membagi panjang dan mengurangkan sudut</strong>. Jadi perkalian dengan \(i\)
-        (\(r=1,\ \theta = 90^\circ\)) sama dengan <em>memutar panah \(90^\circ\) berlawanan arah jam</em>
-        tanpa mengubah panjangnya.
-      </p>
-    </div>
-
-    <h3>Bukti singkat aturan perkalian</h3>
-    <div class="card">
-      <div class="math-step-box">
-        $$\begin{aligned}
-        z_1 z_2 &amp;= r_1(\cos\theta_1 + i\sin\theta_1)\cdot r_2(\cos\theta_2 + i\sin\theta_2) \\[6pt]
-        &amp;= r_1 r_2\left[\cos\theta_1\cos\theta_2 + i\cos\theta_1\sin\theta_2 + i\sin\theta_1\cos\theta_2 + i^2\sin\theta_1\sin\theta_2\right] \\[6pt]
-        &amp;= r_1 r_2\left[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2)\right] \\[6pt]
-        &amp;= r_1 r_2\left[\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)\right]
-        \end{aligned}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Langkah terakhir memakai rumus jumlah sudut trigonometri. Perhatikan \(i^2 = -1\) yang sudah dipakai sejak Pertemuan 03
-        yang membuat tanda minus muncul tepat pada tempatnya.
-      </p>
-    </div>
-
-    <h2>6. Rumus De Moivre</h2>
-    <p>
-      Jika aturan perkalian diterapkan pada bilangan yang sama sebanyak \(n\) kali, panjangnya dipangkatkan
-      dan sudutnya dikalikan:
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Rumus De Moivre</div>
-      <div class="math-step-box">
-        $$z^n = \left[r(\cos\theta + i\sin\theta)\right]^n = r^n\left(\cos n\theta + i \sin n\theta\right) = r^n e^{in\theta}, \qquad n \in \mathbb{Z}$$
-      </div>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 4 — hitung \((1+i)^{10}\)</div>
-      <p>Menjabarkan dengan binomial butuh 11 suku. Dengan De Moivre cukup tiga baris.</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        r &amp;= \sqrt{1^2+1^2} = \sqrt{2}, \qquad \theta = \arctan\tfrac{1}{1} = 45^\circ \ (\text{kuadran I}) \\[8pt]
-        (1+i)^{10} &amp;= \left(\sqrt{2}\right)^{10}\left[\cos(10 \cdot 45^\circ) + i\sin(10\cdot 45^\circ)\right] \\[8pt]
-        &amp;= 2^{5}\left[\cos 450^\circ + i \sin 450^\circ\right] \\[8pt]
-        &amp;= 32\left[\cos 90^\circ + i\sin 90^\circ\right] \qquad (450^\circ - 360^\circ = 90^\circ)\\[8pt]
-        &amp;= 32\left[0 + i(1)\right] = \mathbf{32i}
-        \end{aligned}$$
-      </div>
-    </div>
-
-    <div class="note-plain">
-      <strong>Bonus untuk calon guru.</strong> De Moivre juga alat menurunkan identitas trigonometri.
-      Ambil \(r=1,\ n=2\): \((\cos\theta + i\sin\theta)^2 = \cos 2\theta + i \sin 2\theta\). Jabarkan ruas kiri,
-      lalu samakan bagian real dan imajinernya — langsung didapat
-      \(\cos 2\theta = \cos^2\theta - \sin^2\theta\) dan \(\sin 2\theta = 2\sin\theta\cos\theta\).
-    </div>
-
-    <h2>7. Akar-Akar Bilangan Kompleks</h2>
-    <p>
-      Di bilangan real, \(\sqrt[3]{8}\) hanya bernilai 2. Di bilangan kompleks, <strong>akar pangkat \(n\)
-      selalu ada tepat \(n\) buah</strong>. Ini salah satu kejutan menyenangkan dari Analisis Kompleks.
-    </p>
-
-    <div class="card formula">
-      <div class="formula-title">Rumus Akar Pangkat \(n\)</div>
-      <div class="math-step-box">
-        $$z^{1/n} = \sqrt[n]{r}\left[\cos\!\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\!\left(\frac{\theta + 2k\pi}{n}\right)\right], \qquad k = 0, 1, 2, \dots, n-1$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Dalam derajat: \(\dfrac{\theta + k \cdot 360^\circ}{n}\). Suku \(2k\pi\) muncul karena
-        \(\arg z\) memang tak tunggal — dan justru di sinilah \(n\) jawaban itu lahir.
-      </p>
-    </div>
-
-    <div class="card highlight">
-      <p style="margin-bottom:0;">
-        <strong>Gambaran geometrinya rapi sekali.</strong> Ke-\(n\) akar itu semuanya berjarak sama dari titik asal,
-        yaitu \(\sqrt[n]{r}\), dan tersebar merata dengan jarak sudut \(\dfrac{360^\circ}{n}\).
-        Jadi mereka membentuk titik-titik sudut <strong>segi-\(n\) beraturan</strong> pada sebuah lingkaran.
-      </p>
-    </div>
-
-    <div class="card example">
-      <div class="formula-title" style="color: var(--success);">Contoh 5 — akar pangkat tiga dari \(8\)</div>
-      <p>Tentukan semua nilai \(\sqrt[3]{8}\) pada bilangan kompleks.</p>
-      <div class="math-step-box">
-        $$\begin{aligned}
-        z &amp;= 8 = 8 + 0i \;\Rightarrow\; r = 8,\ \theta = 0^\circ, \qquad \sqrt[3]{8} = 2 \\[10pt]
-        k=0:\quad w_0 &amp;= 2\left[\cos 0^\circ + i \sin 0^\circ\right] = 2 \\[8pt]
-        k=1:\quad w_1 &amp;= 2\left[\cos 120^\circ + i\sin 120^\circ\right] = 2\left(-\tfrac12 + i\tfrac{\sqrt3}{2}\right) = -1 + i\sqrt{3} \\[8pt]
-        k=2:\quad w_2 &amp;= 2\left[\cos 240^\circ + i\sin 240^\circ\right] = 2\left(-\tfrac12 - i\tfrac{\sqrt3}{2}\right) = -1 - i\sqrt{3}
-        \end{aligned}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Ketiganya ada di lingkaran radius 2, berselisih sudut \(120^\circ\) — membentuk segitiga sama sisi.
-        Uji satu: \((-1+i\sqrt3)^3 = 8\). Silakan buktikan dengan De Moivre sebagai latihan.
-      </p>
-    </div>
-
-    <div class="svg-diagram-card">
-      <div class="svg-wrapper">
-        <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tiga akar pangkat tiga dari delapan membentuk segitiga sama sisi pada lingkaran radius dua">
-          <defs>
-            <marker id="ax2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
-            </marker>
-          </defs>
-
-          <!-- axes -->
-          <g stroke="#64748b" stroke-width="2" marker-end="url(#ax2)">
-            <path d="M120 200 H620" />
-            <path d="M350 370 V32" />
-          </g>
-          <text x="628" y="205" font-size="14" fill="#334155" font-weight="600">Re</text>
-          <text x="340" y="26" font-size="14" fill="#334155" font-weight="600">Im</text>
-
-          <!-- circle r=2 -->
-          <circle cx="350" cy="200" r="140" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="6 5" />
-          <text x="500" y="120" font-size="12" fill="#6366f1">lingkaran radius 2</text>
-
-          <!-- equilateral triangle -->
-          <polygon points="490,200 280,321 280,79" fill="#eef2ff" stroke="#4338ca" stroke-width="2.5" opacity="0.85" />
-
-          <!-- radii -->
-          <g stroke="#4338ca" stroke-width="2" opacity="0.6">
-            <path d="M350 200 L490 200" />
-            <path d="M350 200 L280 79" />
-            <path d="M350 200 L280 321" />
-          </g>
-
-          <!-- points -->
-          <circle cx="490" cy="200" r="6.5" fill="#4338ca" />
-          <circle cx="280" cy="79" r="6.5" fill="#4338ca" />
-          <circle cx="280" cy="321" r="6.5" fill="#4338ca" />
-
-          <text x="502" y="194" font-size="14" fill="#312e81" font-weight="700">w&#8320; = 2</text>
-          <text x="500" y="212" font-size="11.5" fill="#64748b">(sudut 0&#176;)</text>
-
-          <text x="150" y="72" font-size="14" fill="#312e81" font-weight="700">w&#8321; = -1 + i&#8730;3</text>
-          <text x="176" y="90" font-size="11.5" fill="#64748b">(sudut 120&#176;)</text>
-
-          <text x="150" y="330" font-size="14" fill="#312e81" font-weight="700">w&#8322; = -1 - i&#8730;3</text>
-          <text x="176" y="348" font-size="11.5" fill="#64748b">(sudut 240&#176;)</text>
-
-          <!-- angle marks -->
-          <path d="M395 200 A 45 45 0 0 0 372 161" stroke="#d97706" stroke-width="2.5" fill="none" />
-          <text x="382" y="180" font-size="12" fill="#b45309" font-weight="700">120&#176;</text>
-        </svg>
-      </div>
-      <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0; text-align:center;">
-        Ketiga akar pangkat tiga dari 8 berjarak sudut \(120^\circ\) satu sama lain.
-      </p>
-    </div>
-
-    <h3>Akar-akar satuan (roots of unity)</h3>
-    <p>
-      Kasus khusus \(z = 1\) sangat sering muncul. Karena \(r = 1\) dan \(\theta = 0\):
-    </p>
-    <div class="card formula">
-      <div class="math-step-box">
-        $$1^{1/n} = \cos\frac{2k\pi}{n} + i\sin\frac{2k\pi}{n} = e^{i 2k\pi/n}, \qquad k = 0,1,\dots,n-1$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.88rem;">
-        Semuanya terletak pada lingkaran satuan \(|z| = 1\), dan jumlah seluruh akar satuan selalu \(0\).
-      </p>
-    </div>
-
-    <h2>8. Rangkuman Pertemuan 05</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Konsep</th><th>Rumus inti</th><th>Gunanya</th></tr></thead>
-        <tbody>
-          <tr><td>Modulus</td><td>\(|z| = \sqrt{a^2+b^2}\)</td><td>Panjang panah / jarak dari O</td></tr>
-          <tr><td>Konjugat &amp; modulus</td><td>\(z\bar z = |z|^2\)</td><td>Menyambung Pertemuan 04</td></tr>
-          <tr><td>Argumen</td><td>\(\theta = \arctan(b/a)\) + koreksi kuadran</td><td>Arah panah</td></tr>
-          <tr><td>Argumen utama</td><td>\(-\pi &lt; \operatorname{Arg} z \le \pi\)</td><td>Membuat sudut tunggal</td></tr>
-          <tr><td>Bentuk polar</td><td>\(z = r(\cos\theta + i\sin\theta)\)</td><td>Menyederhanakan kali &amp; bagi</td></tr>
-          <tr><td>Bentuk Euler</td><td>\(z = re^{i\theta}\)</td><td>Notasi paling ringkas</td></tr>
-          <tr><td>Kali &amp; bagi</td><td>panjang dikali, sudut ditambah</td><td>Ganti kerja aljabar panjang</td></tr>
-          <tr><td>De Moivre</td><td>\(z^n = r^n(\cos n\theta + i\sin n\theta)\)</td><td>Pangkat tinggi &amp; identitas trigonometri</td></tr>
-          <tr><td>Akar pangkat \(n\)</td><td>\(\sqrt[n]{r}\,\angle\dfrac{\theta+2k\pi}{n}\)</td><td>Ada \(n\) jawaban, membentuk segi-\(n\)</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>9. Latihan Mandiri</h2>
-    <p>Kerjakan dulu di kertas, lalu cocokkan dengan kalkulator di bawah.</p>
-    <div class="card">
+      <div class="formula-title">Tiga Prinsip Geometri Vektor Kompleks</div>
       <ol>
-        <li>Hitung \(|{-5} + 12i|\) dan \(\operatorname{Arg}(-5+12i)\) dalam derajat.</li>
-        <li>Nyatakan \(z = -3 - 3i\) dalam bentuk polar dan eksponensial.</li>
-        <li>Jika \(z_1 = 2\,\text{cis}\,50^\circ\) dan \(z_2 = 4\,\text{cis}\,20^\circ\), tentukan \(z_1 z_2\) dan \(z_1/z_2\).</li>
-        <li>Gunakan De Moivre untuk menghitung \((\sqrt{3} + i)^{6}\).</li>
-        <li>Tentukan keempat akar dari \(z^4 = 16\), lalu gambar posisinya di bidang Argand.</li>
-        <li>Buktikan \(\cos 3\theta = 4\cos^3\theta - 3\cos\theta\) memakai De Moivre dengan \(n = 3\).</li>
+        <li>
+          <strong>Penjumlahan Secara Grafik (\(z_1 + z_2\)):</strong>
+          Mengikuti <strong>aturan jajar genjang (*parallelogram law*)</strong>. Vektor resultan \(z_1 + z_2\) ditarik dari titik asal \((0,0)\) ke titik puncak diagonal berkoordinat \((a_1 + a_2, b_1 + b_2)\).
+        </li>
+        <li>
+          <strong>Pengurangan Secara Grafik (\(z_1 - z_2\)):</strong>
+          Didefinisikan sebagai penjumlahan dengan lawan vektor: \(z_1 - z_2 = z_1 + (-z_2)\), dengan \(-z_2 = -a_2 - b_2 i\) berlawanan arah \(180^\circ\) terhadap \(z_2\).
+        </li>
+        <li>
+          <strong>Jarak Antara Dua Titik Kompleks:</strong>
+          Panjang jarak euclides dari titik \(z_1\) ke titik \(z_2\) adalah modulus selisihnya:
+          \[\mathbf{|z_1 - z_2| = \sqrt{(a_1 - a_2)^2 + (b_1 - b_2)^2}}\]
+        </li>
       </ol>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Pembahasan Latihan Soal 2 (Catatan Asli Lembar 3)</div>
+      <p><strong>Soal 1:</strong> Gambarkan grafik penjumlahan \(z_1 + z_2\) jika diketahui \(z_1 = 4 + 3i\) dan \(z_2 = 5 + 2i\)!</p>
+      <p><strong>Penyelesaian:</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z_1 &= (4, 3) \quad \text{dan} \quad z_2 = (5, 2) \\[6pt]
+        z_1 + z_2 &= (4 + 5) + (3 + 2)i = \mathbf{9 + 5i} \implies (9, 5)
+        \end{aligned}$$
+      </div>
+
+      <div class="svg-diagram-card">
+        <div class="svg-wrapper">
+          <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aturan Jajar Genjang Penjumlahan z1 + z2 = 9 + 5i">
+            <defs>
+              <marker id="arr1" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
+              </marker>
+            </defs>
+            <line x1="50" y1="280" x2="620" y2="280" stroke="#64748b" stroke-width="2" marker-end="url(#arr1)" />
+            <line x1="80" y1="310" x2="80" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arr1)" />
+            <text x="626" y="285" font-size="14" fill="#334155" font-weight="700">Re (a)</text>
+            <text x="88" y="24" font-size="14" fill="#334155" font-weight="700">Im (b)</text>
+            <text x="68" y="296" font-size="12" fill="#64748b">0</text>
+
+            <!-- Skala: origin (80, 280), scaleX: 52px per unit, scaleY: 42px per unit -->
+            <!-- z1: (80 + 4*52 = 288, 280 - 3*42 = 154) -->
+            <!-- z2: (80 + 5*52 = 340, 280 - 2*42 = 196) -->
+            <!-- z1+z2: (80 + 9*52 = 548, 280 - 5*42 = 70) -->
+
+            <!-- Garis jajar genjang putus-putus -->
+            <line x1="288" y1="154" x2="548" y2="70" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" />
+            <line x1="340" y1="196" x2="548" y2="70" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" />
+
+            <!-- Vektor z1 -->
+            <line x1="80" y1="280" x2="288" y2="154" stroke="#0284c7" stroke-width="2.5" />
+            <circle cx="288" cy="154" r="5" fill="#0284c7" />
+            <text x="260" y="142" font-size="13" font-weight="700" fill="#0284c7">z₁ (4, 3)</text>
+
+            <!-- Vektor z2 -->
+            <line x1="80" y1="280" x2="340" y2="196" stroke="#db2777" stroke-width="2.5" />
+            <circle cx="340" cy="196" r="5" fill="#db2777" />
+            <text x="350" y="208" font-size="13" font-weight="700" fill="#db2777">z₂ (5, 2)</text>
+
+            <!-- Vektor Diagonal Resultan z1 + z2 -->
+            <line x1="80" y1="280" x2="548" y2="70" stroke="#4338ca" stroke-width="3" />
+            <circle cx="548" cy="70" r="6" fill="#4338ca" />
+            <text x="500" y="58" font-size="14" font-weight="700" fill="#4338ca">z₁ + z₂ = (9, 5)</text>
+          </svg>
+        </div>
+        <p class="svg-caption">Gambar 1: Aturan Jajar Genjang untuk Penjumlahan \(z_1 + z_2 = 9 + 5i\).</p>
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed var(--line); margin: 20px 0;">
+
+      <p><strong>Soal 2:</strong> Diketahui \(z_1 = 4 + 3i\) dan \(z_2 = 6 + i\). Tentukan jarak antara \(z_1\) dan \(z_2\) beserta gambar grafiknya!</p>
+      <p><strong>Penyelesaian:</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        z_1 &= (4, 3), \quad z_2 = (6, 1) \\[6pt]
+        |z_1 - z_2| &= \sqrt{(a_1 - a_2)^2 + (b_1 - b_2)^2} \\[6pt]
+        &= \sqrt{(4 - 6)^2 + (3 - 1)^2} = \sqrt{(-2)^2 + 2^2} \\[6pt]
+        &= \sqrt{4 + 4} = \sqrt{8} = \mathbf{2\sqrt{2}} \approx 2{,}83
+        \end{aligned}$$
+      </div>
+
+      <div class="svg-diagram-card">
+        <div class="svg-wrapper">
+          <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jarak Euclidean Antara z1(4,3) dan z2(6,1) adalah 2 akar 2">
+            <line x1="50" y1="240" x2="620" y2="240" stroke="#64748b" stroke-width="2" />
+            <line x1="80" y1="270" x2="80" y2="30" stroke="#64748b" stroke-width="2" />
+            <text x="626" y="245" font-size="14" fill="#334155" font-weight="700">Re</text>
+            <text x="88" y="24" font-size="14" fill="#334155" font-weight="700">Im</text>
+
+            <!-- Titik z1(4,3) -> (80 + 4*70 = 360, 240 - 3*55 = 75) -->
+            <!-- Titik z2(6,1) -> (80 + 6*70 = 500, 240 - 1*55 = 185) -->
+            <line x1="80" y1="240" x2="360" y2="75" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4 4" />
+            <line x1="80" y1="240" x2="500" y2="185" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4 4" />
+
+            <!-- Segmen garis jarak z1 ke z2 -->
+            <line x1="360" y1="75" x2="500" y2="185" stroke="#dc2626" stroke-width="3.5" />
+            <circle cx="360" cy="75" r="5" fill="#0284c7" />
+            <text x="310" y="65" font-size="13" font-weight="700" fill="#0284c7">z₁ (4, 3)</text>
+
+            <circle cx="500" cy="185" r="5" fill="#db2777" />
+            <text x="510" y="195" font-size="13" font-weight="700" fill="#db2777">z₂ (6, 1)</text>
+
+            <text x="445" y="125" font-size="13" font-weight="700" fill="#dc2626">|z₁ - z₂| = 2√2</text>
+          </svg>
+        </div>
+        <p class="svg-caption">Gambar 2: Jarak Euclidean Antara Dua Titik Kompleks adalah Panjang Ruas Garis Merah (\(2\sqrt{2}\)).</p>
+      </div>
+    </div>
+
+    <h2>4. Pendalaman Geometri Modulus: Persamaan Lingkaran</h2>
+    <p>
+      Karena \(|z - z_0|\) menyatakan jarak dari sembarang titik \(z\) ke titik tetap \(z_0\), maka himpunan semua titik yang berjarak konstan \(r\) terhadap \(z_0\) membentuk <strong>lingkaran</strong>:
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Persamaan Lingkaran &amp; Daerah Cakram Kompleks</div>
+      <div class="math-step-box">
+        $$|z - z_0| = r \quad \Longleftrightarrow \quad (x - x_0)^2 + (y - y_0)^2 = r^2$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        &bull; \(|z - z_0| = r\): <strong>Keliling lingkaran</strong> (kurva batas).<br>
+        &bull; \(|z - z_0| &lt; r\): <strong>Cakram dalam terbuka (*open disk*)</strong>.<br>
+        &bull; \(|z - z_0| &gt; r\): <strong>Daerah luar (*exterior*)</strong>.
+      </p>
+    </div>
+
+    <h2>5. Bentuk Kutub (Polar Form) &amp; Rumus Euler</h2>
+    <p>
+      Dengan memandang titik \(P(a, b)\) pada bidang kompleks berjarak \(r = |z| = \sqrt{a^2 + b^2}\) dari titik asal dan membentuk sudut \(\theta\) terhadap sumbu Real positif, diperoleh hubungan trigonometri segitiga siku-siku:
+      \[a = r \cos \theta \qquad b = r \sin \theta\]
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Bentuk Kutub &amp; Eksponen Euler</div>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{1. Bentuk Kutub (Polar)} &: \mathbf{z = r (\cos \theta + i \sin \theta)} \\[6pt]
+        \text{2. Rumus Euler} &: e^{i\theta} = \cos \theta + i \sin \theta \\[6pt]
+        \text{3. Bentuk Eksponen} &: \mathbf{z = r e^{i\theta}} \\[6pt]
+        \text{4. Konjugat Polar} &: \mathbf{\bar{z} = r e^{-i\theta} = r (\cos \theta - i \sin \theta)}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        \(\theta\) disebut sebagai <strong>argumen</strong> dari \(z\) atau amplitude (\(\theta = \arg(z)\)).
+      </p>
+    </div>
+
+    <h2>6. Alur 4 Tahap Menentukan Argumen (Sesuai Dosen)</h2>
+    <p>
+      Di kelas, Ibu Vepi menggunakan <strong>alur 4 tahap terstruktur</strong> untuk menentukan argumen sudut pada rentang \([0, 360^\circ)\) atau \([0, 2\pi)\):
+    </p>
+
+    <div class="card highlight">
+      <div class="formula-title">Pedoman Tahapan Menentukan Argumen</div>
+      <ol>
+        <li><strong>Tahap 1:</strong> Hitung sudut acuan \(\theta_{acuan} = \arctan\left(\frac{b}{a}\right)\).</li>
+        <li><strong>Tahap 2:</strong> Tuliskan koordinat pasangan terurut \(P(a, b)\) dan tentukan letak kuadrannya.</li>
+        <li><strong>Tahap 3:</strong> Sesuaikan sudut berdasarkan aturan kuadran:
+          <br>&bull; <em>Kuadran I:</em> \(\theta = \alpha\)
+          <br>&bull; <em>Kuadran II:</em> \(\theta = 180^\circ - \alpha\) (atau \(\pi - \alpha\))
+          <br>&bull; <em>Kuadran III:</em> \(\theta = 180^\circ + \alpha\) (atau \(\pi + \alpha\))
+          <br>&bull; <em>Kuadran IV:</em> \(\theta = 360^\circ - \alpha\) (atau \(2\pi - \alpha\))
+        </li>
+        <li><strong>Tahap 4:</strong> Tuliskan kesimpulan dalam bentuk pecahan \(\pi\) eksak (bukan desimal)!</li>
+      </ol>
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Pembahasan Latihan Soal 3 (Catatan Asli Lembar 5 &amp; 6)</div>
+      
+      <p><strong>a. Menentukan Argumen dari \(z = 1 - i\):</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{Arg } z = \theta &= \arctan(b/a) = \arctan(-1/1) = \arctan(-1) = -45^\circ = -\frac{\pi}{4} \\[6pt]
+        z = 1 - i &\implies P(1, -1) \in \mathbf{\text{Kuadran IV}} \\[6pt]
+        \text{Karena Kuadran IV} &: \theta = 360^\circ - 45^\circ = 315^\circ = \mathbf{\frac{7\pi}{4}}
+        \end{aligned}$$
+      </div>
+      <p class="answer"><strong>Jadi,</strong> Argumen dari \(z = 1 - i\) adalah \(\mathbf{\frac{7\pi}{4}}\) (atau \(315^\circ\)).</p>
+
+      <hr style="border: none; border-top: 1px dashed var(--line); margin: 16px 0;">
+
+      <p><strong>b. Menentukan Argumen dari \(z = -\pi - \pi i\):</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{Arg } z = \theta &= \arctan(b/a) = \arctan(-\pi / -\pi) = \arctan(1) = 45^\circ = \frac{\pi}{4} \\[6pt]
+        z = -\pi - \pi i &\implies P(-\pi, -\pi) \in \mathbf{\text{Kuadran III}} \\[6pt]
+        \text{Karena Kuadran III} &: \theta = 180^\circ + 45^\circ = 225^\circ = \mathbf{\frac{5\pi}{4}}
+        \end{aligned}$$
+      </div>
+      <p class="answer"><strong>Jadi,</strong> Argumen dari \(z = -\pi - \pi i\) adalah \(\mathbf{\frac{5\pi}{4}}\) (atau \(225^\circ\)).</p>
+
+      <hr style="border: none; border-top: 1px dashed var(--line); margin: 16px 0;">
+
+      <p><strong>c. Menentukan Argumen dari \(z = 3 + 4i\):</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{Arg } z = \theta &= \arctan(4/3) \\[6pt]
+        z = 3 + 4i &\implies P(3, 4) \in \mathbf{\text{Kuadran I}} \implies \theta = \mathbf{\arctan(4/3)}
+        \end{aligned}$$
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed var(--line); margin: 16px 0;">
+
+      <p><strong>d. Menentukan Argumen dari \(z = 3 - 4i\):</strong></p>
+      <div class="math-step-box">
+        $$\begin{aligned}
+        \text{Arg } z = \theta &= \arctan(-4/3) = -\arctan(4/3) \\[6pt]
+        z = 3 - 4i &\implies P(3, -4) \in \mathbf{\text{Kuadran IV}} \implies \theta = \mathbf{2\pi - \arctan(4/3)} \quad \text{atau } 360^\circ - \arctan(4/3)
+        \end{aligned}$$
+      </div>
+    </div>
+
+    <h2>7. Konversi Bentuk Polar &amp; Rektangular</h2>
+    <div class="card example">
+      <div class="formula-title">Pembahasan Latihan Soal 4 (Catatan Asli Lembar 7)</div>
+
+      <p><strong>Soal 2c: Nyatakan \(z = -5 + 5i\) ke dalam bentuk polar!</strong></p>
+      <ol class="steps">
+        <li>
+          Hitung modulus eksak:
+          \[r = \sqrt{(-5)^2 + 5^2} = \sqrt{25 + 25} = \sqrt{50} = \mathbf{5\sqrt{2}}\]
+        </li>
+        <li>
+          Hitung sudut acuan:
+          \[\theta = \arctan(5 / -5) = \arctan(-1) = -45^\circ = -\frac{\pi}{4}\]
+        </li>
+        <li>
+          Identifikasi kuadran: \(z = (-5, 5)\) berada di Kuadran II.
+          \[\theta = 180^\circ - 45^\circ = 135^\circ = \mathbf{\frac{3\pi}{4}}\]
+        </li>
+        <li>
+          Susun ke bentuk polar:
+          \[\mathbf{z = 5\sqrt{2}\left[\cos\left(\frac{3\pi}{4}\right) + i\sin\left(\frac{3\pi}{4}\right)\right]}\]
+        </li>
+      </ol>
+
+      <hr style="border: none; border-top: 1px dashed var(--line); margin: 16px 0;">
+
+      <p><strong>Soal 3d: Nyatakan dalam bentuk aljabar \(z = a + bi\) dari \(z = \sqrt{8}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right)\)!</strong></p>
+      <ol class="steps">
+        <li>
+          Bentuk umum: \(z = a + bi\).
+        </li>
+        <li>
+          Komponen real:
+          \[a = r\cos\theta = \sqrt{8}\cos\left(\frac{\pi}{4}\right) = \sqrt{8}\left(\frac{1}{2}\sqrt{2}\right) = \frac{1}{2}\sqrt{16} = \frac{1}{2}(4) = \mathbf{2}\]
+        </li>
+        <li>
+          Komponen imajiner:
+          \[b = r\sin\theta = \sqrt{8}\sin\left(\frac{\pi}{4}\right) = \sqrt{8}\left(\frac{1}{2}\sqrt{2}\right) = \frac{1}{2}\sqrt{16} = \frac{1}{2}(4) = \mathbf{2}\]
+        </li>
+        <li>
+          Susun hasil akhir:
+          \[\mathbf{z = 2 + 2i}\]
+        </li>
+      </ol>
+    </div>
+
+    <h2>8. Dokumentasi Catatan Tulis Tangan Asli (7 Lembar Buku SiDU)</h2>
+    <p>Berikut adalah arsip digital dari 7 lembar catatan perkuliahan asli Pertemuan 05 yang tersimpan di buku catatan:</p>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="catatan_p5_lembar1.webp" alt="Catatan Pertemuan 05 Lembar 1" loading="lazy">
+        <div class="photo-caption">Lembar 1: Perkalian Titik (Dot) &amp; Perkalian Silang (Cross) + Latihan 1</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar2.webp" alt="Catatan Pertemuan 05 Lembar 2" loading="lazy">
+        <div class="photo-caption">Lembar 2: Penyajian Grafik Vektor, Aturan Jajar Genjang &amp; Rumus Jarak</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar3.webp" alt="Catatan Pertemuan 05 Lembar 3" loading="lazy">
+        <div class="photo-caption">Lembar 3: Latihan Grafik Penjumlahan Jajar Genjang &amp; Jarak 2 Titik</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar4.webp" alt="Catatan Pertemuan 05 Lembar 4" loading="lazy">
+        <div class="photo-caption">Lembar 4: Bentuk Kutub/Polar, Argumen, Rumus Euler &amp; Konjugat Sekawan</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar5.webp" alt="Catatan Pertemuan 05 Lembar 5" loading="lazy">
+        <div class="photo-caption">Lembar 5: Latihan Menentukan Argumen Soal 1a (\(1-i\)) &amp; 1b (\(-\pi-\pi i\))</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar6.webp" alt="Catatan Pertemuan 05 Lembar 6" loading="lazy">
+        <div class="photo-caption">Lembar 6: Latihan Menentukan Argumen Soal 1c (\(3+4i\)) &amp; 1d (\(3-4i\))</div>
+      </div>
+      <div class="photo-card">
+        <img src="catatan_p5_lembar7.webp" alt="Catatan Pertemuan 05 Lembar 7" loading="lazy">
+        <div class="photo-caption">Lembar 7: Latihan Konversi Polar 2c (\(-5+5i\)) &amp; Aljabar 3d (\(\sqrt{8}\angle 45^\circ\))</div>
+      </div>
     </div>
 
     <div class="tool-cta">
-      <span><strong>Sudah dikerjakan?</strong> Periksa jawabanmu langkah demi langkah dengan kalkulator khusus materi ini.</span>
-      <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Kalkulator Polar &amp; De Moivre</a>
+      <span>Uji coba dan verifikasi seluruh latihan soal di atas menggunakan kalkulator interaktif langkah demi langkah:</span>
+      <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Aplikasi Kalkulator Pendamping</a>
     </div>
 
-    <div class="note-plain">
-      <strong>Pertemuan berikutnya (perkiraan).</strong> Setelah bentuk polar dikuasai, Brown &amp; Churchill
-      melanjutkan ke topologi bidang kompleks: himpunan buka/tutup, titik limit, daerah (<em>region</em>),
-      lalu fungsi kompleks \(w = f(z)\) beserta limit dan kekontinuannya. Itu pintu masuk menuju turunan kompleks
-      dan syarat Cauchy-Riemann.
+    <div class="note-plain" style="margin-top: 25px;">
+      <strong>Lanjutan ke Pertemuan 06:</strong> Karena materi pemangkatan besar dan akar pangkat \(n\) belum sempat dibahas di pertemuan ini, materi tersebut dipindahkan menjadi bahan baca persiapan untuk pertemuan mendatang: <a href="../pertemuan-06/index.html" style="color: var(--brand); font-weight: 700; text-decoration: underline;">Buka Materi Pertemuan 06 (Rumus De Moivre &amp; Akar Kompleks) &rarr;</a>
     </div>
   </main>
 
   <footer class="page-foot">
-    Catatan bahan baca mandiri &middot; Analisis Kompleks KP21517003 &middot; Pertemuan 05<br>
-    Disusun sebagai persiapan sebelum kuliah, mengikuti alur Brown &amp; Churchill Bab 1 &sect;5&ndash;&sect;10.
+    Analisis Kompleks (KP21517003) &middot; FKIP Universitas Siliwangi &middot; Semester 7
   </footer>
 </div>
 
