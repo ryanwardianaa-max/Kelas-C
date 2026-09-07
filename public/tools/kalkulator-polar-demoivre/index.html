@@ -6,8 +6,8 @@
   <title>Kalkulator Polar, De Moivre &amp; Akar Kompleks — Pertemuan 05</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="window.renderAllMath && window.renderAllMath()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <style>
     :root {
@@ -79,7 +79,7 @@
     .tab:hover { border-color: #c7d2fe; color: var(--brand); }
     .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: white; }
 
-    fieldset { border: none; }
+    fieldset { border: none; margin: 0; padding: 0; }
     .panel { display: none; }
     .panel.active { display: block; }
 
@@ -111,6 +111,7 @@
       cursor: pointer; font-family: inherit; transition: background 0.15s ease;
     }
     .btn-run:hover { background: #7c70e9; }
+    .btn-run:active { transform: scale(0.99); }
     .btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
     .btn-row .btn-run { margin-top: 0; flex: 1 1 140px; }
     .btn-ghost {
@@ -188,7 +189,7 @@
   <section class="panel active" id="panel-polar" role="tabpanel" aria-labelledby="tab-polar">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Masukkan \(z = a + bi\)</legend>
+        <legend class="z-label">Masukkan <span class="math-eq">\(z = a + bi\)</span></legend>
         <div class="grid two">
           <div class="field">
             <label for="p-a">Bagian real (a)</label>
@@ -197,7 +198,7 @@
           <div class="field">
             <label for="p-b">Bagian imajiner (b)</label>
             <input id="p-b" type="text" inputmode="decimal" value="3,4641016151" placeholder="contoh: 3,4641 atau 2√3">
-            <div class="hint">Contoh materi: \(2\sqrt{3} \approx 3{,}4641\)</div>
+            <div class="hint">Contoh materi: <span class="math-eq">\(2\sqrt{3} \approx 3{,}4641\)</span></div>
           </div>
         </div>
       </fieldset>
@@ -214,7 +215,7 @@
     <div class="input-card">
       <fieldset>
         <div class="row-z">
-          <div class="z-label">Bilangan pertama \(z_1\)</div>
+          <div class="z-label">Bilangan pertama <span class="math-eq">\(z_1\)</span></div>
           <div class="grid two">
             <div class="field">
               <label for="o-a1">a&#8321; (Real)</label>
@@ -227,7 +228,7 @@
           </div>
         </div>
         <div class="row-z">
-          <div class="z-label">Bilangan kedua \(z_2\)</div>
+          <div class="z-label">Bilangan kedua <span class="math-eq">\(z_2\)</span></div>
           <div class="grid two">
             <div class="field">
               <label for="o-a2">a&#8322; (Real)</label>
@@ -256,7 +257,7 @@
   <section class="panel" id="panel-pow" role="tabpanel" aria-labelledby="tab-pow">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Hitung \(z^n\) dengan Rumus De Moivre</legend>
+        <legend class="z-label">Hitung <span class="math-eq">\(z^n\)</span> dengan Rumus De Moivre</legend>
         <div class="grid two">
           <div class="field">
             <label for="w-a">Bagian real (a)</label>
@@ -285,7 +286,7 @@
   <section class="panel" id="panel-root" role="tabpanel" aria-labelledby="tab-root">
     <div class="input-card">
       <fieldset>
-        <legend class="z-label">Cari semua nilai \(\sqrt[n]{z}\)</legend>
+        <legend class="z-label">Cari semua nilai <span class="math-eq">\(\sqrt[n]{z}\)</span></legend>
         <div class="grid two">
           <div class="field">
             <label for="r-a">Bagian real (a)</label>
@@ -326,15 +327,19 @@
 
   function renderAllMath(target = document.body) {
     if (window.renderMathInElement) {
-      window.renderMathInElement(target, {
-        delimiters: [
-          { left: "$$", right: "$$", display: true },
-          { left: "\\[", right: "\\]", display: true },
-          { left: "\\(", right: "\\)", display: false },
-          { left: "$", right: "$", display: false },
-        ],
-        throwOnError: false,
-      });
+      try {
+        window.renderMathInElement(target, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "\\[", right: "\\]", display: true },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "$", right: "$", display: false },
+          ],
+          throwOnError: false,
+        });
+      } catch (err) {
+        console.warn("KaTeX render error:", err);
+      }
     }
   }
   window.renderAllMath = renderAllMath;
@@ -342,17 +347,117 @@
   window.addEventListener("load", () => renderAllMath());
 </script>
 
-<script type="module">
-import {
-  modulus, argPrincipal, toDeg, toPolar, toRect, mulPolar, divPolar,
-  power, roots, normalizeAngle, quadrant, prettyAngle, clean, TAU,
-  parseNum,
-} from "./core.js";
+<script>
+// =========================================================================
+// INTI PERHITUNGAN MATEMATIKA (SELF-CONTAINED)
+// Dibuat mandiri di dalam berkas agar tidak terhambat cache modul / service worker.
+// =========================================================================
+
+const TAU = Math.PI * 2;
+const modulus = (a, b) => Math.hypot(a, b);
+
+function argPrincipal(a, b) {
+  if (a === 0 && b === 0) return NaN;
+  const t = Math.atan2(b, a);
+  return t === -Math.PI ? Math.PI : t;
+}
+
+const toDeg = (rad) => (rad * 180) / Math.PI;
+const toRad = (deg) => (deg * Math.PI) / 180;
+const toPolar = (a, b) => ({ r: modulus(a, b), theta: argPrincipal(a, b) });
+const toRect = (r, theta) => ({ a: r * Math.cos(theta), b: r * Math.sin(theta) });
+const mulPolar = (z1, z2) => ({ r: z1.r * z2.r, theta: z1.theta + z2.theta });
+
+function divPolar(z1, z2) {
+  if (z2.r === 0) throw new Error("Pembagi tidak boleh nol.");
+  return { r: z1.r / z2.r, theta: z1.theta - z2.theta };
+}
+
+function power(z, n) {
+  if (!Number.isInteger(n)) throw new Error("Pangkat harus bilangan bulat.");
+  if (z.r === 0 && n <= 0) throw new Error("0 tidak bisa dipangkatkan nol atau negatif.");
+  return { r: Math.pow(z.r, n), theta: z.theta * n };
+}
+
+function roots(z, n) {
+  if (!Number.isInteger(n) || n < 1) throw new Error("Indeks akar harus bilangan bulat >= 1.");
+  const rr = Math.pow(z.r, 1 / n);
+  return Array.from({ length: n }, (_, k) => ({
+    r: rr,
+    theta: (z.theta + TAU * k) / n,
+    k,
+  }));
+}
+
+function normalizeAngle(theta) {
+  let t = theta % TAU;
+  if (t <= -Math.PI) t += TAU;
+  if (t > Math.PI) t -= TAU;
+  return t;
+}
+
+function quadrant(a, b) {
+  if (a === 0 && b === 0) return "titik asal";
+  if (a > 0 && b === 0) return "sumbu real positif";
+  if (a < 0 && b === 0) return "sumbu real negatif";
+  if (a === 0 && b > 0) return "sumbu imajiner positif";
+  if (a === 0 && b < 0) return "sumbu imajiner negatif";
+  if (a > 0 && b > 0) return "kuadran I";
+  if (a < 0 && b > 0) return "kuadran II";
+  if (a < 0 && b < 0) return "kuadran III";
+  return "kuadran IV";
+}
+
+function prettyAngle(theta) {
+  const deg = toDeg(theta);
+  const rounded = Math.round(deg * 1e6) / 1e6;
+  for (let den = 1; den <= 12; den += 1) {
+    const numVal = (rounded * den) / 180;
+    if (Math.abs(numVal - Math.round(numVal)) < 1e-9) {
+      const n = Math.round(numVal);
+      if (n === 0) return { deg: rounded, tex: "0" };
+      const sign = n < 0 ? "-" : "";
+      const an = Math.abs(n);
+      if (den === 1) return { deg: rounded, tex: `${sign}${an === 1 ? "" : an}\\pi` };
+      return { deg: rounded, tex: `${sign}\\frac{${an === 1 ? "" : an}\\pi}{${den}}` };
+    }
+  }
+  return { deg: rounded, tex: `${rounded.toFixed(4)}^\\circ` };
+}
+
+const clean = (x, eps = 1e-10) => (Math.abs(x) < eps ? 0 : x);
+
+function parseNum(raw) {
+  if (raw == null) return NaN;
+  if (typeof raw === "number") return Number.isFinite(raw) ? raw : NaN;
+  let s = String(raw).trim();
+  if (!s) return NaN;
+  s = s.replace(/,/g, ".");
+  s = s.replace(/√\s*([0-9.]+)/g, "sqrt($1)");
+  s = s.replace(/(\d)\s*(sqrt|\()/gi, "$1*$2");
+  s = s.replace(/sqrt\s*\(\s*([0-9.]+)\s*\)/gi, "Math.sqrt($1)");
+  s = s.replace(/pi/gi, "Math.PI");
+  s = s.replace(/×/g, "*").replace(/÷/g, "/").replace(/:/g, "/");
+  if (/[^0-9+\-*/().\s]/i.test(s.replace(/Math\.(sqrt|PI)/g, ""))) {
+    const d = Number.parseFloat(s);
+    return Number.isFinite(d) ? d : NaN;
+  }
+  try {
+    const val = Function(`"use strict"; return (${s});`)();
+    return typeof val === "number" && Number.isFinite(val) ? val : NaN;
+  } catch {
+    const d = Number.parseFloat(s);
+    return Number.isFinite(d) ? d : NaN;
+  }
+}
+
+// =========================================================================
+// PENGATUR TAMPILAN DAN EVENT LISTENER
+// =========================================================================
 
 const $ = (id) => document.getElementById(id);
-const num = (id) => parseNum($(id).value);
+const num = (id) => parseNum($(id)?.value);
 
-// --- pemformatan angka ramah tampilan ------------------------------------
 const fx = (x, d = 4) => {
   const n = typeof x === "number" ? x : Number.parseFloat(x);
   if (!Number.isFinite(n)) return String(x ?? "");
@@ -392,9 +497,21 @@ const mbox = (tex) => `<div class="math-step-box">$$${tex}$$</div>`;
 const errCard = (msg) => card("err", "Tidak bisa dihitung", `<p style="margin:0;">${msg}</p>`);
 
 function render(el, html) {
+  if (!el) return;
   el.innerHTML = html;
-  if (window.renderAllMath) {
-    window.renderAllMath(el);
+  if (window.renderMathInElement) {
+    renderAllMath(el);
+  } else {
+    let attempts = 0;
+    const t = setInterval(() => {
+      attempts++;
+      if (window.renderMathInElement) {
+        clearInterval(t);
+        renderAllMath(el);
+      } else if (attempts > 20) {
+        clearInterval(t);
+      }
+    }, 100);
   }
 }
 
@@ -463,11 +580,11 @@ document.querySelectorAll("[data-fill]").forEach((b) => b.addEventListener("clic
   const kind = b.dataset.fill;
   const map = { polar: ["p-a", "p-b"], pow: ["w-a", "w-b", "w-n"], root: ["r-a", "r-b", "r-n"] };
   const ids = map[kind];
-  $(ids[0]).value = b.dataset.a;
-  $(ids[1]).value = b.dataset.b;
-  if (ids[2] && b.dataset.n) $(ids[2]).value = b.dataset.n;
+  if ($(ids[0])) $(ids[0]).value = b.dataset.a;
+  if ($(ids[1])) $(ids[1]).value = b.dataset.b;
+  if (ids[2] && b.dataset.n && $(ids[2])) $(ids[2]).value = b.dataset.n;
   const runner = { polar: "p-run", pow: "w-run", root: "r-run" }[kind];
-  $(runner).click();
+  if ($(runner)) $(runner).click();
 }));
 
 // --- blok penjelasan argumen bertahap ------------------------------------
@@ -514,7 +631,7 @@ function argSteps(a, b) {
 }
 
 // --- PANEL 1: bentuk polar ---------------------------------------------
-$("p-run").addEventListener("click", () => {
+function calculatePolar() {
   const out = $("p-out");
   const a = num("p-a"), b = num("p-b");
   if (!Number.isFinite(a) || !Number.isFinite(b)) {
@@ -561,10 +678,12 @@ $("p-run").addEventListener("click", () => {
     legend: `<div class="legend"><span><i style="background:#4338ca"></i>vektor z</span><span><i style="background:#a5b4fc"></i>lingkaran modulus |z| = ${fkoma(r)}</span></div>`,
   });
   render(out, html);
-});
+}
+
+if ($("p-run")) $("p-run").addEventListener("click", calculatePolar);
 
 // --- PANEL 2: kali & bagi ----------------------------------------------
-$("o-run").addEventListener("click", () => {
+function calculateOp() {
   const out = $("o-out");
   const a1 = num("o-a1"), b1 = num("o-b1"), a2 = num("o-a2"), b2 = num("o-b2");
   const op = $("o-op").value;
@@ -650,10 +769,12 @@ $("o-run").addEventListener("click", () => {
       <span><i style="background:#4338ca"></i>hasil operasi</span></div>`,
   });
   render(out, html);
-});
+}
+
+if ($("o-run")) $("o-run").addEventListener("click", calculateOp);
 
 // --- PANEL 3: De Moivre -------------------------------------------------
-$("w-run").addEventListener("click", () => {
+function calculatePow() {
   const out = $("w-out");
   const a = num("w-a"), b = num("w-b"), n = num("w-n");
   if (![a, b, n].every(Number.isFinite)) {
@@ -707,10 +828,12 @@ $("w-run").addEventListener("click", () => {
     legend: `<div class="legend"><span><i style="background:#0284c7"></i>z asal</span><span><i style="background:#4338ca"></i>z pangkat ${n}</span></div>`,
   });
   render(out, html);
-});
+}
+
+if ($("w-run")) $("w-run").addEventListener("click", calculatePow);
 
 // --- PANEL 4: akar pangkat n -------------------------------------------
-$("r-run").addEventListener("click", () => {
+function calculateRoot() {
   const out = $("r-out");
   const a = num("r-a"), b = num("r-b"), n = num("r-n");
   if (![a, b, n].every(Number.isFinite)) {
@@ -774,14 +897,16 @@ $("r-run").addEventListener("click", () => {
     legend: `<div class="legend"><span><i style="background:#a5b4fc"></i>lingkaran radius ${fkoma(rr)}</span><span>${n >= 3 ? `titik-titik membentuk segi-${n} beraturan` : "dua titik berseberangan 180&#176;"}</span></div>`,
   });
   render(out, html);
-});
-
-// Jalankan saat pertama kali dibuka
-function init() {
-  if (window.renderAllMath) window.renderAllMath(document.body);
-  const runBtn = $("p-run");
-  if (runBtn) runBtn.click();
 }
+
+if ($("r-run")) $("r-run").addEventListener("click", calculateRoot);
+
+// Jalankan kalkulator pertama kali saat halaman terbuka
+function init() {
+  renderAllMath(document.body);
+  calculatePolar();
+}
+
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
