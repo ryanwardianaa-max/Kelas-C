@@ -18,6 +18,8 @@ test('accepts common implicit multiplication from textbook notation', () => {
   assert.equal(compileExpression('2(x+1)')(3), 8);
   assert.equal(compileExpression('(x+1)(x-1)')(3), 8);
   assert.ok(Math.abs(compileExpression('sin(2x)')(0.23) - Math.sin(0.46)) < 1e-12);
+  assert.equal(compileExpression('cos x')(0), 1);
+  assert.equal(compileExpression('sin x')(0), 0);
 });
 
 test('rejects unknown identifiers and malformed expressions', () => {

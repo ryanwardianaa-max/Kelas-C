@@ -88,9 +88,14 @@ export function compileExpression(source) {
       if (!Object.hasOwn(FUNCTIONS, name)) {
         throw new Error(`Identifier tidak dikenal: ${name}`);
       }
-      take('(');
-      const argument = parseAdditive();
-      take(')');
+      let argument;
+      if (peek().type === '(') {
+        take('(');
+        argument = parseAdditive();
+        take(')');
+      } else {
+        argument = parsePower();
+      }
       return (variables) => FUNCTIONS[name](argument(variables));
     }
 
