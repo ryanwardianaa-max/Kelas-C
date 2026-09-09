@@ -167,6 +167,87 @@ export default function CourseDetailView({
           </a>
         </div>
       ))}
+      {course.code === "KP21517001" && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            background: "linear-gradient(135deg, #ecfdf5, #f0fdf4)",
+            border: "1px solid #a7f3d0",
+            borderRadius: "12px",
+            padding: "10px 16px",
+            marginBottom: "10px",
+            gap: "12px",
+            boxShadow: "0 2px 6px rgba(16, 185, 129, 0.08)",
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <span style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "#059669", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", display: "inline-block", marginBottom: "4px" }}>
+              Kelompok 4 (Presentasi)
+            </span>
+            <div style={{ fontWeight: 800, color: "#065f46", fontSize: "0.92rem", lineHeight: 1.25 }}>
+              Solusi Nirlanjar Metode Terbuka (Newton-Raphson &amp; Secant)
+            </div>
+            <small style={{ color: "#047857", fontSize: "0.76rem" }}>
+              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila
+            </small>
+          </div>
+          <a
+            href="https://github.com/ryanwardianaa-max/Kelompok-5-Metode-Numerik"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "#059669",
+              color: "white",
+              padding: "7px 14px",
+              borderRadius: "8px",
+              fontWeight: 700,
+              fontSize: "0.82rem",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              boxShadow: "0 2px 8px rgba(5, 150, 105, 0.2)",
+            }}
+          >
+            Buka Presentasi ↗
+          </a>
+        </div>
+      )}
+      {course.code === "KP21517004" && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            background: "linear-gradient(135deg, #fdf2f8, #fff1f2)",
+            border: "1px solid #fbcfe8",
+            borderRadius: "12px",
+            padding: "10px 16px",
+            marginBottom: "10px",
+            gap: "12px",
+            boxShadow: "0 2px 6px rgba(219, 39, 119, 0.08)",
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <span style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "#db2777", background: "#fce7f3", padding: "2px 8px", borderRadius: "999px", display: "inline-block", marginBottom: "4px" }}>
+              Kelompok 6 (Presentasi)
+            </span>
+            <div style={{ fontWeight: 800, color: "#9d174d", fontSize: "0.92rem", lineHeight: 1.25 }}>
+              Analisis Real (Kelompok 6)
+            </div>
+            <small style={{ color: "#be185d", fontSize: "0.76rem" }}>
+              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila
+            </small>
+          </div>
+          <span style={{ fontSize: "0.78rem", color: "#be185d", fontStyle: "italic", whiteSpace: "nowrap" }}>
+            Urutan ke-6
+          </span>
+        </div>
+      )}
       <div className="chips course-tabs">
         <button type="button"
           className={tab === "meetings" ? "active" : ""}

@@ -16,12 +16,13 @@ import SettingsView from "./components/SettingsView";
 import Sidebar from "./components/Sidebar";
 import TasksView from "./components/TasksView";
 import ToolsView from "./components/ToolsView";
+import SecurityGateModal from "./components/SecurityGateModal";
 import { COURSE_SCHEDULE } from "./lib/mockData";
 import { DEFAULT_SETTINGS, validDate } from "./lib/storage";
 import { INITIAL_MATERIALS } from "./lib/initialMaterials";
 import { INITIAL_METNUM_REFERENCES } from "./lib/initialReferences";
 import { commitCollection, commitValue, createWriteGate, errorText, type CloudIO, type CollectionKind } from "./lib/cloudStore";
-import { deleteRows, pushCollection, pushSettings, syncNow } from "./lib/supabase";
+import { deleteRows, pushCollection, pushSettings, supabase, syncNow } from "./lib/supabase";
 import type {
   AppData,
   Course,
@@ -84,6 +85,50 @@ export default function App() {
   const [meetingNotes, setMeetingNotesState] = useState<MeetingNote[]>([]);
   const [settings, setSettingsState] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [theme, setTheme] = useState<Theme>("light");
+
+  const [isLocked, setIsLocked] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const p = new URLSearchParams(window.location.search);
+    if (p.get("lock") === "1") return true;
+    return sessionStorage.getItem("kelasku_session_unlocked") !== "true";
+  });
+
+  const [authPairToApprove, setAuthPairToApprove] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("auth_pair");
+  });
+
+  const handleApprovePairing = async () => {
+    if (!authPairToApprove) return;
+    if (supabase) {
+      try {
+        const channel = supabase.channel(`auth_pair_${authPairToApprove}`);
+        channel.subscribe(async (st: string) => {
+          if (st === "SUBSCRIBED") {
+            await channel.send({
+              type: "broadcast",
+              event: "approved",
+              payload: { by: "HP Ryan", at: new Date().toISOString() },
+            });
+          }
+        });
+        await supabase.from("app_settings").upsert({
+          id: `auth_pair_${authPairToApprove}`,
+          data: { approved: true, at: new Date().toISOString() },
+          updated_at: new Date().toISOString(),
+        });
+      } catch (e) {
+        console.error("Gagal broadcast approval:", e);
+      }
+    }
+    const approvedCode = authPairToApprove;
+    setAuthPairToApprove(null);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("auth_pair");
+    url.searchParams.delete("session");
+    window.history.replaceState({}, "", url);
+    alert(`Smart TV (Kode: ${approvedCode}) berhasil diotorisasi!`);
+  };
 
   const [status, setStatus] = useState<CloudStatus>("loading");
   const [message, setMessage] = useState("Memuat data dari cloud…");
@@ -303,8 +348,67 @@ export default function App() {
     <div className="app">
       <Sidebar page={page} setPage={go} open={drawer} onClose={() => setDrawer(false)} settings={settings} />
       <main>
-        <Navbar settings={settings} theme={theme} onTheme={toggleTheme} onMenu={() => setDrawer(true)} />
+        <Navbar settings={settings} theme={theme} onTheme={toggleTheme} onMenu={() => setDrawer(true)} onLock={() => setIsLocked(true)} />
         <div className="content">
+          {authPairToApprove && (
+            <div
+              style={{
+                background: "linear-gradient(135deg, #1e293b, #0f172a)",
+                color: "white",
+                padding: "14px 18px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+                borderRadius: "14px",
+                marginBottom: "14px",
+                boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+                border: "1px solid #3b82f6",
+              }}
+            >
+              <div>
+                <strong style={{ display: "block", color: "#60a5fa", fontSize: "0.92rem" }}>
+                  📱 Permintaan Otorisasi Smart TV
+                </strong>
+                <span style={{ fontSize: "0.82rem", color: "#cbd5e1" }}>
+                  Izinkan Smart TV (Kode Pairing: <b>{authPairToApprove}</b>) masuk ke KelasKu?
+                </span>
+              </div>
+              <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
+                <button
+                  type="button"
+                  onClick={handleApprovePairing}
+                  style={{
+                    background: "#22c55e",
+                    color: "white",
+                    border: 0,
+                    padding: "8px 14px",
+                    borderRadius: "8px",
+                    fontWeight: 700,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  Izinkan TV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAuthPairToApprove(null)}
+                  style={{
+                    background: "transparent",
+                    color: "#94a3b8",
+                    border: "1px solid #475569",
+                    padding: "8px 10px",
+                    borderRadius: "8px",
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  Tolak
+                </button>
+              </div>
+            </div>
+          )}
           {status !== "idle" && (
             <p className={`cloud-status cloud-status--${status}`} role="status" aria-live="polite">
               <span aria-hidden="true" className="cloud-status__dot" />
@@ -340,6 +444,13 @@ export default function App() {
           onAction={action}
         />
       </Suspense>
+      <SecurityGateModal
+        isOpen={isLocked}
+        onUnlock={() => {
+          sessionStorage.setItem("kelasku_session_unlocked", "true");
+          setIsLocked(false);
+        }}
+      />
     </div>
   );
 }
