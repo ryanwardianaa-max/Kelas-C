@@ -216,6 +216,19 @@ export default function SecurityGateModal({
     triggerSuccess(`Smart TV (${targetCode}) Berhasil Diotorisasi!`);
   };
 
+  const handleActivateRyanPhone = async () => {
+    const inputPin = prompt("Masukkan PIN Pemilik (585264) untuk mengaktifkan scanner di HP ini:");
+    if (!inputPin) return;
+    const ok = await verifyAdminPin(inputPin);
+    if (!ok) {
+      alert("PIN Salah! Akses scanner ditolak.");
+      return;
+    }
+    setAsOwnerDevice(true);
+    setIsOwner(true);
+    alert("HP ini berhasil didaftarkan sebagai HP Ryan!");
+  };
+
   // --- TAB 2: VERIFIKASI WAJAH BIOMETRIK ASLI (STRICT RECOGNITION) ---
   useEffect(() => {
     if (!isOpen || tab !== "face") {
@@ -664,6 +677,24 @@ export default function SecurityGateModal({
                     />
                     Menunggu otorisasi HP Ryan...
                   </div>
+                  {isMobile && !isOwner && (
+                    <div style={{ marginTop: "14px" }}>
+                      <button
+                        type="button"
+                        onClick={handleActivateRyanPhone}
+                        style={{
+                          background: "transparent",
+                          border: 0,
+                          color: "#64748b",
+                          fontSize: "0.75rem",
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        }}
+                      >
+                        📱 Aktifkan Scanner HP Ryan di HP ini (Wajib PIN)
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
