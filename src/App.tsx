@@ -17,6 +17,7 @@ import Sidebar from "./components/Sidebar";
 import TasksView from "./components/TasksView";
 import ToolsView from "./components/ToolsView";
 import SecurityGateModal from "./components/SecurityGateModal";
+import { isOwnerDevice } from "./lib/deviceAuth";
 import { COURSE_SCHEDULE } from "./lib/mockData";
 import { DEFAULT_SETTINGS, validDate } from "./lib/storage";
 import { INITIAL_MATERIALS } from "./lib/initialMaterials";
@@ -350,7 +351,7 @@ export default function App() {
       <main>
         <Navbar settings={settings} theme={theme} onTheme={toggleTheme} onMenu={() => setDrawer(true)} onLock={() => setIsLocked(true)} />
         <div className="content">
-          {authPairToApprove && (
+          {authPairToApprove && isOwnerDevice() && (
             <div
               style={{
                 background: "linear-gradient(135deg, #1e293b, #0f172a)",

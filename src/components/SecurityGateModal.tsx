@@ -3,6 +3,14 @@ import { X } from "./Icons";
 import { generatePairingCode, getQrCodeImageUrl } from "../lib/qrCode";
 import { verifyAdminPin } from "../lib/adminPin";
 import { supabase } from "../lib/supabase";
+import {
+  compareFaceVectors,
+  extractFaceVector,
+  fetchFaceTemplateFromCloud,
+  hasFaceTemplate,
+  syncFaceTemplateToCloud,
+} from "../lib/faceBiometrics";
+import { isOwnerDevice, setAsOwnerDevice } from "../lib/deviceAuth";
 
 export default function SecurityGateModal({
   isOpen,
@@ -15,7 +23,12 @@ export default function SecurityGateModal({
   onClose?: () => void;
   canDismiss?: boolean;
 }) {
-  const [tab, setTab] = useState<"qr" | "face" | "pin">("qr");
+  const [tab, setTab] = useState<"qr" | "face" | "pin">(() => {
+    // Pada HP orang lain, default langsung ke PIN
+    return isOwnerDevice() ? "qr" : "pin";
+  });
+
+  const [isOwner, setIsOwner] = useState(() => isOwnerDevice());
 
   // Device detection
   const [isMobile] = useState(() => {
@@ -26,7 +39,6 @@ export default function SecurityGateModal({
   // Tab 1: Barcode state
   const [pairingCode] = useState(() => generatePairingCode());
   const [qrStatus, setQrStatus] = useState<"waiting" | "approved">("waiting");
-  const [mobileScannerActive, setMobileScannerActive] = useState<boolean>(() => isMobile);
   const [manualCodeInput, setManualCodeInput] = useState("");
   const [mobileAuthMsg, setMobileAuthMsg] = useState("");
   const scannerVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -34,9 +46,11 @@ export default function SecurityGateModal({
   // Tab 2: Face Biometric state
   const faceVideoRef = useRef<HTMLVideoElement | null>(null);
   const [faceStreamActive, setFaceStreamActive] = useState(false);
-  const [faceStatusText, setFaceStatusText] = useState<string>("Mendeteksi wajah...");
+  const [faceTemplate, setFaceTemplate] = useState<Float32Array | null>(null);
+  const [faceStatusText, setFaceStatusText] = useState<string>("Menyiapkan kamera...");
+  const [faceMatchScore, setFaceMatchScore] = useState<number | null>(null);
   const [verifiedSuccess, setVerifiedSuccess] = useState<string | null>(null);
-  const consecutiveValidRef = useRef(0);
+  const consecutiveMatchRef = useRef(0);
 
   // Tab 3: PIN state
   const [pin, setPin] = useState("");
@@ -50,7 +64,21 @@ export default function SecurityGateModal({
     }, 700);
   };
 
-  // --- TAB 1: SMART TV PAIRING LISTENER ---
+  // Muat template wajah dari local/cloud saat modal dibuka
+  useEffect(() => {
+    if (!isOpen) return;
+    let mounted = true;
+    fetchFaceTemplateFromCloud().then((tmpl) => {
+      if (mounted && tmpl) {
+        setFaceTemplate(tmpl);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [isOpen]);
+
+  // --- TAB 1: SMART TV PAIRING LISTENER (HANYA DI LAYAR BESAR / TV) ---
   useEffect(() => {
     if (!isOpen || tab !== "qr" || qrStatus === "approved") return;
 
@@ -77,9 +105,7 @@ export default function SecurityGateModal({
           setQrStatus("approved");
           triggerSuccess("Smart TV Berhasil Diotorisasi!");
         }
-      } catch (_e) {
-        // Polling silent
-      }
+      } catch (_e) {}
     }, 2000);
 
     return () => {
@@ -90,9 +116,9 @@ export default function SecurityGateModal({
     };
   }, [isOpen, tab, pairingCode, qrStatus]);
 
-  // --- TAB 1 (MOBILE SCANNER): CAMERA & BARCODE DETECTOR ---
+  // --- TAB 1 (HP RYAN): KAMERA PEMINDAI BARCODE TV ---
   useEffect(() => {
-    if (!isOpen || tab !== "qr" || !mobileScannerActive) {
+    if (!isOpen || tab !== "qr" || !isMobile || !isOwner) {
       if (scannerVideoRef.current?.srcObject) {
         const s = scannerVideoRef.current.srcObject as MediaStream;
         s.getTracks().forEach((t) => t.stop());
@@ -118,7 +144,6 @@ export default function SecurityGateModal({
           await scannerVideoRef.current.play();
         }
 
-        // Native BarcodeDetector if available
         if ("BarcodeDetector" in window) {
           const detector = new (window as unknown as {
             BarcodeDetector: new (opts: { formats: string[] }) => {
@@ -146,7 +171,7 @@ export default function SecurityGateModal({
           scanLoop();
         }
       } catch (_err) {
-        setMobileAuthMsg("Kamera belakang tidak tersedia. Silakan ketik 6 huruf kode TV di bawah.");
+        setMobileAuthMsg("Kamera tidak tersedia. Ketik 6 huruf kode TV di bawah.");
       }
     };
 
@@ -163,10 +188,14 @@ export default function SecurityGateModal({
         scannerVideoRef.current.srcObject = null;
       }
     };
-  }, [isOpen, tab, mobileScannerActive]);
+  }, [isOpen, tab, isMobile, isOwner]);
 
   const approveCode = async (targetCode: string) => {
     if (!targetCode || targetCode.length < 6) return;
+    if (!isOwner) {
+      setMobileAuthMsg("Akses ditolak: Hanya HP Pemilik (Ryan) yang dapat mengotorisasi TV.");
+      return;
+    }
     setMobileAuthMsg(`Mengotorisasi Smart TV (${targetCode})...`);
     if (supabase) {
       try {
@@ -187,10 +216,10 @@ export default function SecurityGateModal({
         });
       } catch (_e) {}
     }
-    triggerSuccess(`Smart TV (${targetCode}) Berhasil Diizinkan!`);
+    triggerSuccess(`Smart TV (${targetCode}) Berhasil Diotorisasi!`);
   };
 
-  // --- TAB 2: GERCEP FAST FACE VERIFICATION (CONTINUOUS AUTO-SCAN) ---
+  // --- TAB 2: VERIFIKASI WAJAH BIOMETRIK ASLI (STRICT RECOGNITION) ---
   useEffect(() => {
     if (!isOpen || tab !== "face") {
       stopFaceCamera();
@@ -198,8 +227,9 @@ export default function SecurityGateModal({
     }
 
     let active = true;
-    consecutiveValidRef.current = 0;
+    consecutiveMatchRef.current = 0;
     setFaceStatusText("Mendeteksi wajah...");
+    setFaceMatchScore(null);
 
     const startFace = async () => {
       try {
@@ -216,47 +246,44 @@ export default function SecurityGateModal({
         }
         setFaceStreamActive(true);
 
-        const canvas = document.createElement("canvas");
-        canvas.width = 36;
-        canvas.height = 36;
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-        // Rapid loop: checks frame brightness, human contrast & facial positioning
         const intervalId = setInterval(() => {
-          if (!active || !faceVideoRef.current || faceVideoRef.current.readyState < 2 || !ctx) return;
+          if (!active || !faceVideoRef.current || faceVideoRef.current.readyState < 2) return;
+
+          // Jika template belum ada, minta Ryan mendaftar 1 kali
+          if (!faceTemplate && !hasFaceTemplate()) {
+            setFaceStatusText("Wajah pemilik belum terdaftar. Tekan tombol di bawah untuk merekam.");
+            return;
+          }
+
           try {
-            const v = faceVideoRef.current;
-            ctx.drawImage(v, 0, 0, 36, 36);
-            const imgData = ctx.getImageData(0, 0, 36, 36).data;
-            let sum = 0;
-            for (let i = 0; i < imgData.length; i += 4) {
-              sum += 0.299 * imgData[i] + 0.587 * imgData[i + 1] + 0.114 * imgData[i + 2];
+            const currentVec = extractFaceVector(faceVideoRef.current);
+            const refTemplate = faceTemplate || fetchFaceTemplateFromCloud();
+            if (!currentVec || !refTemplate) {
+              setFaceStatusText("Posisikan wajah Anda di dalam lingkaran...");
+              consecutiveMatchRef.current = 0;
+              return;
             }
-            const avgLum = sum / (36 * 36);
 
-            // Variance check (ensures real face features in frame, not blank background)
-            let diffSum = 0;
-            for (let i = 0; i < imgData.length; i += 4) {
-              const lum = 0.299 * imgData[i] + 0.587 * imgData[i + 1] + 0.114 * imgData[i + 2];
-              diffSum += Math.abs(lum - avgLum);
-            }
-            const contrast = diffSum / (36 * 36);
+            // Hitung kemiripan kosinus terhadap wajah Ryan yang sah
+            const score = compareFaceVectors(currentVec, refTemplate as Float32Array);
+            const pct = Math.round(score * 100);
+            setFaceMatchScore(pct);
 
-            if (avgLum > 35 && avgLum < 225 && contrast > 14) {
-              consecutiveValidRef.current += 1;
-              setFaceStatusText("Memverifikasi kontur wajah Ryan...");
-              // Once face is stable for ~4 frames (~600ms), immediately verify!
-              if (consecutiveValidRef.current >= 4) {
+            // Ambang batas ketat: wajah lain (seperti mama) bernilai jauh di bawah 80%
+            if (score >= 0.81) {
+              consecutiveMatchRef.current += 1;
+              setFaceStatusText(`Mengenali Ryan Wardiana (${pct}% cocok)...`);
+              if (consecutiveMatchRef.current >= 3) {
                 clearInterval(intervalId);
                 setFaceStatusText("Wajah Terverifikasi: Ryan Wardiana");
                 triggerSuccess("Wajah Terverifikasi");
               }
             } else {
-              consecutiveValidRef.current = Math.max(0, consecutiveValidRef.current - 1);
-              setFaceStatusText("Posisikan wajah Anda di depan kamera...");
+              consecutiveMatchRef.current = 0;
+              setFaceStatusText(`Wajah tidak cocok (Bukan Pemilik) · ${pct}%`);
             }
           } catch (_e) {}
-        }, 150);
+        }, 180);
 
         return () => {
           clearInterval(intervalId);
@@ -273,7 +300,7 @@ export default function SecurityGateModal({
       active = false;
       stopFaceCamera();
     };
-  }, [isOpen, tab]);
+  }, [isOpen, tab, faceTemplate]);
 
   const stopFaceCamera = () => {
     if (faceVideoRef.current?.srcObject) {
@@ -282,6 +309,20 @@ export default function SecurityGateModal({
       faceVideoRef.current.srcObject = null;
     }
     setFaceStreamActive(false);
+  };
+
+  const handleRegisterOwnerFace = async () => {
+    if (!faceVideoRef.current) return;
+    const vec = extractFaceVector(faceVideoRef.current);
+    if (!vec) {
+      setFaceStatusText("Posisikan wajah tepat di tengah lingkaran.");
+      return;
+    }
+    await syncFaceTemplateToCloud(vec);
+    setFaceTemplate(vec);
+    setAsOwnerDevice(true);
+    setIsOwner(true);
+    setFaceStatusText("Wajah Ryan berhasil disimpan sebagai kunci biometrik!");
   };
 
   // --- TAB 3: PIN INPUT ---
@@ -296,6 +337,9 @@ export default function SecurityGateModal({
       const ok = await verifyAdminPin(nextPin);
       setPinLoading(false);
       if (ok) {
+        // Jika memasukkan PIN 585264 di HP sendiri, tandai sebagai HP Pemilik
+        setAsOwnerDevice(true);
+        setIsOwner(true);
         triggerSuccess("PIN Terverifikasi");
       } else {
         setPinError(true);
@@ -362,7 +406,7 @@ export default function SecurityGateModal({
           flexDirection: "column",
         }}
       >
-        {/* Simple Header */}
+        {/* Header Bersih */}
         <div
           style={{
             background: "linear-gradient(135deg, #0f172a, #1e293b)",
@@ -391,51 +435,55 @@ export default function SecurityGateModal({
           <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Verifikasi Keamanan</h2>
         </div>
 
-        {/* 3 Plain-Text Clean Navigation Tabs */}
+        {/* 3 Tab Navigasi Bersih (Pada HP orang lain langsung diarahkan ke PIN) */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: isOwner ? "repeat(3, 1fr)" : "1fr",
             background: "#f1f5f9",
             padding: "4px",
             gap: "4px",
             borderBottom: "1px solid #e2e8f0",
           }}
         >
-          <button
-            type="button"
-            onClick={() => setTab("qr")}
-            style={{
-              padding: "11px 4px",
-              border: 0,
-              borderRadius: "8px",
-              background: tab === "qr" ? "white" : "transparent",
-              color: tab === "qr" ? "#0f172a" : "#64748b",
-              fontWeight: tab === "qr" ? 800 : 600,
-              fontSize: "0.85rem",
-              cursor: "pointer",
-              boxShadow: tab === "qr" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-            }}
-          >
-            Barcode
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab("face")}
-            style={{
-              padding: "11px 4px",
-              border: 0,
-              borderRadius: "8px",
-              background: tab === "face" ? "white" : "transparent",
-              color: tab === "face" ? "#0f172a" : "#64748b",
-              fontWeight: tab === "face" ? 800 : 600,
-              fontSize: "0.85rem",
-              cursor: "pointer",
-              boxShadow: tab === "face" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-            }}
-          >
-            Verifikasi Wajah
-          </button>
+          {isOwner && (
+            <>
+              <button
+                type="button"
+                onClick={() => setTab("qr")}
+                style={{
+                  padding: "11px 4px",
+                  border: 0,
+                  borderRadius: "8px",
+                  background: tab === "qr" ? "white" : "transparent",
+                  color: tab === "qr" ? "#0f172a" : "#64748b",
+                  fontWeight: tab === "qr" ? 800 : 600,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  boxShadow: tab === "qr" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+                }}
+              >
+                Barcode
+              </button>
+              <button
+                type="button"
+                onClick={() => setTab("face")}
+                style={{
+                  padding: "11px 4px",
+                  border: 0,
+                  borderRadius: "8px",
+                  background: tab === "face" ? "white" : "transparent",
+                  color: tab === "face" ? "#0f172a" : "#64748b",
+                  fontWeight: tab === "face" ? 800 : 600,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  boxShadow: tab === "face" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+                }}
+              >
+                Verifikasi Wajah
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={() => setTab("pin")}
@@ -468,7 +516,7 @@ export default function SecurityGateModal({
                 gap: "14px",
               }}
             >
-              {/* Interactive Animated Green Checkmark */}
+              {/* Animasi Centang Interaktif */}
               <div
                 style={{
                   width: "74px",
@@ -491,46 +539,8 @@ export default function SecurityGateModal({
             </div>
           ) : tab === "qr" ? (
             <div>
-              {/* Mobile Device: Provide toggle between Barcode Display & Scanner */}
-              {isMobile && (
-                <div style={{ display: "flex", gap: "6px", justifyContent: "center", marginBottom: "14px" }}>
-                  <button
-                    type="button"
-                    onClick={() => setMobileScannerActive(true)}
-                    style={{
-                      padding: "6px 14px",
-                      borderRadius: "999px",
-                      border: 0,
-                      background: mobileScannerActive ? "#0f172a" : "#f1f5f9",
-                      color: mobileScannerActive ? "white" : "#475569",
-                      fontSize: "0.78rem",
-                      fontWeight: 700,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Scan Barcode TV
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setMobileScannerActive(false)}
-                    style={{
-                      padding: "6px 14px",
-                      borderRadius: "999px",
-                      border: 0,
-                      background: !mobileScannerActive ? "#0f172a" : "#f1f5f9",
-                      color: !mobileScannerActive ? "white" : "#475569",
-                      fontSize: "0.78rem",
-                      fontWeight: 700,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Tampilkan Barcode
-                  </button>
-                </div>
-              )}
-
-              {/* Mobile Scanner View */}
-              {isMobile && mobileScannerActive ? (
+              {/* Jika HP Ryan: Menampilkan kamera pemindai Barcode TV */}
+              {isMobile && isOwner ? (
                 <div>
                   <div
                     style={{
@@ -604,7 +614,7 @@ export default function SecurityGateModal({
                   </div>
                 </div>
               ) : (
-                /* Desktop / Smart TV view: Only Barcode */
+                /* Desktop / Smart TV view: Hanya menampilkan Barcode */
                 <div>
                   <div
                     style={{
@@ -666,7 +676,7 @@ export default function SecurityGateModal({
             </div>
           ) : tab === "face" ? (
             <div>
-              {/* Gercep Instant Face Verification Scanner */}
+              {/* Verifikasi Wajah Biometrik Asli */}
               <div
                 style={{
                   position: "relative",
@@ -675,8 +685,8 @@ export default function SecurityGateModal({
                   margin: "0 auto 12px",
                   borderRadius: "50%",
                   overflow: "hidden",
-                  border: "3px solid #10b981",
-                  boxShadow: "0 0 20px rgba(16, 185, 129, 0.2)",
+                  border: faceMatchScore && faceMatchScore >= 80 ? "3px solid #10b981" : "3px solid #6366f1",
+                  boxShadow: "0 0 20px rgba(99, 102, 241, 0.2)",
                   background: "#000",
                 }}
               >
@@ -706,7 +716,7 @@ export default function SecurityGateModal({
               <p
                 style={{
                   fontSize: "0.88rem",
-                  color: "#0f172a",
+                  color: faceMatchScore && faceMatchScore >= 80 ? "#16a34a" : "#0f172a",
                   fontWeight: 700,
                   minHeight: "24px",
                   margin: "6px 0",
@@ -714,9 +724,46 @@ export default function SecurityGateModal({
               >
                 {faceStatusText}
               </p>
-              <p style={{ fontSize: "0.78rem", color: "#64748b", margin: 0 }}>
-                Arahkan wajah langsung ke kamera untuk verifikasi instan.
-              </p>
+
+              {/* Jika template belum ada sama sekali */}
+              {!faceTemplate && !hasFaceTemplate() && (
+                <button
+                  type="button"
+                  onClick={handleRegisterOwnerFace}
+                  style={{
+                    marginTop: "8px",
+                    padding: "9px 18px",
+                    background: "#0f172a",
+                    color: "white",
+                    border: 0,
+                    borderRadius: "8px",
+                    fontWeight: 700,
+                    fontSize: "0.84rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  Daftarkan Wajah Ryan (1x)
+                </button>
+              )}
+
+              {/* Tautan rekam ulang jika pencahayaan berbeda */}
+              {(faceTemplate || hasFaceTemplate()) && (
+                <button
+                  type="button"
+                  onClick={handleRegisterOwnerFace}
+                  style={{
+                    marginTop: "8px",
+                    background: "transparent",
+                    border: 0,
+                    color: "#64748b",
+                    fontSize: "0.75rem",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                >
+                  Perbarui sampel wajah
+                </button>
+              )}
             </div>
           ) : (
             <div>
@@ -724,7 +771,7 @@ export default function SecurityGateModal({
                 Masukkan PIN
               </p>
 
-              {/* 6 Digit Indicator Circles */}
+              {/* 6 Titik Indikator PIN */}
               <div
                 style={{
                   display: "flex",
@@ -756,7 +803,7 @@ export default function SecurityGateModal({
                 </p>
               )}
 
-              {/* Keypad */}
+              {/* Keypad Angka */}
               <div
                 style={{
                   display: "grid",
