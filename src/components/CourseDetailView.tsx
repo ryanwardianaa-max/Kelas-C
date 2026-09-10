@@ -190,7 +190,7 @@ export default function CourseDetailView({
               Solusi Nirlanjar Metode Terbuka (Newton-Raphson &amp; Secant)
             </div>
             <small style={{ color: "#047857", fontSize: "0.76rem" }}>
-              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila
+              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila Fitria Nuroktavianty Rosadi (232151088)
             </small>
           </div>
           <a
@@ -240,7 +240,7 @@ export default function CourseDetailView({
               Analisis Real (Kelompok 6)
             </div>
             <small style={{ color: "#be185d", fontSize: "0.76rem" }}>
-              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila
+              Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila Fitria Nuroktavianty Rosadi (232151088)
             </small>
           </div>
           <span style={{ fontSize: "0.78rem", color: "#be185d", fontStyle: "italic", whiteSpace: "nowrap" }}>

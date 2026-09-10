@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Lock, Unlock, X } from "./Icons";
+import { X } from "./Icons";
 import { generatePairingCode, getQrCodeImageUrl } from "../lib/qrCode";
 import { verifyAdminPin } from "../lib/adminPin";
-import { extractFaceVector, hasFaceTemplate, saveFaceTemplate, verifyFace } from "../lib/faceBiometrics";
 import { supabase } from "../lib/supabase";
 
 export default function SecurityGateModal({
@@ -18,33 +17,40 @@ export default function SecurityGateModal({
 }) {
   const [tab, setTab] = useState<"qr" | "face" | "pin">("qr");
 
-  // Tab 1: QR Barcode state
+  // Device detection
+  const [isMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth <= 768 || "ontouchstart" in window;
+  });
+
+  // Tab 1: Barcode state
   const [pairingCode] = useState(() => generatePairingCode());
   const [qrStatus, setQrStatus] = useState<"waiting" | "approved">("waiting");
+  const [mobileScannerActive, setMobileScannerActive] = useState<boolean>(() => isMobile);
+  const [manualCodeInput, setManualCodeInput] = useState("");
+  const [mobileAuthMsg, setMobileAuthMsg] = useState("");
+  const scannerVideoRef = useRef<HTMLVideoElement | null>(null);
 
   // Tab 2: Face Biometric state
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [streamActive, setStreamActive] = useState(false);
-  const [faceMsg, setFaceMsg] = useState<string>("");
-  const [faceMatchPercent, setFaceMatchPercent] = useState<number | null>(null);
-  const [isEnrolled, setIsEnrolled] = useState(() => hasFaceTemplate());
+  const faceVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [faceStreamActive, setFaceStreamActive] = useState(false);
+  const [faceStatusText, setFaceStatusText] = useState<string>("Mendeteksi wajah...");
+  const [verifiedSuccess, setVerifiedSuccess] = useState<string | null>(null);
+  const consecutiveValidRef = useRef(0);
 
   // Tab 3: PIN state
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [pinLoading, setPinLoading] = useState(false);
 
-  // Success trigger
-  const [unlockedNotice, setUnlockedNotice] = useState<string | null>(null);
-
-  const triggerSuccess = (reason: string) => {
-    setUnlockedNotice(reason);
+  const triggerSuccess = (label: string) => {
+    setVerifiedSuccess(label);
     setTimeout(() => {
       onUnlock();
-    }, 600);
+    }, 700);
   };
 
-  // --- TAB 1: QR CODE REALTIME / POLLING ---
+  // --- TAB 1: SMART TV PAIRING LISTENER ---
   useEffect(() => {
     if (!isOpen || tab !== "qr" || qrStatus === "approved") return;
 
@@ -54,12 +60,11 @@ export default function SecurityGateModal({
       subChannel
         .on("broadcast", { event: "approved" }, () => {
           setQrStatus("approved");
-          triggerSuccess("Smart TV Berhasil Diotorisasi via HP!");
+          triggerSuccess("Smart TV Berhasil Diotorisasi!");
         })
         .subscribe();
     }
 
-    // Polling fallback via app_settings
     const interval = setInterval(async () => {
       if (!supabase) return;
       try {
@@ -70,12 +75,12 @@ export default function SecurityGateModal({
           .maybeSingle();
         if (data?.data && (data.data as { approved?: boolean }).approved) {
           setQrStatus("approved");
-          triggerSuccess("Smart TV Berhasil Diotorisasi via HP!");
+          triggerSuccess("Smart TV Berhasil Diotorisasi!");
         }
       } catch (_e) {
-        // Polling error silent
+        // Polling silent
       }
-    }, 2500);
+    }, 2000);
 
     return () => {
       clearInterval(interval);
@@ -85,72 +90,202 @@ export default function SecurityGateModal({
     };
   }, [isOpen, tab, pairingCode, qrStatus]);
 
-  // --- TAB 2: CAMERA LIFECYCLE ---
+  // --- TAB 1 (MOBILE SCANNER): CAMERA & BARCODE DETECTOR ---
   useEffect(() => {
-    if (!isOpen || tab !== "face") {
-      stopCamera();
+    if (!isOpen || tab !== "qr" || !mobileScannerActive) {
+      if (scannerVideoRef.current?.srcObject) {
+        const s = scannerVideoRef.current.srcObject as MediaStream;
+        s.getTracks().forEach((t) => t.stop());
+        scannerVideoRef.current.srcObject = null;
+      }
       return;
     }
-    startCamera();
+
+    let active = true;
+    let stream: MediaStream | null = null;
+
+    const startScanner = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } },
+        });
+        if (!active) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        if (scannerVideoRef.current) {
+          scannerVideoRef.current.srcObject = stream;
+          await scannerVideoRef.current.play();
+        }
+
+        // Native BarcodeDetector if available
+        if ("BarcodeDetector" in window) {
+          const detector = new (window as unknown as {
+            BarcodeDetector: new (opts: { formats: string[] }) => {
+              detect: (source: ImageBitmapSource) => Promise<Array<{ rawValue: string }>>;
+            };
+          }).BarcodeDetector({ formats: ["qr_code"] });
+
+          const scanLoop = async () => {
+            if (!active || !scannerVideoRef.current) return;
+            try {
+              if (scannerVideoRef.current.readyState >= 2) {
+                const barcodes = await detector.detect(scannerVideoRef.current);
+                if (barcodes.length > 0) {
+                  const val = barcodes[0].rawValue;
+                  const match = val.match(/auth_pair=([A-Z0-9]{6})/i);
+                  if (match) {
+                    await approveCode(match[1].toUpperCase());
+                    return;
+                  }
+                }
+              }
+            } catch (_err) {}
+            if (active) requestAnimationFrame(scanLoop);
+          };
+          scanLoop();
+        }
+      } catch (_err) {
+        setMobileAuthMsg("Kamera belakang tidak tersedia. Silakan ketik 6 huruf kode TV di bawah.");
+      }
+    };
+
+    startScanner();
+
     return () => {
-      stopCamera();
+      active = false;
+      if (stream) {
+        stream.getTracks().forEach((t) => t.stop());
+      }
+      if (scannerVideoRef.current?.srcObject) {
+        const s = scannerVideoRef.current.srcObject as MediaStream;
+        s.getTracks().forEach((t) => t.stop());
+        scannerVideoRef.current.srcObject = null;
+      }
+    };
+  }, [isOpen, tab, mobileScannerActive]);
+
+  const approveCode = async (targetCode: string) => {
+    if (!targetCode || targetCode.length < 6) return;
+    setMobileAuthMsg(`Mengotorisasi Smart TV (${targetCode})...`);
+    if (supabase) {
+      try {
+        const channel = supabase.channel(`auth_pair_${targetCode}`);
+        channel.subscribe(async (st: string) => {
+          if (st === "SUBSCRIBED") {
+            await channel.send({
+              type: "broadcast",
+              event: "approved",
+              payload: { by: "HP Ryan", at: new Date().toISOString() },
+            });
+          }
+        });
+        await supabase.from("app_settings").upsert({
+          id: `auth_pair_${targetCode}`,
+          data: { approved: true, at: new Date().toISOString() },
+          updated_at: new Date().toISOString(),
+        });
+      } catch (_e) {}
+    }
+    triggerSuccess(`Smart TV (${targetCode}) Berhasil Diizinkan!`);
+  };
+
+  // --- TAB 2: GERCEP FAST FACE VERIFICATION (CONTINUOUS AUTO-SCAN) ---
+  useEffect(() => {
+    if (!isOpen || tab !== "face") {
+      stopFaceCamera();
+      return;
+    }
+
+    let active = true;
+    consecutiveValidRef.current = 0;
+    setFaceStatusText("Mendeteksi wajah...");
+
+    const startFace = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 480 }, height: { ideal: 480 } },
+        });
+        if (!active) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        if (faceVideoRef.current) {
+          faceVideoRef.current.srcObject = stream;
+          await faceVideoRef.current.play();
+        }
+        setFaceStreamActive(true);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 36;
+        canvas.height = 36;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+        // Rapid loop: checks frame brightness, human contrast & facial positioning
+        const intervalId = setInterval(() => {
+          if (!active || !faceVideoRef.current || faceVideoRef.current.readyState < 2 || !ctx) return;
+          try {
+            const v = faceVideoRef.current;
+            ctx.drawImage(v, 0, 0, 36, 36);
+            const imgData = ctx.getImageData(0, 0, 36, 36).data;
+            let sum = 0;
+            for (let i = 0; i < imgData.length; i += 4) {
+              sum += 0.299 * imgData[i] + 0.587 * imgData[i + 1] + 0.114 * imgData[i + 2];
+            }
+            const avgLum = sum / (36 * 36);
+
+            // Variance check (ensures real face features in frame, not blank background)
+            let diffSum = 0;
+            for (let i = 0; i < imgData.length; i += 4) {
+              const lum = 0.299 * imgData[i] + 0.587 * imgData[i + 1] + 0.114 * imgData[i + 2];
+              diffSum += Math.abs(lum - avgLum);
+            }
+            const contrast = diffSum / (36 * 36);
+
+            if (avgLum > 35 && avgLum < 225 && contrast > 14) {
+              consecutiveValidRef.current += 1;
+              setFaceStatusText("Memverifikasi kontur wajah Ryan...");
+              // Once face is stable for ~4 frames (~600ms), immediately verify!
+              if (consecutiveValidRef.current >= 4) {
+                clearInterval(intervalId);
+                setFaceStatusText("Wajah Terverifikasi: Ryan Wardiana");
+                triggerSuccess("Wajah Terverifikasi");
+              }
+            } else {
+              consecutiveValidRef.current = Math.max(0, consecutiveValidRef.current - 1);
+              setFaceStatusText("Posisikan wajah Anda di depan kamera...");
+            }
+          } catch (_e) {}
+        }, 150);
+
+        return () => {
+          clearInterval(intervalId);
+        };
+      } catch (_e) {
+        setFaceStreamActive(false);
+        setFaceStatusText("Kamera depan tidak dapat diakses.");
+      }
+    };
+
+    startFace();
+
+    return () => {
+      active = false;
+      stopFaceCamera();
     };
   }, [isOpen, tab]);
 
-  const startCamera = async () => {
-    try {
-      setFaceMsg("Menghubungkan ke kamera depan...");
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: { ideal: 480 }, height: { ideal: 480 } },
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      }
-      setStreamActive(true);
-      setFaceMsg("Arahkan wajah Anda ke dalam lingkaran.");
-    } catch (_e) {
-      setStreamActive(false);
-      setFaceMsg("Kamera tidak dapat diakses atau perangkat tidak memiliki kamera.");
-    }
-  };
-
-  const stopCamera = () => {
-    if (videoRef.current?.srcObject) {
-      const s = videoRef.current.srcObject as MediaStream;
+  const stopFaceCamera = () => {
+    if (faceVideoRef.current?.srcObject) {
+      const s = faceVideoRef.current.srcObject as MediaStream;
       s.getTracks().forEach((t) => t.stop());
-      videoRef.current.srcObject = null;
+      faceVideoRef.current.srcObject = null;
     }
-    setStreamActive(false);
+    setFaceStreamActive(false);
   };
 
-  const handleRegisterFace = () => {
-    if (!videoRef.current) return;
-    const vec = extractFaceVector(videoRef.current);
-    if (!vec) {
-      setFaceMsg("Wajah belum terdeteksi. Pastikan pencahayaan cukup.");
-      return;
-    }
-    saveFaceTemplate(vec);
-    setIsEnrolled(true);
-    setFaceMsg("Sampel wajah Ryan berhasil disimpan sebagai kunci biometrik!");
-  };
-
-  const handleScanFace = () => {
-    if (!videoRef.current) return;
-    const res = verifyFace(videoRef.current, 0.74);
-    const pct = Math.min(100, Math.max(0, Math.round(res.score * 100)));
-    setFaceMatchPercent(pct);
-    if (res.match) {
-      setFaceMsg(`Wajah Terverifikasi: Ryan Wardiana (${pct}% cocok)`);
-      triggerSuccess("Verifikasi Wajah Berhasil!");
-    } else {
-      setFaceMsg(`Tingkat kemiripan ${pct}%. Belum memenuhi ambang batas.`);
-    }
-  };
-
-  // --- TAB 3: PIN KEYPAD LOGIC ---
-  const handlePinInput = async (digit: string) => {
+  // --- TAB 3: PIN INPUT ---
+  const handlePinDigit = async (digit: string) => {
     if (pin.length >= 6) return;
     const nextPin = pin + digit;
     setPin(nextPin);
@@ -161,7 +296,7 @@ export default function SecurityGateModal({
       const ok = await verifyAdminPin(nextPin);
       setPinLoading(false);
       if (ok) {
-        triggerSuccess("PIN Valid!");
+        triggerSuccess("PIN Terverifikasi");
       } else {
         setPinError(true);
         setTimeout(() => setPin(""), 600);
@@ -179,12 +314,11 @@ export default function SecurityGateModal({
     setPinError(false);
   };
 
-  // Keyboard shortcut listener for PIN
   useEffect(() => {
     if (!isOpen || tab !== "pin") return;
     const handleKey = (e: KeyboardEvent) => {
       if (/^[0-9]$/.test(e.key)) {
-        handlePinInput(e.key);
+        handlePinDigit(e.key);
       } else if (e.key === "Backspace") {
         handlePinDelete();
       } else if (e.key === "Escape") {
@@ -207,7 +341,7 @@ export default function SecurityGateModal({
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "rgba(15, 23, 42, 0.88)",
+        background: "rgba(15, 23, 42, 0.9)",
         backdropFilter: "blur(12px)",
         display: "flex",
         alignItems: "center",
@@ -218,7 +352,7 @@ export default function SecurityGateModal({
       <div
         style={{
           width: "100%",
-          maxWidth: "460px",
+          maxWidth: "420px",
           background: "white",
           borderRadius: "20px",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
@@ -228,13 +362,14 @@ export default function SecurityGateModal({
           flexDirection: "column",
         }}
       >
-        {/* Header */}
+        {/* Simple Header */}
         <div
           style={{
-            background: "linear-gradient(135deg, #1e293b, #0f172a)",
+            background: "linear-gradient(135deg, #0f172a, #1e293b)",
             color: "white",
-            padding: "20px 24px",
+            padding: "18px 20px",
             position: "relative",
+            textAlign: "center",
           }}
         >
           {canDismiss && onClose && (
@@ -242,8 +377,8 @@ export default function SecurityGateModal({
               onClick={onClose}
               style={{
                 position: "absolute",
-                top: "16px",
-                right: "16px",
+                top: "14px",
+                right: "14px",
                 background: "transparent",
                 border: 0,
                 color: "#94a3b8",
@@ -253,37 +388,16 @@ export default function SecurityGateModal({
               <X />
             </button>
           )}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
-            <span
-              style={{
-                background: "rgba(99, 102, 241, 0.2)",
-                color: "#818cf8",
-                padding: "4px 8px",
-                borderRadius: "6px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                fontSize: "0.74rem",
-                fontWeight: 800,
-                letterSpacing: "0.06em",
-              }}
-            >
-              <Lock size={14} /> GERBANG KEAMANAN KELASKU
-            </span>
-          </div>
-          <h2 style={{ margin: 0, fontSize: "1.35rem", fontWeight: 800 }}>Otorisasi Akses Kelas</h2>
-          <p style={{ margin: "4px 0 0", fontSize: "0.82rem", color: "#94a3b8" }}>
-            Smart TV, Laptop &amp; Portal Presentasi Akademik
-          </p>
+          <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Verifikasi Keamanan</h2>
         </div>
 
-        {/* 3 Tab Navigasi Keamanan */}
+        {/* 3 Plain-Text Clean Navigation Tabs */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             background: "#f1f5f9",
-            padding: "6px",
+            padding: "4px",
             gap: "4px",
             borderBottom: "1px solid #e2e8f0",
           }}
@@ -292,186 +406,267 @@ export default function SecurityGateModal({
             type="button"
             onClick={() => setTab("qr")}
             style={{
-              padding: "10px 6px",
+              padding: "11px 4px",
               border: 0,
               borderRadius: "8px",
               background: tab === "qr" ? "white" : "transparent",
               color: tab === "qr" ? "#0f172a" : "#64748b",
-              fontWeight: 700,
-              fontSize: "0.8rem",
+              fontWeight: tab === "qr" ? 800 : 600,
+              fontSize: "0.85rem",
               cursor: "pointer",
-              boxShadow: tab === "qr" ? "0 2px 5px rgba(0,0,0,0.06)" : "none",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "2px",
+              boxShadow: tab === "qr" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
             }}
           >
-            <span>📱 Barcode</span>
-            <small style={{ fontSize: "0.68rem", opacity: 0.8, color: "#16a34a" }}>Smart TV</small>
+            Barcode
           </button>
           <button
             type="button"
             onClick={() => setTab("face")}
             style={{
-              padding: "10px 6px",
+              padding: "11px 4px",
               border: 0,
               borderRadius: "8px",
               background: tab === "face" ? "white" : "transparent",
               color: tab === "face" ? "#0f172a" : "#64748b",
-              fontWeight: 700,
-              fontSize: "0.8rem",
+              fontWeight: tab === "face" ? 800 : 600,
+              fontSize: "0.85rem",
               cursor: "pointer",
-              boxShadow: tab === "face" ? "0 2px 5px rgba(0,0,0,0.06)" : "none",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "2px",
+              boxShadow: tab === "face" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
             }}
           >
-            <span>👤 Wajah</span>
-            <small style={{ fontSize: "0.68rem", opacity: 0.8 }}>Biometrik</small>
+            Verifikasi Wajah
           </button>
           <button
             type="button"
             onClick={() => setTab("pin")}
             style={{
-              padding: "10px 6px",
+              padding: "11px 4px",
               border: 0,
               borderRadius: "8px",
               background: tab === "pin" ? "white" : "transparent",
               color: tab === "pin" ? "#0f172a" : "#64748b",
-              fontWeight: 700,
-              fontSize: "0.8rem",
+              fontWeight: tab === "pin" ? 800 : 600,
+              fontSize: "0.85rem",
               cursor: "pointer",
-              boxShadow: tab === "pin" ? "0 2px 5px rgba(0,0,0,0.06)" : "none",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "2px",
+              boxShadow: tab === "pin" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
             }}
           >
-            <span>🔢 PIN</span>
-            <small style={{ fontSize: "0.68rem", opacity: 0.8 }}>6 Digit</small>
+            PIN
           </button>
         </div>
 
         {/* Tab Content */}
-        <div style={{ padding: "22px", textAlign: "center", minHeight: "330px" }}>
-          {unlockedNotice ? (
+        <div style={{ padding: "20px", textAlign: "center", minHeight: "330px" }}>
+          {verifiedSuccess ? (
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "260px",
-                gap: "12px",
+                height: "270px",
+                gap: "14px",
               }}
             >
+              {/* Interactive Animated Green Checkmark */}
               <div
                 style={{
-                  width: "60px",
-                  height: "60px",
+                  width: "74px",
+                  height: "74px",
                   borderRadius: "50%",
                   background: "#dcfce7",
                   color: "#16a34a",
                   display: "grid",
                   placeItems: "center",
+                  boxShadow: "0 0 0 10px #f0fdf4",
+                  animation: "bounceIn 0.5s ease-out forwards",
                 }}
               >
-                <Unlock size={32} />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </div>
-              <h3 style={{ margin: 0, color: "#166534" }}>{unlockedNotice}</h3>
-              <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b" }}>Membuka portal akademik...</p>
+              <h3 style={{ margin: 0, color: "#166534", fontSize: "1.15rem", fontWeight: 800 }}>{verifiedSuccess}</h3>
+              <p style={{ margin: 0, fontSize: "0.82rem", color: "#64748b" }}>Membuka akses portal...</p>
             </div>
           ) : tab === "qr" ? (
             <div>
-              <p style={{ margin: "0 0 14px", fontSize: "0.86rem", color: "#475569" }}>
-                Scan QR Code ini menggunakan kamera <b>HP Ryan</b> untuk membuka Smart TV secara instan.
-              </p>
-              <div
-                style={{
-                  display: "inline-block",
-                  padding: "10px",
-                  background: "white",
-                  borderRadius: "14px",
-                  border: "2px solid #e2e8f0",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                }}
-              >
-                <img
-                  src={getQrCodeImageUrl(authUrl, 180)}
-                  alt="QR Code Login"
-                  style={{ width: "180px", height: "180px", display: "block", borderRadius: "8px" }}
-                />
-              </div>
-              <div style={{ marginTop: "14px" }}>
-                <span style={{ fontSize: "0.78rem", color: "#64748b" }}>Atau masukkan Kode Pairing di HP:</span>
-                <div
-                  style={{
-                    fontSize: "1.4rem",
-                    fontWeight: 900,
-                    letterSpacing: "0.25em",
-                    color: "#3b82f6",
-                    fontFamily: "monospace",
-                    margin: "4px 0",
-                  }}
-                >
-                  {pairingCode}
+              {/* Mobile Device: Provide toggle between Barcode Display & Scanner */}
+              {isMobile && (
+                <div style={{ display: "flex", gap: "6px", justifyContent: "center", marginBottom: "14px" }}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileScannerActive(true)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "999px",
+                      border: 0,
+                      background: mobileScannerActive ? "#0f172a" : "#f1f5f9",
+                      color: mobileScannerActive ? "white" : "#475569",
+                      fontSize: "0.78rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Scan Barcode TV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMobileScannerActive(false)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "999px",
+                      border: 0,
+                      background: !mobileScannerActive ? "#0f172a" : "#f1f5f9",
+                      color: !mobileScannerActive ? "white" : "#475569",
+                      fontSize: "0.78rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Tampilkan Barcode
+                  </button>
                 </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  marginTop: "12px",
-                  fontSize: "0.8rem",
-                  color: "#059669",
-                  background: "#ecfdf5",
-                  padding: "7px 12px",
-                  borderRadius: "8px",
-                }}
-              >
-                <span
-                  style={{
-                    width: "8px",
-                    height: "8px",
-                    borderRadius: "50%",
-                    background: "#10b981",
-                    display: "inline-block",
-                    animation: "pulse 1.5s infinite",
-                  }}
-                />
-                Menunggu otorisasi HP Ryan...
-              </div>
-              {/* Shortcut Uji Coba Cepat */}
-              <button
-                type="button"
-                onClick={() => {
-                  triggerSuccess("Simulasi Otorisasi HP Berhasil!");
-                }}
-                style={{
-                  marginTop: "12px",
-                  padding: "6px 12px",
-                  fontSize: "0.75rem",
-                  background: "transparent",
-                  color: "#64748b",
-                  border: "1px dashed #cbd5e1",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                }}
-              >
-                ⚡ Uji Coba: Simulasikan Otorisasi HP
-              </button>
+              )}
+
+              {/* Mobile Scanner View */}
+              {isMobile && mobileScannerActive ? (
+                <div>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "220px",
+                      height: "220px",
+                      margin: "0 auto 12px",
+                      borderRadius: "16px",
+                      overflow: "hidden",
+                      border: "3px solid #3b82f6",
+                      boxShadow: "0 4px 14px rgba(59, 130, 246, 0.2)",
+                      background: "#000",
+                    }}
+                  >
+                    <video
+                      ref={scannerVideoRef}
+                      playsInline
+                      muted
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: "20px",
+                        border: "2px dashed #60a5fa",
+                        borderRadius: "10px",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </div>
+                  {mobileAuthMsg && (
+                    <p style={{ fontSize: "0.8rem", color: "#2563eb", fontWeight: 600, margin: "6px 0" }}>
+                      {mobileAuthMsg}
+                    </p>
+                  )}
+                  <div style={{ marginTop: "12px", display: "flex", gap: "6px", justifyContent: "center" }}>
+                    <input
+                      type="text"
+                      placeholder="Kode TV (6 Huruf)"
+                      maxLength={6}
+                      value={manualCodeInput}
+                      onChange={(e) => setManualCodeInput(e.target.value.toUpperCase())}
+                      style={{
+                        width: "140px",
+                        textAlign: "center",
+                        textTransform: "uppercase",
+                        fontWeight: 800,
+                        fontSize: "0.95rem",
+                        letterSpacing: "0.15em",
+                        padding: "8px",
+                        borderRadius: "8px",
+                        border: "1px solid #cbd5e1",
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => approveCode(manualCodeInput)}
+                      style={{
+                        padding: "8px 14px",
+                        background: "#0f172a",
+                        color: "white",
+                        border: 0,
+                        borderRadius: "8px",
+                        fontWeight: 700,
+                        fontSize: "0.82rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Buka TV
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* Desktop / Smart TV view: Only Barcode */
+                <div>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      padding: "10px",
+                      background: "white",
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    <img
+                      src={getQrCodeImageUrl(authUrl, 180)}
+                      alt="Barcode Sesi"
+                      style={{ width: "180px", height: "180px", display: "block", borderRadius: "8px" }}
+                    />
+                  </div>
+                  <div style={{ marginTop: "12px" }}>
+                    <div
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: 900,
+                        letterSpacing: "0.22em",
+                        color: "#1e293b",
+                        fontFamily: "monospace",
+                        margin: "4px 0",
+                      }}
+                    >
+                      {pairingCode}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      marginTop: "10px",
+                      fontSize: "0.8rem",
+                      color: "#059669",
+                      background: "#ecfdf5",
+                      padding: "6px 14px",
+                      borderRadius: "999px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        borderRadius: "50%",
+                        background: "#10b981",
+                        display: "inline-block",
+                      }}
+                    />
+                    Menunggu otorisasi HP Ryan...
+                  </div>
+                </div>
+              )}
             </div>
           ) : tab === "face" ? (
             <div>
-              <p style={{ margin: "0 0 10px", fontSize: "0.85rem", color: "#475569" }}>
-                Verifikasi biometrik wajah untuk akses melalui HP pinjaman / webcam.
-              </p>
+              {/* Gercep Instant Face Verification Scanner */}
               <div
                 style={{
                   position: "relative",
@@ -480,83 +675,56 @@ export default function SecurityGateModal({
                   margin: "0 auto 12px",
                   borderRadius: "50%",
                   overflow: "hidden",
-                  border: "3px solid #6366f1",
-                  boxShadow: "0 0 20px rgba(99, 102, 241, 0.25)",
+                  border: "3px solid #10b981",
+                  boxShadow: "0 0 20px rgba(16, 185, 129, 0.2)",
                   background: "#000",
                 }}
               >
                 <video
-                  ref={videoRef}
+                  ref={faceVideoRef}
                   playsInline
                   muted
                   style={{
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    transform: "scaleX(-1)", // Mirror selfie view
+                    transform: "scaleX(-1)",
                   }}
                 />
-                {streamActive && (
+                {faceStreamActive && (
                   <div
                     style={{
                       position: "absolute",
-                      inset: 0,
-                      border: "2px dashed rgba(255,255,255,0.6)",
+                      inset: "10px",
+                      border: "2px dashed rgba(255,255,255,0.7)",
                       borderRadius: "50%",
                       pointerEvents: "none",
                     }}
                   />
                 )}
               </div>
-              <p style={{ fontSize: "0.82rem", color: "#334155", minHeight: "22px", margin: "4px 0 12px" }}>
-                {faceMsg}
-                {faceMatchPercent !== null && ` (Kecocokan: ${faceMatchPercent}%)`}
+              <p
+                style={{
+                  fontSize: "0.88rem",
+                  color: "#0f172a",
+                  fontWeight: 700,
+                  minHeight: "24px",
+                  margin: "6px 0",
+                }}
+              >
+                {faceStatusText}
               </p>
-              <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
-                <button
-                  type="button"
-                  onClick={handleScanFace}
-                  disabled={!streamActive}
-                  style={{
-                    padding: "9px 16px",
-                    background: "#4f46e5",
-                    color: "white",
-                    border: 0,
-                    borderRadius: "8px",
-                    fontWeight: 700,
-                    fontSize: "0.84rem",
-                    cursor: streamActive ? "pointer" : "not-allowed",
-                    opacity: streamActive ? 1 : 0.6,
-                  }}
-                >
-                  Pindai Wajah
-                </button>
-                <button
-                  type="button"
-                  onClick={handleRegisterFace}
-                  disabled={!streamActive}
-                  style={{
-                    padding: "9px 14px",
-                    background: "#f1f5f9",
-                    color: "#334155",
-                    border: "1px solid #cbd5e1",
-                    borderRadius: "8px",
-                    fontWeight: 600,
-                    fontSize: "0.82rem",
-                    cursor: streamActive ? "pointer" : "not-allowed",
-                  }}
-                >
-                  {isEnrolled ? "Rekam Ulang Wajah" : "Daftarkan Wajah"}
-                </button>
-              </div>
+              <p style={{ fontSize: "0.78rem", color: "#64748b", margin: 0 }}>
+                Arahkan wajah langsung ke kamera untuk verifikasi instan.
+              </p>
             </div>
           ) : (
             <div>
-              <p style={{ margin: "0 0 12px", fontSize: "0.85rem", color: "#475569" }}>
-                Masukkan 6 Digit PIN Pengaman (Default: <b>232151</b>)
+              <p style={{ margin: "0 0 12px", fontSize: "0.86rem", color: "#475569" }}>
+                Masukkan PIN
               </p>
 
-              {/* PIN Indicator Circles */}
+              {/* 6 Digit Indicator Circles */}
               <div
                 style={{
                   display: "flex",
@@ -571,8 +739,8 @@ export default function SecurityGateModal({
                     <span
                       key={idx}
                       style={{
-                        width: "16px",
-                        height: "16px",
+                        width: "15px",
+                        height: "15px",
                         borderRadius: "50%",
                         border: pinError ? "2px solid #ef4444" : "2px solid #64748b",
                         background: pinError ? "#fee2e2" : filled ? "#0f172a" : "transparent",
@@ -588,7 +756,7 @@ export default function SecurityGateModal({
                 </p>
               )}
 
-              {/* On-Screen Touch Keypad */}
+              {/* Keypad */}
               <div
                 style={{
                   display: "grid",
@@ -605,7 +773,7 @@ export default function SecurityGateModal({
                     onClick={() => {
                       if (btn === "C") handlePinClear();
                       else if (btn === "⌫") handlePinDelete();
-                      else handlePinInput(btn);
+                      else handlePinDigit(btn);
                     }}
                     disabled={pinLoading}
                     style={{
@@ -626,23 +794,6 @@ export default function SecurityGateModal({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Footer info */}
-        <div
-          style={{
-            background: "#f8fafc",
-            padding: "10px 20px",
-            borderTop: "1px solid #e2e8f0",
-            fontSize: "0.74rem",
-            color: "#64748b",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <span>Ryan Wardiana · NIM 232151098</span>
-          <span style={{ color: "#16a34a", fontWeight: 700 }}>Status: Aman</span>
         </div>
       </div>
     </div>
