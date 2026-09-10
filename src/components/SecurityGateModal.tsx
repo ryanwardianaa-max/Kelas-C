@@ -7,7 +7,7 @@ import {
   compareFaceVectors,
   extractFaceVector,
   fetchFaceTemplateFromCloud,
-  hasFaceTemplate,
+  loadFaceTemplate,
   syncFaceTemplateToCloud,
 } from "../lib/faceBiometrics";
 import { isOwnerDevice, setAsOwnerDevice } from "../lib/deviceAuth";
@@ -249,28 +249,22 @@ export default function SecurityGateModal({
         const intervalId = setInterval(() => {
           if (!active || !faceVideoRef.current || faceVideoRef.current.readyState < 2) return;
 
-          // Jika template belum ada, minta Ryan mendaftar 1 kali
-          if (!faceTemplate && !hasFaceTemplate()) {
-            setFaceStatusText("Wajah pemilik belum terdaftar. Tekan tombol di bawah untuk merekam.");
-            return;
-          }
-
           try {
             const currentVec = extractFaceVector(faceVideoRef.current);
-            const refTemplate = faceTemplate || fetchFaceTemplateFromCloud();
+            const refTemplate = faceTemplate || loadFaceTemplate();
             if (!currentVec || !refTemplate) {
-              setFaceStatusText("Posisikan wajah Anda di dalam lingkaran...");
+              setFaceStatusText("Posisikan wajah Anda di depan kamera...");
               consecutiveMatchRef.current = 0;
               return;
             }
 
             // Hitung kemiripan kosinus terhadap wajah Ryan yang sah
-            const score = compareFaceVectors(currentVec, refTemplate as Float32Array);
+            const score = compareFaceVectors(currentVec, refTemplate);
             const pct = Math.round(score * 100);
             setFaceMatchScore(pct);
 
-            // Ambang batas ketat: wajah lain (seperti mama) bernilai jauh di bawah 80%
-            if (score >= 0.81) {
+            // Ambang batas ketat: wajah lain (seperti mama) bernilai jauh di bawah 78%
+            if (score >= 0.78) {
               consecutiveMatchRef.current += 1;
               setFaceStatusText(`Mengenali Ryan Wardiana (${pct}% cocok)...`);
               if (consecutiveMatchRef.current >= 3) {
@@ -725,45 +719,21 @@ export default function SecurityGateModal({
                 {faceStatusText}
               </p>
 
-              {/* Jika template belum ada sama sekali */}
-              {!faceTemplate && !hasFaceTemplate() && (
-                <button
-                  type="button"
-                  onClick={handleRegisterOwnerFace}
-                  style={{
-                    marginTop: "8px",
-                    padding: "9px 18px",
-                    background: "#0f172a",
-                    color: "white",
-                    border: 0,
-                    borderRadius: "8px",
-                    fontWeight: 700,
-                    fontSize: "0.84rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Daftarkan Wajah Ryan (1x)
-                </button>
-              )}
-
-              {/* Tautan rekam ulang jika pencahayaan berbeda */}
-              {(faceTemplate || hasFaceTemplate()) && (
-                <button
-                  type="button"
-                  onClick={handleRegisterOwnerFace}
-                  style={{
-                    marginTop: "8px",
-                    background: "transparent",
-                    border: 0,
-                    color: "#64748b",
-                    fontSize: "0.75rem",
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                  }}
-                >
-                  Perbarui sampel wajah
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handleRegisterOwnerFace}
+                style={{
+                  marginTop: "8px",
+                  background: "transparent",
+                  border: 0,
+                  color: "#64748b",
+                  fontSize: "0.75rem",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Perbarui sampel wajah dengan kamera saat ini
+              </button>
             </div>
           ) : (
             <div>

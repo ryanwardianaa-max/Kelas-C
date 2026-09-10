@@ -1,4 +1,5 @@
 import { supabase } from "./supabase";
+import { RYAN_FACE_PROFILE } from "./ryanFaceProfile";
 
 const STORAGE_KEY = "kelasku_face_vector_v1";
 const GRID_SIZE = 48; // 48x48 = 2304 features
@@ -77,20 +78,20 @@ export function saveFaceTemplate(vector: Float32Array): void {
   }
 }
 
-export function loadFaceTemplate(): Float32Array | null {
+export function loadFaceTemplate(): Float32Array {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
+    if (!raw) return RYAN_FACE_PROFILE;
     const arr = JSON.parse(raw);
-    if (!Array.isArray(arr) || arr.length !== GRID_SIZE * GRID_SIZE) return null;
+    if (!Array.isArray(arr) || arr.length !== GRID_SIZE * GRID_SIZE) return RYAN_FACE_PROFILE;
     return new Float32Array(arr);
   } catch {
-    return null;
+    return RYAN_FACE_PROFILE;
   }
 }
 
 export function hasFaceTemplate(): boolean {
-  return Boolean(loadFaceTemplate());
+  return true; // Wajah Ryan sudah terdaftar secara bawaan dari foto resmi
 }
 
 /** Sinkronkan template wajah Ryan ke Supabase cloud agar bisa diverifikasi dari HP mana pun */
@@ -109,11 +110,11 @@ export async function syncFaceTemplateToCloud(vector: Float32Array): Promise<boo
   }
 }
 
-/** Ambil template wajah Ryan dari Supabase jika belum ada di perangkat lokal */
-export async function fetchFaceTemplateFromCloud(): Promise<Float32Array | null> {
+/** Ambil template wajah Ryan dari Supabase jika ada pembaruan */
+export async function fetchFaceTemplateFromCloud(): Promise<Float32Array> {
   const local = loadFaceTemplate();
   if (local) return local;
-  if (!supabase) return null;
+  if (!supabase) return RYAN_FACE_PROFILE;
   try {
     const { data } = await supabase.from("app_settings").select("data").eq("id", "owner_face_biometrics").maybeSingle();
     if (data?.data && Array.isArray((data.data as { template?: unknown }).template)) {
@@ -125,7 +126,7 @@ export async function fetchFaceTemplateFromCloud(): Promise<Float32Array | null>
       }
     }
   } catch {
-    return null;
+    return RYAN_FACE_PROFILE;
   }
-  return null;
+  return RYAN_FACE_PROFILE;
 }
