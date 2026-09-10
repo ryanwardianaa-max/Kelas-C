@@ -35,6 +35,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-03T02:00:00.000Z",
   },
   {
+    id: "mat-mateko-pertemuan-05",
+    title: "Catatan Kuliah: Penerapan Fungsi Non-Linear dalam Ekonomi",
+    courseCode: "KP21517007",
+    meetingNo: 5,
+    type: "Catatan",
+    description:
+      "Catatan komprehensif kuliah Matematika Ekonomi Pertemuan 05: Fungsi Permintaan & Penawaran Kuadrat, Keseimbangan Pasar Non-Linear, Pengaruh Pajak Spesifik (t) & Subsidi (s), dan Kurva Transformasi Produksi (PPF) dengan pembahasan bertahap.",
+    url: "/materi/KP21517007/pertemuan-05/index.html",
+    createdAt: "2026-09-10T02:30:00.000Z",
+  },
+  {
     id: "tool-kalkulator-mateko",
     title: "Aplikasi Bantuan: Kalkulator Matematika Ekonomi Lengkap",
     courseCode: "KP21517007",

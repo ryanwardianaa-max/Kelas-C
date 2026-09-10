@@ -54,7 +54,8 @@ const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:2,title:'Fungsi Permintaan, Fungsi Penawaran, dan Keseimbangan Pasar',kind:'Teori',summary:'Hukum permintaan dan penawaran, bentuk linier Qd = a − bP, kasus khusus kurva ekstrim, serta keseimbangan pasar. Konvensi: sumbu horizontal Q, vertikal P. Kamis, 20 Agustus 2026.',activity:'Menelaah catatan kuliah beserta grafik tulis tangan dan contoh sehari-hari.'},
 {meeting:3,title:'Pajak, Subsidi, dan Keseimbangan Pasar Dua Macam Barang',kind:'Teori',summary:'Membentuk fungsi dari dua titik, keseimbangan pasar, pajak spesifik dan proporsional, subsidi, pembagian beban pajak konsumen-produsen, serta pasar dua macam barang. Kamis, 27 Agustus 2026.',activity:'Mengerjakan hitungan dari transkripsi sepuluh foto catatan tulis tangan.'},
 {meeting:4,title:'Fungsi Biaya, Penerimaan, Laba, dan Titik Impas',kind:'Teori',summary:'Biaya tetap, variabel, total, rata-rata, dan marginal; penerimaan total; fungsi laba; serta titik impas (BEP). Kamis, 03 September 2026.',activity:'Mengikuti contoh soal lalu mengerjakan latihan biaya-penerimaan-laba.'},
-...blank(5,16)
+{meeting:5,title:'Penerapan Fungsi Non-Linear dalam Ekonomi',kind:'Teori',summary:'Fungsi permintaan dan penawaran kuadrat, keseimbangan pasar non-linear, pengaruh pajak dan subsidi spesifik pada model kuadrat, serta kurva transformasi produksi (PPF). Kamis, 10 September 2026.',activity:'Mempelajari materi pengantar dan mengerjakan latihan keseimbangan pasar non-linear.'},
+...blank(6,16)
 ]
 /* Skripsi: tahapan diambil dari berkas yang benar-benar ada di folder skripsi
    (Form NUIR 2026, draf proposal, revisi bimbingan pertama, studi pendahuluan,

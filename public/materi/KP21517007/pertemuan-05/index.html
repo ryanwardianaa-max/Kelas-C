@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pertemuan 05 — Penerapan Fungsi Non-Linear dalam Ekonomi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#e8eef8,#f8fafc);color:#1e293b;font:16px/1.75 system-ui,-apple-system,sans-serif}
+.page{width:min(100% - 28px,1000px);margin:24px auto;background:#fff;border:1px solid #dbe4f0;border-radius:22px;box-shadow:0 20px 55px #0f172a14;overflow:hidden}
+header{padding:52px clamp(24px,6vw,64px);color:#fff;background:radial-gradient(circle at 90% 15%,#38bdf855,transparent 28%),linear-gradient(130deg,#1e3a8a,#0284c7)}
+header .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:#bae6fd;font-size:.8rem}
+h1{font-size:clamp(1.9rem,5vw,3rem);line-height:1.12;margin:.5rem 0 1rem;max-width:840px}
+header p{max-width:760px;color:#dbeafe;margin:.35rem 0}
+.content{padding:20px clamp(18px,6vw,64px) 60px}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:12px 0 34px}
+.toc a{padding:12px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;text-align:center;font-size:.86rem;transition:.2s}
+.toc a:hover{background:#dbeafe;transform:translateY(-1px)}
+h2{margin:46px 0 14px;color:#172554;font-size:1.6rem;border-bottom:2px solid #dbeafe;padding-bottom:8px}
+h3{color:#1e3a8a;margin-top:28px;font-size:1.2rem}
+h4{color:#334155;margin:20px 0 8px;font-size:1.02rem}
+.card,.example,.warning,.note,.problem{border:1px solid #dbe4f0;border-radius:14px;padding:18px 22px;margin:16px 0;background:#f8fafc;break-inside:avoid}
+.example{border-left:5px solid #2563eb;background:#f8fbff}
+.warning{border-left:5px solid #d97706;background:#fffbeb}
+.note{border-left:5px solid #0891b2;background:#ecfeff}
+.problem{border-left:5px solid #7c3aed;background:#f5f3ff}
+.formula{overflow-x:auto;text-align:center;padding:10px 0;font-size:1.15rem;font-family:'Times New Roman',serif;font-weight:700;color:#0f172a}
+.steps{counter-reset:st;list-style:none;padding-left:0}
+.steps>li{position:relative;padding:4px 0 12px 44px;margin-bottom:8px}
+.steps>li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:#2563eb;color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+footer{margin-top:50px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.88rem;color:#64748b;text-align:center}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.78rem;font-weight:700;text-transform:uppercase}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-amber{background:#fef3c7;color:#92400e}
+table{width:100%;border-collapse:collapse;margin:16px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 12px;text-align:left}
+th{background:#f1f5f9;color:#1e293b}
+</style>
+</head>
+<body><article class="page">
+<nav style="padding:14px 20px;background:#eff6ff;border-bottom:1px solid #dbeafe">
+  <a href="/?course=KP21517007" style="color:#1e40af;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+    ← Kembali ke Dashboard Matematika Ekonomi
+  </a>
+</nav>
+
+<header>
+  <div class="eyebrow">KP21517007 · Matematika Ekonomi · Kelas C</div>
+  <h1>Penerapan Fungsi Non-Linear dalam Ekonomi</h1>
+  <p><strong>Pertemuan 05</strong> · Kamis, 10 September 2026 · Ruang FKIP C.3.1</p>
+  <p>Dosen Pengampu: <strong>Vepi Apiati, S.Pd., M.Pd.</strong></p>
+  <p>Kajian mendalam fungsi permintaan &amp; penawaran non-linear (parabola), keseimbangan pasar non-linear, pengaruh kebijakan pajak &amp; subsidi, dan kurva transformasi produksi (PPF).</p>
+</header>
+
+<main class="content">
+<nav class="toc">
+  <a href="#konsep">I. Konsep Non-Linear</a>
+  <a href="#fungsi">II. Permintaan &amp; Penawaran</a>
+  <a href="#keseimbangan">III. Keseimbangan Pasar</a>
+  <a href="#pajak-subsidi">IV. Pajak &amp; Subsidi</a>
+  <a href="#ppf">V. Transformasi Produksi</a>
+  <a href="#latihan">VI. Latihan Mandiri</a>
+</nav>
+
+<!-- BAGIAN I -->
+<section id="konsep">
+  <h2>I. Mengapa Menggunakan Fungsi Non-Linear?</h2>
+  <p>Pada pertemuan sebelumnya (Pertemuan 02 &amp; 03), kita memodelkan pasar menggunakan <em>garis lurus (fungsi linear)</em>. Namun dalam kenyataan ekonomi sesungguhnya:</p>
+  <ul>
+    <li><strong>Hukum Hasil yang Semakin Menurun (Law of Diminishing Marginal Utility):</strong> Tambahan kepuasan konsumen berkurang secara bertahap, sehingga kurva permintaan cenderung melengkung.</li>
+    <li><strong>Kapasitas Fisik dan Biaya Produksi:</strong> Produsen menghadapi batas kapasitas pabrik. Begitu kapasitas penuh, biaya melonjak tajam sehingga kurva penawaran melengkung ke atas.</li>
+    <li><strong>Elastisitas yang Tidak Konstan:</strong> Pada kurva non-linear, derajat kepekaan harga berubah di setiap tingkat kuantitas.</li>
+  </ul>
+  <div class="note">
+    <strong>Bentuk Matematis Dominan:</strong> Fungsi kuadrat (parabola) paling banyak digunakan karena secara matematis sederhana untuk dianalisis dan memiliki interpretasi geometris yang akurat pada bidang Kartesius Kuadran I.
+  </div>
+</section>
+
+<!-- BAGIAN II -->
+<section id="fungsi">
+  <h2>II. Fungsi Permintaan dan Penawaran Kuadrat</h2>
+  
+  <div class="card">
+    <h4>1. Fungsi Permintaan Kuadrat (Demand Curve)</h4>
+    <p>Bentuk umum:</p>
+    <div class="formula">P = aQ² + bQ + c &nbsp; atau &nbsp; Q = aP² + bP + c</div>
+    <p><strong>Karakteristik Ekonomi:</strong></p>
+    <ul>
+      <li>Koefisien kuadrat pada kurva permintaan umumnya bernilai negatif (<span class="badge badge-blue">a &lt; 0</span>), sehingga parabola membuka ke bawah atau ke kiri.</li>
+      <li>Kurva memiliki gradien negatif (kemiringan menurun dari kiri atas ke kanan bawah).</li>
+      <li>Titik potong sumbu harga (P) menyatakan harga tertinggi saat kuantitas nol (<em>reserve price</em>).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>2. Fungsi Penawaran Kuadrat (Supply Curve)</h4>
+    <p>Bentuk umum:</p>
+    <div class="formula">P = aQ² + bQ + c &nbsp; atau &nbsp; Q = aP² + bP + c</div>
+    <p><strong>Karakteristik Ekonomi:</strong></p>
+    <ul>
+      <li>Koefisien kuadrat pada kurva penawaran bernilai positif (<span class="badge badge-green">a &gt; 0</span>), parabola membuka ke atas atau ke kanan.</li>
+      <li>Kurva bergerak naik dari kiri bawah ke kanan atas (makin tinggi harga, produsen terdorong menawarkan lebih banyak).</li>
+    </ul>
+  </div>
+
+  <div class="warning">
+    <strong>Prinsip Batas Wilayah Ekonomi (Economic Feasibility):</strong><br>
+    Persamaan kuadrat memiliki 2 cabang parabola. Dalam matematika ekonomi, hanya bagian kurva di <strong>Kuadran I</strong> yang memiliki makna nyata, yaitu:
+    <div class="formula">P ≥ 0 &nbsp; dan &nbsp; Q ≥ 0</div>
+    Setiap akar atau titik potong yang bernilai negatif harus <em>dieliminasi (dibuang)</em>.
+  </div>
+</section>
+
+<!-- BAGIAN III -->
+<section id="keseimbangan">
+  <h2>III. Keseimbangan Pasar Non-Linear (Market Equilibrium)</h2>
+  <p>Keseimbangan pasar tercapai apabila jumlah barang yang diminta sama dengan jumlah barang yang ditawarkan:</p>
+  <div class="formula">Q<sub>d</sub> = Q<sub>s</sub> &nbsp; atau &nbsp; P<sub>d</sub> = P<sub>s</sub></div>
+
+  <div class="problem">
+    <strong>Contoh Soal 1 (Parabola vs Linear):</strong><br>
+    Fungsi permintaan suatu produk adalah <strong>P<sub>d</sub> = 16 − Q²</strong> dan fungsi penawarannya adalah <strong>P<sub>s</sub> = 4 + Q</strong>.<br>
+    Tentukan harga dan kuantitas keseimbangan pasarnya!
+  </div>
+
+  <div class="example">
+    <h4>Langkah Penyelesaian Sistematis:</h4>
+    <ol class="steps">
+      <li>
+        <strong>Tulis Persamaan Keseimbangan:</strong><br>
+        P<sub>d</sub> = P<sub>s</sub><br>
+        16 − Q² = 4 + Q
+      </li>
+      <li>
+        <strong>Susun ke Bentuk Persamaan Kuadrat Baku:</strong><br>
+        Pindahkan seluruh suku ke ruas kanan:<br>
+        0 = Q² + Q + 4 − 16<br>
+        <strong>Q² + Q − 12 = 0</strong>
+      </li>
+      <li>
+        <strong>Faktorkan Persamaan Kuadrat:</strong><br>
+        Cari dua bilangan jika dikalikan hasilnya −12 dan jika dijumlahkan hasilnya +1:<br>
+        (Q + 4)(Q − 3) = 0<br>
+        Maka: Q₁ = −4 &nbsp; atau &nbsp; <strong>Q₂ = 3</strong>
+      </li>
+      <li>
+        <strong>Evaluasi Kelayakan Ekonomi:</strong><br>
+        Karena kuantitas barang tidak boleh bernilai negatif (Q ≥ 0), maka Q = −4 gugur.<br>
+        Kuantitas keseimbangan: <strong>Q<sub>e</sub> = 3 unit</strong>.
+      </li>
+      <li>
+        <strong>Hitung Harga Keseimbangan (P<sub>e</sub>):</strong><br>
+        Substitusikan Q<sub>e</sub> = 3 ke salah satu fungsi:<br>
+        P<sub>e</sub> = 4 + Q<sub>e</sub> = 4 + 3 = <strong>7</strong><br>
+        <em>Pengecekan ke fungsi permintaan:</em> P<sub>e</sub> = 16 − (3)² = 16 − 9 = 7 (Cocok!).
+      </li>
+    </ol>
+    <p><strong>Kesimpulan:</strong> Titik keseimbangan pasar terjadi pada <strong>E(Q<sub>e</sub>, P<sub>e</sub>) = (3, 7)</strong>.</p>
+  </div>
+
+  <div class="problem">
+    <strong>Contoh Soal 2 (Parabola vs Parabola):</strong><br>
+    Fungsi permintaan: <strong>Q<sub>d</sub> = 19 − P²</strong><br>
+    Fungsi penawaran: <strong>Q<sub>s</sub> = 2P² − 8</strong><br>
+    Tentukan titik keseimbangan pasar!
+  </div>
+
+  <div class="example">
+    <h4>Langkah Penyelesaian:</h4>
+    <ol class="steps">
+      <li>
+        <strong>Syarat Keseimbangan:</strong><br>
+        Q<sub>d</sub> = Q<sub>s</sub><br>
+        19 − P² = 2P² − 8
+      </li>
+      <li>
+        <strong>Kumpulkan Suku Sejenis:</strong><br>
+        19 + 8 = 2P² + P²<br>
+        27 = 3P²<br>
+        P² = 9<br>
+        P = ±√9 &nbsp; → &nbsp; P₁ = −3 &nbsp; atau &nbsp; <strong>P₂ = 3</strong>
+      </li>
+      <li>
+        <strong>Pilih Akar Positif:</strong><br>
+        Harga tidak mungkin negatif, maka <strong>P<sub>e</sub> = 3</strong>.
+      </li>
+      <li>
+        <strong>Hitung Kuantitas Keseimbangan (Q<sub>e</sub>):</strong><br>
+        Q<sub>e</sub> = 19 − (3)² = 19 − 9 = <strong>10 unit</strong>.<br>
+        <em>Pengecekan di penawaran:</em> Q<sub>e</sub> = 2(3)² − 8 = 18 − 8 = 10 (Cocok!).
+      </li>
+    </ol>
+    <p><strong>Kesimpulan:</strong> Titik keseimbangan pasar adalah <strong>E(10, 3)</strong>, artinya kuantitas 10 unit pada harga Rp 3.</p>
+  </div>
+</section>
+
+<!-- BAGIAN IV -->
+<section id="pajak-subsidi">
+  <h2>IV. Pengaruh Pajak &amp; Subsidi pada Keseimbangan Non-Linear</h2>
+  <p>Prinsip pengaruh pajak dan subsidi tetap sama seperti kasus linear: <em>pajak menaikkan kurva penawaran</em>, sedangkan <em>subsidi menurunkan kurva penawaran</em>. Kurva permintaan tidak berubah.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bentuk Fungsi Penawaran</th>
+        <th>Setelah Pajak Spesifik (t)</th>
+        <th>Setelah Subsidi Spesifik (s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>P = f(Q)</strong></td>
+        <td>P<sub>st</sub> = f(Q) + t</td>
+        <td>P<sub>ss</sub> = f(Q) − s</td>
+      </tr>
+      <tr>
+        <td><strong>Q = f(P)</strong></td>
+        <td>Q<sub>st</sub> = f(P − t)</td>
+        <td>Q<sub>ss</sub> = f(P + s)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="problem">
+    <strong>Contoh Soal 3 (Pajak Spesifik):</strong><br>
+    Dari Contoh Soal 1 di atas, diketahui P<sub>d</sub> = 16 − Q² dan P<sub>s</sub> = 4 + Q.<br>
+    Jika pemerintah mengenakan pajak spesifik sebesar <strong>t = 6 per unit</strong>, tentukan:<br>
+    a. Titik keseimbangan pasar setelah pajak E<sub>t</sub>(Q<sub>et</sub>, P<sub>et</sub>)<br>
+    b. Beban pajak yang ditanggung konsumen (t<sub>k</sub>) dan produsen (t<sub>p</sub>)<br>
+    c. Total penerimaan pajak kas pemerintah (T)
+  </div>
+
+  <div class="example">
+    <h4>Penyelesaian:</h4>
+    <ol class="steps">
+      <li>
+        <strong>Tentukan Fungsi Penawaran Baru Setelah Pajak:</strong><br>
+        P<sub>st</sub> = P<sub>s</sub> + t<br>
+        P<sub>st</sub> = (4 + Q) + 6 = <strong>10 + Q</strong>
+      </li>
+      <li>
+        <strong>Keseimbangan Pasar Setelah Pajak:</strong><br>
+        P<sub>d</sub> = P<sub>st</sub><br>
+        16 − Q² = 10 + Q<br>
+        Q² + Q + 10 − 16 = 0<br>
+        <strong>Q² + Q − 6 = 0</strong>
+      </li>
+      <li>
+        <strong>Faktorkan Persamaan:</strong><br>
+        (Q + 3)(Q − 2) = 0<br>
+        Q₁ = −3 (gugur), <strong>Q<sub>et</sub> = 2 unit</strong>.
+      </li>
+      <li>
+        <strong>Hitung Harga Setelah Pajak (P<sub>et</sub>):</strong><br>
+        P<sub>et</sub> = 10 + 2 = <strong>12</strong>
+      </li>
+      <li>
+        <strong>Beban Pajak Konsumen dan Produsen:</strong><br>
+        Keseimbangan awal sebelum pajak adalah P<sub>e</sub> = 7.<br>
+        - Beban konsumen: t<sub>k</sub> = P<sub>et</sub> − P<sub>e</sub> = 12 − 7 = <strong>5 per unit</strong>.<br>
+        - Beban produsen: t<sub>p</sub> = t − t<sub>k</sub> = 6 − 5 = <strong>1 per unit</strong>.
+      </li>
+      <li>
+        <strong>Total Penerimaan Pajak Pemerintah:</strong><br>
+        T = t × Q<sub>et</sub> = 6 × 2 = <strong>12</strong><br>
+        - Total dari konsumen: T<sub>k</sub> = 5 × 2 = 10<br>
+        - Total dari produsen: T<sub>p</sub> = 1 × 2 = 2<br>
+        <em>Pemeriksaan:</em> 10 + 2 = 12 (Tepat!).
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- BAGIAN V -->
+<section id="ppf">
+  <h2>V. Kurva Transformasi Produksi (PPF)</h2>
+  <p>Kurva Transformasi Produksi / <em>Production Possibility Frontier (PPF)</em> menggambarkan batas kemungkinan kombinasi dua komoditas (misal barang X dan barang Y) yang dapat diproduksi maksimal menggunakan seluruh sumber daya dan teknologi yang tersedia.</p>
+
+  <div class="card">
+    <h4>Bentuk Matematis PPF (Lingkaran / Elips):</h4>
+    <div class="formula">X² + Y² = r² &nbsp; atau &nbsp; aX² + bY² = c &nbsp; (X ≥ 0, Y ≥ 0)</div>
+    <p><strong>Makna Posisi Titik:</strong></p>
+    <ul>
+      <li><strong>Pada Kurva:</strong> Produksi efisien, kapasitas sumber daya digunakan 100%.</li>
+      <li><strong>Di Dalam Kurva:</strong> Produksi tidak efisien / terdapat pengangguran sumber daya (<em>idle resources</em>).</li>
+      <li><strong>Di Luar Kurva:</strong> Mustahil diproduksi (<em>unattainable</em>) dengan teknologi dan modal saat ini.</li>
+    </ul>
+  </div>
+
+  <div class="example">
+    <h4>Contoh Aplikasi PPF:</h4>
+    <p>Sebuah perekonomian memproduksi komoditas X dan Y dengan kurva transformasi: <strong>X² + 4Y² = 100</strong>.</p>
+    <ul>
+      <li>Jika seluruh sumber daya digunakan memproduksi X saja (Y = 0):<br>
+          X² + 4(0) = 100 &nbsp;→&nbsp; X = √100 = <strong>10 unit komoditas X</strong>.</li>
+      <li>Jika seluruh sumber daya digunakan memproduksi Y saja (X = 0):<br>
+          0 + 4Y² = 100 &nbsp;→&nbsp; Y² = 25 &nbsp;→&nbsp; Y = <strong>5 unit komoditas Y</strong>.</li>
+      <li>Jika ditargetkan memproduksi 6 unit komoditas X, berapa maksimal komoditas Y yang dihasilkan?<br>
+          (6)² + 4Y² = 100 &nbsp;→&nbsp; 36 + 4Y² = 100 &nbsp;→&nbsp; 4Y² = 64 &nbsp;→&nbsp; Y² = 16 &nbsp;→&nbsp; <strong>Y = 4 unit komoditas Y</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAGIAN VI -->
+<section id="latihan">
+  <h2>VI. Latihan Mandiri untuk Mahasiswa</h2>
+  <ol>
+    <li>
+      <strong>Keseimbangan Pasar Kuadrat:</strong><br>
+      Fungsi permintaan diberikan oleh <em>P<sub>d</sub> = 25 − Q²</em> dan fungsi penawaran <em>P<sub>s</sub> = 2Q + 1</em>. Tentukan kuantitas dan harga keseimbangan pasar (Q<sub>e</sub>, P<sub>e</sub>)!
+    </li>
+    <li>
+      <strong>Dampak Pajak:</strong><br>
+      Berdasarkan soal nomor 1, jika pemerintah mengenakan pajak spesifik sebesar <em>t = 4 per unit</em>, carilah titik keseimbangan pasar setelah pajak dan hitung total penerimaan kas negara!
+    </li>
+    <li>
+      <strong>Keseimbangan Parabola Murni:</strong><br>
+      Fungsi permintaan <em>Q<sub>d</sub> = 64 − P²</em> dan penawaran <em>Q<sub>s</sub> = P² − 8</em>. Tentukan nilai P<sub>e</sub> dan Q<sub>e</sub>!
+    </li>
+    <li>
+      <strong>Analisis PPF:</strong><br>
+      Diberikan kurva kemungkinan produksi <em>2X² + Y² = 72</em>. Berapa jumlah unit Y yang dapat dihasilkan jika produsen memutuskan membuat 4 unit komoditas X?
+    </li>
+  </ol>
+
+  <div class="card" style="margin-top:28px">
+    <h4>Kunci Jawaban Singkat untuk Pengecekan:</h4>
+    <ul>
+      <li><strong>Nomor 1:</strong> Q² + 2Q − 24 = 0 → (Q + 6)(Q − 4) = 0 → <strong>Q<sub>e</sub> = 4 unit, P<sub>e</sub> = 9</strong>.</li>
+      <li><strong>Nomor 2:</strong> P<sub>st</sub> = 2Q + 5 → Q² + 2Q − 20 = 0 → Q<sub>et</sub> ≈ 3,58 unit, P<sub>et</sub> ≈ 12,16. Total Pajak T ≈ 4 × 3,58 = 14,32.</li>
+      <li><strong>Nomor 3:</strong> 2P² = 72 → P² = 36 → <strong>P<sub>e</sub> = 6, Q<sub>e</sub> = 28 unit</strong>.</li>
+      <li><strong>Nomor 4:</strong> 2(4)² + Y² = 72 → 32 + Y² = 72 → Y² = 40 → <strong>Y = √40 ≈ 6,32 unit</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Dibuat untuk Perkuliahan Semester 7 · Pendidikan Matematika FKIP Universitas Siliwangi<br>
+  Mata Kuliah: Matematika Ekonomi (KP21517007) · Dosen: Vepi Apiati, S.Pd., M.Pd.
+</footer>
+</main>
+</article>
+</body>
+</html>
