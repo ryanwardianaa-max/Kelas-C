@@ -217,7 +217,7 @@ export default function SecurityGateModal({
   };
 
   const handleActivateRyanPhone = async () => {
-    const inputPin = prompt("Masukkan PIN Pemilik (585264) untuk mengaktifkan scanner di HP ini:");
+    const inputPin = prompt("Masukkan PIN Pemilik:");
     if (!inputPin) return;
     const ok = await verifyAdminPin(inputPin);
     if (!ok) {
