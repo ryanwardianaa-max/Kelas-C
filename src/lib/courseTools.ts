@@ -94,8 +94,8 @@ export const COURSE_TOOLS: ToolItem[] = [
     courseName: "Matematika Ekonomi",
     badgeColor: "#ea580c",
     description:
-      "Keseimbangan pasar, pajak, subsidi, dua komoditas, fungsi biaya dan penerimaan, BEP, laba/rugi, serta fungsi konsumsi dan tabungan dengan langkah terperinci.",
-    tags: ["Pasar", "Pajak & Subsidi", "BEP & Laba", "Konsumsi & Tabungan"],
+      "Keseimbangan pasar linier & non-linier kuadratik, pajak & subsidi, kurva kemungkinan produksi (PPF), dua komoditas, fungsi biaya dan penerimaan, BEP, laba/rugi, serta fungsi konsumsi dan tabungan dengan langkah terperinci.",
+    tags: ["Pasar Linier & Non-Linier", "Pajak & Subsidi", "Kurva PPF", "BEP & Laba"],
     url: "/tools/kalkulator-mateko/index.html",
   },
   {
