@@ -260,11 +260,11 @@ export default function SecurityGateModal({
             const pct = Math.round(score * 100);
             setFaceMatchScore(pct);
 
-            // Ambang batas ketat: wajah lain (seperti mama) bernilai jauh di bawah 78%
-            if (score >= 0.78) {
+            // Ambang batas adaptif: kemiripan >= 70%
+            if (score >= 0.70) {
               consecutiveMatchRef.current += 1;
               setFaceStatusText(`Mengenali Ryan Wardiana (${pct}% cocok)...`);
-              if (consecutiveMatchRef.current >= 3) {
+              if (consecutiveMatchRef.current >= 2) {
                 clearInterval(intervalId);
                 setFaceStatusText("Wajah Terverifikasi: Ryan Wardiana");
                 triggerSuccess("Wajah Terverifikasi");
@@ -303,6 +303,13 @@ export default function SecurityGateModal({
   };
 
   const handleRegisterOwnerFace = async () => {
+    const inputPin = prompt("Masukkan PIN Pemilik untuk mengkalibrasi wajah:");
+    if (!inputPin) return;
+    const ok = await verifyAdminPin(inputPin);
+    if (!ok) {
+      alert("PIN Salah! Akses kalibrasi wajah ditolak.");
+      return;
+    }
     if (!faceVideoRef.current) return;
     const vec = extractFaceVector(faceVideoRef.current);
     if (!vec) {
@@ -311,9 +318,8 @@ export default function SecurityGateModal({
     }
     await syncFaceTemplateToCloud(vec);
     setFaceTemplate(vec);
-    setAsOwnerDevice(true);
-    setIsOwner(true);
-    setFaceStatusText("Wajah Ryan berhasil disimpan sebagai kunci biometrik!");
+    setFaceStatusText("Wajah Ryan berhasil dikalibrasi!");
+    alert("Sampel wajah berhasil dikalibrasi dan disimpan ke cloud!");
   };
 
   // --- TAB 3: PIN INPUT ---
@@ -727,7 +733,7 @@ export default function SecurityGateModal({
                   cursor: "pointer",
                 }}
               >
-                📸 Kalibrasi Wajah dari Kamera Ini (1 Detik)
+                🔐 Kalibrasi Wajah (Wajib PIN)
               </button>
             </div>
           ) : (
