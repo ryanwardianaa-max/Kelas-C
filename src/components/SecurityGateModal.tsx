@@ -23,10 +23,7 @@ export default function SecurityGateModal({
   onClose?: () => void;
   canDismiss?: boolean;
 }) {
-  const [tab, setTab] = useState<"qr" | "face" | "pin">(() => {
-    // Pada HP orang lain, default langsung ke PIN
-    return isOwnerDevice() ? "qr" : "pin";
-  });
+  const [tab, setTab] = useState<"qr" | "face" | "pin">("qr");
 
   const [isOwner, setIsOwner] = useState(() => isOwnerDevice());
 
@@ -433,51 +430,47 @@ export default function SecurityGateModal({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isOwner ? "repeat(3, 1fr)" : "1fr",
+            gridTemplateColumns: "repeat(3, 1fr)",
             background: "#f1f5f9",
             padding: "4px",
             gap: "4px",
             borderBottom: "1px solid #e2e8f0",
           }}
         >
-          {isOwner && (
-            <>
-              <button
-                type="button"
-                onClick={() => setTab("qr")}
-                style={{
-                  padding: "11px 4px",
-                  border: 0,
-                  borderRadius: "8px",
-                  background: tab === "qr" ? "white" : "transparent",
-                  color: tab === "qr" ? "#0f172a" : "#64748b",
-                  fontWeight: tab === "qr" ? 800 : 600,
-                  fontSize: "0.85rem",
-                  cursor: "pointer",
-                  boxShadow: tab === "qr" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-                }}
-              >
-                Barcode
-              </button>
-              <button
-                type="button"
-                onClick={() => setTab("face")}
-                style={{
-                  padding: "11px 4px",
-                  border: 0,
-                  borderRadius: "8px",
-                  background: tab === "face" ? "white" : "transparent",
-                  color: tab === "face" ? "#0f172a" : "#64748b",
-                  fontWeight: tab === "face" ? 800 : 600,
-                  fontSize: "0.85rem",
-                  cursor: "pointer",
-                  boxShadow: tab === "face" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-                }}
-              >
-                Verifikasi Wajah
-              </button>
-            </>
-          )}
+          <button
+            type="button"
+            onClick={() => setTab("qr")}
+            style={{
+              padding: "11px 4px",
+              border: 0,
+              borderRadius: "8px",
+              background: tab === "qr" ? "white" : "transparent",
+              color: tab === "qr" ? "#0f172a" : "#64748b",
+              fontWeight: tab === "qr" ? 800 : 600,
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              boxShadow: tab === "qr" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+            }}
+          >
+            Barcode
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("face")}
+            style={{
+              padding: "11px 4px",
+              border: 0,
+              borderRadius: "8px",
+              background: tab === "face" ? "white" : "transparent",
+              color: tab === "face" ? "#0f172a" : "#64748b",
+              fontWeight: tab === "face" ? 800 : 600,
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              boxShadow: tab === "face" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+            }}
+          >
+            Verifikasi Wajah
+          </button>
           <button
             type="button"
             onClick={() => setTab("pin")}
@@ -723,16 +716,18 @@ export default function SecurityGateModal({
                 type="button"
                 onClick={handleRegisterOwnerFace}
                 style={{
-                  marginTop: "8px",
-                  background: "transparent",
+                  marginTop: "10px",
+                  padding: "7px 16px",
+                  background: "#0f172a",
+                  color: "white",
                   border: 0,
-                  color: "#64748b",
-                  fontSize: "0.75rem",
-                  textDecoration: "underline",
+                  borderRadius: "8px",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
                   cursor: "pointer",
                 }}
               >
-                Perbarui sampel wajah dengan kamera saat ini
+                📸 Kalibrasi Wajah dari Kamera Ini (1 Detik)
               </button>
             </div>
           ) : (
