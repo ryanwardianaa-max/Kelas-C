@@ -1,4 +1,4 @@
-const CACHE_NAME = "kelasku-pwa-v12";
+const CACHE_NAME = "kelasku-pwa-v13";
 const STATIC_ASSETS = [
   "/index.html",
   "/manifest.json",

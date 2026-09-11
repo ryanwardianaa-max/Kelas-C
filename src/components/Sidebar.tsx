@@ -2,7 +2,6 @@ import {
   BookOpen,
   CalendarDays,
   CheckSquare,
-  GraduationCap,
   Home,
   Library,
   Settings,
@@ -38,9 +37,6 @@ export default function Sidebar({
     <>
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <div className="brand">
-          <i>
-            <GraduationCap />
-          </i>
           <b>KelasKu</b>
           <button className="icon close" onClick={onClose}>
             <X />
