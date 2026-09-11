@@ -96,9 +96,243 @@
   </ol>
 </section>
 
+<!-- SECTION 1C: PEMBAHASAN SOAL LATIHAN 1.2 NO. 3 -->
+<section class="card example">
+  <h2>3. Pembahasan Latihan Section 1.2 Nomor 3 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa untuk setiap \(n \in \mathbb{N}\) berlaku:</p>
+  <div class="math-step-box">\[3 + 11 + \cdots + (8n - 5) = 4n^2 - n\]</div>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[\text{Ruas Kiri} = 8(1) - 5 = 3, \qquad \text{Ruas Kanan} = 4(1)^2 - 1 = 4 - 1 = 3\]</div>
+      <p>Karena Ruas Kiri = Ruas Kanan, maka \(P(1)\) benar. Syarat basis terpenuhi.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan pernyataan benar untuk suatu \(n = k \in \mathbb{N}\):</p>
+      <div class="math-step-box">\[3 + 11 + \cdots + (8k - 5) = 4k^2 - k\]</div>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan benar untuk \(n = k + 1\), yaitu:</p>
+      <div class="math-step-box">\[3 + 11 + \cdots + (8k - 5) + [8(k+1) - 5] = 4(k+1)^2 - (k+1)\]</div>
+      <p><b>Bukti Aljabar:</b> Mulai dari ruas kiri:</p>
+      <div class="math-step-box">\[\begin{aligned}
+      \text{Ruas Kiri} &= \left[3 + 11 + \cdots + (8k - 5)\right] + (8k + 3) \\
+      &= (4k^2 - k) + (8k + 3) \quad &&\text{[Substitusi Hipotesis Induksi]} \\
+      &= 4k^2 + 7k + 3 \\
+      &= (4k^2 + 8k + 4) - (k + 1) \quad &&\text{[Manipulasi bentuk aljabar]} \\
+      &= 4(k^2 + 2k + 1) - (k + 1) \\
+      &= 4(k+1)^2 - (k+1) = \text{Ruas Kanan}
+      \end{aligned}\]</div>
+      <p>Maka \(P(k+1)\) terbukti benar.</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Berdasarkan Teorema 1.2.2 Bartle, pernyataan terbukti berlaku untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 1D: PEMBAHASAN SOAL LATIHAN 1.2 NO. 4 -->
+<section class="card example">
+  <h2>4. Pembahasan Latihan Section 1.2 Nomor 4 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa untuk setiap \(n \in \mathbb{N}\) berlaku:</p>
+  <div class="math-step-box">\[1^2 + 3^2 + \cdots + (2n - 1)^2 = \frac{4n^3 - n}{3}\]</div>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[\text{Ruas Kiri} = (2(1) - 1)^2 = 1^2 = 1, \qquad \text{Ruas Kanan} = \frac{4(1)^3 - 1}{3} = \frac{3}{3} = 1\]</div>
+      <p>Ruas Kiri = Ruas Kanan, maka \(P(1)\) bernilai benar.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan benar untuk \(n = k\):</p>
+      <div class="math-step-box">\[1^2 + 3^2 + \cdots + (2k - 1)^2 = \frac{4k^3 - k}{3}\]</div>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan benar untuk \(n = k + 1\), yaitu:</p>
+      <div class="math-step-box">\[1^2 + 3^2 + \cdots + (2k - 1)^2 + (2(k+1) - 1)^2 = \frac{4(k+1)^3 - (k+1)}{3}\]</div>
+      <p><b>Bukti Aljabar:</b></p>
+      <div class="math-step-box">\[\begin{aligned}
+      \text{Ruas Kiri} &= \frac{4k^3 - k}{3} + (2k + 1)^2 \quad &&\text{[Substitusi Hipotesis]} \\
+      &= \frac{4k^3 - k + 3(4k^2 + 4k + 1)}{3} \quad &&\text{[Samakan Penyebut]} \\
+      &= \frac{4k^3 - k + 12k^2 + 12k + 3}{3} \\
+      &= \frac{4k^3 + 12k^2 + 11k + 3}{3} \\
+      &= \frac{(4k^3 + 12k^2 + 12k + 4) - (k + 1)}{3} \quad &&\text{[Pisahkan suku } -(k+1)\text{]} \\
+      &= \frac{4(k^3 + 3k^2 + 3k + 1) - (k + 1)}{3} \\
+      &= \frac{4(k+1)^3 - (k+1)}{3} = \text{Ruas Kanan}
+      \end{aligned}\]</div>
+      <p>Maka \(P(k+1)\) terbukti benar.</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Rumus terbukti berlaku untuk setiap bilangan asli \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 1E: PEMBAHASAN SOAL LATIHAN 1.2 NO. 5 -->
+<section class="card example">
+  <h2>5. Pembahasan Latihan Section 1.2 Nomor 5 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa untuk setiap \(n \in \mathbb{N}\) berlaku:</p>
+  <div class="math-step-box">\[1^2 - 2^2 + 3^2 + \cdots + (-1)^{n+1}n^2 = \frac{(-1)^{n+1}n(n+1)}{2}\]</div>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[\text{Ruas Kiri} = (-1)^{1+1}(1^2) = 1, \qquad \text{Ruas Kanan} = \frac{(-1)^{1+1}(1)(2)}{2} = 1\]</div>
+      <p>Ruas Kiri = Ruas Kanan, maka \(P(1)\) benar.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan benar untuk \(n = k\):</p>
+      <div class="math-step-box">\[\sum_{i=1}^k (-1)^{i+1}i^2 = \frac{(-1)^{k+1}k(k+1)}{2}\]</div>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan benar untuk \(n = k + 1\), yaitu:</p>
+      <div class="math-step-box">\[\sum_{i=1}^{k+1} (-1)^{i+1}i^2 = \frac{(-1)^{k+2}(k+1)(k+2)}{2}\]</div>
+      <p><b>Bukti Aljabar:</b></p>
+      <div class="math-step-box">\[\begin{aligned}
+      \text{Ruas Kiri} &= \frac{(-1)^{k+1}k(k+1)}{2} + (-1)^{k+2}(k+1)^2 \quad &&\text{[Substitusi Hipotesis]} \\
+      &= (-1)^{k+2}(k+1) \left[ -\frac{k}{2} + (k+1) \right] \quad &&\text{[Faktorkan } (-1)^{k+2}(k+1)\text{]} \\
+      &= (-1)^{k+2}(k+1) \left[ \frac{-k + 2k + 2}{2} \right] \\
+      &= (-1)^{k+2}(k+1) \left[ \frac{k+2}{2} \right] \\
+      &= \frac{(-1)^{(k+1)+1}(k+1)((k+1)+1)}{2} = \text{Ruas Kanan}
+      \end{aligned}\]</div>
+      <p>Maka \(P(k+1)\) terbukti benar.</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Rumus terbukti berlaku untuk setiap bilangan asli \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 1F: PEMBAHASAN SOAL LATIHAN 1.2 NO. 6 -->
+<section class="card example">
+  <h2>6. Pembahasan Latihan Section 1.2 Nomor 6 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa \(n^3 + 5n\) habis dibagi \(6\) untuk setiap bilangan asli \(n \in \mathbb{N}\).</p>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[1^3 + 5(1) = 1 + 5 = 6 = 6(1)\]</div>
+      <p>Karena \(6\) habis dibagi \(6\), maka \(P(1)\) benar.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan benar untuk \(n = k\), yaitu \(k^3 + 5k = 6m\) untuk suatu bilangan bulat positif \(m \in \mathbb{N}\).</p>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan bahwa \((k+1)^3 + 5(k+1)\) juga habis dibagi \(6\).</p>
+      <p><b>Bukti Aljabar:</b> Ekspansi bentuk untuk \(n = k + 1\):</p>
+      <div class="math-step-box">\[\begin{aligned}
+      (k+1)^3 + 5(k+1) &= (k^3 + 3k^2 + 3k + 1) + (5k + 5) \\
+      &= (k^3 + 5k) + 3k^2 + 3k + 6 \\
+      &= (k^3 + 5k) + 3k(k+1) + 6 \\
+      &= 6m + 3k(k+1) + 6 \quad &&\text{[Substitusi Hipotesis } k^3 + 5k = 6m\text{]}
+      \end{aligned}\]</div>
+      <p>Perhatikan suku \(k(k+1)\): karena \(k\) dan \(k+1\) adalah dua bilangan asli berurutan, salah satunya pasti merupakan bilangan genap (kelipatan 2). Dengan demikian, \(k(k+1) = 2p\) untuk suatu \(p \in \mathbb{N}\).</p>
+      <div class="math-step-box">\[3k(k+1) = 3(2p) = 6p\]</div>
+      <p>Substitusikan kembali ke persamaan awal:</p>
+      <div class="math-step-box">\[(k+1)^3 + 5(k+1) = 6m + 6p + 6 = 6(m + p + 1)\]</div>
+      <p>Karena \((m + p + 1) \in \mathbb{N}\), maka \((k+1)^3 + 5(k+1)\) terbukti habis dibagi \(6\).</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Pernyataan terbukti benar bahwa \(n^3 + 5n\) habis dibagi \(6\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 1G: PEMBAHASAN SOAL LATIHAN 1.2 NO. 7 -->
+<section class="card example">
+  <h2>7. Pembahasan Latihan Section 1.2 Nomor 7 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa \(5^{2n} - 1\) habis dibagi \(8\) untuk setiap bilangan asli \(n \in \mathbb{N}\).</p>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[5^{2(1)} - 1 = 5^2 - 1 = 25 - 1 = 24 = 8(3)\]</div>
+      <p>Karena \(24\) habis dibagi \(8\), maka \(P(1)\) benar.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan benar untuk \(n = k\), yaitu \(5^{2k} - 1 = 8m\) untuk suatu \(m \in \mathbb{N}\), yang berarti \(5^{2k} = 8m + 1\).</p>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan bahwa \(5^{2(k+1)} - 1\) juga habis dibagi \(8\).</p>
+      <p><b>Bukti Aljabar:</b></p>
+      <div class="math-step-box">\[\begin{aligned}
+      5^{2(k+1)} - 1 &= 5^{2k+2} - 1 \\
+      &= 5^2 \cdot 5^{2k} - 1 \\
+      &= 25 \cdot 5^{2k} - 1 \\
+      &= 25(8m + 1) - 1 \quad &&\text{[Substitusi Hipotesis } 5^{2k} = 8m + 1\text{]} \\
+      &= 25(8m) + 25 - 1 \\
+      &= 8(25m) + 24 \\
+      &= 8(25m + 3)
+      \end{aligned}\]</div>
+      <p>Karena \((25m + 3) \in \mathbb{N}\), maka \(5^{2(k+1)} - 1\) terbukti merupakan kelipatan \(8\) (habis dibagi \(8\)).</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Pernyataan terbukti benar bahwa \(5^{2n} - 1\) habis dibagi \(8\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 1H: PEMBAHASAN SOAL LATIHAN 1.2 NO. 8 -->
+<section class="card example">
+  <h2>8. Pembahasan Latihan Section 1.2 Nomor 8 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa \(5^n - 4n - 1\) habis dibagi \(16\) untuk setiap bilangan asli \(n \in \mathbb{N}\).</p>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[5^1 - 4(1) - 1 = 5 - 4 - 1 = 0 = 16(0)\]</div>
+      <p>Karena \(0\) habis dibagi \(16\), maka \(P(1)\) benar.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan benar untuk \(n = k\), yaitu \(5^k - 4k - 1 = 16m\) untuk suatu \(m \in \mathbb{Z}_{\ge 0}\), yang berarti \(5^k = 16m + 4k + 1\).</p>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan bahwa \(5^{k+1} - 4(k+1) - 1\) juga habis dibagi \(16\).</p>
+      <p><b>Bukti Aljabar:</b></p>
+      <div class="math-step-box">\[\begin{aligned}
+      5^{k+1} - 4(k+1) - 1 &= 5 \cdot 5^k - 4k - 4 - 1 \\
+      &= 5 \cdot 5^k - 4k - 5 \\
+      &= 5(16m + 4k + 1) - 4k - 5 \quad &&\text{[Substitusi Hipotesis } 5^k = 16m + 4k + 1\text{]} \\
+      &= 80m + 20k + 5 - 4k - 5 \\
+      &= 80m + 16k \\
+      &= 16(5m + k)
+      \end{aligned}\]</div>
+      <p>Karena \((5m + k) \in \mathbb{Z}_{\ge 0}\), maka \(5^{k+1} - 4(k+1) - 1\) terbukti merupakan kelipatan \(16\) (habis dibagi \(16\)).</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Pernyataan terbukti benar bahwa \(5^n - 4n - 1\) habis dibagi \(16\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
 <!-- SECTION 2: RINGKASAN JAWABAN CEPAT LATIHAN LAINNYA -->
 <section class="card">
-  <h2>3. Ringkasan Kunci Jawaban Latihan Lainnya (Section 1.2)</h2>
+  <h2>9. Ringkasan Kunci Jawaban Soal 9, 10, 11 (Section 1.2)</h2>
   <div class="table-wrap">
     <table>
       <thead>
@@ -110,29 +344,19 @@
       </thead>
       <tbody>
         <tr>
-          <td><b>3</b></td>
-          <td>\(3 + 11 + \cdots + (8n-5) = 4n^2 - n\)</td>
-          <td>\((4k^2-k) + (8k+3) = 4k^2+7k+3 = 4(k+1)^2 - (k+1)\).</td>
+          <td><b>9</b></td>
+          <td>\(n^3 + (n+1)^3 + (n+2)^3\) habis dibagi \(9\)</td>
+          <td>Kurangkan bentuk \((k+1)\) dengan hipotesis: \((k+3)^3 - k^3 = 9k^2 + 27k + 27 = 9(k^2+3k+3)\). Hasilnya \(9m + 9(\dots) = 9(\dots)\).</td>
         </tr>
         <tr>
-          <td><b>4</b></td>
-          <td>\(1^2 + 3^2 + \cdots + (2n-1)^2 = \frac{4n^3-n}{3}\)</td>
-          <td>Samakan penyebut dengan \(3(2k+1)^2\), uraikan menjadi \(\frac{4(k+1)^3-(k+1)}{3}\).</td>
+          <td><b>10</b></td>
+          <td>Dugaan: \(\sum_{i=1}^n \frac{1}{(2i-1)(2i+1)} = \frac{n}{2n+1}\)</td>
+          <td>\(\frac{k}{2k+1} + \frac{1}{(2k+1)(2k+3)} = \frac{k(2k+3)+1}{(2k+1)(2k+3)} = \frac{(2k+1)(k+1)}{(2k+1)(2k+3)} = \frac{k+1}{2(k+1)+1}\).</td>
         </tr>
         <tr>
-          <td><b>6</b></td>
-          <td>\(n^3 + 5n\) habis dibagi \(6\)</td>
-          <td>\((k+1)^3 + 5(k+1) = (k^3+5k) + 3k(k+1) + 6 = 6m + 6p + 6\).</td>
-        </tr>
-        <tr>
-          <td><b>7</b></td>
-          <td>\(5^{2n} - 1\) habis dibagi \(8\)</td>
-          <td>\(5^{2k+2} - 1 = 25(5^{2k}) - 1 = 25(8m+1) - 1 = 200m + 24 = 8(25m+3)\).</td>
-        </tr>
-        <tr>
-          <td><b>8</b></td>
-          <td>\(5^n - 4n - 1\) habis dibagi \(16\)</td>
-          <td>\(5^{k+1} - 4(k+1) - 1 = 5(16m+4k+1)-4k-5 = 80m+16k = 16(5m+k)\).</td>
+          <td><b>11</b></td>
+          <td>Dugaan: \(1 + 3 + \dots + (2n-1) = n^2\)</td>
+          <td>\(k^2 + [2(k+1)-1] = k^2 + 2k + 1 = (k+1)^2\).</td>
         </tr>
       </tbody>
     </table>
@@ -141,7 +365,7 @@
 
 <!-- SECTION 3: SIFAT ALJABAR DI R (SECTION 2.1) -->
 <section class="card formula">
-  <h2>4. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
+  <h2>10. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
   <p>Sistem bilangan real \((\mathbb{R}, +, \cdot)\) merupakan sebuah <b>lapangan (field)</b> dengan dua operasi biner penjumlahan (\(+\)) dan perkalian (\(\cdot\)) yang memenuhi sembilan sifat dasar:</p>
 
   <h3>Sifat Penjumlahan (A1–A4)</h3>
