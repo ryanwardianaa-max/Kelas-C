@@ -1,9 +1,173 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Induksi dari Basis Tertentu dan Contoh — Analisis Real</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f8fafc;color:#172033;font-family:Segoe UI,system-ui,sans-serif;overflow-x:hidden}.top-nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px max(16px,calc((100% - 860px)/2));background:rgba(255,255,255,.96);border-bottom:1px solid #e2e8f0}.top-nav a{color:#be3455;text-decoration:none;font-weight:700}.nav-meta{font-size:.82rem;color:#64748b}.page{max-width:860px;margin:auto;padding:24px 16px 56px}header{padding:18px 0 8px}.badge{display:inline-block;border-radius:999px;background:#ffe7ee;color:#a61f43;padding:5px 10px;font-weight:800;font-size:.78rem}h1{font-size:clamp(1.7rem,5vw,2.55rem);line-height:1.12;margin:12px 0}h2{font-size:1.28rem;margin:0 0 12px}h3{font-size:1.05rem;margin:18px 0 8px}p,li{line-height:1.72}.meta-info{display:flex;flex-wrap:wrap;gap:8px;color:#526078;font-size:.9rem}.meta-info span{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:7px 9px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:clamp(16px,4vw,24px);margin:16px 0}.formula{border-left:4px solid #db5874}.example{border-left:4px solid #2563eb}.warn{border-left:4px solid #e59a18;background:#fffaf0}.correct{border-left:4px solid #16a36a;background:#f3fff9}.reading{border-left:4px solid #7c3aed;background:#faf7ff}.math-step-box,.table-wrap{overflow-x:auto;overflow-y:hidden}.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}.steps{counter-reset:step;list-style:none;padding:0}.steps>li{counter-increment:step;position:relative;padding-left:42px;margin:14px 0}.steps>li:before{content:counter(step);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#db5874;color:#fff;font-weight:800}table{border-collapse:collapse;width:100%;min-width:580px}th,td{border:1px solid #dbe3ef;padding:10px;text-align:left;vertical-align:top}th{background:#f1f5f9}.cta{display:inline-block;background:#be3455;color:#fff!important;text-decoration:none;border-radius:9px;padding:11px 15px;font-weight:800}.source{font-size:.9rem;color:#64748b}@media(max-width:520px){.nav-meta{display:none}.page{padding-top:14px}.card{border-radius:11px}}
-</style></head><body><nav class="top-nav"><a href="/?course=KP21517004" onclick="handleGoBack(event)">← Kembali ke KelasKu</a><span class="nav-meta">KP21517004 · Analisis Real</span></nav><main class="page"><header><span class="badge">Bahan Baca · Pertemuan 05</span><h1>Induksi dari Basis Tertentu dan Contoh</h1><p>Persiapan · Bartle 1.2.3–1.2.4 · Belum diklaim sebagai materi yang sudah diajarkan</p><div class="meta-info"><span><b>Dosen:</b> Linda Herawati, S.Pd., M.Pd.</span><span><b>Kelas:</b> C · 2 SKS</span><span><b>Rujukan:</b> Bartle–Sherbert, Edisi 4</span></div></header>
-<section class="card reading"><h2>Status materi</h2><p>Ini <b>bahan baca persiapan</b>, bukan catatan bahwa topik telah diajarkan Bu Linda. Penomoran mengikuti Bartle–Sherbert edisi keempat.</p></section>
-<section class="card formula"><h2>1.2.3 Induksi versi kedua</h2><p>Untuk \(n_0\in\mathbb N\), jika \(P(n_0)\) benar dan untuk setiap \(k\ge n_0\), \(P(k)\Rightarrow P(k+1)\), maka \(P(n)\) benar untuk semua \(n\ge n_0\).</p><div class="math-step-box">\[P(n_0)\quad\land\quad \forall k\ge n_0\,[P(k)\Rightarrow P(k+1)]\quad\Longrightarrow\quad\forall n\ge n_0\;P(n).\]</div><p>Perbedaannya hanya titik awal. Prinsip 1.2.2 mulai dari 1; versi ini mulai dari \(n_0\).</p></section>
-<section class="card example"><h2>Contoh mulai dari \(n_0=5\)</h2><p>Buktikan \(2^n&gt;n^2\) untuk semua \(n\ge5\).</p><ol class="steps"><li>Basis: \(2^5=32&gt;25=5^2\).</li><li>Andaikan \(2^k&gt;k^2\) untuk suatu \(k\ge5\).</li><li>\(2^{k+1}=2\cdot2^k&gt;2k^2\).</li><li>Untuk \(k\ge5\), \(2k^2-(k+1)^2=k^2-2k-1&gt;0\).</li><li>Maka \(2^{k+1}&gt;(k+1)^2\). Terbukti.</li></ol></section>
-<section class="card formula"><h2>1.2.4 Contoh-contoh</h2><p>Bartle memberi pola penerapan pada jumlah bilangan asli, jumlah kuadrat, ketaksamaan, dan deret geometri. Struktur tetap sama: basis, hipotesis, tambah suku berikutnya atau bentuk target, lalu sederhanakan.</p></section>
-<section class="card warn"><h2>Jangan tertukar</h2><p><b>1.2.3 bukan induksi kuat.</b> Induksi kuat berada pada <b>1.2.5</b>. Kesalahan label pada halaman lama sudah dikoreksi.</p></section>
-<section class="card"><h2>Latihan</h2><ol><li>Buktikan \(1^3+2^3+\cdots+n^3=[n(n+1)/2]^2\).</li><li>Buktikan \(n^3+5n\) habis dibagi 6.</li><li>Buktikan \(2^n&lt;n!\) untuk semua \(n\ge4\).</li></ol><p class="source"><b>Sumber:</b> Bartle–Sherbert, edisi keempat, 1.2.3–1.2.4.</p></section></main><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script><script>function handleGoBack(e){if(window.opener&&!window.opener.closed){e.preventDefault();window.close()}}window.addEventListener('DOMContentLoaded',()=>{if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})</script></body></html>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Catatan Perkuliahan Pertemuan 05: Latihan 1.2 &amp; Sifat Aljabar di ℝ — Analisis Real</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f8fafc;color:#172033;font-family:Segoe UI,system-ui,sans-serif;overflow-x:hidden}.top-nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px max(16px,calc((100% - 860px)/2));background:rgba(255,255,255,.96);border-bottom:1px solid #e2e8f0}.top-nav a{color:#be3455;text-decoration:none;font-weight:700}.nav-meta{font-size:.82rem;color:#64748b}.page{max-width:860px;margin:auto;padding:24px 16px 56px}header{padding:18px 0 8px}.badge{display:inline-block;border-radius:999px;background:#ffe7ee;color:#a61f43;padding:5px 10px;font-weight:800;font-size:.78rem}h1{font-size:clamp(1.7rem,5vw,2.55rem);line-height:1.12;margin:12px 0}h2{font-size:1.28rem;margin:0 0 12px}h3{font-size:1.05rem;margin:18px 0 8px}p,li{line-height:1.72}.meta-info{display:flex;flex-wrap:wrap;gap:8px;color:#526078;font-size:.9rem}.meta-info span{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:7px 9px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:clamp(16px,4vw,24px);margin:16px 0}.formula{border-left:4px solid #db5874}.example{border-left:4px solid #2563eb}.warn{border-left:4px solid #e59a18;background:#fffaf0}.correct{border-left:4px solid #16a36a;background:#f3fff9}.reading{border-left:4px solid #7c3aed;background:#faf7ff}.math-step-box,.table-wrap{overflow-x:auto;overflow-y:hidden}.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}.steps{counter-reset:step;list-style:none;padding:0}.steps>li{counter-increment:step;position:relative;padding-left:42px;margin:14px 0}.steps>li:before{content:counter(step);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#db5874;color:#fff;font-weight:800}table{border-collapse:collapse;width:100%;min-width:580px}th,td{border:1px solid #dbe3ef;padding:10px;text-align:left;vertical-align:top}th{background:#f1f5f9}.cta{display:inline-block;margin-top:10px;background:#be3455;color:#fff;text-decoration:none;padding:10px 16px;border-radius:9px;font-weight:700}
+</style></head><body><nav class="top-nav"><a href="/?course=KP21517004" onclick="handleGoBack(event)">← Kembali ke KelasKu</a><span class="nav-meta">KP21517004 · Analisis Real</span></nav><main class="page"><header><span class="badge">Catatan Kuliah · Pertemuan 05</span><h1>Pembahasan Latihan Section 1.2 &amp; Sifat Aljabar di ℝ</h1><p>Materi perkuliahan Jumat, 11 September 2026 (16.00 WIB) · Rujukan: Robert G. Bartle &amp; Donald R. Sherbert (Edisi 4)</p><div class="meta-info"><span><b>Dosen:</b> Linda Herawati, S.Pd., M.Pd.</span><span><b>Kelas:</b> C · 2 SKS</span><span><b>Media:</b> Sesi Zoom Meeting</span><span><b>Bab Rujukan:</b> Chapter 1 (1.2) &amp; Chapter 2 (2.1)</span></div></header>
+
+<section class="card formula">
+  <h2>🎯 Agenda Kuliah Pertemuan 05</h2>
+  <ol>
+    <li><b>Pembahasan Soal Latihan Section 1.2:</b> Fokus pada Nomor 1 (Induksi Pecahan Teleskopik) dan persiapan jika ditunjuk untuk soal lainnya.</li>
+    <li><b>Sifat Aljabar di \(\mathbb{R}\) (Section 2.1):</b> Sembilan aksioma lapangan (A1–A4, M1–M4, D), teorema ketunggalan 2.1.2, serta sifat perkalian nol 2.1.3–2.1.4.</li>
+  </ol>
+</section>
+
+<!-- SECTION 1: PEMBAHASAN SOAL LATIHAN 1.2 NO. 1 -->
+<section class="card example">
+  <h2>1. Pembahasan Latihan Section 1.2 Nomor 1 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa untuk setiap \(n \in \mathbb{N}\) berlaku:</p>
+  <div class="math-step-box">\[\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \cdots + \frac{1}{n(n+1)} = \frac{n}{n+1}\]</div>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <p>Misalkan \(P(n)\) adalah pernyataan matematika di atas, atau himpunan kebenaran \(S := \{n \in \mathbb{N} : P(n) \text{ benar}\}\).</p>
+
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[\text{Ruas Kiri} = \frac{1}{1(1+1)} = \frac{1}{2}, \qquad \text{Ruas Kanan} = \frac{1}{1+1} = \frac{1}{2}\]</div>
+      <p>Karena Ruas Kiri = Ruas Kanan, maka \(P(1)\) benar (yaitu \(1 \in S\)). Syarat basis terpenuhi.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan bahwa pernyataan benar untuk suatu bilangan asli \(n = k\), yaitu \(k \in S\):</p>
+      <div class="math-step-box">\[\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \cdots + \frac{1}{k(k+1)} = \frac{k}{k+1}\]</div>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan bahwa \(P(k+1)\) juga benar, yaitu:</p>
+      <div class="math-step-box">\[\frac{1}{1\cdot 2} + \cdots + \frac{1}{k(k+1)} + \frac{1}{(k+1)(k+2)} = \frac{k+1}{(k+1)+1} = \frac{k+1}{k+2}\]</div>
+      <p><b>Bukti Aljabar:</b> Mulai dari ruas kiri:</p>
+      <div class="math-step-box">\[\begin{aligned}
+      \text{Ruas Kiri} &= \left[\frac{1}{1\cdot 2} + \cdots + \frac{1}{k(k+1)}\right] + \frac{1}{(k+1)(k+2)} \\
+      &= \frac{k}{k+1} + \frac{1}{(k+1)(k+2)} \quad &&\text{[Gunakan Hipotesis Induksi]} \\
+      &= \frac{k(k+2) + 1}{(k+1)(k+2)} \quad &&\text{[Samakan Penyebut]} \\
+      &= \frac{k^2 + 2k + 1}{(k+1)(k+2)} \quad &&\text{[Ekspansi Pembilang]} \\
+      &= \frac{(k+1)^2}{(k+1)(k+2)} \quad &&\text{[Faktorkan Bentuk Kuadrat]} \\
+      &= \frac{k+1}{k+2} = \text{Ruas Kanan} \quad &&\text{[Sederhanakan faktor } (k+1) \ne 0\text{]}
+      \end{aligned}\]</div>
+      <p>Dengan demikian, jika \(k \in S\), maka \(k+1 \in S\).</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Berdasarkan Prinsip Induksi Matematika (Teorema 1.2.2 Bartle), \(S = \mathbb{N}\). Maka rumus terbukti berlaku untuk setiap bilangan asli \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- SECTION 2: RINGKASAN JAWABAN CEPAT LATIHAN LAINNYA -->
+<section class="card">
+  <h2>2. Ringkasan Kunci Jawaban Soal Lainnya (Section 1.2)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Pernyataan Soal</th>
+          <th>Trik Aljabar Langkah Induksi \(k \to k+1\)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>2</b></td>
+          <td>\(1^3 + 2^3 + \cdots + n^3 = \left[\frac{1}{2}n(n+1)\right]^2\)</td>
+          <td>Faktorkan \((k+1)^2\): \((k+1)^2 \left[\frac{k^2}{4} + (k+1)\right] = \frac{(k+1)^2(k+2)^2}{4}\).</td>
+        </tr>
+        <tr>
+          <td><b>3</b></td>
+          <td>\(3 + 11 + \cdots + (8n-5) = 4n^2 - n\)</td>
+          <td>\((4k^2-k) + (8k+3) = 4k^2+7k+3 = 4(k+1)^2 - (k+1)\).</td>
+        </tr>
+        <tr>
+          <td><b>4</b></td>
+          <td>\(1^2 + 3^2 + \cdots + (2n-1)^2 = \frac{4n^3-n}{3}\)</td>
+          <td>Samakan penyebut dengan \(3(2k+1)^2\), uraikan menjadi \(\frac{4(k+1)^3-(k+1)}{3}\).</td>
+        </tr>
+        <tr>
+          <td><b>6</b></td>
+          <td>\(n^3 + 5n\) habis dibagi \(6\)</td>
+          <td>\((k+1)^3 + 5(k+1) = (k^3+5k) + 3k(k+1) + 6 = 6m + 6p + 6\).</td>
+        </tr>
+        <tr>
+          <td><b>7</b></td>
+          <td>\(5^{2n} - 1\) habis dibagi \(8\)</td>
+          <td>\(5^{2k+2} - 1 = 25(5^{2k}) - 1 = 25(8m+1) - 1 = 200m + 24 = 8(25m+3)\).</td>
+        </tr>
+        <tr>
+          <td><b>8</b></td>
+          <td>\(5^n - 4n - 1\) habis dibagi \(16\)</td>
+          <td>\(5^{k+1} - 4(k+1) - 1 = 5(16m+4k+1)-4k-5 = 80m+16k = 16(5m+k)\).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 3: SIFAT ALJABAR DI R (SECTION 2.1) -->
+<section class="card formula">
+  <h2>3. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
+  <p>Sistem bilangan real \((\mathbb{R}, +, \cdot)\) merupakan sebuah <b>lapangan (field)</b> dengan dua operasi biner penjumlahan (\(+\)) dan perkalian (\(\cdot\)) yang memenuhi sembilan sifat dasar:</p>
+
+  <h3>Sifat Penjumlahan (A1–A4)</h3>
+  <ul>
+    <li><b>(A1) Sifat Komutatif:</b> \(a + b = b + a\) untuk semua \(a, b \in \mathbb{R}\).</li>
+    <li><b>(A2) Sifat Asosiatif:</b> \((a + b) + c = a + (b + c)\) untuk semua \(a, b, c \in \mathbb{R}\).</li>
+    <li><b>(A3) Elemen Nol (Identitas Aditif):</b> Terdapat elemen \(0 \in \mathbb{R}\) sehingga \(0 + a = a\) dan \(a + 0 = a\) untuk semua \(a \in \mathbb{R}\).</li>
+    <li><b>(A4) Elemen Negatif (Invers Aditif):</b> Untuk setiap \(a \in \mathbb{R}\), terdapat elemen \(-a \in \mathbb{R}\) sehingga \(a + (-a) = 0\) dan \((-a) + a = 0\).</li>
+  </ul>
+
+  <h3>Sifat Perkalian (M1–M4)</h3>
+  <ul>
+    <li><b>(M1) Sifat Komutatif:</b> \(a \cdot b = b \cdot a\) untuk semua \(a, b \in \mathbb{R}\).</li>
+    <li><b>(M2) Sifat Asosiatif:</b> \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) untuk semua \(a, b, c \in \mathbb{R}\).</li>
+    <li><b>(M3) Elemen Satuan (Identitas Multiplikatif):</b> Terdapat elemen \(1 \in \mathbb{R}\) dengan \(1 \ne 0\) sehingga \(1 \cdot a = a\) dan \(a \cdot 1 = a\) untuk semua \(a \in \mathbb{R}\).</li>
+    <li><b>(M4) Elemen Resiprokal (Invers Multiplikatif):</b> Untuk setiap \(a \in \mathbb{R}\) dengan \(a \ne 0\), terdapat elemen \(1/a \in \mathbb{R}\) sehingga \(a \cdot (1/a) = 1\) dan \((1/a) \cdot a = 1\).</li>
+  </ul>
+
+  <h3>Sifat Distributif (D)</h3>
+  <p>\(a \cdot (b + c) = (a \cdot b) + (a \cdot c)\) dan \((b + c) \cdot a = (b \cdot a) + (c \cdot a)\) untuk semua \(a, b, c \in \mathbb{R}\).</p>
+</section>
+
+<section class="card warn">
+  <h2>4. Teorema Ketunggalan dan Perkalian Nol (Bartle 2.1.2–2.1.4)</h2>
+  <ul>
+    <li><b>Teorema 2.1.2 (Ketunggalan):</b>
+      <br>• Elemen identitas penjumlahan (\(0\)) dan perkalian (\(1\)) adalah <i>tunggal</i>.
+      <br>• Invers penjumlahan (\(-a\)) dan invers perkalian (\(1/a\) untuk \(a \ne 0\)) masing-masing adalah <i>tunggal</i>.
+      <br>• Jika \(a + b = a\), maka \(b = 0\). Jika \(b \ne 0\) dan \(a \cdot b = b\), maka \(a = 1\).
+    </li>
+    <li><b>Teorema 2.1.3:</b>
+      <br>(a) \(a \cdot 0 = 0\) untuk setiap \(a \in \mathbb{R}\).
+      <br>(b) \((-1) \cdot a = -a\).
+      <br>(c) \(-(-a) = a\).
+      <br>(d) \((-1) \cdot (-1) = 1\).
+    </li>
+    <li><b>Teorema 2.1.4 (Pemberangus Perkalian):</b>
+      <br>Jika \(a, b \in \mathbb{R}\) dan \(a \cdot b = 0\), maka \(a = 0\) atau \(b = 0\).
+    </li>
+  </ul>
+</section>
+
+<!-- SECTION 5: BAHAN BACA INDUKSI 1.2.3 - 1.2.4 -->
+<section class="card reading">
+  <h2>5. Bahan Baca: Induksi dari Basis Tertentu dan Contoh (Bartle 1.2.3–1.2.4)</h2>
+  <p>Ini adalah <b>Bahan Baca</b> pelengkap sesuai urutan buku teks Bartle–Sherbert edisi keempat:</p>
+  <h3>1.2.3 Induksi Versi Kedua (Mulai dari n₀)</h3>
+  <p>Untuk \(n_0 \in \mathbb{N}\), jika \(P(n_0)\) benar dan untuk setiap \(k \ge n_0\), \(P(k) \Rightarrow P(k+1)\), maka \(P(n)\) benar untuk semua \(n \ge n_0\).</p>
+  <h3>1.2.4 Contoh-Contoh Penerapan</h3>
+  <p>Pola penerapan pada ketaksamaan (seperti \(2^n &gt; n^2\) untuk \(n \ge 5\)), deret geometri, dan keterbagian aljabar.</p>
+</section>
+
+<section class="card correct">
+  <h2>🛠️ Alat Bantu &amp; Laboratorium Terkait</h2>
+  <p>Dua alat bantu interaktif di KelasKu telah siap digunakan untuk mendukung topik ini:</p>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+    <a class="cta" href="/tools/panduan-induksi/index.html">Buka Panduan Induksi (Latihan 1 &amp; 4)</a>
+    <a class="cta" style="background:#4338ca;" href="/tools/kalkulator-real/index.html">Buka Kalkulator Analisis Real</a>
+  </div>
+</section>
+</main>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+function handleGoBack(e){if(window.opener&&!window.opener.closed){e.preventDefault();window.close()}}
+window.addEventListener('DOMContentLoaded',()=>{if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})
+</script>
+</body></html>

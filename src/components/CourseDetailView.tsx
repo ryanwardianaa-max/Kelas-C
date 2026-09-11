@@ -184,10 +184,10 @@ export default function CourseDetailView({
         >
           <div style={{ flex: 1, minWidth: 0 }}>
             <span style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "#059669", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", display: "inline-block", marginBottom: "4px" }}>
-              Kelompok 4 (Presentasi)
+              Kelompok 4 (Pertemuan 05)
             </span>
             <div style={{ fontWeight: 800, color: "#065f46", fontSize: "0.92rem", lineHeight: 1.25 }}>
-              Solusi Nirlanjar Metode Terbuka (Newton-Raphson &amp; Secant)
+              Solusi Persamaan &amp; Sistem Nirlanjar (Newton-Raphson, Secant, &amp; SPNL)
             </div>
             <small style={{ color: "#047857", fontSize: "0.76rem" }}>
               Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila Fitria Nuroktavianty Rosadi (232151088)
