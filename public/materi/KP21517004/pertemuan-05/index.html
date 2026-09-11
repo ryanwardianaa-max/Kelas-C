@@ -52,9 +52,53 @@
   </ol>
 </section>
 
+<!-- SECTION 1B: PEMBAHASAN SOAL LATIHAN 1.2 NO. 2 (DETAIL LENGKAP) -->
+<section class="card example">
+  <h2>2. Pembahasan Latihan Section 1.2 Nomor 2 (Bartle)</h2>
+  <p><b>Soal:</b> Buktikan bahwa untuk setiap \(n \in \mathbb{N}\) berlaku:</p>
+  <div class="math-step-box">\[1^3 + 2^3 + \cdots + n^3 = \left[\frac{1}{2}n(n+1)\right]^2\]</div>
+
+  <h3>Langkah Pembuktian Formal (Prinsip Induksi 1.2.2)</h3>
+  <p>Misalkan \(P(n)\) adalah pernyataan di atas, atau himpunan kebenaran \(S := \left\{n \in \mathbb{N} : \sum_{i=1}^n i^3 = \left[\frac{1}{2}n(n+1)\right]^2\right\}\).</p>
+
+  <ol class="steps">
+    <li>
+      <b>Basis Induksi (\(n = 1\)):</b>
+      <div class="math-step-box">\[\text{Ruas Kiri} = 1^3 = 1, \qquad \text{Ruas Kanan} = \left[\frac{1}{2}(1)(1+1)\right]^2 = \left[\frac{1}{2}(2)\right]^2 = 1^2 = 1\]</div>
+      <p>Karena Ruas Kiri = Ruas Kanan, maka \(P(1)\) benar (\(1 \in S\)). Syarat basis terpenuhi.</p>
+    </li>
+    <li>
+      <b>Hipotesis Induksi:</b>
+      <p>Diasumsikan bahwa pernyataan benar untuk suatu bilangan asli \(n = k\), yaitu \(k \in S\):</p>
+      <div class="math-step-box">\[1^3 + 2^3 + \cdots + k^3 = \left[\frac{1}{2}k(k+1)\right]^2 = \frac{k^2(k+1)^2}{4}\]</div>
+    </li>
+    <li>
+      <b>Langkah Induksi (\(n = k + 1\)):</b>
+      <p>Akan dibuktikan bahwa \(P(k+1)\) juga bernilai benar, yaitu:</p>
+      <div class="math-step-box">\[1^3 + 2^3 + \cdots + k^3 + (k+1)^3 = \left[\frac{1}{2}(k+1)((k+1)+1)\right]^2 = \frac{(k+1)^2(k+2)^2}{4}\]</div>
+      <p><b>Bukti Aljabar:</b> Mulai dari ruas kiri dengan menyisipkan hipotesis induksi:</p>
+      <div class="math-step-box">\[\begin{aligned}
+      \text{Ruas Kiri} &= \left[1^3 + 2^3 + \cdots + k^3\right] + (k+1)^3 \\
+      &= \frac{k^2(k+1)^2}{4} + (k+1)^3 \quad &&\text{[Substitusi Hipotesis Induksi]} \\
+      &= (k+1)^2 \left[ \frac{k^2}{4} + (k+1) \right] \quad &&\text{[Faktorkan keluar suku } (k+1)^2\text{]} \\
+      &= (k+1)^2 \left[ \frac{k^2 + 4(k+1)}{4} \right] \quad &&\text{[Samakan penyebut dalam kurung]} \\
+      &= (k+1)^2 \left[ \frac{k^2 + 4k + 4}{4} \right] \quad &&\text{[Ekspansi bentuk aljabar]} \\
+      &= (k+1)^2 \left[ \frac{(k+2)^2}{4} \right] \quad &&\text{[Faktorisasi kuadrat sempurna: } k^2+4k+4 = (k+2)^2\text{]} \\
+      &= \frac{(k+1)^2(k+2)^2}{4} \\
+      &= \left[\frac{1}{2}(k+1)(k+2)\right]^2 = \text{Ruas Kanan}
+      \end{aligned}\]</div>
+      <p>Dengan demikian, terbukti bahwa jika \(k \in S\), maka \(k+1 \in S\).</p>
+    </li>
+    <li>
+      <b>Kesimpulan:</b>
+      <p>Berdasarkan Prinsip Induksi Matematika (Teorema 1.2.2 Bartle), \(S = \mathbb{N}\). Maka rumus berlaku untuk semua bilangan asli \(n \in \mathbb{N}\). \(\square\)</p>
+    </li>
+  </ol>
+</section>
+
 <!-- SECTION 2: RINGKASAN JAWABAN CEPAT LATIHAN LAINNYA -->
 <section class="card">
-  <h2>2. Ringkasan Kunci Jawaban Soal Lainnya (Section 1.2)</h2>
+  <h2>3. Ringkasan Kunci Jawaban Latihan Lainnya (Section 1.2)</h2>
   <div class="table-wrap">
     <table>
       <thead>
@@ -65,11 +109,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><b>2</b></td>
-          <td>\(1^3 + 2^3 + \cdots + n^3 = \left[\frac{1}{2}n(n+1)\right]^2\)</td>
-          <td>Faktorkan \((k+1)^2\): \((k+1)^2 \left[\frac{k^2}{4} + (k+1)\right] = \frac{(k+1)^2(k+2)^2}{4}\).</td>
-        </tr>
         <tr>
           <td><b>3</b></td>
           <td>\(3 + 11 + \cdots + (8n-5) = 4n^2 - n\)</td>
@@ -102,7 +141,7 @@
 
 <!-- SECTION 3: SIFAT ALJABAR DI R (SECTION 2.1) -->
 <section class="card formula">
-  <h2>3. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
+  <h2>4. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
   <p>Sistem bilangan real \((\mathbb{R}, +, \cdot)\) merupakan sebuah <b>lapangan (field)</b> dengan dua operasi biner penjumlahan (\(+\)) dan perkalian (\(\cdot\)) yang memenuhi sembilan sifat dasar:</p>
 
   <h3>Sifat Penjumlahan (A1–A4)</h3>
