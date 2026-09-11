@@ -253,6 +253,12 @@
       <p>Pernyataan terbukti benar bahwa \(n^3 + 5n\) habis dibagi \(6\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
     </li>
   </ol>
+
+  <div style="margin-top:14px; padding:12px 14px; background:#f0fdf4; border-left:4px solid #16a34a; border-radius:8px;">
+    <b>💡 Solusi Super Cepat dengan Aritmatika Modulo (\(\pmod 6\)):</b>
+    <div class="math-step-box" style="margin:6px 0;">\[n^3 + 5n \equiv n^3 - n + 6n \equiv n^3 - n \equiv n(n^2 - 1) \equiv (n-1)n(n+1) \pmod 6\]</div>
+    <p style="margin:0; font-size:0.92rem;">Karena \((n-1), n, (n+1)\) adalah tiga bilangan bulat berurutan, salah satunya pasti kelipatan 3 dan minimal satu genap (kelipatan 2). Maka hasil kalinya pasti kelipatan \(2 \times 3 = 6 \equiv 0 \pmod 6\). Terbukti habis dibagi 6!</p>
+  </div>
 </section>
 
 <!-- SECTION 1G: PEMBAHASAN SOAL LATIHAN 1.2 NO. 7 -->
@@ -291,6 +297,17 @@
       <p>Pernyataan terbukti benar bahwa \(5^{2n} - 1\) habis dibagi \(8\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
     </li>
   </ol>
+
+  <div style="margin-top:14px; padding:12px 14px; background:#f0fdf4; border-left:4px solid #16a34a; border-radius:8px;">
+    <b>💡 Solusi Elegan dengan Aritmatika Modulo (\(\pmod 8\)):</b>
+    <div class="math-step-box" style="margin:6px 0;">\[5^2 = 25 = 3(8) + 1 \equiv 1 \pmod 8\]</div>
+    <p style="margin:4px 0 0; font-size:0.92rem;">Dengan sifat perpangkatan kongruensi modulo untuk setiap \(n \in \mathbb{N}\):</p>
+    <div class="math-step-box" style="margin:6px 0;">\[5^{2n} = (5^2)^n \equiv 1^n \equiv 1 \pmod 8 \implies 5^{2n} - 1 \equiv 1 - 1 \equiv 0 \pmod 8\]</div>
+    <p style="margin:0; font-size:0.92rem;"><b>Bentuk Induksi Modulo:</b>
+    <br>• Basis (\(n=1\)): \(5^2 - 1 = 24 \equiv 0 \pmod 8\).
+    <br>• Hipotesis (\(n=k\)): \(5^{2k} \equiv 1 \pmod 8\).
+    <br>• Langkah (\(n=k+1\)): \(5^{2(k+1)} = 5^{2k} \cdot 5^2 \equiv (1)(1) = 1 \pmod 8 \implies 5^{2(k+1)} - 1 \equiv 0 \pmod 8\). Terbukti!</p>
+  </div>
 </section>
 
 <!-- SECTION 1H: PEMBAHASAN SOAL LATIHAN 1.2 NO. 8 -->
@@ -328,6 +345,21 @@
       <p>Pernyataan terbukti benar bahwa \(5^n - 4n - 1\) habis dibagi \(16\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
     </li>
   </ol>
+
+  <div style="margin-top:14px; padding:12px 14px; background:#f0fdf4; border-left:4px solid #16a34a; border-radius:8px;">
+    <b>💡 Solusi Cepat dengan Induksi Modulo (\(\pmod{16}\)):</b>
+    <p style="margin:4px 0 0; font-size:0.92rem;">
+      • Basis (\(n=1\)): \(5^1 - 4(1) - 1 = 0 \equiv 0 \pmod{16}\).<br>
+      • Hipotesis (\(n=k\)): Asumsikan \(5^k \equiv 4k + 1 \pmod{16}\).<br>
+      • Langkah (\(n=k+1\)):
+    </p>
+    <div class="math-step-box" style="margin:6px 0;">\[5^{k+1} = 5 \cdot 5^k \equiv 5(4k + 1) = 20k + 5 \pmod{16}\]</div>
+    <p style="margin:0; font-size:0.92rem;">
+      Karena \(20k = 16k + 4k \equiv 4k \pmod{16}\), maka:
+    </p>
+    <div class="math-step-box" style="margin:6px 0;">\[5^{k+1} \equiv 4k + 5 = 4(k+1) + 1 \pmod{16} \implies 5^{k+1} - 4(k+1) - 1 \equiv 0 \pmod{16}\]</div>
+    <p style="margin:0; font-size:0.92rem;">Bentuk target terpenuhi secara tepat!</p>
+  </div>
 </section>
 
 <!-- SECTION 1I: PEMBAHASAN SOAL LATIHAN 1.2 NO. 9 -->
@@ -371,6 +403,23 @@
       <p>Terbukti bahwa \(n^3 + (n+1)^3 + (n+2)^3\) habis dibagi \(9\) untuk setiap \(n \in \mathbb{N}\). \(\square\)</p>
     </li>
   </ol>
+
+  <div style="margin-top:14px; padding:12px 14px; background:#f0fdf4; border-left:4px solid #16a34a; border-radius:8px;">
+    <b>💡 Solusi Cepat dengan Induksi Modulo (\(\pmod 9\)):</b>
+    <p style="margin:4px 0 0; font-size:0.92rem;">
+      • Basis (\(n=1\)): \(1^3 + 2^3 + 3^3 = 36 \equiv 0 \pmod 9\).<br>
+      • Hipotesis (\(n=k\)): Asumsikan \(k^3 + (k+1)^3 + (k+2)^3 \equiv 0 \pmod 9\).<br>
+      • Langkah (\(n=k+1\)):
+    </p>
+    <div class="math-step-box" style="margin:6px 0;">\[[(k+1)^3 + (k+2)^3 + (k+3)^3] - [k^3 + (k+1)^3 + (k+2)^3] = (k+3)^3 - k^3\]</div>
+    <p style="margin:0; font-size:0.92rem;">
+      Uraikan selisih suku kubik:
+    </p>
+    <div class="math-step-box" style="margin:6px 0;">\[(k+3)^3 - k^3 = 9k^2 + 27k + 27 = 9(k^2 + 3k + 3) \equiv 0 \pmod 9\]</div>
+    <p style="margin:0; font-size:0.92rem;">
+      Maka \((k+1)^3 + (k+2)^3 + (k+3)^3 \equiv 0 + 0 = 0 \pmod 9\). Terbukti habis dibagi 9!
+    </p>
+  </div>
 </section>
 
 <!-- SECTION 1J: PEMBAHASAN SOAL LATIHAN 1.2 NO. 10 -->
