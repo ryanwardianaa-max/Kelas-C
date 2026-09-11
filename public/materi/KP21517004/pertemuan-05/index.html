@@ -519,26 +519,42 @@
 <!-- SECTION 3: SIFAT ALJABAR DI R (SECTION 2.1) -->
 <section class="card formula">
   <h2>12. Sifat Aljabar di ℝ (Section 2.1 Bartle)</h2>
-  <p>Sistem bilangan real \((\mathbb{R}, +, \cdot)\) merupakan sebuah <b>lapangan (field)</b> dengan dua operasi biner penjumlahan (\(+\)) dan perkalian (\(\cdot\)) yang memenuhi sembilan sifat dasar:</p>
+  <p>Sistem bilangan real \((\mathbb{R}, +, \cdot)\) merupakan sebuah <b>lapangan (field)</b> dengan dua operasi biner penjumlahan (\(+\)) dan perkalian (\(\cdot\)). Berdasarkan slide resmi perkuliahan, setiap sifat dituliskan lengkap dengan kuantor formal (\(\forall\) untuk setiap, \(\exists\) terdapat, dan \(\ni\) sedemikian sehingga):</p>
 
-  <h3>Sifat Penjumlahan (A1–A4)</h3>
+  <h3>Sifat Penjumlahan (Addition Properties: A1–A4)</h3>
   <ul>
-    <li><b>(A1) Sifat Komutatif:</b> \(a + b = b + a\) untuk semua \(a, b \in \mathbb{R}\).</li>
-    <li><b>(A2) Sifat Asosiatif:</b> \((a + b) + c = a + (b + c)\) untuk semua \(a, b, c \in \mathbb{R}\).</li>
-    <li><b>(A3) Elemen Nol (Identitas Aditif):</b> Terdapat elemen \(0 \in \mathbb{R}\) sehingga \(0 + a = a\) dan \(a + 0 = a\) untuk semua \(a \in \mathbb{R}\).</li>
-    <li><b>(A4) Elemen Negatif (Invers Aditif):</b> Untuk setiap \(a \in \mathbb{R}\), terdapat elemen \(-a \in \mathbb{R}\) sehingga \(a + (-a) = 0\) dan \((-a) + a = 0\).</li>
+    <li><b>(A1) Sifat Komutatif:</b>
+      <div class="math-step-box">\[\forall a, b \in \mathbb{R} \ni a + b = b + a\]</div>
+    </li>
+    <li><b>(A2) Sifat Asosiatif:</b>
+      <div class="math-step-box">\[\forall a, b, c \in \mathbb{R} \ni (a + b) + c = a + (b + c)\]</div>
+    </li>
+    <li><b>(A3) Keberadaan Elemen Nol (Identitas Aditif):</b>
+      <div class="math-step-box">\[\forall a \in \mathbb{R},\; \exists 0 \in \mathbb{R} \ni 0 + a = a \text{ dan } a + 0 = a\]</div>
+    </li>
+    <li><b>(A4) Keberadaan Elemen Negatif (Invers Aditif):</b>
+      <div class="math-step-box">\[\forall a \in \mathbb{R},\; \exists -a \in \mathbb{R} \ni a + (-a) = 0 \text{ dan } (-a) + a = 0\]</div>
+    </li>
   </ul>
 
-  <h3>Sifat Perkalian (M1–M4)</h3>
+  <h3>Sifat Perkalian (Multiplication Properties: M1–M4)</h3>
   <ul>
-    <li><b>(M1) Sifat Komutatif:</b> \(a \cdot b = b \cdot a\) untuk semua \(a, b \in \mathbb{R}\).</li>
-    <li><b>(M2) Sifat Asosiatif:</b> \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) untuk semua \(a, b, c \in \mathbb{R}\).</li>
-    <li><b>(M3) Elemen Satuan (Identitas Multiplikatif):</b> Terdapat elemen \(1 \in \mathbb{R}\) dengan \(1 \ne 0\) sehingga \(1 \cdot a = a\) dan \(a \cdot 1 = a\) untuk semua \(a \in \mathbb{R}\).</li>
-    <li><b>(M4) Elemen Resiprokal (Invers Multiplikatif):</b> Untuk setiap \(a \in \mathbb{R}\) dengan \(a \ne 0\), terdapat elemen \(1/a \in \mathbb{R}\) sehingga \(a \cdot (1/a) = 1\) dan \((1/a) \cdot a = 1\).</li>
+    <li><b>(M1) Sifat Komutatif:</b>
+      <div class="math-step-box">\[\forall a, b \in \mathbb{R} \ni a \cdot b = b \cdot a\]</div>
+    </li>
+    <li><b>(M2) Sifat Asosiatif:</b>
+      <div class="math-step-box">\[\forall a, b, c \in \mathbb{R} \ni (a \cdot b) \cdot c = a \cdot (b \cdot c)\]</div>
+    </li>
+    <li><b>(M3) Keberadaan Elemen Satuan (Identitas Multiplikatif):</b>
+      <div class="math-step-box">\[\forall a \in \mathbb{R},\; \exists 1 \in \mathbb{R} \ni 1 \cdot a = a \text{ dan } a \cdot 1 = a\]</div>
+    </li>
+    <li><b>(M4) Keberadaan Elemen Resiprokal (Invers Multiplikatif):</b>
+      <div class="math-step-box">\[\forall a \in \mathbb{R} \text{ dengan } a \ne 0,\; \exists \frac{1}{a} \in \mathbb{R} \ni a \cdot \left(\frac{1}{a}\right) = 1 \text{ dan } \left(\frac{1}{a}\right) \cdot a = 1\]</div>
+    </li>
   </ul>
 
-  <h3>Sifat Distributif (D)</h3>
-  <p>\(a \cdot (b + c) = (a \cdot b) + (a \cdot c)\) dan \((b + c) \cdot a = (b \cdot a) + (c \cdot a)\) untuk semua \(a, b, c \in \mathbb{R}\).</p>
+  <h3>Sifat Distributif (Distributive Property: D)</h3>
+  <div class="math-step-box">\[\forall a, b, c \in \mathbb{R} \ni a \cdot (b + c) = (a \cdot b) + (a \cdot c) \quad\text{dan}\quad (b + c) \cdot a = (b \cdot a) + (c \cdot a)\]</div>
 </section>
 
 <section class="card warn">
