@@ -194,7 +194,7 @@ export default function CourseDetailView({
             </small>
           </div>
           <a
-            href="https://github.com/ryanwardianaa-max/Kelompok-5-Metode-Numerik"
+            href="https://kelompok-5-metode-numerik.vercel.app"
             target="_blank"
             rel="noreferrer"
             style={{
