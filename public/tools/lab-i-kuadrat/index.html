@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mengapa i² = -1? | Laboratorium & Kalkulator Edukatif Analisis Kompleks</title>
+  
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-hover: #3730a3;
+      --primary-light: #e0e7ff;
+      --secondary: #059669;
+      --secondary-light: #d1fae5;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #312e81, #4338ca, #6366f1);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+      border-bottom: 3px solid #f59e0b;
+      box-shadow: var(--shadow-lg);
+    }
+    header .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    header p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1rem;
+      opacity: 0.92;
+    }
+    .author-bar {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.88rem;
+    }
+    .author-pill {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    /* Tabs Navigation */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      background: #e2e8f0;
+      padding: 6px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      min-width: 180px;
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .tab-btn.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Card System */
+    .card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Visualizer Canvas Layout */
+    .visualizer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .visualizer-grid { grid-template-columns: 1fr; }
+    }
+
+    .canvas-container {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+
+    .controls-box {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--secondary); color: white; }
+    .btn-secondary:hover { opacity: 0.9; }
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-outline { background: white; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f1f5f9; }
+
+    .callout {
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 14px;
+      border-left: 4px solid var(--primary);
+      background: var(--primary-light);
+      font-size: 0.92rem;
+    }
+    .callout-danger {
+      border-left-color: var(--danger);
+      background: var(--danger-light);
+      color: #991b1b;
+    }
+    .callout-success {
+      border-left-color: var(--secondary);
+      background: var(--secondary-light);
+      color: #065f46;
+    }
+
+    /* Calculator Grid */
+    .calc-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .input-group {
+      background: #f8fafc;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .input-group label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .input-row input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Step Breakdown */
+    .step-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .step-header {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+    }
+
+    /* Essay Layout */
+    .essay-prose {
+      line-height: 1.8;
+      font-size: 1.05rem;
+      color: #1e293b;
+    }
+    .essay-prose h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 28px 0 12px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+    }
+    .essay-prose h3 {
+      font-size: 1.15rem;
+      margin: 18px 0 8px;
+      color: #334155;
+    }
+    .essay-prose p {
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+
+    .doc-downloads {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">UNIVERSITAS SILIWANGI · FKIP MATEMATIKA</div>
+    <h1>Mengapa <span id="katex-title">i^2 = -1</span>?</h1>
+    <p>Tinjauan Historis, Struktur Medan Aljabar Pasangan Terurut Hamilton, Transformasi Rotasi 90° Bidang Argand, dan Aljabar Matriks</p>
+    <div class="author-bar">
+      <div class="author-pill">👤 <b>Ryan Wardiana</b> (NPM 232151098)</div>
+      <div class="author-pill">📚 Analisis Kompleks (KP21517003 Kelas C)</div>
+      <div class="author-pill">👩‍🏫 Dosen: <b>Vepi Apiati, S.Pd., M.Pd.</b></div>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Tab Navigation -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('visualizer')">🎯 Visualizer Rotasi 90°</button>
+      <button class="tab-btn" onclick="switchTab('calculator')">🧮 Kalkulator Aljabar Step-by-Step</button>
+      <button class="tab-btn" onclick="switchTab('hamilton')">⚖️ Teori Pasangan Hamilton</button>
+      <button class="tab-btn" onclick="switchTab('matrix')">📦 Representasi Matriks 2×2</button>
+      <button class="tab-btn" onclick="switchTab('essay')">📄 Naskah Lengkap Essay</button>
+    </nav>
+
+    <!-- TAB 1: VISUALIZER ROTASI 90 DERAJAT -->
+    <section id="tab-visualizer" class="tab-content active">
+      <div class="card">
+        <div class="card-title">
+          <span>🎯 Interpretasi Geometris Bidang Kompleks: Satuan i sebagai Operator Rotasi 90°</span>
+        </div>
+        <p style="margin-bottom: 16px; color: var(--text-muted);">
+          Pada bidang kompleks (Argand Plane), sumbu horizontal adalah <b>Sumbu Real (Re)</b> dan sumbu vertikal adalah <b>Sumbu Imajiner (Im)</b>.
+          Mengalikan bilangan kompleks dengan <span class="math-inline">i</span> secara intrinsik memutar posisi vektor sebesar <b>90° (π/2 radian) berlawanan arah jarum jam</b>!
+        </p>
+
+        <div class="visualizer-grid">
+          <!-- Canvas Plot -->
+          <div class="canvas-container">
+            <canvas id="argandCanvas" width="460" height="460"></canvas>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
+              Diagram Argand Dinamis (Visualisasi Vektor & Busur Sudut)
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls-box">
+            <div class="card" style="padding: 16px; border: 1.5px solid #cbd5e1; background: #f8fafc;">
+              <h3 style="font-size: 1rem; margin-bottom: 8px; color: var(--primary);">Simulasi Langkah Rotasi (Perkalian Bertahap dengan i):</h3>
+              <p style="font-size: 0.88rem; margin-bottom: 12px;">
+                Amati apa yang terjadi ketika vektor awal <span class="math-inline">z_0 = 1</span> dikalikan dengan <span class="math-inline">i</span> berulang kali:
+              </p>
+              <div class="btn-row">
+                <button class="btn btn-primary" onclick="rotateByI()">Putar &times; i (+90°)</button>
+                <button class="btn btn-outline" onclick="resetVector()">Reset ke Vektor 1</button>
+              </div>
+            </div>
+
+            <div class="callout callout-success" id="rotationStatus">
+              <b>Status Vektor Saat Ini:</b><br>
+              <span id="currentStatusMath">z = 1 = 1 + 0i \quad (\text{Sudut } \theta = 0^\circ)</span>
+            </div>
+
+            <div class="card" style="padding: 16px; border: 1.5px solid #cbd5e1;">
+              <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: #1e293b;">Penjelasan Mengapa i² = -1:</h3>
+              <ol style="margin-left: 20px; font-size: 0.9rem; line-height: 1.7;">
+                <li><b>Langkah 1 (Vektor Awal):</b> Kita mulai dari bilangan real <span class="math-inline">1 \equiv (1, 0)</span> pada sumbu horizontal dengan sudut <span class="math-inline">0^\circ</span>.</li>
+                <li><b>Langkah 2 (Rotasi Pertama &times; i):</b> Dikalikan <span class="math-inline">i</span>, vektor berputar 90° berlawanan jarum jam menuju sumbu imajiner vertikal di titik <span class="math-inline">i \equiv (0, 1)</span>.</li>
+                <li><b>Langkah 3 (Rotasi Kedua &times; i):</b> Dikalikan <span class="math-inline">i</span> sekali lagi (<span class="math-inline">i \cdot i = i^2</span>), vektor berputar 90° lagi. Total akumulasi sudut adalah <span class="math-inline">90^\circ + 90^\circ = 180^\circ</span>!</li>
+                <li><b>Mendarat di Real Negatif:</b> Karena vektor berputar 180° dari arah positif, ia mendarat tepat pada sumbu real negatif di titik <span class="math-inline">-1 \equiv (-1, 0)</span>.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: KALKULATOR STEP-BY-STEP -->
+    <section id="tab-calculator" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>🧮 Kalkulator Aljabar Bilangan Kompleks (Penjabaran Lengkap & Eksak)</span>
+        </div>
+        <p style="margin-bottom: 16px; color: var(--text-muted);">
+          Masukkan dua bilangan kompleks <span class="math-inline">z_1 = a + bi</span> dan <span class="math-inline">z_2 = c + di</span> untuk melihat penjabaran langkah demi langkah secara analitis dan visual.
+        </p>
+
+        <!-- Presets -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+          <button class="btn btn-outline" style="font-size: 0.82rem;" onclick="setCalcPreset(0, 1, 0, 1, 'mul')">
+            <b>Bukti i &times; i</b>: (0 + 1i) &times; (0 + 1i) = -1
+          </button>
+          <button class="btn btn-outline" style="font-size: 0.82rem;" onclick="setCalcPreset(2, 3, 1, -2, 'mul')">
+            <b>Contoh Kali</b>: (2 + 3i)(1 - 2i)
+          </button>
+          <button class="btn btn-outline" style="font-size: 0.82rem;" onclick="setCalcPreset(4, 2, 2, -1, 'div')">
+            <b>Contoh Bagi</b>: (4 + 2i) / (2 - i)
+          </button>
+        </div>
+
+        <div class="calc-inputs">
+          <div class="input-group">
+            <label>Bilangan Kompleks z₁ = a + bi</label>
+            <div class="input-row">
+              <input type="number" id="z1_re" value="0" step="any">
+              <span>+</span>
+              <input type="number" id="z1_im" value="1" step="any">
+              <span>i</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Bilangan Kompleks z₂ = c + di</label>
+            <div class="input-row">
+              <input type="number" id="z2_re" value="0" step="any">
+              <span>+</span>
+              <input type="number" id="z2_im" value="1" step="any">
+              <span>i</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-bottom: 20px;">
+          <button class="btn btn-primary" onclick="calculateComplex('mul')">Perkalian (z₁ &times; z₂)</button>
+          <button class="btn btn-outline" onclick="calculateComplex('div')">Pembagian (z₁ &divide; z₂)</button>
+          <button class="btn btn-outline" onclick="calculateComplex('add')">Penjumlahan (z₁ + z₂)</button>
+          <button class="btn btn-outline" onclick="calculateComplex('sub')">Pengurangan (z₁ - z₂)</button>
+        </div>
+
+        <!-- Result Box -->
+        <div id="calcResults" style="display: none;">
+          <div class="callout callout-success" style="margin-bottom: 16px;">
+            <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">Hasil Akhir Eksak:</div>
+            <div id="finalResultMath" style="font-size: 1.25rem; font-weight: 800; margin-top: 4px;"></div>
+          </div>
+
+          <div class="card" style="border: 1px solid #cbd5e1; padding: 18px;">
+            <h3 style="font-size: 1.05rem; color: var(--primary); margin-bottom: 12px;">Langkah Penjabaran Aljabar Step-by-Step:</h3>
+            <div id="stepBreakdown"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TEORI PASANGAN HAMILTON -->
+    <section id="tab-hamilton" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>⚖️ Pembuktian Aljabar Formal: Teori Pasangan Terurut Hamilton (1837)</span>
+        </div>
+        <p style="margin-bottom: 14px; text-align: justify;">
+          Sir William Rowan Hamilton menghilangkan seluruh mistisisme "bilangan khayal" dengan mendefinisikan himpunan bilangan kompleks <span class="math-inline">\mathbb{C}</span> 
+          secara aksiomatis sebagai <b>pasangan terurut bilangan real</b> <span class="math-inline">(a, b) \in \mathbb{R}^2</span> dengan aturan operasi yang murni bersumber dari aljabar real.
+        </p>
+
+        <div class="callout" style="background: #f1f5f9; border-left-color: #3b82f6;">
+          <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: #1e3a8a;">Definisi Aksioma Operasi Medan ℂ:</h4>
+          <div style="margin-bottom: 6px;"><span class="math-block">(a, b) + (c, d) = (a + c, \; b + d)</span></div>
+          <div><span class="math-block">(a, b) \cdot (c, d) = (ac - bd, \; ad + bc)</span></div>
+        </div>
+
+        <div class="callout callout-success" style="margin-top: 18px;">
+          <h4 style="font-size: 1rem; margin-bottom: 8px; color: #065f46;">Pembuktian Deduktif Rigor i² = -1:</h4>
+          <p style="margin-bottom: 8px;">
+            Dalam model Hamilton, bilangan real <span class="math-inline">a</span> diidentifikasikan sebagai <span class="math-inline">(a, 0)</span> sehingga <span class="math-inline">1 \equiv (1, 0)</span>.
+            Satuan imajiner <span class="math-inline">i</span> didefinisikan sebagai <span class="math-inline">(0, 1)</span>. Mari kita hitung hasil kuadratnya:
+          </p>
+          <div style="font-size: 1.1rem; line-height: 2;">
+            <span class="math-block">i^2 = (0, 1) \cdot (0, 1)</span>
+            <span class="math-block">= (0 \cdot 0 - 1 \cdot 1, \; 0 \cdot 1 + 1 \cdot 0)</span>
+            <span class="math-block">= (0 - 1, \; 0 + 0) = (-1, 0)</span>
+            <span class="math-block">\equiv -1 \quad (\text{Q.E.D. / Terbukti Sah})</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: MATRIKS 2x2 -->
+    <section id="tab-matrix" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>📦 Pembuktian Aljabar Linear: Isomorfisme Matriks Riil 2×2</span>
+        </div>
+        <p style="margin-bottom: 14px; text-align: justify;">
+          Medan bilangan kompleks <span class="math-inline">\mathbb{C}</span> isomorfik sempurna dengan sub-gelanggang matriks riil ukuran 2×2.
+          Setiap bilangan kompleks <span class="math-inline">z = a + bi</span> setara secara tepat dengan matriks transformasi:
+        </p>
+
+        <div style="text-align: center; margin: 16px 0;">
+          <span class="math-block">z = a + bi \quad \longleftrightarrow \quad Z = \begin{bmatrix} a & -b \\ b & a \end{bmatrix} = a \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + b \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}</span>
+        </div>
+
+        <div class="callout callout-success">
+          <h4 style="font-size: 1rem; margin-bottom: 8px; color: #065f46;">Perkalian Matriks Satuan Imajiner J:</h4>
+          <p style="margin-bottom: 6px;">
+            Representasi untuk satuan imajiner <span class="math-inline">i</span> adalah matriks generator rotasi 90°:
+            <span class="math-inline">J = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}</span>.
+          </p>
+          <div style="font-size: 1.1rem; line-height: 2;">
+            <span class="math-block">J^2 = J \cdot J = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} = \begin{bmatrix} (0)(0) + (-1)(1) & (0)(-1) + (-1)(0) \\ (1)(0) + (0)(1) & (1)(-1) + (0)(0) \end{bmatrix}</span>
+            <span class="math-block">= \begin{bmatrix} -1 & 0 \\ 0 & -1 \end{bmatrix} = - \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = -I</span>
+          </div>
+          <p style="margin-top: 10px; font-weight: 700;">
+            Semua angka dalam perkalian matriks di atas adalah bilangan real murni (0, 1, -1). Tidak ada hal mistis; i² = -1 setara dengan hukum komposisi matriks rotasi!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: NASKAH LENGKAP ESSAY & DOWNLOAD -->
+    <section id="tab-essay" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>📄 Naskah Lengkap Essay & Berkas Unduhan Resmi</span>
+        </div>
+
+        <div class="doc-downloads">
+          <a href="/tugas/KP21517003/Essay_i_Kuadrat_Sama_Dengan_Negatif_Satu_Ryan_Wardiana.docx" class="btn btn-primary" download>
+            📥 Unduh File Word (.docx dengan Equation OMML)
+          </a>
+          <a href="/tugas/KP21517003/Essay_i_Kuadrat_Sama_Dengan_Negatif_Satu_Ryan_Wardiana.pdf" class="btn btn-secondary" target="_blank">
+            👁️ Buka / Unduh Dokumen PDF Resmi (6 Halaman)
+          </a>
+        </div>
+
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border);">
+
+        <div class="essay-prose">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <h2 style="border: none; margin-bottom: 4px;">MENGAPA i² = -1?</h2>
+            <p style="font-size: 0.95rem; color: var(--text-muted); font-style: italic;">
+              Sebuah Tinjauan Historis, Struktur Medan Aljabar Formal, dan Interpretasi Geometris Transformasi Rotasi Bidang
+            </p>
+            <p style="font-size: 0.9rem; font-weight: 700; margin-top: 6px;">
+              Ryan Wardiana (NPM 232151098) · Pendidikan Matematika FKIP Universitas Siliwangi
+            </p>
+          </div>
+
+          <h2>1. Pendahuluan & Pernyataan Masalah</h2>
+          <p>
+            Dalam khazanah pendidikan matematika, konsep bilangan kompleks sering kali menjadi titik balik di mana intuisi konkret 
+            siswa terbentur oleh abstraksi simbolik. Salah satu pertanyaan paling mendasar yang kerap diajukan oleh peserta didik namun 
+            jarang dijawab secara memuaskan oleh pengajar adalah: <i>“Mengapa i kuadrat bernilai negatif satu?”</i> Jawaban dangkal yang umum diberikan 
+            adalah: "Karena memang i didefinisikan sebagai akar dari -1, sehingga jika dikuadratkan akarnya hilang menjadi -1." 
+            Pendekatan pengajaran semacam ini sangat berbahaya secara epistemologis karena menyembunyikan kontradiksi aljabar yang fatal jika ditinjau dari kaidah penarikan akar baku.
+          </p>
+
+          <h2>2. Latar Belakang Historis & Bahaya Kontradiksi Euler</h2>
+          <p>
+            Bilangan kompleks lahir bukan dari persamaan kuadrat x² + 1 = 0, melainkan dari formula kubik Gerolamo Cardano (1545) untuk menyelesaikan persamaan x³ = 15x + 4.
+            Formula kubik menghasilkan bentuk akar negatif bersarang yang membingungkan:
+          </p>
+          <span class="math-block">x = \sqrt[3]{2 + \sqrt{-121}} + \sqrt[3]{2 - \sqrt{-121}}</span>
+          <p>
+            Padahal secara nyata x = 4 adalah akar real bulat. Di sinilah Rafael Bombelli (1572) menyadari perlunya sistem aljabar yang konsisten untuk mengoperasikan akar negatif.
+          </p>
+          <div class="callout callout-danger">
+            <b>Peringatan Kontradiksi:</b> Jika i didefinisikan sebagai √(-1), maka hukum radikal real akan melahirkan kesalahan fatal:
+            <span class="math-block">i^2 = \sqrt{-1} \cdot \sqrt{-1} \overset{?}{=} \sqrt{(-1)(-1)} = \sqrt{1} = 1 \quad (\text{SALAH!})</span>
+            Karena sifat √(a)√(b) = √(ab) hanya berlaku jika salah satu dari a atau b bernilai non-negatif. Oleh karena itu, matematika modern mendefinisikan relasi kuadratik i² = -1 secara langsung.
+          </div>
+
+          <h2>3. Daftar Pustaka (Referensi 5 Tahun Terakhir)</h2>
+          <ul style="margin-left: 20px; line-height: 1.8; font-size: 0.95rem;">
+            <li>Brown, J. W., & Churchill, R. V. (2021). <i>Complex Variables and Applications</i> (10th ed.). New York: McGraw-Hill Education.</li>
+            <li>Needham, T. (2023). <i>Visual Complex Analysis</i> (25th Anniversary ed.). Oxford: Oxford University Press.</li>
+            <li>Saff, E. B., & Snider, A. D. (2021). <i>Fundamentals of Complex Analysis with Applications to Engineering and Science</i> (4th ed.). Boston: Pearson.</li>
+            <li>Stewart, I., & Tall, D. (2024). <i>Complex Analysis</i> (3rd ed.). Cambridge: Cambridge University Press.</li>
+            <li>Zill, D. G., & Shanahan, P. D. (2022). <i>A First Course in Complex Analysis with Applications</i> (4th ed.). Burlington, MA: Jones & Bartlett Learning.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      const targetContent = document.getElementById('tab-' + tabId);
+      if (targetContent) targetContent.classList.add('active');
+      
+      event.target.classList.add('active');
+      if (tabId === 'visualizer') drawArgand(currentAngle);
+    }
+
+    // -------------------------------------------------------------
+    // ARGAND ROTATION CANVAS
+    // -------------------------------------------------------------
+    const canvas = document.getElementById('argandCanvas');
+    const ctx = canvas.getContext('2d');
+    let currentAngle = 0; // in radians
+
+    function drawArgand(angle) {
+      const width = canvas.width;
+      const height = canvas.height;
+      const cx = width / 2;
+      const cy = height / 2;
+      const r = 160; // scale 1 unit = 160px
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Grid Lines
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      for (let x = 30; x < width; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+      }
+      for (let y = 30; y < height; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+      }
+
+      // Unit Circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Axes
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 2;
+      // Real axis
+      ctx.beginPath(); ctx.moveTo(20, cy); ctx.lineTo(width - 20, cy); ctx.stroke();
+      // Arrow
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath(); ctx.moveTo(width - 20, cy - 5); ctx.lineTo(width - 10, cy); ctx.lineTo(width - 20, cy + 5); ctx.fill();
+
+      // Imaginary axis
+      ctx.beginPath(); ctx.moveTo(cx, height - 20); ctx.lineTo(cx, 20); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - 5, 20); ctx.lineTo(cx, 10); ctx.lineTo(cx + 5, 20); ctx.fill();
+
+      // Labels
+      ctx.font = 'bold 13px system-ui';
+      ctx.fillStyle = '#1e293b';
+      ctx.fillText('Re (Sumbu Real)', width - 110, cy - 10);
+      ctx.fillText('Im (Sumbu Imajiner)', cx + 10, 24);
+
+      // Key Unit Points (1, i, -1, -i)
+      const points = [
+        { x: 1, y: 0, label: '1' },
+        { x: 0, y: 1, label: 'i' },
+        { x: -1, y: 0, label: '-1' },
+        { x: 0, y: -1, label: '-i' }
+      ];
+      points.forEach(pt => {
+        const px = cx + pt.x * r;
+        const py = cy - pt.y * r;
+        ctx.fillStyle = '#64748b';
+        ctx.beginPath(); ctx.arc(px, py, 4, 0, 2*Math.PI); ctx.fill();
+        ctx.fillText(pt.label, px + (pt.x ? pt.x * 12 : 8), py + (pt.y ? -pt.y * 12 : 16));
+      });
+
+      // Arc for Angle
+      if (angle > 0) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, 38, 0, -angle, true);
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        const deg = Math.round((angle * 180) / Math.PI);
+        ctx.fillStyle = '#d97706';
+        ctx.font = 'bold 12px system-ui';
+        ctx.fillText(deg + '°', cx + 44, cy - 14);
+      }
+
+      // Active Vector
+      const vx = cx + Math.cos(angle) * r;
+      const vy = cy - Math.sin(angle) * r;
+
+      ctx.strokeStyle = '#4338ca';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(vx, vy);
+      ctx.stroke();
+
+      // Arrowhead
+      const headlen = 14;
+      const headAngle = Math.atan2(cy - vy, vx - cx);
+      ctx.fillStyle = '#4338ca';
+      ctx.beginPath();
+      ctx.moveTo(vx, vy);
+      ctx.lineTo(vx - headlen * Math.cos(headAngle - Math.PI / 7), vy + headlen * Math.sin(headAngle - Math.PI / 7));
+      ctx.lineTo(vx - headlen * Math.cos(headAngle + Math.PI / 7), vy + headlen * Math.sin(headAngle + Math.PI / 7));
+      ctx.fill();
+
+      // Target Point Dot
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.arc(vx, vy, 7, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function rotateByI() {
+      currentAngle += Math.PI / 2; // +90 degrees
+      drawArgand(currentAngle);
+      updateRotationStatus();
+    }
+
+    function resetVector() {
+      currentAngle = 0;
+      drawArgand(currentAngle);
+      updateRotationStatus();
+    }
+
+    function updateRotationStatus() {
+      const deg = Math.round((currentAngle * 180 / Math.PI) % 360);
+      const normalizedDeg = (deg + 360) % 360;
+      let stateDesc = "";
+      if (normalizedDeg === 0) stateDesc = "z = 1 = 1 + 0i \\quad (\\text{Titik Awal Sumbu Real})";
+      else if (normalizedDeg === 90) stateDesc = "z = i = 0 + 1i \\quad (\\text{Rotasi 1: Sumbu Imajiner Positif})";
+      else if (normalizedDeg === 180) stateDesc = "z = i^2 = -1 = -1 + 0i \\quad (\\text{Rotasi 2: Mendarat di Real Negatif!})";
+      else if (normalizedDeg === 270) stateDesc = "z = i^3 = -i = 0 - 1i \\quad (\\text{Rotasi 3: Sumbu Imajiner Negatif})";
+      
+      const el = document.getElementById('currentStatusMath');
+      el.innerHTML = `\\theta = ${normalizedDeg}^\\circ \\implies ${stateDesc}`;
+      if (window.renderMathInElement) {
+        renderMathInElement(document.getElementById('rotationStatus'));
+      }
+    }
+
+    // -------------------------------------------------------------
+    // COMPLEX CALCULATOR LOGIC
+    // -------------------------------------------------------------
+    function setCalcPreset(a, b, c, d, op) {
+      document.getElementById('z1_re').value = a;
+      document.getElementById('z1_im').value = b;
+      document.getElementById('z2_re').value = c;
+      document.getElementById('z2_im').value = d;
+      calculateComplex(op);
+    }
+
+    function calculateComplex(op) {
+      const a = parseFloat(document.getElementById('z1_re').value) || 0;
+      const b = parseFloat(document.getElementById('z1_im').value) || 0;
+      const c = parseFloat(document.getElementById('z2_re').value) || 0;
+      const d = parseFloat(document.getElementById('z2_im').value) || 0;
+
+      const resultsDiv = document.getElementById('calcResults');
+      const finalMath = document.getElementById('finalResultMath');
+      const stepsDiv = document.getElementById('stepBreakdown');
+      resultsDiv.style.display = 'block';
+
+      let finalTex = "";
+      let steps = [];
+
+      if (op === 'mul') {
+        // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
+        const ac = a * c;
+        const bd = b * d;
+        const ad = a * d;
+        const bc = b * c;
+        const realPart = ac - bd;
+        const imagPart = ad + bc;
+
+        steps.push({
+          title: "1. Formula Dasar Perkalian Aljabar",
+          desc: "Mengalikan setiap suku secara distributif (FOIL) dengan mengingat bahwa i² = -1:",
+          tex: "(a + bi)(c + di) = ac + adi + bci + bd(i^2) = (ac - bd) + (ad + bc)i"
+        });
+        steps.push({
+          title: "2. Substitusi Nilai Koefisien",
+          desc: `Substitusikan a = ${a}, b = ${b}, c = ${c}, d = ${d}:`,
+          tex: `(${a} + ${b}i)(${c} + ${d}i) = (${a} \\cdot ${c} - ${b} \\cdot ${d}) + (${a} \\cdot ${d} + ${b} \\cdot ${c})i`
+        });
+        steps.push({
+          title: "3. Perhitungan Aritmetika",
+          desc: "Menghitung bagian real dan bagian imajiner:",
+          tex: `= (${ac} - ${bd}) + (${ad} + ${bc})i = ${realPart} + (${imagPart})i`
+        });
+
+        finalTex = `z_1 \\cdot z_2 = ${formatComplex(realPart, imagPart)}`;
+      } else if (op === 'div') {
+        const denom = c * c + d * d;
+        if (Math.abs(denom) < 1e-12) {
+          finalMath.innerHTML = `<span style="color:red">Error: Pembagian dengan nol (z₂ = 0)</span>`;
+          stepsDiv.innerHTML = "";
+          return;
+        }
+        const realPart = (a * c + b * d) / denom;
+        const imagPart = (b * c - a * d) / denom;
+
+        steps.push({
+          title: "1. Mengalikan dengan Sekawan (Konjugat) Penyebut",
+          desc: "Rasionalkan penyebut dengan mengalikan pembilang dan penyebut dengan z̄₂ = c - di:",
+          tex: "\\frac{z_1}{z_2} = \\frac{a + bi}{c + di} \\cdot \\frac{c - di}{c - di} = \\frac{(ac + bd) + (bc - ad)i}{c^2 + d^2}"
+        });
+        steps.push({
+          title: "2. Substitusi Nilai Numerik",
+          desc: `Penyebut c² + d² = ${c}² + (${d})² = ${denom}:`,
+          tex: `\\frac{(${a})(${c}) + (${b})(${d})}{${denom}} + \\frac{(${b})(${c}) - (${a})(${d})}{${denom}}i`
+        });
+        steps.push({
+          title: "3. Hasil Pecahan & Desimal",
+          desc: "Menyederhanakan bagian real dan imajiner:",
+          tex: `= ${realPart.toFixed(4)} + (${imagPart.toFixed(4)})i`
+        });
+
+        finalTex = `\\frac{z_1}{z_2} = ${formatComplex(realPart, imagPart)}`;
+      } else if (op === 'add') {
+        const realPart = a + c;
+        const imagPart = b + d;
+        steps.push({
+          title: "1. Pengelompokan Suku Sejenis",
+          desc: "Menjumlahkan bagian real dengan real, dan bagian imajiner dengan imajiner:",
+          tex: "(a + bi) + (c + di) = (a + c) + (b + d)i"
+        });
+        steps.push({
+          title: "2. Hasil Penjumlahan",
+          desc: `Substitusi nilai:`,
+          tex: `= (${a} + ${c}) + (${b} + ${d})i = ${realPart} + (${imagPart})i`
+        });
+        finalTex = `z_1 + z_2 = ${formatComplex(realPart, imagPart)}`;
+      } else if (op === 'sub') {
+        const realPart = a - c;
+        const imagPart = b - d;
+        steps.push({
+          title: "1. Pengurangan Suku Sejenis",
+          desc: "Mengurangkan bagian real dengan real, dan bagian imajiner dengan imajiner:",
+          tex: "(a + bi) - (c + di) = (a - c) + (b - d)i"
+        });
+        steps.push({
+          title: "2. Hasil Pengurangan",
+          desc: `Substitusi nilai:`,
+          tex: `= (${a} - (${c})) + (${b} - (${d}))i = ${realPart} + (${imagPart})i`
+        });
+        finalTex = `z_1 - z_2 = ${formatComplex(realPart, imagPart)}`;
+      }
+
+      finalMath.innerHTML = `$$${finalTex}$$`;
+      stepsDiv.innerHTML = steps.map(s => `
+        <div class="step-item">
+          <div class="step-header">${s.title}</div>
+          <p style="font-size: 0.88rem; color: #475569; margin-bottom: 6px;">${s.desc}</p>
+          <div style="font-size: 1rem; overflow-x: auto;">$$${s.tex}$$</div>
+        </div>
+      `).join('');
+
+      if (window.renderMathInElement) {
+        renderMathInElement(resultsDiv);
+      }
+    }
+
+    function formatComplex(re, im) {
+      const reStr = Number.isInteger(re) ? re : re.toFixed(4);
+      const imStr = Number.isInteger(im) ? im : im.toFixed(4);
+      if (Math.abs(im) < 1e-12) return `${reStr}`;
+      if (Math.abs(re) < 1e-12) return `${imStr}i`;
+      if (im < 0) return `${reStr} - ${Math.abs(imStr)}i`;
+      return `${reStr} + ${imStr}i`;
+    }
+
+    // Initialize KaTeX on load
+    window.addEventListener('DOMContentLoaded', () => {
+      drawArgand(0);
+      calculateComplex('mul');
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    });
+  </script>
+</body>
+</html>

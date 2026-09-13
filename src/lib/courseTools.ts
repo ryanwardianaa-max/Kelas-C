@@ -77,6 +77,17 @@ export const COURSE_TOOLS: ToolItem[] = [
     url: "/tools/kalkulator-polar-demoivre/index.html",
   },
   {
+    id: "tool-lab-i-kuadrat",
+    title: "Laboratorium Edukatif: Mengapa i² = -1? (Rotasi 90°, Hamilton, Matriks 2×2)",
+    courseCode: "KP21517003",
+    courseName: "Analisis Kompleks",
+    badgeColor: "#6558df",
+    description:
+      "Media visualisasi dan simulasi interaktif mengurai kenapa i kuadrat bernilai negatif satu. Memuat visualizer rotasi 90° bidang Argand, pembuktian aksiomatis pasangan terurut Hamilton, representasi aljabar matriks riil 2×2, serta kalkulator aljabar kompleks step-by-step.",
+    tags: ["Visualizer Rotasi 90°", "Teori Pasangan Hamilton", "Matriks Riil 2x2", "Kalkulator Step-by-Step"],
+    url: "/tools/lab-i-kuadrat/index.html",
+  },
+  {
     id: "tool-lab-metode-numerik",
     title: "Laboratorium Metode Numerik Lengkap",
     courseCode: "KP21517001",
