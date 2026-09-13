@@ -194,7 +194,7 @@ export default function CourseDetailView({
             </small>
           </div>
           <a
-            href="https://kelompok-5-metode-numerik.vercel.app"
+            href="https://kelompok-4-metode-numerik.vercel.app"
             target="_blank"
             rel="noreferrer"
             style={{
