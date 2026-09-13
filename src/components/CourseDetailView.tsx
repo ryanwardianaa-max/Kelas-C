@@ -187,7 +187,7 @@ export default function CourseDetailView({
               Kelompok 4 (Pertemuan 05)
             </span>
             <div style={{ fontWeight: 800, color: "#065f46", fontSize: "0.92rem", lineHeight: 1.25 }}>
-              Solusi Persamaan &amp; Sistem Nirlanjar (Newton-Raphson, Secant, &amp; SPNL)
+              Sistem Persamaan Lanjar: Eliminasi Gauss Modifikasi &amp; Dekomposisi LU Gauss
             </div>
             <small style={{ color: "#047857", fontSize: "0.76rem" }}>
               Ryan Wardiana (232151098), Najla Aisyah (232151087), Nabila Fitria Nuroktavianty Rosadi (232151088)
