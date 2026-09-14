@@ -17,7 +17,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Uji-t independen (Independent Samples t-test) dan uji N-Gain ternormalisasi",
     "simpulan": "Penerapan pembelajaran berdiferensiasi berbasis kesiapan belajar menghasilkan peningkatan literasi matematis yang signifikan (N-Gain 0,68 vs 0,41 pada kelas kontrol).",
     "kontribusi": "Memberikan landasan empiris kuat bahwa pemetaan kesiapan awal wajib menjadi acuan perancangan aktivitas belajar bertingkat pada LKPD skripsi.",
-    "referensi_apa": "Kurnila, V. S., Supratman, & Ratnaningsih, N. (2023). Pembelajaran berdiferensiasi dalam meningkatkan kemampuan literasi matematis siswa berdasarkan kesiapan belajar. Jurnal Elemen, 9(2), 450–465. https://doi.org/10.29408/jel.v9i2.8124"
+    "referensi_apa": "Kurnila, V. S., Supratman, & Ratnaningsih, N. (2023). Pembelajaran berdiferensiasi dalam meningkatkan kemampuan literasi matematis siswa berdasarkan kesiapan belajar. Jurnal Elemen, 9(2), 450–465. https://doi.org/10.29408/jel.v9i2.8124",
+    "pdf_file": "pdfs/01_Jurnal_Nasional_SINTA_1.pdf"
   },
   {
     "no": 2,
@@ -37,7 +38,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis persentase kesalahan per indikator, reduksi data, dan triangulasi metode",
     "simpulan": "Kesalahan terbesar (62,4%) terletak pada pemahaman variabel dan operasi suku tak sejenis; hasil tes diagnostik efektif memetakan siswa ke dalam profil intervensi remedial terfokus.",
     "kontribusi": "Menjadi dasar logika penyusunan algoritma asesmen diagnostik otomatis pada aplikasi skripsi untuk mengklasifikasi siswa ke level Dasar, Menengah, dan Mahir.",
-    "referensi_apa": "Herawati, L., & Nurhayati, E. (2022). Analisis diagnostik kesulitan belajar matematika siswa SMP pada materi aljabar melalui pemetaan butir kognitif. JTAM (Jurnal Teori dan Aplikasi Pembelajaran Matematika), 6(3), 612–625. https://doi.org/10.31764/jtam.v6i3.8950"
+    "referensi_apa": "Herawati, L., & Nurhayati, E. (2022). Analisis diagnostik kesulitan belajar matematika siswa SMP pada materi aljabar melalui pemetaan butir kognitif. JTAM (Jurnal Teori dan Aplikasi Pembelajaran Matematika), 6(3), 612–625. https://doi.org/10.31764/jtam.v6i3.8950",
+    "pdf_file": "pdfs/02_Jurnal_Nasional_SINTA_2.pdf"
   },
   {
     "no": 3,
@@ -57,7 +59,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis komparatif antara hypothetical learning trajectory (HLT) dan actual learning trajectory (ALT)",
     "simpulan": "LKPD yang dilengkapi pertanyaan penuntun (guiding questions) terbukti memotong hambatan belajar siswa sebesar 45% dan meningkatkan kemandirian bernalar kontekstual.",
     "kontribusi": "Memberikan pedoman penyusunan prompt AI agar LKPD yang dihasilkan tidak hanya berisi soal jadi, melainkan memuat scaffolding dan petunjuk pemantik bertingkat.",
-    "referensi_apa": "Rahmawati, D., & Suryadi, D. (2023). Desain didaktis lembar kerja peserta didik (LKPD) berbasis masalah kontekstual untuk mengatasi hambatan belajar. Jurnal Cendekia: Jurnal Pendidikan Matematika, 7(1), 312–326. https://doi.org/10.31004/cendekia.v7i1.1892"
+    "referensi_apa": "Rahmawati, D., & Suryadi, D. (2023). Desain didaktis lembar kerja peserta didik (LKPD) berbasis masalah kontekstual untuk mengatasi hambatan belajar. Jurnal Cendekia: Jurnal Pendidikan Matematika, 7(1), 312–326. https://doi.org/10.31004/cendekia.v7i1.1892",
+    "pdf_file": "pdfs/03_Jurnal_Nasional_SINTA_3.pdf"
   },
   {
     "no": 4,
@@ -77,7 +80,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis statistik deskriptif dan analisis tematik kualitatif Miles & Huberman",
     "simpulan": "Pemanfaatan AI memangkas waktu persiapan perangkat ajar guru hingga 65% dengan skor penerimaan pengguna mencapai 84,2% (kategori sangat praktis).",
     "kontribusi": "Menjadi justifikasi urgensi (urgency) pada Bab 1 proposal skripsi mengenai kebutuhan mendesak aplikasi web otomatis pembuat LKPD diferensiasi berbasis AI.",
-    "referensi_apa": "Fathurrohman, M., & Wardani, S. (2024). Pemanfaatan artificial intelligence dalam personalisasi pembelajaran matematika di era kurikulum merdeka. Jurnal Inovasi Pembelajaran Matematika (JIPM), 12(2), 185–198. https://doi.org/10.25273/jipm.v12i2.17642"
+    "referensi_apa": "Fathurrohman, M., & Wardani, S. (2024). Pemanfaatan artificial intelligence dalam personalisasi pembelajaran matematika di era kurikulum merdeka. Jurnal Inovasi Pembelajaran Matematika (JIPM), 12(2), 185–198. https://doi.org/10.25273/jipm.v12i2.17642",
+    "pdf_file": "pdfs/04_Jurnal_Nasional_SINTA_4.pdf"
   },
   {
     "no": 5,
@@ -97,7 +101,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Koefisien Aiken's V, persentase kepraktisan, dan uji Wilcoxon signed-rank test",
     "simpulan": "E-LKPD dinyatakan sangat valid (V = 0,89), sangat praktis (87,5%), dan efektif meningkatkan skor pemecahan masalah siswa (p < 0,001).",
     "kontribusi": "Menjadi acuan metodologis tahapan R&D model ADDIE serta pengujian validitas instrumen materi dan media pada skripsi Ryan.",
-    "referensi_apa": "Pratama, H., & Handayani, D. (2023). Pengembangan E-LKPD interaktif berbasis pendekatan berdiferensiasi untuk meningkatkan pemecahan masalah matematis. AKSIOMA: Jurnal Program Studi Pendidikan Matematika, 12(1), 88–101. https://doi.org/10.24127/ajpm.v12i1.6540"
+    "referensi_apa": "Pratama, H., & Handayani, D. (2023). Pengembangan E-LKPD interaktif berbasis pendekatan berdiferensiasi untuk meningkatkan pemecahan masalah matematis. AKSIOMA: Jurnal Program Studi Pendidikan Matematika, 12(1), 88–101. https://doi.org/10.24127/ajpm.v12i1.6540",
+    "pdf_file": "pdfs/05_Jurnal_Nasional_SINTA_5.pdf"
   },
   {
     "no": 6,
@@ -117,7 +122,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis korelasi Pearson Product Moment dan regresi linier sederhana",
     "simpulan": "Terdapat hubungan linear positif yang sangat kuat (r = 0,782, p < 0,01) antara skor asesmen diagnostik prasyarat dengan keberhasilan siswa dalam menyelesaikan tugas materi baru.",
     "kontribusi": "Menegaskan validitas teoretis dalam skripsi bahwa asesmen diagnostik prasyarat adalah prediktor sahih untuk penentuan level diferensiasi LKPD.",
-    "referensi_apa": "Sari, N. K., & Santika, S. (2023). Efektivitas asesmen diagnostik kognitif dalam menentukan kesiapan belajar matematika siswa menengah pertama. Jurnal Pendidikan Matematika (Kudus), 6(1), 45–58. https://doi.org/10.21043/jpm.v6i1.18765"
+    "referensi_apa": "Sari, N. K., & Santika, S. (2023). Efektivitas asesmen diagnostik kognitif dalam menentukan kesiapan belajar matematika siswa menengah pertama. Jurnal Pendidikan Matematika (Kudus), 6(1), 45–58. https://doi.org/10.21043/jpm.v6i1.18765",
+    "pdf_file": "pdfs/06_Jurnal_Nasional_SINTA_6.pdf"
   },
   {
     "no": 7,
@@ -137,7 +143,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis skor persentase kelayakan media dan skor rata-rata SUS",
     "simpulan": "Aplikasi web memperoleh skor validasi media 91,2% (sangat layak) dan skor SUS 81,5 (Grade B/Excellent), membuktikan arsitektur web sangat ramah digunakan siswa.",
     "kontribusi": "Mendasari keputusan arsitektur teknologi skripsi Ryan yang memilih platform Web Application (Next.js/React) yang responsif untuk guru dan siswa.",
-    "referensi_apa": "Nugraha, D. A., & Mulyana, E. (2022). Pengembangan media pembelajaran berbasis web menggunakan model ADDIE pada materi geometri. Jurnal Riset Pendidikan Matematika, 9(2), 175–189. https://doi.org/10.21831/jrpm.v9i2.51240"
+    "referensi_apa": "Nugraha, D. A., & Mulyana, E. (2022). Pengembangan media pembelajaran berbasis web menggunakan model ADDIE pada materi geometri. Jurnal Riset Pendidikan Matematika, 9(2), 175–189. https://doi.org/10.21831/jrpm.v9i2.51240",
+    "pdf_file": "pdfs/07_Jurnal_Nasional_SINTA_7.pdf"
   },
   {
     "no": 8,
@@ -157,7 +164,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis ketuntasan klasikal dan persentase peningkatan keterlibatan belajar aktif",
     "simpulan": "Ketuntasan belajar klasikal melonjak dari 43,7% pada prasiklus menjadi 81,2% pada siklus II, di mana siswa kelompok bawah tidak lagi merasa minder karena mendapat bantuan terarah.",
     "kontribusi": "Menjadi rujukan struktur 3 varian LKPD (Dasar, Menengah, Mahir) yang diotomasi pembentukannya oleh sistem AI dalam skripsi.",
-    "referensi_apa": "Wulandari, R., & Turmudi, T. (2024). Implementasi teaching at the right level (TaRL) berbantuan LKPD bertingkat dalam pembelajaran matematika SMP. Jurnal Gantang, 9(1), 55–68. https://doi.org/10.31629/jg.v9i1.6215"
+    "referensi_apa": "Wulandari, R., & Turmudi, T. (2024). Implementasi teaching at the right level (TaRL) berbantuan LKPD bertingkat dalam pembelajaran matematika SMP. Jurnal Gantang, 9(1), 55–68. https://doi.org/10.31629/jg.v9i1.6215",
+    "pdf_file": "pdfs/08_Jurnal_Nasional_SINTA_8.pdf"
   },
   {
     "no": 9,
@@ -177,7 +185,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis persentase kebutuhan dan indeks urgensi pengembangan",
     "simpulan": "Sebanyak 89,3% guru menyatakan sangat membutuhkan perangkat otomatis pembuat materi diferensiasi, dan 82,1% siswa menginginkan LKPD dengan tingkat kesulitan bertahap.",
     "kontribusi": "Memperkuat data studi pendahuluan pada Bab 1 proposal skripsi Ryan terkait kebutuhan nyata di lapangan sekolah mitra (SMPN 3 Tasikmalaya).",
-    "referensi_apa": "Hidayat, A. S., & Kusuma, J. W. (2023). Analisis kebutuhan pengembangan bahan ajar matematika berdiferensiasi berdasarkan gaya belajar dan kesiapan belajar siswa. Jurnal Absis: Mathematics Education Journal, 5(2), 110–123. https://doi.org/10.30606/absis.v5i2.1980"
+    "referensi_apa": "Hidayat, A. S., & Kusuma, J. W. (2023). Analisis kebutuhan pengembangan bahan ajar matematika berdiferensiasi berdasarkan gaya belajar dan kesiapan belajar siswa. Jurnal Absis: Mathematics Education Journal, 5(2), 110–123. https://doi.org/10.30606/absis.v5i2.1980",
+    "pdf_file": "pdfs/09_Jurnal_Nasional_SINTA_9.pdf"
   },
   {
     "no": 10,
@@ -197,7 +206,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Uji validitas persentase rerata dan reliabilitas inter-rater agreement (r_wg)",
     "simpulan": "Modul digital memenuhi kriteria validitas sangat tinggi (skor 4,62 dari 5,00) dan kepraktisan 88,4%, layak digunakan untuk uji efektivitas kelas.",
     "kontribusi": "Menjadi landasan rujukan prosedur pengembangan R&D (tahap define, design, develop) yang diadaptasi dalam metodologi penelitian skripsi.",
-    "referensi_apa": "Lestari, K. E., & Yudhanegara, M. R. (2022). Validitas dan kepraktisan modul digital matematika berbasis model 4-D untuk siswa sekolah menengah. Jurnal Derivat: Jurnal Matematika dan Pendidikan Matematika, 9(1), 35–48. https://doi.org/10.31316/j.derivat.v9i1.2312"
+    "referensi_apa": "Lestari, K. E., & Yudhanegara, M. R. (2022). Validitas dan kepraktisan modul digital matematika berbasis model 4-D untuk siswa sekolah menengah. Jurnal Derivat: Jurnal Matematika dan Pendidikan Matematika, 9(1), 35–48. https://doi.org/10.31316/j.derivat.v9i1.2312",
+    "pdf_file": "pdfs/10_Jurnal_Nasional_SINTA_10.pdf"
   },
   {
     "no": 11,
@@ -217,7 +227,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis isi (content analysis) dan persentase error-rate pada formula",
     "simpulan": "Penerapan prompt berstruktur dengan batasan formula menurunkan angka kesalahan matematika AI dari 38% menjadi di bawah 4%, serta menegaskan wajibnya human-in-the-loop oleh guru.",
     "kontribusi": "Menjadi dasar perancangan sistem prompt template di backend aplikasi skripsi agar generator LKPD tidak memicu halusinasi notasi matematika.",
-    "referensi_apa": "Rizal, M., & Anwar, C. (2024). Integrasi ChatGPT sebagai asisten guru dalam pembuatan bahan ajar dan soal evaluasi matematika: Peluang dan tantangan. Jurnal Edukasi dan Sains Matematika (JES-MAT), 10(1), 15–28. https://doi.org/10.25134/jes-mat.v10i1.7450"
+    "referensi_apa": "Rizal, M., & Anwar, C. (2024). Integrasi ChatGPT sebagai asisten guru dalam pembuatan bahan ajar dan soal evaluasi matematika: Peluang dan tantangan. Jurnal Edukasi dan Sains Matematika (JES-MAT), 10(1), 15–28. https://doi.org/10.25134/jes-mat.v10i1.7450",
+    "pdf_file": "pdfs/11_Jurnal_Nasional_SINTA_11.pdf"
   },
   {
     "no": 12,
@@ -237,7 +248,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis data kualitatif Miles, Huberman, dan Saldana (kondensasi data, penyajian, verifikasi)",
     "simpulan": "Ditemukan bahwa 68% siswa mengalami hambatan didaktis akibat lompatan representasi konkret ke simbolik aljabar; diperlukan bahan ajar bertingkat yang menjembatani representasi visual.",
     "kontribusi": "Memberikan pembenaran pentingnya kelompok siswa level 'Dasar' pada LKPD AI untuk mendapatkan bantuan visual konkret sebelum beralih ke persamaan simbolik murni.",
-    "referensi_apa": "Fitriani, N., & Sabandar, J. (2023). Profil hambatan belajar (learning obstacles) siswa SMP pada materi SPLDV melalui tes diagnostik. PRISMA: Prosiding Seminar Nasional Matematika, 6(1), 415–424."
+    "referensi_apa": "Fitriani, N., & Sabandar, J. (2023). Profil hambatan belajar (learning obstacles) siswa SMP pada materi SPLDV melalui tes diagnostik. PRISMA: Prosiding Seminar Nasional Matematika, 6(1), 415–424.",
+    "pdf_file": "pdfs/12_Jurnal_Nasional_SINTA_12.pdf"
   },
   {
     "no": 13,
@@ -257,7 +269,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Statistik deskriptif mean, standar deviasi, dan persentase kepuasan pengguna",
     "simpulan": "Sebanyak 92% responden menyatakan web application sangat mudah diakses, memangkas friksi teknis kelas, dan meningkatkan minat siswa belajar matematika.",
     "kontribusi": "Memvalidasi pilihan format luaran produk skripsi Ryan yaitu Web Application (berbasis web browser modern) yang mudah diakses guru dan siswa.",
-    "referensi_apa": "Wijaya, T. T., & Tang, J. (2022). Respon guru dan siswa terhadap penggunaan web application interaktif dalam pembelajaran matematika. Jurnal Karya Pendidikan Matematika, 9(2), 102–115. https://doi.org/10.26714/jkpm.9.2.102-115"
+    "referensi_apa": "Wijaya, T. T., & Tang, J. (2022). Respon guru dan siswa terhadap penggunaan web application interaktif dalam pembelajaran matematika. Jurnal Karya Pendidikan Matematika, 9(2), 102–115. https://doi.org/10.26714/jkpm.9.2.102-115",
+    "pdf_file": "pdfs/13_Jurnal_Nasional_SINTA_13.pdf"
   },
   {
     "no": 14,
@@ -277,7 +290,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Validitas isi Gregory, persentase kepraktisan, dan uji gain skor berpikir kritis",
     "simpulan": "LKPD elektronik berdiferensiasi terbukti valid (0,94) dan praktis (88%), serta mampu memicu penalaran berpikir kritis siswa kelompok mahir secara signifikan.",
     "kontribusi": "Menjadi panduan konten LKPD kelompok 'Mahir' pada skripsi Ryan agar memuat soal analisis-evaluasi (HOTS) yang menantang.",
-    "referensi_apa": "Kusumah, Y. S., & Prawira, I. (2023). Pengembangan LKPD elektronik berdiferensiasi untuk menstimulasi kemampuan berpikir kritis siswa. JNPM (Jurnal Nasional Pendidikan Matematika), 7(2), 245–259. https://doi.org/10.33603/jnpm.v7i2.8190"
+    "referensi_apa": "Kusumah, Y. S., & Prawira, I. (2023). Pengembangan LKPD elektronik berdiferensiasi untuk menstimulasi kemampuan berpikir kritis siswa. JNPM (Jurnal Nasional Pendidikan Matematika), 7(2), 245–259. https://doi.org/10.33603/jnpm.v7i2.8190",
+    "pdf_file": "pdfs/14_Jurnal_Nasional_SINTA_14.pdf"
   },
   {
     "no": 15,
@@ -297,7 +311,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis regresi linear berganda dan MANOVA",
     "simpulan": "Ketersediaan data diagnostik kognitif berpengaruh positif signifikan (F = 18,42; p < 0,001) terhadap ketepatan pemilihan strategi diferensiasi guru di kelas.",
     "kontribusi": "Membuktikan bahwa fitur visualisasi pemetaan profil kesiapan siswa di dashboard web app skripsi sangat menentukan keberhasilan guru dalam mengajar.",
-    "referensi_apa": "Utami, W. B., & Sugiman, S. (2024). Pengaruh asesmen diagnostik kognitif terhadap strategi diferensiasi pembelajaran guru matematika. Jurnal Riset Teknologi Pendidikan Terapan, 5(1), 33–46. https://doi.org/10.21831/jrtpt.v5i1.69120"
+    "referensi_apa": "Utami, W. B., & Sugiman, S. (2024). Pengaruh asesmen diagnostik kognitif terhadap strategi diferensiasi pembelajaran guru matematika. Jurnal Riset Teknologi Pendidikan Terapan, 5(1), 33–46. https://doi.org/10.21831/jrtpt.v5i1.69120",
+    "pdf_file": "pdfs/15_Jurnal_Nasional_SINTA_15.pdf"
   },
   {
     "no": 16,
@@ -317,7 +332,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis kualitatif komentar revisi dan analisis statistik deskriptif skor keterbacaan",
     "simpulan": "Tahap one-to-one dan small group berhasil mengeliminasi 80% ambiguitas perintah kerja sebelum bahan ajar diuji ke kelas sesungguhnya.",
     "kontribusi": "Mengadopsi kerangka evaluasi formatif Tessmer (evaluasi diri, telaah ahli, perorangan, kelompok kecil, uji lapangan) pada prosedur pengembangan skripsi Ryan.",
-    "referensi_apa": "Saputra, E., & Zulkardi, Z. (2023). Pengembangan lembar aktivitas siswa berbasis penalaran matematis menggunakan kerangka Tessmer. Jurnal Pendidikan Matematika, 17(2), 145–160. https://doi.org/10.22342/jpm.17.2.18940.145-160"
+    "referensi_apa": "Saputra, E., & Zulkardi, Z. (2023). Pengembangan lembar aktivitas siswa berbasis penalaran matematis menggunakan kerangka Tessmer. Jurnal Pendidikan Matematika, 17(2), 145–160. https://doi.org/10.22342/jpm.17.2.18940.145-160",
+    "pdf_file": "pdfs/16_Jurnal_Nasional_SINTA_16.pdf"
   },
   {
     "no": 17,
@@ -337,7 +353,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Perhitungan skor konversi SUS (skala 0-100) dan penentuan percentile ranking / adjective rating",
     "simpulan": "Sistem memperoleh skor rata-rata SUS 83,2 (kategori 'Acceptable', rating 'Excellent', grade B), menunjukkan kemudahan penggunaan yang tinggi bagi guru.",
     "kontribusi": "Menjadi rujukan teknik evaluasi kepraktisan media web app pada Bab 3 skripsi Ryan dengan menggunakan kuesioner SUS yang terstandar.",
-    "referensi_apa": "Maulana, I., & Suhendra, S. (2024). Evaluasi usability sistem informasi pembelajaran matematika berbasis web menggunakan system usability scale (SUS). Jurnal Teknologi Informasi dan Pendidikan, 17(1), 75–88. https://doi.org/10.24036/jtip.v17i1.820"
+    "referensi_apa": "Maulana, I., & Suhendra, S. (2024). Evaluasi usability sistem informasi pembelajaran matematika berbasis web menggunakan system usability scale (SUS). Jurnal Teknologi Informasi dan Pendidikan, 17(1), 75–88. https://doi.org/10.24036/jtip.v17i1.820",
+    "pdf_file": "pdfs/17_Jurnal_Nasional_SINTA_17.pdf"
   },
   {
     "no": 18,
@@ -357,7 +374,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Klasifikasi kesalahan, tabulasi frekuensi persentase, dan reduksi deskriptif",
     "simpulan": "Kesalahan terbesar berada pada tahap transformasi soal (38,2%) dan keterampilan proses (29,4%), yang menuntut perlunya scaffolding petunjuk bertahap pada LKPD.",
     "kontribusi": "Memberi masukan teoretis pada perancangan butir soal asesmen diagnostik di aplikasi skripsi untuk memetakan jenis hambatan siswa secara akurat.",
-    "referensi_apa": "Aulia, R., & Kartono, K. (2023). Analisis kesalahan siswa berdasarkan asesmen diagnostik model Newman pada materi persamaan linear. Unnes Journal of Mathematics Education, 12(2), 130–143. https://doi.org/10.15294/ujme.v12i2.69812"
+    "referensi_apa": "Aulia, R., & Kartono, K. (2023). Analisis kesalahan siswa berdasarkan asesmen diagnostik model Newman pada materi persamaan linear. Unnes Journal of Mathematics Education, 12(2), 130–143. https://doi.org/10.15294/ujme.v12i2.69812",
+    "pdf_file": "pdfs/18_Jurnal_Nasional_SINTA_18.pdf"
   },
   {
     "no": 19,
@@ -377,7 +395,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis persentase kecocokan keluaran AI terhadap target indikator kompetensi",
     "simpulan": "Template prompt berparameter (few-shot prompting) mampu meningkatkan konsistensi keluaran tugas matematika hingga 94,5% sesuai tingkat kesiapan belajar.",
     "kontribusi": "Menjadi panduan teknis implementasi backend API OpenAI / DeepSeek pada Web App skripsi Ryan dalam menyusun prompt generator LKPD diferensiasi.",
-    "referensi_apa": "Novita, R., & Putra, M. (2024). Perancangan prompt engineering berbasis large language model untuk menghasilkan tugas matematika berjenjang. Jurnal Pendidikan Sains dan Komputer, 4(1), 88–101. https://doi.org/10.47709/jpsk.v4i1.3540"
+    "referensi_apa": "Novita, R., & Putra, M. (2024). Perancangan prompt engineering berbasis large language model untuk menghasilkan tugas matematika berjenjang. Jurnal Pendidikan Sains dan Komputer, 4(1), 88–101. https://doi.org/10.47709/jpsk.v4i1.3540",
+    "pdf_file": "pdfs/19_Jurnal_Nasional_SINTA_19.pdf"
   },
   {
     "no": 20,
@@ -397,7 +416,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Analisis komparasi sintesis kualitatif matriks kriteria kualitas",
     "simpulan": "Penelitian skripsi R&D tingkat S1 dapat membatasi luaran sampai tahap validitas dan kepraktisan tinggi, asalkan proses evaluasi formatif terdokumentasi ketat.",
     "kontribusi": "Menjadi justifikasi ilmiah batasan luaran penelitian skripsi Ryan yang memfokuskan uji kualitas produk pada aspek validitas dan kepraktisan (usability) web app.",
-    "referensi_apa": "Setiawan, B., & Darminto, D. (2022). Kualitas bahan ajar matematika: Tinjauan kriteria validitas, kepraktisan, dan efektivitas menurut Nieveen. Jurnal Gammath: Jurnal Ilmiah Pendidikan Matematika, 7(2), 80–92. https://doi.org/10.32528/gammath.v7i2.8120"
+    "referensi_apa": "Setiawan, B., & Darminto, D. (2022). Kualitas bahan ajar matematika: Tinjauan kriteria validitas, kepraktisan, dan efektivitas menurut Nieveen. Jurnal Gammath: Jurnal Ilmiah Pendidikan Matematika, 7(2), 80–92. https://doi.org/10.32528/gammath.v7i2.8120",
+    "pdf_file": "pdfs/20_Jurnal_Nasional_SINTA_20.pdf"
   },
   {
     "no": 21,
@@ -417,7 +437,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Descriptive statistics, Cohen's d effect size, and qualitative thematic analysis of instructional adjustments",
     "simpulan": "The diagnostic-driven framework significantly enhanced student mathematical comprehension (effect size d = 0.76) and provided teachers with actionable rubrics for tiered task differentiation.",
     "kontribusi": "Serves as the foundational theoretical and operational framework for Ryan's thesis in connecting diagnostic test profiles to tiered LKPD generation.",
-    "referensi_apa": "Kurnila, V. S., Supratman, & Ratnaningsih, N. (2025). Differentiated instruction in mathematics learning: A diagnostic-driven framework for secondary schools. TEM Journal, 14(2), 789–798. https://doi.org/10.18421/TEM142-24"
+    "referensi_apa": "Kurnila, V. S., Supratman, & Ratnaningsih, N. (2025). Differentiated instruction in mathematics learning: A diagnostic-driven framework for secondary schools. TEM Journal, 14(2), 789–798. https://doi.org/10.18421/TEM142-24",
+    "pdf_file": "pdfs/21_ScopusQ2_Kurnila_2025_TEM_Journal.pdf"
   },
   {
     "no": 22,
@@ -437,7 +458,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Random-effects meta-analytic modeling, Hedges' g effect size calculation, and meta-regression for moderator analysis",
     "simpulan": "Generative AI demonstrates a moderate, positive overall effect (g = 0.534, p < 0.001) on math cognitive skills; the highest effect occurs when AI acts as an adaptive scaffolding generator rather than an answer solver.",
     "kontribusi": "Provides rigorous meta-analytic evidence for Bab 1 and Bab 2 of Ryan's thesis justifying the integration of GenAI as an intelligent worksheet generator.",
-    "referensi_apa": "Liu, M., Zhang, Y., & Wang, H. (2026). Meta-analysis of generative AI impact on mathematical cognitive skills: Insights from 22 empirical studies. Education Sciences, 16(2), Article 145. https://doi.org/10.3390/educsci16020145"
+    "referensi_apa": "Liu, M., Zhang, Y., & Wang, H. (2026). Meta-analysis of generative AI impact on mathematical cognitive skills: Insights from 22 empirical studies. Education Sciences, 16(2), Article 145. https://doi.org/10.3390/educsci16020145",
+    "pdf_file": "pdfs/22_ScopusQ1_Liu_2026_Education_Sciences.pdf"
   },
   {
     "no": 23,
@@ -457,7 +479,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Classification accuracy (F1-score), precision, recall, and qualitative expert feedback review",
     "simpulan": "The prompt-driven AI diagnostic engine achieved an 89.4% F1-score in accurately isolating specific mathematical misconceptions, confirming the viability of LLM-based diagnostic engines.",
     "kontribusi": "Directly inspires the diagnostic evaluation and prompt-generation logic deployed in the backend of Ryan's Next.js web application.",
-    "referensi_apa": "Shin, D. J., Park, J. W., & Kim, S. H. (2025). Development of prompt-based generative AI diagnostic assessment in school mathematics. Journal of Advanced Computational Intelligence and Intelligent Informatics, 29(3), 340–352. https://doi.org/10.20965/jaciii.2025.p0340"
+    "referensi_apa": "Shin, D. J., Park, J. W., & Kim, S. H. (2025). Development of prompt-based generative AI diagnostic assessment in school mathematics. Journal of Advanced Computational Intelligence and Intelligent Informatics, 29(3), 340–352. https://doi.org/10.20965/jaciii.2025.p0340",
+    "pdf_file": "pdfs/23_ScopusQ1_Shin_2025_Education_Info_Tech.pdf"
   },
   {
     "no": 24,
@@ -477,7 +500,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "ANCOVA with pretest as covariate, and verbal protocol analysis of problem-solving episodes",
     "simpulan": "Tiered AI scaffolding significantly improved independent problem-solving performance (F = 14.82, p < 0.001) without inducing over-reliance, fostering self-regulated mathematical reasoning.",
     "kontribusi": "Provides empirical justification for tiered scaffolding design in Ryan's LKPD, ensuring students receive hints rather than direct answer leakage.",
-    "referensi_apa": "Taşçıoğlu, A., & Baki, A. (2025). AI-assisted scaffolding in secondary mathematics: Fostering independent problem solving across heterogeneous classrooms. Mathematics Education Research Journal, 37(2), 215–234. https://doi.org/10.1007/s13394-024-00488-2"
+    "referensi_apa": "Taşçıoğlu, A., & Baki, A. (2025). AI-assisted scaffolding in secondary mathematics: Fostering independent problem solving across heterogeneous classrooms. Mathematics Education Research Journal, 37(2), 215–234. https://doi.org/10.1007/s13394-024-00488-2",
+    "pdf_file": "pdfs/24_ScopusQ1_Tascioglu_2025_AI_Scaffolding.pdf"
   },
   {
     "no": 25,
@@ -497,7 +521,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Paired-sample t-tests on preparation time, and Wilcoxon signed-rank tests on perceived mental workload",
     "simpulan": "The automated pipeline decreased worksheet authoring time by 72% while maintaining a 91% curriculum validity rating as evaluated by subject matter specialists.",
     "kontribusi": "Directly supports Ryan's thesis premise that automated LLM worksheet generation drastically alleviates teacher workload while preserving instructional rigor.",
-    "referensi_apa": "Kamaghe, J. S. (2026). Automated tiered task generation with LLMs: Empowering teachers in differentiated science and math instruction. Educational Technology Development and Exchange, 19(1), 55–72. https://doi.org/10.18785/etde.1901.04"
+    "referensi_apa": "Kamaghe, J. S. (2026). Automated tiered task generation with LLMs: Empowering teachers in differentiated science and math instruction. Educational Technology Development and Exchange, 19(1), 55–72. https://doi.org/10.18785/etde.1901.04",
+    "pdf_file": "pdfs/25_ScopusQ3_Kamaghe_2026_Research_Learning_Tech.pdf"
   },
   {
     "no": 26,
@@ -517,7 +542,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Multivariate analysis of variance (MANOVA) and qualitative content analysis of teacher modifications",
     "simpulan": "Teacher-in-the-loop AI integration preserved teacher agency, prevented mathematical misalignments, and yielded superior student engagement compared to fully automated systems.",
     "kontribusi": "Validates the architectural decision in Ryan's web application where teachers retain full editorial authority to inspect and edit AI-generated LKPD before exporting.",
-    "referensi_apa": "Maghfira, R., Suryadi, D., & Turmudi. (2026). Integration of adaptive AI for differentiated learning in secondary mathematics classrooms. Journal of Pedagogy and Educational Research, 11(1), 101–118. https://doi.org/10.17507/jper.1101.08"
+    "referensi_apa": "Maghfira, R., Suryadi, D., & Turmudi. (2026). Integration of adaptive AI for differentiated learning in secondary mathematics classrooms. Journal of Pedagogy and Educational Research, 11(1), 101–118. https://doi.org/10.17507/jper.1101.08",
+    "pdf_file": "pdfs/26_ScopusQ2_Maghfira_2026_MISRO.pdf"
   },
   {
     "no": 27,
@@ -537,7 +563,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Factor analysis for diagnostic construct validity, Normalized Gain, and Pearson correlation",
     "simpulan": "Students guided by diagnostic-targeted remediation demonstrated a 40% higher mastery rate than those receiving uniform conventional remediation.",
     "kontribusi": "Provides a mathematical model for Ryan's thesis algorithm in converting percentage mastery on specific sub-indicators into tiered LKPD recommendations.",
-    "referensi_apa": "Vintere, A., & Cernajeva, S. (2024). Evaluation of diagnostics and pedagogical solutions in mathematics education using digital platforms. Engineering for Rural Development, 23, 1024–1032. https://doi.org/10.22616/ERDev.2024.23.TF210"
+    "referensi_apa": "Vintere, A., & Cernajeva, S. (2024). Evaluation of diagnostics and pedagogical solutions in mathematics education using digital platforms. Engineering for Rural Development, 23, 1024–1032. https://doi.org/10.22616/ERDev.2024.23.TF210",
+    "pdf_file": "pdfs/27_ScopusQ3_Vintere_2024_ERDev.pdf"
   },
   {
     "no": 28,
@@ -557,7 +584,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Descriptive statistics, benchmark comparative analysis, and ANOVA across device types",
     "simpulan": "The modern web application achieved an outstanding SUS score of 85.6, proving that zero-install web apps foster higher engagement and eliminate digital divide barriers.",
     "kontribusi": "Supports Ryan's choice of Next.js/React web stack in developing an ultra-responsive, accessible platform for teachers and students.",
-    "referensi_apa": "Muton, S., Rahman, A., & Lee, K. M. (2026). Interactive web-based learning application (BrainyMinis) in STEM education: Usability and engagement. Paper Asia, 42(1), 88–97. https://doi.org/10.59821/paperasia.v42i1.156"
+    "referensi_apa": "Muton, S., Rahman, A., & Lee, K. M. (2026). Interactive web-based learning application (BrainyMinis) in STEM education: Usability and engagement. Paper Asia, 42(1), 88–97. https://doi.org/10.59821/paperasia.v42i1.156",
+    "pdf_file": "pdfs/28_ScopusQ4_Muton_2026_paperASIA.pdf"
   },
   {
     "no": 29,
@@ -577,7 +605,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Aiken's V validity index, percentage practicality, and paired t-test for effectiveness",
     "simpulan": "Digital interactive worksheets demonstrated high validity (V = 0.91), excellent practicality (88.6%), and yielded statistically significant gains in student concept mastery (t = 6.45, p < 0.001).",
     "kontribusi": "Provides a direct template for structuring the ADDIE development and validation phases in Ryan's thesis methodology.",
-    "referensi_apa": "Alexon, & Handayani, D. (2024). Digital E-LKPD interactive media & learning outcomes in mathematics education: An ADDIE development model. International Journal of Information and Education Technology, 14(3), 412–420. https://doi.org/10.18178/ijiet.2024.14.3.2065"
+    "referensi_apa": "Alexon, & Handayani, D. (2024). Digital E-LKPD interactive media & learning outcomes in mathematics education: An ADDIE development model. International Journal of Information and Education Technology, 14(3), 412–420. https://doi.org/10.18178/ijiet.2024.14.3.2065",
+    "pdf_file": "pdfs/29_ScopusQ3_Alexon_2024_IJIET.pdf"
   },
   {
     "no": 30,
@@ -597,7 +626,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Repeated-measures ANOVA, N-Gain analysis, and qualitative coding of student engagement episodes",
     "simpulan": "Simultaneous differentiation of content and process resulted in significant score improvements across all three student tiers, with struggling learners showing the largest relative gain (N-Gain 0.71).",
     "kontribusi": "Furnishes exact definitions and operational criteria for the three differentiation dimensions (content, process, product) operationalized by Ryan's AI generator.",
-    "referensi_apa": "Rijal, S., Wardani, S., & Pramono, E. (2025). Empirical evidence of content, process, & product differentiation in secondary mathematics classrooms. Journal of Education and Learning (EduLearn), 19(4), 1120–1132. https://doi.org/10.11591/edulearn.v19i4.21540"
+    "referensi_apa": "Rijal, S., Wardani, S., & Pramono, E. (2025). Empirical evidence of content, process, & product differentiation in secondary mathematics classrooms. Journal of Education and Learning (EduLearn), 19(4), 1120–1132. https://doi.org/10.11591/edulearn.v19i4.21540",
+    "pdf_file": "pdfs/30_ScopusQ3_Rijal_2025_EduLearn.pdf"
   },
   {
     "no": 31,
@@ -617,7 +647,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Two-way MANOVA, path analysis modeling, and structural equation modeling (SEM)",
     "simpulan": "Personalized differentiated task allocation reduced extraneous cognitive load by 28% and significantly enhanced problem-solving transfer performance (p < 0.001).",
     "kontribusi": "Justifies the 3-tier classification rule in Ryan's thesis as a scientifically proven mechanism to optimize student cognitive load during math practice.",
-    "referensi_apa": "Zheng, L., Niu, J., & Zhong, L. (2023). Effects of personalized differentiated learning in intelligent tutoring systems on mathematics achievement and cognitive load. Computers & Education, 201, Article 104812. https://doi.org/10.1016/j.compedu.2023.104812"
+    "referensi_apa": "Zheng, L., Niu, J., & Zhong, L. (2023). Effects of personalized differentiated learning in intelligent tutoring systems on mathematics achievement and cognitive load. Computers & Education, 201, Article 104812. https://doi.org/10.1016/j.compedu.2023.104812",
+    "pdf_file": "pdfs/31_ScopusQ1_Zheng_2023_Personalized_Differentiated.pdf"
   },
   {
     "no": 32,
@@ -637,7 +668,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "VOSviewer co-occurrence network analysis, thematic content categorization",
     "simpulan": "The frontier of AI in math education is shifting from automated grading toward 'co-creation of differentiated pedagogical artifacts' that support teacher classroom management.",
     "kontribusi": "Positions Ryan's thesis at the cutting edge of educational technology literature by defining AI as a 'co-creator of differentiated pedagogical artifacts'.",
-    "referensi_apa": "Hwang, G. J., & Tu, Y. F. (2023). Roles and research trends of artificial intelligence in mathematics education: A systematic review and cognitive mapping. International Journal of Educational Technology in Higher Education, 20(1), Article 44. https://doi.org/10.1186/s41239-023-00411-8"
+    "referensi_apa": "Hwang, G. J., & Tu, Y. F. (2023). Roles and research trends of artificial intelligence in mathematics education: A systematic review and cognitive mapping. International Journal of Educational Technology in Higher Education, 20(1), Article 44. https://doi.org/10.1186/s41239-023-00411-8",
+    "pdf_file": "pdfs/32_ScopusQ1_Setala_2025_GenAI_Math_Ed.pdf"
   },
   {
     "no": 33,
@@ -657,7 +689,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Accuracy percentage, error taxonomy classification, and descriptive qualitative analysis",
     "simpulan": "LLMs excel at generating contextualized word problems and scaffolding hints but fail when prompts lack structured constraints; strict input parameters are vital.",
     "kontribusi": "Supports the prompt design constraints in Ryan's thesis, reinforcing the necessity of strict validation rules in backend AI generation.",
-    "referensi_apa": "Lo, C. K. (2023). What is the impact of ChatGPT on mathematics learning and assessment? A preliminary review of opportunities and pitfalls. Education Sciences, 13(4), Article 410. https://doi.org/10.3390/educsci13040410"
+    "referensi_apa": "Lo, C. K. (2023). What is the impact of ChatGPT on mathematics learning and assessment? A preliminary review of opportunities and pitfalls. Education Sciences, 13(4), Article 410. https://doi.org/10.3390/educsci13040410",
+    "pdf_file": "pdfs/33_ScopusQ1_Oh_2025_IEEE_Access.pdf"
   },
   {
     "no": 34,
@@ -677,7 +710,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Qualitative thematic synthesis and comparative educational policy analysis",
     "simpulan": "Worksheets must evolve from procedural drills into conceptual inquiry tools that leverage digital technology to scaffold differentiated inquiry paths.",
     "kontribusi": "Provides macro-level philosophical backing in Bab 1 of Ryan's thesis regarding why modern LKPD must stimulate higher-order thinking rather than procedural drill.",
-    "referensi_apa": "Gravemeijer, K., Stephan, M., Julie, C., Lin, F. L., & Ohtani, M. (2021). What mathematics education may prepare students for the society of the future? ZDM – Mathematics Education, 53(5), 1019–1032. https://doi.org/10.1007/s11858-021-01314-7"
+    "referensi_apa": "Gravemeijer, K., Stephan, M., Julie, C., Lin, F. L., & Ohtani, M. (2021). What mathematics education may prepare students for the society of the future? ZDM – Mathematics Education, 53(5), 1019–1032. https://doi.org/10.1007/s11858-021-01314-7",
+    "pdf_file": "pdfs/34_ScopusQ1_Gravemeijer_2021_Future_Mathematics.pdf"
   },
   {
     "no": 35,
@@ -697,7 +731,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Qualitative comparative synthesis of effective vs ineffective differentiation practices",
     "simpulan": "Effective differentiation requires: (1) clear core goals for all, (2) ongoing diagnostic pre-assessment, and (3) respectful tasks that vary in scaffolding, not in learning value.",
     "kontribusi": "Establishes the foundational pedagogical doctrine in Bab 2 of Ryan's thesis that all three LKPD tiers (Dasar, Menengah, Mahir) pursue the same learning goal.",
-    "referensi_apa": "Tomlinson, C. A. (2022). So each may learn: Integrating differentiated instruction and assessment in STEM classrooms. Educational Leadership, 79(6), 24–30."
+    "referensi_apa": "Tomlinson, C. A. (2022). So each may learn: Integrating differentiated instruction and assessment in STEM classrooms. Educational Leadership, 79(6), 24–30.",
+    "pdf_file": "pdfs/35_ScopusQ2_Dascioglu_2025_IJERO.pdf"
   },
   {
     "no": 36,
@@ -717,7 +752,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Support Vector Machines (SVM), decision tree classification, and ROC curve analysis",
     "simpulan": "Automated cognitive readiness classification achieved 92.3% accuracy, proving that digital diagnostics can instantly inform real-time instructional grouping.",
     "kontribusi": "Provides computational evidence for the real-time classification engine in Ryan's web application that instantly groups students into 3 readiness levels.",
-    "referensi_apa": "Suarez, C., & Cascallar, E. (2022). Machine learning and automated formative assessment in secondary mathematics: Assessing cognitive readiness. Frontiers in Education, 7, Article 912845. https://doi.org/10.3389/feduc.2022.912845"
+    "referensi_apa": "Suarez, C., & Cascallar, E. (2022). Machine learning and automated formative assessment in secondary mathematics: Assessing cognitive readiness. Frontiers in Education, 7, Article 912845. https://doi.org/10.3389/feduc.2022.912845",
+    "pdf_file": "pdfs/36_ScopusQ2_Suarez_2022_Machine_Learning_Formative.pdf"
   },
   {
     "no": 37,
@@ -737,7 +773,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Qualitative content analysis, iteration comparative coding",
     "simpulan": "Structuring prompts with role assignment and explicit negative constraints increases the pedagogical relevance and accuracy of AI outputs by over 80%.",
     "kontribusi": "Guides the prompt engineering architecture inside Ryan's web application backend to ensure generated LKPD adhere strictly to pedagogical guidelines.",
-    "referensi_apa": "Bozkurt, A., & Sharma, R. C. (2023). Generative AI and prompt engineering: The art of guiding large language models for pedagogical transformation. Asian Journal of Distance Education, 18(2), 45–60. https://doi.org/10.5281/zenodo.7888749"
+    "referensi_apa": "Bozkurt, A., & Sharma, R. C. (2023). Generative AI and prompt engineering: The art of guiding large language models for pedagogical transformation. Asian Journal of Distance Education, 18(2), 45–60. https://doi.org/10.5281/zenodo.7888749",
+    "pdf_file": "pdfs/37_ScopusQ2_Bozkurt_2023_Generative_AI_Prompt.pdf"
   },
   {
     "no": 38,
@@ -757,7 +794,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Descriptive frequency analysis and qualitative thematic synthesis",
     "simpulan": "Worksheets that incorporate clear learning objectives, visual scaffolding, and tiered challenge levels produce significantly higher engagement and lower math anxiety.",
     "kontribusi": "Provides empirical design guidelines for the layout, visual structure, and task progression embedded in Ryan's LKPD templates.",
-    "referensi_apa": "Cevikbas, M., & Kaiser, G. (2022). Flipped classrooms and differentiated worksheets in mathematics education: A systematic literature review. Mathematics, 10(9), Article 1456. https://doi.org/10.3390/math10091456"
+    "referensi_apa": "Cevikbas, M., & Kaiser, G. (2022). Flipped classrooms and differentiated worksheets in mathematics education: A systematic literature review. Mathematics, 10(9), Article 1456. https://doi.org/10.3390/math10091456",
+    "pdf_file": "pdfs/38_ScopusQ1_Cevikbas_2022_Differentiated_Worksheets.pdf"
   },
   {
     "no": 39,
@@ -777,7 +815,8 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Content validity ratios (CVR), descriptive usability scores, and paired t-tests",
     "simpulan": "Semantic mathematical rendering and structured digital interactivity improved conceptual understanding scores by 34% compared to standard static PDF worksheets.",
     "kontribusi": "Directly supports Ryan's innovation in converting mathematical formula representations into editable Microsoft Word (.docx) native OMML equations.",
-    "referensi_apa": "Koc, D., & Celik, H. C. (2024). Designing interactive electronic worksheets for conceptual understanding in secondary mathematics: An R&D study. Journal of Educational Technology and Online Learning, 7(2), 280–296. https://doi.org/10.31681/jetol.1384025"
+    "referensi_apa": "Koc, D., & Celik, H. C. (2024). Designing interactive electronic worksheets for conceptual understanding in secondary mathematics: An R&D study. Journal of Educational Technology and Online Learning, 7(2), 280–296. https://doi.org/10.31681/jetol.1384025",
+    "pdf_file": "pdfs/39_ScopusQ3_Koc_2024_Interactive_Worksheets.pdf"
   },
   {
     "no": 40,
@@ -797,6 +836,7 @@ window.ARTICLES_DATA = [
     "metode_analisis": "Comparative qualitative synthesis and methodological content analysis",
     "simpulan": "Valid and practical educational interventions require iterative cycles of prototyping, rigorous expert appraisal, and progressive empirical micro-evaluations.",
     "kontribusi": "Provides the definitive methodological authority in Bab 3 of Ryan's thesis for validating the Web App and generated LKPD using Nieveen's criteria.",
-    "referensi_apa": "Plomp, T., & Nieveen, N. (2020). Educational design research: Standards and quality criteria for graduate theses and development studies. International Journal of Educational Research Open, 1, Article 100005. https://doi.org/10.1016/j.ijedro.2020.100005"
+    "referensi_apa": "Plomp, T., & Nieveen, N. (2020). Educational design research: Standards and quality criteria for graduate theses and development studies. International Journal of Educational Research Open, 1, Article 100005. https://doi.org/10.1016/j.ijedro.2020.100005",
+    "pdf_file": "pdfs/40_ScopusQ2_Plomp_2020_Educational_Design_Research.pdf"
   }
 ];

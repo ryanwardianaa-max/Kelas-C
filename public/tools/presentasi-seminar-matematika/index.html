@@ -82,15 +82,23 @@
     }
 
     .crest-badge {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: var(--radius-md);
-      background: linear-gradient(135deg, #065f46, var(--wa-green));
       display: grid;
       place-items: center;
-      box-shadow: 0 2px 8px rgba(0, 168, 132, 0.3);
-      border: 2px solid rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 2px;
+      border: 2px solid var(--wa-green);
+      box-shadow: 0 2px 8px rgba(0, 168, 132, 0.35);
+    }
+
+    .crest-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .brand-text h1 {
@@ -102,12 +110,12 @@
 
     .brand-text small {
       font-size: 0.76rem;
-      color: var(--wa-green);
+      color: var(--wa-green-light);
       font-weight: 600;
       letter-spacing: 0.02em;
     }
 
-    /* Segmented Navigation Tabs */
+    /* Segmented Navigation Tabs (No Emojis) */
     .nav-pill-group {
       display: flex;
       background: var(--wa-surface-subtle);
@@ -129,7 +137,7 @@
       transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       white-space: nowrap;
     }
 
@@ -188,10 +196,10 @@
     }
 
     /* -------------------------------------------------------------
-       MODE 1: KEYNOTE SLIDE DECK (16:9 Widescreen Presentation)
+       MODE 1: KEYNOTE SLIDE DECK (Split Content & Thematic Visuals)
        ------------------------------------------------------------- */
     .deck-wrapper {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -199,13 +207,12 @@
     }
 
     .slide-frame {
-      aspect-ratio: 16 / 9;
       min-height: 540px;
       background: var(--wa-surface);
       border: 1.5px solid var(--wa-border);
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-card);
-      padding: 44px 52px;
+      padding: 36px 44px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -218,7 +225,7 @@
       top: 0;
       left: 0;
       height: 4px;
-      background: var(--wa-green);
+      background: var(--wa-green-light);
       transition: width 0.3s ease;
     }
 
@@ -226,11 +233,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .slide-topic-badge {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--wa-green-light);
       background: rgba(37, 211, 102, 0.1);
@@ -245,56 +252,92 @@
       color: var(--wa-text-muted);
     }
 
-    .slide-body {
+    .slide-split-body {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
     }
 
-    .slide-body h2 {
-      font-size: 2.1rem;
+    @media (max-width: 900px) {
+      .slide-split-body {
+        grid-template-columns: 1fr;
+      }
+      .slide-frame { padding: 24px; min-height: auto; }
+    }
+
+    .slide-text-side h2 {
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--wa-text);
       line-height: 1.25;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .slide-lead {
-      font-size: 1.15rem;
-      color: #c1cbd1;
-      margin-bottom: 24px;
-      max-width: 900px;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      margin-bottom: 20px;
       line-height: 1.5;
     }
 
     .slide-bullet-list {
       list-style: none;
       display: grid;
-      gap: 14px;
-      max-width: 960px;
+      gap: 12px;
     }
 
     .slide-bullet-list li {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      font-size: 1.05rem;
+      gap: 10px;
+      font-size: 0.95rem;
       color: #d1d7db;
+      line-height: 1.45;
     }
 
     .slide-bullet-list li .bullet-icon {
       color: var(--wa-green-light);
-      font-size: 1.1rem;
-      margin-top: 1px;
+      font-size: 1rem;
+      margin-top: 2px;
       flex-shrink: 0;
+    }
+
+    /* Thematic Visual Box on Slide Right */
+    .slide-visual-box {
+      background: var(--wa-surface-subtle);
+      border: 1px solid var(--wa-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .slide-visual-box svg {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+    }
+
+    .visual-caption {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: var(--wa-green-light);
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.02em;
     }
 
     .slide-footer-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 0.82rem;
       color: var(--wa-text-muted);
@@ -338,14 +381,14 @@
     }
 
     /* -------------------------------------------------------------
-       MODE 2: INTERACTIVE RESEARCH MATRIX (40 Jurnal SLR)
+       MODE 2: COMPACT RESEARCH MATRIX (Clean Cards + Detail Modal)
        ------------------------------------------------------------- */
     .matrix-toolbar {
       background: var(--wa-surface);
       border: 1px solid var(--wa-border);
       border-radius: var(--radius-card);
       padding: 16px 20px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -403,32 +446,33 @@
       border-color: var(--wa-green);
     }
 
-    /* Articles Grid */
-    .articles-grid {
+    /* Compact Articles Grid */
+    .articles-compact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
     }
 
-    .article-card {
+    .compact-card {
       background: var(--wa-surface);
       border: 1px solid var(--wa-border);
-      border-radius: var(--radius-card);
-      padding: 20px;
+      border-radius: 16px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.2s, border-color 0.2s;
+      gap: 12px;
+      box-shadow: var(--shadow-bubble);
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
     }
 
-    .article-card:hover {
+    .compact-card:hover {
       transform: translateY(-2px);
       border-color: var(--wa-green);
     }
 
-    .article-card-header {
+    .compact-card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -455,51 +499,113 @@
       border: 1px solid rgba(16, 185, 129, 0.4);
     }
 
-    .article-title {
-      font-size: 1.02rem;
+    .compact-card-title {
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--wa-text);
       line-height: 1.35;
     }
 
-    .article-authors {
+    .compact-card-author {
       font-size: 0.82rem;
       color: var(--wa-text-muted);
+      line-height: 1.3;
     }
 
-    .article-details {
-      font-size: 0.86rem;
-      color: #cbd5e1;
+    .compact-card-action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+      color: var(--wa-green-light);
+      font-weight: 600;
+    }
+
+    /* Article Detail Modal */
+    .article-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(6px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .article-modal-overlay.active { display: flex; }
+
+    .article-modal-dialog {
+      background: var(--wa-surface);
+      border: 1.5px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      width: 100%;
+      max-width: 760px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 18px;
     }
 
-    .detail-row b {
-      color: var(--wa-green-light);
-      display: block;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      margin-bottom: 2px;
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--wa-border);
     }
 
-    .article-skripsi-contrib {
+    .modal-head h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--wa-text);
+      line-height: 1.3;
+    }
+
+    .modal-section {
       background: var(--wa-surface-subtle);
-      border-left: 3px solid var(--wa-green);
-      padding: 10px 12px;
-      border-radius: 4px;
-      font-size: 0.84rem;
-      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--wa-border);
     }
 
-    .article-skripsi-contrib b {
-      color: var(--wa-green);
-      display: block;
-      font-size: 0.75rem;
+    .modal-section h4 {
+      font-size: 0.82rem;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      color: var(--wa-green-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      font-weight: 700;
     }
+
+    .modal-section p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .pdf-cta-btn {
+      background: var(--wa-green);
+      color: #111b21;
+      padding: 10px 22px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .pdf-cta-btn:hover { background: var(--wa-green-hover); }
 
     /* -------------------------------------------------------------
        MODE 3: SKRIPSI INTEGRATION BRIDGE
@@ -508,15 +614,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
     @media (max-width: 860px) {
       .bridge-grid { grid-template-columns: 1fr; }
       header.wa-topbar { flex-wrap: wrap; }
       .nav-pill-group { order: 3; width: 100%; overflow-x: auto; }
-      .slide-frame { padding: 24px; aspect-ratio: auto; min-height: 480px; }
-      .slide-body h2 { font-size: 1.5rem; }
     }
 
     .bridge-card {
@@ -552,7 +656,7 @@
     .pill-red { background: rgba(239, 68, 68, 0.2); color: #f87171; }
     .pill-green { background: rgba(37, 211, 102, 0.2); color: #4ade80; }
 
-    /* Interactive Simulator Box */
+    /* Interactive Simulator */
     .simulator-container {
       background: var(--wa-surface-subtle);
       border: 1.5px solid var(--wa-border);
@@ -619,7 +723,7 @@
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(4px);
       z-index: 200;
       display: none;
@@ -667,31 +771,23 @@
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
+  <!-- Top Navigation Bar with Official UNSIL Emblem Logo -->
   <header class="wa-topbar">
     <a href="#" class="brand-cluster">
       <div class="crest-badge">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
+        <img src="unsil_emblem.png" alt="Logo Universitas Siliwangi">
       </div>
       <div class="brand-text">
         <h1>UNIVERSITAS SILIWANGI · FKIP MATEMATIKA</h1>
-        <small>Mata Kuliah: Seminar Pendidikan Matematika (KP21517006)</small>
+        <small>Seminar Pendidikan Matematika (KP21517006)</small>
       </div>
     </a>
 
-    <!-- Segmented Nav Tabs -->
+    <!-- Clean Nav Tabs (No Emojis) -->
     <nav class="nav-pill-group">
-      <button class="nav-pill active" onclick="switchMainView('deck')">
-        <span>📺</span> Slide Keynote
-      </button>
-      <button class="nav-pill" onclick="switchMainView('matrix')">
-        <span>📊</span> Matriks 40 Jurnal
-      </button>
-      <button class="nav-pill" onclick="switchMainView('bridge')">
-        <span>🔗</span> Jembatan Skripsi
-      </button>
+      <button class="nav-pill active" onclick="switchMainView('deck')">Slide Keynote</button>
+      <button class="nav-pill" onclick="switchMainView('matrix')">Matriks 40 Jurnal</button>
+      <button class="nav-pill" onclick="switchMainView('bridge')">Jembatan Skripsi</button>
     </nav>
 
     <!-- Presenter Pill -->
@@ -704,7 +800,7 @@
   <main class="main-viewport">
 
     <!-- =============================================================
-         MODE 1: KEYNOTE SLIDE DECK (18 Slide Widescreen)
+         MODE 1: KEYNOTE SLIDE DECK (Split Content + Visual Graphics)
          ============================================================= -->
     <section id="view-deck" class="view-panel active">
       <div class="deck-wrapper">
@@ -716,62 +812,62 @@
             <span class="slide-num-badge" id="slideNumber">SLIDE 1 DARI 18</span>
           </div>
 
-          <div class="slide-body" id="slideBody">
-            <!-- Dynamically populated -->
+          <!-- Split Body: Text on Left, Thematic Graphic on Right -->
+          <div class="slide-split-body" id="slideSplitBody">
+            <div class="slide-text-side" id="slideTextSide">
+              <!-- Text populated dynamically -->
+            </div>
+            <div class="slide-visual-box" id="slideVisualBox">
+              <!-- Thematic SVG Graphic populated dynamically -->
+            </div>
           </div>
 
           <div class="slide-footer-meta">
             <span>Dosen Pengampu: <b>Dr. Nani Ratnaningsih, M.Pd.</b></span>
-            <span>Gunakan <b>← / →</b> atau Tombol Navigasi</span>
+            <span>Navigasi: Tombol <b>← / →</b> atau Tombol di Bawah</span>
           </div>
         </article>
 
         <!-- Deck Navigation Controls -->
         <div class="deck-controls">
-          <button class="deck-btn" id="btnPrev" onclick="moveSlide(-1)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            Sebelumnya
-          </button>
+          <button class="deck-btn" id="btnPrev" onclick="moveSlide(-1)">Sebelumnya</button>
           
           <button class="deck-btn" onclick="openDrawer()">
             <span id="deckCounter">1 / 18</span> · Daftar Semua Slide
           </button>
 
-          <button class="deck-btn" id="btnNext" onclick="moveSlide(1)">
-            Berikutnya
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+          <button class="deck-btn" id="btnNext" onclick="moveSlide(1)">Berikutnya</button>
         </div>
       </div>
     </section>
 
     <!-- =============================================================
-         MODE 2: INTERACTIVE RESEARCH MATRIX (40 Jurnal SLR)
+         MODE 2: COMPACT RESEARCH MATRIX (Cards + Detail Modal)
          ============================================================= -->
     <section id="view-matrix" class="view-panel">
       <div class="matrix-toolbar">
         <div class="search-row">
-          <input type="text" id="matrixSearch" class="search-input" placeholder="Cari penulis, judul, metodologi, akreditasi, atau kata kunci..." oninput="filterArticles()">
+          <input type="text" id="matrixSearch" class="search-input" placeholder="Cari penulis, judul artikel, nama jurnal, atau tahun..." oninput="filterArticles()">
         </div>
 
         <div class="filter-chips">
-          <button class="chip-btn active" onclick="setArticleFilter('all', this)">Semua (40 Jurnal)</button>
-          <button class="chip-btn" onclick="setArticleFilter('nasional', this)">🇮🇩 Nasional SINTA (20)</button>
-          <button class="chip-btn" onclick="setArticleFilter('internasional', this)">🌐 Internasional Scopus (20)</button>
-          <button class="chip-btn" onclick="setArticleFilter('diferensiasi', this)">Klaster: Berdiferensiasi</button>
-          <button class="chip-btn" onclick="setArticleFilter('diagnostik', this)">Klaster: Asesmen Diagnostik</button>
-          <button class="chip-btn" onclick="setArticleFilter('ai', this)">Klaster: Generative AI</button>
-          <button class="chip-btn" onclick="setArticleFilter('rd', this)">Klaster: R&amp;D &amp; Web</button>
+          <button class="chip-btn active" onclick="setArticleFilter('all', this)">Semua (40)</button>
+          <button class="chip-btn" onclick="setArticleFilter('nasional', this)">Nasional SINTA (20)</button>
+          <button class="chip-btn" onclick="setArticleFilter('internasional', this)">Internasional Scopus (20)</button>
+          <button class="chip-btn" onclick="setArticleFilter('diferensiasi', this)">Diferensiasi</button>
+          <button class="chip-btn" onclick="setArticleFilter('diagnostik', this)">Asesmen Diagnostik</button>
+          <button class="chip-btn" onclick="setArticleFilter('ai', this)">Generative AI</button>
+          <button class="chip-btn" onclick="setArticleFilter('rd', this)">R&amp;D &amp; Web</button>
         </div>
 
         <div style="font-size: 0.85rem; color: var(--wa-text-muted); display: flex; justify-content: space-between;">
           <span id="matrixCounter">Menampilkan 40 dari 40 artikel jurnal terakreditasi</span>
-          <span>Sesuai Dokumen Resmi Literature Review Tugas 1</span>
+          <span>Klik kartu untuk membuka telaah lengkap dan berkas PDF</span>
         </div>
       </div>
 
-      <!-- Articles Grid -->
-      <div class="articles-grid" id="articlesGrid">
+      <!-- Compact Articles Grid -->
+      <div class="articles-compact-grid" id="articlesCompactGrid">
         <!-- Rendered by JS -->
       </div>
     </section>
@@ -787,20 +883,20 @@
         <div class="bridge-card">
           <div class="bridge-card-header">
             <span class="header-pill pill-red">MASALAH EMPIRIS</span>
-            <h3>Kondisi Nyata di Sekolah Mitra (SMPN 3 Tasikmalaya)</h3>
+            <h3>Kondisi di Sekolah Mitra (SMPN 3 Tasikmalaya)</h3>
           </div>
           <ul class="slide-bullet-list">
             <li>
-              <span class="bullet-icon">⚠️</span>
-              <div><b>Beban Waktu Guru:</b> Rata-rata guru menghabiskan 4 hingga 6 jam per minggu hanya untuk merancang bahan ajar bertingkat secara manual (Kamaghe, 2026).</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Beban Waktu Guru:</b> Guru menghabiskan 4-6 jam per minggu hanya untuk merancang bahan ajar bertingkat manual (Kamaghe, 2026).</div>
             </li>
             <li>
-              <span class="bullet-icon">⚠️</span>
-              <div><b>Heterogenitas Siswa Terabaikan:</b> Pembelajaran klasikal seragam (one-size-fits-all) memicu 62% siswa level bawah tertinggal pada materi Rasio dan Aljabar (Herawati &amp; Nurhayati, 2022).</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Heterogenitas Siswa:</b> Pembelajaran klasikal seragam memicu 62% siswa level bawah tertinggal pada materi Rasio (Herawati &amp; Nurhayati, 2022).</div>
             </li>
             <li>
-              <span class="bullet-icon">⚠️</span>
-              <div><b>Asesmen Diagnostik Tidak Ditindaklanjuti:</b> Guru melakukan tes diagnostik di awal bab, namun data nilai hanya menjadi arsip administrasi tanpa konversi ke LKPD bertingkat (Sari &amp; Santika, 2023).</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Diagnostik Tanpa Tindak Lanjut:</b> Tes diagnostik awal hanya menjadi arsip nilai tanpa konversi ke LKPD bertingkat di kelas (Sari &amp; Santika, 2023).</div>
             </li>
           </ul>
         </div>
@@ -809,20 +905,20 @@
         <div class="bridge-card">
           <div class="bridge-card-header">
             <span class="header-pill pill-green">SOLUSI SKRIPSI</span>
-            <h3>Inovasi Web Application Generator LKPD AI</h3>
+            <h3>Inovasi Web App Generator LKPD AI</h3>
           </div>
           <ul class="slide-bullet-list">
             <li>
-              <span class="bullet-icon">✅</span>
-              <div><b>Otomasi Instan Berbasis AI:</b> Memangkas waktu pembuatan bahan ajar diferensiasi hingga 72% dengan parameter prompt tervalidasi bebas halusinasi (Bozkurt, 2023).</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Otomasi Instan AI:</b> Memangkas waktu pembuatan bahan ajar hingga 72% dengan prompt tervalidasi bebas halusinasi (Bozkurt, 2023).</div>
             </li>
             <li>
-              <span class="bullet-icon">✅</span>
-              <div><b>Clustering 3 Kesiapan Kognitif:</b> Algoritma memetakan otomatis hasil asesmen diagnostik ke dalam 3 tier LKPD: <i>Dasar (Scaffolding penuh)</i>, <i>Menengah (Kontekstual)</i>, dan <i>Mahir (HOTS)</i>.</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Pemetaan 3 Tingkat:</b> Algoritma memetakan otomatis skor diagnostik ke 3 varian: <i>Dasar</i>, <i>Menengah</i>, dan <i>Mahir</i>.</div>
             </li>
             <li>
-              <span class="bullet-icon">✅</span>
-              <div><b>Teacher-in-the-Loop &amp; Dual Export:</b> Guru memegang kendali telaah dan revisi sebelum mengekspor dokumen ke Microsoft Word (.docx ber-OMML Equation asli) dan PDF siap cetak.</div>
+              <span class="bullet-icon">●</span>
+              <div><b>Kendali Guru &amp; Ekspor Ganda:</b> Guru menelaah draft sebelum mengunduh berkas Word (.docx equation resmi) dan PDF siap ajar.</div>
             </li>
           </ul>
         </div>
@@ -831,10 +927,10 @@
       <!-- Interactive Simulator: Diagnostic-to-LKPD Mapping -->
       <div class="simulator-container">
         <h3 style="font-size: 1.15rem; color: var(--wa-green-light); margin-bottom: 6px;">
-          🧪 Simulator Interaktif: Pemetaan Asesmen Diagnostik ke LKPD Berdiferensiasi
+          Simulator: Pemetaan Asesmen Diagnostik ke LKPD Berdiferensiasi
         </h3>
         <p style="font-size: 0.88rem; color: var(--wa-text-muted);">
-          Geser skor pemahaman prasyarat siswa SMPN 3 Kota Tasikmalaya untuk melihat bagaimana sistem mengelompokkan siswa ke 3 tier materi Rasio secara otomatis:
+          Geser skor pemahaman prasyarat siswa untuk melihat bagaimana algoritma mengelompokkan siswa ke 3 tier materi Rasio secara otomatis:
         </p>
 
         <div class="sim-slider-row">
@@ -847,33 +943,33 @@
             <input type="range" min="0" max="100" value="70" oninput="updateSim()">
           </div>
           <div class="sim-card">
-            <label id="lblS3">Siswa C (Penalaran Aljabar): 92%</label>
+            <label id="lblS3">Siswa C (Penalaran Rasio): 92%</label>
             <input type="range" min="0" max="100" value="92" oninput="updateSim()">
           </div>
         </div>
 
         <div class="tier-results">
           <div class="tier-box dasar">
-            <h4 style="color: #f87171;">Kelompok 1: Tingkat Dasar (Fondasi)</h4>
+            <h4 style="color: #f87171;">Tingkat Dasar (Fondasi)</h4>
             <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
-              <b>Target:</b> Siswa dengan skor diagnostik &lt; 60%.<br>
-              <b>Bentuk LKPD AI:</b> Dilengkapi gambar visual konkret, tabel perbandingan setara, panduan langkah bertahap (*guiding questions*), dan petunjuk operasional awal.
+              <b>Target:</b> Skor diagnostik &lt; 60%.<br>
+              <b>Karakteristik LKPD:</b> Dilengkapi diagram balok konkret, perbandingan senilai setara, pertanyaan penuntun bertahap, dan scaffolding operasional awal.
             </p>
           </div>
 
           <div class="tier-box menengah">
-            <h4 style="color: #fbbf24;">Kelompok 2: Tingkat Menengah (Berkembang)</h4>
+            <h4 style="color: #fbbf24;">Tingkat Menengah (Berkembang)</h4>
             <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
-              <b>Target:</b> Siswa dengan skor diagnostik 60% - 79%.<br>
-              <b>Bentuk LKPD AI:</b> Masalah kontekstual kehidupan sehari-hari, latihan pemecahan masalah model Polya, scaffolding minimal hanya pada tahap penarikan rumus.
+              <b>Target:</b> Skor diagnostik 60% - 79%.<br>
+              <b>Karakteristik LKPD:</b> Masalah kontekstual nyata (skala denah, resep, kecepatan), penarikan rumus mandiri, scaffolding minimal hanya pada penutup.
             </p>
           </div>
 
           <div class="tier-box mahir">
-            <h4 style="color: #34d399;">Kelompok 3: Tingkat Mahir (Eksploratif)</h4>
+            <h4 style="color: #34d399;">Tingkat Mahir (Eksploratif)</h4>
             <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
-              <b>Target:</b> Siswa dengan skor diagnostik &ge; 80%.<br>
-              <b>Bentuk LKPD AI:</b> Masalah terbuka (*open-ended*), tantangan investigasi HOTS (analisis dan evaluasi), penalaran komparasi rasio majemuk tanpa scaffolding penuntun.
+              <b>Target:</b> Skor diagnostik &ge; 80%.<br>
+              <b>Karakteristik LKPD:</b> Masalah investigasi terbuka (open-ended), penalaran perbandingan berbalik nilai majemuk berbasis HOTS tanpa scaffolding penuntun.
             </p>
           </div>
         </div>
@@ -882,6 +978,55 @@
     </section>
 
   </main>
+
+  <!-- Article Detail Modal -->
+  <div class="article-modal-overlay" id="articleModal" onclick="closeArticleModal(event)">
+    <div class="article-modal-dialog" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <div>
+          <span class="badge-akreditasi badge-scopus" id="modalBadge">SCOPUS Q1</span>
+          <h3 id="modalTitle" style="margin-top: 8px;">Judul Artikel</h3>
+          <div id="modalAuthors" style="font-size: 0.85rem; color: var(--wa-text-muted); margin-top: 4px;">Penulis</div>
+        </div>
+        <button style="background:none; border:none; color:var(--wa-text-muted); font-size:1.5rem; cursor:pointer;" onclick="closeArticleModal(event)">&times;</button>
+      </div>
+
+      <!-- Action Bar: Direct Link to Original PDF -->
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="#" id="modalPdfLink" class="pdf-cta-btn" target="_blank">
+          Buka Dokumen PDF Asli
+        </a>
+        <button class="deck-btn" id="modalCopyBtn" onclick="copyModalCitation()">
+          Salin Sitasi APA 7th
+        </button>
+      </div>
+
+      <div class="modal-section">
+        <h4>Masalah &amp; Kebaruan (Novelty)</h4>
+        <p id="modalMasalah"></p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Metodologi Penelitian</h4>
+        <p id="modalMetode"></p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Simpulan Hasil Penelitian</h4>
+        <p id="modalSimpulan"></p>
+      </div>
+
+      <div class="modal-section" style="border-left: 3px solid var(--wa-green); background: rgba(0, 168, 132, 0.08);">
+        <h4 style="color: var(--wa-green);">Kontribusi Langsung ke Skripsi Ryan</h4>
+        <p id="modalKontribusi"></p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Referensi Sitasi Lengkap (APA 7th)</h4>
+        <p id="modalApaCitation" style="font-style: italic; font-size: 0.84rem;"></p>
+      </div>
+    </div>
+  </div>
 
   <!-- Slide Drawer Modal -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
@@ -896,194 +1041,469 @@
 
   <script>
     // -------------------------------------------------------------
-    // SLIDE DATA DEFINITION (18 Slides Structured for Seminar)
+    // SLIDE DATA WITH THEMATIC VISUAL SVGS (18 Slides)
     // -------------------------------------------------------------
     const SLIDES = [
       {
         topic: "SEMINAR PENDIDIKAN MATEMATIKA",
-        title: "Pengembangan Web Application Berbasis Generative AI untuk Menghasilkan LKPD Matematika Berdiferensiasi Berdasarkan Asesmen Diagnostik",
-        lead: "Sintesis Literature Review 40 Artikel Jurnal (20 SINTA & 20 Scopus Q1-Q4) Menuju Kesiapan Seminar Proposal Skripsi FKIP Universitas Siliwangi",
+        title: "Web App Generative AI untuk LKPD Berdiferensiasi",
+        lead: "Sintesis literature review 40 artikel jurnal (20 SINTA & 20 Scopus Q1-Q4) menuju seminar proposal skripsi FKIP Universitas Siliwangi.",
         bullets: [
           "Peneliti: <b>Ryan Wardiana</b> (NPM 232151098)",
-          "Dosen Pengampu Seminar: <b>Dr. Nani Ratnaningsih, M.Pd.</b>",
-          "Dosen Pembimbing Skripsi: <b>Dr. Depi Ardian Nugraha, M.Pd.</b>",
-          "Lokasi & Mitra Penelitian: <b>SMP Negeri 3 Kota Tasikmalaya (Kelas VII)</b>"
-        ]
+          "Dosen Pengampu: <b>Dr. Nani Ratnaningsih, M.Pd.</b>",
+          "Dosen Pembimbing: <b>Dr. Depi Ardian Nugraha, M.Pd.</b>",
+          "Lokasi Penelitian: <b>SMP Negeri 3 Kota Tasikmalaya (Kelas VII)</b>"
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="20" y="20" width="110" height="60" rx="14" fill="#202c33" stroke="#00a884" stroke-width="2"/>
+            <text x="75" y="46" text-anchor="middle" fill="#25d366" font-size="12" font-weight="700">Asesmen</text>
+            <text x="75" y="62" text-anchor="middle" fill="#8696a0" font-size="10">Diagnostik Awal</text>
+            
+            <path d="M 130 50 L 155 50" stroke="#00a884" stroke-width="2.5" stroke-dasharray="3 3"/>
+            <polygon points="153,46 160,50 153,54" fill="#00a884"/>
+
+            <rect x="160" y="20" width="100" height="60" rx="14" fill="#202c33" stroke="#3b82f6" stroke-width="2"/>
+            <text x="210" y="46" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700">Generative AI</text>
+            <text x="210" y="62" text-anchor="middle" fill="#8696a0" font-size="10">Scaffolding Prompt</text>
+
+            <path d="M 140 85 L 140 115" stroke="#f59e0b" stroke-width="2.5"/>
+            <polygon points="136,113 140,120 144,113" fill="#f59e0b"/>
+
+            <rect x="45" y="120" width="190" height="46" rx="14" fill="#202c33" stroke="#f59e0b" stroke-width="2"/>
+            <text x="140" y="142" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">LKPD 3 Varian Tingkat</text>
+            <text x="140" y="156" text-anchor="middle" fill="#8696a0" font-size="9.5">Dasar · Menengah · Mahir</text>
+          </svg>
+        `,
+        visualCaption: "Skema Integrasi Tiga Komponen Utama Skripsi"
       },
       {
-        topic: "LATAR BELAKANG & ANALISIS MASALAH",
-        title: "Dilema Ruang Kelas Heterogen & Beban Kerja Guru",
-        lead: "Tuntutan implementasi Kurikulum Merdeka mewajibkan pembelajaran berdiferensiasi, namun realitas lapangan menghadirkan hambatan operasional besar bagi pendidik.",
+        topic: "LATAR BELAKANG",
+        title: "Beban Guru & Heterogenitas Ruang Kelas",
+        lead: "Pembelajaran berdiferensiasi diamanatkan Kurikulum Merdeka, namun guru terbebani waktu persiapan lembar kerja bertingkat.",
         bullets: [
-          "<b>Heterogenitas Kesiapan Belajar:</b> Kemampuan awal siswa dalam satu kelas sangat beragam; metode klasikal seragam (one-size-fits-all) meninggalkan 62,4% siswa level bawah tanpa penanganan spesifik.",
-          "<b>Beban Administrasi Tinggi:</b> Guru membutuhkan waktu 4 hingga 6 jam per minggu hanya untuk merancang bahan ajar bertingkat secara manual (Kamaghe, 2026).",
-          "<b>Ketiadaan Alat Bantu Otomasi:</b> Sebagian besar guru belum memiliki instrumen praktis yang dapat menerjemahkan data diagnostik menjadi LKPD diferensiasi seketika."
-        ]
+          "<b>Beban Waktu:</b> Rata-rata 4-6 jam per minggu hanya untuk membuat lembar kerja bertingkat manual (Kamaghe, 2026).",
+          "<b>Kesenjangan Kelas:</b> Pendekatan seragam klasikal meninggalkan 62,4% siswa berkemampuan awal rendah (Herawati, 2022).",
+          "<b>Kebutuhan Solusi:</b> Alat bantu praktis pembuat LKPD otomatis berbasis profil kesiapan siswa."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="90" cy="85" r="45" fill="#202c33" stroke="#ef4444" stroke-width="2.5"/>
+            <path d="M 90 60 L 90 85 L 108 95" stroke="#f87171" stroke-width="3" stroke-linecap="round"/>
+            <text x="90" y="148" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">4-6 Jam / Minggu</text>
+            <text x="90" y="162" text-anchor="middle" fill="#8696a0" font-size="9.5">Beban Desain Manual</text>
+
+            <path d="M 145 85 L 180 85" stroke="#8696a0" stroke-width="2" stroke-dasharray="4 3"/>
+
+            <circle cx="215" cy="85" r="35" fill="#202c33" stroke="#f59e0b" stroke-width="2"/>
+            <text x="215" y="82" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="800">62%</text>
+            <text x="215" y="98" text-anchor="middle" fill="#8696a0" font-size="9">Tertinggal</text>
+            <text x="215" y="148" text-anchor="middle" fill="#e9edef" font-size="10.5" font-weight="600">Heterogen</text>
+          </svg>
+        `,
+        visualCaption: "Dilema Waktu Guru vs Keragaman Siswa"
       },
       {
         topic: "URGENSI PENELITIAN",
-        title: "Urgensi Pengembangan di SMP Negeri 3 Kota Tasikmalaya",
-        lead: "Studi pendahuluan di SMPN 3 Kota Tasikmalaya menunjukkan kebutuhan mendesak akan inovasi bahan ajar adaptif pada materi pokok Rasio / Perbandingan.",
+        title: "Konteks SMPN 3 Kota Tasikmalaya",
+        lead: "Materi Rasio (Perbandingan) Kelas VII menuntut fondasi konsep pecahan yang kuat, menjadi titik krusial diferensiasi.",
         bullets: [
-          "Materi Rasio menuntut penguasaan prasyarat pecahan dan aljabar dasar yang sering menjadi sumber miskonsepsi siswa SMP.",
-          "Hasil wawancara guru mitra mengonfirmasi bahwa diferensiasi pembelajaran baru sebatas rencana di modul ajar, namun belum terealisasi dalam lembar aktivitas siswa.",
-          "Dibutuhkan solusi teknologi yang ringan, mudah diakses melalui browser smartphone atau laptop, dan langsung menghasilkan lembar kerja siap cetak."
-        ]
+          "<b>Sekolah Mitra:</b> SMP Negeri 3 Kota Tasikmalaya sebagai sekolah piloting Kurikulum Merdeka.",
+          "<b>Hambatan Konsep:</b> Siswa kerap bingung membedakan perbandingan senilai dan berbalik nilai.",
+          "<b>Platform Sasaran:</b> Web application yang dapat diakses langsung guru tanpa instalasi perangkat lunak."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="30" y="30" width="220" height="120" rx="16" fill="#202c33" stroke="#00a884" stroke-width="2"/>
+            <circle cx="65" cy="65" r="18" fill="#182229" stroke="#25d366" stroke-width="1.5"/>
+            <text x="65" y="70" text-anchor="middle" fill="#25d366" font-size="14" font-weight="700">7</text>
+            <text x="145" y="62" text-anchor="middle" fill="#e9edef" font-size="13" font-weight="700">SMPN 3 Kota Tasikmalaya</text>
+            <text x="145" y="78" text-anchor="middle" fill="#8696a0" font-size="10.5">Materi Pokok: Rasio / Perbandingan</text>
+            <line x1="50" y1="95" x2="230" y2="95" stroke="#2a3942" stroke-width="1"/>
+            <text x="75" y="125" text-anchor="middle" fill="#60a5fa" font-size="11">Senilai a:b</text>
+            <text x="140" y="125" text-anchor="middle" fill="#8696a0" font-size="11">↔</text>
+            <text x="200" y="125" text-anchor="middle" fill="#f87171" font-size="11">Berbalik Nilai</text>
+          </svg>
+        `,
+        visualCaption: "Fokus Lokasi & Materi Pokok Pembelajaran"
       },
       {
         topic: "LANDASAN TEORETIS",
-        title: "Pilar 1: Pembelajaran Berdiferensiasi & TaRL",
-        lead: "Menyesuaikan proses pengajaran dengan tingkat capaian siswa (Teaching at the Right Level) agar setiap peserta didik meraih potensi maksimal.",
+        title: "Diferensiasi & Teaching at the Right Level",
+        lead: "Pembelajaran disesuaikan dengan kesiapan kognitif siswa (TaRL), bukan berdasarkan usia atau tingkatan kelas semata.",
         bullets: [
-          "<b>Tiga Jalur Diferensiasi (Tomlinson, 2022):</b> Diferensiasi Konten (tingkat kompleksitas materi), Diferensiasi Proses (intensitas scaffolding bantuan), dan Diferensiasi Produk.",
-          "<b>Penelitian TaRL (Wulandari & Turmudi, 2024):</b> Penggunaan bahan ajar bertingkat terbukti menaikkan ketuntasan klasikal dari 43,7% menjadi 81,2%.",
-          "<b>Rujukan FKIP Unsil (Kurnila, Supratman, & Ratnaningsih, 2023, 2025):</b> Pemetaan kesiapan belajar berbasis asesmen awal secara signifikan meningkatkan literasi matematis siswa (N-Gain 0,68 vs 0,41)."
-        ]
+          "<b>Tiga Jalur Diferensiasi (Tomlinson, 2022):</b> Diferensiasi Konten, Proses, dan Produk.",
+          "<b>Capaian Klasikal (Wulandari & Turmudi, 2024):</b> Bahan ajar bertingkat menaikkan ketuntasan dari 43,7% ke 81,2%.",
+          "<b>Rujukan FKIP Unsil (Kurnila, Supratman, & Ratnaningsih, 2025):</b> Pemetaan awal menghasilkan ukuran efek tinggi (d = 0,76)."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <polygon points="140,25 240,155 40,155" fill="#202c33" stroke="#25d366" stroke-width="2"/>
+            <line x1="75" y1="110" x2="205" y2="110" stroke="#2a3942" stroke-width="2"/>
+            <line x1="107" y1="68" x2="173" y2="68" stroke="#2a3942" stroke-width="2"/>
+            <text x="140" y="55" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">Mahir (HOTS)</text>
+            <text x="140" y="94" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">Menengah (Kontekstual)</text>
+            <text x="140" y="138" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">Dasar (Scaffolding)</text>
+          </svg>
+        `,
+        visualCaption: "Piramida 3 Tingkat Kesiapan Belajar Siswa"
       },
       {
         topic: "LANDASAN TEORETIS",
-        title: "Pilar 2: Asesmen Diagnostik Kognitif",
-        lead: "Alat navigasi guru untuk mengidentifikasi kekuatan dan akar miskonsepsi siswa sebelum proses pembelajaran dimulai.",
+        title: "Asesmen Diagnostik sebagai Kompas Ajar",
+        lead: "Mengukur penguasaan prasyarat spesifik, bukan sekadar menilai hasil akhir ujian formal.",
         bullets: [
-          "<b>Bukan Sekadar Nilai Rapor:</b> Asesmen diagnostik mengukur penguasaan konsep prasyarat spesifik materi yang akan dipelajari (Sari & Santika, 2023).",
-          "<b>Analisis Kesalahan Newman:</b> Mengisolasi kelemahan siswa pada tahap pemahaman masalah, transformasi aljabar, atau keterampilan berhitung (Aulia & Kartono, 2023).",
-          "<b>Klasifikasi Kesiapan:</b> Menjadi basis algoritma dalam mengelompokkan siswa secara objektif ke dalam 3 tier: Tingkat Dasar, Tingkat Menengah, dan Tingkat Mahir."
-        ]
+          "<b>Isolasi Kesalahan (Aulia & Kartono, 2023):</b> Menemukan apakah siswa keliru di pemahaman atau keterampilan hitung.",
+          "<b>Klasifikasi Cepat (Suarez, 2022):</b> Model digital memetakan kesiapan siswa dengan akurasi 92,3% dalam hitungan detik.",
+          "<b>Remedial Terarah (Vintere, 2024):</b> Siswa yang dipandu jalur terarah meraih ketuntasan 40% lebih tinggi."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="140" cy="85" r="55" fill="#202c33" stroke="#00a884" stroke-width="2"/>
+            <circle cx="140" cy="85" r="40" fill="#182229" stroke="#2a3942" stroke-width="1.5"/>
+            <line x1="140" y1="40" x2="140" y2="130" stroke="#25d366" stroke-width="2"/>
+            <line x1="95" y1="85" x2="185" y2="85" stroke="#25d366" stroke-width="2"/>
+            <polygon points="140,32 144,42 136,42" fill="#25d366"/>
+            <text x="140" y="22" text-anchor="middle" fill="#25d366" font-size="11" font-weight="700">U</text>
+            <text x="140" y="160" text-anchor="middle" fill="#e9edef" font-size="11" font-weight="600">Navigasi Diagnostik</text>
+          </svg>
+        `,
+        visualCaption: "Asesmen Diagnostik sebagai Kompas Penentu Rute"
       },
       {
         topic: "LANDASAN TEORETIS",
-        title: "Pilar 3: Generative AI & Prompt Engineering",
-        lead: "Pemanfaatan model kecerdasan buatan mutakhir sebagai asisten cerdas guru (co-creator) dalam menyusun instrumen ajar terpersonalisasi.",
+        title: "Generative AI: Scaffolding Tanpa Halusinasi",
+        lead: "Pemberian batasan prompt ketat menjamin akurasi rumus matematika dan menjaga peran guru tetap sentral.",
         bullets: [
-          "<b>Meta-Analisis Global (Liu et al., 2026 - Scopus Q1):</b> Generative AI memberikan dampak positif signifikan (g = 0,534) terhadap kemampuan kognitif matematika bila diposisikan sebagai pembuat scaffolding bertingkat.",
-          "<b>Mitigasi Halusinasi Rumus:</b> Penggunaan prompt berstruktur ketat (PREP Framework: Role, Task, Constraint, Context) menurunkan tingkat kesalahan notasi dari 38% ke bawah 4% (Bozkurt & Sharma, 2023; Rizal & Anwar, 2024).",
-          "<b>Human-in-the-Loop:</b> Guru tetap memegang otoritas penuh untuk menelaah, mengedit, dan menyetujui output sebelum dicetak (Maghfira et al., 2026)."
-        ]
+          "<b>Efek Positif (Liu et al., 2026):</b> Meta-analisis 22 studi global (N=3.420) membuktikan AI efektif bila menjadi pembuat scaffolding.",
+          "<b>Reduksi Error (Bozkurt, 2023):</b> Prompt berstruktur (PREP) memangkas error rumus matematika dari 38% ke bawah 4%.",
+          "<b>Teacher-in-the-Loop (Maghfira, 2026):</b> Guru tetap memegang hak veto untuk menyunting materi sebelum disebar."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="35" y="35" width="210" height="95" rx="14" fill="#202c33" stroke="#3b82f6" stroke-width="2"/>
+            <text x="140" y="65" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700">PREP Prompt Protocol</text>
+            <text x="140" y="85" text-anchor="middle" fill="#e9edef" font-size="10.5">Role · Task · Constraint · Context</text>
+            <rect x="55" y="100" width="170" height="20" rx="6" fill="#005c4b"/>
+            <text x="140" y="114" text-anchor="middle" fill="#25d366" font-size="9.5" font-weight="700">Tingkat Error Rumus &lt; 4%</text>
+            <text x="140" y="156" text-anchor="middle" fill="#8696a0" font-size="10">Human-in-the-Loop Verified</text>
+          </svg>
+        `,
+        visualCaption: "Protokol Pembatasan AI Anti-Halusinasi"
       },
       {
-        topic: "METODOLOGI LITERATURE REVIEW",
-        title: "Peta Sintesis 40 Artikel Jurnal Terakreditasi",
-        lead: "Kajian literatur sistematis (SLR) bersumber dari 20 artikel jurnal nasional SINTA 2-5 dan 20 artikel jurnal internasional Scopus Q1-Q4.",
+        topic: "METODOLOGI KAJIAN",
+        title: "Peta 40 Jurnal Terakreditasi (2020-2026)",
+        lead: "Kompilasi seimbang antara 20 jurnal nasional SINTA dan 20 jurnal internasional bereputasi Scopus Q1-Q4.",
         bullets: [
-          "<b>Rentang Waktu Terkini:</b> 100% artikel dipublikasikan pada rentang tahun 2020 hingga 2026 (kebaruan 5 tahun terakhir).",
-          "<b>Distribusi Internasional Scopus:</b> 8 artikel Scopus Q1, 6 artikel Scopus Q2, 5 artikel Scopus Q3, dan 1 artikel Scopus Q4.",
-          "<b>Empat Klaster Fokus:</b> Pembelajaran Berdiferensiasi (10), Asesmen Diagnostik (10), Generative AI & Prompting (10), serta Metodologi R&D & Usability (10)."
-        ]
-      },
-      {
-        topic: "SINTESIS LITERATUR",
-        title: "Klaster 1: Temuan Kunci Pembelajaran Berdiferensiasi",
-        lead: "Bukti empiris membuktikan diferensiasi konten dan proses bertingkat adalah intervensi paling efektif untuk kelas matematika heterogen.",
-        bullets: [
-          "<b>Kurnila, Supratman, & Ratnaningsih (2025 - Scopus Q2):</b> Membuktikan kerangka kerja intervensi diferensiasi yang dipandu tes diagnostik menghasilkan ukuran efek tinggi (d = 0,76) pada siswa SMP.",
-          "<b>Rijal, Wardani, & Pramono (2025 - Scopus Q3):</b> Siswa berkemampuan rendah menunjukkan lompatan pemahaman tertinggi (N-Gain 0,71) ketika menerima LKPD dengan bantuan berjenjang.",
-          "<b>Zheng, Niu, & Zhong (2023 - Scopus Q1):</b> Penyesuaian tugas sesuai tingkat kesiapan kognitif menurunkan beban kognitif berlebih (extraneous cognitive load) hingga 28%."
-        ]
-      },
-      {
-        topic: "SINTESIS LITERATUR",
-        title: "Klaster 2: Temuan Kunci Asesmen Diagnostik Kognitif",
-        lead: "Asesmen diagnostik awal bukan ujian formal bertekanan tinggi, melainkan kompas penentu rute belajar siswa.",
-        bullets: [
-          "<b>Herawati & Nurhayati (2022 - SINTA 2):</b> Sebagian besar kesulitan aljabar siswa berakar pada kelemahan operasi suku dan pemahaman konsep variabel dasar.",
-          "<b>Suarez & Cascallar (2022 - Scopus Q2):</b> Penggunaan model klasifikasi digital mampu memetakan tingkat kesiapan siswa secara akurat (92,3%) hanya dalam hitungan detik.",
-          "<b>Vintere & Cernajeva (2024 - Scopus Q3):</b> Siswa yang diarahkan ke jalur remedial berdasarkan pola kesalahan diagnostik meraih ketuntasan 40% lebih tinggi dibanding perlakuan konvensional."
-        ]
-      },
-      {
-        topic: "SINTESIS LITERATUR",
-        title: "Klaster 3: Temuan Kunci Generative AI dalam Pendidikan",
-        lead: "Peluang besar otomasi penyusunan tugas ajar dengan jaminan keamanan notasi matematika melalui rekayasa prompt.",
-        bullets: [
-          "<b>Kamaghe (2026 - Scopus Q3):</b> Pipa otomatisasi berbasis LLM memangkas waktu kerja guru sebesar 72% dengan tingkat keselarasan kurikulum mencapai 91%.",
-          "<b>Taşçıoğlu & Baki (2025 - Scopus Q1):</b> Petunjuk penuntun (scaffolding hints) bertingkat yang dihasilkan AI berhasil menumbuhkan kemandirian bernalar siswa tanpa ketergantungan jawaban instan.",
-          "<b>Shin, Park, & Kim (2025 - Scopus Q3):</b> Penerapan prompt berstruktur mencapai akurasi 89,4% dalam mengenali miskonsepsi matematika siswa."
-        ]
+          "<b>Jurnal Nasional:</b> SINTA 2 (8 artikel), SINTA 3 (7 artikel), SINTA 4 (4 artikel), SINTA 5 (1 artikel).",
+          "<b>Jurnal Internasional:</b> Scopus Q1 (8 artikel), Scopus Q2 (6 artikel), Scopus Q3 (5 artikel), Scopus Q4 (1 artikel).",
+          "<b>Kesesuaian:</b> 100% artikel mengkaji variabel yang relevan langsung dengan rancang bangun skripsi."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="30" y="40" width="105" height="90" rx="14" fill="#202c33" stroke="#10b981" stroke-width="2"/>
+            <text x="82" y="75" text-anchor="middle" fill="#34d399" font-size="24" font-weight="800">20</text>
+            <text x="82" y="98" text-anchor="middle" fill="#e9edef" font-size="11" font-weight="700">SINTA</text>
+            <text x="82" y="114" text-anchor="middle" fill="#8696a0" font-size="9">Nasional</text>
+
+            <rect x="145" y="40" width="105" height="90" rx="14" fill="#202c33" stroke="#3b82f6" stroke-width="2"/>
+            <text x="197" y="75" text-anchor="middle" fill="#60a5fa" font-size="24" font-weight="800">20</text>
+            <text x="197" y="98" text-anchor="middle" fill="#e9edef" font-size="11" font-weight="700">SCOPUS</text>
+            <text x="197" y="114" text-anchor="middle" fill="#8696a0" font-size="9">Q1 - Q4</text>
+            <text x="140" y="158" text-anchor="middle" fill="#8696a0" font-size="10">Total 40 Artikel Terakreditasi</text>
+          </svg>
+        `,
+        visualCaption: "Keseimbangan Basis Literatur Nasional & Global"
       },
       {
         topic: "SINTESIS LITERATUR",
-        title: "Klaster 4: Metodologi R&D & Kriteria Kualitas Nieveen",
-        lead: "Standar baku pengembangan produk pendidikan untuk memastikan kevalidan, kepraktisan, dan efektivitas bahan ajar.",
+        title: "Klaster 1: Efektivitas Diferensiasi Konten & Proses",
+        lead: "Rujukan riset membuktikan penyesuaian kompleksitas materi menaikkan partisipasi siswa secara merata.",
         bullets: [
-          "<b>Plomp & Nieveen (2020 - Scopus Q2):</b> Riset desain pendidikan (EDR) menuntut siklus berulang: investigasi awal, pembuatan prototipe, dan evaluasi formatif mikro.",
-          "<b>Setiawan & Darminto (2022 - SINTA 4):</b> Skripsi pengembangan S1 berfokus pada validitas konten/konstruk yang kuat serta kepraktisan penggunaan di lapangan.",
-          "<b>Lestari & Yudhanegara (2022 - SINTA 3):</b> Tahap validasi ahli materi dan media menggunakan koefisien Aiken's V sebagai tolak ukur kelayakan produk sebelum uji coba."
-        ]
+          "<b>Kurnila et al. (2023, 2025):</b> Peningkatan literasi matematis SMP di Tasikmalaya dengan N-Gain 0,68.",
+          "<b>Rijal et al. (2025):</b> Siswa level dasar menunjukkan lompatan skor tertinggi (N-Gain 0,71) jika diberi bantuan berjenjang.",
+          "<b>Zheng et al. (2023):</b> Penyesuaian materi memangkas beban kognitif asing sebesar 28%."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="30" y="55" width="65" height="70" rx="8" fill="#202c33" stroke="#8696a0" stroke-width="1.5"/>
+            <text x="62" y="85" text-anchor="middle" fill="#8696a0" font-size="10">Kontrol</text>
+            <text x="62" y="105" text-anchor="middle" fill="#8696a0" font-size="14" font-weight="700">0.41</text>
+
+            <rect x="110" y="30" width="80" height="95" rx="8" fill="#005c4b" stroke="#25d366" stroke-width="2"/>
+            <text x="150" y="65" text-anchor="middle" fill="#25d366" font-size="11" font-weight="700">Diferensiasi</text>
+            <text x="150" y="95" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="800">0.68</text>
+            <text x="150" y="112" text-anchor="middle" fill="#25d366" font-size="9">N-Gain Tinggi</text>
+
+            <text x="140" y="155" text-anchor="middle" fill="#e9edef" font-size="10.5">Kurnila, Supratman, &amp; Ratnaningsih (2023)</text>
+          </svg>
+        `,
+        visualCaption: "Peningkatan N-Gain Literasi Matematis"
       },
       {
         topic: "SINTESIS LITERATUR",
-        title: "Klaster 5: Arsitektur Web Application & Usability",
-        lead: "Pemilihan arsitektur aplikasi berbasis peramban (web-based) untuk menjamin inklusivitas dan kemudahan adopsi di sekolah.",
+        title: "Klaster 2: Pengelompokan Kognitif Objektif",
+        lead: "Mengubah data evaluasi diagnostik awal menjadi dasar pengelompokan 3 tier yang adil dan saintifik.",
         bullets: [
-          "<b>Nugraha & Mulyana (2022 - SINTA 2):</b> Web app responsif mengatasi kendala keterbatasan memori smartphone siswa dan tidak membutuhkan instalasi toko aplikasi yang rumit.",
-          "<b>Maulana & Suhendra (2024 - SINTA 3):</b> Pengukuran kepraktisan sistem menggunakan System Usability Scale (SUS) dengan standar target skor di atas 70 (kategori Good/Excellent).",
-          "<b>Muton, Rahman, & Lee (2026 - Scopus Q4):</b> Framework web modern (React/Next.js) memberikan performa render yang sangat cepat dan ramah kuota internet sekolah."
-        ]
+          "<b>Herawati & Nurhayati (2022):</b> 62,4% kesalahan siswa aljabar terletak pada konsep variabel dasar.",
+          "<b>Sari & Santika (2023):</b> Korelasi sangat kuat (r = 0,782) antara tes prasyarat dengan hasil belajar unit baru.",
+          "<b>Suarez & Cascallar (2022):</b> Otomasi pemetaan menghasilkan ketepatan 92,3% dalam pengelompokan siswa."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="25" y="30" width="70" height="100" rx="10" fill="#202c33" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="60" y="65" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Tier 1</text>
+            <text x="60" y="85" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">&lt;60%</text>
+            <text x="60" y="110" text-anchor="middle" fill="#8696a0" font-size="9">Dasar</text>
+
+            <rect x="105" y="30" width="70" height="100" rx="10" fill="#202c33" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="140" y="65" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">Tier 2</text>
+            <text x="140" y="85" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">60-79%</text>
+            <text x="140" y="110" text-anchor="middle" fill="#8696a0" font-size="9">Menengah</text>
+
+            <rect x="185" y="30" width="70" height="100" rx="10" fill="#202c33" stroke="#10b981" stroke-width="1.5"/>
+            <text x="220" y="65" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">Tier 3</text>
+            <text x="220" y="85" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">&ge;80%</text>
+            <text x="220" y="110" text-anchor="middle" fill="#8696a0" font-size="9">Mahir</text>
+            <text x="140" y="156" text-anchor="middle" fill="#8696a0" font-size="10">Standar Pengelompokan Objektif</text>
+          </svg>
+        `,
+        visualCaption: "Batas Rentang Skor 3 Tingkat Kesiapan"
       },
       {
-        topic: "RESEARCH GAP & STATE OF THE ART",
-        title: "Kebaruan (Novelty) & Posisi Penelitian Skripsi",
-        lead: "Mengisi kekosongan antara teori asesmen diagnostik yang kaya dengan ketiadaan generator LKPD berdiferensiasi instan di sekolah menengah.",
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 3: Otomasi Scaffolding Lembar Kerja",
+        lead: "Pemanfaatan AI untuk merumuskan petunjuk penuntun berjenjang, bukan memberi jawaban instan.",
         bullets: [
-          "<b>Kesenjangan Literatur:</b> Sebagian besar riset hanya meneliti tes diagnostik atau meneliti prompt AI secara terpisah, belum ada yang mengintegrasikan keduanya ke dalam satu sistem web utuh.",
-          "<b>State of the Art:</b> Menghubungkan skor tes diagnostik siswa secara langsung ke mesin AI untuk menghasilkan 3 varian LKPD (Dasar, Menengah, Mahir) materi Rasio sekaligus.",
-          "<b>Solusi Nyata:</b> Guru tidak lagi pusing memikirkan prompt rumit; cukup masukkan data kesiapan kelas, sistem langsung menyiapkan paket LKPD siap ajar."
-        ]
+          "<b>Kamaghe (2026):</b> Penyiapan tugas bertingkat hemat waktu 72% dengan validitas kurikulum 91%.",
+          "<b>Taşçıoğlu & Baki (2025):</b> Scaffolding petunjuk AI menumbuhkan kemandirian bernalar pemecahan masalah.",
+          "<b>Shin et al. (2025):</b> Prompt berbasis rantai penalaran (chain-of-thought) mencapai akurasi deteksi 89,4%."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="30" y="30" width="220" height="40" rx="8" fill="#202c33" stroke="#25d366" stroke-width="1.5"/>
+            <text x="50" y="55" fill="#25d366" font-size="11" font-weight="700">Tier Dasar:</text>
+            <text x="130" y="55" fill="#e9edef" font-size="10">Bantuan Visual &amp; Langkah Terbimbing</text>
+
+            <rect x="30" y="78" width="220" height="40" rx="8" fill="#202c33" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="50" y="103" fill="#fbbf24" font-size="11" font-weight="700">Tier Menengah:</text>
+            <text x="145" y="103" fill="#e9edef" font-size="10">Masalah Kontekstual &amp; Mandiri</text>
+
+            <rect x="30" y="126" width="220" height="40" rx="8" fill="#202c33" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="50" y="151" fill="#60a5fa" font-size="11" font-weight="700">Tier Mahir:</text>
+            <text x="130" y="151" fill="#e9edef" font-size="10">Tantangan Terbuka &amp; Analisis HOTS</text>
+          </svg>
+        `,
+        visualCaption: "Diferensiasi Tingkat Bantuan (Scaffolding)"
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 4: Standar Kelayakan R&D Nieveen",
+        lead: "Operasionalisasi kriteria validitas teoretis dan kepraktisan empiris pada penelitian pengembangan produk pendidikan.",
+        bullets: [
+          "<b>Plomp & Nieveen (2020):</b> Riset desain pendidikan menuntut siklus prototyping berulang dan evaluasi formatif.",
+          "<b>Setiawan & Darminto (2022):</b> Skripsi S1 memfokuskan luaran pada ketercapaian validitas materi dan kepraktisan guru.",
+          "<b>Lestari & Yudhanegara (2022):</b> Telaah pakar menggunakan koefisien Aiken's V sebagai syarat mutlak kelayakan."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="95" cy="80" r="45" fill="#202c33" stroke="#10b981" stroke-width="2"/>
+            <text x="95" y="75" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">Validitas</text>
+            <text x="95" y="92" text-anchor="middle" fill="#8696a0" font-size="9.5">Aiken's V &gt; 0.80</text>
+
+            <circle cx="185" cy="80" r="45" fill="#202c33" stroke="#00a884" stroke-width="2"/>
+            <text x="185" y="75" text-anchor="middle" fill="#25d366" font-size="12" font-weight="700">Kepraktisan</text>
+            <text x="185" y="92" text-anchor="middle" fill="#8696a0" font-size="9.5">SUS &gt; 70 (Good)</text>
+            <text x="140" y="155" text-anchor="middle" fill="#e9edef" font-size="10.5">Kriteria Kualitas Produk Nieveen</text>
+          </svg>
+        `,
+        visualCaption: "Dua Pilar Evaluasi Kualitas Produk Skripsi"
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 5: Kepraktisan Web & Usability Scale",
+        lead: "Aplikasi berbasis web memastikan akses instan tanpa kendala kompatibilitas tipe ponsel atau ruang penyimpanan.",
+        bullets: [
+          "<b>Nugraha & Mulyana (2022):</b> Web app responsif mengatasi keterbatasan memori perangkat smartphone siswa.",
+          "<b>Maulana & Suhendra (2024):</b> Evaluasi kemudahan pakai menggunakan System Usability Scale (SUS 10 item).",
+          "<b>Muton et al. (2026):</b> Performa rendering instan berbasis React menjamin kenyamanan belajar."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="50" y="30" width="180" height="110" rx="10" fill="#202c33" stroke="#3b82f6" stroke-width="2"/>
+            <line x1="50" y1="50" x2="230" y2="50" stroke="#2a3942" stroke-width="1.5"/>
+            <circle cx="62" cy="40" r="3" fill="#ef4444"/>
+            <circle cx="72" cy="40" r="3" fill="#f59e0b"/>
+            <circle cx="82" cy="40" r="3" fill="#10b981"/>
+            <text x="140" y="85" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="700">Zero-Install Browser</text>
+            <text x="140" y="105" text-anchor="middle" fill="#e9edef" font-size="10">Akses Cepat Laptop &amp; Smartphone</text>
+            <text x="140" y="160" text-anchor="middle" fill="#8696a0" font-size="10">Tolak Ukur SUS Score &gt; 80</text>
+          </svg>
+        `,
+        visualCaption: "Aksesibilitas Web Responsif Tanpa Instalasi"
+      },
+      {
+        topic: "RESEARCH GAP & NOVELTY",
+        title: "Kebaruan Penelitian & State of the Art",
+        lead: "Menyatukan dua ranah yang sebelumnya terpisah: instrumen asesmen diagnostik dan generator otomatis LKPD bertingkat.",
+        bullets: [
+          "<b>Kekosongan Riset:</b> Mayoritas penelitian hanya berhenti di analisis tes diagnostik tanpa generator bahan ajar otomatis.",
+          "<b>Kebaruan Skripsi:</b> Satu ekosistem web yang mengonversi skor diagnostik langsung menjadi paket 3 LKPD siap cetak.",
+          "<b>Spesifikasi Khusus:</b> Penerapan kontekstual materi Rasio Fase D SMP Negeri 3 Kota Tasikmalaya."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="100" cy="85" r="50" fill="rgba(37, 211, 102, 0.12)" stroke="#25d366" stroke-width="2"/>
+            <text x="85" y="85" text-anchor="middle" fill="#25d366" font-size="11" font-weight="700">Diagnostik</text>
+
+            <circle cx="180" cy="85" r="50" fill="rgba(59, 130, 246, 0.12)" stroke="#3b82f6" stroke-width="2"/>
+            <text x="195" y="85" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700">GenAI LKPD</text>
+
+            <circle cx="140" cy="85" r="14" fill="#f59e0b"/>
+            <text x="140" y="89" text-anchor="middle" fill="#111b21" font-size="8" font-weight="800">NOVELTY</text>
+            <text x="140" y="155" text-anchor="middle" fill="#e9edef" font-size="10.5">Integrasi Dua Ranah Terpisah</text>
+          </svg>
+        `,
+        visualCaption: "State of the Art & Posisi Kebaruan Riset"
       },
       {
         topic: "RANCANG BANGUN PRODUK",
-        title: "Arsitektur Sistem Web Application",
-        lead: "Struktur teknologi web modern yang dirancang kokoh, aman, cepat, dan berorientasi pada kemudahan guru matematika.",
+        title: "Arsitektur Web App Generator LKPD",
+        lead: "Fondasi teknologi modern yang memadukan antarmuka responsif, model AI terkendali, dan ekspor dokumen resmi.",
         bullets: [
-          "<b>Frontend UI:</b> Dibangun dengan React / Next.js responsif, terintegrasi tipografi KaTeX Computer Modern untuk perumusan matematika presisi.",
-          "<b>AI Engine:</b> Integrasi LLM (OpenAI / DeepSeek API) yang dibatasi oleh template metaprompt ketat berbasis Kurikulum Merdeka Fase D.",
-          "<b>Database & Autentikasi:</b> Supabase Cloud untuk penyimpanan aman data profil kelas, arsip soal diagnostik, dan riwayat LKPD.",
-          "<b>Dual-Engine Export:</b> Menghasilkan file dokumen Microsoft Word (.docx) berformat Equation OMML native dan PDF beresolusi tinggi."
-        ]
+          "<b>Frontend:</b> Antarmuka ringan berbasis web terintegrasi KaTeX untuk perumusan rumus matematika.",
+          "<b>AI Engine:</b> Pemanggilan LLM dengan template metaprompt terikat indikator Capaian Pembelajaran.",
+          "<b>Dual-Engine Export:</b> Menghasilkan Microsoft Word (.docx ber-OMML Equation asli) dan PDF resolusi tinggi."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="25" y="25" width="230" height="35" rx="8" fill="#202c33" stroke="#25d366" stroke-width="1.5"/>
+            <text x="140" y="47" text-anchor="middle" fill="#25d366" font-size="11" font-weight="700">1. Web UI &amp; KaTeX Engine</text>
+
+            <rect x="25" y="70" width="230" height="35" rx="8" fill="#202c33" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="140" y="92" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700">2. LLM Backend (Strict Metaprompt)</text>
+
+            <rect x="25" y="115" width="230" height="35" rx="8" fill="#202c33" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="140" y="137" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">3. Ekspor Word OMML &amp; PDF Siap Cetak</text>
+          </svg>
+        `,
+        visualCaption: "Tiga Lapisan Arsitektur Teknologi Aplikasi"
       },
       {
         topic: "ALUR KERJA SISTEM",
-        title: "Empat Langkah Kerja Otomasi di Ruang Kelas",
-        lead: "Alur kerja sederhana dan intuitif yang dirancang agar dapat dioperasikan oleh guru tanpa memerlukan keahlian komputasi lanjutan.",
+        title: "Alur 4 Langkah Praktis bagi Guru",
+        lead: "Dirancang sederhana agar guru matematika dapat langsung mengoperasikan sistem tanpa pelatihan rumit.",
         bullets: [
-          "<b>Langkah 1 (Input Diagnostik):</b> Guru menginput skor tes diagnostik singkat 10 menit materi prasyarat pecahan siswa.",
-          "<b>Langkah 2 (Clustering Otomatis):</b> Sistem mengelompokkan siswa ke 3 kelompok kesiapan: Dasar (&lt;60%), Menengah (60-79%), dan Mahir (&ge;80%).",
-          "<b>Langkah 3 (Generasi LKPD AI):</b> Mesin AI menyusun paket materi: Dasar (dengan scaffolding visual), Menengah (kontekstual), dan Mahir (tantangan HOTS).",
-          "<b>Langkah 4 (Review & Cetak):</b> Guru meninjau draft pada editor interaktif, melakukan penyesuaian bila perlu, dan mengunduh berkas Word/PDF."
-        ]
+          "<b>1. Input Diagnostik:</b> Guru memasukkan hasil tes prasyarat pecahan singkat 10 menit.",
+          "<b>2. Auto-Clustering:</b> Sistem memetakan siswa ke 3 tier kesiapan secara otomatis.",
+          "<b>3. Generasi AI:</b> AI menyusun paket materi: Dasar (scaffolding), Menengah (kontekstual), Mahir (HOTS).",
+          "<b>4. Review & Cetak:</b> Guru menelaah draft pada editor interaktif dan mengunduh berkas."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="50" cy="85" r="22" fill="#202c33" stroke="#25d366" stroke-width="2"/>
+            <text x="50" y="89" text-anchor="middle" fill="#25d366" font-size="12" font-weight="700">1</text>
+
+            <line x1="72" y1="85" x2="98" y2="85" stroke="#2a3942" stroke-width="2"/>
+
+            <circle cx="110" cy="85" r="22" fill="#202c33" stroke="#3b82f6" stroke-width="2"/>
+            <text x="110" y="89" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="700">2</text>
+
+            <line x1="132" y1="85" x2="158" y2="85" stroke="#2a3942" stroke-width="2"/>
+
+            <circle cx="170" cy="85" r="22" fill="#202c33" stroke="#f59e0b" stroke-width="2"/>
+            <text x="170" y="89" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">3</text>
+
+            <line x1="192" y1="85" x2="218" y2="85" stroke="#2a3942" stroke-width="2"/>
+
+            <circle cx="230" cy="85" r="22" fill="#202c33" stroke="#10b981" stroke-width="2"/>
+            <text x="230" y="89" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">4</text>
+            <text x="140" y="145" text-anchor="middle" fill="#e9edef" font-size="11">Input → Klaster → AI Generate → Cetak</text>
+          </svg>
+        `,
+        visualCaption: "Siklus Kerja Guru dari Input sampai Dokumen Jadi"
       },
       {
         topic: "INOVASI PRODUK",
-        title: "Struktur Tiga Varian LKPD Diferensiasi Materi Rasio",
-        lead: "Setiap kelompok belajar mengejar Capaian Pembelajaran yang sama, namun dengan scaffolding dan intensitas tantangan yang berbeda.",
+        title: "Desain Varian LKPD Materi Rasio",
+        lead: "Tiga varian lembar kerja mengejar tujuan pembelajaran yang sama dengan bantuan yang proporsional.",
         bullets: [
-          "<b>Tingkat Dasar (Fondasi):</b> Bantuan visual diagram batang/persegi, perbandingan senilai terstruktur, kalimat penuntun bertahap (*scaffolding*).",
-          "<b>Tingkat Menengah (Berkembang):</b> Pemecahan masalah kontekstual (resep kue, skala denah, perbandingan bahan bakar) dengan rumus umum mandiri.",
-          "<b>Tingkat Mahir (Eksploratif):</b> Soal terbuka (*open-ended*), analisis perbandingan berbalik nilai majemuk, evaluasi multi-kriteria berbasis HOTS."
-        ]
+          "<b>Varian Dasar:</b> Bantuan diagram batang/persegi konkret, tabel nilai setara, dan pemandu langkah.",
+          "<b>Varian Menengah:</b> Masalah kontekstual sehari-hari (skala denah, resep kue) dengan rumus mandiri.",
+          "<b>Varian Mahir:</b> Tantangan terbuka (open-ended) perbandingan majemuk berbasis evaluasi HOTS."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="25" y="30" width="70" height="95" rx="8" fill="#202c33" stroke="#f87171" stroke-width="1.5"/>
+            <text x="60" y="55" text-anchor="middle" fill="#f87171" font-size="10" font-weight="700">Dasar</text>
+            <rect x="35" y="70" width="50" height="10" fill="#2a3942"/>
+            <rect x="35" y="85" width="50" height="6" fill="#f87171"/>
+            <rect x="35" y="96" width="35" height="6" fill="#f87171"/>
+
+            <rect x="105" y="30" width="70" height="95" rx="8" fill="#202c33" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="140" y="55" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">Menengah</text>
+            <rect x="115" y="70" width="50" height="6" fill="#fbbf24"/>
+            <rect x="115" y="82" width="50" height="6" fill="#fbbf24"/>
+            <rect x="115" y="94" width="40" height="6" fill="#fbbf24"/>
+
+            <rect x="185" y="30" width="70" height="95" rx="8" fill="#202c33" stroke="#34d399" stroke-width="1.5"/>
+            <text x="220" y="55" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">Mahir</text>
+            <rect x="195" y="70" width="50" height="6" fill="#34d399"/>
+            <rect x="195" y="82" width="50" height="6" fill="#34d399"/>
+            <rect x="195" y="94" width="50" height="6" fill="#34d399"/>
+            <text x="140" y="152" text-anchor="middle" fill="#8696a0" font-size="10">Target Capaian Kurikulum Sama</text>
+          </svg>
+        `,
+        visualCaption: "Perbandingan Tingkat Kesulitan 3 Varian LKPD"
       },
       {
-        topic: "METODOLOGI PENELITIAN SKRIPSI",
-        title: "Metodologi R&D Model ADDIE di SMPN 3 Tasikmalaya",
-        lead: "Prosedur penelitian pengembangan terstandar untuk menghasilkan produk pendidikan yang teruji valid dan praktis.",
+        topic: "METODOLOGI SKRIPSI",
+        title: "Penerapan Model R&D ADDIE",
+        lead: "Tahapan riset pengembangan yang teruji sistematis dari analisis kebutuhan hingga evaluasi kepraktisan.",
         bullets: [
-          "<b>Analysis:</b> Analisis kurikulum, kebutuhan guru matematika, dan karakteristik siswa kelas VII SMP Negeri 3 Kota Tasikmalaya.",
-          "<b>Design:</b> Perancangan arsitektur antarmuka web, template prompt AI, matriks diferensiasi materi Rasio, dan instrumen evaluasi.",
-          "<b>Development:</b> Coding web application, pengujian unit, integrasi API AI, serta validasi ahli materi dan ahli media menggunakan koefisien Aiken's V.",
-          "<b>Implementation:</b> Uji coba kelompok kecil (6-8 siswa) dan uji coba lapangan terbatas pada kelas VII SMPN 3 Kota Tasikmalaya.",
-          "<b>Evaluation:</b> Evaluasi formatif berkelanjutan dan pengukuran kepraktisan media menggunakan instrumen System Usability Scale (SUS)."
-        ]
+          "<b>Analysis & Design:</b> Analisis kebutuhan guru SMPN 3 Tasikmalaya dan perancangan arsitektur prompt.",
+          "<b>Development:</b> Pembuatan aplikasi web, uji coba unit, dan validasi ahli materi/media (Aiken's V).",
+          "<b>Implementation & Evaluation:</b> Uji coba terbatas kelompok kecil dan pengukuran kepraktisan SUS."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <rect x="30" y="25" width="220" height="22" rx="6" fill="#202c33" stroke="#00a884"/>
+            <text x="140" y="40" text-anchor="middle" fill="#25d366" font-size="10" font-weight="700">A - Analysis (Kebutuhan SMPN 3)</text>
+
+            <rect x="30" y="52" width="220" height="22" rx="6" fill="#202c33" stroke="#00a884"/>
+            <text x="140" y="67" text-anchor="middle" fill="#25d366" font-size="10" font-weight="700">D - Design (Prompt &amp; UI Web)</text>
+
+            <rect x="30" y="79" width="220" height="22" rx="6" fill="#202c33" stroke="#3b82f6"/>
+            <text x="140" y="94" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="700">D - Development (Coding &amp; Validasi)</text>
+
+            <rect x="30" y="106" width="220" height="22" rx="6" fill="#202c33" stroke="#f59e0b"/>
+            <text x="140" y="121" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">I - Implementation (Uji Lapangan)</text>
+
+            <rect x="30" y="133" width="220" height="22" rx="6" fill="#202c33" stroke="#10b981"/>
+            <text x="140" y="148" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">E - Evaluation (SUS &amp; Kualitas Produk)</text>
+          </svg>
+        `,
+        visualCaption: "Lima Tahapan R&D Model ADDIE"
       },
       {
-        topic: "KESIMPULAN & KESIAPAN",
-        title: "Kesimpulan Sintesis & Kesiapan Seminar Proposal",
-        lead: "Fondasi teoretis, bukti empiris 40 jurnal, dan rancang bangun produk telah matang untuk diujikan pada Seminar Proposal Skripsi.",
+        topic: "KESIMPULAN",
+        title: "Kesiapan Menuju Seminar Proposal",
+        lead: "Kajian literatur 40 artikel jurnal mengonfirmasi relevansi ilmiah dan kesiapan pelaksanaan riset skripsi.",
         bullets: [
-          "<b>Landasan Teori Kokoh:</b> 40 artikel jurnal mengonfirmasi validitas keterkaitan antara asesmen diagnostik, diferensiasi TaRL, dan otomasi AI.",
-          "<b>Kesiapan Teknis:</b> Arsitektur web app telah teruji pada prototipe awal dan siap memasuki tahap validasi pakar di FKIP Unsil.",
-          "<b>Kontribusi Nyata:</b> Memberikan sumbangsih nyata dalam memecahkan problematika administrasi guru matematika di era Kurikulum Merdeka.",
-          "<b>Target Selanjutnya:</b> Penyelesaian naskah proposal Bab 1 s.d. Bab 3 dan pelaksanaan Seminar Proposal Skripsi bersama Dosen Pembimbing."
-        ]
+          "<b>Teori Teruji:</b> Landasan teoretis asesmen diagnostik dan diferensiasi TaRL didukung kuat oleh 40 jurnal.",
+          "<b>Kesiapan Instrumen:</b> Matriks butir diagnostik dan arsitektur generator AI telah dirancang tervalidasi.",
+          "<b>Tindak Lanjut:</b> Finalisasi draf proposal skripsi Bab 1-3 untuk pendaftaran seminar proposal resmi."
+        ],
+        visualSvg: `
+          <svg viewBox="0 0 280 180" fill="none">
+            <circle cx="140" cy="80" r="45" fill="#005c4b" stroke="#25d366" stroke-width="2.5"/>
+            <path d="M 122 80 L 134 92 L 160 66" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="140" y="148" text-anchor="middle" fill="#25d366" font-size="12" font-weight="700">Proposal Siap Diseminarkan</text>
+            <text x="140" y="164" text-anchor="middle" fill="#8696a0" font-size="9.5">FKIP Universitas Siliwangi</text>
+          </svg>
+        `,
+        visualCaption: "Kesiapan Penuh Menuju Ujian Seminar Proposal"
       }
     ];
 
@@ -1092,11 +1512,13 @@
     // -------------------------------------------------------------
     let currentSlide = 0;
     let activeFilter = 'all';
+    let currentModalArticle = null;
 
     // -------------------------------------------------------------
     // VIEW SWITCHER
     // -------------------------------------------------------------
     function switchMainView(viewName) {
+      window.location.hash = viewName;
       document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
 
@@ -1126,22 +1548,30 @@
       document.getElementById('btnPrev').disabled = currentSlide === 0;
       document.getElementById('btnNext').disabled = currentSlide === SLIDES.length - 1;
 
-      const bodyEl = document.getElementById('slideBody');
-      bodyEl.innerHTML = `
+      // Render Text Side (Concise, no bloat)
+      const textSide = document.getElementById('slideTextSide');
+      textSide.innerHTML = `
         <h2>${s.title}</h2>
         <p class="slide-lead">${s.lead}</p>
         <ul class="slide-bullet-list">
           ${s.bullets.map(b => `
             <li>
-              <span class="bullet-icon">✦</span>
+              <span class="bullet-icon">●</span>
               <div>${b}</div>
             </li>
           `).join('')}
         </ul>
       `;
 
+      // Render Visual Graphic Side (Thematic SVG)
+      const visualBox = document.getElementById('slideVisualBox');
+      visualBox.innerHTML = `
+        ${s.visualSvg}
+        <div class="visual-caption">${s.visualCaption}</div>
+      `;
+
       if (window.renderMathInElement) {
-        renderMathInElement(bodyEl);
+        renderMathInElement(textSide);
       }
     }
 
@@ -1188,32 +1618,28 @@
     }
 
     // -------------------------------------------------------------
-    // RESEARCH MATRIX FUNCTIONS (40 Jurnal)
+    // COMPACT RESEARCH MATRIX & DETAIL MODAL
     // -------------------------------------------------------------
     function renderArticles() {
-      const grid = document.getElementById('articlesGrid');
+      const grid = document.getElementById('articlesCompactGrid');
       const data = window.ARTICLES_DATA || [];
       const query = (document.getElementById('matrixSearch').value || '').toLowerCase();
 
       const filtered = data.filter(item => {
-        // Text search filter
         const matchText = (
           item.judul.toLowerCase().includes(query) ||
           item.penulis.toLowerCase().includes(query) ||
           item.nama_jurnal.toLowerCase().includes(query) ||
-          item.masalah.toLowerCase().includes(query) ||
-          item.kontribusi.toLowerCase().includes(query) ||
           item.akreditasi.toLowerCase().includes(query)
         );
         if (!matchText) return false;
 
-        // Category filter
         if (activeFilter === 'all') return true;
         if (activeFilter === 'nasional') return item.jenis === 'Nasional';
         if (activeFilter === 'internasional') return item.jenis === 'Internasional';
-        if (activeFilter === 'diferensiasi') return item.judul.toLowerCase().includes('diferensiasi') || item.judul.toLowerCase().includes('differentiated') || item.masalah.toLowerCase().includes('diferensiasi');
-        if (activeFilter === 'diagnostik') return item.judul.toLowerCase().includes('diagnostik') || item.judul.toLowerCase().includes('diagnostic') || item.masalah.toLowerCase().includes('diagnostik');
-        if (activeFilter === 'ai') return item.judul.toLowerCase().includes('ai') || item.judul.toLowerCase().includes('artificial intelligence') || item.judul.toLowerCase().includes('prompt') || item.judul.toLowerCase().includes('chatgpt');
+        if (activeFilter === 'diferensiasi') return item.judul.toLowerCase().includes('diferensiasi') || item.judul.toLowerCase().includes('differentiated');
+        if (activeFilter === 'diagnostik') return item.judul.toLowerCase().includes('diagnostik') || item.judul.toLowerCase().includes('diagnostic');
+        if (activeFilter === 'ai') return item.judul.toLowerCase().includes('ai') || item.judul.toLowerCase().includes('intelligence') || item.judul.toLowerCase().includes('prompt') || item.judul.toLowerCase().includes('chatgpt');
         if (activeFilter === 'rd') return item.metode_desain.toLowerCase().includes('r&d') || item.metode_desain.toLowerCase().includes('addie') || item.judul.toLowerCase().includes('web') || item.judul.toLowerCase().includes('usability');
         return true;
       });
@@ -1225,47 +1651,25 @@
         return;
       }
 
+      // Render Compact Cards (Clean title & metadata, no wall of text!)
       grid.innerHTML = filtered.map(a => `
-        <article class="article-card">
+        <article class="compact-card" onclick="openArticleModal(${a.no})">
           <div>
-            <div class="article-card-header">
+            <div class="compact-card-top">
               <span class="badge-akreditasi ${a.jenis === 'Internasional' ? 'badge-scopus' : 'badge-sinta'}">
                 ${a.akreditasi}
               </span>
               <small style="color:var(--wa-text-muted); font-size:0.75rem;">No. ${a.no} · ${a.jenis}</small>
             </div>
 
-            <h3 class="article-title" style="margin: 10px 0 6px 0;">${a.judul}</h3>
-            <div class="article-authors"><b>${a.penulis}</b> (${a.tahun}) · <i>${a.nama_jurnal}</i></div>
+            <h4 class="compact-card-title" style="margin-top: 10px;">${a.judul}</h4>
+            <div class="compact-card-author" style="margin-top: 6px;"><b>${a.penulis}</b> (${a.tahun})</div>
+            <div style="font-size:0.78rem; color:var(--wa-text-muted); margin-top:2px;"><i>${a.nama_jurnal}</i></div>
           </div>
 
-          <div class="article-details">
-            <div class="detail-row">
-              <b>Masalah &amp; Novelty:</b>
-              <div>${a.masalah} <i>${a.novelty}</i></div>
-            </div>
-
-            <div class="detail-row">
-              <b>Metode Penelitian:</b>
-              <div>${a.metode_desain}; Subjek: ${a.metode_subjek}.</div>
-            </div>
-
-            <div class="detail-row">
-              <b>Simpulan Hasil:</b>
-              <div>${a.simpulan}</div>
-            </div>
-
-            <div class="article-skripsi-contrib">
-              <b>Kontribusi Langsung ke Skripsi Ryan:</b>
-              <div>${a.kontribusi}</div>
-            </div>
-          </div>
-
-          <div style="padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center;">
-            <small style="color:var(--wa-text-muted); font-size:0.75rem;">${a.volume}</small>
-            <button class="deck-btn" style="padding:4px 10px; font-size:0.75rem;" onclick="copyCitation('${encodeURIComponent(a.referensi_apa)}')">
-              Salin Sitasi APA
-            </button>
+          <div class="compact-card-action">
+            <span>Buka Detail Kajian &amp; PDF</span>
+            <span>&rarr;</span>
           </div>
         </article>
       `).join('');
@@ -1282,10 +1686,45 @@
       renderArticles();
     }
 
-    function copyCitation(encodedText) {
-      const text = decodeURIComponent(encodedText);
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Sitasi APA 7th berhasil disalin ke clipboard:\n\n" + text);
+    // Article Detail Modal Functions
+    function openArticleModal(articleNo) {
+      const data = window.ARTICLES_DATA || [];
+      const item = data.find(x => x.no === articleNo);
+      if (!item) return;
+
+      currentModalArticle = item;
+
+      document.getElementById('modalBadge').innerText = `${item.akreditasi} · ${item.jenis}`;
+      document.getElementById('modalBadge').className = `badge-akreditasi ${item.jenis === 'Internasional' ? 'badge-scopus' : 'badge-sinta'}`;
+      document.getElementById('modalTitle').innerText = item.judul;
+      document.getElementById('modalAuthors').innerText = `${item.penulis} (${item.tahun}) · ${item.nama_jurnal}, ${item.volume}`;
+
+      document.getElementById('modalMasalah').innerHTML = `<b>Masalah:</b> ${item.masalah}<br><br><b>Kebaruan (Novelty):</b> ${item.novelty}`;
+      document.getElementById('modalMetode').innerHTML = `<b>Model/Desain:</b> ${item.metode_desain}<br><b>Subjek:</b> ${item.metode_subjek}<br><b>Instrumen:</b> ${item.metode_instrumen}<br><b>Analisis Data:</b> ${item.metode_analisis}`;
+      document.getElementById('modalSimpulan').innerText = item.simpulan;
+      document.getElementById('modalKontribusi').innerText = item.kontribusi;
+      document.getElementById('modalApaCitation').innerText = item.referensi_apa;
+
+      // Set PDF link to the exact local file
+      const pdfLinkEl = document.getElementById('modalPdfLink');
+      if (item.pdf_file) {
+        pdfLinkEl.href = item.pdf_file;
+        pdfLinkEl.style.display = "inline-flex";
+      } else {
+        pdfLinkEl.style.display = "none";
+      }
+
+      document.getElementById('articleModal').classList.add('active');
+    }
+
+    function closeArticleModal(e) {
+      document.getElementById('articleModal').classList.remove('active');
+    }
+
+    function copyModalCitation() {
+      if (!currentModalArticle) return;
+      navigator.clipboard.writeText(currentModalArticle.referensi_apa).then(() => {
+        alert("Sitasi APA 7th berhasil disalin ke clipboard:\n\n" + currentModalArticle.referensi_apa);
       });
     }
 
@@ -1300,13 +1739,17 @@
 
       document.getElementById('lblS1').innerText = `Siswa A (Konsep Pecahan): ${v1}%`;
       document.getElementById('lblS2').innerText = `Siswa B (Operasi Sederhana): ${v2}%`;
-      document.getElementById('lblS3').innerText = `Siswa C (Penalaran Aljabar): ${v3}%`;
+      document.getElementById('lblS3').innerText = `Siswa C (Penalaran Rasio): ${v3}%`;
     }
 
     // Initialize on Load
     window.addEventListener('DOMContentLoaded', () => {
       renderSlide(0);
       renderArticles();
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'matrix' || hash === 'bridge' || hash === 'deck') {
+        switchMainView(hash);
+      }
       if (window.renderMathInElement) {
         renderMathInElement(document.body);
       }

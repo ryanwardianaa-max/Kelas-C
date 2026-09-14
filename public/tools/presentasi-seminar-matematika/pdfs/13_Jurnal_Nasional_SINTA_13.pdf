@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Validitas Lembar Kerja Peserta Didik Berbasis Penemuan Terbimbing dalam Upaya Meningkatkan Pemahaman Konsep dan Kemampuan Penalaran Matematis
+							| Edumatika : Jurnal Riset Pendidikan Matematika
+			</title>
+
+	
+<link rel="icon" href="https://ejournal.iainkerinci.ac.id/public/journals/6/favicon_en_US.ico" />
+<meta name="generator" content="Open Journal Systems 3.4.0.10" />
+<meta name="description" content="The Journal of Public Knowledge. Publication of the Public Knowledge Project - PKP and Simon Fraser University - SFU" />
+<meta name="keywords" content="open access, scholarly publishing, open source software, non-profit organizations, scholarly journals, free software" />
+<meta name="author" content="metatags generator">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="3 month">
+<link rel="schema.DC" href="https://purl.org/dc/elements/1.1/" />
+<meta name="DC.Creator.PersonalName" content="Aan Putra"/>
+<meta name="DC.Creator.PersonalName" content="Hendra Syarifuddin"/>
+<meta name="DC.Creator.PersonalName" content="Zulfah Zulfah"/>
+<meta name="DC.Date.created" scheme="ISO8601" content="2018-12-14"/>
+<meta name="DC.Date.dateSubmitted" scheme="ISO8601" content="2018-12-13"/>
+<meta name="DC.Date.issued" scheme="ISO8601" content="2018-11-10"/>
+<meta name="DC.Date.modified" scheme="ISO8601" content="2025-12-01"/>
+<meta name="DC.Description" xml:lang="en" content="Learning equipment is important things that determine the quality of the learning process and output. We need a study about validity, practicality, and effectiveness of the learning equipment to ensure teaching and learning quality. The purpose of this research is to evaluate the validity of the learning equipment based on guided discovery, especially the students’ worksheets. This research was a descriptive qualitative research that provides the result of students’ worksheets and experts&#039; recommendations. The experts who validated these student’s worksheets were three experts on mathematics education. The instruments used in this study was the validation sheets for LKPD. The result of validation sheets analysis for LKPD showed that in general, the students’ worksheets were valid. The validity of the didactical aspect and contents aspect sequently were 0,667 dan 0,704."/>
+<meta name="DC.Format" scheme="IMT" content="application/pdf"/>
+<meta name="DC.Identifier" content="302"/>
+<meta name="DC.Identifier.pageNumber" content="56-62"/>
+<meta name="DC.Identifier.DOI" content="10.32939/ejrpm.v1i2.302"/>
+<meta name="DC.Identifier.URI" content="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/302"/>
+<meta name="DC.Language" scheme="ISO639-1" content="en"/>
+<meta name="DC.Rights" content="Copyright (c) 2018 Edumatika : Jurnal Riset Pendidikan Matematika"/>
+<meta name="DC.Rights" content="http://creativecommons.org/licenses/by/4.0"/>
+<meta name="DC.Source" content="Edumatika : Jurnal Riset Pendidikan Matematika"/>
+<meta name="DC.Source.ISSN" content="2620-8911"/>
+<meta name="DC.Source.Issue" content="2"/>
+<meta name="DC.Source.Volume" content="1"/>
+<meta name="DC.Source.URI" content="https://ejournal.iainkerinci.ac.id/index.php/edumatika"/>
+<meta name="DC.Subject" xml:lang="en" content="students’ worksheets"/>
+<meta name="DC.Subject" xml:lang="en" content="guided discovery"/>
+<meta name="DC.Subject" xml:lang="en" content="mathematical concepts understanding"/>
+<meta name="DC.Subject" xml:lang="en" content="mathematical reasoning abilities"/>
+<meta name="DC.Title" content="Validitas Lembar Kerja Peserta Didik Berbasis Penemuan Terbimbing dalam Upaya Meningkatkan Pemahaman Konsep dan Kemampuan Penalaran Matematis"/>
+<meta name="DC.Type" content="Text.Serial.Journal"/>
+<meta name="DC.Type.articleType" content="All Spectrum of Mathematics Education (Unsorted)"/>
+<meta name="gs_meta_revision" content="1.1"/>
+<meta name="citation_journal_title" content="Edumatika : Jurnal Riset Pendidikan Matematika"/>
+<meta name="citation_journal_abbrev" content="EJRPM"/>
+<meta name="citation_issn" content="2620-8911"/> 
+<meta name="citation_author" content="Aan Putra"/>
+<meta name="citation_author_institution" content="Institut Agama Islam Negeri Kerinci"/>
+<meta name="citation_author" content="Hendra Syarifuddin"/>
+<meta name="citation_author_institution" content="Universitas Negeri Padang"/>
+<meta name="citation_author" content="Zulfah Zulfah"/>
+<meta name="citation_author_institution" content="Universitas Pahlawan Tuanku Tambusai"/>
+<meta name="citation_title" content="Validitas Lembar Kerja Peserta Didik Berbasis Penemuan Terbimbing dalam Upaya Meningkatkan Pemahaman Konsep dan Kemampuan Penalaran Matematis"/>
+<meta name="citation_language" content="en"/>
+<meta name="citation_date" content="2018/12/14"/>
+<meta name="citation_volume" content="1"/>
+<meta name="citation_issue" content="2"/>
+<meta name="citation_firstpage" content="56"/>
+<meta name="citation_lastpage" content="62"/>
+<meta name="citation_doi" content="10.32939/ejrpm.v1i2.302"/>
+<meta name="citation_abstract_html_url" content="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/302"/>
+<meta name="citation_abstract" xml:lang="en" content="Learning equipment is important things that determine the quality of the learning process and output. We need a study about validity, practicality, and effectiveness of the learning equipment to ensure teaching and learning quality. The purpose of this research is to evaluate the validity of the learning equipment based on guided discovery, especially the students’ worksheets. This research was a descriptive qualitative research that provides the result of students’ worksheets and experts&#039; recommendations. The experts who validated these student’s worksheets were three experts on mathematics education. The instruments used in this study was the validation sheets for LKPD. The result of validation sheets analysis for LKPD showed that in general, the students’ worksheets were valid. The validity of the didactical aspect and contents aspect sequently were 0,667 dan 0,704."/>
+<meta name="citation_keywords" xml:lang="en" content="students’ worksheets"/>
+<meta name="citation_keywords" xml:lang="en" content="guided discovery"/>
+<meta name="citation_keywords" xml:lang="en" content="mathematical concepts understanding"/>
+<meta name="citation_keywords" xml:lang="en" content="mathematical reasoning abilities"/>
+<meta name="citation_pdf_url" content="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/download/302/1754"/>
+<link rel="alternate" type="application/atom+xml" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/gateway/plugin/AnnouncementFeedGatewayPlugin/atom">
+<link rel="alternate" type="application/rdf+xml" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/gateway/plugin/AnnouncementFeedGatewayPlugin/rss">
+<link rel="alternate" type="application/rss+xml" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/gateway/plugin/AnnouncementFeedGatewayPlugin/rss2">
+	<link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/$$$call$$$/page/page/css?name=stylesheet" type="text/css" /><link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/$$$call$$$/page/page/css?name=font" type="text/css" /><link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/lib/pkp/styles/fontawesome/fontawesome.css?v=3.4.0.10" type="text/css" /><link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/public/journals/6/styleSheet.css?d=2023-01-01+06%3A57%3A51" type="text/css" /><link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/public/site/styleSheet.css?v=3.4.0.10" type="text/css" /><link rel="stylesheet" href="https://ejournal.iainkerinci.ac.id/plugins/generic/citationStyleLanguage/css/citationStyleLanguagePlugin.css?v=3.4.0.10" type="text/css" />
+</head>
+<body class="pkp_page_article pkp_op_view has_site_logo" dir="ltr">
+
+	<div class="pkp_structure_page">
+
+				<header class="pkp_structure_head" id="headerNavigationContainer" role="banner">
+						
+ <nav class="cmp_skip_to_content" aria-label="Jump to content links">
+	<a href="#pkp_content_main">Skip to main content</a>
+	<a href="#siteNav">Skip to main navigation menu</a>
+		<a href="#pkp_content_footer">Skip to site footer</a>
+</nav>
+
+			<div class="pkp_head_wrapper">
+
+				<div class="pkp_site_name_wrapper">
+					<button class="pkp_site_nav_toggle">
+						<span>Open Menu</span>
+					</button>
+										<div class="pkp_site_name">
+																<a href="						https://ejournal.iainkerinci.ac.id/index.php/edumatika/index
+					" class="is_img">
+							<img src="https://ejournal.iainkerinci.ac.id/public/journals/6/pageHeaderLogoImage_en_US.png" width="8052" height="2000"  />
+						</a>
+										</div>
+				</div>
+
+				
+				<nav class="pkp_site_nav_menu" aria-label="Site Navigation">
+					<a id="siteNav"></a>
+					<div class="pkp_navigation_primary_row">
+						<div class="pkp_navigation_primary_wrapper">
+																				<ul id="navigationPrimary" class="pkp_navigation_primary pkp_nav_list">
+								<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/">
+					Home
+				</a>
+							</li>
+								<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/login">
+					Login
+				</a>
+							</li>
+								<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/user/register">
+					Register
+				</a>
+							</li>
+															<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/current">
+					Current
+				</a>
+							</li>
+								<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/archive">
+					Archives
+				</a>
+							</li>
+								<li class="">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/about/contact">
+					Contact
+				</a>
+							</li>
+			</ul>
+
+				
+
+																						<div class="pkp_navigation_search_wrapper">
+									<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/search" class="pkp_search pkp_search_desktop">
+										<span class="fa fa-search" aria-hidden="true"></span>
+										Search
+									</a>
+								</div>
+													</div>
+					</div>
+					<div class="pkp_navigation_user_wrapper" id="navigationUserWrapper">
+							<ul id="navigationUser" class="pkp_navigation_user pkp_nav_list">
+								<li class="profile">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/user/register">
+					Register
+				</a>
+							</li>
+								<li class="profile">
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/login">
+					Login
+				</a>
+							</li>
+										</ul>
+
+					</div>
+				</nav>
+			</div><!-- .pkp_head_wrapper -->
+		</header><!-- .pkp_structure_head -->
+
+						<div class="pkp_structure_content has_sidebar">
+			<div class="pkp_structure_main" role="main">
+				<a id="pkp_content_main"></a>
+
+<div class="page page_article">
+			<nav class="cmp_breadcrumbs" role="navigation" aria-label="You are here:">
+	<ol>
+		<li>
+			<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/index">
+				Home
+			</a>
+			<span class="separator">/</span>
+		</li>
+		<li>
+			<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/archive">
+				Archives
+			</a>
+			<span class="separator">/</span>
+		</li>
+					<li>
+				<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/30">
+					Vol. 1 No. 2 (2018): November 2018, Edumatika : Jurnal Riset Pendidikan Matematika
+				</a>
+				<span class="separator">/</span>
+			</li>
+				<li class="current" aria-current="page">
+			<span aria-current="page">
+									All Spectrum of Mathematics Education (Unsorted)
+							</span>
+		</li>
+	</ol>
+</nav>
+	
+		  	 <article class="obj_article_details">
+
+		
+	<h1 class="page_title">
+		Validitas Lembar Kerja Peserta Didik Berbasis Penemuan Terbimbing dalam Upaya Meningkatkan Pemahaman Konsep dan Kemampuan Penalaran Matematis
+	</h1>
+
+	
+	<div class="row">
+		<div class="main_entry">
+
+							<section class="item authors">
+					<h2 class="pkp_screen_reader">Authors</h2>
+					<ul class="authors">
+											<li>
+							<span class="name">
+								Aan Putra
+							</span>
+															<span class="affiliation">
+									Institut Agama Islam Negeri Kerinci
+																	</span>
+																																				<span class="orcid">
+																		<a href="http://orcid.org/0000-0002-5556-284X" target="_blank">
+										http://orcid.org/0000-0002-5556-284X
+									</a>
+								</span>
+													</li>
+											<li>
+							<span class="name">
+								Hendra Syarifuddin
+							</span>
+															<span class="affiliation">
+									Universitas Negeri Padang
+																	</span>
+																																		</li>
+											<li>
+							<span class="name">
+								Zulfah Zulfah
+							</span>
+															<span class="affiliation">
+									Universitas Pahlawan Tuanku Tambusai
+																	</span>
+																																		</li>
+										</ul>
+				</section>
+			
+																	<section class="item doi">
+					<h2 class="label">
+												DOI:
+					</h2>
+					<span class="value">
+						<a href="https://doi.org/10.32939/ejrpm.v1i2.302">
+							https://doi.org/10.32939/ejrpm.v1i2.302
+						</a>
+					</span>
+				</section>
+			
+
+									<section class="item keywords">
+				<h2 class="label">
+										Keywords:
+				</h2>
+				<span class="value">
+											students’ worksheets, 											guided discovery, 											mathematical concepts understanding, 											mathematical reasoning abilities									</span>
+			</section>
+			
+										<section class="item abstract">
+					<h2 class="label">Abstract</h2>
+					<p>Learning equipment is important things that determine the quality of the learning process and output. We need a study about validity, practicality, and effectiveness of the learning equipment to ensure teaching and learning quality. The purpose of this research is to evaluate the validity of the learning equipment based on guided discovery, especially the students’ worksheets. This research was a descriptive qualitative research that provides the result of students’ worksheets and experts' recommendations. The experts who validated these student’s worksheets were three experts on mathematics education. The instruments used in this study was the validation sheets for LKPD. The result of validation sheets analysis for LKPD showed that in general, the students’ worksheets were valid. The validity of the didactical aspect and contents aspect sequently were 0,667 dan 0,704.</p>
+				</section>
+			
+			
+
+										
+				<section class="item downloads_chart">
+					<h2 class="label">
+						Downloads
+					</h2>
+					<div class="value">
+						<canvas class="usageStatsGraph" data-object-type="Submission" data-object-id="302"></canvas>
+						<div class="usageStatsUnavailable" data-object-type="Submission" data-object-id="302">
+							Download data is not yet available.
+						</div>
+					</div>
+				</section>
+			
+																																	
+						
+		</div><!-- .main_entry -->
+
+		<div class="entry_details">
+
+										<div class="item cover_image">
+					<div class="sub_item">
+													<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/30">
+								<img src="https://ejournal.iainkerinci.ac.id/public/journals/6/cover_issue_30_en_US.jpg" alt="">
+							</a>
+											</div>
+				</div>
+			
+										<div class="item galleys">
+					<h2 class="pkp_screen_reader">
+						Downloads
+					</h2>
+					<ul class="value galleys_links">
+													<li>
+								
+	
+													
+
+<a class="obj_galley_link pdf" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/302/1754">
+		
+	PDF (Indonesian)
+
+	</a>
+							</li>
+											</ul>
+				</div>
+						
+						<div class="item published">
+				<section class="sub_item">
+					<h2 class="label">
+						Published
+					</h2>
+					<div class="value">
+																			<span>2018-12-14</span>
+																	</div>
+				</section>
+							</div>
+			
+						
+										<div class="item issue">
+
+											<section class="sub_item">
+							<h2 class="label">
+								Issue
+							</h2>
+							<div class="value">
+								<a class="title" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/30">
+									Vol. 1 No. 2 (2018): November 2018, Edumatika : Jurnal Riset Pendidikan Matematika
+								</a>
+							</div>
+						</section>
+					
+											<section class="sub_item">
+							<h2 class="label">
+								Section
+							</h2>
+							<div class="value">
+								All Spectrum of Mathematics Education (Unsorted)
+							</div>
+						</section>
+					
+									</div>
+			
+																					
+										<div class="item copyright">
+					<h2 class="label">
+						License
+					</h2>
+																										<p>Copyright (c) 2018 Edumatika : Jurnal Riset Pendidikan Matematika</p>
+														<a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="//i.creativecommons.org/l/by/4.0/88x31.png" /></a><p>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+																
+				</div>
+			
+				<div class="item citation">
+		<section class="sub_item citation_display">
+			<h2 class="label">
+				How to Cite
+			</h2>
+			<div class="value">
+				<div id="citationOutput" role="region" aria-live="polite">
+					<div class="csl-bib-body">
+  <div class="csl-entry">Validitas Lembar Kerja Peserta Didik Berbasis Penemuan Terbimbing dalam Upaya Meningkatkan Pemahaman Konsep dan Kemampuan Penalaran Matematis. (2018). <i>Edumatika : Jurnal Riset Pendidikan Matematika</i>, <i>1</i>(2), 56-62. <a href="https://doi.org/10.32939/ejrpm.v1i2.302">https://doi.org/10.32939/ejrpm.v1i2.302</a></div>
+</div>
+				</div>
+				<div class="citation_formats">
+					<button class="citation_formats_button label" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
+						More Citation Formats
+					</button>
+					<div id="cslCitationFormats" class="citation_formats_list" aria-hidden="true">
+						<ul class="citation_formats_styles">
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/acm-sig-proceedings?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/acm-sig-proceedings?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										ACM
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/acs-nano?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/acs-nano?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										ACS
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/apa?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/apa?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										APA
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/associacao-brasileira-de-normas-tecnicas?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/associacao-brasileira-de-normas-tecnicas?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										ABNT
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/chicago-author-date?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/chicago-author-date?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										Chicago
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/harvard-cite-them-right?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/harvard-cite-them-right?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										Harvard
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/ieee?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/ieee?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										IEEE
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/modern-language-association?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/modern-language-association?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										MLA
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/turabian-fullnote-bibliography?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/turabian-fullnote-bibliography?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										Turabian
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/vancouver?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/vancouver?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										Vancouver
+									</a>
+								</li>
+															<li>
+									<a
+											rel="nofollow"
+											aria-controls="citationOutput"
+											href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/ama?submissionId=302&amp;publicationId=246&amp;issueId=30"
+											data-load-citation
+											data-json-href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/get/ama?submissionId=302&amp;publicationId=246&amp;issueId=30&amp;return=json"
+									>
+										AMA
+									</a>
+								</li>
+													</ul>
+													<div class="label">
+								Download Citation
+							</div>
+							<ul class="citation_formats_styles">
+																	<li>
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/download/ris?submissionId=302&amp;publicationId=246&amp;issueId=30">
+											<span class="fa fa-download"></span>
+											Endnote/Zotero/Mendeley (RIS)
+										</a>
+									</li>
+																	<li>
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citationstylelanguage/download/bibtex?submissionId=302&amp;publicationId=246&amp;issueId=30">
+											<span class="fa fa-download"></span>
+											BibTeX
+										</a>
+									</li>
+															</ul>
+											</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+		</div><!-- .entry_details -->
+	</div><!-- .row -->
+
+</article>
+
+	<div id="articlesBySimilarityList">
+			<h3>
+			<a name="articlesBySimilarity">Similar Articles</a>
+		</h3>
+		<ul>
+											
+				<li>
+											Selvi Riwayati,
+											Yuriska Destania,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/409">
+						Efektifitas Desain Lembar Kerja Mahasiswa Terintegrasi Internet untuk Mengembangkan Kemampuan Penalaran Matematis Mahasiswa
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/45">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 2 No. 2 (2019): November 2019, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Virla Arlavinda,
+											Nurul Anriani,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/1515">
+						The Effect of STEM Learning Method on Students’ Mathematical Concepts Understanding in Social Arithmetics Topic
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/103">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 5 No. 2 (2022): November 2022, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Lilik Ariyanto,
+											Derisna Aditya,
+											Ida Dwijayanti,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/355">
+						Pengembangan Android Apps Berbasis Discovery Learning Untuk Meningkatkan Pemahaman Konsep Matematis Siswa Kelas VII
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/36">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 2 No. 1 (2019): Mei 2019, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Weni Ariyanti Lubis,
+											Suwarno Ariswoyo,
+											Edi Syahputra,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/483">
+						Kemampuan Pemecahan Masalah Matematika Melalui Pendekatan Pendidikan Matematika Realistik dan Pendekatan  Penemuan Terbimbing Berbantuan Autograph
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/51">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 3 No. 1 (2020): Mei 2020 Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Ria Deswita,
+											Selvia Erita,
+											Febria Ningsih,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/1114">
+						The Student’s Learning Obstacle in Calculus Course
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/82">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 4 No. 2 (2021): November 2021, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Ida Hamidah,
+											Zulkardi Zulkardi,
+											Ratu Ilma Indra Putri,
+											Surya Amami Pramuditya,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/5109">
+						Strategies, Successes, and Gaps in Algebra Teaching: A Scoping Review
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/229">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 8 No. 1 (2025): May 2025, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Khathibul Umam Zaid Nugroho,
+											Eddy Izwanto,
+											Wahyu Widada,
+											Norma Alias,
+											Abdurrobbil Falaq Dwi Anggoro,
+											Dewi Herawaty,
+											Rahmat Jumri,
+											Shadaqnas Dewarif Tri Anggoro,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/3169">
+						The Relationship among Self-Efficacy, Mathematical Concepts Understanding, Creative Thinking Skills, Mathematical Problem-Solving Skills, and Mathematics Learning Outcomes
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/157">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 6 No. 2 (2023): November 2023, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Putri Yulia,
+											Eline Yanty Putri Nasution,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/990">
+						The Students' Mathematical Concept Understanding in Introductory Mathematics Course
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/102">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 5 No. 1 (2022): May 2022, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Putri Syarifatul Ulya,
+											Nining Setyaningsih,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/4200">
+						The Students' Skills in Solving Mathematics Open-Ended Problems Based on Cognitive Style Backgrounds
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/191">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 7 No. 2 (2024): November 2024, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+											
+				<li>
+											Irma Amelia,
+											Tatang Herman,
+											Lukman Lukman,
+										<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/6144">
+						Students’ Obstacles and Difficulties in Mathematical Literacy Based on Skill Levels and Learning Styles
+					</a>
+					,
+					<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/249">
+						Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 8 No. 2 (2025): November 2025, Edumatika : Jurnal Riset Pendidikan Matematika
+					</a>
+									</li>
+					</ul>
+		<p id="articlesBySimilarityPages">
+				<div class="cmp_pagination" aria-label="View additional pages">
+				<span class="current">
+			1-10 of 106
+		</span>
+					<a class="next" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/302?articlesBySimilarityPage=2">Next</a>
+			</div>
+		</p>
+		<p id="articlesBySimilaritySearch">
+						You may also <a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/search/search?query=students%E2%80%99%20worksheets%20guided%20discovery%20mathematical%20concepts%20understanding%20mathematical%20reasoning%20abilities">start an advanced similarity search</a> for this article.
+		</p>
+	</div>
+<div id="articlesBySameAuthorList">
+						<h3>Most read articles by the same author(s)</h3>
+
+			<ul>
+																													<li>
+													Mesi Oktafia,
+													Aan Putra,
+													Mhmd Habibi,
+												<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/591">
+							The Analysis of Students’ Error in Operation Reseach Test for Linear Program Topic Based on Newman’s Error Analysis (NEA)
+						</a>,
+						<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/54">
+							Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 3 No. 2 (2020): November 2020, Edumatika : Jurnal Riset Pendidikan Matematika
+						</a>
+					</li>
+																													<li>
+													Aan Putra,
+													Zulkardi Zulkardi,
+													Ratu Ilma Indra Putri,
+													Laswadi Laswadi,
+													Duano Sapta Nusantara,
+												<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/3167">
+							Scoping Literature Review: What Activities Can Help Students Discover Permutations?
+						</a>,
+						<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/157">
+							Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 6 No. 2 (2023): November 2023, Edumatika : Jurnal Riset Pendidikan Matematika
+						</a>
+					</li>
+																													<li>
+													Selvia Erita,
+													Egha Ardhia Pramesty,
+													Aan Putra,
+												<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/1337">
+							The Flipped Classroom Effect on Students’ Self-Regulated Learning
+						</a>,
+						<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/103">
+							Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 5 No. 2 (2022): November 2022, Edumatika : Jurnal Riset Pendidikan Matematika
+						</a>
+					</li>
+																													<li>
+													Afnesa Pitri,
+													Hendra Syarifuddin,
+													Nur Rusliah,
+													Aan Putra,
+												<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/article/view/993">
+							Exploring Transformation Geometry Content in Native Batik of Kerinci: An Ethnomathematics Study
+						</a>,
+						<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/issue/view/112">
+							Edumatika : Jurnal Riset Pendidikan Matematika: Vol. 6 No. 1 (2023): May 2023, Edumatika : Jurnal Riset Pendidikan Matematika
+						</a>
+					</li>
+							</ul>
+			<div id="articlesBySameAuthorPages">
+				
+			</div>
+			</div>
+
+
+</div><!-- .page -->
+
+	</div><!-- pkp_structure_main -->
+
+									<div class="pkp_structure_sidebar left" role="complementary">
+				<div class="pkp_block block_custom" id="customblock-menu">
+	<h2 class="title pkp_screen_reader">menu</h2>
+	<div class="content">
+		<div class="content">
+<div class="content"><center>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472; border-radius: 0.10px;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">ADDITIONAL MENU</span></div>
+</center>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/"><em class="fa fa-home" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Home </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/about/editorialTeam"><em class="fa fa-user-circle-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Editorial Team </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a title="Reviewer Team" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/ReviewerTeam"><em class="fa fa-users" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Reviewer Team </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><em class="fa fa-check-square-o" style="color: white;"> &nbsp; </em><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/pr"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Peer Reviewers </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a title="Focus and Scope Journal" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/FocusandScope"><em class="fa fa-circle-o" style="color: white;"> &nbsp; </em><span style="color: #398794;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Focus and Scope </span></span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a title="Screening Plagiarism" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/plagirsmcheck"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Screening Plagiarism </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: darkgreen;"><a title="Publication Ethics" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/Eticspublication"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Publication Ethics </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: darkgreen;"><a title="Author Fees" href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/fees"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Author Fees </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/OpenACCPLC"><em class="fa fa-unlock" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Open Access Policy </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/submissionguide"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Author Guidelines </span></a></div>
+</div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/privstat"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Privacy Statement </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/cpyrntice"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Copyright Notice </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/ARCHV_PLCY"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Archieving Policy </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/reviewethic"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Review Policy </span></a></div>
+<div style="padding: 8px; border-bottom: 1px solid #ffffff; background: #398794; color: white;"><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/history"><em class="fa fa-pencil-square-o" style="color: white;"> &nbsp; </em><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;"> Journal History </span></a></div>
+<p>&nbsp;</p>
+</div>
+	</div>
+</div>
+<div class="pkp_block block_custom" id="customblock-indexing">
+	<h2 class="title pkp_screen_reader">indexing</h2>
+	<div class="content">
+		<center>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">Indexing</span></div>
+<center>
+<p><a href="https://sinta.kemdikbud.go.id/journals/profile/5813" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/006.png" alt="" width="100" height="35"></a>&nbsp;&nbsp;<a href="https://scholar.google.co.id/citations?hl=en&amp;user=Cv7rJVMAAAAJ&amp;authuser=2&amp;scilu=&amp;scisig=AMstHGQAAAAAWtFy2Ykj_cGAiIiui09_QI31tCu5XkQg&amp;gmla=AJsN-F4bHtevQaY0PMqFv8P-pyfBy8Y-OfR9Z7fO_WDIEvRIj71Y6ghaD_2TvX-hBeoUwebMkPMAtiDyWdhfNJvys2j_DZKni7IXGNz7e3zHqJb5Z2lGhoQ&amp;sciund=6426573798252997149" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/002.png" alt="" width="100" height="33">&nbsp;</a>&nbsp;<a href="https://www.base-search.net/Search/Results?lookfor=edumatika&amp;name=&amp;oaboost=1&amp;newsearch=1&amp;refid=dcbasen" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/003.png" alt="" width="100" height="41"></a>&nbsp;<a href="https://moraref.kemenag.go.id/archives/journal/98021043410589467" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/004.png" alt="" width="100" height="38"></a>&nbsp;&nbsp;<a href="https://app.dimensions.ai/discover/publication?search_text=edumatika&amp;search_type=kws&amp;search_field=full_search&amp;or_facet_source_title=jour.1365727" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/007.png" alt="" width="100" height="21"></a>&nbsp;&nbsp;<a href="https://garuda.kemdikbud.go.id/journal/view/23892"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/garuda1.png" alt="" width="100" height="23"></a>&nbsp; &nbsp;&nbsp;<img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/001.png" alt="" width="100" height="33">&nbsp;<a href="https://www.neliti.com/id/journals/edumatika"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/neliti-blue.png" alt="" width="100" height="32"></a>&nbsp;</p>
+<p><strong><a href="https://doaj.org/toc/2620-8911?source=%7B%22query%22%3A%7B%22bool%22%3A%7B%22must%22%3A%5B%7B%22terms%22%3A%7B%22index.issn.exact%22%3A%5B%222620-8903%22%2C%222620-8911%22%5D%7D%7D%5D%7D%7D%2C%22size%22%3A100%2C%22sort%22%3A%5B%7B%22created_date%22%3A%7B%22order%22%3A%22desc%22%7D%7D%5D%2C%22_source%22%3A%7B%7D%2C%22track_total_hits%22%3Atrue%7D">&nbsp;<img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/image.png" alt="" width="200" height="43">&nbsp;</a></strong></p>
+<p><strong><a href="https://doaj.org/toc/2620-8911?source=%7B%22query%22%3A%7B%22bool%22%3A%7B%22must%22%3A%5B%7B%22terms%22%3A%7B%22index.issn.exact%22%3A%5B%222620-8903%22%2C%222620-8911%22%5D%7D%7D%5D%7D%7D%2C%22size%22%3A100%2C%22sort%22%3A%5B%7B%22created_date%22%3A%7B%22order%22%3A%22desc%22%7D%7D%5D%2C%22_source%22%3A%7B%7D%2C%22track_total_hits%22%3Atrue%7D">&nbsp;&nbsp;</a></strong><a href="https://onesearch.id/Search/Results?lookfor=edumatika&amp;type=AllFields&amp;filter%5B%5D=institution%3A%22Institut+Agama+Islam+Negeri+Kerinci%22"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/habibi/one-sera.png" alt="" width="120" height="38"></a>&nbsp; <strong><a href="https://essentials.ebsco.com/search?query=edumatika"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/image-2.png" alt="" width="96" height="31"></a></strong>&nbsp;<a href="https://pkp.sfu.ca/2021/10/05/pkp-index-retiring-as-of-january-1-2022/"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/habibi/pkp.png" alt="" width="120" height="21">&nbsp;</a></p>
+</center></center>
+	</div>
+</div>
+<div class="pkp_block block_custom" id="customblock-tools">
+	<h2 class="title pkp_screen_reader">tools</h2>
+	<div class="content">
+		<center>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">Citeness on Scopus</span></div>
+<center><a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/citeness" target="_blank" rel="noopener"><img src="https://ejournal.iainkerinci.ac.id/public/site/images/habibi/download-1.jpg" alt="" width="227" height="222"></a></center>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">Recomendation Tools</span></div>
+<center><a href="https://www.mendeley.com/download-desktop-new/" target="_blank" rel="noopener"><img style="width: 220px;" src="/public/site/images/habibi/citation_mendeley1.png" alt=""></a><br><a href="https://www.grammarly.com/?q=brand&amp;utm_source=bing&amp;utm_medium=cpc&amp;utm_campaign=brand_f1&amp;utm_content=tcpasa360&amp;utm_term=how%20is%20grammarly&amp;matchtype=e&amp;placement=&amp;network=o&amp;gclid=2abd32e520b517d6bce352d090a8ba15&amp;gclsrc=3p.ds&amp;msclkid=2abd32e520b517d6bce352d090a8ba15" target="_blank" rel="noopener"><img style="width: 220px;" src="/public/site/images/habibi/logo-grammarly1.png" alt=""></a></center><center><a href="https://plagiarismcheckerx.com/" target="_blank" rel="noopener"><img src="/public/site/images/habibi/Plagiarism_Checker_X_Coupon_Code.jpg" alt="" width="194" height="53"></a></center>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">Statistic:</span></div>
+<p><a title="web statistics" href="http://statcounter.com/" target="_blank" rel="noopener"><img style="border: none;" src="//c.statcounter.com/11683833/0/7c226580/0/" alt="Edumatika's Visitor"></a> <a href="http://statcounter.com/p11683833/?guest=1" target="_blank" rel="noopener">Edumatika's Visitor</a></p>
+<p><a href="https://info.flagcounter.com/TQhE"><img src="https://s01.flagcounter.com/count2/TQhE/bg_FFFFFF/txt_000000/border_CCCCCC/columns_4/maxflags_250/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></p>
+<div class="title" style="padding: 8px; border-bottom: 1px solid #ffffff; background: #126472;"><span style="font-size: 14px; font-family: sunflower, helvetica, calibri; color: #ffffff;">Supporting By</span></div>
+<center><img class="" style="width: 220px;" src="/public/site/images/habibi/logoRJI-t.png" alt=""></center></center>
+	</div>
+</div>
+
+			</div><!-- pkp_sidebar.left -->
+			</div><!-- pkp_structure_content -->
+
+<div class="pkp_structure_footer_wrapper" role="contentinfo">
+	<a id="pkp_content_footer"></a>
+
+	<div class="pkp_structure_footer">
+
+					<div class="pkp_footer_content">
+				<center>
+<table class="data" width="100%">
+<tbody>
+<tr valign="top">
+<td width="20%"><center><img src="https://ejournal.iainkerinci.ac.id/public/site/images/nuzul/download-removebg-preview.png" alt="" width="100%" height="200%" /></center></td>
+<td><strong> </strong></td>
+<td width="200%">
+<p><strong>Published by Institut Agama Islam Negeri Kerinci (State Islamic Institute of Kerinci)</strong><br />|<span class="LrzXr"> Address: Muradi Street, Sumur Gedang, Pesisir Bukit, Sungai Penuh, Jambi, 37112</span></p>
+<p><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Creative Commons License" /></a><br />This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="statcounter"> </div>
+<center>
+<p><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.305152227483!2d101.37649301425583!3d-2.0337362985174057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2da0d04876863b%3A0x91e8c22b9af6b871!2sIAIN+Kerinci!5e0!3m2!1sid!2sid!4v1523617519272" width="80%" height="200" frameborder="0" allowfullscreen=""></iframe></p>
+</center></center>
+			</div>
+		
+		<div class="pkp_brand_footer">
+			<a href="https://ejournal.iainkerinci.ac.id/index.php/edumatika/about/aboutThisPublishingSystem">
+				<img alt="More information about the publishing system, Platform and Workflow by OJS/PKP." src="https://ejournal.iainkerinci.ac.id/templates/images/ojs_brand.png">
+			</a>
+		</div>
+	</div>
+</div><!-- pkp_structure_footer_wrapper -->
+
+</div><!-- pkp_structure_page -->
+
+<script src="https://ejournal.iainkerinci.ac.id/lib/pkp/lib/vendor/components/jquery/jquery.min.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/lib/pkp/lib/vendor/components/jqueryui/jquery-ui.min.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/plugins/themes/default/js/lib/popper/popper.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/plugins/themes/default/js/lib/bootstrap/util.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/plugins/themes/default/js/lib/bootstrap/dropdown.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/plugins/themes/default/js/main.js?v=3.4.0.10" type="text/javascript"></script><script src="https://ejournal.iainkerinci.ac.id/plugins/generic/citationStyleLanguage/js/articleCitation.js?v=3.4.0.10" type="text/javascript"></script><script type="text/javascript">var pkpUsageStats = pkpUsageStats || {};pkpUsageStats.data = pkpUsageStats.data || {};pkpUsageStats.data.Submission = pkpUsageStats.data.Submission || {};pkpUsageStats.data.Submission[302] = {"data":{"2018":{"12":0},"2019":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2020":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2021":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2022":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2023":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2024":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0},"2025":{"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":"24"},"2026":{"1":"32","2":"25","3":"19","4":"34","5":"47","6":"30","7":"28","8":"6","9":0}},"label":"All Downloads","color":"79,181,217","total":245};</script><script src="https://ejournal.iainkerinci.ac.id/lib/pkp/js/lib/Chart.min.js?v=3.4.0.10" type="text/javascript"></script><script type="text/javascript">var pkpUsageStats = pkpUsageStats || {};pkpUsageStats.locale = pkpUsageStats.locale || {};pkpUsageStats.locale.months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];pkpUsageStats.config = pkpUsageStats.config || {};pkpUsageStats.config.chartType = "bar";</script><script src="https://ejournal.iainkerinci.ac.id/lib/pkp/js/usage-stats-chart.js?v=3.4.0.10" type="text/javascript"></script><script type="text/javascript">
+(function (w, d, s, l, i) { w[l] = w[l] || []; var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true;
+j.src = 'https://www.googletagmanager.com/gtag/js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+function gtag(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', i); })
+(window, document, 'script', 'dataLayer', 'UA-167566180-1');
+</script>
+
+
+</body>
+</html>
