@@ -563,7 +563,54 @@
             Karena sifat √(a)√(b) = √(ab) hanya berlaku jika salah satu dari a atau b bernilai non-negatif. Oleh karena itu, matematika modern mendefinisikan relasi kuadratik i² = -1 secara langsung.
           </div>
 
-          <h2>3. Daftar Pustaka (Referensi 5 Tahun Terakhir)</h2>
+          <h2>3. Contoh Soal Penerapan &amp; Pembahasan Bertahap</h2>
+          
+          <div class="card" style="border: 1px solid #cbd5e1; background: #f8fafc; padding: 16px; margin-bottom: 16px;">
+            <h3 style="color: var(--primary); margin-top: 0;">Contoh Soal 1: Pembuktian Aljabar Pasangan Terurut Hamilton</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 8px;">
+              <b>Soal:</b> Diketahui himpunan bilangan kompleks didefinisikan sebagai pasangan terurut <span class="math-inline">(a, b) \in \mathbb{R}^2</span> dengan satuan <span class="math-inline">i = (0, 1)</span>. Hitunglah nilai dari <span class="math-inline">i^2</span> dan buktikan secara deduktif bahwa hasilnya setara dengan bilangan real -1.
+            </p>
+            <ol style="margin-left: 20px; font-size: 0.9rem; line-height: 1.8;">
+              <li><b>Rumus Variabel (Perkalian Hamilton):</b> <span class="math-inline">(a, b) \cdot (c, d) = (ac - bd, \; ad + bc)</span></li>
+              <li><b>Deklarasi Nilai:</b> <span class="math-inline">a = 0, b = 1, c = 0, d = 1</span></li>
+              <li><b>Substitusi Bertahap:</b>
+                <span class="math-block">i^2 = (0, 1) \cdot (0, 1) = ((0)(0) - (1)(1), \; (0)(1) + (1)(0)) = (0 - 1, \; 0 + 0) = (-1, 0)</span>
+              </li>
+              <li><b>Kesimpulan:</b> Karena <span class="math-inline">(x, 0) \equiv x</span>, maka <span class="math-inline">(-1, 0) \equiv -1</span>. Terbukti sah bahwa <span class="math-inline">i^2 = -1</span>.</li>
+            </ol>
+          </div>
+
+          <div class="card" style="border: 1px solid #cbd5e1; background: #f8fafc; padding: 16px; margin-bottom: 16px;">
+            <h3 style="color: var(--primary); margin-top: 0;">Contoh Soal 2: Siklus Pangkat Satuan Imajiner (Modulo 4)</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 8px;">
+              <b>Soal:</b> Dengan memanfaatkan sifat dasar <span class="math-inline">i^2 = -1</span>, hitunglah nilai eksak dari <span class="math-inline">i^{2026}</span> dan invers perkalian <span class="math-inline">i^{-1}</span>.
+            </p>
+            <div style="font-size: 0.9rem; line-height: 1.8;">
+              <p><b>Bagian A (Nilai i²⁰²⁶):</b> Menggunakan siklus periode 4: <span class="math-inline">2026 = 4(506) + 2</span> (sisa 2).
+                <span class="math-block">i^{2026} = (i^4)^{506} \cdot i^2 = (1)^{506} \cdot (-1) = 1 \cdot (-1) = -1</span>
+              </p>
+              <p><b>Bagian B (Invers Perkalian i⁻¹):</b> Rasionalisasi sekawan:
+                <span class="math-block">i^{-1} = \frac{1}{i} = \frac{1 \cdot i}{i \cdot i} = \frac{i}{i^2} = \frac{i}{-1} = -i</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="card" style="border: 1px solid #cbd5e1; background: #f8fafc; padding: 16px; margin-bottom: 16px;">
+            <h3 style="color: var(--primary); margin-top: 0;">Contoh Soal 3: Transformasi Geometris Rotasi 90° pada Bidang Argand</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 8px;">
+              <b>Soal:</b> Diberikan titik bilangan kompleks <span class="math-inline">z_1 = 3 + 2i</span>. Jika <span class="math-inline">z_1</span> dirotasikan sebesar 90° berlawanan arah jarum jam terhadap titik pusat (0, 0), tentukan posisi <span class="math-inline">z_2</span> melalui perkalian satuan imajiner <span class="math-inline">i</span>.
+            </p>
+            <ol style="margin-left: 20px; font-size: 0.9rem; line-height: 1.8;">
+              <li><b>Rumus Operator Rotasi:</b> <span class="math-inline">z_2 = z_1 \cdot i = (x + yi) \cdot i = -y + xi</span></li>
+              <li><b>Deklarasi Nilai:</b> <span class="math-inline">x = 3, y = 2, i^2 = -1</span></li>
+              <li><b>Substitusi Bertahap:</b>
+                <span class="math-block">z_2 = (3 + 2i) \cdot i = 3i + 2(i^2) = 3i + 2(-1) = -2 + 3i</span>
+              </li>
+              <li><b>Interpretasi Geometris:</b> Titik awal <span class="math-inline">(3, 2)</span> berpindah tepat ke <span class="math-inline">(-2, 3)</span>, rotasi 90° dengan modulus konstan: <span class="math-inline">|z_1| = |z_2| = \sqrt{3^2 + 2^2} = \sqrt{13}</span>.</li>
+            </ol>
+          </div>
+
+          <h2>4. Daftar Pustaka (Referensi 5 Tahun Terakhir)</h2>
           <ul style="margin-left: 20px; line-height: 1.8; font-size: 0.95rem;">
             <li>Brown, J. W., & Churchill, R. V. (2021). <i>Complex Variables and Applications</i> (10th ed.). New York: McGraw-Hill Education.</li>
             <li>Needham, T. (2023). <i>Visual Complex Analysis</i> (25th Anniversary ed.). Oxford: Oxford University Press.</li>
