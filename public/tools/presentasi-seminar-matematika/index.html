@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seminar Pendidikan Matematika - Literature Review 40 Jurnal &amp; Rencana Skripsi | Ryan Wardiana</title>
+
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Load 40 Articles Dataset -->
+  <script src="articles_data.js"></script>
+
+  <style>
+    /* WhatsApp Design Tokens (from whatsapp-com-DESIGN.md) */
+    :root {
+      --wa-bg: #111b21;
+      --wa-surface: #202c33;
+      --wa-surface-subtle: #182229;
+      --wa-surface-hover: #222e35;
+      --wa-border: #2a3942;
+      --wa-green: #00a884;
+      --wa-green-hover: #02906f;
+      --wa-green-light: #25d366;
+      --wa-green-bubble: #005c4b;
+      --wa-cream-surface: #fcf5eb;
+      --wa-text: #e9edef;
+      --wa-text-muted: #8696a0;
+      --wa-text-dark: #111b21;
+      --wa-danger: #ef4444;
+      --wa-warning: #f59e0b;
+      --wa-blue: #3b82f6;
+
+      --radius-sm: 25px;
+      --radius-md: 50px;
+      --radius-card: 20px;
+
+      --shadow-card: rgba(0, 0, 0, 0.2) 0px 10px 30px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px 0px;
+      --shadow-bubble: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
+
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --line-height: 1.39;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--wa-bg);
+      color: var(--wa-text);
+      font-family: var(--font-stack);
+      line-height: var(--line-height);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Bar */
+    header.wa-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17, 27, 33, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--wa-border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .crest-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #065f46, var(--wa-green));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 2px 8px rgba(0, 168, 132, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--wa-text);
+      line-height: 1.2;
+    }
+
+    .brand-text small {
+      font-size: 0.76rem;
+      color: var(--wa-green);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Segmented Navigation Tabs */
+    .nav-pill-group {
+      display: flex;
+      background: var(--wa-surface-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--wa-border);
+      gap: 4px;
+    }
+
+    .nav-pill {
+      background: transparent;
+      border: none;
+      color: var(--wa-text-muted);
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover {
+      color: var(--wa-text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-pill.active {
+      background: var(--wa-green);
+      color: #111b21;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(0, 168, 132, 0.35);
+    }
+
+    .presenter-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa-surface);
+      border: 1px solid var(--wa-border);
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      color: var(--wa-text);
+    }
+
+    .presenter-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-md);
+      background: var(--wa-green-light);
+    }
+
+    /* View Container */
+    main.main-viewport {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    .view-panel {
+      display: none;
+      animation: fadeIn 0.3s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .view-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* -------------------------------------------------------------
+       MODE 1: KEYNOTE SLIDE DECK (16:9 Widescreen Presentation)
+       ------------------------------------------------------------- */
+    .deck-wrapper {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .slide-frame {
+      aspect-ratio: 16 / 9;
+      min-height: 540px;
+      background: var(--wa-surface);
+      border: 1.5px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 44px 52px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .slide-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--wa-green);
+      transition: width 0.3s ease;
+    }
+
+    .slide-header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .slide-topic-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--wa-green-light);
+      background: rgba(37, 211, 102, 0.1);
+      padding: 4px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(37, 211, 102, 0.2);
+    }
+
+    .slide-num-badge {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--wa-text-muted);
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-body h2 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--wa-text);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    .slide-lead {
+      font-size: 1.15rem;
+      color: #c1cbd1;
+      margin-bottom: 24px;
+      max-width: 900px;
+      line-height: 1.5;
+    }
+
+    .slide-bullet-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      max-width: 960px;
+    }
+
+    .slide-bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1.05rem;
+      color: #d1d7db;
+    }
+
+    .slide-bullet-list li .bullet-icon {
+      color: var(--wa-green-light);
+      font-size: 1.1rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .slide-footer-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.82rem;
+      color: var(--wa-text-muted);
+    }
+
+    /* Deck Controls Bar */
+    .deck-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--wa-surface-subtle);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-md);
+      padding: 8px 16px;
+    }
+
+    .deck-btn {
+      background: var(--wa-surface);
+      color: var(--wa-text);
+      border: 1px solid var(--wa-border);
+      padding: 8px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .deck-btn:hover:not(:disabled) {
+      background: var(--wa-green);
+      color: #111b21;
+      border-color: var(--wa-green);
+    }
+
+    .deck-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* -------------------------------------------------------------
+       MODE 2: INTERACTIVE RESEARCH MATRIX (40 Jurnal SLR)
+       ------------------------------------------------------------- */
+    .matrix-toolbar {
+      background: var(--wa-surface);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      background: var(--wa-bg);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-md);
+      padding: 10px 18px;
+      color: var(--wa-text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--wa-green);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      background: var(--wa-surface-subtle);
+      border: 1px solid var(--wa-border);
+      color: var(--wa-text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip-btn:hover {
+      color: var(--wa-text);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .chip-btn.active {
+      background: rgba(0, 168, 132, 0.2);
+      color: var(--wa-green-light);
+      border-color: var(--wa-green);
+    }
+
+    /* Articles Grid */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .article-card {
+      background: var(--wa-surface);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .article-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--wa-green);
+    }
+
+    .article-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-akreditasi {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-md);
+      display: inline-block;
+    }
+
+    .badge-scopus {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+
+    .badge-sinta {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .article-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--wa-text);
+      line-height: 1.35;
+    }
+
+    .article-authors {
+      font-size: 0.82rem;
+      color: var(--wa-text-muted);
+    }
+
+    .article-details {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .detail-row b {
+      color: var(--wa-green-light);
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 2px;
+    }
+
+    .article-skripsi-contrib {
+      background: var(--wa-surface-subtle);
+      border-left: 3px solid var(--wa-green);
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 0.84rem;
+      color: #e2e8f0;
+    }
+
+    .article-skripsi-contrib b {
+      color: var(--wa-green);
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* -------------------------------------------------------------
+       MODE 3: SKRIPSI INTEGRATION BRIDGE
+       ------------------------------------------------------------- */
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 860px) {
+      .bridge-grid { grid-template-columns: 1fr; }
+      header.wa-topbar { flex-wrap: wrap; }
+      .nav-pill-group { order: 3; width: 100%; overflow-x: auto; }
+      .slide-frame { padding: 24px; aspect-ratio: auto; min-height: 480px; }
+      .slide-body h2 { font-size: 1.5rem; }
+    }
+
+    .bridge-card {
+      background: var(--wa-surface);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .bridge-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--wa-border);
+    }
+
+    .bridge-card-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--wa-text);
+    }
+
+    .bridge-card-header .header-pill {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+    }
+
+    .pill-red { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .pill-green { background: rgba(37, 211, 102, 0.2); color: #4ade80; }
+
+    /* Interactive Simulator Box */
+    .simulator-container {
+      background: var(--wa-surface-subtle);
+      border: 1.5px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .sim-slider-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .sim-card {
+      background: var(--wa-surface);
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--wa-border);
+    }
+
+    .sim-card label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--wa-text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .sim-card input[type="range"] {
+      width: 100%;
+      accent-color: var(--wa-green);
+    }
+
+    .tier-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 720px) {
+      .tier-results { grid-template-columns: 1fr; }
+    }
+
+    .tier-box {
+      background: var(--wa-surface);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1.5px solid var(--wa-border);
+    }
+
+    .tier-box.dasar { border-top: 4px solid #ef4444; }
+    .tier-box.menengah { border-top: 4px solid #f59e0b; }
+    .tier-box.mahir { border-top: 4px solid #10b981; }
+
+    .tier-box h4 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    /* Slide Drawer Modal */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .drawer-overlay.active { display: flex; }
+
+    .drawer-dialog {
+      background: var(--wa-surface);
+      border: 1px solid var(--wa-border);
+      border-radius: var(--radius-card);
+      width: 100%;
+      max-width: 680px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .drawer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--wa-border);
+    }
+
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .drawer-item:hover { background: var(--wa-surface-subtle); }
+    .drawer-item.active { background: rgba(0, 168, 132, 0.2); color: var(--wa-green-light); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="wa-topbar">
+    <a href="#" class="brand-cluster">
+      <div class="crest-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>UNIVERSITAS SILIWANGI · FKIP MATEMATIKA</h1>
+        <small>Mata Kuliah: Seminar Pendidikan Matematika (KP21517006)</small>
+      </div>
+    </a>
+
+    <!-- Segmented Nav Tabs -->
+    <nav class="nav-pill-group">
+      <button class="nav-pill active" onclick="switchMainView('deck')">
+        <span>📺</span> Slide Keynote
+      </button>
+      <button class="nav-pill" onclick="switchMainView('matrix')">
+        <span>📊</span> Matriks 40 Jurnal
+      </button>
+      <button class="nav-pill" onclick="switchMainView('bridge')">
+        <span>🔗</span> Jembatan Skripsi
+      </button>
+    </nav>
+
+    <!-- Presenter Pill -->
+    <div class="presenter-pill">
+      <span class="dot"></span>
+      <span><b>Ryan Wardiana</b> (232151098)</span>
+    </div>
+  </header>
+
+  <main class="main-viewport">
+
+    <!-- =============================================================
+         MODE 1: KEYNOTE SLIDE DECK (18 Slide Widescreen)
+         ============================================================= -->
+    <section id="view-deck" class="view-panel active">
+      <div class="deck-wrapper">
+        <article class="slide-frame" id="slideFrame">
+          <div class="slide-progress-bar" id="slideProgress"></div>
+
+          <div class="slide-header-meta">
+            <span class="slide-topic-badge" id="slideTopic">SEMINAR PENDIDIKAN MATEMATIKA</span>
+            <span class="slide-num-badge" id="slideNumber">SLIDE 1 DARI 18</span>
+          </div>
+
+          <div class="slide-body" id="slideBody">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="slide-footer-meta">
+            <span>Dosen Pengampu: <b>Dr. Nani Ratnaningsih, M.Pd.</b></span>
+            <span>Gunakan <b>← / →</b> atau Tombol Navigasi</span>
+          </div>
+        </article>
+
+        <!-- Deck Navigation Controls -->
+        <div class="deck-controls">
+          <button class="deck-btn" id="btnPrev" onclick="moveSlide(-1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Sebelumnya
+          </button>
+          
+          <button class="deck-btn" onclick="openDrawer()">
+            <span id="deckCounter">1 / 18</span> · Daftar Semua Slide
+          </button>
+
+          <button class="deck-btn" id="btnNext" onclick="moveSlide(1)">
+            Berikutnya
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         MODE 2: INTERACTIVE RESEARCH MATRIX (40 Jurnal SLR)
+         ============================================================= -->
+    <section id="view-matrix" class="view-panel">
+      <div class="matrix-toolbar">
+        <div class="search-row">
+          <input type="text" id="matrixSearch" class="search-input" placeholder="Cari penulis, judul, metodologi, akreditasi, atau kata kunci..." oninput="filterArticles()">
+        </div>
+
+        <div class="filter-chips">
+          <button class="chip-btn active" onclick="setArticleFilter('all', this)">Semua (40 Jurnal)</button>
+          <button class="chip-btn" onclick="setArticleFilter('nasional', this)">🇮🇩 Nasional SINTA (20)</button>
+          <button class="chip-btn" onclick="setArticleFilter('internasional', this)">🌐 Internasional Scopus (20)</button>
+          <button class="chip-btn" onclick="setArticleFilter('diferensiasi', this)">Klaster: Berdiferensiasi</button>
+          <button class="chip-btn" onclick="setArticleFilter('diagnostik', this)">Klaster: Asesmen Diagnostik</button>
+          <button class="chip-btn" onclick="setArticleFilter('ai', this)">Klaster: Generative AI</button>
+          <button class="chip-btn" onclick="setArticleFilter('rd', this)">Klaster: R&amp;D &amp; Web</button>
+        </div>
+
+        <div style="font-size: 0.85rem; color: var(--wa-text-muted); display: flex; justify-content: space-between;">
+          <span id="matrixCounter">Menampilkan 40 dari 40 artikel jurnal terakreditasi</span>
+          <span>Sesuai Dokumen Resmi Literature Review Tugas 1</span>
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="articles-grid" id="articlesGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- =============================================================
+         MODE 3: SKRIPSI INTEGRATION BRIDGE
+         ============================================================= -->
+    <section id="view-bridge" class="view-panel">
+      
+      <!-- Split Comparison -->
+      <div class="bridge-grid">
+        <!-- Left: Classroom Pain Points -->
+        <div class="bridge-card">
+          <div class="bridge-card-header">
+            <span class="header-pill pill-red">MASALAH EMPIRIS</span>
+            <h3>Kondisi Nyata di Sekolah Mitra (SMPN 3 Tasikmalaya)</h3>
+          </div>
+          <ul class="slide-bullet-list">
+            <li>
+              <span class="bullet-icon">⚠️</span>
+              <div><b>Beban Waktu Guru:</b> Rata-rata guru menghabiskan 4 hingga 6 jam per minggu hanya untuk merancang bahan ajar bertingkat secara manual (Kamaghe, 2026).</div>
+            </li>
+            <li>
+              <span class="bullet-icon">⚠️</span>
+              <div><b>Heterogenitas Siswa Terabaikan:</b> Pembelajaran klasikal seragam (one-size-fits-all) memicu 62% siswa level bawah tertinggal pada materi Rasio dan Aljabar (Herawati &amp; Nurhayati, 2022).</div>
+            </li>
+            <li>
+              <span class="bullet-icon">⚠️</span>
+              <div><b>Asesmen Diagnostik Tidak Ditindaklanjuti:</b> Guru melakukan tes diagnostik di awal bab, namun data nilai hanya menjadi arsip administrasi tanpa konversi ke LKPD bertingkat (Sari &amp; Santika, 2023).</div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: The Thesis Solution -->
+        <div class="bridge-card">
+          <div class="bridge-card-header">
+            <span class="header-pill pill-green">SOLUSI SKRIPSI</span>
+            <h3>Inovasi Web Application Generator LKPD AI</h3>
+          </div>
+          <ul class="slide-bullet-list">
+            <li>
+              <span class="bullet-icon">✅</span>
+              <div><b>Otomasi Instan Berbasis AI:</b> Memangkas waktu pembuatan bahan ajar diferensiasi hingga 72% dengan parameter prompt tervalidasi bebas halusinasi (Bozkurt, 2023).</div>
+            </li>
+            <li>
+              <span class="bullet-icon">✅</span>
+              <div><b>Clustering 3 Kesiapan Kognitif:</b> Algoritma memetakan otomatis hasil asesmen diagnostik ke dalam 3 tier LKPD: <i>Dasar (Scaffolding penuh)</i>, <i>Menengah (Kontekstual)</i>, dan <i>Mahir (HOTS)</i>.</div>
+            </li>
+            <li>
+              <span class="bullet-icon">✅</span>
+              <div><b>Teacher-in-the-Loop &amp; Dual Export:</b> Guru memegang kendali telaah dan revisi sebelum mengekspor dokumen ke Microsoft Word (.docx ber-OMML Equation asli) dan PDF siap cetak.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive Simulator: Diagnostic-to-LKPD Mapping -->
+      <div class="simulator-container">
+        <h3 style="font-size: 1.15rem; color: var(--wa-green-light); margin-bottom: 6px;">
+          🧪 Simulator Interaktif: Pemetaan Asesmen Diagnostik ke LKPD Berdiferensiasi
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--wa-text-muted);">
+          Geser skor pemahaman prasyarat siswa SMPN 3 Kota Tasikmalaya untuk melihat bagaimana sistem mengelompokkan siswa ke 3 tier materi Rasio secara otomatis:
+        </p>
+
+        <div class="sim-slider-row">
+          <div class="sim-card">
+            <label id="lblS1">Siswa A (Konsep Pecahan): 40%</label>
+            <input type="range" min="0" max="100" value="40" oninput="updateSim()">
+          </div>
+          <div class="sim-card">
+            <label id="lblS2">Siswa B (Operasi Sederhana): 70%</label>
+            <input type="range" min="0" max="100" value="70" oninput="updateSim()">
+          </div>
+          <div class="sim-card">
+            <label id="lblS3">Siswa C (Penalaran Aljabar): 92%</label>
+            <input type="range" min="0" max="100" value="92" oninput="updateSim()">
+          </div>
+        </div>
+
+        <div class="tier-results">
+          <div class="tier-box dasar">
+            <h4 style="color: #f87171;">Kelompok 1: Tingkat Dasar (Fondasi)</h4>
+            <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
+              <b>Target:</b> Siswa dengan skor diagnostik &lt; 60%.<br>
+              <b>Bentuk LKPD AI:</b> Dilengkapi gambar visual konkret, tabel perbandingan setara, panduan langkah bertahap (*guiding questions*), dan petunjuk operasional awal.
+            </p>
+          </div>
+
+          <div class="tier-box menengah">
+            <h4 style="color: #fbbf24;">Kelompok 2: Tingkat Menengah (Berkembang)</h4>
+            <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
+              <b>Target:</b> Siswa dengan skor diagnostik 60% - 79%.<br>
+              <b>Bentuk LKPD AI:</b> Masalah kontekstual kehidupan sehari-hari, latihan pemecahan masalah model Polya, scaffolding minimal hanya pada tahap penarikan rumus.
+            </p>
+          </div>
+
+          <div class="tier-box mahir">
+            <h4 style="color: #34d399;">Kelompok 3: Tingkat Mahir (Eksploratif)</h4>
+            <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
+              <b>Target:</b> Siswa dengan skor diagnostik &ge; 80%.<br>
+              <b>Bentuk LKPD AI:</b> Masalah terbuka (*open-ended*), tantangan investigasi HOTS (analisis dan evaluasi), penalaran komparasi rasio majemuk tanpa scaffolding penuntun.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Slide Drawer Modal -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+    <div class="drawer-dialog" onclick="event.stopPropagation()">
+      <div class="drawer-head">
+        <h3 style="font-size: 1.1rem; color: var(--wa-text);">Daftar 18 Slide Presentasi Keynote</h3>
+        <button style="background:none; border:none; color:var(--wa-text-muted); font-size:1.2rem; cursor:pointer;" onclick="closeDrawer(event)">&times;</button>
+      </div>
+      <div id="drawerList"></div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------------------------------------
+    // SLIDE DATA DEFINITION (18 Slides Structured for Seminar)
+    // -------------------------------------------------------------
+    const SLIDES = [
+      {
+        topic: "SEMINAR PENDIDIKAN MATEMATIKA",
+        title: "Pengembangan Web Application Berbasis Generative AI untuk Menghasilkan LKPD Matematika Berdiferensiasi Berdasarkan Asesmen Diagnostik",
+        lead: "Sintesis Literature Review 40 Artikel Jurnal (20 SINTA & 20 Scopus Q1-Q4) Menuju Kesiapan Seminar Proposal Skripsi FKIP Universitas Siliwangi",
+        bullets: [
+          "Peneliti: <b>Ryan Wardiana</b> (NPM 232151098)",
+          "Dosen Pengampu Seminar: <b>Dr. Nani Ratnaningsih, M.Pd.</b>",
+          "Dosen Pembimbing Skripsi: <b>Dr. Depi Ardian Nugraha, M.Pd.</b>",
+          "Lokasi & Mitra Penelitian: <b>SMP Negeri 3 Kota Tasikmalaya (Kelas VII)</b>"
+        ]
+      },
+      {
+        topic: "LATAR BELAKANG & ANALISIS MASALAH",
+        title: "Dilema Ruang Kelas Heterogen & Beban Kerja Guru",
+        lead: "Tuntutan implementasi Kurikulum Merdeka mewajibkan pembelajaran berdiferensiasi, namun realitas lapangan menghadirkan hambatan operasional besar bagi pendidik.",
+        bullets: [
+          "<b>Heterogenitas Kesiapan Belajar:</b> Kemampuan awal siswa dalam satu kelas sangat beragam; metode klasikal seragam (one-size-fits-all) meninggalkan 62,4% siswa level bawah tanpa penanganan spesifik.",
+          "<b>Beban Administrasi Tinggi:</b> Guru membutuhkan waktu 4 hingga 6 jam per minggu hanya untuk merancang bahan ajar bertingkat secara manual (Kamaghe, 2026).",
+          "<b>Ketiadaan Alat Bantu Otomasi:</b> Sebagian besar guru belum memiliki instrumen praktis yang dapat menerjemahkan data diagnostik menjadi LKPD diferensiasi seketika."
+        ]
+      },
+      {
+        topic: "URGENSI PENELITIAN",
+        title: "Urgensi Pengembangan di SMP Negeri 3 Kota Tasikmalaya",
+        lead: "Studi pendahuluan di SMPN 3 Kota Tasikmalaya menunjukkan kebutuhan mendesak akan inovasi bahan ajar adaptif pada materi pokok Rasio / Perbandingan.",
+        bullets: [
+          "Materi Rasio menuntut penguasaan prasyarat pecahan dan aljabar dasar yang sering menjadi sumber miskonsepsi siswa SMP.",
+          "Hasil wawancara guru mitra mengonfirmasi bahwa diferensiasi pembelajaran baru sebatas rencana di modul ajar, namun belum terealisasi dalam lembar aktivitas siswa.",
+          "Dibutuhkan solusi teknologi yang ringan, mudah diakses melalui browser smartphone atau laptop, dan langsung menghasilkan lembar kerja siap cetak."
+        ]
+      },
+      {
+        topic: "LANDASAN TEORETIS",
+        title: "Pilar 1: Pembelajaran Berdiferensiasi & TaRL",
+        lead: "Menyesuaikan proses pengajaran dengan tingkat capaian siswa (Teaching at the Right Level) agar setiap peserta didik meraih potensi maksimal.",
+        bullets: [
+          "<b>Tiga Jalur Diferensiasi (Tomlinson, 2022):</b> Diferensiasi Konten (tingkat kompleksitas materi), Diferensiasi Proses (intensitas scaffolding bantuan), dan Diferensiasi Produk.",
+          "<b>Penelitian TaRL (Wulandari & Turmudi, 2024):</b> Penggunaan bahan ajar bertingkat terbukti menaikkan ketuntasan klasikal dari 43,7% menjadi 81,2%.",
+          "<b>Rujukan FKIP Unsil (Kurnila, Supratman, & Ratnaningsih, 2023, 2025):</b> Pemetaan kesiapan belajar berbasis asesmen awal secara signifikan meningkatkan literasi matematis siswa (N-Gain 0,68 vs 0,41)."
+        ]
+      },
+      {
+        topic: "LANDASAN TEORETIS",
+        title: "Pilar 2: Asesmen Diagnostik Kognitif",
+        lead: "Alat navigasi guru untuk mengidentifikasi kekuatan dan akar miskonsepsi siswa sebelum proses pembelajaran dimulai.",
+        bullets: [
+          "<b>Bukan Sekadar Nilai Rapor:</b> Asesmen diagnostik mengukur penguasaan konsep prasyarat spesifik materi yang akan dipelajari (Sari & Santika, 2023).",
+          "<b>Analisis Kesalahan Newman:</b> Mengisolasi kelemahan siswa pada tahap pemahaman masalah, transformasi aljabar, atau keterampilan berhitung (Aulia & Kartono, 2023).",
+          "<b>Klasifikasi Kesiapan:</b> Menjadi basis algoritma dalam mengelompokkan siswa secara objektif ke dalam 3 tier: Tingkat Dasar, Tingkat Menengah, dan Tingkat Mahir."
+        ]
+      },
+      {
+        topic: "LANDASAN TEORETIS",
+        title: "Pilar 3: Generative AI & Prompt Engineering",
+        lead: "Pemanfaatan model kecerdasan buatan mutakhir sebagai asisten cerdas guru (co-creator) dalam menyusun instrumen ajar terpersonalisasi.",
+        bullets: [
+          "<b>Meta-Analisis Global (Liu et al., 2026 - Scopus Q1):</b> Generative AI memberikan dampak positif signifikan (g = 0,534) terhadap kemampuan kognitif matematika bila diposisikan sebagai pembuat scaffolding bertingkat.",
+          "<b>Mitigasi Halusinasi Rumus:</b> Penggunaan prompt berstruktur ketat (PREP Framework: Role, Task, Constraint, Context) menurunkan tingkat kesalahan notasi dari 38% ke bawah 4% (Bozkurt & Sharma, 2023; Rizal & Anwar, 2024).",
+          "<b>Human-in-the-Loop:</b> Guru tetap memegang otoritas penuh untuk menelaah, mengedit, dan menyetujui output sebelum dicetak (Maghfira et al., 2026)."
+        ]
+      },
+      {
+        topic: "METODOLOGI LITERATURE REVIEW",
+        title: "Peta Sintesis 40 Artikel Jurnal Terakreditasi",
+        lead: "Kajian literatur sistematis (SLR) bersumber dari 20 artikel jurnal nasional SINTA 2-5 dan 20 artikel jurnal internasional Scopus Q1-Q4.",
+        bullets: [
+          "<b>Rentang Waktu Terkini:</b> 100% artikel dipublikasikan pada rentang tahun 2020 hingga 2026 (kebaruan 5 tahun terakhir).",
+          "<b>Distribusi Internasional Scopus:</b> 8 artikel Scopus Q1, 6 artikel Scopus Q2, 5 artikel Scopus Q3, dan 1 artikel Scopus Q4.",
+          "<b>Empat Klaster Fokus:</b> Pembelajaran Berdiferensiasi (10), Asesmen Diagnostik (10), Generative AI & Prompting (10), serta Metodologi R&D & Usability (10)."
+        ]
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 1: Temuan Kunci Pembelajaran Berdiferensiasi",
+        lead: "Bukti empiris membuktikan diferensiasi konten dan proses bertingkat adalah intervensi paling efektif untuk kelas matematika heterogen.",
+        bullets: [
+          "<b>Kurnila, Supratman, & Ratnaningsih (2025 - Scopus Q2):</b> Membuktikan kerangka kerja intervensi diferensiasi yang dipandu tes diagnostik menghasilkan ukuran efek tinggi (d = 0,76) pada siswa SMP.",
+          "<b>Rijal, Wardani, & Pramono (2025 - Scopus Q3):</b> Siswa berkemampuan rendah menunjukkan lompatan pemahaman tertinggi (N-Gain 0,71) ketika menerima LKPD dengan bantuan berjenjang.",
+          "<b>Zheng, Niu, & Zhong (2023 - Scopus Q1):</b> Penyesuaian tugas sesuai tingkat kesiapan kognitif menurunkan beban kognitif berlebih (extraneous cognitive load) hingga 28%."
+        ]
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 2: Temuan Kunci Asesmen Diagnostik Kognitif",
+        lead: "Asesmen diagnostik awal bukan ujian formal bertekanan tinggi, melainkan kompas penentu rute belajar siswa.",
+        bullets: [
+          "<b>Herawati & Nurhayati (2022 - SINTA 2):</b> Sebagian besar kesulitan aljabar siswa berakar pada kelemahan operasi suku dan pemahaman konsep variabel dasar.",
+          "<b>Suarez & Cascallar (2022 - Scopus Q2):</b> Penggunaan model klasifikasi digital mampu memetakan tingkat kesiapan siswa secara akurat (92,3%) hanya dalam hitungan detik.",
+          "<b>Vintere & Cernajeva (2024 - Scopus Q3):</b> Siswa yang diarahkan ke jalur remedial berdasarkan pola kesalahan diagnostik meraih ketuntasan 40% lebih tinggi dibanding perlakuan konvensional."
+        ]
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 3: Temuan Kunci Generative AI dalam Pendidikan",
+        lead: "Peluang besar otomasi penyusunan tugas ajar dengan jaminan keamanan notasi matematika melalui rekayasa prompt.",
+        bullets: [
+          "<b>Kamaghe (2026 - Scopus Q3):</b> Pipa otomatisasi berbasis LLM memangkas waktu kerja guru sebesar 72% dengan tingkat keselarasan kurikulum mencapai 91%.",
+          "<b>Taşçıoğlu & Baki (2025 - Scopus Q1):</b> Petunjuk penuntun (scaffolding hints) bertingkat yang dihasilkan AI berhasil menumbuhkan kemandirian bernalar siswa tanpa ketergantungan jawaban instan.",
+          "<b>Shin, Park, & Kim (2025 - Scopus Q3):</b> Penerapan prompt berstruktur mencapai akurasi 89,4% dalam mengenali miskonsepsi matematika siswa."
+        ]
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 4: Metodologi R&D & Kriteria Kualitas Nieveen",
+        lead: "Standar baku pengembangan produk pendidikan untuk memastikan kevalidan, kepraktisan, dan efektivitas bahan ajar.",
+        bullets: [
+          "<b>Plomp & Nieveen (2020 - Scopus Q2):</b> Riset desain pendidikan (EDR) menuntut siklus berulang: investigasi awal, pembuatan prototipe, dan evaluasi formatif mikro.",
+          "<b>Setiawan & Darminto (2022 - SINTA 4):</b> Skripsi pengembangan S1 berfokus pada validitas konten/konstruk yang kuat serta kepraktisan penggunaan di lapangan.",
+          "<b>Lestari & Yudhanegara (2022 - SINTA 3):</b> Tahap validasi ahli materi dan media menggunakan koefisien Aiken's V sebagai tolak ukur kelayakan produk sebelum uji coba."
+        ]
+      },
+      {
+        topic: "SINTESIS LITERATUR",
+        title: "Klaster 5: Arsitektur Web Application & Usability",
+        lead: "Pemilihan arsitektur aplikasi berbasis peramban (web-based) untuk menjamin inklusivitas dan kemudahan adopsi di sekolah.",
+        bullets: [
+          "<b>Nugraha & Mulyana (2022 - SINTA 2):</b> Web app responsif mengatasi kendala keterbatasan memori smartphone siswa dan tidak membutuhkan instalasi toko aplikasi yang rumit.",
+          "<b>Maulana & Suhendra (2024 - SINTA 3):</b> Pengukuran kepraktisan sistem menggunakan System Usability Scale (SUS) dengan standar target skor di atas 70 (kategori Good/Excellent).",
+          "<b>Muton, Rahman, & Lee (2026 - Scopus Q4):</b> Framework web modern (React/Next.js) memberikan performa render yang sangat cepat dan ramah kuota internet sekolah."
+        ]
+      },
+      {
+        topic: "RESEARCH GAP & STATE OF THE ART",
+        title: "Kebaruan (Novelty) & Posisi Penelitian Skripsi",
+        lead: "Mengisi kekosongan antara teori asesmen diagnostik yang kaya dengan ketiadaan generator LKPD berdiferensiasi instan di sekolah menengah.",
+        bullets: [
+          "<b>Kesenjangan Literatur:</b> Sebagian besar riset hanya meneliti tes diagnostik atau meneliti prompt AI secara terpisah, belum ada yang mengintegrasikan keduanya ke dalam satu sistem web utuh.",
+          "<b>State of the Art:</b> Menghubungkan skor tes diagnostik siswa secara langsung ke mesin AI untuk menghasilkan 3 varian LKPD (Dasar, Menengah, Mahir) materi Rasio sekaligus.",
+          "<b>Solusi Nyata:</b> Guru tidak lagi pusing memikirkan prompt rumit; cukup masukkan data kesiapan kelas, sistem langsung menyiapkan paket LKPD siap ajar."
+        ]
+      },
+      {
+        topic: "RANCANG BANGUN PRODUK",
+        title: "Arsitektur Sistem Web Application",
+        lead: "Struktur teknologi web modern yang dirancang kokoh, aman, cepat, dan berorientasi pada kemudahan guru matematika.",
+        bullets: [
+          "<b>Frontend UI:</b> Dibangun dengan React / Next.js responsif, terintegrasi tipografi KaTeX Computer Modern untuk perumusan matematika presisi.",
+          "<b>AI Engine:</b> Integrasi LLM (OpenAI / DeepSeek API) yang dibatasi oleh template metaprompt ketat berbasis Kurikulum Merdeka Fase D.",
+          "<b>Database & Autentikasi:</b> Supabase Cloud untuk penyimpanan aman data profil kelas, arsip soal diagnostik, dan riwayat LKPD.",
+          "<b>Dual-Engine Export:</b> Menghasilkan file dokumen Microsoft Word (.docx) berformat Equation OMML native dan PDF beresolusi tinggi."
+        ]
+      },
+      {
+        topic: "ALUR KERJA SISTEM",
+        title: "Empat Langkah Kerja Otomasi di Ruang Kelas",
+        lead: "Alur kerja sederhana dan intuitif yang dirancang agar dapat dioperasikan oleh guru tanpa memerlukan keahlian komputasi lanjutan.",
+        bullets: [
+          "<b>Langkah 1 (Input Diagnostik):</b> Guru menginput skor tes diagnostik singkat 10 menit materi prasyarat pecahan siswa.",
+          "<b>Langkah 2 (Clustering Otomatis):</b> Sistem mengelompokkan siswa ke 3 kelompok kesiapan: Dasar (&lt;60%), Menengah (60-79%), dan Mahir (&ge;80%).",
+          "<b>Langkah 3 (Generasi LKPD AI):</b> Mesin AI menyusun paket materi: Dasar (dengan scaffolding visual), Menengah (kontekstual), dan Mahir (tantangan HOTS).",
+          "<b>Langkah 4 (Review & Cetak):</b> Guru meninjau draft pada editor interaktif, melakukan penyesuaian bila perlu, dan mengunduh berkas Word/PDF."
+        ]
+      },
+      {
+        topic: "INOVASI PRODUK",
+        title: "Struktur Tiga Varian LKPD Diferensiasi Materi Rasio",
+        lead: "Setiap kelompok belajar mengejar Capaian Pembelajaran yang sama, namun dengan scaffolding dan intensitas tantangan yang berbeda.",
+        bullets: [
+          "<b>Tingkat Dasar (Fondasi):</b> Bantuan visual diagram batang/persegi, perbandingan senilai terstruktur, kalimat penuntun bertahap (*scaffolding*).",
+          "<b>Tingkat Menengah (Berkembang):</b> Pemecahan masalah kontekstual (resep kue, skala denah, perbandingan bahan bakar) dengan rumus umum mandiri.",
+          "<b>Tingkat Mahir (Eksploratif):</b> Soal terbuka (*open-ended*), analisis perbandingan berbalik nilai majemuk, evaluasi multi-kriteria berbasis HOTS."
+        ]
+      },
+      {
+        topic: "METODOLOGI PENELITIAN SKRIPSI",
+        title: "Metodologi R&D Model ADDIE di SMPN 3 Tasikmalaya",
+        lead: "Prosedur penelitian pengembangan terstandar untuk menghasilkan produk pendidikan yang teruji valid dan praktis.",
+        bullets: [
+          "<b>Analysis:</b> Analisis kurikulum, kebutuhan guru matematika, dan karakteristik siswa kelas VII SMP Negeri 3 Kota Tasikmalaya.",
+          "<b>Design:</b> Perancangan arsitektur antarmuka web, template prompt AI, matriks diferensiasi materi Rasio, dan instrumen evaluasi.",
+          "<b>Development:</b> Coding web application, pengujian unit, integrasi API AI, serta validasi ahli materi dan ahli media menggunakan koefisien Aiken's V.",
+          "<b>Implementation:</b> Uji coba kelompok kecil (6-8 siswa) dan uji coba lapangan terbatas pada kelas VII SMPN 3 Kota Tasikmalaya.",
+          "<b>Evaluation:</b> Evaluasi formatif berkelanjutan dan pengukuran kepraktisan media menggunakan instrumen System Usability Scale (SUS)."
+        ]
+      },
+      {
+        topic: "KESIMPULAN & KESIAPAN",
+        title: "Kesimpulan Sintesis & Kesiapan Seminar Proposal",
+        lead: "Fondasi teoretis, bukti empiris 40 jurnal, dan rancang bangun produk telah matang untuk diujikan pada Seminar Proposal Skripsi.",
+        bullets: [
+          "<b>Landasan Teori Kokoh:</b> 40 artikel jurnal mengonfirmasi validitas keterkaitan antara asesmen diagnostik, diferensiasi TaRL, dan otomasi AI.",
+          "<b>Kesiapan Teknis:</b> Arsitektur web app telah teruji pada prototipe awal dan siap memasuki tahap validasi pakar di FKIP Unsil.",
+          "<b>Kontribusi Nyata:</b> Memberikan sumbangsih nyata dalam memecahkan problematika administrasi guru matematika di era Kurikulum Merdeka.",
+          "<b>Target Selanjutnya:</b> Penyelesaian naskah proposal Bab 1 s.d. Bab 3 dan pelaksanaan Seminar Proposal Skripsi bersama Dosen Pembimbing."
+        ]
+      }
+    ];
+
+    // -------------------------------------------------------------
+    // STATE MANAGEMENT
+    // -------------------------------------------------------------
+    let currentSlide = 0;
+    let activeFilter = 'all';
+
+    // -------------------------------------------------------------
+    // VIEW SWITCHER
+    // -------------------------------------------------------------
+    function switchMainView(viewName) {
+      document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+
+      const targetBtn = Array.from(document.querySelectorAll('.nav-pill')).find(b => b.getAttribute('onclick').includes(viewName));
+      if (targetBtn) targetBtn.classList.add('active');
+
+      const targetPanel = document.getElementById('view-' + viewName);
+      if (targetPanel) targetPanel.classList.add('active');
+
+      if (viewName === 'matrix') {
+        renderArticles();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // SLIDE DECK FUNCTIONS
+    // -------------------------------------------------------------
+    function renderSlide(index) {
+      currentSlide = Math.max(0, Math.min(SLIDES.length - 1, index));
+      const s = SLIDES[currentSlide];
+
+      document.getElementById('slideTopic').innerText = s.topic;
+      document.getElementById('slideNumber').innerText = `SLIDE ${currentSlide + 1} DARI ${SLIDES.length}`;
+      document.getElementById('deckCounter').innerText = `${currentSlide + 1} / ${SLIDES.length}`;
+      document.getElementById('slideProgress').style.width = `${((currentSlide + 1) / SLIDES.length) * 100}%`;
+
+      document.getElementById('btnPrev').disabled = currentSlide === 0;
+      document.getElementById('btnNext').disabled = currentSlide === SLIDES.length - 1;
+
+      const bodyEl = document.getElementById('slideBody');
+      bodyEl.innerHTML = `
+        <h2>${s.title}</h2>
+        <p class="slide-lead">${s.lead}</p>
+        <ul class="slide-bullet-list">
+          ${s.bullets.map(b => `
+            <li>
+              <span class="bullet-icon">✦</span>
+              <div>${b}</div>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+
+      if (window.renderMathInElement) {
+        renderMathInElement(bodyEl);
+      }
+    }
+
+    function moveSlide(delta) {
+      renderSlide(currentSlide + delta);
+    }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      const deckPanel = document.getElementById('view-deck');
+      if (!deckPanel.classList.contains('active')) return;
+
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        moveSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        moveSlide(-1);
+      }
+    });
+
+    // Drawer Modal Functions
+    function openDrawer() {
+      const listEl = document.getElementById('drawerList');
+      listEl.innerHTML = SLIDES.map((s, idx) => `
+        <div class="drawer-item ${idx === currentSlide ? 'active' : ''}" onclick="jumpSlide(${idx})">
+          <span style="font-weight:700; width:26px;">${idx + 1}.</span>
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:0.92rem;">${s.title}</div>
+            <small style="color:var(--wa-text-muted);">${s.topic}</small>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('drawerOverlay').classList.add('active');
+    }
+
+    function closeDrawer(e) {
+      document.getElementById('drawerOverlay').classList.remove('active');
+    }
+
+    function jumpSlide(idx) {
+      renderSlide(idx);
+      closeDrawer();
+    }
+
+    // -------------------------------------------------------------
+    // RESEARCH MATRIX FUNCTIONS (40 Jurnal)
+    // -------------------------------------------------------------
+    function renderArticles() {
+      const grid = document.getElementById('articlesGrid');
+      const data = window.ARTICLES_DATA || [];
+      const query = (document.getElementById('matrixSearch').value || '').toLowerCase();
+
+      const filtered = data.filter(item => {
+        // Text search filter
+        const matchText = (
+          item.judul.toLowerCase().includes(query) ||
+          item.penulis.toLowerCase().includes(query) ||
+          item.nama_jurnal.toLowerCase().includes(query) ||
+          item.masalah.toLowerCase().includes(query) ||
+          item.kontribusi.toLowerCase().includes(query) ||
+          item.akreditasi.toLowerCase().includes(query)
+        );
+        if (!matchText) return false;
+
+        // Category filter
+        if (activeFilter === 'all') return true;
+        if (activeFilter === 'nasional') return item.jenis === 'Nasional';
+        if (activeFilter === 'internasional') return item.jenis === 'Internasional';
+        if (activeFilter === 'diferensiasi') return item.judul.toLowerCase().includes('diferensiasi') || item.judul.toLowerCase().includes('differentiated') || item.masalah.toLowerCase().includes('diferensiasi');
+        if (activeFilter === 'diagnostik') return item.judul.toLowerCase().includes('diagnostik') || item.judul.toLowerCase().includes('diagnostic') || item.masalah.toLowerCase().includes('diagnostik');
+        if (activeFilter === 'ai') return item.judul.toLowerCase().includes('ai') || item.judul.toLowerCase().includes('artificial intelligence') || item.judul.toLowerCase().includes('prompt') || item.judul.toLowerCase().includes('chatgpt');
+        if (activeFilter === 'rd') return item.metode_desain.toLowerCase().includes('r&d') || item.metode_desain.toLowerCase().includes('addie') || item.judul.toLowerCase().includes('web') || item.judul.toLowerCase().includes('usability');
+        return true;
+      });
+
+      document.getElementById('matrixCounter').innerText = `Menampilkan ${filtered.length} dari ${data.length} artikel jurnal terakreditasi`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:var(--wa-text-muted);">Tidak ada artikel yang cocok dengan pencarian Anda.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(a => `
+        <article class="article-card">
+          <div>
+            <div class="article-card-header">
+              <span class="badge-akreditasi ${a.jenis === 'Internasional' ? 'badge-scopus' : 'badge-sinta'}">
+                ${a.akreditasi}
+              </span>
+              <small style="color:var(--wa-text-muted); font-size:0.75rem;">No. ${a.no} · ${a.jenis}</small>
+            </div>
+
+            <h3 class="article-title" style="margin: 10px 0 6px 0;">${a.judul}</h3>
+            <div class="article-authors"><b>${a.penulis}</b> (${a.tahun}) · <i>${a.nama_jurnal}</i></div>
+          </div>
+
+          <div class="article-details">
+            <div class="detail-row">
+              <b>Masalah &amp; Novelty:</b>
+              <div>${a.masalah} <i>${a.novelty}</i></div>
+            </div>
+
+            <div class="detail-row">
+              <b>Metode Penelitian:</b>
+              <div>${a.metode_desain}; Subjek: ${a.metode_subjek}.</div>
+            </div>
+
+            <div class="detail-row">
+              <b>Simpulan Hasil:</b>
+              <div>${a.simpulan}</div>
+            </div>
+
+            <div class="article-skripsi-contrib">
+              <b>Kontribusi Langsung ke Skripsi Ryan:</b>
+              <div>${a.kontribusi}</div>
+            </div>
+          </div>
+
+          <div style="padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center;">
+            <small style="color:var(--wa-text-muted); font-size:0.75rem;">${a.volume}</small>
+            <button class="deck-btn" style="padding:4px 10px; font-size:0.75rem;" onclick="copyCitation('${encodeURIComponent(a.referensi_apa)}')">
+              Salin Sitasi APA
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function setArticleFilter(filterKey, btnEl) {
+      activeFilter = filterKey;
+      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderArticles();
+    }
+
+    function filterArticles() {
+      renderArticles();
+    }
+
+    function copyCitation(encodedText) {
+      const text = decodeURIComponent(encodedText);
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Sitasi APA 7th berhasil disalin ke clipboard:\n\n" + text);
+      });
+    }
+
+    // -------------------------------------------------------------
+    // SIMULATOR FUNCTIONS
+    // -------------------------------------------------------------
+    function updateSim() {
+      const inputs = document.querySelectorAll('.sim-slider-row input[type="range"]');
+      const v1 = inputs[0].value;
+      const v2 = inputs[1].value;
+      const v3 = inputs[2].value;
+
+      document.getElementById('lblS1').innerText = `Siswa A (Konsep Pecahan): ${v1}%`;
+      document.getElementById('lblS2').innerText = `Siswa B (Operasi Sederhana): ${v2}%`;
+      document.getElementById('lblS3').innerText = `Siswa C (Penalaran Aljabar): ${v3}%`;
+    }
+
+    // Initialize on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSlide(0);
+      renderArticles();
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body);
+      }
+    });
+  </script>
+</body>
+</html>

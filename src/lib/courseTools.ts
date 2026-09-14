@@ -88,6 +88,17 @@ export const COURSE_TOOLS: ToolItem[] = [
     url: "/tools/lab-i-kuadrat/index.html",
   },
   {
+    id: "tool-presentasi-seminar-matematika",
+    title: "Web Presentasi Seminar & Matriks 40 Jurnal (WhatsApp Design System)",
+    courseCode: "KP21517006",
+    courseName: "Seminar Pendidikan Matematika",
+    badgeColor: "#ee9250",
+    description:
+      "Aplikasi web presentasi keynote 18 slide, dashboard interaktif matriks 40 artikel jurnal (20 SINTA & 20 Scopus Q1–Q4), dan jembatan persiapan seminar proposal skripsi SMPN 3 Kota Tasikmalaya dengan sistem desain WhatsApp.",
+    tags: ["Slide Keynote 18", "Matriks 40 Jurnal", "Integrasi Proposal Skripsi", "WhatsApp Theme"],
+    url: "/tools/presentasi-seminar-matematika/index.html",
+  },
+  {
     id: "tool-lab-metode-numerik",
     title: "Laboratorium Metode Numerik Lengkap",
     courseCode: "KP21517001",
