@@ -283,7 +283,8 @@ export default function App() {
       setPage(a.page);
     } else if (a.type === "add-task") {
       const dueAt = validDate(a.dueAt) ? new Date(a.dueAt).toISOString() : new Date(Date.now() + 86400000).toISOString();
-      const courseCode = COURSE_SCHEDULE.some((c) => c.code === a.courseCode) ? a.courseCode! : COURSE_SCHEDULE[0].code;
+      const matched = COURSE_SCHEDULE.find((c) => c.code === a.courseCode || (a.courseCode && (c.name.toLowerCase().includes(a.courseCode.toLowerCase()) || a.courseCode.toLowerCase().includes(c.name.toLowerCase()))));
+      const courseCode = matched ? matched.code : (selectedCourse ? selectedCourse.code : COURSE_SCHEDULE[0].code);
       setTasks([
         ...tasks,
         {
