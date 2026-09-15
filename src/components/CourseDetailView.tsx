@@ -265,7 +265,7 @@ export default function CourseDetailView({
           className={tab === "refs" ? "active" : ""}
           onClick={() => setTab("refs")}
         >
-          Referensi & Modul
+          Materi &amp; Referensi
         </button>
       </div>
       {tab === "tasks" ? (
@@ -327,7 +327,7 @@ export default function CourseDetailView({
             ))}
           {![...materials, ...references].some(
             (x) => x.courseCode === course.code,
-          ) && <p className="empty">Belum ada referensi atau modul.</p>}
+          ) && <p className="empty">Belum ada materi atau referensi untuk mata kuliah ini.</p>}
         </section>
       ) : (
         <div className="meetings-list">

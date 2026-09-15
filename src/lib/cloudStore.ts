@@ -48,25 +48,43 @@ export const removedIds = <T extends { id: string }>(previous: readonly T[], nex
 
 /**
  * Penjaga tulis: hanya satu penyimpanan boleh berjalan pada satu waktu.
- * Penjagaan ada di jalur data, bukan di tampilan, sehingga tombol mana pun —
- * termasuk yang di luar area konten — tidak dapat memulai penyimpanan kedua
- * dengan data lama.
+ * Panggilan kedua saat sibuk tidak dibuang melainkan ditahan (buffer) dan
+ * dijalankan segera setelah penyimpanan aktif selesai, sehingga perubahan
+ * pengguna tidak hilang. Hanya satu slot buffer: panggilan baru menimpa
+ * buffer lama, yang lama di-resolve "superseded" dan tidak disimpan.
  */
 export function createWriteGate() {
   let busy = false;
+  /** Slot tunggal: me-resolve panggilan tertahan ("superseded") saat ditimpa. */
+  let supersede: (() => void) | null = null;
+  /** Menjalankan work tertahan setelah penyimpanan aktif selesai. */
+  let kick: (() => void) | null = null;
+  function run<T>(work: () => Promise<T>): Promise<T | "busy" | "superseded"> {
+    if (busy) {
+      return new Promise<T | "busy" | "superseded">((resolve) => {
+        supersede?.();
+        supersede = () => resolve("superseded" as const);
+        kick = () => {
+          kick = null;
+          supersede = null;
+          void run(work).then(resolve);
+        };
+      });
+    }
+    busy = true;
+    return work().finally(() => {
+      busy = false;
+      const next = kick;
+      kick = null;
+      supersede = null;
+      next?.();
+    });
+  }
   return {
     get busy() {
       return busy;
     },
-    async run<T>(work: () => Promise<T>): Promise<T | "busy"> {
-      if (busy) return "busy";
-      busy = true;
-      try {
-        return await work();
-      } finally {
-        busy = false;
-      }
-    },
+    run,
   };
 }
 

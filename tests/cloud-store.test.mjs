@@ -82,16 +82,22 @@ const spyIO = (behaviour = {}) => {
   assert.equal(await withTimeout(Promise.resolve(7), 50), 7);
 }
 
-// 8. Penjaga tulis: penyimpanan kedua yang tumpang-tindih ditolak, bukan dijalankan
-//    dengan data lama; setelah selesai penjaga terbuka lagi walau sempat gagal.
+// 8. Penjaga tulis: penyimpanan kedua yang tumpang-tindih tidak dibuang,
+// melainkan ditahan (buffer) dan dijalankan setelah penyimpanan aktif selesai.
+// Panggilan ketiga menimpa buffer: panggilan kedua resolve "superseded".
 {
   const gate = createWriteGate();
   let release;
-  const first = gate.run(() => new Promise((resolve) => { release = () => resolve("pertama"); }));
+  const order = [];
+  const first = gate.run(() => new Promise((resolve) => { release = () => { order.push("pertama"); resolve("pertama"); }; }));
   assert.equal(gate.busy, true);
-  assert.equal(await gate.run(async () => "kedua"), "busy", "tulis kedua harus ditolak selama yang pertama berjalan");
+  const second = gate.run(async () => { order.push("kedua"); return "kedua"; });
+  const third = gate.run(async () => { order.push("ketiga"); return "ketiga"; });
   release();
   assert.equal(await first, "pertama");
+  assert.equal(await second, "superseded", "buffer lama harus ditimpa panggilan terbaru");
+  assert.equal(await third, "ketiga", "buffer terbaru harus dijalankan setelah penyimpanan aktif selesai");
+  assert.deepEqual(order, ["pertama", "ketiga"], "work kedua tidak boleh pernah dijalankan");
   assert.equal(gate.busy, false);
 
   await assert.rejects(gate.run(async () => { throw new Error("gagal"); }), /gagal/);

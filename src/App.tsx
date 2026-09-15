@@ -208,6 +208,11 @@ export default function App() {
       setMessage("Penyimpanan lain sedang berjalan, coba lagi sesaat.");
       return;
     }
+    if (outcome === "superseded") {
+      // Perubahan ini digantikan penyimpanan yang lebih baru; biarkan pesan
+      // dari penyimpanan pengganti yang tampil.
+      return;
+    }
     if (outcome.ok) {
       commit(outcome.value);
       setStatus("idle");
@@ -236,6 +241,9 @@ export default function App() {
     });
     if (outcome === "busy") {
       setMessage("Penyimpanan lain sedang berjalan, coba lagi sesaat.");
+      return;
+    }
+    if (outcome === "superseded") {
       return;
     }
     if (outcome.ok) {
