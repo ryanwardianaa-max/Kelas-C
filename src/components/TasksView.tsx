@@ -42,9 +42,7 @@ export default function TasksView({
     <>
       <div className="page-title action-title">
         <div>
-          <small>PRODUKTIVITAS</small>
-          <h1>Tugas & deadline</h1>
-
+          <h1>Tugas</h1>
         </div>
         <button className="primary" onClick={() => setEdit(blank())}>
           <Plus /> Tambah tugas
@@ -52,7 +50,7 @@ export default function TasksView({
       </div>
       <div className="chips">
         {[
-          ["aktif", "Belum selesai"],
+          ["aktif", "Aktif"],
           ["selesai", "Selesai"],
           ["semua", "Semua"],
         ].map(([v, l]) => (
@@ -108,7 +106,6 @@ export default function TasksView({
         ) : (
           <div className="empty">
             <h3>Belum ada tugas</h3>
-            <p>Catat deadline pertamamu tanpa data simulasi.</p>
             <button onClick={() => setEdit(blank())}>+ Tambah tugas</button>
           </div>
         )}
