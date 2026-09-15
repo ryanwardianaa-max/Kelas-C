@@ -260,11 +260,15 @@ export function gaussianElimination(matrix, vector) {
   const solution = Array(n).fill(0);
   for (let row = n - 1; row >= 0; row--) {
     let sum = b[row];
-    for (let j = row + 1; j < n; j++) sum -= A[row][j] * solution[j];
+    const substitutions = [];
+    for (let j = row + 1; j < n; j++) {
+      sum -= A[row][j] * solution[j];
+      substitutions.push({ col: j, coeff: A[row][j], value: solution[j] });
+    }
     if (Math.abs(A[row][row]) <= EPS) throw new RangeError('matrix is singular');
     solution[row] = sum / A[row][row];
     finiteNumber(solution[row], 'solution');
-    steps.push({ operation: 'back-substitute', row, value: solution[row] });
+    steps.push({ operation: 'back-substitute', row, value: solution[row], rhs: b[row], divisor: A[row][row], substitutions, sum });
   }
   return { solution, upper: A, transformedVector: b, steps };
 }

@@ -40,6 +40,7 @@
 <script type="module">
 import * as core from './core.js';
 import { compileExpression } from './expression.js';
+import { texAugmented, texGaussStep } from './gauss-render.js';
 
 const nf=new Intl.NumberFormat('id-ID',{maximumFractionDigits:10});
 const graphFmt=new Intl.NumberFormat('id-ID',{maximumFractionDigits:3});
@@ -175,7 +176,7 @@ function createPanel(id,cfg,active){
   form.addEventListener('submit',e=>{e.preventDefault();calculate(id,form,el.querySelector('.output'))});
   refresh();
 }
-function renderMath(el,source){el.textContent='';if(window.katex)katex.render(source,el,{throwOnError:false,displayMode:false});else el.setAttribute('data-math',source)}
+function renderMath(el,source){el.textContent='';if(window.katex){try{katex.render(source,el,{throwOnError:false,displayMode:source.includes('\\begin')||source.includes('\\implies')||source.includes('\\frac')||source.includes('\\left')})}catch(_){el.textContent=source}}else el.setAttribute('data-math',source)}
 function rerenderMath(){document.querySelectorAll('[data-math]').forEach(el=>{const s=el.getAttribute('data-math');el.removeAttribute('data-math');renderMath(el,s)})}
 
 function run(id,m,f){
@@ -192,8 +193,8 @@ function summary(m,r){if(m==='errors')return `Galat absolut ${fmt(r.absolute)} �
 function rowData(r){const rows=r.iterations||r.steps||r.samples||r.residuals||[];return rows.slice(0,40)}
 function tableHTML(rows){if(!rows.length)return '';const keys=[...new Set(rows.flatMap(Object.keys))].filter(k=>rows.some(r=>['number','string','boolean'].includes(typeof r[k])||Array.isArray(r[k]))).slice(0,9);return `<p class="table-hint">Geser tabel ke samping untuk melihat seluruh kolom.</p><div class="table-wrap" tabindex="0"><table><thead><tr>${keys.map(k=>`<th>${k}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${keys.map(k=>`<td>${fmt(r[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${rows.length>=40?'<p class="warning">Tabel dibatasi 40 baris agar tetap ringan.</p>':''}`}
 function warning(r){if(r.converged===false)return 'Metode belum konvergen dalam batas iterasi. Periksa tebakan, interval, atau toleransi.';if((r.iterations||r.steps||[]).length>30)return 'Iterasi cukup panjang. Pertimbangkan tebakan awal atau ukuran langkah yang lebih sesuai.';return ''}
-const eq=s=>`<div class="calc-eq">${esc(s)}</div>`;
-const stepCard=(title,text,equation='')=>`<div class="step"><b>${esc(title)}</b><p>${esc(text)}</p>${equation?eq(equation):''}</div>`;
+const eq=(s,tex=false)=>`<div class="calc-eq"${tex?` data-math="${esc(s)}"`:''}>${esc(s)}</div>`;
+const stepCard=(title,text,equation='',isTex=false)=>`<div class="step"><b>${esc(title)}</b><p>${esc(text)}</p>${equation?eq(equation,isTex):''}</div>`;
 const shown=(rows,limit=12)=>rows.slice(0,limit);
 function calculationSteps(id,m,f,r){
   const cards=[];
@@ -278,19 +279,36 @@ function calculationSteps(id,m,f,r){
     cards.push(stepCard('Hasil Akhir Pencarian Akar', r.converged ? 'Kriteria toleransi galat berhasil dipenuhi.' : 'Batas iterasi maksimum tercapai.', `x \\approx ${fmt(r.root)}; \\quad f(x) \\approx ${fmt(r.value ?? (fn ? fn(r.root) : 0))}`));
   } else if(id==='spl'){
     const A=matrix(f.elements.A.value);
-    cards.push(stepCard('1. Bentuk sistem','Tuliskan matriks koefisien dan data yang diketahui.',m==='luDecomposition'?`A = ${fmt(A)}`:`A = ${fmt(A)}, b = ${fmt(vector(f.elements.B.value))}`));
-    shown(r.steps).forEach((row,i)=>{
-      let text='Lakukan operasi baris elementer.';
-      let formula;
-      if(row.operation==='swap'){text='Tukar baris untuk memperoleh pivot yang aman.';formula=`R${row.rows[0]+1} ↔ R${row.rows[1]+1}`}
-      else if(row.operation==='eliminate'){formula=`R${row.row+1} ← R${row.row+1} − (${fmt(row.factor)})R${row.pivotRow+1}`}
-      else if(row.operation==='normalize'){formula=`R${row.row+1} ← R${row.row+1} / ${fmt(row.divisor)}`}
-      else {text='Substitusi balik dari persamaan terakhir.';formula=`x${row.row+1} = ${fmt(row.value)}`}
-      cards.push(stepCard(`${i+2}. ${row.operation==='back-substitute'?'Substitusi balik':'Operasi baris'}`,text,`${formula}${row.matrix?`; matriks menjadi ${fmt(row.matrix)}`:''}`));
-    });
+    const B=m!=='luDecomposition'?vector(f.elements.B.value):null;
+    if(B&&(m==='gaussianElimination'||m==='gaussJordan')){
+      cards.push(stepCard('1. Bentuk Sistem Augmented [A | b]', 'Tuliskan matriks koefisien dan vektor konstanta ke dalam matriks augmented:', texAugmented(A, B), true));
+      shown(r.steps).forEach((row,i)=>{
+        const isBack = row.operation==='back-substitute';
+        const title = `${i+2}. ${isBack?'Substitusi Balik':row.operation==='swap'?'Tukar Baris':'Operasi Baris Elementer'}`;
+        const text = row.operation==='swap'
+          ? `Tukar baris R${row.rows[0]+1} dengan baris R${row.rows[1]+1} agar pivot diagonal bernilai mutlak terbesar.`
+          : row.operation==='eliminate'
+            ? `Nolkan baris ke-${row.row+1} di bawah pivot baris ke-${row.pivotRow+1}.`
+            : row.operation==='normalize'
+              ? `Bagi baris ke-${row.row+1} dengan elemen diagonal utama.`
+              : `Substitusi nilai yang diketahui untuk memperoleh x${row.row+1}.`;
+        cards.push(stepCard(title, text, texGaussStep(row), true));
+      });
+    } else {
+      cards.push(stepCard('1. Bentuk sistem','Tuliskan matriks koefisien dan data yang diketahui.',m==='luDecomposition'?`A = ${fmt(A)}`:`A = ${fmt(A)}, b = ${fmt(vector(f.elements.B.value))}`));
+      shown(r.steps).forEach((row,i)=>{
+        let text='Lakukan operasi baris elementer.';
+        let formula;
+        if(row.operation==='swap'){text='Tukar baris untuk memperoleh pivot yang aman.';formula=`R${row.rows[0]+1} ↔ R${row.rows[1]+1}`}
+        else if(row.operation==='eliminate'){formula=`R${row.row+1} ← R${row.row+1} − (${fmt(row.factor)})R${row.pivotRow+1}`}
+        else if(row.operation==='normalize'){formula=`R${row.row+1} ← R${row.row+1} / ${fmt(row.divisor)}`}
+        else {text='Substitusi balik dari persamaan terakhir.';formula=`x${row.row+1} = ${fmt(row.value)}`}
+        cards.push(stepCard(`${i+2}. ${row.operation==='back-substitute'?'Substitusi balik':'Operasi baris'}`,text,`${formula}${row.matrix?`; matriks menjadi ${fmt(row.matrix)}`:''}`));
+      });
+    }
     if(m==='jacobi'||m==='gaussSeidel'){
       cards.length=1;
-      shown(r.iterations).forEach((row,i)=>cards.push(stepCard(`${i+2}. Iterasi ${row.iteration}`,'Hitung setiap komponen dari persamaan yang telah diisolasi.',`x⁽${row.iteration}⁾ = ${fmt(row.values)}; galat maksimum = ${fmt(row.error)}`)));
+      shown(r.iterations).forEach((row,i)=>cards.push(stepCard(`${i+2}. Iterasi ${row.iteration}`,'Hitung setiap komponen dari persamaan yang telah diisolasi.',`x⁽${row.iteration}⁾ = ${fmt(row.values)}; galat maksimum = ${fmt(row.error)}`));
     }
     if(r.steps.length>12)cards.push(stepCard('… Langkah lanjutan',`${r.steps.length-12} langkah berikutnya tersedia pada tabel.`));
     cards.push(stepCard('Hasil akhir',m==='luDecomposition'?'Matriks berhasil difaktorkan.':'Substitusikan kembali untuk memeriksa hasil.',m==='luDecomposition'?`L = ${fmt(r.L)}; U = ${fmt(r.U)}`:`x = ${fmt(r.solution)}`));
@@ -350,7 +368,7 @@ function graph(id,m,f,r){try{
   return ''
 }catch{return ''}}
 function bindGraphZoom(out){out.querySelectorAll('[data-zoom]').forEach(button=>button.addEventListener('click',()=>{const svg=out.querySelector('.plot');if(!svg)return;const base=svg.dataset.baseViewbox.split(' ').map(Number);if(button.dataset.zoom==='reset'){svg.setAttribute('viewBox',svg.dataset.baseViewbox);return}const current=svg.getAttribute('viewBox').split(' ').map(Number),factor=button.dataset.zoom==='in'?.8:1.25,nw=Math.max(base[2]*.25,Math.min(base[2]*4,current[2]*factor)),nh=Math.max(base[3]*.25,Math.min(base[3]*4,current[3]*factor));svg.setAttribute('viewBox',`${current[0]+(current[2]-nw)/2} ${current[1]+(current[3]-nh)/2} ${nw} ${nh}`)}))}
-function calculate(id,form,out){const m=form.elements.method.value;out.setAttribute('aria-busy','true');try{if(!form.checkValidity()){form.reportValidity();throw new Error('Lengkapi semua masukan dengan nilai yang valid.')}const r=run(id,m,form),rows=rowData(r),warn=warning(r);out.innerHTML=`<div class="result"><small>Hasil ${configs[id].methods[m][0]}</small><strong>${summary(m,r)}</strong></div>${calculationSteps(id,m,form,r)}${warn?`<div class="warning" role="status">${warn}</div>`:''}${tableHTML(rows)}${graph(id,m,form,r)}`;bindGraphZoom(out)}catch(e){out.innerHTML=`<div class="error" role="alert"><strong>Perhitungan belum dapat dilakukan.</strong><br>Masukan tidak valid: ${esc(e.message||e)}</div><div class="empty">Perbaiki masukan lalu coba kembali.</div>`}finally{out.removeAttribute('aria-busy')}}
+function calculate(id,form,out){const m=form.elements.method.value;out.setAttribute('aria-busy','true');try{if(!form.checkValidity()){form.reportValidity();throw new Error('Lengkapi semua masukan dengan nilai yang valid.')}const r=run(id,m,form),rows=rowData(r),warn=warning(r);out.innerHTML=`<div class="result"><small>Hasil ${configs[id].methods[m][0]}</small><strong>${summary(m,r)}</strong></div>${calculationSteps(id,m,form,r)}${warn?`<div class="warning" role="status">${warn}</div>`:''}${tableHTML(rows)}${graph(id,m,form,r)}`;bindGraphZoom(out);out.querySelectorAll('.calc-eq[data-math]').forEach(el=>renderMath(el,el.getAttribute('data-math')))}catch(e){out.innerHTML=`<div class="error" role="alert"><strong>Perhitungan belum dapat dilakukan.</strong><br>Masukan tidak valid: ${esc(e.message||e)}</div><div class="empty">Perbaiki masukan lalu coba kembali.</div>`}finally{out.removeAttribute('aria-busy')}}
 
 Object.entries(configs).forEach(([id,cfg],i)=>createPanel(id,cfg,i===0));
 const tabs=[...document.querySelectorAll('[role="tab"]')];
