@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Pertemuan 03 — Bahan Belajar Pertemuan 3: Solusi Persamaan Nirlanjar — Regula Falsi yang Diperbaiki &amp; Lelaran Titik Tetap</title>
+  <title>Pertemuan 03 — Bahan Belajar Lengkap: Solusi Persamaan Nirlanjar (Biseksi, Regula Falsi, Modified, Titik Tetap, Newton-Raphson, &amp; Secant)</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="stylesheet" href="../shared.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -17,9 +17,9 @@
     </nav>
 
     <header>
-      <span class="badge">Bahan Belajar · Pertemuan 03</span>
-      <h1>Bahan Belajar Pertemuan 3: Solusi Persamaan Nirlanjar — Regula Falsi yang Diperbaiki &amp; Lelaran Titik Tetap</h1>
-      <p>Pada Pertemuan 02 lalu, metode pengurung klasik (Biseksi dan Regula Falsi biasa) telah dipresentasikan oleh Kelompok 1. Namun, Regula Falsi biasa rentan terhadap fenomena titik macet (<em>stagnant point</em>) yang memperlambat konvergensi. Pertemuan 03 ini mengkaji solusinya melalui <strong>Metode Regula Falsi yang Diperbaiki (Modified Regula Falsi / Skema Illinois)</strong>, serta membuka gerbang kelompok kedua: <strong>Metode Terbuka melalui Lelaran Titik Tetap (Fixed-Point Iteration)</strong>.</p>
+      <span class="badge">Bahan Belajar Terpadu · Pertemuan 03</span>
+      <h1>Solusi Persamaan Nirlanjar: Penelusuran Komprehensif Metode Tertutup &amp; Metode Terbuka</h1>
+      <p>Modul terpadu Bab 03 Pencarian Akar Persamaan Nirlanjar $f(x) = 0$. Menggabungkan seluruh fondasi <strong>Metode Tertutup / Pengurung</strong> (Metode Bagi Dua / Biseksi, Regula Falsi Klasik, dan Regula Falsi yang Diperbaiki / Skema Illinois) serta seluruh keluarga <strong>Metode Terbuka</strong> (Lelaran Titik Tetap, Newton-Raphson, dan Metode Secant) hingga tabel matriks perbandingan performa komputasi.</p>
       <div class="meta">
         <span><strong>Mata kuliah:</strong> Metode Numerik (KP21517001)</span>
         <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
@@ -30,192 +30,341 @@
 
     <main>
       <aside class="notice">
-        <strong>Penyelarasan Silabus Resmi:</strong> Modul ini disesuaikan penuh dengan materi perkuliahan Pertemuan 03 Bu Linda Herawati (Presenter: Kelompok 2).
+        <strong>Modul Terpadu Komprehensif:</strong> Memuat seluruh metode pencarian akar (Biseksi s.d. Secant) agar mahasiswa memiliki rujukan utuh satu pintu yang menghubungkan materi Kelompok 1, Kelompok 2, dan Kelompok 3.
       </aside>
 
-      <!-- BAGIAN 1: REGULA FALSI YANG DIPERBAIKI -->
+      <!-- ========================================================================= -->
+      <!-- BAB 1: DASAR & TEOREMA PENGURUNG AKAR -->
+      <!-- ========================================================================= -->
       <section>
-        <h2>1. Fenomena Titik Macet (Stagnant Point) pada Regula Falsi Biasa</h2>
-        <p>Pada metode Regula Falsi klasik, taksiran akar $c$ dihitung melalui titik potong garis sekan (tali busur) yang menghubungkan titik $(a, f(a))$ dan $(b, f(b))$ dengan sumbu-$x$:</p>
+        <h2>1. Akar Persamaan dan Teorema Pengurung Bolzano</h2>
+        <p>Persoalan mencari akar persamaan nirlanjar didefinisikan sebagai penentuan nilai $x = r$ sedemikian sehingga memenuhi:</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Definisi Akar Persamaan</div>
+          <div class="math-step-box">$$f(r) = 0$$</div>
+        </div>
+
+        <p>Secara geometris, akar real $r$ adalah titik potong kurva grafik $y = f(x)$ dengan sumbu horizontal-$x$. Karena fungsi nirlanjar transendental (seperti $e^x$, $\sin x$, $\ln x$) dan polinomial berderajat tinggi pada umumnya tidak dapat difaktorkan secara analitis, komputasi numerik mengandalkan iterasi hampiran.</p>
+
+        <p><strong>Teorema Nilai Antara (Teorema Bolzano):</strong> Jika fungsi $f(x)$ bernilai riil dan kontinu pada selang tertutup $[a, b]$, serta nilai fungsi di kedua ujung selang memiliki tanda berlawanan, yaitu:</p>
 
         <div class="card formula">
-          <div class="formula-label">Rumus Tali Busur Regula Falsi Klasik</div>
+          <div class="formula-label">Syarat Keberadaan Akar (Bolzano)</div>
+          <div class="math-step-box">$$f(a) \cdot f(b) &lt; 0$$</div>
+        </div>
+
+        <p>Maka dijamin terdapat sedikitnya satu nilai akar real $r \in (a, b)$ sehingga $f(r) = 0$.</p>
+
+        <div class="card warn">
+          <strong>Catatan Kritis:</strong> Syarat $f(a) \cdot f(b) &lt; 0$ menjamin keberadaan akar, tetapi tidak menjamin akarnya tunggal (bisa terdapat 3, 5, atau ganjil akar di dalam selang). Selain itu, metode pengurung akan gagal mendeteksi akar kembar berorde genap (seperti $f(x) = (x-2)^2$) karena kurva hanya menyinggung sumbu-$x$ tanpa berganti tanda.
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- BAB 2: METODE TERTUTUP 1 — BAGI DUA (BISEKSI) -->
+      <!-- ========================================================================= -->
+      <section>
+        <h2>2. Metode Bagi Dua (Bisection Method)</h2>
+        <p>Metode Bagi Dua membagi selang pengurung $[a, b]$ menjadi dua bagian sama panjang melalui titik tengah $c$ pada setiap lelaran:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Rumus Titik Tengah Biseksi</div>
+          <div class="math-step-box">$$c = \frac{a + b}{2}$$</div>
+        </div>
+
+        <p>Langkah algoritma Biseksi:</p>
+        <ol class="steps">
+          <li>Hitung nilai $f(c)$. Jika $f(c) = 0$ atau lebar selang $|b - a| &lt; \varepsilon$, maka $r \approx c$ (selesai).</li>
+          <li>Periksa tanda:
+            <ul>
+              <li>Jika $f(a) \cdot f(c) &lt; 0$: akar berada di paruh kiri, perbarui batas kanan $b \leftarrow c$.</li>
+              <li>Jika $f(a) \cdot f(c) &gt; 0$: akar berada di paruh kanan, perbarui batas kiri $a \leftarrow c$.</li>
+            </ul>
+          </li>
+          <li>Ulangi proses pembagian hingga kriteria toleransi terpenuhi.</li>
+        </ol>
+
+        <p><strong>Jumlah Iterasi Minimum Teoretis:</strong> Lebar selang pada iterasi ke-$n$ menyusut pasti menurut deret geometri $L_n = \frac{b_0 - a_0}{2^n}$. Agar lebar selang lebih kecil dari toleransi $\varepsilon$, jumlah lelaran dapat dipastikan sejak awal:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Estimasi Lelaran Teoretis Biseksi</div>
+          <div class="math-step-box">$$\frac{b_0 - a_0}{2^n} &lt; \varepsilon \iff n &gt; \frac{\ln(b_0 - a_0) - \ln(\varepsilon)}{\ln 2}$$</div>
+        </div>
+
+        <div class="card example">
+          <div class="formula-label">Karakteristik Biseksi</div>
+          <p><strong>Keunggulan:</strong> Selalu konvergen (terjamin stabil 100%), tidak pernah divergen karena akar terkunci di dalam kurungan.</p>
+          <p><strong>Kelemahan:</strong> Konvergensi lambat (laju linier dengan rasio konvergensi $0{,}5$). Metode ini tidak memanfaatkan bentuk kelengkungan fungsi sama sekali.</p>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- BAB 3: METODE TERTUTUP 2 — REGULA FALSI KLASIK & MASALAH STAGNASI -->
+      <!-- ========================================================================= -->
+      <section>
+        <h2>3. Metode Regula Falsi Klasik (False Position)</h2>
+        <p>Untuk mempercepat Biseksi, Regula Falsi menghubungkan titik $(a, f(a))$ dan $(b, f(b))$ dengan garis lurus sekan (tali busur). Titik potong garis sekan ini dengan sumbu-$x$ dijadikan taksiran akar $c$ berikutnya:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Persamaan Tali Busur Regula Falsi</div>
           <div class="math-step-box">$$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)} = b - \frac{f(b)(b - a)}{f(b) - f(a)}$$</div>
         </div>
 
-        <p>Meskipun metode ini memanfaatkan kemiringan kurva sehingga umumnya lebih cepat dari Biseksi, terdapat kelemahan fatal: jika kurva fungsi memiliki kecekungan searah (konveks atau konkaf kuat di seluruh selang), maka <strong>salah satu ujung selang akan terpaku diam secara permanen</strong> (<em>stagnant endpoint</em>). Ujung lainnya akan merayap sangat lambat mendekati akar, sehingga panjang selang $[a, b]$ tidak pernah menyusut menuju nol dan laju konvergensi merosot drastis menjadi linier lambat.</p>
+        <p>Meskipun memanfaatkan informasi kemiringan fungsi, Regula Falsi klasik memiliki kelemahan struktural yang sangat nyata saat menghadapi kurva yang memiliki kelengkungan searah (fungsi konveks atau konkaf kuat di seluruh selang).</p>
 
         <div class="card warn">
-          <strong>Penyebab Titik Macet:</strong> Garis tali busur selalu memotong sumbu-$x$ di sisi yang sama terhadap akar eksak, sehingga tanda $f(c)$ selalu sama dengan tanda salah satu ujung selang. Akibatnya, ujung yang berlawanan tidak pernah diperbarui.
+          <strong>Fenomena Titik Macet (Stagnant Point):</strong> Garis tali busur akan selalu memotong sumbu-$x$ di sisi yang sama terhadap akar sejati. Akibatnya, salah satu ujung selang terpaku diam (stagnan) tidak pernah bergeser, sementara ujung lainnya merayap sangat lambat mendekati akar. Selang $[a, b]$ tidak pernah menyusut ke nol, dan laju komputasi merosot drastis.
         </div>
       </section>
 
+      <!-- ========================================================================= -->
+      <!-- BAB 4: METODE TERTUTUP 3 — REGULA FALSI YANG DIPERBAIKI (ILLINOIS) -->
+      <!-- ========================================================================= -->
       <section>
-        <h2>2. Algoritma Regula Falsi yang Diperbaiki (Skema Illinois)</h2>
-        <p>Untuk membebaskan titik ujung yang macet, dikembangkan modifikasi bobot yang dikenal sebagai <strong>Skema Illinois</strong>. Idenya sangat elegan: jika salah satu ujung selang tertahan diam selama <em>dua lelaran berturut-turut</em>, maka nilai ordinat pada ujung tersebut <strong>dibagi dua</strong> ($F \leftarrow F / 2$).</p>
-        <p>Secara geometris, membagi dua ordinat titik macet akan "menurunkan" titik tumpu tali busur, sehingga garis sekan berikutnya berputar memiring ke arah dalam dan memaksa titik potong $c$ melompati akar ke sisi seberang. Dengan demikian, titik yang semula macet akhirnya dapat bergerak!</p>
+        <h2>4. Regula Falsi yang Diperbaiki (Modified Regula Falsi / Skema Illinois)</h2>
+        <p>Untuk mengatasi fenomena titik macet tanpa kehilangan jaminan konvergensi metode tertutup, dikembangkan modifikasi bobot yang dikenal di dunia komputasi sebagai <strong>Skema Illinois</strong> (dikembangkan di University of Illinois, 1971).</p>
+
+        <p><strong>Aturan Pembagian Bobot:</strong> Jika titik ujung selang yang sama tertahan diam selama <em>dua lelaran berturut-turut</em>, maka nilai ordinat fungsi pada ujung yang macet tersebut <strong>dibagi dua</strong> ($F \leftarrow F / 2$).</p>
 
         <div class="card formula">
-          <div class="formula-label">Aturan Pembagian Bobot Skema Illinois</div>
-          <div class="math-step-box">$$\text{Jika ujung } b \text{ tertahan 2 lelaran beruntun: } F_b \leftarrow \frac{F_b}{2}$$</div>
-          <div class="math-step-box">$$\text{Jika ujung } a \text{ tertahan 2 lelaran beruntun: } F_a \leftarrow \frac{F_a}{2}$$</div>
+          <div class="formula-label">Formulasi Skema Illinois</div>
+          <div class="math-step-box">$$\text{Jika ujung } b \text{ tertahan 2 kali: } F_b \leftarrow \frac{F_b}{2}$$</div>
+          <div class="math-step-box">$$\text{Jika ujung } a \text{ tertahan 2 kali: } F_a \leftarrow \frac{F_a}{2}$$</div>
           <div class="math-step-box">$$c = \frac{a \cdot F_b - b \cdot F_a}{F_b - F_a}$$</div>
         </div>
 
+        <p>Secara geometris, membagi dua ordinat titik yang macet akan "menurunkan" titik tumpu tali busur, memiringkan garis sekan ke arah dalam sehingga pada lelaran berikutnya titik potong $c$ dipaksa melompati akar ke sisi seberang. Ujung yang semula macet pun akhirnya bergerak!</p>
+
         <div class="card example">
-          <div class="formula-label">Langkah Algoritma Modified Regula Falsi</div>
-          <ol class="steps">
-            <li>Inisialisasi batas selang $[a, b]$ dengan $f(a) \cdot f(b) &lt; 0$, serta tetapkan bobot awal $F_a = f(a)$ dan $F_b = f(b)$.</li>
-            <li>Hitung titik potong sekan berbobot: $c = \frac{a F_b - b F_a}{F_b - F_a}$.</li>
-            <li>Evaluasi $f(c)$. Jika $|f(c)| &lt; \varepsilon$ atau $|c_{\text{baru}} - c_{\text{lama}}| &lt; \varepsilon$, iterasi selesai.</li>
-            <li>Periksa pergeseran selang:
-              <ul>
-                <li>Jika $f(a) \cdot f(c) &gt; 0$: Ujung $a$ bergeser ($a \leftarrow c, F_a \leftarrow f(c)$). Jika pada lelaran sebelumnya $a$ juga bergeser (ujung $b$ macet), bagi dua bobot $b$: $F_b \leftarrow F_b / 2$.</li>
-                <li>Jika $f(a) \cdot f(c) &lt; 0$: Ujung $b$ bergeser ($b \leftarrow c, F_b \leftarrow f(c)$). Jika pada lelaran sebelumnya $b$ juga bergeser (ujung $a$ macet), bagi dua bobot $a$: $F_a \leftarrow F_a / 2$.</li>
-              </ul>
-            </li>
-            <li>Ulangi proses ke langkah 2 sampai kriteria toleransi terpenuhi.</li>
-          </ol>
+          <div class="formula-label">Uji Komparasi Riil: $f(x) = e^x - 5x^2 = 0$ pada $[0, 1]$ ($\varepsilon = 10^{-5}$)</div>
+          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.88rem;">
+            <thead>
+              <tr style="background:#eef2ff; color:#312e81; text-align:left;">
+                <th style="padding:8px; border:1px solid #cbd5e1;">Metode</th>
+                <th style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Jumlah Iterasi</th>
+                <th style="padding:8px; border:1px solid #cbd5e1;">Hasil Taksiran Akar ($r$)</th>
+                <th style="padding:8px; border:1px solid #cbd5e1;">Perilaku Titik Ujung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1;"><strong>Biseksi</strong></td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">17 iterasi</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">$0{,}605263$</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Kedua ujung bergerak bergantian membelah selang</td>
+              </tr>
+              <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1;"><strong>Regula Falsi Klasik</strong></td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">12 iterasi</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">$0{,}605267$</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; color:#b91c1c;">Titik $b=1$ macet permanen selama 12 iterasi</td>
+              </tr>
+              <tr style="background:#f0fdf4;">
+                <td style="padding:8px; border:1px solid #cbd5e1;"><strong style="color:#15803d;">Modified Regula Falsi</strong></td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; font-weight:700; color:#15803d;">7 iterasi</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700; color:#15803d;">$0{,}605267$</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; color:#15803d;">Bobot $F_b$ dibagi 2 pada lelaran 3; titik macet lepas!</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
+      <!-- ========================================================================= -->
+      <!-- BAB 5: METODE TERBUKA 1 — LELARAN TITIK TETAP -->
+      <!-- ========================================================================= -->
       <section>
-        <h2>3. Contoh Perbandingan: Regula Falsi Klasik vs Diperbaiki</h2>
-        <p>Diberikan persamaan $f(x) = e^x - 5x^2 = 0$ pada selang $[0, 1]$ dengan toleransi galat $\varepsilon = 10^{-5}$. Titik ujung $a = 0 \implies f(0) = 1$ dan $b = 1 \implies f(1) = e - 5 \approx -2{,}281718$.</p>
-
-        <div class="card example">
-          <div class="formula-label">Perbandingan Laju Konvergensi</div>
-          <p>Pada Regula Falsi klasik, titik $b = 1$ macet permanen karena fungsi cekung ke bawah di area ini. Hasilnya:</p>
-          <ul>
-            <li><strong>Regula Falsi Klasik:</strong> Memerlukan <strong>12 lelaran</strong> karena titik $b=1$ terpaku diam sejak awal hingga akhir.</li>
-            <li><strong>Regula Falsi Diperbaiki:</strong> Pada lelaran ke-3, bobot $F_b$ otomatis dibagi dua ($-2{,}2817 \to -1{,}1409$), melepaskan titik macet dan menghasilkan konvergensi dalam <strong>7 lelaran</strong> ($x \approx 0{,}605267$). Efisiensi meningkat hampir 2 kali lipat!</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- BAGIAN 2: METODE TERBUKA & LELARAN TITIK TETAP -->
-      <section>
-        <h2>4. Paradigma Metode Terbuka</h2>
-        <p>Berbeda dari metode tertutup (pengurung) yang mewajibkan dua tebakan awal dengan tanda berbeda $f(a) \cdot f(b) &lt; 0$, <strong>Metode Terbuka</strong> hanya memerlukan <em>satu atau dua tebakan awal tanpa syarat pengurungan akar</em>.</p>
-        <table style="width:100%; border-collapse:collapse; margin:14px 0; font-size:0.9rem;">
-          <thead>
-            <tr style="background:#eef2ff; color:#312e81; text-align:left;">
-              <th style="padding:8px; border:1px solid #dde1ee;">Karakteristik</th>
-              <th style="padding:8px; border:1px solid #dde1ee;">Metode Tertutup (Biseksi, Regula Falsi)</th>
-              <th style="padding:8px; border:1px solid #dde1ee;">Metode Terbuka (Titik Tetap, Newton, Secant)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:8px; border:1px solid #dde1ee;"><strong>Tebakan Awal</strong></td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Dua titik selang $[a,b]$ dengan $f(a)f(b) &lt; 0$</td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Satu titik awal $x_0$ (atau dua titik bebas)</td>
-            </tr>
-            <tr>
-              <td style="padding:8px; border:1px solid #dde1ee;"><strong>Jaminan Konvergensi</strong></td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Pasti konvergen (selalu mengurung akar)</td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Bisa konvergen sangat cepat, atau divergen</td>
-            </tr>
-            <tr>
-              <td style="padding:8px; border:1px solid #dde1ee;"><strong>Kecepatan</strong></td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Cenderung lambat (linier)</td>
-              <td style="padding:8px; border:1px solid #dde1ee;">Superlinier hingga kuadratik</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section>
-        <h2>5. Konsep Dasar Lelaran Titik Tetap (Fixed-Point Iteration)</h2>
-        <p>Lelaran titik tetap dimulai dengan mentransformasikan persamaan $f(x) = 0$ secara aljabar menjadi bentuk ekuivalen:</p>
+        <h2>5. Metode Terbuka: Lelaran Titik Tetap (Fixed-Point Iteration)</h2>
+        <p>Metode terbuka tidak memerlukan selang $[a, b]$ yang mengurung akar, melainkan hanya membutuhkan satu titik tebakan awal $x_0$. Pada metode lelaran titik tetap, persamaan $f(x) = 0$ diubah secara aljabar menjadi bentuk ekuivalen:</p>
 
         <div class="card formula">
-          <div class="formula-label">Bentuk Lelaran Titik Tetap</div>
+          <div class="formula-label">Transformasi Titik Tetap</div>
           <div class="math-step-box">$$f(x) = 0 \iff x = g(x)$$</div>
           <div class="math-step-box">$$x_{k+1} = g(x_k), \quad k = 0, 1, 2, \dots$$</div>
         </div>
 
-        <p>Akar persamaan $r$ merupakan absis perpotongan kurva $y = g(x)$ dengan garis lurus $y = x$, sehingga berlaku $r = g(r)$ (titik $r$ disebut sebagai <em>titik tetap</em> dari fungsi $g$).</p>
-      </section>
+        <p>Akar persamaan adalah absis titik potong kurva $y = g(x)$ dengan garis lurus $y = x$. Titik $s$ yang memenuhi $s = g(s)$ disebut sebagai <strong>titik tetap</strong> fungsi $g$.</p>
 
-      <section>
-        <h2>6. Teorema Konvergensi &amp; 4 Pola Geometris</h2>
-        <p>Apakah barisan lelaran $x_{k+1} = g(x_k)$ pasti konvergen menuju akar? Jawabannya ditentukan oleh turunan pertama fungsi $g(x)$ di sekitar akar $s$, berdasarkan Teorema Nilai Rata-rata:</p>
+        <p><strong>Syarat Konvergensi Lokal (Teorema Titik Tetap):</strong> Jika $g(x)$ dan $g'(x)$ kontinu pada selang yang memuat akar $s$, maka lelaran $x_{k+1} = g(x_k)$ dijamin konvergen menuju $s$ jika tebakan awal $x_0$ dipilih pada lingkungan di mana:</p>
 
         <div class="card formula">
-          <div class="formula-label">Syarat Cukup Konvergensi Lokal</div>
+          <div class="formula-label">Syarat Konvergensi Titik Tetap</div>
           <div class="math-step-box">$$|g'(s)| &lt; 1$$</div>
         </div>
 
-        <p>Terdapat <strong>4 kondisi geometris</strong> perilaku barisan lelaran terhadap titik potong $y=x$ dan $y=g(x)$:</p>
-
+        <p>Empat pola geometris lelaran titik tetap:</p>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin:14px 0;">
           <div class="card" style="border-left:4px solid #10b981; padding:12px;">
             <b style="color:#059669;">1. Konvergen Monoton</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Terjadi bila $0 &lt; g'(s) &lt; 1$. Taksiran $x_k$ mendekati akar dari satu arah secara stabil (pola tangga / <em>staircase</em>).</p>
+            <p style="font-size:0.85rem; margin:4px 0;">Jika $0 &lt; g'(s) &lt; 1$. Taksiran $x_k$ mendekati akar searah menyerupai anak tangga (<em>staircase</em>).</p>
           </div>
           <div class="card" style="border-left:4px solid #0284c7; padding:12px;">
             <b style="color:#0284c7;">2. Konvergen Berosilasi</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Terjadi bila $-1 &lt; g'(s) &lt; 0$. Taksiran $x_k$ melompat bergantian di kiri dan kanan akar sambil mengecil (sarang laba-laba / <em>cobweb</em>).</p>
+            <p style="font-size:0.85rem; margin:4px 0;">Jika $-1 &lt; g'(s) &lt; 0$. Taksiran $x_k$ berputar melompat bergantian di kiri-kanan akar (<em>cobweb / sarang laba-laba</em>).</p>
           </div>
           <div class="card" style="border-left:4px solid #f59e0b; padding:12px;">
             <b style="color:#d97706;">3. Divergen Monoton</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Terjadi bila $g'(s) &gt; 1$. Taksiran $x_k$ melesat menjauhi akar searah menuju tak terhingga.</p>
+            <p style="font-size:0.85rem; margin:4px 0;">Jika $g'(s) &gt; 1$. Taksiran $x_k$ melesat menjauhi akar searah menuju tak hingga.</p>
           </div>
           <div class="card" style="border-left:4px solid #ef4444; padding:12px;">
             <b style="color:#dc2626;">4. Divergen Berosilasi</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Terjadi bila $g'(s) &lt; -1$. Taksiran $x_k$ berosilasi dengan amplitudo yang semakin membesar liar keluar sistem.</p>
+            <p style="font-size:0.85rem; margin:4px 0;">Jika $g'(s) &lt; -1$. Taksiran $x_k$ berosilasi liar dengan simpangan yang makin membesar.</p>
           </div>
         </div>
       </section>
 
+      <!-- ========================================================================= -->
+      <!-- BAB 6: METODE TERBUKA 2 — NEWTON-RAPHSON -->
+      <!-- ========================================================================= -->
       <section>
-        <h2>7. Contoh Bertahap: Memilih Fungsi g(x) yang Benar</h2>
-        <p>Cari akar real dari persamaan $f(x) = x^3 - x - 2 = 0$ dengan tebakan awal $x_0 = 1{,}5$. Terdapat beberapa cara mengubah persamaan ini menjadi $x = g(x)$:</p>
+        <h2>6. Metode Terbuka: Newton-Raphson</h2>
+        <p>Metode Newton-Raphson adalah metode pencarian akar paling populer di dunia sains dan rekayasa. Pendekatannya memanfaatkan garis singgung (tangen) kurva pada titik $(x_k, f(x_k))$:</p>
 
-        <div class="card example">
-          <div class="formula-label">Pilihan A (Manipulasi Salah &rarr; Divergen)</div>
-          <p>Ubah menjadi: $x = x^3 - 2 \implies g_1(x) = x^3 - 2$.</p>
-          <p>Turunan: $g'_1(x) = 3x^2$. Di sekitar akar $r \approx 1{,}52$, nilai $|g'_1(1{,}52)| = 3(1{,}52)^2 \approx 6{,}93 &gt; 1$.</p>
-          <p>Lelaran dari $x_0 = 1{,}5$ menghasilkan: $x_1 = 1{,}5^3 - 2 = 1{,}375$; $x_2 = 1{,}375^3 - 2 \approx 0{,}60$; $x_3 \approx -1{,}78$; $x_4 \approx -7{,}65 \to \infty$ (<strong>DIVERGEN MONOTON</strong>).</p>
+        <p>Kemiringan garis singgung adalah turunan pertama $f'(x_k) = \frac{f(x_k) - 0}{x_k - x_{k+1}}$. Dengan mengisolasi $x_{k+1}$, diperoleh rumus iterasi Newton-Raphson:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Rumus Iterasi Newton-Raphson</div>
+          <div class="math-step-box">$$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$$</div>
         </div>
 
         <div class="card example">
-          <div class="formula-label">Pilihan B (Manipulasi Benar &rarr; Konvergen)</div>
-          <p>Ubah menjadi: $x^3 = x + 2 \iff x = \sqrt[3]{x + 2} \implies g_2(x) = (x + 2)^{1/3}$.</p>
-          <p>Turunan: $g'_2(x) = \frac{1}{3(x + 2)^{2/3}}$. Di sekitar akar $r \approx 1{,}52$, $|g'_2(1{,}52)| = \frac{1}{3(3{,}52)^{2/3}} \approx 0{,}144 &lt; 1$. Syarat konvergensi terpenuhi!</p>
-          <p>Tabel lelaran dengan $x_0 = 1{,}5$:</p>
-          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.88rem;">
-            <thead>
-              <tr style="background:#f1f5f9; text-align:right;">
-                <th style="padding:6px; border:1px solid #cbd5e1; text-align:center;">Lelaran $k$</th>
-                <th style="padding:6px; border:1px solid #cbd5e1;">$x_k$</th>
-                <th style="padding:6px; border:1px solid #cbd5e1;">$x_{k+1} = \sqrt[3]{x_k + 2}$</th>
-                <th style="padding:6px; border:1px solid #cbd5e1;">$|x_{k+1} - x_k|$</th>
-              </tr>
-            </thead>
-            <tbody style="text-align:right;">
-              <tr><td style="text-align:center; border:1px solid #cbd5e1;">0</td><td style="border:1px solid #cbd5e1;">1,500000</td><td style="border:1px solid #cbd5e1;">1,518294</td><td style="border:1px solid #cbd5e1;">0,018294</td></tr>
-              <tr><td style="text-align:center; border:1px solid #cbd5e1;">1</td><td style="border:1px solid #cbd5e1;">1,518294</td><td style="border:1px solid #cbd5e1;">1,520935</td><td style="border:1px solid #cbd5e1;">0,002641</td></tr>
-              <tr><td style="text-align:center; border:1px solid #cbd5e1;">2</td><td style="border:1px solid #cbd5e1;">1,520935</td><td style="border:1px solid #cbd5e1;">1,521316</td><td style="border:1px solid #cbd5e1;">0,000381</td></tr>
-              <tr><td style="text-align:center; border:1px solid #cbd5e1;">3</td><td style="border:1px solid #cbd5e1;">1,521316</td><td style="border:1px solid #cbd5e1;">1,521371</td><td style="border:1px solid #cbd5e1;">0,000055</td></tr>
-              <tr><td style="text-align:center; border:1px solid #cbd5e1;">4</td><td style="border:1px solid #cbd5e1;">1,521371</td><td style="border:1px solid #cbd5e1;">1,521379</td><td style="border:1px solid #cbd5e1;">0,000008</td></tr>
-            </tbody>
-          </table>
-          <p class="answer"><strong>Kesimpulan:</strong> Barisan konvergen cepat ke akar $x \approx 1{,}52138$ hanya dalam 4 lelaran karena $|g'_2(x)| \ll 1$.</p>
+          <div class="formula-label">Karakteristik Newton-Raphson</div>
+          <p><strong>Laju Konvergensi Kuadratik ($p = 2$):</strong> Jika tebakan awal cukup dekat dengan akar tunggal, jumlah digit presisi yang benar berlipat ganda pada setiap lelaran! Galat memenuhi $e_{k+1} \approx C \cdot e_k^2$.</p>
+          <p><strong>Kelemahan &amp; Titik Gagal:</strong></p>
+          <ul>
+            <li>Memerlukan turunan analitik $f'(x)$. Bila fungsi rumit, diferensiasi analitik sulit dilakukan.</li>
+            <li>Jika $f'(x_k) = 0$ (garis singgung mendatar), terjadi pembagian dengan nol sehingga proses terhenti.</li>
+            <li>Dapat mengalami siklus osilasi berulang (terjebak dalam <em>infinite loop</em>) atau melompat sangat jauh jika tebakan awal berada di dekat titik belok/ekstrim lokal.</li>
+          </ul>
         </div>
       </section>
 
+      <!-- ========================================================================= -->
+      <!-- BAB 7: METODE TERBUKA 3 — METODE SECANT -->
+      <!-- ========================================================================= -->
+      <section>
+        <h2>7. Metode Terbuka: Metode Secant</h2>
+        <p>Kelemahan utama Newton-Raphson adalah keharusan menurunkan fungsi $f(x)$ secara analitis. Pada banyak kasus rekayasa, fungsi $f(x)$ berbentuk persamaan diferensiasi kompleks atau data tabel sehingga $f'(x)$ sulit diperoleh.</p>
+
+        <p>Metode Secant mengatasi hal ini dengan menghampiri turunan pertama menggunakan <strong>beda hingga (selisih terbagi)</strong> dari dua titik lelaran terakhir $x_k$ dan $x_{k-1}$:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Hampiran Kemiringan Secant</div>
+          <div class="math-step-box">$$f'(x_k) \approx \frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}}$$</div>
+        </div>
+
+        <p>Substitusikan hampiran ini ke rumus Newton-Raphson untuk menghasilkan rumus iterasi Metode Secant:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Rumus Iterasi Metode Secant</div>
+          <div class="math-step-box">$$x_{k+1} = x_k - f(x_k) \cdot \frac{x_k - x_{k-1}}{f(x_k) - f(x_{k-1})}$$</div>
+        </div>
+
+        <div class="card example">
+          <div class="formula-label">Perbedaan Kritis: Secant vs Regula Falsi</div>
+          <p>Rumus aljabar Secant tampak identik dengan Regula Falsi, namun filosofinya <strong>berbeda total</strong>:</p>
+          <ul>
+            <li><strong>Regula Falsi (Metode Tertutup):</strong> Dua titik $a$ dan $b$ <em>wajib mengurung akar</em> ($f(a) \cdot f(b) &lt; 0$). Salah satu titik dipertahankan agar tanda selalu berlawanan. Pasti konvergen.</li>
+            <li><strong>Secant (Metode Terbuka):</strong> Dua titik awal $x_0$ dan $x_1$ <em>bebas tanpa syarat tanda</em>. Pada tiap langkah, metode selalu membuang titik terlama $x_{k-1}$ dan memakai dua titik paling baru $(x_k, x_{k+1})$, tanpa peduli apakah tandanya sama atau berbeda. Laju konvergensinya superlinier ($p \approx 1{,}618$, rasio emas / <em>golden ratio</em>), jauh lebih cepat dari Regula Falsi klasik!</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- BAB 8: MATRIKS KOMPARASI SELURUH METODE AKAR -->
+      <!-- ========================================================================= -->
+      <section>
+        <h2>8. Matriks Perbandingan Komprehensif Seluruh Metode Akar</h2>
+        <p>Berikut adalah peta perbandingan performa komputasi keenam metode pencarian akar yang dipelajari pada Bab 03 Silabus Metode Numerik:</p>
+
+        <div class="table-wrap" style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; margin:14px 0; font-size:0.86rem;">
+            <thead>
+              <tr style="background:#312e81; color:#ffffff; text-align:center;">
+                <th style="padding:10px; border:1px solid #cbd5e1;">Metode</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Kelompok</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Data Awal</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Orde Konvergensi ($p$)</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Evaluasi $f'/f$ per Lelaran</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Jaminan Konvergen</th>
+                <th style="padding:10px; border:1px solid #cbd5e1;">Kelemahan Utama</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700;">Bagi Dua (Biseksi)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Tertutup</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">$[a, b]$ ($f(a)f(b)&lt;0$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">$1{,}0$ (Linier lambat)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">1 fungsi ($f(c)$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#15803d; font-weight:700;">Pasti ($100\%$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Sangat lambat; butuh banyak iterasi</td>
+              </tr>
+              <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700;">Regula Falsi Klasik</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Tertutup</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">$[a, b]$ ($f(a)f(b)&lt;0$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">$1{,}0$ (Linier)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">1 fungsi ($f(c)$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#15803d; font-weight:700;">Pasti ($100\%$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; color:#b91c1c;">Titik macet (*stagnant point*) pada kurva cembung</td>
+              </tr>
+              <tr style="background:#f0fdf4;">
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700; color:#15803d;">Modified Regula Falsi</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Tertutup</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">$[a, b]$ ($f(a)f(b)&lt;0$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">$\approx 1{,}44$ (Superlinier)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">1 fungsi ($f(c)$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#15803d; font-weight:700;">Pasti ($100\%$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Logika deteksi stagnasi dan pembagian bobot $F/2$</td>
+              </tr>
+              <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700;">Lelaran Titik Tetap</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Terbuka</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">1 tebakan ($x_0$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">$1{,}0$ (Linier)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">1 fungsi ($g(x)$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#b45309;">Bersyarat ($|g'| &lt; 1$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Bisa divergen bila pemilihan bentuk $g(x)$ keliru</td>
+              </tr>
+              <tr style="background:#eff6ff;">
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700; color:#1d4ed8;">Newton-Raphson</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Terbuka</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">1 tebakan ($x_0$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; font-weight:700; color:#1d4ed8;">$2{,}0$ (Kuadratik)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">2 fungsi ($f$ dan $f'$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#b45309;">Bersyarat (dekat akar)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Wajib turunan $f'(x)$; gagal jika $f'(x) = 0$</td>
+              </tr>
+              <tr style="background:#fdf4ff;">
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700; color:#86198f;">Metode Secant</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Terbuka</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">2 tebakan ($x_0, x_1$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; font-weight:700; color:#86198f;">$\approx 1{,}618$ (Superlinier)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">1 fungsi ($f(x_k)$)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#b45309;">Bersyarat (dekat akar)</td>
+                <td style="padding:8px; border:1px solid #cbd5e1;">Bisa divergen jika penyebut $(f_k - f_{k-1}) \approx 0$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- RINGKASAN & LATIHAN MANDIRI -->
+      <!-- ========================================================================= -->
       <section>
         <h2>Ringkasan</h2>
         <div class="card summary">
           <ul>
-            <li>Metode Regula Falsi klasik rentan titik macet (<em>stagnant point</em>) pada kurva dengan kecekungan searah.</li>
-            <li>Modified Regula Falsi (Skema Illinois) mengatasi titik macet dengan membagi dua ordinat titik ujung yang tertahan berturut-turut ($F \leftarrow F / 2$).</li>
-            <li>Metode terbuka tidak mensyaratkan selang pengurung berlainan tanda, cukup satu nilai tebakan awal $x_0$.</li>
-            <li>Lelaran titik tetap mengubah $f(x) = 0$ menjadi $x = g(x)$ dengan rumus iterasi $x_{k+1} = g(x_k)$.</li>
-            <li>Kunci konvergensi titik tetap adalah turunan pertama: jika $|g'(s)| &lt; 1$ maka konvergen; jika $|g'(s)| &gt; 1$ maka divergen.</li>
-            <li>Memanipulasi fungsi $f(x)$ menjadi $g(x)$ harus cermat agar menghasilkan turunan dengan magnitudo sekecil mungkin di sekitar akar.</li>
+            <li><strong>Teorema Bolzano:</strong> Syarat mutlak metode tertutup adalah $f(a) \cdot f(b) &lt; 0$ pada fungsi kontinu, menjamin sedikitnya satu akar terapit di dalam selang.</li>
+            <li><strong>Metode Biseksi:</strong> Membagi selang secara simetris ($c = (a+b)/2$). Stabil 100% dan laju penyusutan selang dapat diprediksi secara matematis melalui $n &gt; (\ln(b_0-a_0) - \ln\varepsilon)/\ln 2$.</li>
+            <li><strong>Regula Falsi Klasik:</strong> Menggunakan tali busur interpolasi linier. Lebih cepat dari Biseksi namun rentan terhadap <em>stagnant endpoint</em> pada kurva yang memiliki kelengkungan searah.</li>
+            <li><strong>Modified Regula Falsi (Illinois):</strong> Membebaskan titik macet dengan membagi dua bobot ordinat ($F \leftarrow F/2$) saat titik yang sama tertahan dua kali beruntun, melipatgandakan kecepatan konvergensi.</li>
+            <li><strong>Lelaran Titik Tetap:</strong> Mengubah $f(x) = 0$ menjadi $x = g(x)$. Konvergen bila $|g'(s)| &lt; 1$, dengan pola tangga (monoton) atau sarang laba-laba (berosilasi).</li>
+            <li><strong>Newton-Raphson:</strong> Memanfaatkan garis singgung kurva dengan konvergensi kuadratik ($p=2$), namun menuntut perhitungan turunan analitik $f'(x)$ dan tebakan awal yang dekat akar.</li>
+            <li><strong>Metode Secant:</strong> Menggantikan turunan analitik Newton dengan hampiran beda hingga dari dua titik terbaru. Berkonvergensi superlinier ($p \approx 1{,}618$) tanpa menuntut syarat kurungan tanda.</li>
           </ul>
         </div>
       </section>
@@ -224,33 +373,43 @@
         <h2>Latihan Mandiri</h2>
         <div class="card exercise">
           <ol>
-            <li>Jelaskan secara geometris mengapa garis tali busur pada Regula Falsi klasik bisa tertahan diam pada kurva cembung!</li>
-            <li>Selesaikan $f(x) = x^3 + 2x^2 + 10x - 20 = 0$ pada $[1; 1{,}5]$ menggunakan Modified Regula Falsi dengan toleransi $\varepsilon = 10^{-5}$.</li>
-            <li>Tunjukkan bahwa persamaan $x^2 - 2x - 3 = 0$ memiliki akar $r = 3$. Ujilah apakah bentuk $g(x) = \sqrt{2x + 3}$ menghasilkan lelaran yang konvergen!</li>
-            <li>Untuk fungsi $f(x) = e^{-x} - x = 0$, buktikan bahwa $g(x) = e^{-x}$ menghasilkan konvergensi berosilasi (sarang laba-laba) di sekitar akar $r \approx 0{,}567143$!</li>
-            <li>Bandingkan jumlah iterasi antara Regula Falsi biasa dengan Modified Regula Falsi untuk $f(x) = x^{10} - 1 = 0$ pada interval $[0, 1{,}3]$.</li>
-            <li>Mengapa kriteria henti $|x_{k+1} - x_k| &lt; \varepsilon$ saja belum tentu menjamin nilai fungsi $|f(x_{k+1})|$ sudah cukup dekat dengan nol? Jelaskan hubungannya dengan kemiringan kurva!</li>
+            <li>Diberikan fungsi $f(x) = x^3 - 2x - 5 = 0$ pada selang $[2, 3]$:
+              <ul>
+                <li>Buktikan bahwa selang $[2, 3]$ mengurung sedikitnya satu akar real!</li>
+                <li>Hitung perkiraan jumlah lelaran minimum yang dibutuhkan metode Biseksi agar galat $\varepsilon &lt; 10^{-5}$!</li>
+              </ul>
+            </li>
+            <li>Selesaikan $f(x) = e^x - 5x^2 = 0$ pada selang $[0, 1]$ menggunakan <strong>Regula Falsi Klasik</strong> dan <strong>Modified Regula Falsi (Skema Illinois)</strong> sampai lelaran ke-4. Tunjukkan pada lelaran ke berapa pembagian bobot $F/2$ pertama kali aktif!</li>
+            <li>Untuk persamaan $x^3 + x - 1 = 0$:
+              <ul>
+                <li>Tuliskan 3 bentuk manipulasi aljabar $x = g(x)$ yang berbeda!</li>
+                <li>Ujilah nilai $|g'(x)|$ di sekitar $x \approx 0{,}7$ untuk masing-masing bentuk dan tentukan mana yang konvergen dan mana yang divergen!</li>
+              </ul>
+            </li>
+            <li>Terapkan 3 iterasi <strong>Newton-Raphson</strong> untuk mencari akar dari $f(x) = x^3 - 2x - 5$ dengan tebakan awal $x_0 = 2$. Hitung residu fungsinya pada setiap langkah!</li>
+            <li>Gunakan <strong>Metode Secant</strong> untuk menyelesaikan $f(x) = x^3 - 2x - 5 = 0$ dengan dua tebakan awal $x_0 = 2$ dan $x_1 = 3$. Bandingkan kecepatan konvergensinya terhadap hasil Newton-Raphson!</li>
+            <li>Jelaskan mengapa metode terbuka seperti Newton-Raphson dan Secant sering kali dikombinasikan dengan metode Biseksi dalam perangkat lunak komputasi profesional modern (metode hibrida seperti Metode Brent)!</li>
           </ol>
         </div>
       </section>
 
       <div class="tool-cta">
         <div>
-          <strong>Uji Hitungan dengan Angka Bebas di Laboratorium</strong>
-          <p>Laboratorium Metode Numerik KelasKu kini mendukung Biseksi, Regula Falsi biasa, Regula Falsi Diperbaiki (Illinois), serta Iterasi Titik Tetap dengan grafik interaktif.</p>
+          <strong>Uji dan Bandingkan Seluruh Metode di Laboratorium KelasKu</strong>
+          <p>Laboratorium Metode Numerik telah terintegrasi penuh: pilih tab <em>Akar Persamaan</em> untuk menguji Biseksi, Regula Falsi, Modified Regula Falsi, Titik Tetap, Newton-Raphson, dan Secant secara langsung dengan grafik dan tabel iterasi.</p>
         </div>
         <a href="/tools/lab-metode-numerik/index.html">Buka Laboratorium Numerik</a>
       </div>
 
       <section>
         <h2>Berikutnya</h2>
-        <p>Pada Pertemuan 04 minggu depan, giliran Kelompok 3 akan mempresentasikan metode terbuka lanjutan dengan konvergensi kuadratik: <strong>Metode Newton-Raphson</strong> dan <strong>Metode Secant</strong>, serta penyelesaian sistem persamaan nirlanjar multivariabel.</p>
+        <p>Setelah menguasai seluruh spektrum pencarian akar nirlanjar satu variabel pada Pertemuan 01 s.d. 04, perkuliahan akan beralih ke dimensi multivariabel pada <strong>Pertemuan 05: Sistem Persamaan Lanjar (SPL) — Eliminasi Gauss Modifikasi (Partial Pivoting) &amp; Dekomposisi LU (LU Gauss / Doolittle)</strong> yang akan dipresentasikan oleh Kelompok 4 (Ryan Wardiana, Najla, Nabila).</p>
       </section>
 
       <section class="sources">
         <h2>Sumber Rujukan</h2>
         <ol>
-          <li>[1] <a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2003%20Solusi%20Persamaan%20Nirlanjar.pdf" target="_blank" rel="noreferrer">Bab 03 — Solusi Persamaan Nirlanjar (Subbab 3.3.3 Regula Falsi yang Diperbaiki &amp; 3.4 Metode Lelaran Titik Tetap) — Dr. Rinaldi Munir, ITB</a></li>
+          <li>[1] <a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2003%20Solusi%20Persamaan%20Nirlanjar.pdf" target="_blank" rel="noreferrer">Bab 03 — Solusi Persamaan Nirlanjar (Biseksi, Regula Falsi, Titik Tetap, Newton-Raphson, Secant) — Dr. Rinaldi Munir, ITB</a></li>
           <li>[2] Chapra, S. C., &amp; Canale, R. P. (2021). <em>Numerical Methods for Engineers</em> (8th ed.). McGraw-Hill Education.</li>
           <li>[3] Burden, R. L., &amp; Faires, J. D. (2019). <em>Numerical Analysis</em> (10th ed.). Cengage Learning.</li>
         </ol>

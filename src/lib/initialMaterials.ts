@@ -227,11 +227,11 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-metnum-pertemuan-03",
-    title: "Bahan Belajar Pertemuan 03 — Solusi Nirlanjar: Regula Falsi yang Diperbaiki & Lelaran Titik Tetap",
+    title: "Bahan Belajar Pertemuan 03 — Solusi Nirlanjar Komprehensif: Biseksi, Regula Falsi, Modified Illinois, Titik Tetap, Newton-Raphson, & Secant",
     courseCode: "KP21517001",
     meetingNo: 3,
     type: "Catatan",
-    description: "Materi terstruktur Pertemuan 03 Metode Numerik: fenomena titik macet (stagnant point) Regula Falsi biasa, solusi Skema Illinois (pembagian bobot F = f/2), konsep metode terbuka, dan analisis konvergensi lelaran titik tetap |g'(s)| < 1.",
+    description: "Modul terpadu pencarian akar persamaan nirlanjar: Teorema Bolzano, Biseksi, Regula Falsi klasik & fenomena titik macet, Modified Regula Falsi (Skema Illinois), Lelaran Titik Tetap, Newton-Raphson (kuadratik), Metode Secant (superlinier), serta tabel matriks perbandingan performa komputasi.",
     url: "/materi/KP21517001/pertemuan-03/index.html",
     createdAt: "2026-09-02T03:00:00.000Z",
   },
