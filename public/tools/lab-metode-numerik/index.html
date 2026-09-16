@@ -57,14 +57,14 @@ const fields={
 };
 const configs={
   galat:{title:'Galat & Taylor',methods:{errors:['Analisis galat',['exact','approx']],taylor:['Deret Taylor',['fx','x0','x','order']]}},
-  akar:{title:'Akar Persamaan',methods:{bisection:['Bisection',['fx','a','b','tol','max']],regulaFalsi:['Regula Falsi',['fx','a','b','tol','max']],fixedPoint:['Iterasi Titik Tetap',['gx','x0','tol','max']],newton:['Newton–Raphson',['fx','df','x0','tol','max']],secant:['Secant',['fx','a','b','tol','max']]}},
+  akar:{title:'Akar Persamaan',methods:{bisection:['Bisection',['fx','a','b','tol','max']],regulaFalsi:['Regula Falsi',['fx','a','b','tol','max']],modifiedRegulaFalsi:['Regula Falsi Diperbaiki (Illinois)',['fx','a','b','tol','max']],fixedPoint:['Iterasi Titik Tetap',['gx','x0','tol','max']],newton:['Newton–Raphson',['fx','df','x0','tol','max']],secant:['Secant',['fx','a','b','tol','max']]}},
   spl:{title:'Sistem Persamaan Linear',methods:{gaussianElimination:['Eliminasi Gauss',['A','B']],gaussJordan:['Gauss–Jordan',['A','B']],luDecomposition:['Dekomposisi LU',['A']],jacobi:['Jacobi',['A','B','initial','tol','max']],gaussSeidel:['Gauss–Seidel',['A','B','initial','tol','max']]}},
   interpolasi:{title:'Interpolasi & Regresi',methods:{lagrange:['Interpolasi Lagrange',['pts','x']],newtonInterpolation:['Interpolasi Newton',['pts','x']],linearRegression:['Regresi Linear',['pts']]}},
   turunan:{title:'Turunan Numerik',methods:{forward:['Selisih Maju',['fx','x','h']],backward:['Selisih Mundur',['fx','x','h']],central:['Selisih Pusat',['fx','x','h']],second:['Turunan Kedua',['fx','x','h']]}},
   integrasi:{title:'Integrasi Numerik',methods:{trapezoid:['Trapesium',['fx','a','b','sub']],simpson13:['Simpson 1/3',['fx','a','b','sub']],simpson38:['Simpson 3/8',['fx','a','b','sub']],gaussLegendre:['Gauss–Legendre',['fx','a','b','order']]}},
   pdb:{title:'Persamaan Diferensial Biasa',methods:{euler:['Euler',['ode','x0','y0','x','h']],heun:['Heun',['ode','x0','y0','x','h']],rk4:['Runge–Kutta orde 4',['ode','x0','y0','x','h']]}}
 };
-const formulas={errors:'E_a=|x-\\hat{x}|,\\quad E_r=E_a/|x|',taylor:'f(x)\\approx\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k',bisection:'c=(a+b)/2',regulaFalsi:'c=(af(b)-bf(a))/(f(b)-f(a))',fixedPoint:'x_{k+1}=g(x_k)',newton:'x_{k+1}=x_k-f(x_k)/f\\prime(x_k)',secant:'x_{k+1}=x_k-f(x_k)(x_k-x_{k-1})/(f(x_k)-f(x_{k-1}))',gaussianElimination:'Ax=b',gaussJordan:'[A|b]\\longrightarrow[I|x]',luDecomposition:'PA=LU',jacobi:'x_i^{(k+1)}=(b_i-\\sum_{j\\ne i}a_{ij}x_j^{(k)})/a_{ii}',gaussSeidel:'x_i^{(k+1)}=(b_i-\\sum_{j\\ne i}a_{ij}x_j)/a_{ii}',lagrange:'P(x)=\\sum_i y_iL_i(x)',newtonInterpolation:'P(x)=f[x_0]+f[x_0,x_1](x-x_0)+\\cdots',linearRegression:'\\hat y=a+bx',forward:'f\\prime(x)\\approx(f(x+h)-f(x))/h',backward:'f\\prime(x)\\approx(f(x)-f(x-h))/h',central:'f\\prime(x)\\approx(f(x+h)-f(x-h))/(2h)',second:'f\\prime\\prime(x)\\approx(f(x+h)-2f(x)+f(x-h))/h^2',trapezoid:'I\\approx h(f_0+2\\sum f_i+f_n)/2',simpson13:'I\\approx h(f_0+4\\sum f_{ganjil}+2\\sum f_{genap}+f_n)/3',simpson38:'I\\approx3h(f_0+3\\sum f_i+2\\sum f_{3i}+f_n)/8',gaussLegendre:'I\\approx(b-a)\\sum_iw_if(x_i)/2',euler:'y_{n+1}=y_n+hf(x_n,y_n)',heun:'y_{n+1}=y_n+h(k_1+k_2)/2',rk4:'y_{n+1}=y_n+h(k_1+2k_2+2k_3+k_4)/6'};
+const formulas={errors:'E_a=|x-\\hat{x}|,\\quad E_r=E_a/|x|',taylor:'f(x)\\approx\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k',bisection:'c=(a+b)/2',regulaFalsi:'c=(af(b)-bf(a))/(f(b)-f(a))',modifiedRegulaFalsi:'c=\\frac{aF_b-bF_a}{F_b-F_a},\\quad F_{stagnan}\\leftarrow F/2',fixedPoint:'x_{k+1}=g(x_k)',newton:'x_{k+1}=x_k-f(x_k)/f\\prime(x_k)',secant:'x_{k+1}=x_k-f(x_k)(x_k-x_{k-1})/(f(x_k)-f(x_{k-1}))',gaussianElimination:'Ax=b',gaussJordan:'[A|b]\\longrightarrow[I|x]',luDecomposition:'PA=LU',jacobi:'x_i^{(k+1)}=(b_i-\\sum_{j\\ne i}a_{ij}x_j^{(k)})/a_{ii}',gaussSeidel:'x_i^{(k+1)}=(b_i-\\sum_{j\\ne i}a_{ij}x_j)/a_{ii}',lagrange:'P(x)=\\sum_i y_iL_i(x)',newtonInterpolation:'P(x)=f[x_0]+f[x_0,x_1](x-x_0)+\\cdots',linearRegression:'\\hat y=a+bx',forward:'f\\prime(x)\\approx(f(x+h)-f(x))/h',backward:'f\\prime(x)\\approx(f(x)-f(x-h))/h',central:'f\\prime(x)\\approx(f(x+h)-f(x-h))/(2h)',second:'f\\prime\\prime(x)\\approx(f(x+h)-2f(x)+f(x-h))/h^2',trapezoid:'I\\approx h(f_0+2\\sum f_i+f_n)/2',simpson13:'I\\approx h(f_0+4\\sum f_{ganjil}+2\\sum f_{genap}+f_n)/3',simpson38:'I\\approx3h(f_0+3\\sum f_i+2\\sum f_{3i}+f_n)/8',gaussLegendre:'I\\approx(b-a)\\sum_iw_if(x_i)/2',euler:'y_{n+1}=y_n+hf(x_n,y_n)',heun:'y_{n+1}=y_n+h(k_1+k_2)/2',rk4:'y_{n+1}=y_n+h(k_1+2k_2+2k_3+k_4)/6'};
 
 function toTex(val){
   return val
@@ -217,7 +217,7 @@ function calculationSteps(id,m,f,r){
   } else if(id==='akar'){
     let fn = null;
     try { fn = expr(f); } catch(e) {}
-    if (m === 'bisection' || m === 'regulaFalsi') {
+    if (m === 'bisection' || m === 'regulaFalsi' || m === 'modifiedRegulaFalsi') {
       const a0 = n(f, 'a'), b0 = n(f, 'b'), tol = n(f, 'tol');
       let fa0 = null, fb0 = null, bolzanoOk = false;
       if (fn) {
@@ -238,13 +238,15 @@ function calculationSteps(id,m,f,r){
         const w0 = Math.abs(b0 - a0);
         const nMin = Math.ceil((Math.log(w0) - Math.log(tol)) / Math.LN2);
         cards.push(stepCard('2. Perkiraan Kebutuhan Iterasi Teoretis (Bagi Dua)', `Lebar selang terbagi dua pada tiap lelaran: Lₙ = (b₀ − a₀) / 2ⁿ. Agar lebar selang lebih kecil dari toleransi ε = ${fmt(tol)}, dibutuhkan minimal ${nMin} kali pembagian selang.`, `n > \\frac{\\ln(${fmt(w0)}) - \\ln(${fmt(tol)})}{\\ln 2} \\approx ${fmt((Math.log(w0) - Math.log(tol)) / Math.LN2)} \\implies n \\ge ${nMin}`));
+      } else if (m === 'modifiedRegulaFalsi') {
+        cards.push(stepCard('2. Prinsip Modifikasi Skema Illinois (Anti Titik Macet)', `Jika ujung selang yang sama tertahan dua kali berturut-turut, nilai fungsinya dibagi dua (F = F/2) untuk memiringkan tali busur dan membebaskan titik macet.`, `F_{\\text{stagnan}} \\leftarrow \\frac{F_{\\text{stagnan}}}{2}`));
       }
     } else {
       cards.push(stepCard('1. Siapkan persamaan', m==='fixedPoint'?`Gunakan g(x) = ${f.elements.gx.value}.`:`Gunakan f(x) = ${f.elements.fx.value}.`));
     }
 
     shown(r.iterations).forEach((row, i) => {
-      let stepNum = (m === 'bisection' ? i + 3 : (m === 'regulaFalsi' ? i + 2 : i + 2));
+      let stepNum = (m === 'bisection' || m === 'modifiedRegulaFalsi' ? i + 3 : (m === 'regulaFalsi' ? i + 2 : i + 2));
       let title = `${stepNum}. Iterasi ${row.iteration}`;
       let text = '';
       let equation = '';
@@ -255,11 +257,13 @@ function calculationSteps(id,m,f,r){
         const nextSub = (row.lower === cVal ? `[${fmt(cVal)}; ${fmt(row.upper)}] (batas kiri a bergeser)` : `[${fmt(row.lower)}; ${fmt(cVal)}] (batas kanan b bergeser)`);
         text = `Batas selang: [${fmt(row.lower)}; ${fmt(row.upper)}]. Titik tengah c = (${fmt(row.lower)} + ${fmt(row.upper)}) / 2 = ${fmt(cVal)}. Nilai fungsi f(c) = ${fmt(fcVal)} (${signFC}). Selang baru: ${nextSub}. Lebar selang = ${fmt(row.error * 2)}.`;
         equation = `c_{${row.iteration}} = \\frac{${fmt(row.lower)} + ${fmt(row.upper)}}{2} = ${fmt(cVal)}; \\quad f(c_{${row.iteration}}) = ${fmt(fcVal)}`;
-      } else if (m === 'regulaFalsi') {
+      } else if (m === 'regulaFalsi' || m === 'modifiedRegulaFalsi') {
         const cVal = row.root, fcVal = row.value;
         const signFC = (fcVal < 0 ? 'negatif' : 'positif');
+        const faVal = row.Fa ?? f.elements.a.value;
+        const fbVal = row.Fb ?? f.elements.b.value;
         text = `Tarik garis sekant melalui selang [${fmt(row.lower)}; ${fmt(row.upper)}]. Titik potong sumbu-x menghasilkan taksiran c = ${fmt(cVal)}, nilai f(c) = ${fmt(fcVal)} (${signFC}). Galat pergeseran = ${fmt(row.error)}.`;
-        equation = `c_{${row.iteration}} = \\frac{(${fmt(row.lower)}) \\cdot f(${fmt(row.upper)}) - (${fmt(row.upper)}) \\cdot f(${fmt(row.lower)})}{f(${fmt(row.upper)}) - f(${fmt(row.lower)})} = ${fmt(cVal)}; \\quad f(c_{${row.iteration}}) = ${fmt(fcVal)}`;
+        equation = `c_{${row.iteration}} = \\frac{(${fmt(row.lower)}) \\cdot (${fmt(fbVal)}) - (${fmt(row.upper)}) \\cdot (${fmt(faVal)})}{(${fmt(fbVal)}) - (${fmt(faVal)})} = ${fmt(cVal)}; \\quad f(c_{${row.iteration}}) = ${fmt(fcVal)}`;
       } else if (m === 'fixedPoint') {
         text = `Hitung nilai lelaran x berikutnya dari persamaan g(x).`;
         equation = `x_{${row.iteration}} = g(${fmt(row.current)}) = ${fmt(row.next)}; \\quad \\text{galat} = ${fmt(row.error)}`;

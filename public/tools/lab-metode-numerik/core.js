@@ -158,6 +158,36 @@ export function regulaFalsi(fn, lower, upper, options = {}) {
   return rootResult(root, false, iterations);
 }
 
+export function modifiedRegulaFalsi(fn, lower, upper, options = {}) {
+  const config = bracketSetup(fn, lower, upper, options);
+  if (Math.abs(config.fLower) <= config.tolerance) return rootResult(lower, true, []);
+  if (Math.abs(config.fUpper) <= config.tolerance) return rootResult(upper, true, []);
+  let a = lower, b = upper, fa = config.fLower, fb = config.fUpper, root = a, previous = null;
+  let Fa = fa, Fb = fb;
+  let stagnantSide = null;
+  const iterations = [];
+  for (let iteration = 1; iteration <= config.maxIterations; iteration++) {
+    const denominator = Fb - Fa;
+    if (Math.abs(denominator) <= Number.EPSILON) throw new RangeError('modified regula falsi denominator is zero');
+    root = (a * Fb - b * Fa) / denominator;
+    const value = evaluate(fn, [root]);
+    const error = previous === null ? Math.abs(b - a) : Math.abs(root - previous);
+    iterations.push({ iteration, lower: a, upper: b, root, value, error, Fa, Fb });
+    if (Math.abs(value) <= config.tolerance || (previous !== null && error <= config.tolerance)) return rootResult(root, true, iterations);
+    if (Math.sign(fa) === Math.sign(value)) {
+      a = root; fa = value; Fa = value;
+      if (stagnantSide === 'b') Fb /= 2;
+      stagnantSide = 'b';
+    } else {
+      b = root; fb = value; Fb = value;
+      if (stagnantSide === 'a') Fa /= 2;
+      stagnantSide = 'a';
+    }
+    previous = root;
+  }
+  return rootResult(root, false, iterations);
+}
+
 function rootResult(root, converged, iterations) {
   return { root, value: root, converged, iterations, steps: iterations };
 }
