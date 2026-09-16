@@ -483,6 +483,133 @@ ight| \times 100\% = \frac{0{,}3214}{1{,}75} \times 100\% = 18{,}37\%$$</div>
       </section>
 
       <!-- ========================================================================= -->
+      <!-- BAB 9: TUGAS KELOMPOK AUDIENS: MISTERI PERSAMAAN LEONARDO DA PISA (1225) -->
+      <!-- ========================================================================= -->
+      <section>
+        <h2>9. Tugas Khusus Audiens: Memecahkan Persamaan Kubik Leonardo da Pisa (1225)</h2>
+        <p>Soal resmi yang diberikan oleh Kelompok 2 kepada audiens kelas untuk membandingkan <strong>Lelaran Titik Tetap</strong>, <strong>Newton-Raphson</strong>, dan <strong>Metode Secant</strong> dalam memecahkan misteri sejarah penemuan akar oleh matematikawan abad pertengahan Leonardo da Pisa (Fibonacci):</p>
+
+        <div class="card formula" style="border-left:4px solid #00a884; background:#182229;">
+          <div class="formula-label" style="color:#00a884;">Soal Sejarah Leonardo da Pisa</div>
+          <p style="margin-top:4px; font-style:italic; color:#e9edef;">
+            "Tahun 1225 Leonardo da Pisa mencari akar persamaan $f(x) = x^3 + 2x^2 + 10x - 20 = 0$ dan menemukan $x \approx 1{,}368808107$. Tidak seorang pun yang mengetahui cara Leonardo menemukan nilai ini. Sekarang, rahasia itu dapat dipecahkan dengan metode numerik..."
+          </p>
+        </div>
+
+        <!-- PEMUTAR VIDEO ANIMASI MANIM LEONARDO DA PISA -->
+        <div style="margin:16px 0; background:#111b21; border-radius:12px; padding:14px; border:1px solid #00a884; box-shadow:0 6px 18px rgba(0,0,0,0.35);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+            <span style="color:#00a884; font-weight:700; font-size:0.95rem;">🎬 Animasi Manim: Solusi Leonardo da Pisa (@librayn)</span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="background:#202c33; color:#aebac1; font-size:0.75rem; padding:3px 8px; border-radius:12px; border:1px solid #2a3942;">HD 720p · Bersih &amp; Hening</span>
+              <a href="leonardo_da_pisa.mp4" target="_blank" download style="background:#202c33; color:#00a884; border:1px solid #00a884; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:12px; text-decoration:none;">Unduh MP4 ⬇</a>
+            </div>
+          </div>
+          <video id="videoLeonardo" controls playsinline preload="auto" style="width:100%; border-radius:8px; display:block; background:#0b141a;">
+            <source src="leonardo_da_pisa.mp4" type="video/mp4">
+            <source src="/materi/KP21517001/pertemuan-03/leonardo_da_pisa.mp4" type="video/mp4">
+            Browser Anda tidak mendukung pemutar video HTML5. <a href="leonardo_da_pisa.mp4" style="color:#00a884;">Klik di sini untuk membuka file video</a>.
+          </video>
+          <p style="font-size:0.8rem; color:#8696a0; margin-top:8px; margin-bottom:0;">Visualisasi kurva $y = x^3 + 2x^2 + 10x - 20$, garis singgung tangen Newton-Raphson dari $x_0 = 1$, dan pendaratan tepat di akar $s \approx 1{,}368808107$.</p>
+        </div>
+
+        <!-- 1. METODE TITIK TETAP -->
+        <div class="card example">
+          <div class="formula-label">Bagian 1: Analisis 4 Bentuk Lelaran Titik Tetap ($x = g(x)$)</div>
+          <p>Uji turunan $|g'(s)|$ di sekitar $s \approx 1{,}3688$ untuk menentukan prosedur yang konvergen:</p>
+          <ul>
+            <li><strong>Bentuk 1:</strong> $10x = 20 - x^3 - 2x^2 \implies g_1(x) = \frac{20 - x^3 - 2x^2}{10} \implies |g'_1(s)| \approx 1{,}1096 &gt; 1$ (<strong>DIVERGEN BEROSILASI</strong>, melompat liar bolak-balik makin menjauh).</li>
+            <li><strong>Bentuk 2:</strong> $2x^2 = 20 - x^3 - 10x \implies g_2(x) = \sqrt{\frac{20 - 10x - x^3}{2}} \implies |g'_2(s)| \approx 2{,}85 &gt; 1$ (<strong>DIVERGEN</strong>).</li>
+            <li><strong>Bentuk 3:</strong> $x^3 = 20 - 2x^2 - 10x \implies g_3(x) = \sqrt[3]{20 - 2x^2 - 10x} \implies |g'_3(s)| \approx 2{,}75 &gt; 1$ (<strong>DIVERGEN</strong>).</li>
+            <li><strong>Bentuk 4 (Faktorisasi $x$, Rahasia Leonardo!):</strong>
+              <div class="math-step-box">$$x(x^2 + 2x + 10) = 20 \iff x = g_4(x) = \frac{20}{x^2 + 2x + 10}$$</div>
+              Turunan: $g'_4(x) = \frac{-20(2x+2)}{(x^2+2x+10)^2} \implies |g'_4(s)| \approx 0{,}4438 &lt; 1$ (<strong>KONVERGEN KUAT BEROSILASI!</strong>).
+            </li>
+          </ul>
+
+          <p><strong>Tabel Iterasi Titik Tetap $g_4(x)$ dari $x_0 = 1$:</strong></p>
+          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.86rem;">
+            <thead>
+              <tr style="background:#eef2ff; color:#312e81; text-align:right;">
+                <th style="padding:6px; border:1px solid #cbd5e1; text-align:center;">$k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_{k+1} = \frac{20}{x_k^2 + 2x_k + 10}$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">Galat $|x_{k+1} - x_k|$</th>
+              </tr>
+            </thead>
+            <tbody style="text-align:right;">
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">0</td><td style="border:1px solid #cbd5e1;">1,000000000</td><td style="border:1px solid #cbd5e1;">1,538461538</td><td style="border:1px solid #cbd5e1;">0,538461538</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">1</td><td style="border:1px solid #cbd5e1;">1,538461538</td><td style="border:1px solid #cbd5e1;">1,295019157</td><td style="border:1px solid #cbd5e1;">0,243442381</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">2</td><td style="border:1px solid #cbd5e1;">1,295019157</td><td style="border:1px solid #cbd5e1;">1,401825309</td><td style="border:1px solid #cbd5e1;">0,106806152</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">3</td><td style="border:1px solid #cbd5e1;">1,401825309</td><td style="border:1px solid #cbd5e1;">1,354209390</td><td style="border:1px solid #cbd5e1;">0,047615919</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">4</td><td style="border:1px solid #cbd5e1;">1,354209390</td><td style="border:1px solid #cbd5e1;">1,375298092</td><td style="border:1px solid #cbd5e1;">0,021088702</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">5</td><td style="border:1px solid #cbd5e1;">1,375298092</td><td style="border:1px solid #cbd5e1;">1,365929788</td><td style="border:1px solid #cbd5e1;">0,009368304</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">6</td><td style="border:1px solid #cbd5e1;">1,365929788</td><td style="border:1px solid #cbd5e1;">1,370086003</td><td style="border:1px solid #cbd5e1;">0,004156215</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">7</td><td style="border:1px solid #cbd5e1;">1,370086003</td><td style="border:1px solid #cbd5e1;">1,368241024</td><td style="border:1px solid #cbd5e1;">0,001844979</td></tr>
+              <tr style="background:#f0fdf4; font-weight:700; color:#15803d;"><td style="text-align:center; border:1px solid #cbd5e1;">...</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">&lt; 10⁻⁹</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2. METODE NEWTON-RAPHSON -->
+        <div class="card example">
+          <div class="formula-label">Bagian 2: Newton-Raphson dari $x_0 = 1$ (Konvergensi Kuadratik)</div>
+          <p>Turunan: $f'(x) = 3x^2 + 4x + 10$. Rumus lelaran:</p>
+          <div class="math-step-box">$$x_{k+1} = x_k - \frac{x_k^3 + 2x_k^2 + 10x_k - 20}{3x_k^2 + 4x_k + 10}$$</div>
+
+          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.86rem;">
+            <thead>
+              <tr style="background:#eff6ff; color:#1e40af; text-align:right;">
+                <th style="padding:6px; border:1px solid #cbd5e1; text-align:center;">$k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$f(x_k)$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$f'(x_k)$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_{k+1}$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">Galat $|x_{k+1}-x_k|$</th>
+              </tr>
+            </thead>
+            <tbody style="text-align:right;">
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">0</td><td style="border:1px solid #cbd5e1;">1,000000000</td><td style="border:1px solid #cbd5e1;">-7,000000</td><td style="border:1px solid #cbd5e1;">17,000000</td><td style="border:1px solid #cbd5e1;">1,411764706</td><td style="border:1px solid #cbd5e1;">0,411764706</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">1</td><td style="border:1px solid #cbd5e1;">1,411764706</td><td style="border:1px solid #cbd5e1;">+0,917566</td><td style="border:1px solid #cbd5e1;">21,626298</td><td style="border:1px solid #cbd5e1;">1,369336471</td><td style="border:1px solid #cbd5e1;">0,042428235</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">2</td><td style="border:1px solid #cbd5e1;">1,369336471</td><td style="border:1px solid #cbd5e1;">+0,011148</td><td style="border:1px solid #cbd5e1;">21,102593</td><td style="border:1px solid #cbd5e1;">1,368808189</td><td style="border:1px solid #cbd5e1;">0,000528282</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">3</td><td style="border:1px solid #cbd5e1;">1,368808189</td><td style="border:1px solid #cbd5e1;">+0,000002</td><td style="border:1px solid #cbd5e1;">21,096140</td><td style="border:1px solid #cbd5e1;">1,368808108</td><td style="border:1px solid #cbd5e1;">8,08 × 10⁻⁸</td></tr>
+              <tr style="background:#f0fdf4; font-weight:700; color:#15803d;"><td style="text-align:center; border:1px solid #cbd5e1;">4</td><td style="border:1px solid #cbd5e1;">1,368808108</td><td style="border:1px solid #cbd5e1;">0,000000</td><td style="border:1px solid #cbd5e1;">21,096139</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">&lt; 10⁻¹⁴</td></tr>
+            </tbody>
+          </table>
+          <p class="answer" style="margin-top:8px;"><strong>Hasil:</strong> Hanya dalam <strong>4 lelaran</strong> diperoleh $x = 1{,}368808107$ yang identik dengan penemuan Leonardo da Pisa!</p>
+        </div>
+
+        <!-- 3. METODE SECANT -->
+        <div class="card example">
+          <div class="formula-label">Bagian 3: Metode Secant dari $x_0 = 1$ dan $x_1 = 1{,}5$</div>
+          <p>Rumus lelaran:</p>
+          <div class="math-step-box">$$x_{k+1} = x_k - f(x_k) \cdot \frac{x_k - x_{k-1}}{f(x_k) - f(x_{k-1})}$$</div>
+
+          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.86rem;">
+            <thead>
+              <tr style="background:#fdf4ff; color:#701a75; text-align:right;">
+                <th style="padding:6px; border:1px solid #cbd5e1; text-align:center;">$k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_{k-1}$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_k$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$f(x_{k-1})$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$f(x_k)$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">$x_{k+1}$</th>
+                <th style="padding:6px; border:1px solid #cbd5e1;">Galat $|x_{k+1}-x_k|$</th>
+              </tr>
+            </thead>
+            <tbody style="text-align:right;">
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">1</td><td style="border:1px solid #cbd5e1;">1,000000000</td><td style="border:1px solid #cbd5e1;">1,500000000</td><td style="border:1px solid #cbd5e1;">-7,000000</td><td style="border:1px solid #cbd5e1;">+2,875000</td><td style="border:1px solid #cbd5e1;">1,354430380</td><td style="border:1px solid #cbd5e1;">0,145569620</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">2</td><td style="border:1px solid #cbd5e1;">1,500000000</td><td style="border:1px solid #cbd5e1;">1,354430380</td><td style="border:1px solid #cbd5e1;">+2,875000</td><td style="border:1px solid #cbd5e1;">-0,302055</td><td style="border:1px solid #cbd5e1;">1,368270260</td><td style="border:1px solid #cbd5e1;">0,013839880</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">3</td><td style="border:1px solid #cbd5e1;">1,354430380</td><td style="border:1px solid #cbd5e1;">1,368270260</td><td style="border:1px solid #cbd5e1;">-0,302055</td><td style="border:1px solid #cbd5e1;">-0,011345</td><td style="border:1px solid #cbd5e1;">1,368810350</td><td style="border:1px solid #cbd5e1;">0,000540090</td></tr>
+              <tr><td style="text-align:center; border:1px solid #cbd5e1;">4</td><td style="border:1px solid #cbd5e1;">1,368270260</td><td style="border:1px solid #cbd5e1;">1,368810350</td><td style="border:1px solid #cbd5e1;">-0,011345</td><td style="border:1px solid #cbd5e1;">+0,000047</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">2,24 × 10⁻⁶</td></tr>
+              <tr style="background:#f0fdf4; font-weight:700; color:#15803d;"><td style="text-align:center; border:1px solid #cbd5e1;">5</td><td style="border:1px solid #cbd5e1;">1,368810350</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">+0,000047</td><td style="border:1px solid #cbd5e1;">0,000000</td><td style="border:1px solid #cbd5e1;">1,368808107</td><td style="border:1px solid #cbd5e1;">&lt; 10⁻⁹</td></tr>
+            </tbody>
+          </table>
+          <p class="answer" style="margin-top:8px;"><strong>Hasil:</strong> Metode Secant berhasil mencapai 9 desimal presisi hanya dalam <strong>5 lelaran</strong> tanpa memerlukan turunan pertama fungsi.</p>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
       <!-- RINGKASAN & LATIHAN MANDIRI -->
       <!-- ========================================================================= -->
       <section>
