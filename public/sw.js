@@ -1,4 +1,4 @@
-const CACHE_NAME = "kelasku-pwa-v25";
+const CACHE_NAME = "kelasku-pwa-v26";
 const STATIC_ASSETS = [
   "/index.html",
   "/manifest.json",
@@ -47,6 +47,17 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+
+  // Lewatkan media streaming (MP4, WebM, MP3) dan HTTP Range 206 langsung ke browser/jaringan
+  // karena Cache API standar gagal menangani Range request parsial untuk elemen <video>.
+  if (
+    request.headers.has("range") ||
+    url.pathname.endsWith(".mp4") ||
+    url.pathname.endsWith(".webm") ||
+    url.pathname.endsWith(".mp3")
+  ) {
+    return;
+  }
 
   if (request.mode === "navigate") {
     event.respondWith(
