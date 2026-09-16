@@ -20,6 +20,13 @@ API_KEY = os.environ.get("HERMES_CUSTOM_LOCALHOST_20128_API_KEY", "")
 
 TEAM_MODELS = [
     {
+        "id": "cl/deepseek/deepseek-v4.1-flash",
+        "alias": "DeepSeek V4.1 Flash",
+        "vendor": "Cline OAuth",
+        "role": "Lead Logic & Komparasi",
+        "system": "Anda adalah DeepSeek V4.1 Flash, Lead Logic tim AI. Analisis alur matematis, rumus, dan konsistensi lelaran."
+    },
+    {
         "id": "cbai/kimi-k2.6",
         "alias": "Kimi K2.6",
         "vendor": "Moonshot AI asli",
@@ -37,15 +44,8 @@ TEAM_MODELS = [
         "id": "cbai/minimax-m3",
         "alias": "MiniMax M3",
         "vendor": "MiniMax asli",
-        "role": "Penulis & struktur bahasa",
-        "system": "Anda adalah MiniMax M3, spesialis narasi dan struktur bahasa Indonesia yang lugas, akademis, dan anti-slop."
-    },
-    {
-        "id": "neko/qwen3.8-flash",
-        "alias": "Qwen 3.8 Flash",
-        "vendor": "Alibaba asli",
-        "role": "Komparasi & data luas",
-        "system": "Anda adalah Qwen 3.8 Flash, spesialis komparasi data, algoritma numerik, dan standar internasional."
+        "role": "Penulis & struktur visual",
+        "system": "Anda adalah MiniMax M3, spesialis narasi visual dan alur pedagogis matematika Manim."
     },
     {
         "id": "ag/gemini-3.8-flash-high",
@@ -56,7 +56,7 @@ TEAM_MODELS = [
     }
 ]
 
-def query_model(model_info, prompt, timeout=30):
+def query_model(model_info, prompt, timeout=40):
     t0 = time.time()
     headers = {
         "Content-Type": "application/json",
