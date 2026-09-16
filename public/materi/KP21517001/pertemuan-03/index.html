@@ -19,7 +19,7 @@
     <header>
       <span class="badge">Bahan Belajar Terpadu · Pertemuan 03</span>
       <h1>Solusi Persamaan Nirlanjar: Penelusuran Komprehensif Metode Tertutup &amp; Metode Terbuka</h1>
-      <p>Modul terpadu Bab 03 Pencarian Akar Persamaan Nirlanjar $f(x) = 0$. Menggabungkan seluruh fondasi <strong>Metode Tertutup / Pengurung</strong> (Metode Bagi Dua / Biseksi, Regula Falsi Klasik, dan Regula Falsi yang Diperbaiki / Skema Illinois) serta seluruh keluarga <strong>Metode Terbuka</strong> (Lelaran Titik Tetap, Newton-Raphson, dan Metode Secant) hingga tabel matriks perbandingan performa komputasi.</p>
+      <p>Modul terpadu Bab 03 Pencarian Akar Persamaan Nirlanjar $f(x) = 0$. Dilengkapi <strong>Contoh Soal dan Pembahasan Bertahap pada Setiap Subbab</strong> (deklarasi variabel $\to$ nilai $\to$ substitusi bertahap), mencakup seluruh fondasi <strong>Metode Tertutup</strong> (Biseksi, Regula Falsi Klasik, Regula Falsi yang Diperbaiki / Skema Illinois) serta seluruh keluarga <strong>Metode Terbuka</strong> (Lelaran Titik Tetap, Newton-Raphson, dan Metode Secant) hingga tabel matriks perbandingan performa komputasi.</p>
       <div class="meta">
         <span><strong>Mata kuliah:</strong> Metode Numerik (KP21517001)</span>
         <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
@@ -30,7 +30,7 @@
 
     <main>
       <aside class="notice">
-        <strong>Modul Terpadu Komprehensif:</strong> Memuat seluruh metode pencarian akar (Biseksi s.d. Secant) agar mahasiswa memiliki rujukan utuh satu pintu yang menghubungkan materi Kelompok 1, Kelompok 2, dan Kelompok 3.
+        <strong>Modul Terpadu Komprehensif:</strong> Memuat seluruh metode pencarian akar (Biseksi s.d. Secant) disertai contoh soal dan tabel iterasi langkah demi langkah pada setiap subbab agar mahasiswa Pendidikan Matematika mudah memahami logika perhitungannya.
       </aside>
 
       <!-- ========================================================================= -->
@@ -58,6 +58,27 @@
 
         <div class="card warn">
           <strong>Catatan Kritis:</strong> Syarat $f(a) \cdot f(b) &lt; 0$ menjamin keberadaan akar, tetapi tidak menjamin akarnya tunggal (bisa terdapat 3, 5, atau ganjil akar di dalam selang). Selain itu, metode pengurung akan gagal mendeteksi akar kembar berorde genap (seperti $f(x) = (x-2)^2$) karena kurva hanya menyinggung sumbu-$x$ tanpa berganti tanda.
+        </div>
+
+        <!-- CONTOH SOAL 1 -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 1: Uji Keberadaan Akar Teorema Bolzano</div>
+          <p><strong>Soal:</strong> Selidiki apakah persamaan $f(x) = x^3 - 4x - 9 = 0$ dijamin memiliki sedikitnya satu akar real pada selang tertutup $[2, 3]$.</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Rumus variabel:</strong>
+              <div class="math-step-box">$$f(a) \cdot f(b) &lt; 0$$</div>
+            </li>
+            <li><strong>Deklarasi nilai:</strong>
+              <div class="math-step-box">$$a = 2, \quad b = 3, \quad f(x) = x^3 - 4x - 9$$</div>
+            </li>
+            <li><strong>Substitusi bertahap:</strong>
+              <div class="math-step-box">$$f(2) = (2)^3 - 4(2) - 9 = 8 - 8 - 9 = -9 \quad (\text{negatif})$$</div>
+              <div class="math-step-box">$$f(3) = (3)^3 - 4(3) - 9 = 27 - 12 - 9 = +6 \quad (\text{positif})$$</div>
+              <div class="math-step-box">$$f(2) \cdot f(3) = (-9) \cdot (+6) = -54 &lt; 0$$</div>
+            </li>
+            <li><strong>Kesimpulan:</strong> Karena $f(x)$ kontinu pada $[2, 3]$ dan $f(2) \cdot f(3) &lt; 0$, menurut Teorema Bolzano terbukti pasti terdapat sedikitnya satu akar real $r \in (2, 3)$ sehingga $f(r) = 0$.</li>
+          </ol>
         </div>
       </section>
 
@@ -92,10 +113,37 @@
           <div class="math-step-box">$$\frac{b_0 - a_0}{2^n} &lt; \varepsilon \iff n &gt; \frac{\ln(b_0 - a_0) - \ln(\varepsilon)}{\ln 2}$$</div>
         </div>
 
+        <!-- CONTOH SOAL 2 -->
         <div class="card example">
-          <div class="formula-label">Karakteristik Biseksi</div>
-          <p><strong>Keunggulan:</strong> Selalu konvergen (terjamin stabil 100%), tidak pernah divergen karena akar terkunci di dalam kurungan.</p>
-          <p><strong>Kelemahan:</strong> Konvergensi lambat (laju linier dengan rasio konvergensi $0{,}5$). Metode ini tidak memanfaatkan bentuk kelengkungan fungsi sama sekali.</p>
+          <div class="formula-label">Contoh Soal 2: Solusi Biseksi Langkah Demi Langkah</div>
+          <p><strong>Soal:</strong> Tentukan akar dari $f(x) = x^3 - 2x - 5 = 0$ pada selang $[2, 3]$ dengan toleransi galat lebar selang $\varepsilon = 0{,}05$.</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Prediksi Jumlah Lelaran Teoretis:</strong>
+              <div class="math-step-box">$$a_0 = 2, \quad b_0 = 3, \quad \varepsilon = 0{,}05$$</div>
+              <div class="math-step-box">$$n &gt; \frac{\ln(3 - 2) - \ln(0{,}05)}{\ln 2} = \frac{\ln(1) - (-2{,}99573)}{0{,}69315} = \frac{2{,}99573}{0{,}69315} \approx 4{,}32$$</div>
+              <p>Dibutuhkan minimal $n = 5$ lelaran untuk menjamin lebar selang kurang dari $0{,}05$.</p>
+            </li>
+            <li><strong>Langkah Iterasi Per Iterasi:</strong>
+              <ul>
+                <li><strong>Lelaran 1:</strong> $a = 2$, $b = 3$. Titik tengah $c_1 = \frac{2 + 3}{2} = 2{,}5$.<br>
+                  Nilai fungsi: $f(2) = -1$, $f(2{,}5) = (2{,}5)^3 - 2(2{,}5) - 5 = 5{,}625$.<br>
+                  Karena $f(2) \cdot f(2{,}5) &lt; 0$, akar di kiri $\implies b \leftarrow 2{,}5$. Lebar selang $= |2{,}5 - 2| = 0{,}5$.</li>
+                <li><strong>Lelaran 2:</strong> $a = 2$, $b = 2{,}5$. Titik tengah $c_2 = \frac{2 + 2{,}5}{2} = 2{,}25$.<br>
+                  Nilai fungsi: $f(2{,}25) = (2{,}25)^3 - 2(2{,}25) - 5 = 1{,}890625 &gt; 0$.<br>
+                  Karena $f(2) \cdot f(2{,}25) &lt; 0$, akar di kiri $\implies b \leftarrow 2{,}25$. Lebar selang $= 0{,}25$.</li>
+                <li><strong>Lelaran 3:</strong> $a = 2$, $b = 2{,}25$. Titik tengah $c_3 = \frac{2 + 2{,}25}{2} = 2{,}125$.<br>
+                  Nilai fungsi: $f(2{,}125) = (2{,}125)^3 - 2(2{,}125) - 5 = 0{,}345703 &gt; 0$.<br>
+                  Karena $f(2) \cdot f(2{,}125) &lt; 0$, akar di kiri $\implies b \leftarrow 2{,}125$. Lebar selang $= 0{,}125$.</li>
+                <li><strong>Lelaran 4:</strong> $a = 2$, $b = 2{,}125$. Titik tengah $c_4 = \frac{2 + 2{,}125}{2} = 2{,}0625$.<br>
+                  Nilai fungsi: $f(2{,}0625) = (2{,}0625)^3 - 2(2{,}0625) - 5 = -0{,}351318 &lt; 0$.<br>
+                  Karena $f(2) \cdot f(2{,}0625) &gt; 0$, akar di kanan $\implies a \leftarrow 2{,}0625$. Lebar selang $= 0{,}0625$.</li>
+                <li><strong>Lelaran 5:</strong> $a = 2{,}0625$, $b = 2{,}125$. Titik tengah $c_5 = \frac{2{,}0625 + 2{,}125}{2} = 2{,}09375$.<br>
+                  Lebar selang $= |2{,}125 - 2{,}0625| = 0{,}03125 &lt; 0{,}05$. Kriteria henti terpenuhi!</li>
+              </ul>
+            </li>
+            <li><strong>Kesimpulan:</strong> Taksiran akar diperoleh $r \approx 2{,}09375$ dengan galat selang $0{,}03125 &lt; 0{,}05$.</li>
+          </ol>
         </div>
       </section>
 
@@ -111,10 +159,38 @@
           <div class="math-step-box">$$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)} = b - \frac{f(b)(b - a)}{f(b) - f(a)}$$</div>
         </div>
 
-        <p>Meskipun memanfaatkan informasi kemiringan fungsi, Regula Falsi klasik memiliki kelemahan struktural yang sangat nyata saat menghadapi kurva yang memiliki kelengkungan searah (fungsi konveks atau konkaf kuat di seluruh selang).</p>
-
         <div class="card warn">
-          <strong>Fenomena Titik Macet (Stagnant Point):</strong> Garis tali busur akan selalu memotong sumbu-$x$ di sisi yang sama terhadap akar sejati. Akibatnya, salah satu ujung selang terpaku diam (stagnan) tidak pernah bergeser, sementara ujung lainnya merayap sangat lambat mendekati akar. Selang $[a, b]$ tidak pernah menyusut ke nol, dan laju komputasi merosot drastis.
+          <strong>Fenomena Titik Macet (Stagnant Point):</strong> Garis tali busur akan selalu memotong sumbu-$x$ di sisi yang sama terhadap akar sejati bila kurva cekung ke satu arah. Akibatnya, salah satu ujung selang terpaku diam (stagnan) tidak pernah bergeser, sementara ujung lainnya merayap sangat lambat mendekati akar. Selang $[a, b]$ tidak pernah menyusut ke nol, dan laju komputasi merosot drastis.
+        </div>
+
+        <!-- CONTOH SOAL 3 -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 3: Regula Falsi Klasik &amp; Identifikasi Titik Macet</div>
+          <p><strong>Soal:</strong> Selesaikan $f(x) = x^3 - 2x - 5 = 0$ pada selang $[2, 3]$ dengan metode Regula Falsi klasik hingga lelaran ke-3. Tunjukkan kecenderungan stagnasi titik ujungnya!</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Rumus variabel:</strong>
+              <div class="math-step-box">$$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)}$$</div>
+            </li>
+            <li><strong>Lelaran 1:</strong>
+              <div class="math-step-box">$$a = 2 \implies f(2) = -1; \quad b = 3 \implies f(3) = 16$$</div>
+              <div class="math-step-box">$$c_1 = \frac{2(16) - 3(-1)}{16 - (-1)} = \frac{32 + 3}{17} = \frac{35}{17} \approx 2{,}058824$$</div>
+              <div class="math-step-box">$$f(c_1) = (2{,}058824)^3 - 2(2{,}058824) - 5 \approx -0{,}390799 &lt; 0$$</div>
+              <p>Karena $f(a) \cdot f(c_1) = (-1)(-0{,}3908) &gt; 0$, ujung kiri bergeser $a \leftarrow 2{,}058824$, sementara batas kanan $b = 3$ TETAP.</p>
+            </li>
+            <li><strong>Lelaran 2:</strong>
+              <div class="math-step-box">$$a = 2{,}058824, f(a) = -0{,}390799; \quad b = 3, f(b) = 16$$</div>
+              <div class="math-step-box">$$c_2 = \frac{2{,}058824(16) - 3(-0{,}390799)}{16 - (-0{,}390799)} = \frac{32{,}941184 + 1{,}172397}{16{,}390799} = \frac{34{,}113581}{16{,}390799} \approx 2{,}081264$$</div>
+              <div class="math-step-box">$$f(c_2) = (2{,}081264)^3 - 2(2{,}081264) - 5 \approx -0{,}147204 &lt; 0$$</div>
+              <p>Karena $f(a) \cdot f(c_2) &gt; 0$, ujung kiri bergeser lagi $a \leftarrow 2{,}081264$, batas kanan $b = 3$ LAGI-LAGI TETAP.</p>
+            </li>
+            <li><strong>Lelaran 3:</strong>
+              <div class="math-step-box">$$a = 2{,}081264, f(a) = -0{,}147204; \quad b = 3, f(b) = 16$$</div>
+              <div class="math-step-box">$$c_3 = \frac{2{,}081264(16) - 3(-0{,}147204)}{16 - (-0{,}147204)} = \frac{33{,}300224 + 0{,}441612}{16{,}147204} \approx 2{,}089673$$</div>
+              <div class="math-step-box">$$f(c_3) \approx -0{,}054668 &lt; 0$$</div>
+            </li>
+            <li><strong>Evaluasi Titik Macet:</strong> Titik ujung kanan $b = 3$ terpaku diam selama 3 lelaran penuh karena kelengkungan fungsi menarik tali busur selalu ke sisi kiri akar. Inilah bukti nyata fenomena titik macet!</li>
+          </ol>
         </div>
       </section>
 
@@ -123,7 +199,7 @@
       <!-- ========================================================================= -->
       <section>
         <h2>4. Regula Falsi yang Diperbaiki (Modified Regula Falsi / Skema Illinois)</h2>
-        <p>Untuk mengatasi fenomena titik macet tanpa kehilangan jaminan konvergensi metode tertutup, dikembangkan modifikasi bobot yang dikenal di dunia komputasi sebagai <strong>Skema Illinois</strong> (dikembangkan di University of Illinois, 1971).</p>
+        <p>Untuk mengatasi fenomena titik macet tanpa kehilangan jaminan konvergensi metode tertutup, dikembangkan modifikasi bobot yang dikenal di dunia komputasi sebagai <strong>Skema Illinois</strong> (University of Illinois, 1971).</p>
 
         <p><strong>Aturan Pembagian Bobot:</strong> Jika titik ujung selang yang sama tertahan diam selama <em>dua lelaran berturut-turut</em>, maka nilai ordinat fungsi pada ujung yang macet tersebut <strong>dibagi dua</strong> ($F \leftarrow F / 2$).</p>
 
@@ -134,40 +210,35 @@
           <div class="math-step-box">$$c = \frac{a \cdot F_b - b \cdot F_a}{F_b - F_a}$$</div>
         </div>
 
-        <p>Secara geometris, membagi dua ordinat titik yang macet akan "menurunkan" titik tumpu tali busur, memiringkan garis sekan ke arah dalam sehingga pada lelaran berikutnya titik potong $c$ dipaksa melompati akar ke sisi seberang. Ujung yang semula macet pun akhirnya bergerak!</p>
-
+        <!-- CONTOH SOAL 4 -->
         <div class="card example">
-          <div class="formula-label">Uji Komparasi Riil: $f(x) = e^x - 5x^2 = 0$ pada $[0, 1]$ ($\varepsilon = 10^{-5}$)</div>
-          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.88rem;">
-            <thead>
-              <tr style="background:#eef2ff; color:#312e81; text-align:left;">
-                <th style="padding:8px; border:1px solid #cbd5e1;">Metode</th>
-                <th style="padding:8px; border:1px solid #cbd5e1; text-align:center;">Jumlah Iterasi</th>
-                <th style="padding:8px; border:1px solid #cbd5e1;">Hasil Taksiran Akar ($r$)</th>
-                <th style="padding:8px; border:1px solid #cbd5e1;">Perilaku Titik Ujung</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:8px; border:1px solid #cbd5e1;"><strong>Biseksi</strong></td>
-                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">17 iterasi</td>
-                <td style="padding:8px; border:1px solid #cbd5e1;">$0{,}605263$</td>
-                <td style="padding:8px; border:1px solid #cbd5e1;">Kedua ujung bergerak bergantian membelah selang</td>
-              </tr>
-              <tr>
-                <td style="padding:8px; border:1px solid #cbd5e1;"><strong>Regula Falsi Klasik</strong></td>
-                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center;">12 iterasi</td>
-                <td style="padding:8px; border:1px solid #cbd5e1;">$0{,}605267$</td>
-                <td style="padding:8px; border:1px solid #cbd5e1; color:#b91c1c;">Titik $b=1$ macet permanen selama 12 iterasi</td>
-              </tr>
-              <tr style="background:#f0fdf4;">
-                <td style="padding:8px; border:1px solid #cbd5e1;"><strong style="color:#15803d;">Modified Regula Falsi</strong></td>
-                <td style="padding:8px; border:1px solid #cbd5e1; text-align:center; font-weight:700; color:#15803d;">7 iterasi</td>
-                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:700; color:#15803d;">$0{,}605267$</td>
-                <td style="padding:8px; border:1px solid #cbd5e1; color:#15803d;">Bobot $F_b$ dibagi 2 pada lelaran 3; titik macet lepas!</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="formula-label">Contoh Soal 4: Modified Regula Falsi &amp; Pelepasan Titik Macet</div>
+          <p><strong>Soal:</strong> Selesaikan $f(x) = e^x - 5x^2 = 0$ pada selang $[0, 1]$ menggunakan Skema Illinois. Tunjukkan secara rinci pada lelaran ke berapa pembagian bobot aktif!</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Nilai Awal:</strong>
+              <div class="math-step-box">$$a = 0 \implies F_a = f(0) = e^0 - 5(0)^2 = 1$$</div>
+              <div class="math-step-box">$$b = 1 \implies F_b = f(1) = e^1 - 5(1)^2 \approx 2{,}718282 - 5 = -2{,}281718$$</div>
+            </li>
+            <li><strong>Lelaran 1:</strong>
+              <div class="math-step-box">$$c_1 = \frac{0(-2{,}281718) - 1(1)}{-2{,}281718 - 1} = \frac{-1}{-3{,}281718} \approx 0{,}304718$$</div>
+              <div class="math-step-box">$$f(c_1) = e^{0{,}304718} - 5(0{,}304718)^2 = 1{,}356242 - 0{,}464267 \approx 0{,}891975 &gt; 0$$</div>
+              <p>Karena $f(a) \cdot f(c_1) &gt; 0$, ujung kiri bergeser $a \leftarrow 0{,}304718$, $F_a = 0{,}891975$. Ujung $b=1$ tertahan 1 kali.</p>
+            </li>
+            <li><strong>Lelaran 2:</strong>
+              <div class="math-step-box">$$c_2 = \frac{0{,}304718(-2{,}281718) - 1(0{,}891975)}{-2{,}281718 - 0{,}891975} = \frac{-0{,}695283 - 0{,}891975}{-3{,}173693} \approx 0{,}500130$$</div>
+              <div class="math-step-box">$$f(c_2) = e^{0{,}500130} - 5(0{,}500130)^2 = 1{,}648936 - 1{,}250650 \approx 0{,}398286 &gt; 0$$</div>
+              <p>Ujung kiri bergeser lagi $a \leftarrow 0{,}500130$. <strong>Ujung $b=1$ tertahan 2 kali beruntun!</strong></p>
+            </li>
+            <li><strong>Lelaran 3 (Skema Illinois Aktif!):</strong>
+              <p>Karena $b$ macet 2 kali, bobotnya dipotong setengah:</p>
+              <div class="math-step-box">$$F_b \leftarrow \frac{-2{,}281718}{2} = -1{,}140859$$</div>
+              <p>Hitung titik potong baru dengan ordinat modifikasi:</p>
+              <div class="math-step-box">$$c_3 = \frac{0{,}500130(-1{,}140859) - 1(0{,}398286)}{-1{,}140859 - 0{,}398286} = \frac{-0{,}570578 - 0{,}398286}{-1{,}539145} = \frac{-0{,}968864}{-1{,}539145} \approx 0{,}629482$$</div>
+              <div class="math-step-box">$$f(c_3) = e^{0{,}629482} - 5(0{,}629482)^2 = 1{,}876643 - 1{,}981236 \approx -0{,}104593 &lt; 0$$</div>
+              <p>Karena $f(c_3) &lt; 0$ dan $f(a) &gt; 0$, sekarang <strong>ujung $b$ yang bergeser</strong> ($b \leftarrow 0{,}629482$)! Titik macet berhasil lepas sempurna dan konvergensi tercapai di lelaran ke-7 ($x \approx 0{,}605267$).</p>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -184,8 +255,6 @@
           <div class="math-step-box">$$x_{k+1} = g(x_k), \quad k = 0, 1, 2, \dots$$</div>
         </div>
 
-        <p>Akar persamaan adalah absis titik potong kurva $y = g(x)$ dengan garis lurus $y = x$. Titik $s$ yang memenuhi $s = g(s)$ disebut sebagai <strong>titik tetap</strong> fungsi $g$.</p>
-
         <p><strong>Syarat Konvergensi Lokal (Teorema Titik Tetap):</strong> Jika $g(x)$ dan $g'(x)$ kontinu pada selang yang memuat akar $s$, maka lelaran $x_{k+1} = g(x_k)$ dijamin konvergen menuju $s$ jika tebakan awal $x_0$ dipilih pada lingkungan di mana:</p>
 
         <div class="card formula">
@@ -193,24 +262,31 @@
           <div class="math-step-box">$$|g'(s)| &lt; 1$$</div>
         </div>
 
-        <p>Empat pola geometris lelaran titik tetap:</p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin:14px 0;">
-          <div class="card" style="border-left:4px solid #10b981; padding:12px;">
-            <b style="color:#059669;">1. Konvergen Monoton</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Jika $0 &lt; g'(s) &lt; 1$. Taksiran $x_k$ mendekati akar searah menyerupai anak tangga (<em>staircase</em>).</p>
-          </div>
-          <div class="card" style="border-left:4px solid #0284c7; padding:12px;">
-            <b style="color:#0284c7;">2. Konvergen Berosilasi</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Jika $-1 &lt; g'(s) &lt; 0$. Taksiran $x_k$ berputar melompat bergantian di kiri-kanan akar (<em>cobweb / sarang laba-laba</em>).</p>
-          </div>
-          <div class="card" style="border-left:4px solid #f59e0b; padding:12px;">
-            <b style="color:#d97706;">3. Divergen Monoton</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Jika $g'(s) &gt; 1$. Taksiran $x_k$ melesat menjauhi akar searah menuju tak hingga.</p>
-          </div>
-          <div class="card" style="border-left:4px solid #ef4444; padding:12px;">
-            <b style="color:#dc2626;">4. Divergen Berosilasi</b>
-            <p style="font-size:0.85rem; margin:4px 0;">Jika $g'(s) &lt; -1$. Taksiran $x_k$ berosilasi liar dengan simpangan yang makin membesar.</p>
-          </div>
+        <!-- CONTOH SOAL 5 -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 5: Analisis Konvergensi Titik Tetap &amp; Tabel Iterasi</div>
+          <p><strong>Soal:</strong> Selesaikan $x^3 - x - 2 = 0$ dengan tebakan awal $x_0 = 1{,}5$. Tunjukkan bentuk $g(x)$ yang konvergen dan jalankan 4 langkah lelaran!</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Uji Bentuk Manipulasi 1 (Divergen):</strong>
+              <div class="math-step-box">$$x = x^3 - 2 \implies g_1(x) = x^3 - 2 \implies g'_1(x) = 3x^2$$</div>
+              <div class="math-step-box">$$|g'_1(1{,}5)| = 3(1{,}5)^2 = 6{,}75 &gt; 1 \quad (\text{DIVERGEN!})$$</div>
+            </li>
+            <li><strong>Uji Bentuk Manipulasi 2 (Konvergen):</strong>
+              <div class="math-step-box">$$x^3 = x + 2 \iff x = \sqrt[3]{x + 2} \implies g_2(x) = (x + 2)^{1/3}$$</div>
+              <div class="math-step-box">$$g'_2(x) = \frac{1}{3(x + 2)^{2/3}} \implies |g'_2(1{,}5)| = \frac{1}{3(3{,}5)^{2/3}} \approx 0{,}1446 &lt; 1 \quad (\text{KONVERGEN KUAT!})$$</div>
+            </li>
+            <li><strong>Langkah Iterasi $x_{k+1} = \sqrt[3]{x_k + 2}$:</strong>
+              <ul>
+                <li>$k = 0: x_0 = 1{,}500000$</li>
+                <li>$k = 1: x_1 = \sqrt[3]{1{,}5 + 2} = \sqrt[3]{3{,}5} \approx 1{,}518294$, galat $= |1{,}518294 - 1{,}5| = 0{,}018294$</li>
+                <li>$k = 2: x_2 = \sqrt[3]{1{,}518294 + 2} \approx 1{,}520935$, galat $= 0{,}002641$</li>
+                <li>$k = 3: x_3 = \sqrt[3]{1{,}520935 + 2} \approx 1{,}521316$, galat $= 0{,}000381$</li>
+                <li>$k = 4: x_4 = \sqrt[3]{1{,}521316 + 2} \approx 1{,}521371$, galat $= 0{,}000055$</li>
+              </ul>
+            </li>
+            <li><strong>Kesimpulan:</strong> Taksiran akar diperoleh $r \approx 1{,}52137$ dalam 4 langkah lelaran.</li>
+          </ol>
         </div>
       </section>
 
@@ -219,24 +295,44 @@
       <!-- ========================================================================= -->
       <section>
         <h2>6. Metode Terbuka: Newton-Raphson</h2>
-        <p>Metode Newton-Raphson adalah metode pencarian akar paling populer di dunia sains dan rekayasa. Pendekatannya memanfaatkan garis singgung (tangen) kurva pada titik $(x_k, f(x_k))$:</p>
-
-        <p>Kemiringan garis singgung adalah turunan pertama $f'(x_k) = \frac{f(x_k) - 0}{x_k - x_{k+1}}$. Dengan mengisolasi $x_{k+1}$, diperoleh rumus iterasi Newton-Raphson:</p>
+        <p>Metode Newton-Raphson memanfaatkan garis singgung (tangen) kurva pada titik $(x_k, f(x_k))$ untuk memotong sumbu-$x$:</p>
 
         <div class="card formula">
           <div class="formula-label">Rumus Iterasi Newton-Raphson</div>
           <div class="math-step-box">$$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$$</div>
         </div>
 
+        <!-- CONTOH SOAL 6 -->
         <div class="card example">
-          <div class="formula-label">Karakteristik Newton-Raphson</div>
-          <p><strong>Laju Konvergensi Kuadratik ($p = 2$):</strong> Jika tebakan awal cukup dekat dengan akar tunggal, jumlah digit presisi yang benar berlipat ganda pada setiap lelaran! Galat memenuhi $e_{k+1} \approx C \cdot e_k^2$.</p>
-          <p><strong>Kelemahan &amp; Titik Gagal:</strong></p>
-          <ul>
-            <li>Memerlukan turunan analitik $f'(x)$. Bila fungsi rumit, diferensiasi analitik sulit dilakukan.</li>
-            <li>Jika $f'(x_k) = 0$ (garis singgung mendatar), terjadi pembagian dengan nol sehingga proses terhenti.</li>
-            <li>Dapat mengalami siklus osilasi berulang (terjebak dalam <em>infinite loop</em>) atau melompat sangat jauh jika tebakan awal berada di dekat titik belok/ekstrim lokal.</li>
-          </ul>
+          <div class="formula-label">Contoh Soal 6: Newton-Raphson dengan Konvergensi Kuadratik</div>
+          <p><strong>Soal:</strong> Tentukan akar dari $f(x) = x^3 - 2x - 5 = 0$ dengan tebakan awal $x_0 = 2$ menggunakan metode Newton-Raphson sampai galat $|x_{k+1} - x_k| &lt; 10^{-5}$.</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Turunan analitis:</strong>
+              <div class="math-step-box">$$f'(x) = 3x^2 - 2$$</div>
+            </li>
+            <li><strong>Lelaran 1 ($k = 0$):</strong>
+              <div class="math-step-box">$$f(x_0) = f(2) = (2)^3 - 2(2) - 5 = 8 - 4 - 5 = -1$$</div>
+              <div class="math-step-box">$$f'(x_0) = f'(2) = 3(2)^2 - 2 = 12 - 2 = 10$$</div>
+              <div class="math-step-box">$$x_1 = 2 - \frac{-1}{10} = 2 + 0{,}1 = 2{,}1$$</div>
+              <p>Galat: $|x_1 - x_0| = |2{,}1 - 2| = 0{,}1$.</p>
+            </li>
+            <li><strong>Lelaran 2 ($k = 1$):</strong>
+              <div class="math-step-box">$$f(x_1) = f(2{,}1) = (2{,}1)^3 - 2(2{,}1) - 5 = 9{,}261 - 4{,}2 - 5 = 0{,}061$$</div>
+              <div class="math-step-box">$$f'(x_1) = f'(2{,}1) = 3(2{,}1)^2 - 2 = 3(4{,}41) - 2 = 11{,}23$$</div>
+              <div class="math-step-box">$$x_2 = 2{,}1 - \frac{0{,}061}{11{,}23} \approx 2{,}1 - 0{,}00543188 = 2{,}094568$$</div>
+              <p>Galat: $|x_2 - x_1| = 0{,}005432$.</p>
+            </li>
+            <li><strong>Lelaran 3 ($k = 2$):</strong>
+              <div class="math-step-box">$$f(2{,}094568) \approx 0{,}000185; \quad f'(2{,}094568) \approx 11{,}161439$$</div>
+              <div class="math-step-box">$$x_3 = 2{,}094568 - \frac{0{,}000185}{11{,}161439} \approx 2{,}094551$$</div>
+              <p>Galat: $|x_3 - x_2| = 0{,}000017 &lt; 0{,}0001$.</p>
+            </li>
+            <li><strong>Lelaran 4 ($k = 3$):</strong>
+              <div class="math-step-box">$$x_4 \approx 2{,}09455148 \implies |x_4 - x_3| \approx 1{,}6 \times 10^{-7} &lt; 10^{-5}$$</div>
+            </li>
+            <li><strong>Kesimpulan:</strong> Konvergensi kuadratik ($p=2$) melipatgandakan jumlah digit presisi setiap lelaran; akar $r \approx 2{,}094551$ tercapai hanya dalam 4 langkah.</li>
+          </ol>
         </div>
       </section>
 
@@ -245,29 +341,41 @@
       <!-- ========================================================================= -->
       <section>
         <h2>7. Metode Terbuka: Metode Secant</h2>
-        <p>Kelemahan utama Newton-Raphson adalah keharusan menurunkan fungsi $f(x)$ secara analitis. Pada banyak kasus rekayasa, fungsi $f(x)$ berbentuk persamaan diferensiasi kompleks atau data tabel sehingga $f'(x)$ sulit diperoleh.</p>
-
-        <p>Metode Secant mengatasi hal ini dengan menghampiri turunan pertama menggunakan <strong>beda hingga (selisih terbagi)</strong> dari dua titik lelaran terakhir $x_k$ dan $x_{k-1}$:</p>
-
-        <div class="card formula">
-          <div class="formula-label">Hampiran Kemiringan Secant</div>
-          <div class="math-step-box">$$f'(x_k) \approx \frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}}$$</div>
-        </div>
-
-        <p>Substitusikan hampiran ini ke rumus Newton-Raphson untuk menghasilkan rumus iterasi Metode Secant:</p>
+        <p>Metode Secant mengatasi kelemahan Newton-Raphson (yang mewajibkan turunan analitis) dengan menghampiri kemiringan menggunakan <strong>beda hingga dari dua titik terakhir</strong>:</p>
 
         <div class="card formula">
           <div class="formula-label">Rumus Iterasi Metode Secant</div>
           <div class="math-step-box">$$x_{k+1} = x_k - f(x_k) \cdot \frac{x_k - x_{k-1}}{f(x_k) - f(x_{k-1})}$$</div>
         </div>
 
+        <!-- CONTOH SOAL 7 -->
         <div class="card example">
-          <div class="formula-label">Perbedaan Kritis: Secant vs Regula Falsi</div>
-          <p>Rumus aljabar Secant tampak identik dengan Regula Falsi, namun filosofinya <strong>berbeda total</strong>:</p>
-          <ul>
-            <li><strong>Regula Falsi (Metode Tertutup):</strong> Dua titik $a$ dan $b$ <em>wajib mengurung akar</em> ($f(a) \cdot f(b) &lt; 0$). Salah satu titik dipertahankan agar tanda selalu berlawanan. Pasti konvergen.</li>
-            <li><strong>Secant (Metode Terbuka):</strong> Dua titik awal $x_0$ dan $x_1$ <em>bebas tanpa syarat tanda</em>. Pada tiap langkah, metode selalu membuang titik terlama $x_{k-1}$ dan memakai dua titik paling baru $(x_k, x_{k+1})$, tanpa peduli apakah tandanya sama atau berbeda. Laju konvergensinya superlinier ($p \approx 1{,}618$, rasio emas / <em>golden ratio</em>), jauh lebih cepat dari Regula Falsi klasik!</li>
-          </ul>
+          <div class="formula-label">Contoh Soal 7: Metode Secant Bertahap</div>
+          <p><strong>Soal:</strong> Tentukan akar dari $f(x) = x^3 - 2x - 5 = 0$ menggunakan Metode Secant dengan tebakan awal $x_0 = 2$ dan $x_1 = 3$ hingga lelaran ke-3.</p>
+          <p><strong>Pembahasan Bertahap:</strong></p>
+          <ol class="steps">
+            <li><strong>Evaluasi Nilai Awal:</strong>
+              <div class="math-step-box">$$x_0 = 2 \implies f(x_0) = 2^3 - 2(2) - 5 = -1$$</div>
+              <div class="math-step-box">$$x_1 = 3 \implies f(x_1) = 3^3 - 2(3) - 5 = 16$$</div>
+            </li>
+            <li><strong>Lelaran 1 ($k = 1 \to x_2$):</strong>
+              <div class="math-step-box">$$x_2 = x_1 - f(x_1) \cdot \frac{x_1 - x_0}{f(x_1) - f(x_0)} = 3 - 16 \cdot \frac{3 - 2}{16 - (-1)} = 3 - \frac{16}{17} \approx 2{,}058824$$</div>
+              <div class="math-step-box">$$f(x_2) = (2{,}058824)^3 - 2(2{,}058824) - 5 \approx -0{,}390799$$</div>
+            </li>
+            <li><strong>Lelaran 2 ($k = 2 \to x_3$):</strong>
+              <p>Gunakan dua titik paling baru: $(x_1, f(x_1)) = (3, 16)$ dan $(x_2, f(x_2)) = (2{,}058824, -0{,}390799)$:</p>
+              <div class="math-step-box">$$x_3 = 2{,}058824 - (-0{,}390799) \cdot \frac{2{,}058824 - 3}{-0{,}390799 - 16}$$</div>
+              <div class="math-step-box">$$x_3 = 2{,}058824 + 0{,}390799 \cdot \frac{-0{,}941176}{-16{,}390799} = 2{,}058824 + 0{,}022440 = 2{,}081264$$</div>
+              <div class="math-step-box">$$f(x_3) \approx -0{,}147204$$</div>
+            </li>
+            <li><strong>Lelaran 3 ($k = 3 \to x_4$):</strong>
+              <p>Gunakan dua titik paling baru: $(x_2, f(x_2))$ dan $(x_3, f(x_3))$. Perhatikan bahwa keduanya bertanda negatif ($f(x_2) &lt; 0$ dan $f(x_3) &lt; 0$); metode Secant tidak peduli tanda pengurung dan langsung menghitung:</p>
+              <div class="math-step-box">$$x_4 = 2{,}081264 - (-0{,}147204) \cdot \frac{2{,}081264 - 2{,}058824}{-0{,}147204 - (-0{,}390799)}$$</div>
+              <div class="math-step-box">$$x_4 = 2{,}081264 + 0{,}147204 \cdot \frac{0{,}022440}{0{,}243595} = 2{,}081264 + 0{,}013560 = 2{,}094824$$</div>
+              <div class="math-step-box">$$f(x_4) = (2{,}094824)^3 - 2(2{,}094824) - 5 \approx +0{,}003009 \approx 0$$</div>
+            </li>
+            <li><strong>Kesimpulan:</strong> Hanya dalam 3 lelaran, nilai fungsi sudah mengecil ke $+0{,}003$ tanpa perlu mencari turunan $f'(x)$.</li>
+          </ol>
         </div>
       </section>
 
@@ -276,7 +384,7 @@
       <!-- ========================================================================= -->
       <section>
         <h2>8. Matriks Perbandingan Komprehensif Seluruh Metode Akar</h2>
-        <p>Berikut adalah peta perbandingan performa komputasi keenam metode pencarian akar yang dipelajari pada Bab 03 Silabus Metode Numerik:</p>
+        <p>Peta perbandingan performa komputasi keenam metode pencarian akar yang dipelajari pada Bab 03 Silabus Metode Numerik:</p>
 
         <div class="table-wrap" style="overflow-x:auto;">
           <table style="width:100%; border-collapse:collapse; margin:14px 0; font-size:0.86rem;">
