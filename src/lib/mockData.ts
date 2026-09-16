@@ -45,10 +45,122 @@ const seminarMeetings:SyllabusMeeting[]=[
 {meeting:11,title:'Pendataan Judul Rencana Penelitian Skripsi',kind:'Teori',summary:'Pendataan judul rencana penelitian tiap mahasiswa oleh dosen. Judul yang disetorkan mengikuti dokumen NUIR 2026.',activity:'Menyetorkan judul rencana penelitian skripsi.'},
 ...blank(12,16)
 ]
-/* Metode Numerik: belum ada satu pun catatan kuliah di arsip mata kuliah.
-   Enam belas judul berikut diambil dari halaman bahan belajar yang memang ada
-   di public/materi/KP21517001 — bahan belajar mandiri, bukan catatan kuliah. */
-const metodeNumerikMeetings:SyllabusMeeting[]=['Pengantar Metode Numerik','Deret Taylor dan Analisis Galat','Metode Tertutup untuk Akar Persamaan','Metode Terbuka untuk Akar Persamaan','Perbandingan Metode Pencarian Akar dan Laju Konvergensi','Eliminasi Gaussian dan Gauss–Jordan','Faktorisasi LU, Invers Matriks, dan Pivoting','Iterasi Jacobi, Gauss–Seidel, dan Konvergensi','Interpolasi Polinom Lagrange','Beda Terbagi Newton, Gambaran Spline, dan Perbedaan Regresi','Diferensiasi Numerik: Maju, Mundur, Pusat, dan Galat','Integrasi Numerik Komposit: Trapesium dan Aturan Simpson','Kuadratur Gauss: Integrasi Efisien, Galat, dan Pemilihan Metode','Masalah Nilai Awal PDB: Metode Euler dan Heun','Runge–Kutta Orde Empat untuk Persamaan Tunggal dan Sistem','Tinjauan Akhir: Peta Metode dan Alur Pemilihan'].map((title,i)=>({meeting:i+1,title,kind:'Teori' as const,summary:`Bahan belajar mandiri (bukan catatan kuliah): ${title.toLowerCase()}. Disusun mengacu pada buku Metode Numerik karya Rinaldi Munir.`,activity:'Baca bahan belajar, lalu cocokkan dengan materi kuliah setelah pertemuan berlangsung.'}))
+/* Metode Numerik: 16 pertemuan diselaraskan dengan silabus resmi Bu Linda Herawati (2026),
+   keterangan presenter riil lapangan, dan penanda harapan materi. */
+const metodeNumerikMeetings: SyllabusMeeting[] = [
+  {
+    meeting: 1,
+    title: 'Deret Taylor dan Analisis Galat (Penjelasan Ibu Linda)',
+    kind: 'Teori',
+    summary: 'Konsep dasar angka bena, deret Taylor dan Maclaurin, analisis galat pemotongan dan galat pembulatan yang dijelaskan langsung oleh Ibu Linda Herawati.',
+    activity: 'Menelaah penjelasan dosen serta perhitungan galat hampiran numerik.'
+  },
+  {
+    meeting: 2,
+    title: 'Solusi Nirlanjar dengan Metode Tertutup (Kelompok 1)',
+    kind: 'Teori',
+    summary: 'Metode pengurung akar persamaan: Teorema Bolzano f(a)f(b) < 0, metode bagi dua (biseksi), dan metode regula falsi klasik dipresentasikan oleh Kelompok 1.',
+    activity: 'Menyimak presentasi Kelompok 1 dan menelaah sifat konvergensi linier metode kurung.'
+  },
+  {
+    meeting: 3,
+    title: 'Solusi Nirlanjar: Regula Falsi Perbaikan & Metode Terbuka (Kelompok 2 - Masih Abu-Abu)',
+    kind: 'Teori',
+    summary: 'Metode regula falsi perbaikan (Skema Illinois), lelaran titik tetap, Newton-Raphson, dan metode secant dipresentasikan oleh Kelompok 2 (materi gabungan lapangan).',
+    activity: 'Menelaah PPT Kelompok 2, perbandingan 4 pola titik tetap, dan simulasi lab numerik.'
+  },
+  {
+    meeting: 4,
+    title: 'Solusi Sistem Persamaan Nirlanjar (Harapan Materi - Kelompok 3)',
+    kind: 'Teori',
+    summary: 'Rencana bahasan silabus: sistem persamaan nirlanjar (SPNL multivariabel), metode Newton multivariabel, dan matriks Jacobian oleh Kelompok 3.',
+    activity: 'Harapan materi: menelaah materi perkiraan sebelum presentasi Kelompok 3 berlangsung.'
+  },
+  {
+    meeting: 5,
+    title: 'Sistem Persamaan Lanjar: Eliminasi Gauss Modifikasi & Dekomposisi LU (Kelompok Ryan)',
+    kind: 'Teori',
+    summary: 'Sistem persamaan lanjar dengan eliminasi Gauss yang dimodifikasi (partial pivoting) dan dekomposisi LU Gauss / Doolittle dipresentasikan oleh Kelompok 4 (Kelompok Ryan).',
+    activity: 'Presentasi utama Kelompok 4 (Ryan, Najla, Nabila) serta pengujian live web kalkulator.'
+  },
+  {
+    meeting: 6,
+    title: 'Dekomposisi LU Reduksi Crout dan Cholesky (Harapan Materi - Kelompok 5)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: faktorisasi matriks dekomposisi LU reduksi Crout dan metode dekomposisi Cholesky untuk matriks simetri definit positif.',
+    activity: 'Harapan materi: mengikuti silabus resmi Bu Linda sampai presentasi kelompok terlaksana.'
+  },
+  {
+    meeting: 7,
+    title: 'Interpolasi Polinom dan Lagrange (Harapan Materi - Kelompok 6)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: konsep dasar interpolasi, interpolasi linier, kuadratik, dan interpolasi polinomial Lagrange.',
+    activity: 'Harapan materi: estimasi kurva data diskret menggunakan fungsi polinomial.'
+  },
+  {
+    meeting: 8,
+    title: 'Interpolasi Newton dan Newton-Gregory (Harapan Materi - Kelompok 7)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: interpolasi beda terbagi Newton serta interpolasi selisih maju dan mundur Newton-Gregory untuk data berjarak seragam.',
+    activity: 'Harapan materi: menyusun tabel beda terbagi dan menghitung nilai interpolasi.'
+  },
+  {
+    meeting: 9,
+    title: 'Integrasi Numerik Metode Pias (Harapan Materi - Kelompok 8)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: integrasi numerik pendekatan pias (kaidah segi empat, kaidah trapesium, dan kaidah titik tengah).',
+    activity: 'Harapan materi: komputasi hampiran luas area di bawah kurva fungsi kontinu.'
+  },
+  {
+    meeting: 10,
+    title: 'Integrasi Numerik Metode Newton-Cotes (Harapan Materi - Kelompok 9)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: kaidah integrasi Newton-Cotes berderajat tinggi (kaidah Simpson 1/3, kaidah Simpson 3/8, dan aturan komposit).',
+    activity: 'Harapan materi: komparasi orde ketelitian dan estimasi galat pemotongan integral.'
+  },
+  {
+    meeting: 11,
+    title: 'Integrasi Romberg dan Kuadratur Gauss (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: ekstrapolasi Richardson / integrasi Romberg dan metode kuadratur Gauss-Legendre n-titik bobot efisien.',
+    activity: 'Harapan materi: menghitung integral dengan jumlah evaluasi fungsi seminimal mungkin.'
+  },
+  {
+    meeting: 12,
+    title: 'Diferensiasi Numerik Beda Hingga (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: diferensiasi numerik selisih maju, selisih mundur, selisih pusat, serta turunan kedua dengan deret Taylor.',
+    activity: 'Harapan materi: penentuan laju perubahan diskret dan evaluasi galat pemotongan O(h^2).'
+  },
+  {
+    meeting: 13,
+    title: 'Solusi PDB: Metode Euler dan Heun (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: persoalan nilai awal persamaan diferensial biasa (PDB) orde satu dengan metode Euler dan metode Euler modifikasi (Heun).',
+    activity: 'Harapan materi: penelusuran trayektori solusi numerik dari kondisi nilai batas awal.'
+  },
+  {
+    meeting: 14,
+    title: 'Solusi PDB: Runge-Kutta Orde 4 (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: metode Runge-Kutta klasik orde empat (RK4) untuk persamaan diferensial tunggal dan sistem PDB berderajat banyak.',
+    activity: 'Harapan materi: simulasi numerik berpresisi tinggi dengan bobot gradien bertingkat.'
+  },
+  {
+    meeting: 15,
+    title: 'Penerapan Kasus Nyata & Studi Pemodelan Matematika (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: studi kasus pemodelan matematika rekayasa, optimasi numerik, dan penyelesaian masalah fenomena fisika/ekonomi riil.',
+    activity: 'Harapan materi: penyusunan laporan pemodelan komputasi numerik kelompok.'
+  },
+  {
+    meeting: 16,
+    title: 'Evaluasi Akhir Semester & Sintesis Komprehensif (Harapan Materi)',
+    kind: 'Teori',
+    summary: 'Rencana silabus Bu Linda: evaluasi terpadu seluruh metode numerik (akar, SPL, interpolasi, integrasi, dan PDB) serta kriteria pemilihan metode optimal.',
+    activity: 'Harapan materi: review akhir komprehensif persiapan Ujian Akhir Semester.'
+  }
+];
 const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:1,title:'Pertemuan 01 (Belum diisi)',kind:'Teori',summary:'Belum ada catatan atau bahan materi yang terverifikasi.',activity:'Isi setelah materi perkuliahan diketahui.'},
 {meeting:2,title:'Fungsi Permintaan, Fungsi Penawaran, dan Keseimbangan Pasar',kind:'Teori',summary:'Hukum permintaan dan penawaran, bentuk linier Qd = a − bP, kasus khusus kurva ekstrim, serta keseimbangan pasar. Konvensi: sumbu horizontal Q, vertikal P. Kamis, 20 Agustus 2026.',activity:'Menelaah catatan kuliah beserta grafik tulis tangan dan contoh sehari-hari.'},
