@@ -1,11 +1,325 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pertemuan 06 — Bahan Belajar Pertemuan 06 — Eliminasi Gaussian dan Gauss–Jordan</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><link rel="stylesheet" href="../shared.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script></head>
-<body><div class="page"><nav class="top-nav"><a class="back" href="/?course=KP21517001" onclick="handleGoBack(event)">← Kembali ke Metode Numerik</a><span>Pertemuan 06/16</span></nav>
-<header><span class="badge">Bahan Belajar · Pertemuan 06</span><h1>Bahan Belajar Pertemuan 06 — Eliminasi Gaussian dan Gauss–Jordan</h1><p>Setelah menyelesaikan satu persamaan taklinier, pembahasan beralih ke sistem n persamaan linear dengan n peubah. Bab 4 Rinaldi Munir menempatkan eliminasi Gaussian sebagai metode langsung dasar: sistem diubah melalui operasi baris elementer tanpa mengubah himpunan solusinya. Bahan belajar ini menekankan alur hitung, pemilihan pivot, substitusi balik, perbedaan dengan Gauss–Jordan, dan pemeriksaan hasil.</p><div class="meta"><span><strong>Mata kuliah:</strong> Metode Numerik (KP21517001)</span><span><strong>Dosen:</strong> Linda Herawati, S.Pd., M.Pd.</span><span><strong>SKS / Kelas:</strong> 3 SKS / Kelas C</span><span><strong>Rujukan:</strong> Buku Metode Numerik — Rinaldi Munir, STEI ITB</span></div></header>
-<main><aside class="notice"><strong>Status materi:</strong> bahan belajar terstruktur, bukan klaim catatan kuliah yang sudah berlangsung. Sesuaikan dengan penjelasan dosen di kelas.</aside><section><h2>1. Model matriks dan matriks diperbesar</h2><p>Sistem linear ditulis Ax=b. Matriks A memuat koefisien, vektor x memuat peubah, dan b memuat ruas kanan. Matriks diperbesar [A|b] menyatukan data agar operasi pada setiap persamaan dapat dicatat sebagai operasi baris.</p><p>Tiga operasi baris elementer adalah menukar dua baris, mengalikan baris dengan bilangan taknol, dan menambahkan kelipatan suatu baris ke baris lain. Ketiganya menghasilkan sistem ekuivalen.</p><p>Sistem persegi dapat mempunyai solusi tunggal, tak hingga banyak solusi, atau tidak mempunyai solusi. Baris [0 ... 0|c] dengan c≠0 menandakan inkonsistensi; baris nol dengan peubah bebas dapat menandakan banyak solusi.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$A\mathbf{x}=\mathbf{b}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$[A|\mathbf{b}]$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_i\leftrightarrow R_j$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_i\leftarrow \alpha R_i,\quad \alpha\ne0$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_i\leftarrow R_i+\alpha R_j$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Tuliskan matriks diperbesar dari 2x-y=1 dan x+3y=8.</p><ol class="steps"><li>Ambil koefisien x dan y secara berurutan.</li><li>Baris pertama menjadi [2,-1|1].</li><li>Baris kedua menjadi [1,3|8].</li></ol><p class="answer"><strong>Jawaban:</strong> Matriks diperbesar adalah \left[\begin{array}{cc|c}2&amp;-1&amp;1\\1&amp;3&amp;8\end{array}\right].</p></div><div class="card warn"><strong>Hati-hati:</strong> Ketika menukar atau mengubah baris, operasi harus diterapkan juga pada kolom ruas kanan. Mengubah A tanpa b menghasilkan sistem yang berbeda.</div></section><section><h2>2. Eliminasi maju pada metode Gaussian</h2><p>Eliminasi maju mengubah A menjadi matriks segitiga atas U. Pada kolom k, elemen a_kk dipakai sebagai pivot untuk meniadakan elemen di bawahnya.</p><p>Pengali m_ik=a_ik/a_kk menyatakan berapa kali baris pivot dikurangkan dari baris i. Proses dilakukan untuk k=1 sampai n-1. Pivot nol tidak boleh menjadi pembagi; pertukaran baris diperlukan.</p><p>Mencatat pengali secara rapi penting karena pengali tersebut kelak menjadi isi matriks L pada faktorisasi LU. Hindari pembulatan terlalu dini agar galat tidak terakumulasi.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$m_{ik}=\frac{a_{ik}^{(k)}}{a_{kk}^{(k)}}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_i\leftarrow R_i-m_{ik}R_k,\quad i=k+1,\ldots,n$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$U\mathbf{x}=\mathbf{c}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Lakukan eliminasi maju untuk sistem 2x+y-z=8, -3x-y+2z=-11, dan -2x+y+2z=-3.</p><ol class="steps"><li>Pivot pertama 2. Untuk baris 2, m_21=-3/2; lakukan R_2←R_2-(-3/2)R_1 sehingga R_2=[0,1/2,1/2|1].</li><li>Untuk baris 3, m_31=-1; lakukan R_3←R_3+R_1 sehingga R_3=[0,2,1|5].</li><li>Pivot kedua 1/2. Pengali m_32=2/(1/2)=4; lakukan R_3←R_3-4R_2 sehingga R_3=[0,0,-1|1].</li><li>Bentuk segitiga atas: 2x+y-z=8, (1/2)y+(1/2)z=1, dan -z=1.</li></ol><p class="answer"><strong>Jawaban:</strong> Matriks segitiga atas memiliki baris [2,1,-1|8], [0,1/2,1/2|1], [0,0,-1|1].</p></div><div class="card warn"><strong>Hati-hati:</strong> Pengali dapat bernilai negatif. Gunakan rumus R_i←R_i-m_ikR_k secara konsisten; mengganti tanda secara mental sering memunculkan salah hitung.</div></section><section><h2>3. Substitusi balik dan pemeriksaan residu</h2><p>Setelah bentuk segitiga atas diperoleh, peubah dihitung dari persamaan terakhir ke pertama. Setiap x_i memakai nilai x_j dengan j&gt;i yang sudah diketahui.</p><p>Solusi tidak selesai hanya karena substitusi balik memberi angka. Substitusikan ke sistem asli atau hitung residu r=b-Ax. Residu nol secara eksak, atau sangat kecil dalam aritmetika titik mengambang, menunjukkan persamaan dipenuhi.</p><p>Residu kecil mengukur konsistensi hasil terhadap sistem, bukan selalu galat solusi. Pada sistem berkondisi buruk, perubahan data yang kecil dapat menyebabkan perubahan solusi yang besar.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$x_i=\frac{c_i-\sum_{j=i+1}^{n}u_{ij}x_j}{u_{ii}},\quad i=n,n-1,\ldots,1$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\mathbf{r}=\mathbf{b}-A\hat{\mathbf{x}}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\|\mathbf{r}\|_\infty=\max_i|r_i|$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Lanjutkan bentuk segitiga atas pada contoh sebelumnya.</p><ol class="steps"><li>Dari -z=1 diperoleh z=-1.</li><li>Dari (1/2)y+(1/2)z=1: (1/2)y-1/2=1, sehingga y=3.</li><li>Dari 2x+y-z=8: 2x+3+1=8, sehingga x=2.</li><li>Periksa persamaan kedua: -3(2)-3+2(-1)=-11; benar.</li></ol><p class="answer"><strong>Jawaban:</strong> Solusinya (x,y,z)=(2,3,-1), dengan residu nol.</p></div><div class="card warn"><strong>Hati-hati:</strong> Jangan memakai matriks yang sudah dieliminasi untuk pemeriksaan akhir lalu menganggap hasil pasti benar. Gunakan A dan b asli agar kesalahan selama eliminasi dapat terdeteksi.</div></section><section><h2>4. Metode Gauss–Jordan</h2><p>Gauss–Jordan meneruskan eliminasi sampai bagian koefisien menjadi bentuk eselon baris tereduksi. Pivot dibuat 1 dan semua elemen di atas maupun di bawah pivot dibuat 0.</p><p>Jika A nonsingular, hasil akhirnya [I|x], sehingga tidak diperlukan substitusi balik. Metode ini mudah dibaca dan berguna untuk mencari invers dengan memperbesar [A|I].</p><p>Dibanding Gaussian untuk satu ruas kanan, Gauss–Jordan melakukan lebih banyak operasi. Karena itu Gaussian umumnya lebih efisien untuk satu solusi, sedangkan Gauss–Jordan cocok untuk demonstrasi struktur solusi dan invers berukuran kecil.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$[A|\mathbf{b}]\longrightarrow[I|\mathbf{x}]$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_k\leftarrow \frac{1}{a_{kk}}R_k$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$R_i\leftarrow R_i-a_{ik}R_k,\quad i\ne k$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Selesaikan 2x+y=5 dan x-y=1 dengan Gauss–Jordan.</p><ol class="steps"><li>Mulai dari \left[\begin{array}{cc|c}2&amp;1&amp;5\\1&amp;-1&amp;1\end{array}\right], lalu tukar R_1 dan R_2 agar pivot pertama 1.</li><li>R_2←R_2-2R_1 menghasilkan [0,3|3].</li><li>R_2←(1/3)R_2 menghasilkan [0,1|1].</li><li>R_1←R_1+R_2 menghasilkan [1,0|2].</li></ol><p class="answer"><strong>Jawaban:</strong> Bentuk akhir [I|x] memberi x=2 dan y=1.</p></div><div class="card warn"><strong>Hati-hati:</strong> Normalisasi pivot terlalu awal dapat menghasilkan banyak pecahan. Secara manual, pertukaran atau eliminasi yang menjaga bilangan bulat sering mengurangi risiko salah hitung.</div></section><section><h2>5. Biaya komputasi, singularitas, dan strategi kerja</h2><p>Eliminasi Gaussian memerlukan orde n^3 operasi untuk eliminasi dan orde n^2 untuk substitusi balik. Ketika n besar, bagian eliminasi mendominasi biaya.</p><p>Pivot nol pada suatu tahap dapat berarti baris perlu ditukar, bukan otomatis matriks singular. Matriks dinyatakan singular bila tidak tersedia pivot taknol yang sesuai setelah pencarian baris.</p><p>Pola kerja yang aman adalah menyimpan matriks asli, memilih pivot, mencatat setiap pengali, menghindari pembulatan prematur, melakukan substitusi balik, lalu memeriksa residu.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\text{biaya eliminasi}\approx \frac{2}{3}n^3$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\det(A)=0\iff A \text{ singular}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\operatorname{rank}(A)=\operatorname{rank}([A|b])=n \Rightarrow \text{solusi tunggal}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Apa arti baris akhir [0,0|5] setelah eliminasi?</p><ol class="steps"><li>Baris tersebut mewakili persamaan 0x+0y=5.</li><li>Pernyataan 0=5 mustahil dipenuhi.</li><li>Maka rank matriks diperbesar lebih besar daripada rank A.</li></ol><p class="answer"><strong>Jawaban:</strong> Sistem tidak konsisten dan tidak mempunyai solusi.</p></div><div class="card warn"><strong>Hati-hati:</strong> Munculnya baris nol [0,...,0|0] tidak otomatis berarti tidak ada solusi. Baris itu dapat menunjukkan persamaan bergantung dan perlu dianalisis bersama jumlah pivot serta peubah bebas.</div></section>
-<section><h2>Ringkasan</h2><div class="card summary"><ul><li>Sistem linear direpresentasikan sebagai Ax=b dan dihitung melalui matriks diperbesar [A|b].</li><li>Eliminasi Gaussian membentuk matriks segitiga atas, kemudian solusi diperoleh dengan substitusi balik.</li><li>Gauss–Jordan membentuk [I|x] dan tidak memerlukan substitusi balik, tetapi operasinya lebih banyak.</li><li>Pivot nol memerlukan pertukaran baris atau pemeriksaan singularitas.</li><li>Residu b-Ax terhadap sistem asli menjadi pemeriksaan numerik hasil.</li><li>Baris kontradiktif menandakan tidak ada solusi; pivot yang kurang dapat menandakan peubah bebas.</li></ul></div></section>
-<section><h2>Latihan Mandiri</h2><div class="card exercise"><ol><li>{&#x27;no&#x27;: 1, &#x27;question&#x27;: &#x27;Selesaikan dengan Gaussian: x+2y-z=3, 2x-y+3z=9, dan 3x+y+2z=10.&#x27;, &#x27;hint&#x27;: &#x27;Tulis matriks diperbesar, eliminasi maju, lalu substitusi balik.&#x27;}</li><li>{&#x27;no&#x27;: 2, &#x27;question&#x27;: &#x27;Selesaikan sistem 3x+2y=7 dan 6x+4y=14. Jelaskan jenis solusinya.&#x27;, &#x27;hint&#x27;: &#x27;Perhatikan baris nol dan peubah bebas.&#x27;}</li><li>{&#x27;no&#x27;: 3, &#x27;question&#x27;: &#x27;Gunakan Gauss–Jordan untuk 2x-y=0 dan x+2y=5.&#x27;, &#x27;hint&#x27;: &#x27;Target akhir bagian koefisien adalah I.&#x27;}</li><li>{&#x27;no&#x27;: 4, &#x27;question&#x27;: &#x27;Analisis sistem x+y=2 dan 2x+2y=5 setelah eliminasi.&#x27;, &#x27;hint&#x27;: &#x27;Cari baris kontradiktif.&#x27;}</li><li>{&#x27;no&#x27;: 5, &#x27;question&#x27;: &#x27;Untuk solusi hampiran (1,001;0,999) pada sistem x+y=2 dan 2x-y=1, hitung vektor residu dan normanya.&#x27;, &#x27;hint&#x27;: &#x27;Gunakan data sistem asli.&#x27;}</li><li>{&#x27;no&#x27;: 6, &#x27;question&#x27;: &#x27;Bandingkan jumlah dan jenis operasi Gaussian dengan Gauss–Jordan pada matriks 3×3 yang sama.&#x27;, &#x27;hint&#x27;: &#x27;Catat operasi eliminasi di atas pivot dan kebutuhan substitusi balik.&#x27;}</li></ol></div></section>
-<div class="tool-cta"><div><strong>Coba dengan angka sendiri</strong><p>Laboratorium menampilkan langkah, tabel iterasi, hasil, dan grafik.</p></div><a href="/tools/lab-metode-numerik/index.html">Buka Laboratorium</a></div>
-<section><h2>Berikutnya</h2><p>Pertemuan 07 melanjutkan Bab 4 dengan faktorisasi LU, penggunaan satu faktor untuk banyak ruas kanan, perhitungan invers, dan pivoting untuk kestabilan.</p></section>
-<section class="sources"><h2>Sumber</h2><ol><li>[1] <a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2004%20Solusi%20Sistem%20Persamaan%20Lanjar.pdf" target="_blank" rel="noreferrer">Bab 04 — Solusi Sistem Persamaan Lanjar — Rinaldi Munir</a></li></ol></section><nav class="pager"><a href="/materi/KP21517001/pertemuan-05/index.html">← Pertemuan 05</a><a href="/materi/KP21517001/pertemuan-07/index.html">Pertemuan 07 →</a></nav></main>
-<footer>Disusun untuk belajar Metode Numerik Kelas C · Rumus dirender dengan KaTeX</footer></div><script>function handleGoBack(e){if(history.length>1){e.preventDefault();history.back()}}document.addEventListener('DOMContentLoaded',()=>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}],throwOnError:false}));</script></body></html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pertemuan 06 — Presentasi Kelompok 4: Dekomposisi LU Metode Reduksi Crout &amp; Metode Dekomposisi Cholesky</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../shared.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError : false
+      });
+    });
+    function handleGoBack(e) {
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="page">
+    <nav class="top-nav">
+      <a class="back" href="/?course=KP21517001" onclick="handleGoBack(event)">← Kembali ke Metode Numerik</a>
+      <span>Pertemuan 06/16</span>
+    </nav>
+
+    <header>
+      <span class="badge" style="background:#e0f2fe; color:#0369a1;">Materi Utama Presentasi · Kelompok 4</span>
+      <h1>Dekomposisi LU: Metode Reduksi Crout &amp; Metode Dekomposisi Cholesky</h1>
+      <p>Bahan ajar lengkap presentasi Kelompok 4 mata kuliah Metode Numerik. Mengkaji secara mendalam pemfaktoran matriks <strong>Metode Reduksi Crout</strong> ($A = LU$, elemen diagonal $u_{ii} = 1$) dan <strong>Metode Dekomposisi Cholesky</strong> ($A = LL^T$, khusus matriks simetris definit positif) merujuk pada buku resmi Dr. Rinaldi Munir Sub-bab 4.5.2 (Halaman 159–161).</p>
+      <div class="meta">
+        <span><strong>Mata Kuliah:</strong> Metode Numerik (KP21517001)</span>
+        <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
+        <span><strong>Presenter Kelompok 4:</strong> Ryan Wardiana (NIM 232151098), Najla Salsabila (NIM 232151087), Nabila Azzahra (NIM 232151088)</span>
+        <span><strong>Rujukan Resmi:</strong> Rinaldi Munir, Bab 4 Sub-bab 4.5.2 (Hal. 159–161)</span>
+      </div>
+    </header>
+
+    <main>
+      <aside class="notice" style="border-left-color:#059669; background:#ecfdf5; color:#065f46;">
+        <strong>Fokus Presentasi Kelompok 4:</strong> Modul ini dirancang khusus untuk membekali seluruh anggota Kelompok 4 dan mahasiswa kelas C agar memahami logika di balik pemfaktoran Crout dan Cholesky, perbedaan letak diagonal satuan, syarat mutlak simetri &amp; definit positif, serta kalkulasi bertahap dengan angka bulat yang mudah dipelajari.
+      </aside>
+
+      <!-- BAB 1: LANDASAN TIGA VARIAN LU -->
+      <section>
+        <h2>1. Tiga Pendekar Dekomposisi LU: Mengapa Crout dan Cholesky Lahir?</h2>
+        <p>Pada perkuliahan sebelumnya (Pertemuan 05), kita telah mengenal Metode Doolittle di mana matriks segitiga bawah $L$ dikunci dengan diagonal 1. Namun, matematikawan mengembangkan varian lain sesuai efisiensi komputasi:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Tabel Perbandingan Tiga Varian Faktorisasi Matriks</div>
+          <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-top:8px;">
+            <thead>
+              <tr style="background:#f1f5f9; border-bottom:2px solid #cbd5e1; text-align:left;">
+                <th style="padding:8px;">Metode</th>
+                <th style="padding:8px;">Faktorisasi</th>
+                <th style="padding:8px;">Karakteristik Diagonal</th>
+                <th style="padding:8px;">Syarat Matriks A</th>
+                <th style="padding:8px;">Keunggulan Utama</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:8px; font-weight:700;">Doolittle</td>
+                <td style="padding:8px;">$A = L \cdot U$</td>
+                <td style="padding:8px;">$l_{ii} = 1$ (Diagonal $L$ = 1)</td>
+                <td style="padding:8px;">Bujursangkar umum</td>
+                <td style="padding:8px;">Turunan langsung eliminasi Gauss standar.</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0; background:#f0fdf4;">
+                <td style="padding:8px; font-weight:700; color:#166534;">Reduksi Crout</td>
+                <td style="padding:8px;">$A = L \cdot U$</td>
+                <td style="padding:8px;"><strong>$u_{ii} = 1$ (Diagonal $U$ = 1)</strong></td>
+                <td style="padding:8px;">Bujursangkar umum</td>
+                <td style="padding:8px;">Substitusi mundur $U\mathbf{x}=\mathbf{y}$ bebas dari pembagian pecahan.</td>
+              </tr>
+              <tr style="background:#eff6ff;">
+                <td style="padding:8px; font-weight:700; color:#1e40af;">Cholesky</td>
+                <td style="padding:8px;">$A = L \cdot L^T$</td>
+                <td style="padding:8px;">$u_{ij} = l_{ji}$ ($U = L^T$)</td>
+                <td style="padding:8px;"><strong>Simetris &amp; Definit Positif</strong></td>
+                <td style="padding:8px;">Hemat memori 50% dan komputasi 2× lebih cepat (hanya $n^3/6$ operasi).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- BAB 2: METODE REDUKSI CROUT -->
+      <section>
+        <h2>2. Metode Dekomposisi Reduksi Crout</h2>
+        <p>Pada <strong>Metode Crout</strong>, matriks $A$ berukuran $n \times n$ difaktorkan menjadi perkalian dua matriks $A = L \cdot U$ dengan format umum matriks $3 \times 3$ sebagai berikut:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Struktur Matriks Crout (3 × 3)</div>
+          <div class="math-step-box">
+            $$L = \begin{bmatrix} l_{11} & 0 & 0 \\ l_{21} & l_{22} & 0 \\ l_{31} & l_{32} & l_{33} \end{bmatrix}, \quad U = \begin{bmatrix} 1 & u_{12} & u_{13} \\ 0 & 1 & u_{23} \\ 0 & 0 & 1 \end{bmatrix}$$
+          </div>
+        </div>
+
+        <p><strong>Pola Rekursif Perhitungan Elemen Crout:</strong></p>
+        <p>Algoritma Crout bekerja secara berselang-seling yang teratur: <em>Tentukan Kolom $k$ matriks $L$, lalu tentukan Baris $k$ matriks $U$</em>.</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Rumus Komputasi Elemen Crout</div>
+          <p>1. Untuk Kolom ke-$k$ pada matriks $L$ ($i = k, k+1, \dots, n$):</p>
+          <div class="math-step-box">$$l_{ik} = a_{ik} - \sum_{m=1}^{k-1} l_{im} u_{mk}$$</div>
+          <p>2. Untuk Baris ke-$k$ pada matriks $U$ ($j = k+1, \dots, n$), dengan $u_{kk} = 1$:</p>
+          <div class="math-step-box">$$u_{kj} = \frac{a_{kj} - \sum_{m=1}^{k-1} l_{km} u_{mj}}{l_{kk}}$$</div>
+        </div>
+
+        <div class="card warn">
+          <strong>Jebakan Kritis Crout:</strong> Perhatikan penyebut rumus baris $U$ adalah $l_{kk}$. Jika elemen diagonal $l_{kk} = 0$, rumus Crout langsung memicu pembagian nol! Solusinya adalah melakukan penukaran baris (pivoting) pada matriks awal $A$ sebelum algoritma Crout dijalankan.
+        </div>
+
+        <!-- CONTOH SOAL CROUT -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 1: Penyelesaian SPL dengan Metode Crout Step-by-Step</div>
+          <p><strong>Soal:</strong> Selesaikan SPL berikut menggunakan Metode Reduksi Crout:</p>
+          <div class="math-step-box">
+            $$\begin{aligned}
+            x_1 + x_2 + x_3 &= 6 \\
+            2x_1 + 3x_2 + x_3 &= 11 \\
+            x_1 - x_2 - x_3 &= -4
+            \end{aligned}$$
+          </div>
+
+          <p><strong>Penyelesaian Langkah demi Langkah:</strong></p>
+          <ol class="steps">
+            <li>
+              <strong>Bentuk Matriks Koefisien A dan Vektor b:</strong>
+              <div class="math-step-box">
+                $$A = \begin{bmatrix} 1 & 1 & 1 \\ 2 & 3 & 1 \\ 1 & -1 & -1 \end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix} 6 \\ 11 \\ -4 \end{bmatrix}$$
+              </div>
+            </li>
+            <li>
+              <strong>Langkah 1: Kolom 1 matriks L dan Baris 1 matriks U:</strong><br>
+              Kolom 1 matriks $L$ langsung sama dengan kolom 1 matriks $A$:
+              <div class="math-step-box">$$l_{11} = a_{11} = 1, \quad l_{21} = a_{21} = 2, \quad l_{31} = a_{31} = 1$$</div>
+              Baris 1 matriks $U$ dibagi dengan $l_{11} = 1$ (dengan $u_{11} = 1$):
+              <div class="math-step-box">
+                $$u_{12} = \frac{a_{12}}{l_{11}} = \frac{1}{1} = 1, \quad u_{13} = \frac{a_{13}}{l_{11}} = \frac{1}{1} = 1$$
+              </div>
+            </li>
+            <li>
+              <strong>Langkah 2: Kolom 2 matriks L dan Baris 2 matriks U:</strong><br>
+              Elemen kolom 2 matriks $L$:
+              <div class="math-step-box">
+                $$\begin{aligned}
+                l_{22} &= a_{22} - l_{21} u_{12} = 3 - (2)(1) = 1 \\
+                l_{32} &= a_{32} - l_{31} u_{12} = -1 - (1)(1) = -2
+                \end{aligned}$$
+              </div>
+              Elemen baris 2 matriks $U$ (dengan $u_{22} = 1$):
+              <div class="math-step-box">
+                $$u_{23} = \frac{a_{23} - l_{21} u_{13}}{l_{22}} = \frac{1 - (2)(1)}{1} = \frac{-1}{1} = -1$$
+              </div>
+            </li>
+            <li>
+              <strong>Langkah 3: Kolom 3 matriks L:</strong><br>
+              <div class="math-step-box">
+                $$l_{33} = a_{33} - (l_{31} u_{13} + l_{32} u_{23}) = -1 - [(1)(1) + (-2)(-1)] = -1 - (1 + 2) = -4$$
+              </div>
+              Diperoleh sepasang matriks Crout sempurna:
+              <div class="math-step-box">
+                $$L = \begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 1 & -2 & -4 \end{bmatrix}, \quad U = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \end{bmatrix}$$
+              </div>
+            </li>
+            <li>
+              <strong>Tahap 1: Substitusi Maju ($L \mathbf{y} = \mathbf{b}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 1 & -2 & -4 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 6 \\ 11 \\ -4 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 1: $1 y_1 = 6 \implies y_1 = 6$</li>
+                <li>Baris 2: $2(6) + 1 y_2 = 11 \implies y_2 = 11 - 12 = -1$</li>
+                <li>Baris 3: $1(6) - 2(-1) - 4 y_3 = -4 \implies 6 + 2 - 4 y_3 = -4 \implies 8 - 4 y_3 = -4 \implies -4 y_3 = -12 \implies y_3 = 3$</li>
+              </ul>
+              Vektor perantara: $\mathbf{y} = [6,\ -1,\ 3]^T$.
+            </li>
+            <li>
+              <strong>Tahap 2: Substitusi Mundur ($U \mathbf{x} = \mathbf{y}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 6 \\ -1 \\ 3 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 3: $1 x_3 = 3 \implies x_3 = 3$</li>
+                <li>Baris 2: $1 x_2 - 1(3) = -1 \implies x_2 = -1 + 3 = 2$</li>
+                <li>Baris 1: $1 x_1 + 1(2) + 1(3) = 6 \implies x_1 + 5 = 6 \implies x_1 = 1$</li>
+              </ul>
+            </li>
+          </ol>
+          <p><strong>Solusi Akhir Crout:</strong> $\mathbf{x} = [1,\ 2,\ 3]^T$. Bebas pembagian pada tahap akhir karena diagonal $U$ telah bernilai 1!</p>
+        </div>
+      </section>
+
+      <!-- BAB 3: METODE DEKOMPOSISI CHOLESKY -->
+      <section>
+        <h2>3. Metode Dekomposisi Cholesky ($A = L \cdot L^T$)</h2>
+        <p>Jika matriks koefisien $A$ memiliki sifat khusus yaitu <strong>simetris</strong> dan <strong>definit positif</strong>, kita tidak perlu mencari matriks $U$ secara terpisah! Matriks $U$ secara otomatis merupakan transpos dari matriks segitiga bawah $L$, yaitu:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Faktorisasi Cholesky</div>
+          <div class="math-step-box">$$A = L \cdot L^T$$</div>
+        </div>
+
+        <p><strong>Dua Syarat Mutlak Berlakunya Metode Cholesky:</strong></p>
+        <ol>
+          <li><strong>Matriks Bujursangkar Simetris:</strong> $A = A^T$, artinya seluruh elemen memenuhi $a_{ij} = a_{ji}$.</li>
+          <li><strong>Definit Positif:</strong> Perkalian bentuk kuadrat $\mathbf{x}^T A \mathbf{x} > 0$ untuk setiap vektor tak-nol $\mathbf{x} \ne \mathbf{0}$.<br>
+          <em>Pengujian Praktis (Kriteria Sylvester):</em> Seluruh determinan submatriks utama berurutan (minor utama) harus bernilai positif strictly murni:
+          <div class="math-step-box">$$\det(A_1) > 0, \quad \det(A_2) > 0, \quad \dots, \quad \det(A_n) > 0$$</div>
+          </li>
+        </ol>
+
+        <div class="card formula">
+          <div class="formula-label">Rumus Komputasi Elemen Matriks Cholesky L</div>
+          <p>Untuk setiap kolom $j = 1, 2, \dots, n$:</p>
+          <p>1. Elemen Diagonal Utama ($i = j$):</p>
+          <div class="math-step-box">$$l_{jj} = \sqrt{a_{jj} - \sum_{k=1}^{j-1} l_{jk}^2}$$</div>
+          <p>2. Elemen di Bawah Diagonal ($i = j+1, \dots, n$):</p>
+          <div class="math-step-box">$$l_{ij} = \frac{a_{ij} - \sum_{k=1}^{j-1} l_{ik} l_{jk}}{l_{jj}}$$</div>
+        </div>
+
+        <div class="card warn">
+          <strong>Jebakan Fatal Cholesky:</strong> Rumus diagonal memuat tanda akar kuadrat $\sqrt{a_{jj} - \sum l_{jk}^2}$. Jika matriks <em>tidak definit positif</em>, angka di dalam akar akan bernilai $\le 0$ (negatif), menghasilkan bilangan imajiner dan komputasi gagal seketika!
+        </div>
+
+        <!-- CONTOH SOAL CHOLESKY -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 2: Penyelesaian SPL Simetris Definit Positif dengan Metode Cholesky</div>
+          <p><strong>Soal:</strong> Selesaikan SPL simetris berikut menggunakan Metode Dekomposisi Cholesky:</p>
+          <div class="math-step-box">
+            $$\begin{bmatrix} 4 & 2 & -2 \\ 2 & 10 & 2 \\ -2 & 2 & 6 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 2 \\ 22 \\ 4 \end{bmatrix}$$
+          </div>
+
+          <p><strong>Penyelesaian Langkah demi Langkah:</strong></p>
+          <ol class="steps">
+            <li>
+              <strong>Uji Syarat Simetri dan Definit Positif:</strong>
+              <ul>
+                <li>Simetri: $a_{12} = a_{21} = 2$, $a_{13} = a_{31} = -2$, $a_{23} = a_{32} = 2$. Terbukti simetris ($A = A^T$).</li>
+                <li>Minor 1: $\det(A_1) = |4| = 4 > 0$.</li>
+                <li>Minor 2: $\det(A_2) = \det\begin{bmatrix} 4 & 2 \\ 2 & 10 \end{bmatrix} = (4)(10) - (2)(2) = 40 - 4 = 36 > 0$.</li>
+                <li>Minor 3: $\det(A) = 4(60 - 4) - 2(12 - (-4)) + (-2)(4 - (-20)) = 224 - 32 - 48 = 144 > 0$.</li>
+              </ul>
+              Semua minor utama positif $\implies$ Terbukti Definit Positif!
+            </li>
+            <li>
+              <strong>Hitung Elemen Kolom 1 matriks L:</strong>
+              <ul>
+                <li>$l_{11} = \sqrt{a_{11}} = \sqrt{4} = 2$</li>
+                <li>$l_{21} = \frac{a_{21}}{l_{11}} = \frac{2}{2} = 1$</li>
+                <li>$l_{31} = \frac{a_{31}}{l_{11}} = \frac{-2}{2} = -1$</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Hitung Elemen Kolom 2 matriks L:</strong>
+              <ul>
+                <li>$l_{22} = \sqrt{a_{22} - l_{21}^2} = \sqrt{10 - 1^2} = \sqrt{9} = 3$</li>
+                <li>$l_{32} = \frac{a_{32} - l_{31} l_{21}}{l_{22}} = \frac{2 - (-1)(1)}{3} = \frac{2 + 1}{3} = 1$</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Hitung Elemen Kolom 3 matriks L:</strong>
+              <ul>
+                <li>$l_{33} = \sqrt{a_{33} - (l_{31}^2 + l_{32}^2)} = \sqrt{6 - ((-1)^2 + 1^2)} = \sqrt{6 - (1 + 1)} = \sqrt{4} = 2$</li>
+              </ul>
+              Maka matriks segitiga bawah $L$ dan transposnya $L^T$ adalah:
+              <div class="math-step-box">
+                $$L = \begin{bmatrix} 2 & 0 & 0 \\ 1 & 3 & 0 \\ -1 & 1 & 2 \end{bmatrix}, \quad L^T = \begin{bmatrix} 2 & 1 & -1 \\ 0 & 3 & 1 \\ 0 & 0 & 2 \end{bmatrix}$$
+              </div>
+            </li>
+            <li>
+              <strong>Tahap 1: Substitusi Maju ($L \mathbf{y} = \mathbf{b}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 2 & 0 & 0 \\ 1 & 3 & 0 \\ -1 & 1 & 2 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 2 \\ 22 \\ 4 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 1: $2 y_1 = 2 \implies y_1 = 1$</li>
+                <li>Baris 2: $1(1) + 3 y_2 = 22 \implies 3 y_2 = 21 \implies y_2 = 7$</li>
+                <li>Baris 3: $-1(1) + 1(7) + 2 y_3 = 4 \implies 6 + 2 y_3 = 4 \implies 2 y_3 = -2 \implies y_3 = -1$</li>
+              </ul>
+              Vektor perantara: $\mathbf{y} = [1,\ 7,\ -1]^T$.
+            </li>
+            <li>
+              <strong>Tahap 2: Substitusi Mundur ($L^T \mathbf{x} = \mathbf{y}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 2 & 1 & -1 \\ 0 & 3 & 1 \\ 0 & 0 & 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 7 \\ -1 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 3: $2 x_3 = -1 \implies x_3 = -0.5$</li>
+                <li>Baris 2: $3 x_2 + 1(-0.5) = 7 \implies 3 x_2 = 7.5 \implies x_2 = 2.5$</li>
+                <li>Baris 1: $2 x_1 + 1(2.5) - 1(-0.5) = 1 \implies 2 x_1 + 3 = 1 \implies 2 x_1 = -2 \implies x_1 = -1$</li>
+              </ul>
+            </li>
+          </ol>
+          <p><strong>Solusi Akhir Cholesky:</strong> $\mathbf{x} = [-1,\ 2.5,\ -0.5]^T$. Komputasi sangat cepat dan stabil tanpa perlu menyimpan matriks kedua terpisah!</p>
+        </div>
+      </section>
+
+      <!-- BAB 4: PEMBAGIAN TUGAS PRESENTASI KELOMPOK 4 -->
+      <section>
+        <h2>4. Pembagian Peran Presentasi Kelas Kelompok 4</h2>
+        <div class="card" style="background:#f8fafc; border:1.5px solid #cbd5e1;">
+          <div class="formula-label">Alur Penyajian Presentasi di Depan Kelas</div>
+          <ol style="margin:8px 0 0 16px; padding:0; line-height:1.8;">
+            <li><strong>Ryan Wardiana (Ketua / Lead):</strong> Membuka presentasi, menjelaskan latar belakang urgensi dekomposisi matriks, membandingkan Doolittle vs Crout vs Cholesky, serta memimpin live demo kalkulator numerik interaktif web.</li>
+            <li><strong>Najla Salsabila (NIM 232151087):</strong> Memaparkan materi Metode Reduksi Crout secara komprehensif, penurunan rumus kolom L dan baris U, serta memandu contoh soal 3×3 langkah demi langkah di papan tulis.</li>
+            <li><strong>Nabila Azzahra (NIM 232151088):</strong> Memaparkan materi Dekomposisi Cholesky, pengujian matriks simetris definit positif, rumus akar diagonal, jebakan nilai negatif di dalam akar, dan memoderasi sesi tanya jawab kelas.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

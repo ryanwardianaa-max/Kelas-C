@@ -1,11 +1,256 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pertemuan 05 — Bahan Belajar Pertemuan 05 — Perbandingan Metode Pencarian Akar dan Laju Konvergensi</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><link rel="stylesheet" href="../shared.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script></head>
-<body><div class="page"><nav class="top-nav"><a class="back" href="/?course=KP21517001" onclick="handleGoBack(event)">← Kembali ke Metode Numerik</a><span>Pertemuan 05/16</span></nav>
-<header><span class="badge">Bahan Belajar · Pertemuan 05</span><h1>Bahan Belajar Pertemuan 05 — Perbandingan Metode Pencarian Akar dan Laju Konvergensi</h1><p>Pada pertemuan sebelumnya, akar persamaan taklinier dicari dengan beberapa prosedur yang berbeda. Bahan belajar ini menyatukan metode bagi-dua, regula falsi, iterasi titik tetap, Newton–Raphson, dan secant dalam satu kerangka perbandingan. Fokusnya bukan sekadar memperoleh angka akar, tetapi memahami syarat awal, jaminan konvergensi, kecepatan, biaya evaluasi fungsi, serta alasan suatu metode dapat gagal. Pembahasan mengikuti gagasan utama Bab 3 Rinaldi Munir tentang solusi persamaan taklinier.</p><div class="meta"><span><strong>Mata kuliah:</strong> Metode Numerik (KP21517001)</span><span><strong>Dosen:</strong> Linda Herawati, S.Pd., M.Pd.</span><span><strong>SKS / Kelas:</strong> 3 SKS / Kelas C</span><span><strong>Rujukan:</strong> Buku Metode Numerik — Rinaldi Munir, STEI ITB</span></div></header>
-<main><aside class="notice"><strong>Status materi:</strong> bahan belajar terstruktur, bukan klaim catatan kuliah yang sudah berlangsung. Sesuaikan dengan penjelasan dosen di kelas.</aside><section><h2>1. Kerangka umum masalah akar persamaan</h2><p>Masalah pencarian akar ditulis sebagai f(x)=0. Nilai r disebut akar jika f(r)=0. Pada komputer, akar eksak jarang diperoleh; yang dicari adalah pendekatan x_k dengan galat atau residu cukup kecil.</p><p>Metode tertutup mempertahankan selang [a,b] yang mengurung akar dan memerlukan perubahan tanda f(a)f(b)&lt;0 untuk akar sederhana pada fungsi kontinu. Metode terbuka memakai satu atau dua tebakan tanpa selalu mempertahankan kurungan; biasanya lebih cepat, tetapi lebih peka terhadap tebakan awal.</p><p>Residu |f(x_k)| mengukur seberapa baik persamaan dipenuhi, sedangkan galat |x_k-r| mengukur jarak terhadap akar sejati. Residu kecil tidak selalu berarti galat kecil jika grafik f sangat landai. Karena r biasanya tidak diketahui, penghentian praktis menggabungkan perubahan iterasi, residu, dan batas iterasi.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$f(r)=0$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$f(a)f(b)&lt;0$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$e_k=|x_k-r|$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$e_{a,k}=|x_k-x_{k-1}|$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$e_{r,k}=\frac{|x_k-x_{k-1}|}{\max(1,|x_k|)}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Apakah selang [1,2] mengurung akar f(x)=x^3-x-2?</p><ol class="steps"><li>Hitung f(1)=1-1-2=-2.</li><li>Hitung f(2)=8-2-2=4.</li><li>Karena fungsi polinom kontinu dan f(1)f(2)=(-2)(4)=-8&lt;0, sedikitnya ada satu akar di (1,2).</li><li>Turunan f&#x27;(x)=3x^2-1&gt;0 untuk x di [1,2], sehingga f naik ketat dan akar pada selang tersebut tunggal.</li></ol><p class="answer"><strong>Jawaban:</strong> Ya. Selang [1,2] mengurung tepat satu akar.</p></div><div class="card warn"><strong>Hati-hati:</strong> Syarat perubahan tanda menjamin keberadaan akar ganjil/sederhana, tetapi tidak mendeteksi akar berkelipatan genap yang hanya menyentuh sumbu-x. Contoh f(x)=(x-1)^2 tidak berubah tanda di sekitar x=1.</div></section><section><h2>2. Metode tertutup: bagi-dua dan regula falsi</h2><p>Metode bagi-dua memilih titik tengah c=(a+b)/2 lalu mengganti ujung selang yang mempunyai tanda sama dengan f(c). Lebar selang selalu menjadi setengah, sehingga konvergensinya pasti untuk fungsi kontinu yang memenuhi perubahan tanda.</p><p>Regula falsi mengganti titik tengah dengan perpotongan garis secant melalui (a,f(a)) dan (b,f(b)). Informasi besar nilai fungsi dimanfaatkan, sehingga sering lebih cepat pada awal iterasi. Namun salah satu ujung dapat tertahan lama ketika bentuk grafik tidak seimbang.</p><p>Bagi-dua unggul dalam kepastian dan estimasi galat; regula falsi dapat mengurangi iterasi tetapi tidak memiliki penyusutan selang seragam. Keduanya hanya membutuhkan evaluasi f, bukan turunan.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$c_{\text{bis}}=\frac{a+b}{2}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$c_{\text{rf}}=\frac{a f(b)-b f(a)}{f(b)-f(a)}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$|r-c_n|\le \frac{b_0-a_0}{2^{n+1}}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$n\ge \left\lceil \log_2\left(\frac{b_0-a_0}{\varepsilon}\right)\right\rceil$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Lakukan dua iterasi bagi-dua untuk f(x)=x^3-x-2 pada [1,2].</p><ol class="steps"><li>Iterasi 1: c_1=(1+2)/2=1,5 dan f(1,5)=3,375-1,5-2=-0,125. Tanda f(c_1) sama dengan f(1), maka selang baru [1,5;2].</li><li>Iterasi 2: c_2=(1,5+2)/2=1,75 dan f(1,75)=5,359375-1,75-2=1,609375. Tanda positif sama dengan f(2), maka selang baru [1,5;1,75].</li><li>Akar kini terkurung pada [1,5;1,75], dengan pendekatan terakhir 1,75.</li></ol><p class="answer"><strong>Jawaban:</strong> Dua titik tengahnya 1,5 dan 1,75; setelah dua iterasi akar berada pada [1,5;1,75].</p></div><div class="card warn"><strong>Hati-hati:</strong> Jangan mengganti ujung selang hanya berdasarkan nilai yang lebih besar atau lebih kecil. Keputusan harus berdasarkan tanda hasil kali agar perubahan tanda tetap terjaga.</div></section><section><h2>3. Metode terbuka: titik tetap, Newton–Raphson, dan secant</h2><p>Iterasi titik tetap mengubah f(x)=0 menjadi x=g(x), lalu menghitung x_{k+1}=g(x_k). Bentuk g tidak unik. Suatu susunan dapat konvergen, sedangkan susunan lain dari persamaan yang sama dapat divergen.</p><p>Newton–Raphson memakai garis singgung di x_k. Metode ini berkonvergensi kuadratik di dekat akar sederhana jika turunan tersedia dan tebakan awal cukup baik. Secant mengganti turunan dengan kemiringan melalui dua pendekatan terakhir; tidak memerlukan rumus turunan dan memiliki orde konvergensi sekitar 1,618.</p><p>Metode terbuka tidak menjamin iterasi tetap dekat akar. Penyebut yang sangat kecil, tebakan pada daerah datar, atau lompatan ke basin akar lain perlu dipantau. Strategi hibrida yang aman adalah mengurung akar terlebih dahulu, lalu memakai Newton atau secant ketika pendekatan sudah dekat.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$x_{k+1}=g(x_k)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$x_{k+1}=x_k-\frac{f(x_k)}{f&#x27;(x_k)}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$x_{k+1}=x_k-f(x_k)\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$|g&#x27;(x)|&lt;1 \text{ di sekitar titik tetap}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Gunakan satu langkah Newton–Raphson untuk f(x)=x^3-x-2 dengan x_0=1,5.</p><ol class="steps"><li>Turunkan fungsi: f&#x27;(x)=3x^2-1.</li><li>Hitung f(1,5)=-0,125 dan f&#x27;(1,5)=3(2,25)-1=5,75.</li><li>Substitusi: x_1=1,5-(-0,125)/5,75=1,52173913.</li><li>Periksa residu: |f(x_1)| jauh lebih kecil daripada |f(x_0)|, sehingga langkah bergerak menuju akar.</li></ol><p class="answer"><strong>Jawaban:</strong> x_1≈1,52173913.</p></div><div class="card warn"><strong>Hati-hati:</strong> Newton–Raphson tidak boleh dijalankan ketika f&#x27;(x_k)=0, sedangkan secant bermasalah ketika f(x_k)=f(x_{k-1}). Beri pemeriksaan penyebut dan batas iterasi dalam implementasi.</div></section><section><h2>4. Laju konvergensi dan kriteria penghentian</h2><p>Suatu barisan mempunyai orde konvergensi p jika e_{k+1} kira-kira sebanding dengan e_k^p saat k besar. Konvergensi linear memiliki p=1, superlinear memiliki 1&lt;p&lt;2, dan kuadratik memiliki p=2.</p><p>Bagi-dua dan iterasi titik tetap kontraktif umumnya linear. Newton pada akar sederhana umumnya kuadratik. Secant superlinear. Regula falsi klasik umumnya linear dan dapat tersendat. Kecepatan teoritis baru tampak setelah iterasi memasuki lingkungan akar.</p><p>Penghentian yang kuat memakai beberapa syarat: perubahan relatif kecil, residu kecil, dan jumlah iterasi tidak melebihi maksimum. Untuk metode tertutup, lebar selang memberi batas galat tambahan yang dapat dipercaya.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\lim_{k\to\infty}\frac{e_{k+1}}{e_k^p}=C,\quad 0&lt;C&lt;\infty$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$|x_{k+1}-x_k|\le \varepsilon_x\max(1,|x_{k+1}|)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$|f(x_{k+1})|\le \varepsilon_f$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$k&lt;k_{\max}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Jika galat Newton memenuhi e_{k+1}≈2e_k^2 dan e_k=10^{-3}, perkirakan galat berikutnya.</p><ol class="steps"><li>Gunakan model kuadratik e_{k+1}≈2e_k^2.</li><li>Kuadratkan galat: (10^{-3})^2=10^{-6}.</li><li>Kalikan konstanta 2 sehingga e_{k+1}≈2×10^{-6}.</li></ol><p class="answer"><strong>Jawaban:</strong> Galat berikutnya diperkirakan 2×10^{-6}; jumlah digit benar meningkat cepat.</p></div><div class="card warn"><strong>Hati-hati:</strong> Berhenti hanya karena |x_{k+1}-x_k| kecil dapat menipu pada stagnasi. Selalu periksa residu dan laporkan jika batas iterasi tercapai.</div></section><section><h2>5. Pemilihan metode dan pola penyelesaian soal</h2><p>Pilih bagi-dua saat keandalan lebih penting daripada kecepatan dan selang perubahan tanda tersedia. Pilih regula falsi ketika tetap ingin menjaga kurungan sambil memanfaatkan interpolasi linear. Pilih Newton jika turunan murah dan tebakan awal baik. Pilih secant jika turunan sulit, tetapi dua tebakan tersedia. Pilih titik tetap jika bentuk g yang kontraktif mudah dibangun.</p><p>Dalam jawaban ujian, tuliskan fungsi, data awal, rumus iterasi, tabel k, x_k, f(x_k), galat hampiran, keputusan pembaruan, dan alasan berhenti. Hasil angka tanpa jejak iterasi sulit diperiksa.</p><p>Perbandingan adil memakai toleransi dan kriteria berhenti yang sama. Jumlah iterasi saja belum cukup; hitung pula evaluasi f, evaluasi f&#x27;, kebutuhan memori, dan risiko kegagalan.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\text{biaya Newton per langkah}\approx 1\,f+1\,f&#x27;$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\text{biaya secant per langkah}\approx 1\,f \text{ setelah inisialisasi}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\text{efisiensi}\not\equiv \text{jumlah iterasi minimum}$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Metode mana yang sesuai untuk fungsi kontinu dengan selang perubahan tanda, turunan sangat rumit, dan keandalan wajib dijaga?</p><ol class="steps"><li>Turunan rumit mengurangi daya tarik Newton.</li><li>Keandalan wajib berarti kurungan akar harus dipertahankan.</li><li>Bagi-dua memberi jaminan paling sederhana; regula falsi juga mungkin, tetapi dapat mengalami ujung tertahan.</li><li>Gunakan bagi-dua sebagai pilihan dasar, atau hibrida bagi-dua–secant setelah selang cukup sempit.</li></ol><p class="answer"><strong>Jawaban:</strong> Bagi-dua paling aman; metode hibrida dapat dipakai untuk percepatan tanpa kehilangan kurungan.</p></div><div class="card warn"><strong>Hati-hati:</strong> Jangan menyatakan satu metode selalu terbaik. Kesimpulan harus dikaitkan dengan data awal, bentuk fungsi, turunan, toleransi, dan tuntutan keandalan.</div></section>
-<section><h2>Ringkasan</h2><div class="card summary"><ul><li>Metode tertutup menjaga selang akar; metode terbuka mengejar kecepatan tanpa jaminan kurungan.</li><li>Bagi-dua pasti konvergen pada fungsi kontinu dengan perubahan tanda dan memiliki batas galat eksplisit.</li><li>Newton umumnya kuadratik dekat akar sederhana; secant superlinear tanpa turunan.</li><li>Konvergensi titik tetap ditentukan oleh pemilihan g dan sifat kontraksi |g&#x27;|&lt;1 di sekitar akar.</li><li>Kriteria berhenti sebaiknya menggabungkan perubahan iterasi, residu, dan batas iterasi.</li><li>Perbandingan metode harus mempertimbangkan biaya evaluasi, kebutuhan data, stabilitas, serta risiko gagal.</li></ul></div></section>
-<section><h2>Latihan Mandiri</h2><div class="card exercise"><ol><li>{&#x27;no&#x27;: 1, &#x27;question&#x27;: &#x27;Untuk f(x)=x^3-4x-9, tunjukkan bahwa [2,3] mengurung akar dan lakukan empat iterasi bagi-dua.&#x27;, &#x27;hint&#x27;: &#x27;Catat selang baru dan nilai f(c) pada setiap iterasi.&#x27;}</li><li>{&#x27;no&#x27;: 2, &#x27;question&#x27;: &#x27;Gunakan tiga iterasi regula falsi untuk f(x)=e^{-x}-x pada [0,1].&#x27;, &#x27;hint&#x27;: &#x27;Pertahankan pasangan ujung yang berbeda tanda.&#x27;}</li><li>{&#x27;no&#x27;: 3, &#x27;question&#x27;: &quot;Bentuk dua fungsi iterasi g dari x^3-x-2=0. Periksa |g&#x27;(x)| di sekitar x=1,52 dan prediksi bentuk yang konvergen.&quot;, &#x27;hint&#x27;: &#x27;Susunan aljabar yang setara belum tentu memiliki sifat numerik yang sama.&#x27;}</li><li>{&#x27;no&#x27;: 4, &#x27;question&#x27;: &#x27;Lakukan tiga langkah Newton untuk f(x)=cos x-x dengan x_0=0,7 dan toleransi 10^{-6}.&#x27;, &#x27;hint&#x27;: &quot;Gunakan f&#x27;(x)=-sin x-1.&quot;}</li><li>{&#x27;no&#x27;: 5, &#x27;question&#x27;: &#x27;Lakukan tiga langkah secant untuk f(x)=x^2-3 dengan x_0=1 dan x_1=2. Bandingkan dengan nilai √3.&#x27;, &#x27;hint&#x27;: &#x27;Hitung galat absolut jika akar acuan diketahui.&#x27;}</li><li>{&#x27;no&#x27;: 6, &#x27;question&#x27;: &#x27;Susun tabel perbandingan bagi-dua, Newton, dan secant pada satu fungsi yang sama: syarat awal, iterasi, evaluasi fungsi, residu akhir, dan kemungkinan gagal.&#x27;, &#x27;hint&#x27;: &#x27;Gunakan toleransi identik agar perbandingan adil.&#x27;}</li></ol></div></section>
-<div class="tool-cta"><div><strong>Coba dengan angka sendiri</strong><p>Laboratorium menampilkan langkah, tabel iterasi, hasil, dan grafik.</p></div><a href="/tools/lab-metode-numerik/index.html">Buka Laboratorium</a></div>
-<section><h2>Berikutnya</h2><p>Pertemuan 06 beralih ke Bab 4 Rinaldi Munir: sistem persamaan linear. Fokus awalnya eliminasi Gaussian, substitusi balik, dan Gauss–Jordan.</p></section>
-<section class="sources"><h2>Sumber</h2><ol><li>[1] <a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2003%20Solusi%20Persamaan%20Nirlanjar.pdf" target="_blank" rel="noreferrer">Bab 03 — Solusi Persamaan Nirlanjar — Rinaldi Munir</a></li></ol></section><nav class="pager"><a href="/materi/KP21517001/pertemuan-04/index.html">← Pertemuan 04</a><a href="/materi/KP21517001/pertemuan-06/index.html">Pertemuan 06 →</a></nav></main>
-<footer>Disusun untuk belajar Metode Numerik Kelas C · Rumus dirender dengan KaTeX</footer></div><script>function handleGoBack(e){if(history.length>1){e.preventDefault();history.back()}}document.addEventListener('DOMContentLoaded',()=>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}],throwOnError:false}));</script></body></html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pertemuan 05 — Bahan Belajar Lengkap: SPL, Eliminasi Gauss Modifikasi (Pivoting), &amp; Dekomposisi LU Doolittle</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../shared.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError : false
+      });
+    });
+    function handleGoBack(e) {
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="page">
+    <nav class="top-nav">
+      <a class="back" href="/?course=KP21517001" onclick="handleGoBack(event)">← Kembali ke Metode Numerik</a>
+      <span>Pertemuan 05/16</span>
+    </nav>
+
+    <header>
+      <span class="badge">Bahan Belajar Terpadu · Pertemuan 05 (Pondasi Kuliah SPL)</span>
+      <h1>Sistem Persamaan Lanjar: Eliminasi Gauss yang Dimodifikasi &amp; Dekomposisi LU Gauss (Doolittle)</h1>
+      <p>Modul terpadu Bab 4 Solusi Sistem Persamaan Lanjar (SPL) berlandaskan buku resmi <em>Metode Numerik</em> Dr. Rinaldi Munir. Membahas kegagalan Gauss naif akibat poros nol, teknik tata-ancang pivoting sebagian (<em>partial pivoting</em>), konsep faktorisasi matriks $A = L \cdot U$, hingga penyelesaian dua tahap substitusi maju-mundur lengkap dengan contoh step-by-step.</p>
+      <div class="meta">
+        <span><strong>Mata Kuliah:</strong> Metode Numerik (KP21517001)</span>
+        <span><strong>Dosen Pengampu:</strong> Linda Herawati, S.Pd., M.Pd.</span>
+        <span><strong>Fokus Pembelajaran:</strong> Teori Pondasi Menjelang Presentasi Kelompok 4 (Crout &amp; Cholesky)</span>
+        <span><strong>Referensi Resmi:</strong> Rinaldi Munir, Bab 4: Solusi Sistem Persamaan Lanjar (Hal. 135–158)</span>
+      </div>
+    </header>
+
+    <main>
+      <aside class="notice">
+        <strong>Pintu Masuk Pemahaman:</strong> Materi Pertemuan 05 adalah pondasi utama sebelum melangkah ke presentasi Kelompok 4 di Pertemuan 06. Pahami betul mengapa faktorisasi $A = LU$ diciptakan untuk menghemat komputasi berulang $\mathcal{O}(n^3)$ menjadi $\mathcal{O}(n^2)$.
+      </aside>
+
+      <!-- BAB 1: REPRESENTASI SPL & KELEMAHAN GAUSS NAIF -->
+      <section>
+        <h2>1. Representasi SPL dan Kelemahan Fatal Eliminasi Gauss Naif</h2>
+        <p>Sistem Persamaan Lanjar (SPL) dengan $n$ persamaan dan $n$ peubah tak-diketahui dituliskan dalam bentuk perkalian matriks:</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Bentuk Matriks SPL</div>
+          <div class="math-step-box">$$A \mathbf{x} = \mathbf{b}$$</div>
+        </div>
+
+        <p>Di mana $A$ adalah matriks koefisien berukuran $n \times n$, $\mathbf{x} = [x_1, x_2, \dots, x_n]^T$ adalah vektor peubah, dan $\mathbf{b} = [b_1, b_2, \dots, b_n]^T$ adalah vektor ruas kanan.</p>
+
+        <p>Pada <strong>Eliminasi Gauss Naif</strong>, matriks diperluas $[A | \mathbf{b}]$ ditransformasi menjadi matriks segitiga atas $U$ menggunakan Operasi Baris Elementer (OBE) tanpa memeriksa nilai elemen poros diagonal $a_{kk}$. Kelemahan fatal metode naif ini adalah:</p>
+        
+        <div class="card warn">
+          <strong>Dua Jebakan Fatal Gauss Naif:</strong>
+          <ol style="margin:8px 0 0 16px; padding:0;">
+            <li><strong>Pembagian dengan Nol (Zero Pivot):</strong> Jika elemen poros $a_{kk} = 0$, rumus pengali $m_{ik} = \frac{a_{ik}}{a_{kk}}$ tidak terdefinisi (program komputer crash seketika).</li>
+            <li><strong>Ledakan Galat Pembulatan (Round-off Error):</strong> Jika $|a_{kk}|$ bernilai sangat kecil mendekati nol dibandingkan $|a_{ik}|$, pengali $m_{ik}$ menjadi raksasa sehingga angka signifikan lainnya tergerus habis oleh galat pemotongan mesin.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- BAB 2: PIVOTING SEBAGIAN -->
+      <section>
+        <h2>2. Eliminasi Gauss yang Dimodifikasi: Tata-Ancang Pivoting Sebagian</h2>
+        <p>Untuk mengatasi masalah poros nol dan meredam galat pembulatan, algoritma Gauss dimodifikasi dengan teknik <strong>Tata-Ancang Pivoting Sebagian (Partial Pivoting)</strong>.</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Aturan Pivoting Sebagian</div>
+          <p>Pada setiap langkah eliminasi kolom $k$ ($k = 1, 2, \dots, n-1$):</p>
+          <div class="math-step-box">$$\text{Cari baris } p \text{ sedemikian sehingga } |a_{pk}| = \max_{k \le i \le n} |a_{ik}|$$</div>
+          <p>Jika $p \ne k$, lakukan pertukaran baris: $R_k \longleftrightarrow R_p$ pada matriks augmented.</p>
+        </div>
+
+        <p><em>Analogi Timbangan:</em> Menempatkan elemen berbobot terbesar sebagai titik tumpu poros memastikan struktur eliminasi kokoh dan tidak terlempar oleh pembulatan pecahan kecil.</p>
+
+        <!-- CONTOH SOAL PIVOTING -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 1: Eliminasi Gauss dengan Pivoting Sebagian</div>
+          <p><strong>Soal:</strong> Selesaikan SPL berikut menggunakan Eliminasi Gauss dengan tata-ancang pivoting sebagian:</p>
+          <div class="math-step-box">
+            $$\begin{aligned}
+            x_1 + 2x_2 + x_3 &= 2 \\
+            3x_1 + 6x_2 + 2x_3 &= 9 \\
+            2x_1 + 8x_2 + 4x_3 &= 6
+            \end{aligned}$$
+          </div>
+
+          <p><strong>Penyelesaian Langkah demi Langkah:</strong></p>
+          <ol class="steps">
+            <li>
+              <strong>Matriks Augmented Awal:</strong>
+              <div class="math-step-box">
+                $$[A|\mathbf{b}] = \left[\begin{array}{ccc|c} 1 & 2 & 1 & 2 \\ 3 & 6 & 2 & 9 \\ 2 & 8 & 4 & 6 \end{array}\right]$$
+              </div>
+            </li>
+            <li>
+              <strong>Langkah 1 (Kolom 1): Uji Poros Terbesar:</strong>
+              Elemen kolom 1 di baris 1, 2, 3 adalah $|1|, |3|, |2|$. Nilai mutlak terbesar berada di baris 2 ($|3|$).<br>
+              Lakukan pertukaran baris $R_1 \leftrightarrow R_2$:
+              <div class="math-step-box">
+                $$\left[\begin{array}{ccc|c} 3 & 6 & 2 & 9 \\ 1 & 2 & 1 & 2 \\ 2 & 8 & 4 & 6 \end{array}\right]$$
+              </div>
+              Eliminasi baris di bawah poros $a_{11} = 3$:
+              <ul>
+                <li>$R_2 \leftarrow R_2 - \frac{1}{3} R_1 \implies [0,\ 0,\ \frac{1}{3}\ |\ -1]$</li>
+                <li>$R_3 \leftarrow R_3 - \frac{2}{3} R_1 \implies [0,\ 4,\ \frac{8}{3}\ |\ 0]$</li>
+              </ul>
+              Matriks menjadi:
+              <div class="math-step-box">
+                $$\left[\begin{array}{ccc|c} 3 & 6 & 2 & 9 \\ 0 & 0 & 1/3 & -1 \\ 0 & 4 & 8/3 & 0 \end{array}\right]$$
+              </div>
+            </li>
+            <li>
+              <strong>Langkah 2 (Kolom 2): Uji Poros Baru:</strong>
+              Elemen poros saat ini pada posisi $(2,2)$ adalah $0$ (jika pakai Gauss naif, program crash!).<br>
+              Uji kolom 2 dari baris 2 ke 3: $|0|$ vs $|4|$. Nilai terbesar adalah $4$ pada baris 3.<br>
+              Lakukan pertukaran baris $R_2 \leftrightarrow R_3$:
+              <div class="math-step-box">
+                $$\left[\begin{array}{ccc|c} 3 & 6 & 2 & 9 \\ 0 & 4 & 8/3 & 0 \\ 0 & 0 & 1/3 & -1 \end{array}\right]$$
+              </div>
+              Matriks kini telah menjadi matriks segitiga atas sempurna tanpa perlu operasi baris tambahan.
+            </li>
+            <li>
+              <strong>Langkah 3: Substitusi Mundur (Backward Substitution):</strong>
+              <ul>
+                <li>Dari baris 3: $\frac{1}{3} x_3 = -1 \implies x_3 = -3$</li>
+                <li>Dari baris 2: $4x_2 + \frac{8}{3}(-3) = 0 \implies 4x_2 - 8 = 0 \implies x_2 = 2$</li>
+                <li>Dari baris 1: $3x_1 + 6(2) + 2(-3) = 9 \implies 3x_1 + 12 - 6 = 9 \implies 3x_1 = 3 \implies x_1 = 1$</li>
+              </ul>
+            </li>
+          </ol>
+          <p><strong>Solusi Akhir:</strong> $\mathbf{x} = [1,\ 2,\ -3]^T$. (Terbukti lolos dari jebakan poros nol!).</p>
+        </div>
+      </section>
+
+      <!-- BAB 3: KONSEP DEKOMPOSISI LU & METODE DOOLITTLE -->
+      <section>
+        <h2>3. Konsep Dekomposisi LU dan Metode LU Gauss (Doolittle)</h2>
+        <p><strong>Mengapa Dekomposisi LU Sangat Penting?</strong></p>
+        <p>Pada rekayasa teknik dan kecerdasan buatan, kita sering kali harus memecahkan SPL $A \mathbf{x} = \mathbf{b}$ di mana matriks karakteristik sistem $A$ tidak pernah berubah, namun vektor masukan $\mathbf{b}$ berubah ribuan kali.</p>
+        <p>Jika kita memakai Eliminasi Gauss biasa, setiap kali vektor $\mathbf{b}$ baru masuk, kita harus mengulang komputasi eliminasi berbiaya mahal $\mathcal{O}(n^3)$.</p>
+        <p>Dengan <strong>Dekomposisi LU</strong>, matriks $A$ difaktorkan <em>cukup satu kali saja</em> menjadi perkalian dua matriks segitiga:</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Faktorisasi LU</div>
+          <div class="math-step-box">$$A = L \cdot U$$</div>
+          <p>Di mana $L$ (<em>Lower</em>) adalah matriks segitiga bawah, dan $U$ (<em>Upper</em>) adalah matriks segitiga atas.</p>
+        </div>
+
+        <p>Setelah $A = LU$ terbentuk, penyelesaian $A \mathbf{x} = \mathbf{b} \iff L(U\mathbf{x}) = \mathbf{b}$ dipecah menjadi <strong>dua tahap substitusi kilat berbiaya $\mathcal{O}(n^2)$</strong>:</p>
+        
+        <div class="card formula">
+          <div class="formula-label">Dua Tahap Substitusi Solusi</div>
+          <div class="math-step-box">
+            $$\begin{aligned}
+            \text{Tahap 1 (Substitusi Maju): } & L \mathbf{y} = \mathbf{b} \implies \text{Cari vektor perantara } \mathbf{y} \\
+            \text{Tahap 2 (Substitusi Mundur): } & U \mathbf{x} = \mathbf{y} \implies \text{Cari solusi akhir } \mathbf{x}
+            \end{aligned}$$
+          </div>
+        </div>
+
+        <p><strong>Ciri Khas Metode LU Gauss (Doolittle):</strong></p>
+        <ul>
+          <li>Diagonal utama matriks $L$ ditetapkan bernilai <strong>1</strong> ($l_{11} = 1, l_{22} = 1, \dots, l_{nn} = 1$).</li>
+          <li>Elemen di bawah diagonal $L$ ($l_{ik}$) menyimpan faktor pengali $m_{ik}$ yang digunakan saat proses eliminasi Gauss.</li>
+          <li>Matriks $U$ adalah matriks segitiga atas murni yang dihasilkan setelah eliminasi baris selesai.</li>
+        </ul>
+
+        <!-- CONTOH SOAL LU DOOLITTLE -->
+        <div class="card example">
+          <div class="formula-label">Contoh Soal 2: Faktorisasi LU Doolittle Step-by-Step</div>
+          <p><strong>Soal:</strong> Selesaikan SPL berikut dengan Metode Dekomposisi LU Doolittle:</p>
+          <div class="math-step-box">
+            $$\begin{bmatrix} 2 & 1 & 1 \\ 4 & -6 & 0 \\ -2 & 7 & 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 5 \\ -2 \\ 9 \end{bmatrix}$$
+          </div>
+
+          <p><strong>Penyelesaian Langkah demi Langkah:</strong></p>
+          <ol class="steps">
+            <li>
+              <strong>Faktorisasi Matriks A menjadi L dan U:</strong><br>
+              Inisialisasi matriks $L$ dengan diagonal 1 dan $U$ segitiga atas:
+              <div class="math-step-box">
+                $$L = \begin{bmatrix} 1 & 0 & 0 \\ l_{21} & 1 & 0 \\ l_{31} & l_{32} & 1 \end{bmatrix}, \quad U = \begin{bmatrix} u_{11} & u_{12} & u_{13} \\ 0 & u_{22} & u_{23} \\ 0 & 0 & u_{33} \end{bmatrix}$$
+              </div>
+              Eliminasi Gauss pada matriks $A$:
+              <ul>
+                <li>Baris 1 $U$ langsung sama dengan Baris 1 $A$: $[u_{11}, u_{12}, u_{13}] = [2, 1, 1]$.</li>
+                <li>Pengali baris 2: $m_{21} = \frac{a_{21}}{u_{11}} = \frac{4}{2} = 2 \implies l_{21} = 2$.<br>
+                    $R_2 \leftarrow R_2 - 2 R_1 = [0,\ -6 - 2(1),\ 0 - 2(1)] = [0, -8, -2]$.</li>
+                <li>Pengali baris 3: $m_{31} = \frac{a_{31}}{u_{11}} = \frac{-2}{2} = -1 \implies l_{31} = -1$.<br>
+                    $R_3 \leftarrow R_3 - (-1) R_1 = [0,\ 7 - (-1)(1),\ 2 - (-1)(1)] = [0, 8, 3]$.</li>
+                <li>Pengali baris 3 untuk kolom 2: $m_{32} = \frac{a'_{32}}{u_{22}} = \frac{8}{-8} = -1 \implies l_{32} = -1$.<br>
+                    $R_3 \leftarrow R_3 - (-1) R_2 = [0,\ 0,\ 3 - (-1)(-2)] = [0, 0, 1]$.</li>
+              </ul>
+              Maka diperoleh sepasang matriks:
+              <div class="math-step-box">
+                $$L = \begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ -1 & -1 & 1 \end{bmatrix}, \quad U = \begin{bmatrix} 2 & 1 & 1 \\ 0 & -8 & -2 \\ 0 & 0 & 1 \end{bmatrix}$$
+              </div>
+            </li>
+            <li>
+              <strong>Tahap 1: Substitusi Maju ($L \mathbf{y} = \mathbf{b}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ -1 & -1 & 1 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 5 \\ -2 \\ 9 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 1: $1 y_1 = 5 \implies y_1 = 5$</li>
+                <li>Baris 2: $2(5) + 1 y_2 = -2 \implies y_2 = -2 - 10 = -12$</li>
+                <li>Baris 3: $-1(5) - 1(-12) + 1 y_3 = 9 \implies -5 + 12 + y_3 = 9 \implies y_3 = 2$</li>
+              </ul>
+              Vektor perantara: $\mathbf{y} = [5,\ -12,\ 2]^T$.
+            </li>
+            <li>
+              <strong>Tahap 2: Substitusi Mundur ($U \mathbf{x} = \mathbf{y}$):</strong>
+              <div class="math-step-box">
+                $$\begin{bmatrix} 2 & 1 & 1 \\ 0 & -8 & -2 \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 5 \\ -12 \\ 2 \end{bmatrix}$$
+              </div>
+              <ul>
+                <li>Baris 3: $1 x_3 = 2 \implies x_3 = 2$</li>
+                <li>Baris 2: $-8 x_2 - 2(2) = -12 \implies -8 x_2 - 4 = -12 \implies -8 x_2 = -8 \implies x_2 = 1$</li>
+                <li>Baris 1: $2 x_1 + 1(1) + 1(2) = 5 \implies 2 x_1 + 3 = 5 \implies 2 x_1 = 2 \implies x_1 = 1$</li>
+              </ul>
+            </li>
+          </ol>
+          <p><strong>Solusi Akhir:</strong> $\mathbf{x} = [1,\ 1,\ 2]^T$. Hasil diverifikasi presisi dengan residu $\mathbf{r} = A\mathbf{x} - \mathbf{b} = \mathbf{0}$.</p>
+        </div>
+      </section>
+
+      <!-- JEMBATAN KE PERTEMUAN 06 -->
+      <section>
+        <h2>4. Jembatan Menuju Pertemuan 06: Ragam Dekomposisi LU Lanjutan</h2>
+        <p>Pada metode Doolittle yang baru saja kita pelajari, diagonal matriks $L$ yang dikunci bernilai 1 ($l_{ii} = 1$). Pertanyaannya:</p>
+        <p><em>"Bagaimana jika diagonal yang kita kunci bernilai 1 adalah matriks atas $U$ ($u_{ii} = 1$)? Atau bagaimana jika matriks kita simetris sehingga $U$ cukup berupa bayangan cermin (transpos) dari $L$?"</em></p>
+        <p>Pertanyaan inilah yang melahirkan dua metode hebat yang menjadi materi presentasi Kelompok 4 di Pertemuan 06:</p>
+        <ul>
+          <li><strong>Metode Reduksi Crout:</strong> Menetapkan $u_{ii} = 1$, sehingga substitusi mundur $U \mathbf{x} = \mathbf{y}$ sepenuhnya bebas dari pembagian pecahan.</li>
+          <li><strong>Metode Dekomposisi Cholesky:</strong> Menetapkan $A = L \cdot L^T$ khusus matriks simetris definit positif, menghemat memori 50% dan berjalan 2 kali lebih cepat.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

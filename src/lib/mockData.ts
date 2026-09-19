@@ -78,17 +78,17 @@ const metodeNumerikMeetings: SyllabusMeeting[] = [
   },
   {
     meeting: 5,
-    title: 'Sistem Persamaan Lanjar: Eliminasi Gauss Modifikasi & Dekomposisi LU (Kelompok Ryan)',
+    title: 'Sistem Persamaan Lanjar: Eliminasi Gauss Modifikasi & Dekomposisi LU Doolittle',
     kind: 'Teori',
-    summary: 'Sistem persamaan lanjar dengan eliminasi Gauss yang dimodifikasi (partial pivoting) dan dekomposisi LU Gauss / Doolittle dipresentasikan oleh Kelompok 4 (Kelompok Ryan).',
-    activity: 'Presentasi utama Kelompok 4 (Ryan, Najla, Nabila) serta pengujian live web kalkulator.'
+    summary: 'Sistem persamaan lanjar dengan eliminasi Gauss yang dimodifikasi (partial pivoting) dan dekomposisi LU Gauss / Doolittle sebagai pondasi materi sebelum Crout & Cholesky.',
+    activity: 'Mempelajari konsep poros nol, pivoting sebagian, dan substitusi dua tahap L y = b lalu U x = y.'
   },
   {
     meeting: 6,
-    title: 'Dekomposisi LU Reduksi Crout dan Cholesky (Harapan Materi - Kelompok 5)',
+    title: 'Dekomposisi LU Reduksi Crout dan Cholesky (Kelompok 4 - Ryan, Najla, Nabila)',
     kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: faktorisasi matriks dekomposisi LU reduksi Crout dan metode dekomposisi Cholesky untuk matriks simetri definit positif.',
-    activity: 'Harapan materi: mengikuti silabus resmi Bu Linda sampai presentasi kelompok terlaksana.'
+    summary: 'Faktorisasi matriks dekomposisi LU reduksi Crout (u_ii = 1) dan dekomposisi Cholesky (A = L L^T) untuk matriks simetris definit positif dipresentasikan oleh Kelompok 4.',
+    activity: 'Presentasi utama Kelompok 4 (Ryan, Najla, Nabila) serta pengujian live web kalkulator numerik Crout & Cholesky.'
   },
   {
     meeting: 7,
