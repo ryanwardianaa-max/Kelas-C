@@ -319,6 +319,26 @@
           </ol>
         </div>
       </section>
+      <section>
+        <h2>5. Latihan Mandiri</h2>
+        <p>Kerjakan langkah demi langkah; setiap entri matriks Crout/Cholesky wajib dituliskan rumusnya sebelum disubstitusi:</p>
+        <ol>
+          <li>Dekomposisikan $A = egin{bmatrix} 4 & -2 \ -2 & 10 \end{bmatrix}$ dengan Metode Crout. Tunjukkan $l_{11}, l_{21}, l_{22}, u_{12}$ lalu tuliskan $L$ dan $U$.</li>
+          <li>Selesaikan $A\mathbf{x} = \mathbf{b}$ dengan $\mathbf{b} = [0,\ 8]^T$ memakai hasil nomor 1 (substitusi maju $L\mathbf{y} = \mathbf{b}$, mundur $U\mathbf{x} = \mathbf{y}$).</li>
+          <li>Uji apakah $B = egin{bmatrix} 9 & 3 \ 3 & 5 \end{bmatrix}$ layak difaktorkan Cholesky (cek simetri + minor utama positif), lalu tentukan $L$ sehingga $B = L \cdot L^T$.</li>
+          <li>Mengapa Cholesky menolak matriks yang tidak definit positif? Jelaskan dari kegagalan $l_{11} = \sqrt{a_{11}}$ pada $a_{11} < 0$.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>6. Ringkasan</h2>
+        <ul>
+          <li><strong>LU Gauss (Doolittle)</strong>: diagonal $U$ bebas, $L$ satuan segitiga bawah ($l_{ii} = 1$).</li>
+          <li><strong>Crout</strong>: diagonal $U$ = 1 ($u_{ii} = 1$); elemen $L$ dihitung lebih dahulu, hemat satu baris perhitungan dibanding Doolittle.</li>
+          <li><strong>Cholesky</strong>: hanya untuk matriks <strong>simetris dan definit positif</strong>; $A = L \cdot L^T$ dengan $u_{ii} = \sqrt{a_{ii} - \sum l_{ik}^2}$, jumlah operasi hampir separuh Crout, sekaligus uji kelayakan bawaan (akar negatif = bukan definit positif).</li>
+          <li>Ketiga metode memakai struktur penyelesaian sama: substitusi maju lalu mundur.</li>
+        </ul>
+      </section>
     </main>
   </div>
 </body>

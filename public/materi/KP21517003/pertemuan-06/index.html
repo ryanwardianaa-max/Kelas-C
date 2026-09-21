@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Pertemuan 06 — Bahan Baca: Rumus De Moivre, Pemangkatan &amp; Akar Kompleks (KP21517003)</title>
+  <title>Pertemuan 06 — Catatan Kuliah: Teorema De Moivre, Rumus Euler &amp; Akar Kompleks (KP21517003)</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -96,6 +96,12 @@
     }
     .note-plain strong { color: var(--brand-dark); }
 
+    .step-label {
+      display: inline-block; background: var(--accent-soft); color: var(--brand-dark);
+      border: 1px solid #c7d2fe; border-radius: 999px; padding: 2px 10px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; margin: 12px 0 6px;
+    }
+
     table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 12px 0; }
     th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; }
     th { background: var(--accent-soft); color: var(--brand-dark); font-size: 0.8rem; }
@@ -108,6 +114,14 @@
     .svg-wrapper { width: 100%; overflow-x: auto; }
     .svg-wrapper svg { width: 100%; height: auto; min-width: 320px; display: block; }
     .svg-caption { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 8px; }
+
+    .video-card {
+      background: #0f172a; border: 1px solid #334155; border-radius: 12px;
+      padding: 12px; margin: 16px 0;
+    }
+    .video-card video { width: 100%; height: auto; border-radius: 10px; display: block; background: #000; }
+    .video-card .video-caption { font-size: 0.82rem; color: #94a3b8; text-align: center; margin-top: 9px; }
+    .video-card .video-caption strong { color: #facc15; }
 
     .tool-cta {
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -143,237 +157,400 @@
   </nav>
 
   <header>
-    <div class="badge">Bahan Baca / Perkiraan · Pertemuan 06</div>
-    <h1>Rumus De Moivre, Pemangkatan &amp; Penarikan Akar Kompleks</h1>
-    <p>Materi persiapan perkuliahan — kelanjutan langsung setelah Bentuk Polar dan Rumus Euler di Pertemuan 05.</p>
+    <div class="badge">Catatan Kuliah &middot; Pertemuan 06</div>
+    <h1>Teorema De Moivre, Rumus Euler &amp; Akar Bilangan Kompleks</h1>
+    <p>Catatan perkuliahan Senin, 21 September 2026 &mdash; disusun ulang langkah demi langkah dari papan tulis kelas, sesi tanya jawab Bot WhatsApp, dan bukti formal bermuatan video animasi Manim.</p>
 
     <div class="meta-info">
       <div><strong>Mata Kuliah:</strong> Analisis Kompleks (KP21517003) &middot; 2 SKS &middot; Kelas C</div>
-      <div><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</div>
-      <div><strong>Rujukan:</strong> Brown &amp; Churchill, <em>Complex Variables and Applications</em>, Bab 1 &sect;7–&sect;10</div>
+      <div><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd. &middot; Kuliah mulai pukul 07.00 WIB</div>
+      <div><strong>Rujukan:</strong> Brown &amp; Churchill, <em>Complex Variables and Applications</em>, Bab 1 &sect;7&ndash;&sect;10</div>
     </div>
   </header>
 
   <main>
     <div class="note-plain">
-      <strong>Ringkas dulu jembatan materi:</strong> Di Pertemuan 05, kita telah mempelajari perkalian titik, perkalian silang, geometri vektor, bentuk polar \(z = r(\cos\theta + i\sin\theta)\), dan rumus Euler \(z = r e^{i\theta}\). Modul ini melanjutkan kekuatan bentuk polar untuk operasi tingkat tinggi: bagaimana mengalikan banyak bilangan kompleks secara cepat, menghitung pemangkatan besar \(z^n\) menggunakan Rumus De Moivre, serta mencari semua \(n\) buah akar kompleks \(\sqrt[n]{z}\).
+      <strong>Peta alur belajar hari ini (semua teorema diturunkan, tidak ada yang muncul dari mana-mana):</strong>
+      <br>1. <strong>Bangun fondasi:</strong> bentuk polar \(z = r(\cos\theta + i\sin\theta)\) dan bentuk eksponensial \(z = re^{i\theta}\).
+      <br>2. <strong>Turunkan Rumus Euler dari deret tak berhingga</strong> (persis seperti di papan tulis): \(e^x \to e^{i\theta} = \cos\theta + i\sin\theta\).
+      <br>3. <strong>Buktikan Teorema Perkalian Polar</strong> dua cara (aljabar trigonometri &amp; eksponensial Euler) &mdash; lengkap dengan video animasi Manim.
+      <br>4. <strong>Buktikan Teorema Pembagian Polar</strong> dua cara (konjugat sekawan &amp; eksponensial Euler).
+      <br>5. <strong>Turunkan Teorema De Moivre dari perkalian berulang</strong>, lalu pakai untuk pemangkatan besar.
+      <br>6. <strong>Balikkan De Moivre untuk mencari akar</strong>: mengapa ada tepat \(n\) akar dan mengapa muncul \(2k\pi\).
     </div>
 
-    <h2>1. Operasi Kali &amp; Bagi dalam Bentuk Polar</h2>
+    <h2>1. Fondasi: Bentuk Polar &amp; Bentuk Eksponensial</h2>
     <p>
-      Salah satu alasan utama bilangan kompleks diubah ke bentuk polar adalah kemudahan operasi perkalian dan pembagian. Pada bentuk aljabar Kartesius, perkalian memerlukan sifat distributif dan pembagian memerlukan sekawan penyebut. Pada bentuk polar, operasi berubah menjadi geometri murni:
+      Setiap bilangan kompleks memiliki tiga wajah yang ekuivalen. Semua materi hari ini dibangun di atas dua wajah pertama:
+    </p>
+    <div class="card formula">
+      <div class="formula-title">Tiga Bentuk Ekuivalen</div>
+      <div class="math-step-box">
+        $$z = \underbrace{a + bi}_{\text{Cartesius}} \;=\; \underbrace{r(\cos\theta + i\sin\theta)}_{\text{Polar}} \;=\; \underbrace{r\,e^{i\theta}}_{\text{Eksponensial}}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">
+        dengan \(r = |z| = \sqrt{a^2 + b^2}\) adalah <strong>modulus</strong> (panjang vektor dari titik asal di bidang Argand)
+        dan \(\theta = \arg(z)\) adalah <strong>argumen</strong> (sudut terhadap sumbu real positif), di mana \(a = r\cos\theta\) dan \(b = r\sin\theta\).
+      </p>
+    </div>
+    <div class="note-plain">
+      <strong>Mengapa perlu bentuk polar?</strong> Pada bentuk Cartesius, perkalian pakai sifat distributif dan pembagian butuh sekawan penyebut.
+      Pada bentuk polar, kedua operasi berubah menjadi <em>geometri murni</em>: panjang dikali/dibagi, sudut dijumlah/dikurang. Itulah mesin yang akan kita buka di fase berikutnya.
+    </div>
+
+    <h2>2. Turunan Rumus Euler dari Deret Tak Berhingga</h2>
+    <p>
+      Ini persis materi papan tulis hari ini: Rumus Euler <strong>tidak dijadikan aksioma</strong>, melainkan diturunkan dari deret Taylor fungsi eksponensial yang sudah kita kenal di kalkulus.
     </p>
 
     <div class="card formula">
-      <div class="formula-title">Teorema Perkalian &amp; Pembagian Polar</div>
+      <div class="formula-title">Langkah 1 &mdash; Deret Tak Berhingga \(e^x\)</div>
+      <div class="math-step-box">$$e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots$$</div>
+    </div>
+
+    <span class="step-label">Langkah 2 &mdash; Substitusi \(x = i\theta\)</span>
+    <div class="card formula">
+      <div class="math-step-box">$$e^{i\theta} = 1 + i\theta + \frac{(i\theta)^2}{2!} + \frac{(i\theta)^3}{3!} + \frac{(i\theta)^4}{4!} + \cdots$$</div>
+    </div>
+
+    <span class="step-label">Langkah 3 &mdash; Hitung Perilaku Pangkat \(i\)</span>
+    <p>Ingat \(i^2 = -1\), sehingga pangkat \(i\) berputar dengan perioda 4:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Pangkat</th><th>\(i^1\)</th><th>\(i^2\)</th><th>\(i^3\)</th><th>\(i^4\)</th><th>\(i^5\)</th><th>\(\cdots\)</th></tr></thead>
+        <tbody><tr><td><strong>Nilai</strong></td><td>\(i\)</td><td>\(-1\)</td><td>\(-i\)</td><td>\(1\)</td><td>\(i\)</td><td>berulang</td></tr></tbody>
+      </table>
+    </div>
+
+    <span class="step-label">Langkah 4 &mdash; Ekspansi &amp; Penyederhanaan</span>
+    <div class="card formula">
       <div class="math-step-box">
         $$\begin{aligned}
-        z_1 \cdot z_2 &= [r_1(\cos\theta_1 + i\sin\theta_1)] \cdot [r_2(\cos\theta_2 + i\sin\theta_2)] \\[6pt]
-        &= \mathbf{r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i\sin(\theta_1 + \theta_2)\right]} = r_1 r_2 e^{i(\theta_1 + \theta_2)} \\[10pt]
-        \frac{z_1}{z_2} &= \mathbf{\frac{r_1}{r_2} \left[\cos(\theta_1 - \theta_2) + i\sin(\theta_1 - \theta_2)\right]} = \frac{r_1}{r_2} e^{i(\theta_1 - \theta_2)} \quad (z_2 \neq 0)
+        e^{i\theta} &= 1 + i\theta + \frac{i^2\theta^2}{2!} + \frac{i^3\theta^3}{3!} + \frac{i^4\theta^4}{4!} + \frac{i^5\theta^5}{5!} + \cdots \\[6pt]
+        &= 1 + i\theta - \frac{\theta^2}{2!} - i\frac{\theta^3}{3!} + \frac{\theta^4}{4!} + i\frac{\theta^5}{5!} - \cdots
+        \end{aligned}$$
+      </div>
+    </div>
+
+    <span class="step-label">Langkah 5 &mdash; Kelompokkan Suku Real &amp; Imajiner</span>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        e^{i\theta} &= \left(1 - \frac{\theta^2}{2!} + \frac{\theta^4}{4!} - \cdots\right) + i\left(\theta - \frac{\theta^3}{3!} + \frac{\theta^5}{5!} - \cdots\right) \\[6pt]
+        &= \cos\theta + i\sin\theta
         \end{aligned}$$
       </div>
       <p style="margin-bottom:0; font-size:0.9rem;">
-        <strong>Aturan Emas:</strong> <em>Modulus dikalikan/dibagi, sedangkan sudut argumen dijumlahkan/dikurangkan!</em>
+        karena deret dalam kurung pertama <em>persis</em> deret Taylor \(\cos\theta\) dan kurung kedua deret Taylor \(\sin\theta\). Maka:
+        $$\boxed{\;e^{i\theta} = \cos\theta + i\sin\theta\;}$$
+      </p>
+    </div>
+
+    <span class="step-label">Langkah 6 &mdash; Bentuk Konjugat &amp; Rumus \(\cos\theta\)</span>
+    <p>Ganti \(\theta \to -\theta\); karena \(\cos(-\theta) = \cos\theta\) (fungsi genap) dan \(\sin(-\theta) = -\sin\theta\) (fungsi ganjil):</p>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\begin{aligned}
+        e^{-i\theta} &= \cos(-\theta) + i\sin(-\theta) = \cos\theta - i\sin\theta \\[8pt]
+        e^{i\theta} + e^{-i\theta} &= (\cos\theta + i\sin\theta) + (\cos\theta - i\sin\theta) = 2\cos\theta \\[6pt]
+        &\Longrightarrow\; \boxed{\;\cos\theta = \frac{e^{i\theta} + e^{-i\theta}}{2}\;}
+        \end{aligned}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Dengan pengurangan yang serupa diperoleh \(\sin\theta = \dfrac{e^{i\theta} - e^{-i\theta}}{2i}\).</p>
+    </div>
+
+    <h2>3. Teorema Perkalian Bentuk Polar</h2>
+    <p>
+      Ambil dua bilangan kompleks tak-nola dalam bentuk polar: \(z_1 = r_1(\cos\theta_1 + i\sin\theta_1) = r_1e^{i\theta_1}\) dan \(z_2 = r_2(\cos\theta_2 + i\sin\theta_2) = r_2e^{i\theta_2}\).
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Teorema (Perkalian Polar)</div>
+      <div class="math-step-box">$$z_1 \cdot z_2 = r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i\sin(\theta_1 + \theta_2)\right] = r_1 r_2\, e^{i(\theta_1 + \theta_2)}$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;"><strong>Aturan Emas:</strong> modulus dikalikan \((r_1r_2)\), argumen dijumlahkan \((\theta_1+\theta_2)\).</p>
+    </div>
+
+    <h3>Bukti 1 &mdash; Aljabar Trigonometri (Langkah demi Langkah)</h3>
+    <span class="step-label">Langkah 1 &mdash; Tulis Perkaliannya</span>
+    <div class="card formula"><div class="math-step-box">$$z_1 \cdot z_2 = \left[r_1(\cos\theta_1 + i\sin\theta_1)\right]\cdot\left[r_2(\cos\theta_2 + i\sin\theta_2)\right]$$</div></div>
+    <span class="step-label">Langkah 2 &mdash; Faktorkan Modulus ke Depan</span>
+    <div class="card formula"><div class="math-step-box">$$= (r_1 r_2)\cdot(\cos\theta_1 + i\sin\theta_1)(\cos\theta_2 + i\sin\theta_2)$$</div></div>
+    <span class="step-label">Langkah 3 &mdash; Ekspansi Distributif (4 Suku)</span>
+    <div class="card formula"><div class="math-step-box">$$= (r_1 r_2)\left[\cos\theta_1\cos\theta_2 + i\cos\theta_1\sin\theta_2 + i\sin\theta_1\cos\theta_2 + i^2\sin\theta_1\sin\theta_2\right]$$</div></div>
+    <span class="step-label">Langkah 4 &mdash; Substitusi \(i^2 = -1\) lalu Kelompokkan</span>
+    <div class="card formula"><div class="math-step-box">$$= (r_1 r_2)\left[\underbrace{\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2}_{\text{suku real}} \;+\; i\underbrace{\left(\sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2\right)}_{\text{suku imajiner}}\right]$$</div></div>
+    <span class="step-label">Langkah 5 &mdash; Identitas Penjumlahan Dua Sudut</span>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\cos(\theta_1+\theta_2) = \cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2, \qquad \sin(\theta_1+\theta_2) = \sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2$$
+      </div>
+    </div>
+    <span class="step-label">Langkah 6 &mdash; Substitusi Kembali</span>
+    <div class="card formula"><div class="math-step-box">$$z_1 \cdot z_2 = r_1 r_2 \left[\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)\right] \qquad \blacksquare$$</div></div>
+
+    <h3>Bukti 2 &mdash; Eksponensial Euler (Satu Baris, Konsekuensi Langkah 2)</h3>
+    <div class="card formula">
+      <div class="math-step-box">$$z_1 \cdot z_2 = \left(r_1 e^{i\theta_1}\right)\left(r_2 e^{i\theta_2}\right) = r_1 r_2\, e^{i\theta_1}\,e^{i\theta_2} = r_1 r_2\, e^{i(\theta_1 + \theta_2)} \qquad \blacksquare$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Perkalian eksponen menjadi penjumlahan pangkat &mdash; inilah <em>superkuasa</em> bentuk Euler.</p>
+    </div>
+
+    <div class="card highlight">
+      <div class="formula-title">Makna Geometris di Bidang Argand</div>
+      <p style="margin-bottom:0;">
+        Mengalikan \(z_1\) dengan \(z_2\) berarti vektor \(z_1\) <strong>didilatasi</strong> (dipanjangkan) sebesar faktor \(r_2\)
+        lalu <strong>dirotasi</strong> berlawanan arah jarum jam sebesar \(\theta_2\). Perkalian kompleks = skala + putaran.
       </p>
     </div>
 
     <div class="card example">
-      <div class="formula-title">Contoh Soal — Perkalian Cepat via Polar</div>
-      <p>Diberikan \(z_1 = 2(\cos 50^\circ + i\sin 50^\circ)\) dan \(z_2 = 4(\cos 20^\circ + i\sin 20^\circ)\). Tentukan \(z_1 z_2\) dan \(\frac{z_1}{z_2}\).</p>
+      <div class="formula-title">Contoh Soal &mdash; Perkalian Cepat via Polar</div>
+      <p>Diberikan \(z_1 = 2(\cos 50^\circ + i\sin 50^\circ)\) dan \(z_2 = 4(\cos 20^\circ + i\sin 20^\circ)\). Tentukan \(z_1 z_2\) dan \(\dfrac{z_1}{z_2}\).</p>
       <div class="math-step-box">
         $$\begin{aligned}
         z_1 z_2 &= (2 \cdot 4)\left[\cos(50^\circ + 20^\circ) + i\sin(50^\circ + 20^\circ)\right] = \mathbf{8(\cos 70^\circ + i\sin 70^\circ)} \\[8pt]
         \frac{z_1}{z_2} &= \left(\frac{2}{4}\right)\left[\cos(50^\circ - 20^\circ) + i\sin(50^\circ - 20^\circ)\right] = \mathbf{\frac{1}{2}(\cos 30^\circ + i\sin 30^\circ)}
         \end{aligned}$$
       </div>
+      <p style="margin-bottom:0;"><strong>Jawaban:</strong> perkalian &rarr; modulus \(2\times4=8\), sudut \(50^\circ+20^\circ=70^\circ\); pembagian &rarr; modulus \(2/4\), sudut \(50^\circ-20^\circ=30^\circ\).</p>
     </div>
 
-    <h2>2. Rumus De Moivre untuk Pemangkatan</h2>
-    <p>
-      Jika kita mengalikan bilangan kompleks yang sama sebanyak \(n\) kali (\(z \cdot z \cdots z\)), kita memperoleh teorema fundamental yang dirumuskan oleh Abraham de Moivre (1707):
-    </p>
+    <div class="video-card">
+      <video controls preload="none" playsinline src="teorema_perkalian_pembagian_polar.mp4"></video>
+      <p class="video-caption"><strong>Video Animasi Manim (74 detik):</strong> pembuktian langkah demi langkah Teorema Perkalian &amp; Pembagian Bentuk Polar &mdash; ekspansi aljabar, identitas sudut, konjugat sekawan, dan interpretasi geometri rotasi-dilatasi di bidang Argand. <em>Tekan play untuk memuat video (tidak membebani halaman sebelum diputar).</em></p>
+    </div>
 
+    <h2>4. Teorema Pembagian Bentuk Polar \((z_2 \neq 0)\)</h2>
     <div class="card formula">
-      <div class="formula-title">Rumus De Moivre (De Moivre's Theorem)</div>
-      <div class="math-step-box">
-        $$\mathbf{\left[r(\cos\theta + i\sin\theta)\right]^n = r^n \left[\cos(n\theta) + i\sin(n\theta)\right]}$$
-      </div>
-      <p style="margin-bottom:0; font-size:0.9rem;">
-        Untuk bilangan kompleks ber-modulus satu (\(r = 1\)):
-        \[(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta) \quad (\forall n \in \mathbb{Z})\]
-      </p>
+      <div class="formula-title">Teorema (Pembagian Polar)</div>
+      <div class="math-step-box">$$\frac{z_1}{z_2} = \frac{r_1}{r_2} \left[\cos(\theta_1 - \theta_2) + i\sin(\theta_1 - \theta_2)\right] = \frac{r_1}{r_2}\, e^{i(\theta_1 - \theta_2)}$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;"><strong>Aturan Emas:</strong> modulus dibagi \((r_1/r_2)\), argumen dikurangkan \((\theta_1-\theta_2)\).</p>
     </div>
 
-    <div class="card note-plain">
-      <strong>Catatan Pembuktian (Menautkan ke Analisis Real):</strong> Rumus De Moivre untuk \(n\) bilangan asli dibuktikan secara formal menggunakan <strong>Prinsip Induksi Matematika</strong> yang telah kita pelajari di matkul Analisis Real:
-      <br>1. <em>Basis Induksi (\(n = 1\)):</em> Jelas benar.
-      <br>2. <em>Langkah Induksi:</em> Asumsikan benar untuk \(n = k\), lalu kalikan dengan \((\cos\theta + i\sin\theta)\). Aturan penjumlahan sudut langsung membuktikan kebenaran untuk \(n = k+1\).
-    </div>
-
-    <div class="card example">
-      <div class="formula-title">Contoh Soal — Menghitung Pangkat Besar</div>
-      <p>Hitung nilai dari \((1 + i)^{10}\) tanpa mengalikan satu per satu!</p>
-      <p><strong>Langkah Penyelesaian:</strong></p>
-      <ol class="steps">
-        <li>
-          Ubah \(z = 1 + i\) ke bentuk polar:
-          \[r = \sqrt{1^2 + 1^2} = \sqrt{2} \qquad \theta = \arctan(1/1) = 45^\circ = \frac{\pi}{4}\]
-          \[z = \sqrt{2}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right)\]
-        </li>
-        <li>
-          Terapkan Rumus De Moivre dengan \(n = 10\):
-          \[\begin{aligned}
-          z^{10} &= (\sqrt{2})^{10} \left[\cos\left(10 \cdot \frac{\pi}{4}\right) + i\sin\left(10 \cdot \frac{\pi}{4}\right)\right] \\[6pt]
-          &= 2^5 \left[\cos\left(\frac{5\pi}{2}\right) + i\sin\left(\frac{5\pi}{2}\right)\right]
-          \end{aligned}\]
-        </li>
-        <li>
-          Sederhanakan sudut: \(\frac{5\pi}{2} = 2\pi + \frac{\pi}{2}\) (ekuivalen dengan \(\frac{\pi}{2}\) atau \(90^\circ\)):
-          \[\cos\left(\frac{5\pi}{2}\right) = 0 \qquad \sin\left(\frac{5\pi}{2}\right) = 1\]
-        </li>
-        <li>
-          Substitusikan:
-          \[z^{10} = 32(0 + 1i) = \mathbf{32i}\]
-        </li>
-      </ol>
-      <p class="answer"><strong>Jawaban:</strong> \((1 + i)^{10} = 32i\).</p>
-    </div>
-
-    <h2>3. Penarikan Akar-Akar Bilangan Kompleks</h2>
-    <p>
-      Pada sistem bilangan real, \(\sqrt[n]{x}\) paling banyak memiliki 1 atau 2 nilai real. Namun pada sistem bilangan kompleks \(\mathbb{C}\), setiap bilangan kompleks tak-nol memiliki <strong>tepat \(n\) buah akar berbeda</strong>!
-    </p>
-
+    <h3>Bukti 1 &mdash; Aljabar Konjugat Sekawan (Langkah demi Langkah)</h3>
+    <span class="step-label">Langkah 1 &mdash; Bentuk Pecahan</span>
+    <div class="card formula"><div class="math-step-box">$$\frac{z_1}{z_2} = \frac{r_1(\cos\theta_1 + i\sin\theta_1)}{r_2(\cos\theta_2 + i\sin\theta_2)} = \frac{r_1}{r_2}\cdot\frac{\cos\theta_1 + i\sin\theta_1}{\cos\theta_2 + i\sin\theta_2}$$</div></div>
+    <span class="step-label">Langkah 2 &mdash; Sekawankan Penyebut</span>
+    <p>Kalikan pembilang dan penyebut dengan sekawan penyebut, yaitu \((\cos\theta_2 - i\sin\theta_2)\):</p>
+    <div class="card formula"><div class="math-step-box">$$\frac{z_1}{z_2} = \frac{r_1}{r_2}\cdot\frac{(\cos\theta_1 + i\sin\theta_1)(\cos\theta_2 - i\sin\theta_2)}{(\cos\theta_2 + i\sin\theta_2)(\cos\theta_2 - i\sin\theta_2)}$$</div></div>
+    <span class="step-label">Langkah 3 &mdash; Evaluasi Penyebut (Identitas Pythagoras)</span>
     <div class="card formula">
-      <div class="formula-title">Rumus Akar Pangkat n</div>
-      <p>Akar-akar ke-\(n\) dari \(z = r(\cos\theta + i\sin\theta)\) dinotasikan dengan \(w_k\) dan dirumuskan sebagai:</p>
+      <div class="math-step-box">$$(\cos\theta_2 + i\sin\theta_2)(\cos\theta_2 - i\sin\theta_2) = \cos^2\theta_2 - i^2\sin^2\theta_2 = \cos^2\theta_2 + \sin^2\theta_2 = 1$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Penyebut bernilai <strong>tepat 1</strong> &mdash; inilah alasan bentuk polar begitu rapi.</p>
+    </div>
+    <span class="step-label">Langkah 4 &mdash; Evaluasi Pembilang</span>
+    <div class="card formula">
       <div class="math-step-box">
-        $$\mathbf{w_k = \sqrt[n]{r} \left[ \cos\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\left(\frac{\theta + 2k\pi}{n}\right) \right]}, \quad k = 0, 1, 2, \dots, n-1$$
+        $$(\cos\theta_1 + i\sin\theta_1)(\cos\theta_2 - i\sin\theta_2) = \underbrace{\cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2}_{\text{suku real}} \;+\; i\underbrace{\left(\sin\theta_1\cos\theta_2 - \cos\theta_1\sin\theta_2\right)}_{\text{suku imajiner}}$$
       </div>
-      <p style="margin-bottom:0; font-size:0.9rem;">
-        Dalam satuan derajat:
-        \[w_k = \sqrt[n]{r} \left[ \cos\left(\frac{\theta + k \cdot 360^\circ}{n}\right) + i\sin\left(\frac{\theta + k \cdot 360^\circ}{n}\right) \right]\]
-      </p>
+    </div>
+    <span class="step-label">Langkah 5 &mdash; Identitas Selisih Dua Sudut</span>
+    <div class="card formula">
+      <div class="math-step-box">
+        $$\cos(\theta_1-\theta_2) = \cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2, \qquad \sin(\theta_1-\theta_2) = \sin\theta_1\cos\theta_2 - \cos\theta_1\sin\theta_2$$
+      </div>
+    </div>
+    <span class="step-label">Langkah 6 &mdash; Substitusi Kembali</span>
+    <div class="card formula"><div class="math-step-box">$$\frac{z_1}{z_2} = \frac{r_1}{r_2} \left[\cos(\theta_1-\theta_2) + i\sin(\theta_1-\theta_2)\right] \qquad \blacksquare$$</div></div>
+
+    <h3>Bukti 2 &mdash; Eksponensial Euler</h3>
+    <div class="card formula">
+      <div class="math-step-box">$$\frac{z_1}{z_2} = \frac{r_1 e^{i\theta_1}}{r_2 e^{i\theta_2}} = \frac{r_1}{r_2}\, e^{i\theta_1 - i\theta_2} = \frac{r_1}{r_2}\, e^{i(\theta_1 - \theta_2)} \qquad \blacksquare$$</div>
     </div>
 
     <div class="card highlight">
-      <div class="formula-title">Geometri Luar Biasa: Segi-n Beraturan di Bidang Argand</div>
+      <div class="formula-title">Makna Geometris</div>
       <p style="margin-bottom:0;">
-        Perhatikan bahwa semua akar \(w_k\) memiliki panjang jari-jari yang persis sama, yaitu \(\sqrt[n]{r}\), dan berselisih sudut yang sama rata sebesar \(\frac{360^\circ}{n}\) atau \(\frac{2\pi}{n}\). 
-        Artinya: <strong>Ke-\(n\) buah akar kompleks selalu terletak pada keliling lingkaran berpusat di titik asal dan membentuk titik-titik sudut dari segi-\(n\) beraturan (*regular polygon*)!</strong>
+        Membagi \(z_1\) dengan \(z_2\) berarti vektor \(z_1\) <strong>dipendekkan</strong> sebesar skala \(1/r_2\)
+        lalu <strong>dirotasi searah jarum jam</strong> sebesar \(\theta_2\).
+      </p>
+    </div>
+
+    <h2>5. Dari Perkalian Berulang menuju Teorema De Moivre</h2>
+    <p>
+      Pertanyaan pemicu di kelas: bagaimana menghitung \((1+i)^{10}\) tanpa mengalikan sepuluh kali? Jawabannya bukan teorema ajaib &mdash; melainkan <strong>konsekuensi langsung</strong> dari Teorema Perkalian yang kita buktikan tadi.
+    </p>
+
+    <span class="step-label">Langkah 1 &mdash; Perkalian Dua Suku Sama \((n = 2)\)</span>
+    <div class="card formula">
+      <div class="math-step-box">$$z^2 = z \cdot z = [r(\cos\theta + i\sin\theta)]\cdot[r(\cos\theta + i\sin\theta)] = r^2\left[\cos(2\theta) + i\sin(2\theta)\right]$$</div>
+    </div>
+    <span class="step-label">Langkah 2 &mdash; Perkalian Tiga Suku \((n = 3)\)</span>
+    <div class="card formula">
+      <div class="math-step-box">$$z^3 = z^2 \cdot z = r^3\left[\cos(2\theta + \theta) + i\sin(2\theta + \theta)\right] = r^3\left[\cos(3\theta) + i\sin(3\theta)\right]$$</div>
+    </div>
+    <span class="step-label">Langkah 3 &mdash; Pola Terlihat: Generalisasi \(n\) Suku</span>
+    <p>Kalikan terus; setiap kali modulus berpangkat satu tingkat dan sudut bertambah \(\theta\). Untuk \(z_1 = z_2 = \cdots = z_n = z\), versi umum Teorema Perkalian memberi:</p>
+    <div class="card formula">
+      <div class="math-step-box">$$z_1 z_2 \cdots z_n = r_1 r_2 \cdots r_n \left[\cos(\theta_1+\theta_2+\cdots+\theta_n) + i\sin(\theta_1+\theta_2+\cdots+\theta_n)\right]$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Dengan semua \(r_i = r\) dan semua \(\theta_i = \theta\):</p>
+    </div>
+
+    <div class="card formula">
+      <div class="formula-title">Teorema Abraham de Moivre (Kotak Kesimpulan Papan Tulis)</div>
+      <div class="math-step-box">$$\boxed{\;\left[r(\cos\theta + i\sin\theta)\right]^n = r^n \left[\cos(n\theta) + i\sin(n\theta)\right]\;}$$</div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Khusus lingkaran satuan \((r = 1)\): \((\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)\).</p>
+    </div>
+
+    <div class="card note-plain">
+      <strong>Catatan Pembuktian Formal (menautkan ke Analisis Real):</strong> kebenaran untuk semua \(n\) bilangan asli dipastikan dengan <strong>Prinsip Induksi Matematika</strong>:
+      <br>1. <em>Basis</em> \((n=1)\): kedua ruas bernilai sama, jelas benar.
+      <br>2. <em>Langkah induksi</em>: asumsikan benar untuk \(n=k\), kalikan kedua ruas dengan \((\cos\theta + i\sin\theta)\), lalu gunakan identitas penjumlahan dua sudut (Langkah 5 fase perkalian) &mdash; benar untuk \(n=k+1\).
+    </div>
+
+    <div class="card example">
+      <div class="formula-title">Contoh Soal &mdash; Menghitung Pangkat Besar \((1+i)^{10}\)</div>
+      <ol>
+        <li>
+          Ubah \(z = 1 + i\) ke bentuk polar:
+          \[r = \sqrt{1^2 + 1^2} = \sqrt{2}, \qquad \theta = \arctan\!\left(\tfrac{1}{1}\right) = 45^\circ = \frac{\pi}{4}\]
+          \[z = \sqrt{2}\left(\cos\frac{\pi}{4} + i\sin\frac{\pi}{4}\right)\]
+        </li>
+        <li>
+          Terapkan De Moivre dengan \(n = 10\):
+          \[z^{10} = (\sqrt{2})^{10}\left[\cos\!\left(10\cdot\frac{\pi}{4}\right) + i\sin\!\left(10\cdot\frac{\pi}{4}\right)\right] = 2^5\left[\cos\frac{5\pi}{2} + i\sin\frac{5\pi}{2}\right]\]
+        </li>
+        <li>
+          Sederhanakan sudut: \(\frac{5\pi}{2} = 2\pi + \frac{\pi}{2}\) ekuivalen dengan \(\frac{\pi}{2}\) (\(90^\circ\)), sehingga \(\cos\frac{5\pi}{2} = 0\) dan \(\sin\frac{5\pi}{2} = 1\).
+        </li>
+        <li>Substitusi: \(z^{10} = 32(0 + i) = \mathbf{32i}\).</li>
+      </ol>
+      <p style="margin-bottom:0;"><strong>Jawaban:</strong> \((1+i)^{10} = 32i\).</p>
+    </div>
+
+    <h2>6. Membalik De Moivre: Penarikan Akar Bilangan Kompleks</h2>
+    <p>
+      Pada bilangan real, \(\sqrt[3]{8}\) hanya punya satu jawaban. Di \(\mathbb{C}\)? Setiap bilangan kompleks tak-nol memiliki <strong>tepat \(n\) akar berbeda</strong>. Dari mana angka \(n\) dan \(2k\pi\) itu datang? Turunkan, jangan hafalkan.
+    </p>
+
+    <span class="step-label">Langkah 1 &mdash; Definisi Masalah</span>
+    <p>Cari semua \(w\) yang memenuhi \(w^n = z\). Tulis keduanya dalam bentuk polar: \(z = r(\cos\theta + i\sin\theta)\) dan \(w = \rho(\cos\phi + i\sin\phi)\) dengan \(\rho, \phi\) yang akan dicari.</p>
+
+    <span class="step-label">Langkah 2 &mdash; Terapkan De Moivre ke Ruas Kiri</span>
+    <div class="card formula">
+      <div class="math-step-box">$$w^n = \rho^n\left[\cos(n\phi) + i\sin(n\phi)\right] = r\left[\cos\theta + i\sin\theta\right]$$</div>
+    </div>
+
+    <span class="step-label">Langkah 3 &mdash; Samakan Modulus &amp; Argumen</span>
+    <div class="card formula">
+      <p>Perbandingan dua bilangan kompleks memberi dua persamaan:</p>
+      <div class="math-step-box">$$\rho^n = r \quad\Longrightarrow\quad \rho = \sqrt[n]{r} \qquad\text{(satu-satunya nilai positif)}$$</div>
+      <p style="margin-top:8px; margin-bottom:0;">
+        Untuk argumen, di sinilah trik kuncinya: fungsi trigonometri <strong>berperioda \(2\pi\)</strong>, jadi \(n\phi = \theta\) bukan satu-satunya solusi &mdash; melainkan
+        \(n\phi = \theta + 2k\pi\) untuk bilangan bulat \(k\) mana pun:
+      </p>
+      <div class="math-step-box" style="margin-top:8px;">$$n\phi = \theta + 2k\pi \quad\Longrightarrow\quad \phi = \frac{\theta + 2k\pi}{n}$$</div>
+    </div>
+
+    <span class="step-label">Langkah 4 &mdash; Berapa Banyak Nilai \(k\) yang Berbeda?</span>
+    <p>
+      Nilai \(k = n\) memberi sudut \(\frac{\theta + 2n\pi}{n} = \frac{\theta}{n} + 2\pi\) &mdash; arah yang <em>persis sama</em> dengan \(k = 0\) (sudut berulang setelah satu putaran penuh). Jadi hanya
+      \(k = 0, 1, 2, \dots, n-1\) yang menghasilkan titik berbeda.
+    </p>
+
+    <div class="card formula">
+      <div class="formula-title">Rumus Akar Pangkat \(n\) (Hasil Turunan)</div>
+      <div class="math-step-box">
+        $$\boxed{\;w_k = \sqrt[n]{r}\left[\cos\!\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\!\left(\frac{\theta + 2k\pi}{n}\right)\right], \quad k = 0, 1, 2, \dots, n-1\;}$$
+      </div>
+      <p style="margin-bottom:0; font-size:0.9rem;">Dalam derajat: \(w_k = \sqrt[n]{r}\left[\cos\!\left(\frac{\theta + k\cdot 360^\circ}{n}\right) + i\sin\!\left(\frac{\theta + k\cdot 360^\circ}{n}\right)\right]\).</p>
+    </div>
+
+    <div class="card highlight">
+      <div class="formula-title">Geometri Luar Biasa: Segi-\(n\) Beraturan</div>
+      <p style="margin-bottom:0;">
+        Semua akar punya jari-jari sama \(\sqrt[n]{r}\) dan berselisih sudut rata \(\frac{2\pi}{n}\) &mdash; artinya ke-\(n\) akar selalu terletak pada keliling lingkaran berpusat di titik asal dan
+        membentuk <strong>titik-titik sudut segi-\(n\) beraturan</strong> (regular polygon) di bidang Argand!
       </p>
     </div>
 
     <div class="svg-diagram-card">
       <div class="svg-wrapper">
-        <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Akar pangkat 3 dari 8 membentuk segitiga sama sisi pada lingkaran berjejari 2">
+        <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Akar pangkat 3 dari 8 membentuk segitiga sama sisi pada lingkaran berjari-jari 2">
           <defs>
             <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="#64748b" />
             </marker>
           </defs>
-
-          <!-- Sumbu Re dan Im -->
           <line x1="80" y1="180" x2="600" y2="180" stroke="#64748b" stroke-width="2" marker-end="url(#ar2)" />
           <line x1="340" y1="330" x2="340" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#ar2)" />
           <text x="606" y="185" font-size="14" fill="#334155" font-weight="700">Re</text>
           <text x="348" y="24" font-size="14" fill="#334155" font-weight="700">Im</text>
           <text x="326" y="198" font-size="12" fill="#64748b">0</text>
-
-          <!-- Lingkaran r = 2 (skala 65px per unit -> radius 130px) -->
           <circle cx="340" cy="180" r="130" fill="#f8fafc" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="5 5" />
-
-          <!-- Poligon segitiga sama sisi w0(2, 0), w1(-1, sqrt(3)), w2(-1, -sqrt(3)) -->
-          <!-- w0: (340 + 130, 180) = (470, 180) -->
-          <!-- w1: (340 - 65, 180 - 112.58) = (275, 67.4) -->
-          <!-- w2: (340 - 65, 180 + 112.58) = (275, 292.6) -->
           <polygon points="470,180 275,67.4 275,292.6" fill="#eef2ff" stroke="#4338ca" stroke-width="2.5" opacity="0.8" />
-
-          <!-- Vektor panah -->
           <line x1="340" y1="180" x2="470" y2="180" stroke="#4338ca" stroke-width="2.2" />
           <circle cx="470" cy="180" r="5" fill="#4338ca" />
-          <text x="480" y="175" font-size="13" font-weight="700" fill="#4338ca">w₀ = 2 (0°)</text>
-
+          <text x="480" y="175" font-size="13" font-weight="700" fill="#4338ca">w&#8320; = 2 (0&deg;)</text>
           <line x1="340" y1="180" x2="275" y2="67.4" stroke="#0284c7" stroke-width="2.2" />
           <circle cx="275" cy="67.4" r="5" fill="#0284c7" />
-          <text x="180" y="62" font-size="13" font-weight="700" fill="#0284c7">w₁ = -1 + i√3 (120°)</text>
-
+          <text x="180" y="62" font-size="13" font-weight="700" fill="#0284c7">w&#8321; = -1 + i&radic;3 (120&deg;)</text>
           <line x1="340" y1="180" x2="275" y2="292.6" stroke="#db2777" stroke-width="2.2" />
           <circle cx="275" cy="292.6" r="5" fill="#db2777" />
-          <text x="175" y="310" font-size="13" font-weight="700" fill="#db2777">w₂ = -1 - i√3 (240°)</text>
-
+          <text x="175" y="310" font-size="13" font-weight="700" fill="#db2777">w&#8322; = -1 - i&radic;3 (240&deg;)</text>
           <text x="350" y="140" font-size="12" font-weight="600" fill="#6366f1">Radius = 2</text>
         </svg>
       </div>
       <p class="svg-caption">
-        Gambar: Tiga akar kompleks dari \(\sqrt[3]{8}\). Ketiga titik membentuk segitiga sama sisi pada lingkaran berjari-jari 2.
+        Gambar: tiga akar kompleks dari \(\sqrt[3]{8}\) membentuk segitiga sama sisi pada lingkaran berjari-jari 2.
       </p>
     </div>
 
     <div class="card example">
-      <div class="formula-title">Contoh Soal — Menentukan Semua Akar Kompleks</div>
-      <p>Tentukan seluruh penyelesaian dari persamaan \(z^3 = 8\)!</p>
-      <p><strong>Langkah Penyelesaian:</strong></p>
-      <ol class="steps">
+      <div class="formula-title">Contoh Soal &mdash; Menentukan Semua Akar dari \(z^3 = 8\)</div>
+      <ol>
         <li>
-          Nyatakan \(8\) ke dalam bentuk polar:
-          \[8 = 8 + 0i \implies r = 8, \quad \theta = 0^\circ\]
+          Nyatakan 8 dalam bentuk polar: \(8 = 8(\cos 0^\circ + i\sin 0^\circ)\), jadi \(r = 8\) dan \(\theta = 0^\circ\).
+        </li>
+        <li>Jari-jari akar: \(\sqrt[3]{8} = 2\).</li>
+        <li>
+          Rumus akar dengan \(n = 3\) dan \(k = 0, 1, 2\):
+          \[w_k = 2\left[\cos\!\left(\frac{0^\circ + k\cdot 360^\circ}{3}\right) + i\sin\!\left(\frac{0^\circ + k\cdot 360^\circ}{3}\right)\right]\]
         </li>
         <li>
-          Hitung jari-jari akar:
-          \[r_{\text{akar}} = \sqrt[3]{8} = 2\]
-        </li>
-        <li>
-          Gunakan rumus akar dengan \(n = 3\) dan \(k = 0, 1, 2\):
-          \[w_k = 2\left[\cos\left(\frac{0^\circ + k \cdot 360^\circ}{3}\right) + i\sin\left(\frac{0^\circ + k \cdot 360^\circ}{3}\right)\right]\]
-        </li>
-        <li>
-          Hitung untuk tiap nilai \(k\):
+          Hitung tiap \(k\):
           <ul>
-            <li><strong>Untuk \(k = 0\):</strong>
-              \[w_0 = 2(\cos 0^\circ + i\sin 0^\circ) = 2(1 + 0) = \mathbf{2}\]
-            </li>
-            <li><strong>Untuk \(k = 1\):</strong>
-              \[w_1 = 2(\cos 120^\circ + i\sin 120^\circ) = 2\left(-\frac{1}{2} + i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 + i\sqrt{3}}\]
-            </li>
-            <li><strong>Untuk \(k = 2\):</strong>
-              \[w_2 = 2(\cos 240^\circ + i\sin 240^\circ) = 2\left(-\frac{1}{2} - i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 - i\sqrt{3}}\]
-            </li>
+            <li><strong>\(k=0\):</strong> \(w_0 = 2(\cos 0^\circ + i\sin 0^\circ) = \mathbf{2}\)</li>
+            <li><strong>\(k=1\):</strong> \(w_1 = 2(\cos 120^\circ + i\sin 120^\circ) = 2\left(-\frac{1}{2} + i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 + i\sqrt{3}}\)</li>
+            <li><strong>\(k=2\):</strong> \(w_2 = 2(\cos 240^\circ + i\sin 240^\circ) = 2\left(-\frac{1}{2} - i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 - i\sqrt{3}}\)</li>
           </ul>
         </li>
       </ol>
-      <p class="answer">
-        <strong>Jawaban:</strong> Ketiga akar dari \(z^3 = 8\) adalah \(w_0 = 2\), \(w_1 = -1 + i\sqrt{3}\), dan \(w_2 = -1 - i\sqrt{3}\).
+      <p style="margin-bottom:0;">
+        <strong>Jawaban:</strong> \(w_0 = 2\), \(w_1 = -1 + i\sqrt{3}\), \(w_2 = -1 - i\sqrt{3}\) &mdash; tiga titik yang menggambar segitiga sama sisi pada lingkaran jari-jari 2.
       </p>
     </div>
 
-    <h2>4. Rangkuman Pertemuan 06</h2>
+    <h2>7. Rangkuman Pertemuan 06</h2>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Konsep</th><th>Rumus Matematis</th><th>Makna Geometris</th></tr>
+          <tr><th>Konsep</th><th>Rumus</th><th>Dari Mana?</th></tr>
         </thead>
         <tbody>
           <tr>
+            <td><strong>Rumus Euler</strong></td>
+            <td>\(e^{i\theta} = \cos\theta + i\sin\theta\)</td>
+            <td>Deret Taylor \(e^x\), substitusi \(x = i\theta\), kelompokkan real &amp; imajiner.</td>
+          </tr>
+          <tr>
             <td><strong>Perkalian Polar</strong></td>
-            <td>\(z_1 z_2 = r_1 r_2 [\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)]\)</td>
-            <td>Rotasi vektor sebesar \(\theta_2\) dan penskalaan panjang sebesar \(r_2\).</td>
+            <td>\(z_1 z_2 = r_1 r_2[\cos(\theta_1{+}\theta_2) + i\sin(\theta_1{+}\theta_2)]\)</td>
+            <td>Ekspansi distributif + identitas jumlah dua sudut; atau \(e^{i\theta_1}e^{i\theta_2}\).</td>
           </tr>
           <tr>
             <td><strong>Pembagian Polar</strong></td>
-            <td>\(\frac{z_1}{z_2} = \frac{r_1}{r_2} [\cos(\theta_1-\theta_2) + i\sin(\theta_1-\theta_2)]\)</td>
-            <td>Rotasi berlawanan arah sebesar \(\theta_2\) dan pembagian panjang.</td>
+            <td>\(\frac{z_1}{z_2} = \frac{r_1}{r_2}[\cos(\theta_1{-}\theta_2) + i\sin(\theta_1{-}\theta_2)]\)</td>
+            <td>Sekawan penyebut, penyebut bernilai 1 (Pythagoras); atau pembagian eksponen.</td>
           </tr>
           <tr>
             <td><strong>De Moivre</strong></td>
-            <td>\(z^n = r^n [\cos(n\theta) + i\sin(n\theta)]\)</td>
-            <td>Pemangkatan aljabar berubah menjadi kelipatan sudut \(n\theta\).</td>
+            <td>\(z^n = r^n[\cos(n\theta) + i\sin(n\theta)]\)</td>
+            <td>Perkalian polar berulang + induksi matematika.</td>
           </tr>
           <tr>
-            <td><strong>Akar Pangkat n</strong></td>
-            <td>\(w_k = \sqrt[n]{r} \left[\cos\left(\frac{\theta+2k\pi}{n}\right) + i\sin\left(\frac{\theta+2k\pi}{n}\right)\right]\)</td>
-            <td>Tepat \(n\) buah titik yang membagi lingkaran menjadi segi-\(n\) beraturan.</td>
+            <td><strong>Akar Pangkat \(n\)</strong></td>
+            <td>\(w_k = \sqrt[n]{r}\left[\cos\!\left(\frac{\theta+2k\pi}{n}\right) + i\sin\!\left(\frac{\theta+2k\pi}{n}\right)\right]\)</td>
+            <td>De Moivre dibalik; perioditas \(2\pi\) memberi \(n\) solusi.</td>
           </tr>
         </tbody>
       </table>
@@ -383,14 +560,10 @@
       <span>Gunakan kalkulator pendamping untuk memeriksa hasil pemangkatan De Moivre dan memvisualisasikan segi-\(n\) akar secara langsung:</span>
       <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Kalkulator Polar &amp; De Moivre</a>
     </div>
-
-    <div class="note-plain" style="margin-top: 25px;">
-      <strong>Pratinjau Pertemuan 07:</strong> Setelah aljabar dan geometri bilangan kompleks tuntas dikuasai, kita akan mulai memasuki gerbang kalkulus kompleks sejati: <strong>Topologi Bidang Kompleks &amp; Fungsi Peubah Kompleks</strong> (himpunan terbuka, tertutup, titik batas, konsep limit, dan kekontinuan fungsi \(f(z) = u(x,y) + i v(x,y)\)).
-    </div>
   </main>
 
   <footer class="page-foot">
-    Analisis Kompleks (KP21517003) &middot; FKIP Universitas Siliwangi &middot; Modul Kuliah Mandiri
+    Analisis Kompleks (KP21517003) &middot; FKIP Universitas Siliwangi &middot; Catatan Perkuliahan 21 September 2026
   </footer>
 </div>
 

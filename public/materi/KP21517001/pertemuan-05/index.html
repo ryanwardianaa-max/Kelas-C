@@ -250,6 +250,26 @@
           <li><strong>Metode Dekomposisi Cholesky:</strong> Menetapkan $A = L \cdot L^T$ khusus matriks simetris definit positif, menghemat memori 50% dan berjalan 2 kali lebih cepat.</li>
         </ul>
       </section>
+      <section>
+        <h2>5. Latihan Mandiri</h2>
+        <p>Kerjakan dengan tangan di buku, uraikan setiap langkah pivoting dan substitusi tanpa melompat:</p>
+        <ol>
+          <li>Selesaikan SPL $x_1 + x_2 + x_3 = 6$, $2x_1 + x_2 - x_3 = 1$, $x_1 - x_2 + 2x_3 = 5$ menggunakan Eliminasi Gauss Naif. Tunjukkan setiap pengali $m_{ik}$.</li>
+          <li>Ulangi soal nomor 1 dengan Pivoting Sebagian. Bandingkan: apakah terjadi pertukaran baris? Mengapa?</li>
+          <li>Faktorkan matriks $A = egin{bmatrix} 2 & 1 & 1 \ 4 & 3 & 3 \ 8 & 7 & 9 \end{bmatrix}$ menjadi $A = L \cdot U$ dengan metode LU Gauss (Doolittle), lalu verifikasi hasil kalinya.</li>
+          <li>Gunakan faktorisasi pada nomor 3 untuk menyelesaikan $A\mathbf{x} = \mathbf{b}$ dengan $\mathbf{b} = [3,\ 9,\ 27]^T$ via substitusi maju $L\mathbf{y} = \mathbf{b}$ lalu substitusi mundur $U\mathbf{x} = \mathbf{y}$.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>6. Ringkasan</h2>
+        <ul>
+          <li><strong>Gauss Naif</strong> menjadikan matriks segitiga atas dengan OBE; berbahaya jika poros nol atau sangat kecil.</li>
+          <li><strong>Pivoting Sebagian</strong> memilih poros mutlak terbesar tiap kolom untuk menghindari pembagian nol dan meredam galat pembulatan.</li>
+          <li><strong>Dekomposisi LU (Doolittle)</strong> memfaktorkan $A = L \cdot U$ sekali saja; SPL berulang cukup diselesaikan dua substitusi berbiaya $\mathcal{O}(n^2)$: maju lalu mundur.</li>
+          <li>Pertemuan 06 melanjutkan ke <strong>Crout</strong> (diagonal $U$ = 1) dan <strong>Cholesky</strong> ($A = L \cdot L^T$, matriks simetris definit positif) untuk presentasi Kelompok 4.</li>
+        </ul>
+      </section>
     </main>
   </div>
 </body>

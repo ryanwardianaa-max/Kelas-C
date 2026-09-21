@@ -14,7 +14,7 @@ for (let n = 1; n <= 16; n++) {
   const html = read(path);
   assert.match(html, new RegExp(`Pertemuan ${nn}`));
   assert.match(html, /renderMathInElement/);
-  assert.match(html, /left:'\$'/, "rumus inline $…$ wajib dirender");
+  assert.match(html, /left:\s*'\$'/, "rumus inline $…$ wajib dirender");
   assert.match(html, /Latihan Mandiri/);
   assert.match(html, /Ringkasan/);
   assert.match(html, /Rinaldi Munir/);
