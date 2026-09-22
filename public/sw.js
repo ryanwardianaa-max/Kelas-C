@@ -1,10 +1,14 @@
-const CACHE_NAME = "kelasku-pwa-v26";
+const CACHE_NAME = "kelasku-pwa-v27";
 const STATIC_ASSETS = [
   "/index.html",
   "/manifest.json",
   "/favicon.svg",
   "/pwa-icon.svg",
 ];
+
+// Rute ini menyajikan file HTML tersendiri (bukan shell SPA).
+// Jangan pernah merewrite-nya ke /index.html agar tools & materi tidak stuck.
+const STANDALONE_HTML_PREFIXES = ["/tools/", "/materi/"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -60,6 +64,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   if (request.mode === "navigate") {
+    const isStandaloneHtml = STANDALONE_HTML_PREFIXES.some((p) => url.pathname.startsWith(p));
     event.respondWith(
       (async () => {
         const controller = new AbortController();
@@ -67,9 +72,13 @@ self.addEventListener("fetch", (event) => {
         try {
           const response = await fetch(request, { signal: controller.signal });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          await cacheResponse("/index.html", response);
+          if (!isStandaloneHtml) await cacheResponse("/index.html", response);
           return response;
         } catch {
+          if (isStandaloneHtml) {
+            const offline = await caches.match(request.url);
+            if (offline) return offline;
+          }
           return (
             (await caches.match("/index.html")) ||
             new Response("KelasKu sedang offline.", {

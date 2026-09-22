@@ -34,7 +34,42 @@
     <button class="tab" role="tab" id="tab-integrasi" aria-controls="integrasi" aria-selected="false" tabindex="-1">Integrasi</button>
     <button class="tab" role="tab" id="tab-pdb" aria-controls="pdb" aria-selected="false" tabindex="-1">PDB</button>
   </nav>
-  <div id="panels"></div>
+  <div id="panels">
+    <!-- Fallback statis: ditampilkan saat JS belum berjalan. Akan digantikan oleh panel dinamis setelah mount. -->
+    <section class="panel" id="galat-fallback" role="tabpanel" aria-labelledby="tab-galat">
+      <div class="workspace">
+        <form class="card form-card" novalidate="">
+          <div class="form-head">
+            <div>
+              <h2>Galat &amp; Taylor</h2>
+              <div class="formula" aria-label="Rumus metode">E_a = |x - \\hat{x}|, \\quad E_r = E_a / |x|</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="method-galat-fallback">Metode</label>
+            <select id="method-galat-fallback" name="method">
+              <option value="errors">Analisis galat</option>
+              <option value="taylor">Deret Taylor</option>
+            </select>
+          </div>
+          <div class="field-grid" data-fields="">
+            <div class="field">
+              <label for="galat-exact-fallback">Nilai eksak</label>
+              <input id="galat-exact-fallback" name="exact" type="number" step="any" value="1.41421356237" required="">
+            </div>
+            <div class="field">
+              <label for="galat-approx-fallback">Nilai hampiran</label>
+              <input id="galat-approx-fallback" name="approx" type="number" step="any" value="1.4142" required="">
+            </div>
+          </div>
+          <button class="primary" type="submit" disabled="">Hitung &amp; tampilkan langkah</button>
+        </form>
+        <section class="card output" aria-live="polite">
+          <div class="empty">Pilih metode, periksa masukan, lalu hitung. Jika panel ini tidak berubah setelah beberapa detik, coba muat ulang halaman atau bersihkan cache situs ini.</div>
+        </section>
+      </div>
+    </section>
+  </div>
   <footer class="foot"><span>Perhitungan berjalan lokal di peramban.</span><a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/Metode-Numerik.html" target="_blank" rel="noopener">Rujukan: Rinaldi Munir ↗</a></footer>
 </main>
 <script type="module">
@@ -375,6 +410,7 @@ function bindGraphZoom(out){out.querySelectorAll('[data-zoom]').forEach(button=>
 function calculate(id,form,out){const m=form.elements.method.value;out.setAttribute('aria-busy','true');try{if(!form.checkValidity()){form.reportValidity();throw new Error('Lengkapi semua masukan dengan nilai yang valid.')}const r=run(id,m,form),rows=rowData(r),warn=warning(r);out.innerHTML=`<div class="result"><small>Hasil ${configs[id].methods[m][0]}</small><strong>${summary(m,r)}</strong></div>${calculationSteps(id,m,form,r)}${warn?`<div class="warning" role="status">${warn}</div>`:''}${tableHTML(rows)}${graph(id,m,form,r)}`;bindGraphZoom(out);out.querySelectorAll('.calc-eq[data-math]').forEach(el=>renderMath(el,el.getAttribute('data-math')))}catch(e){out.innerHTML=`<div class="error" role="alert"><strong>Perhitungan belum dapat dilakukan.</strong><br>Masukan tidak valid: ${esc(e.message||e)}</div><div class="empty">Perbaiki masukan lalu coba kembali.</div>`}finally{out.removeAttribute('aria-busy')}}
 
 Object.entries(configs).forEach(([id,cfg],i)=>createPanel(id,cfg,i===0));
+document.getElementById('galat-fallback')?.remove();
 const tabs=[...document.querySelectorAll('[role="tab"]')];
 function activate(tab){tabs.forEach(t=>{const on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on});tab.focus()}
 tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>activate(tab));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;activate(tabs[next])})});
