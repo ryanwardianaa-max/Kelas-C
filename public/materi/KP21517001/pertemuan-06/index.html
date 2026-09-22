@@ -117,6 +117,16 @@
           <div class="math-step-box">$$u_{kj} = \frac{a_{kj} - \sum_{m=1}^{k-1} l_{km} u_{mj}}{l_{kk}}$$</div>
         </div>
 
+        <div class="card formula">
+          <div class="formula-label">Pola Kerja Crout: "Kolom L, Baris U, Selang-seling"</div>
+          <p>Mulai dari $k = 1$ sampai $n$:</p>
+          <ol>
+            <li><strong>Hitung Kolom $k$ matriks $L$</strong> dari atas ke bawah ($i = k$ sampai $n$).</li>
+            <li><strong>Hitung Baris $k$ matriks $U$</strong> dari kiri ke kanan ($j = k+1$ sampai $n$), dengan $u_{kk}=1$.</li>
+          </ol>
+          <p>Semua elemen di sebelah kiri/atas yang sudah dihitung digunakan sebagai masukan perhitungan berikutnya, sehingga faktorisasi tersusun secara rekursif tanpa memori tambahan.</p>
+        </div>
+
         <div class="card warn">
           <strong>Jebakan Kritis Crout:</strong> Perhatikan penyebut rumus baris $U$ adalah $l_{kk}$. Jika elemen diagonal $l_{kk} = 0$, rumus Crout langsung memicu pembagian nol! Solusinya adalah melakukan penukaran baris (pivoting) pada matriks awal $A$ sebelum algoritma Crout dijalankan.
         </div>

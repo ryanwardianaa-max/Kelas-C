@@ -50,6 +50,89 @@
         <strong>Pintu Masuk Pemahaman:</strong> Materi Pertemuan 05 adalah pondasi utama sebelum melangkah ke presentasi Kelompok 4 di Pertemuan 06. Pahami betul mengapa faktorisasi $A = LU$ diciptakan untuk menghemat komputasi berulang $\mathcal{O}(n^3)$ menjadi $\mathcal{O}(n^2)$.
       </aside>
 
+      <!-- BAB 0: PETA JALAN & BENTUK UMUM SPL -->
+      <section>
+        <h2>0. Peta Jalan Bab 4: Dari Bentuk Umum SPL hingga Dekomposisi LU</h2>
+        <p>Sistem Persamaan Lanjar (SPL) dengan $n$ persamaan dan $n$ peubah tak-diketahui dituliskan dalam bentuk perkalian matriks:</p>
+
+        <div class="card formula">
+          <div class="formula-label">Bentuk Matriks SPL</div>
+          <div class="math-step-box">$$A \mathbf{x} = \mathbf{b}$$</div>
+        </div>
+
+        <p>Di mana $A$ adalah matriks koefisien berukuran $n \times n$, $\mathbf{x} = [x_1, x_2, \dots, x_n]^T$ adalah vektor peubah, dan $\mathbf{b} = [b_1, b_2, \dots, b_n]^T$ adalah vektor ruas kanan. Bentuk lengkapnya:</p>
+
+        <div class="math-step-box">
+          $$\begin{aligned}
+          a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\
+          a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2 \\
+          &\vdots \\
+          a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n &= b_n
+          \end{aligned}$$
+        </div>
+
+        <div class="card formula">
+          <div class="formula-label">Matriks Augmented</div>
+          <div class="math-step-box">$$[A\ |\ \mathbf{b}] = \left[\begin{array}{cccc|c} a_{11} & a_{12} & \cdots & a_{1n} & b_1 \\ a_{21} & a_{22} & \cdots & a_{2n} & b_2 \\ \vdots & \vdots & \ddots & \vdots & \vdots \\ a_{n1} & a_{n2} & \cdots & a_{nn} & b_n \end{array}\right]$$</div>
+        </div>
+
+        <p><strong>Peta jalan Bab 4</strong> menurut urutan kuliah:</p>
+        <ol>
+          <li><strong>Eliminasi Gauss Naif</strong> → OBE tanpa pivoting, cepat tetapi rentan nol/pecahan kecil.</li>
+          <li><strong>Eliminasi Gauss yang Dimodifikasi</strong> → Tata-ancang pivoting sebagian &amp; lengkap, penskalaan.</li>
+          <li><strong>Dekomposisi LU Gauss (Doolittle)</strong> → faktorkan sekali, selesaikan banyak $\mathbf{b}$ dengan substitusi maju-mundur.</li>
+          <li><strong>Metode Reduksi Crout &amp; Cholesky</strong> → varian diagonal yang dikunci berbeda, materi Kelompok 4 di Pertemuan 06.</li>
+        </ol>
+      </section>
+
+      <!-- BAB 0.5: TIGA KEMUNGKINAN SOLUSI SPL -->
+      <section>
+        <h2>0.5. Tiga Kemungkinan Solusi SPL</h2>
+        <p>Tidak setiap SPL punya satu jawaban. Berdasarkan posisi grafik di bidang Kartesius, ada tiga kemungkinan:</p>
+
+        <div class="card formula">
+          <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-top:8px;">
+            <thead>
+              <tr style="background:#f1f5f9; border-bottom:2px solid #cbd5e1; text-align:left;">
+                <th style="padding:8px;">Kasus</th>
+                <th style="padding:8px;">Ciri Matriks/Determinan</th>
+                <th style="padding:8px;">Jumlah Solusi</th>
+                <th style="padding:8px;">Analogi Grafis (2 persamaan)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:8px; font-weight:700;">Konsisten: Unik</td>
+                <td style="padding:8px;">$\det(A) \ne 0$, rank($A$) = rank($[A|\mathbf{b}]$) = $n$</td>
+                <td style="padding:8px;">Tepat satu</td>
+                <td style="padding:8px;">Dua garis berpotongan di satu titik.</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0; background:#f0fdf4;">
+                <td style="padding:8px; font-weight:700; color:#166534;">Konsisten: Banyak</td>
+                <td style="padding:8px;">$\det(A) = 0$, rank($A$) = rank($[A|\mathbf{b}]$) &lt; $n$</td>
+                <td style="padding:8px;">Tidak terhingga</td>
+                <td style="padding:8px;">Dua garis berhimpit (sama).</td>
+              </tr>
+              <tr>
+                <td style="padding:8px; font-weight:700; color:#dc2626;">Tidak Konsisten</td>
+                <td style="padding:8px;">$\det(A) = 0$, rank($A$) $\ne$ rank($[A|\mathbf{b}]$)</td>
+                <td style="padding:8px;">Nol</td>
+                <td style="padding:8px;">Dua garis sejajar (tidak bertemu).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card example">
+          <div class="formula-label">Contoh Ilustrasi (2 persamaan, 2 peubah)</div>
+          <ul>
+            <li><strong>Unik:</strong> $x + y = 2$ dan $2x - y = 1$ berpotongan di $(1,1)$.</li>
+            <li><strong>Banyak:</strong> $x + y = 2$ dan $2x + 2y = 4$ berhimpit; setiap $(x, 2-x)$ adalah solusi.</li>
+            <li><strong>Tidak ada:</strong> $x + y = 2$ dan $x + y = 5$ sejajar; kontradiksi.</li>
+          </ul>
+        </div>
+      </section>
+
       <!-- BAB 1: REPRESENTASI SPL & KELEMAHAN GAUSS NAIF -->
       <section>
         <h2>1. Representasi SPL dan Kelemahan Fatal Eliminasi Gauss Naif</h2>
@@ -147,6 +230,67 @@
         </div>
       </section>
 
+
+      <!-- BAB 2.5: PIVOTING LENGKAP & PENSKALAAN -->
+      <section>
+        <h2>2.5. Pivoting Lengkap dan Penskalaan (Modified Gauss Lanjutan)</h2>
+        <p>Selain pivoting sebagian, Rinaldi Munir menjelaskan dua penyempurnaan tambahan untuk menghindari galat pembulatan: <strong>pivoting lengkap</strong> dan <strong>penskalaan</strong>.</p>
+
+        <h3>A. Pivoting Lengkap (Complete Pivoting)</h3>
+        <p>Pada pivoting sebagian, kita hanya memilih elemen terbesar dalam kolom yang sedang dieliminasi. Pada <strong>pivoting lengkap</strong>, pencarian dilakukan di seluruh submatriks yang tersisa (baris dan kolom $k$ sampai $n$), lalu baris dan kolom yang bersangkutan dipertukarkan.</p>
+
+        <div class="card formula">
+          <div class="formula-label">Aturan Pivoting Lengkap</div>
+          <p>Pada langkah $k$, cari indeks $p, q$ sedemikian sehingga:</p>
+          <div class="math-step-box">$$|a_{pq}| = \max_{k \le i, j \le n} |a_{ij}|$$</div>
+          <p>Lakukan pertukaran baris $R_k \leftrightarrow R_p$ dan kolom $C_k \leftrightarrow C_q$. Pertukaran kolom mengubah urutan peubah $x_k \leftrightarrow x_q$, sehingga perlu dicatat agar solusi akhir dikembalikan ke urutan semula.</p>
+        </div>
+
+        <div class="card warn">
+          <strong>Catatan Praktis:</strong> Pivoting lengkap lebih stabil secara teori, tetapi jarang dipakai dalam program sederhana karena pertukaran kolom menambah kerumitan penyimpanan urutan peubah. Untuk kebanyakan aplikasi, <strong>pivoting sebagian sudah cukup</strong>.
+        </div>
+
+        <h3>B. Penskalaan (Scaling)</h3>
+        <p>Jika koefisien dalam satu persamaan sangat besar dibandingkan persamaan lain, pembulatan mesin dapat menghilangkan informasi penting. <strong>Penskalaan</strong> menormalkan setiap baris dengan membagi seluruh baris dengan koefisien mutlak terbesar di ruas kirinya.</p>
+
+        <div class="card formula">
+          <div class="formula-label">Rumus Penskalaan Baris ke-$i$</div>
+          <div class="math-step-box">$$s_i = \max_{1 \le j \le n} |a_{ij}|, \qquad \bar{a}_{ij} = \frac{a_{ij}}{s_i}, \qquad \bar{b}_i = \frac{b_i}{s_i}$$</div>
+          <p>Setelah penskalaan, koefisien terbesar pada setiap baris bernilai 1. SPL yang sudah ternormalisasi ini lalu diselesaikan dengan eliminasi Gauss (naif atau pivoting), dan solusinya sama dengan SPL asli.</p>
+        </div>
+
+        <div class="card example">
+          <div class="formula-label">Contoh Klasik: Dampak Pivoting terhadap Galat Pembulatan (3 angka bena)</div>
+          <p><strong>Soal:</strong> Selesaikan SPL berikut dengan eliminasi Gauss tanpa pivoting dan dengan pivoting sebagian. Gunakan aritmetika 3 angka bena.</p>
+          <div class="math-step-box">
+            $$\begin{aligned}
+            0{,}0001x_1 + 1x_2 &= 1 \\
+            1x_1 + 1x_2 &= 2
+            \end{aligned}$$
+          </div>
+          <p><strong>Penyelesaian tanpa pivoting:</strong></p>
+          <ol class="steps">
+            <li>Matriks augmented: $\left[\begin{array}{cc|c} 0{,}0001 & 1 & 1 \\ 1 & 1 & 2 \end{array}\right]$.</li>
+            <li>Pengali $m_{21} = \frac{1}{0{,}0001} = 10000$.</li>
+            <li>Baris 2 baru: $[1 - 10000(0{,}0001),\ 1 - 10000(1),\ 2 - 10000(1)] = [0,\ -9999,\ -9998]$.</li>
+            <li>Dalam 3 angka bena: $-9999 \approx -10000$ dan $-9998 \approx -10000$, sehingga $-10000x_2 = -10000 \implies x_2 = 1{,}00$.</li>
+            <li>Substitusi ke persamaan pertama: $0{,}0001x_1 + 1 = 1 \implies x_1 = 0$.</li>
+          </ol>
+          <p><strong>Hasil tanpa pivoting:</strong> $x_1 = 0$, $x_2 = 1$ — <span style="color:#dc2626;">salah total!</span> Solusi sejatinya adalah $x_1 \approx x_2 \approx 1{,}00$.</p>
+
+          <p><strong>Penyelesaian dengan pivoting sebagian:</strong></p>
+          <ol class="steps">
+            <li>Pilih poros terbesar di kolom 1: $\max(|0{,}0001|, |1|) = 1$, pertukarkan baris 1 dan 2.</li>
+            <li>Matriks menjadi: $\left[\begin{array}{cc|c} 1 & 1 & 2 \\ 0{,}0001 & 1 & 1 \end{array}\right]$.</li>
+            <li>Pengali $m_{21} = \frac{0{,}0001}{1} = 0{,}0001$.</li>
+            <li>Baris 2 baru: $[0{,}0001 - 0{,}0001(1),\ 1 - 0{,}0001(1),\ 1 - 0{,}0001(2)] \approx [0,\ 1,\ 1]$.</li>
+            <li>Dari baris 2: $x_2 = 1{,}00$. Dari baris 1: $x_1 + 1 = 2 \implies x_1 = 1{,}00$.</li>
+          </ol>
+          <p><strong>Hasil dengan pivoting:</strong> $x_1 = 1{,}00$, $x_2 = 1{,}00$ — <span style="color:#166534;">benar!</span></p>
+        </div>
+      </section>
+
+      <!-- BAB 3: KONSEP DEKOMPOSISI LU & METODE DOOLITTLE -->
       <!-- BAB 3: KONSEP DEKOMPOSISI LU & METODE DOOLITTLE -->
       <section>
         <h2>3. Konsep Dekomposisi LU dan Metode LU Gauss (Doolittle)</h2>
@@ -256,8 +400,16 @@
         <ol>
           <li>Selesaikan SPL $x_1 + x_2 + x_3 = 6$, $2x_1 + x_2 - x_3 = 1$, $x_1 - x_2 + 2x_3 = 5$ menggunakan Eliminasi Gauss Naif. Tunjukkan setiap pengali $m_{ik}$.</li>
           <li>Ulangi soal nomor 1 dengan Pivoting Sebagian. Bandingkan: apakah terjadi pertukaran baris? Mengapa?</li>
-          <li>Faktorkan matriks $A = egin{bmatrix} 2 & 1 & 1 \ 4 & 3 & 3 \ 8 & 7 & 9 \end{bmatrix}$ menjadi $A = L \cdot U$ dengan metode LU Gauss (Doolittle), lalu verifikasi hasil kalinya.</li>
+          <li>Faktorkan matriks $A = \begin{bmatrix} 2 & 1 & 1 \\ 4 & 3 & 3 \\ 8 & 7 & 9 \end{bmatrix}$ menjadi $A = L \cdot U$ dengan metode LU Gauss (Doolittle), lalu verifikasi hasil kalinya.</li>
           <li>Gunakan faktorisasi pada nomor 3 untuk menyelesaikan $A\mathbf{x} = \mathbf{b}$ dengan $\mathbf{b} = [3,\ 9,\ 27]^T$ via substitusi maju $L\mathbf{y} = \mathbf{b}$ lalu substitusi mundur $U\mathbf{x} = \mathbf{y}$.</li>
+          <li><strong>(Dari PPT Kelompok 3)</strong> Selesaikan sistem $0{,}0001x_1 + x_2 = 1$ dan $x_1 + x_2 = 2$ dengan aritmetika 3 angka bena: (a) tanpa pivoting, (b) dengan pivoting sebagian. Bandingkan hasilnya dan jelaskan mengapa pivoting sangat penting.</li>
+          <li>Identifikasi jenis solusi dari setiap SPL: unik, banyak, atau tidak ada. Tunjukkan alasan melalui determinan/rank atau analogi grafik.
+            <ul>
+              <li>$x + y = 2;\ 2x + 2y = 4$</li>
+              <li>$x + y = 2;\ x + y = 5$</li>
+              <li>$x + y = 2;\ 2x - y = 1$</li>
+            </ul>
+          </li>
         </ol>
       </section>
 
