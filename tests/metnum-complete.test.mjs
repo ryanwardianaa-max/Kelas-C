@@ -30,25 +30,27 @@ assert.ok(fs.existsSync(new URL("public/tools/lab-metode-numerik/core.js", root)
 assert.ok(fs.existsSync(new URL("public/tools/lab-metode-numerik/expression.js", root)));
 const labHtml = read("public/tools/lab-metode-numerik/index.html");
 assert.match(labHtml, /\.workspace\s*>\s*\*\s*\{\s*min-width:\s*0/, "grid laboratorium wajib dapat menyusut di ponsel");
-assert.match(labHtml, /prefix==='pdb'&&key==='x0'\?'0':value/, "preset PDB wajib dimulai dari x = 0");
-assert.match(labHtml, /const esc\s*=|function esc\s*\(/, "jalur error UI wajib escape pesan error");
-assert.match(labHtml, /typeof v==='object'/, "nilai langkah bersarang tidak boleh tampil sebagai [object Object]");
+const labApp = read("public/tools/lab-metode-numerik/app.js");
+assert.match(labHtml, /<script[^>]+src=["']\.\/app\.js["'][^>]*>/, "logika kalkulator wajib dipisah ke app.js eksternal agar tidak kena batas inline script");
+assert.match(labApp, /prefix==='pdb'&&key==='x0'\?'0':value/, "preset PDB wajib dimulai dari x = 0");
+assert.match(labApp, /const esc\s*=|function esc\s*\(/, "jalur error UI wajib escape pesan error");
+assert.match(labApp, /typeof v==='object'/, "nilai langkah bersarang tidak boleh tampil sebagai [object Object]");
 for (const group of ["galat", "akar", "spl", "interpolasi", "turunan", "integrasi", "pdb"]) {
-  assert.match(labHtml, new RegExp(`id==='${group}'`), `kelompok ${group} wajib memiliki grafik`);
+  assert.match(labApp, new RegExp(`id==='${group}'`), `kelompok ${group} wajib memiliki grafik`);
 }
-assert.match(labHtml, /function calculationSteps\s*\(/, "setiap hasil wajib memiliki langkah hitung biasa");
-assert.match(labHtml, /Langkah Perhitungan/, "judul langkah perhitungan wajib terlihat");
-assert.match(labHtml, /r\.terms\.map/, "Taylor wajib menjabarkan setiap suku, bukan hanya tabel");
-assert.match(labHtml, /Object\.is\(v,-0\)/, "hasil numerik tidak boleh menampilkan negatif nol");
+assert.match(labApp, /function calculationSteps\s*\(/, "setiap hasil wajib memiliki langkah hitung biasa");
+assert.match(labApp, /Langkah Perhitungan/, "judul langkah perhitungan wajib terlihat");
+assert.match(labApp, /r\.terms\.map/, "Taylor wajib menjabarkan setiap suku, bukan hanya tabel");
+assert.match(labApp, /Object\.is\(v,-0\)/, "hasil numerik tidak boleh menampilkan negatif nol");
 for (const label of ["Perbesar", "Perkecil", "Atur ulang"]) {
-  assert.match(labHtml, new RegExp(`aria-label="${label}`), `grafik wajib memiliki kontrol ${label.toLowerCase()}`);
+  assert.match(labApp, new RegExp(`aria-label="${label}`), `grafik wajib memiliki kontrol ${label.toLowerCase()}`);
 }
-assert.match(labHtml, /data-base-viewbox/, "grafik wajib dapat dikembalikan ke skala awal");
-assert.match(labHtml, /class="grid-line"/, "grafik Kartesius wajib memiliki garis kisi");
-assert.match(labHtml, /class="tick-label"/, "grafik Kartesius wajib memiliki angka skala");
-assert.match(labHtml, /graphFmt/, "angka sumbu wajib memakai format ringkas");
-assert.match(labHtml, /Math\.abs\(v\)<0\.0005\?0:v/, "angka sumbu yang membulat ke nol wajib tampil sebagai 0");
-assert.match(labHtml, /length:5/, "angka sumbu wajib cukup renggang untuk layar ponsel");
-assert.match(labHtml, /Geser tabel ke samping/, "tabel lebar wajib memiliki petunjuk geser");
+assert.match(labApp, /data-base-viewbox/, "grafik wajib dapat dikembalikan ke skala awal");
+assert.match(labApp, /class="grid-line"/, "grafik Kartesius wajib memiliki garis kisi");
+assert.match(labApp, /class="tick-label"/, "grafik Kartesius wajib memiliki angka skala");
+assert.match(labApp, /graphFmt/, "angka sumbu wajib memakai format ringkas");
+assert.match(labApp, /Math\.abs\(v\)<0\.0005\?0:v/, "angka sumbu yang membulat ke nol wajib tampil sebagai 0");
+assert.match(labApp, /length:5/, "angka sumbu wajib cukup renggang untuk layar ponsel");
+assert.match(labApp, /Geser tabel ke samping/, "tabel lebar wajib memiliki petunjuk geser");
 assert.ok(fs.existsSync(new URL("public/tools/lab-metode-numerik/index.html", root)));
 console.log("Metode Numerik complete integration: OK");

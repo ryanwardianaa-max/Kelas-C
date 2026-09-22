@@ -4,6 +4,11 @@ const STATIC_ASSETS = [
   "/manifest.json",
   "/favicon.svg",
   "/pwa-icon.svg",
+  "/tools/lab-metode-numerik/index.html",
+  "/tools/lab-metode-numerik/app.js",
+  "/tools/lab-metode-numerik/core.js",
+  "/tools/lab-metode-numerik/expression.js",
+  "/tools/lab-metode-numerik/gauss-render.js",
 ];
 
 // Rute ini menyajikan file HTML tersendiri (bukan shell SPA).
