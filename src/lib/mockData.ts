@@ -19,8 +19,7 @@ const analisisRealMeetings:SyllabusMeeting[]=[
 {meeting:4,title:'Sifat Terurut Baik dan Prinsip Induksi Matematika',kind:'Teori',summary:'Bartle 1.2.1–1.2.2: Sifat Terurut Baik, prinsip induksi, pembuktian, dan latihan nomor 4.',activity:'Mengikuti bukti kontradiksi dan menyusun bukti induksi langkah demi langkah.'},
 {meeting:5,title:'Latihan Induksi & Sifat Aljabar di ℝ',kind:'Teori',summary:'Pembahasan Latihan Section 1.2 No 1–11, sembilan aksioma lapangan (A1–A4, M1–M4, D), dan Teorema 2.1.2 Kelompok 1.',activity:'Menelaah deduksi induksi dan aksioma dasar lapangan.'},
 {meeting:6,title:'Sifat Aljabar di ℝ & Pembahasan Latihan 2.1',kind:'Teori',summary:'Presentasi Kelompok 2 (Teorema 2.1.3), telaah kritis/koreksi dosen, serta penyelesaian formal Latihan Section 2.1 No 1–6.',activity:'Menelaah bukti aksiomatis lapangan, menganalisis koreksi dosen, dan memeriksa solusi latihan.'},
-{meeting:7,title:'Himpunan Berhingga dan Tak Hingga',kind:'Teori',summary:'Definisi himpunan terhitung, tak terhitung, himpunan berhingga, dan sifat keterbilangan menurut Bartle 1.3.',activity:'Mempelajari kardinalitas dan keterbilangan himpunan.'},
-...blank(8,16)
+...blank(7,16)
 ]
 const analisisKompleksMeetings:SyllabusMeeting[]=[
 {meeting:1,title:'Pertemuan 01 (Libur / penyesuaian jadwal)',kind:'Teori',summary:'Catatan Pertemuan 03 mencatat pertemuan 1 dan 2 sebagai libur atau penyesuaian jadwal awal perkuliahan.',activity:'Tidak ada materi yang tercatat.'},

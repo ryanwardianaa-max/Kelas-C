@@ -196,16 +196,6 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-24T08:50:00.000Z",
   },
   {
-    id: "mat-analisis-real-pertemuan-07",
-    title: "Himpunan Berhingga dan Tak Hingga",
-    courseCode: "KP21517004",
-    meetingNo: 7,
-    type: "Catatan",
-    description: "Definisi himpunan berhingga, tak hingga, denumerabel, terhitung, tak terhitung, dan teorema keterbilangan menurut Bartle 1.3.",
-    url: "/materi/KP21517004/pertemuan-07/index.html",
-    createdAt: "2026-09-03T01:15:00.000Z",
-  },
-  {
     id: "tool-panduan-induksi",
     title: "Alat Bantu: Panduan Interaktif Pembuktian Induksi",
     courseCode: "KP21517004",

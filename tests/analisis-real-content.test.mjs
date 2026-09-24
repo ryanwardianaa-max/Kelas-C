@@ -17,14 +17,13 @@ const expectedTitles = [
   "Sifat Terurut Baik dan Prinsip Induksi Matematika",
   "Latihan Induksi & Sifat Aljabar di ℝ",
   "Sifat Aljabar di ℝ & Pembahasan Latihan 2.1",
-  "Himpunan Berhingga dan Tak Hingga",
-  ...Array.from({ length: 9 }, (_, i) => `Pertemuan ${String(i + 8).padStart(2, "0")} (Belum diisi)`),
+  ...Array.from({ length: 10 }, (_, i) => `Pertemuan ${String(i + 7).padStart(2, "0")} (Belum diisi)`),
 ];
 assert.deepEqual(titles, expectedTitles, "judul silabus Analisis Real berubah");
 // Helper regular() dulu mengarang 16 judul per matkul; jangan sampai kembali.
 assert.doesNotMatch(mock, /const regular=/);
 
-for (let meeting = 2; meeting <= 7; meeting++) {
+for (let meeting = 2; meeting <= 6; meeting++) {
   const mm = String(meeting).padStart(2, "0");
   const path = `public/materi/KP21517004/pertemuan-${mm}/index.html`;
   assert.ok(existsSync(path), `${path} harus ada`);
@@ -46,15 +45,11 @@ assert.match(p5, /Bahan Baca/);
 const p6 = readFileSync("public/materi/KP21517004/pertemuan-06/index.html", "utf8");
 assert.match(p6, /Teorema 2\.1\.3|Sifat Aljabar/);
 assert.match(p6, /Kelompok 2/);
-const p7 = readFileSync("public/materi/KP21517004/pertemuan-07/index.html", "utf8");
-assert.match(p7, /Bahan Baca/);
-assert.match(p7, /1\.3/);
 
 for (const id of [
   "mat-analisis-real-pertemuan-04",
   "mat-analisis-real-pertemuan-05",
   "mat-analisis-real-pertemuan-06",
-  "mat-analisis-real-pertemuan-07",
   "tool-panduan-induksi",
 ]) assert.ok(materials.includes(id), `material belum terdaftar: ${id}`);
 assert.match(tools, /id:\s*["']tool-panduan-induksi["']/);
