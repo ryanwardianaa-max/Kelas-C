@@ -109,49 +109,6 @@ export default function CourseDetailView({
         </p>
       </header>
 
-      {courseTools.map((tool) => (
-        <div
-          key={tool.url}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            background: "linear-gradient(135deg, #eef2ff, #faf5ff)",
-            border: "1px solid #c7d2fe",
-            borderRadius: "12px",
-            padding: "10px 16px",
-            marginBottom: "10px",
-            gap: "12px",
-            boxShadow: "0 2px 6px rgba(99, 102, 241, 0.06)",
-          }}
-        >
-          <strong style={{ color: "#3730a3", fontSize: "0.92rem", flex: 1, minWidth: 0 }}>
-            {tool.title}
-          </strong>
-          <a
-            href={tool.url}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              background: tool.badgeColor,
-              color: "white",
-              padding: "7px 14px",
-              borderRadius: "8px",
-              fontWeight: 700,
-              fontSize: "0.82rem",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-              flexShrink: 0,
-              boxShadow: "0 2px 8px rgba(67, 56, 202, 0.2)",
-            }}
-          >
-            Buka Aplikasi
-          </a>
-        </div>
-      ))}
       {course.code === "KP21517001" && (
         <div
           style={{
@@ -232,6 +189,82 @@ export default function CourseDetailView({
             Urutan ke-6
           </span>
         </div>
+      )}
+
+      {courseTools.length > 0 && (
+        <details
+          style={{
+            background: "#f8fafc",
+            border: "1px solid #e2e8f0",
+            borderRadius: "12px",
+            marginBottom: "12px",
+            overflow: "hidden",
+          }}
+        >
+          <summary
+            style={{
+              padding: "10px 14px",
+              cursor: "pointer",
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              color: "#475569",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              userSelect: "none",
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <span>🛠️</span>
+              <span>Alat Bantu Perkuliahan ({courseTools.length})</span>
+            </span>
+            <span style={{ fontSize: "0.75rem", color: "#6366f1", fontWeight: 700 }}>
+              Buka / Tutup ▾
+            </span>
+          </summary>
+          <div style={{ padding: "8px 12px 12px", display: "grid", gap: "8px", borderTop: "1px solid #f1f5f9" }}>
+            {courseTools.map((tool) => (
+              <div
+                key={tool.url}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  background: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "10px",
+                  padding: "9px 14px",
+                  gap: "12px",
+                }}
+              >
+                <strong style={{ color: "#1e293b", fontSize: "0.88rem", flex: 1, minWidth: 0 }}>
+                  {tool.title}
+                </strong>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    background: tool.badgeColor,
+                    color: "white",
+                    padding: "6px 12px",
+                    borderRadius: "6px",
+                    fontWeight: 700,
+                    fontSize: "0.78rem",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                >
+                  Buka Aplikasi
+                </a>
+              </div>
+            ))}
+          </div>
+        </details>
       )}
       <div className="chips course-tabs">
         <button type="button"

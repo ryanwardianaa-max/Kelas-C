@@ -2,7 +2,62 @@
 *{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#172033;font-family:Segoe UI,system-ui,sans-serif}.nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #e2e8f0;padding:13px max(16px,calc((100% - 860px)/2));z-index:5}.nav a{color:#be3455;font-weight:800;text-decoration:none}.page{max-width:860px;margin:auto;padding:22px 16px 60px}h1{font-size:clamp(1.7rem,5vw,2.5rem);line-height:1.12;margin:8px 0}p,li{line-height:1.7}.badge{display:inline-block;background:#ffe7ee;color:#a61f43;border-radius:999px;padding:5px 10px;font-weight:800;font-size:.8rem}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin:16px 0}.tabs,.exercise-tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button,.exercise-tabs button,button.primary{border:1px solid #d5ddea;background:#fff;padding:11px 14px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}.tabs button[aria-selected=true],.exercise-tabs button.active,button.primary{background:#be3455;color:#fff;border-color:#be3455}.panel[hidden]{display:none}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.step{border-left:4px solid #db5874;background:#fff7f9;padding:12px;border-radius:8px}.step b{display:block;margin-bottom:5px}.math{overflow-x:auto}.check{display:flex;gap:10px;align-items:center;padding:9px 0}.check input{width:20px;height:20px}.result{border-left:4px solid #16a36a;background:#f3fff9}.warn{border-left:4px solid #e59a18;background:#fffaf0}label{display:block;font-weight:700}input[type=number]{width:100%;font:inherit;padding:11px;border:1px solid #bcc8d8;border-radius:8px;margin:7px 0 12px}.katex-display{overflow-x:auto}@media(max-width:620px){.grid{grid-template-columns:1fr}.card{padding:16px}}
 </style>  <script defer src="/tools/shared-math-keyboard.js"></script>
 </head><body><nav class="nav"><a href="/?course=KP21517004">← Kembali ke Analisis Real</a></nav><main class="page"><span class="badge">Alat Bantu · Analisis Real</span><h1>Panduan Interaktif Pembuktian Induksi</h1><p>Bukan mesin pembuat bukti otomatis. Alat ini membantu memastikan setiap bagian bukti hadir dan memperlihatkan hubungan antara hipotesis, suku berikutnya, dan target.</p>
-<section class="card"><h2>Pilih pola bukti</h2><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="biasa">Induksi biasa</button><button role="tab" aria-selected="false" data-tab="basis">Mulai dari n₀</button><button role="tab" aria-selected="false" data-tab="kuat">Induksi kuat</button></div><div id="biasa" class="panel" role="tabpanel"><div class="grid"><div class="step"><b>1. Pernyataan</b>Tulis tepat apa yang disebut \(P(n)\).</div><div class="step"><b>2. Basis</b>Buktikan \(P(1)\), bukan sekadar menyatakannya.</div><div class="step"><b>3. Hipotesis</b>Andaikan \(P(k)\) benar untuk sembarang \(k\in\mathbb N\).</div><div class="step"><b>4. Target</b>Tulis bentuk \(P(k+1)\) secara lengkap.</div><div class="step"><b>5. Jembatan</b>Mulai dari satu ruas; gunakan \(P(k)\); ubah sampai menjadi target.</div><div class="step"><b>6. Kesimpulan</b>Nyatakan berlaku untuk semua \(n\in\mathbb N\).</div></div></div><div id="basis" class="panel" role="tabpanel" hidden><div class="step"><b>Induksi versi kedua — Bartle 1.2.3</b>Basisnya \(P(n_0)\). Jembatan harus berlaku untuk semua \(k\ge n_0\). Kesimpulan hanya untuk \(n\ge n_0\), bukan seluruh bilangan asli.</div></div><div id="kuat" class="panel" role="tabpanel" hidden><div class="step"><b>Induksi kuat — Bartle 1.2.5</b>Untuk membuktikan \(P(k+1)\), Anda boleh memakai semua \(P(1),P(2),\ldots,P(k)\). Cocok ketika kasus baru bergantung pada beberapa kasus lama.</div></div></section>
+<section class="card">
+  <h2>Pilih pola bukti</h2>
+  <p style="margin:4px 0 14px; color:#64748b; font-size:0.88rem;">Pilih jenis induksi yang sesuai dengan tipe soal matematika yang sedang dihadapi:</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="biasa">1. Induksi Biasa (Mulai n = 1)</button>
+    <button role="tab" aria-selected="false" data-tab="basis">2. Mulai dari n₀ (Basis Khusus)</button>
+    <button role="tab" aria-selected="false" data-tab="kuat">3. Induksi Kuat (Semua Kasus Lalu)</button>
+  </div>
+  <div id="biasa" class="panel" role="tabpanel">
+    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; margin-bottom:12px;">
+      <b style="color:#be3455; display:block; margin-bottom:4px;">📌 Kapan Dipakai?</b>
+      <p style="margin:0; font-size:0.9rem; color:#334155;">Untuk membuktikan rumus atau deret yang berlaku bagi <strong>semua bilangan asli</strong> \(n = 1, 2, 3, \dots\) (contoh: rumus deret ganjil, jumlah aritmetika, pecahan teleskopik).</p>
+    </div>
+    <div class="grid">
+      <div class="step"><b>1. Pernyataan</b>Tulis rumus lengkap yang ingin dibuktikan: \(P(n)\).</div>
+      <div class="step"><b>2. Basis (n = 1)</b>Hitung kedua ruas untuk \(n=1\) sampai terbukti sama persis.</div>
+      <div class="step"><b>3. Hipotesis (n = k)</b>Andaikan rumus benar untuk sembarang \(k\in\mathbb N\): asumsikan \(P(k)\) benar.</div>
+      <div class="step"><b>4. Target (n = k+1)</b>Tulis bentuk rumus target yang harus dicapai: \(P(k+1)\).</div>
+      <div class="step"><b>5. Jembatan Bukti</b>Mulai dari ruas kiri \(P(k+1)\), masukkan hipotesis \(P(k)\), lalu manipulasi aljabar sampai sama dengan target.</div>
+      <div class="step"><b>6. Kesimpulan</b>Simpulkan rumus berlaku untuk semua \(n\in\mathbb N\).</div>
+    </div>
+  </div>
+  <div id="basis" class="panel" role="tabpanel" hidden>
+    <div style="background:#fff7f9; border-left:4px solid #db5874; padding:14px; border-radius:10px; margin-bottom:12px;">
+      <b style="color:#be3455; display:block; font-size:1rem; margin-bottom:6px;">📌 Kapan Dipakai? (Bartle 1.2.3)</b>
+      <p style="margin:0 0 8px; font-size:0.9rem; color:#334155;">
+        Dipakai jika rumus <strong>salah</strong> pada angka-angka awal (\(n = 1, 2, \dots\)) dan baru <strong>benar</strong> mulai dari angka tertentu \(n_0\).
+      </p>
+      <div style="background:#ffffff; border:1px solid #fbcfe8; border-radius:8px; padding:10px 12px; margin:8px 0; font-size:0.88rem; color:#1e293b;">
+        <strong>Contoh Nyata:</strong> Ketaksamaan \(2^n < n!\)<br>
+        • Untuk \(n=1\): \(2^1 < 1!\) &rarr; \(2 < 1\) (Salah)<br>
+        • Untuk \(n=2\): \(2^2 < 2!\) &rarr; \(4 < 2\) (Salah)<br>
+        • Untuk \(n=3\): \(2^3 < 3!\) &rarr; \(8 < 6\) (Salah)<br>
+        • Untuk \(n=4\): \(2^4 < 4!\) &rarr; \(16 < 24\) (<strong>Benar!</strong> Basis pembuktian mulai dari \(n_0 = 4\)).
+      </div>
+      <p style="margin:0; font-size:0.88rem; color:#475569;">
+        <strong>Perbedaan dengan Induksi Biasa:</strong> Langkah basis dibuktikan pada \(n_0\) (bukan \(n=1\)). Kesimpulan akhirnya menyatakan rumus berlaku untuk semua \(n \ge n_0\).
+      </p>
+    </div>
+  </div>
+  <div id="kuat" class="panel" role="tabpanel" hidden>
+    <div style="background:#fff7f9; border-left:4px solid #db5874; padding:14px; border-radius:10px; margin-bottom:12px;">
+      <b style="color:#be3455; display:block; font-size:1rem; margin-bottom:6px;">📌 Kapan Dipakai? (Bartle 1.2.5)</b>
+      <p style="margin:0 0 8px; font-size:0.9rem; color:#334155;">
+        Dipakai jika untuk membuktikan langkah ke-\(k+1\), kita <strong>tidak cukup</strong> hanya mengandalkan suku ke-\(k\), melainkan membutuhkan bantuan kebenaran dari <strong>seluruh kasus sebelumnya</strong> (\(1, 2, 3, \dots, k\)).
+      </p>
+      <div style="background:#ffffff; border:1px solid #fbcfe8; border-radius:8px; padding:10px 12px; margin:8px 0; font-size:0.88rem; color:#1e293b;">
+        <strong>Contoh Nyata:</strong> Teorema Faktorisasi Prima (setiap bilangan asli \(n \ge 2\) adalah bilangan prima atau perkalian prima).<br>
+        Saat kita ingin membuktikan bilangan \(k+1\) dapat difaktorkan menjadi \(a \cdot b\), kedua faktor \(a\) dan \(b\) nilainya lebih kecil dari \(k+1\) (bukan harus persis \(k\)). Kita butuh jaminan bahwa <em>semua</em> bilangan sebelum \(k+1\) sudah memenuhi sifat tersebut.
+      </div>
+      <p style="margin:0; font-size:0.88rem; color:#475569;">
+        <strong>Perbedaan dengan Induksi Biasa:</strong> Pada hipotesis induksi, kita mengasumsikan \(P(1), P(2), \dots, P(k)\) seluruhnya benar sekaligus.
+      </p>
+    </div>
+  </div>
+</section>
 <section class="card"><h2>Checklist sebelum menutup bukti</h2><label class="check"><input type="checkbox">Pernyataan \(P(n)\) ditulis jelas.</label><label class="check"><input type="checkbox">Basis dihitung sampai kedua ruas sama.</label><label class="check"><input type="checkbox">Yang diasumsikan hanya \(P(k)\), bukan \(P(k+1)\).</label><label class="check"><input type="checkbox">Target \(P(k+1)\) ditulis sebelum manipulasi.</label><label class="check"><input type="checkbox">Letak penggunaan hipotesis induksi terlihat.</label><label class="check"><input type="checkbox">Kesimpulan menyebut domain nilai \(n\).</label><p id="progress"><b>0/6 bagian lengkap.</b></p></section>
 <section class="card"><h2>Periksa jembatan Latihan Induksi</h2>
 <p class="hint" style="color:#64748b; margin-bottom:12px;">Pilih latihan yang ingin diperiksa langkah jembatannya:</p>
