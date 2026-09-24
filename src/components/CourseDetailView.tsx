@@ -25,8 +25,8 @@ export default function CourseDetailView({
   setMaterials,
   references,
   setReferences,
-  notes,
-  setNotes,
+  notes: _notes,
+  setNotes: _setNotes,
   onBack,
 }: {
   course: Course;
@@ -36,8 +36,8 @@ export default function CourseDetailView({
   setMaterials: (v: Material[]) => void;
   references: ReferenceItem[];
   setReferences: (v: ReferenceItem[]) => void;
-  notes: MeetingNote[];
-  setNotes: (v: MeetingNote[]) => void;
+  notes?: MeetingNote[];
+  setNotes?: (v: MeetingNote[]) => void;
   onBack: () => void;
 }) {
   const [tab, setTab] = useState<"meetings" | "tasks" | "refs">("meetings"),
@@ -51,21 +51,6 @@ export default function CourseDetailView({
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [course.code]);
-  const noteFor = (n: number) =>
-    notes.find((x) => x.courseCode === course.code && x.meetingNo === n);
-  const saveNote = (meetingNo: number, content: string) => {
-    const old = noteFor(meetingNo),
-      next: MeetingNote = {
-        id: old?.id || `${course.code}-${meetingNo}`,
-        courseCode: course.code,
-        meetingNo,
-        content,
-        updatedAt: new Date().toISOString(),
-      };
-    setNotes(
-      old ? notes.map((x) => (x.id === old.id ? next : x)) : [...notes, next],
-    );
-  };
   const add = () => {
     if (!adding || !title.trim()) return;
     const now = new Date().toISOString(),
@@ -363,20 +348,6 @@ export default function CourseDetailView({
                 </button>
                 {open === m.meeting && (
                   <div className="meeting-workspace">
-                    <label>
-                      Catatan Kuliah <small>tersimpan saat selesai mengetik</small>
-                      {/* Simpan sekali saat fokus lepas, bukan tiap ketikan:
-                          satu perjalanan ke cloud per catatan, bukan per huruf. */}
-                      <textarea
-                        key={`${course.code}-${m.meeting}`}
-                        rows={7}
-                        placeholder="Tulis catatan kuliah pertemuan ini…"
-                        defaultValue={noteFor(m.meeting)?.content || ""}
-                        onBlur={(e) => {
-                          if (e.target.value !== (noteFor(m.meeting)?.content || "")) saveNote(m.meeting, e.target.value);
-                        }}
-                      />
-                    </label>
                     <div className="plan">
                       <span className="badge">Draft / Rencana Bahasan</span>
                       <h3>{displayMeetingTitle(m.title)}</h3>

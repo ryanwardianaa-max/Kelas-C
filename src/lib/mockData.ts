@@ -17,9 +17,9 @@ const analisisRealMeetings:SyllabusMeeting[]=[
 {meeting:2,title:'Landasan Himpunan dan Teorema De Morgan',kind:'Teori',summary:'Notasi kuantor, operasi himpunan, himpunan kosong, dan Teorema De Morgan.',activity:'Membaca definisi, diagram Venn, dan pembuktian formal.'},
 {meeting:3,title:'Teorema De Morgan, Inklusi Ganda, dan Aljabar Himpunan',kind:'Teori',summary:'Pembuktian Teorema 1.1.4 Bartle dengan inklusi ganda dan rantai ekuivalensi.',activity:'Menelaah catatan kuliah dan dokumentasi catatan asli.'},
 {meeting:4,title:'Sifat Terurut Baik dan Prinsip Induksi Matematika',kind:'Teori',summary:'Bartle 1.2.1–1.2.2: Sifat Terurut Baik, prinsip induksi, pembuktian, dan latihan nomor 4.',activity:'Mengikuti bukti kontradiksi dan menyusun bukti induksi langkah demi langkah.'},
-{meeting:5,title:'Bahan Baca: Induksi dari Basis Tertentu dan Contoh (Bartle 1.2.3–1.2.4)',kind:'Teori',summary:'Materi persiapan, belum diklaim sebagai catatan kuliah: induksi mulai n₀ dan contoh penerapan.',activity:'Baca sebagai persiapan pertemuan berikutnya.'},
-{meeting:6,title:'Sifat Aljabar di ℝ (Bartle 2.1) & Pembahasan Latihan',kind:'Teori',summary:'Presentasi Kelompok 2 (Teorema 2.1.3), telaah kritis/koreksi dosen, serta penyelesaian formal Latihan Section 2.1 No 1–6.',activity:'Menelaah bukti aksiomatis lapangan, menganalisis koreksi dosen, dan memeriksa solusi latihan.'},
-{meeting:7,title:'Bahan Baca: Himpunan Berhingga dan Tak Hingga (Bartle 1.3)',kind:'Teori',summary:'Materi persiapan, belum diklaim sebagai catatan kuliah: berhingga, terhitung, dan tak terhitung.',activity:'Baca sebagai persiapan setelah Section 1.2 selesai.'},
+{meeting:5,title:'Latihan Induksi & Sifat Aljabar di ℝ',kind:'Teori',summary:'Pembahasan Latihan Section 1.2 No 1–11, sembilan aksioma lapangan (A1–A4, M1–M4, D), dan Teorema 2.1.2 Kelompok 1.',activity:'Menelaah deduksi induksi dan aksioma dasar lapangan.'},
+{meeting:6,title:'Sifat Aljabar di ℝ & Pembahasan Latihan 2.1',kind:'Teori',summary:'Presentasi Kelompok 2 (Teorema 2.1.3), telaah kritis/koreksi dosen, serta penyelesaian formal Latihan Section 2.1 No 1–6.',activity:'Menelaah bukti aksiomatis lapangan, menganalisis koreksi dosen, dan memeriksa solusi latihan.'},
+{meeting:7,title:'Himpunan Berhingga dan Tak Hingga',kind:'Teori',summary:'Definisi himpunan terhitung, tak terhitung, himpunan berhingga, dan sifat keterbilangan menurut Bartle 1.3.',activity:'Mempelajari kardinalitas dan keterbilangan himpunan.'},
 ...blank(8,16)
 ]
 const analisisKompleksMeetings:SyllabusMeeting[]=[

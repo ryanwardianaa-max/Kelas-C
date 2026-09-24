@@ -24,6 +24,6 @@ for (const path of [
   const code = path.match(/KP\d+/)?.[0];
   assert.ok(html.includes(`/?course=${code}`), `${path} harus kembali ke detail matkul`);
 }
-assert.match(detail, /onBlur=\{\(e\) =>/, "catatan pertemuan harus disimpan saat fokus lepas, bukan tiap ketikan");
-assert.doesNotMatch(detail, /onChange=\{\(e\) => saveNote/, "catatan tidak boleh memicu satu simpan cloud per huruf");
+// Form input catatan manual di kartu pertemuan telah dihapus agar antarmuka ringkas
+assert.doesNotMatch(detail, /<textarea/, "input catatan kuliah pada kartu pertemuan sudah dihapus agar antarmuka ringkas");
 console.log("course navigation regression: OK");

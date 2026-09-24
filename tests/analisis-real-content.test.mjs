@@ -15,9 +15,9 @@ const expectedTitles = [
   "Landasan Himpunan dan Teorema De Morgan",
   "Teorema De Morgan, Inklusi Ganda, dan Aljabar Himpunan",
   "Sifat Terurut Baik dan Prinsip Induksi Matematika",
-  "Bahan Baca: Induksi dari Basis Tertentu dan Contoh (Bartle 1.2.3–1.2.4)",
-  "Sifat Aljabar di ℝ (Bartle 2.1) & Pembahasan Latihan",
-  "Bahan Baca: Himpunan Berhingga dan Tak Hingga (Bartle 1.3)",
+  "Latihan Induksi & Sifat Aljabar di ℝ",
+  "Sifat Aljabar di ℝ & Pembahasan Latihan 2.1",
+  "Himpunan Berhingga dan Tak Hingga",
   ...Array.from({ length: 9 }, (_, i) => `Pertemuan ${String(i + 8).padStart(2, "0")} (Belum diisi)`),
 ];
 assert.deepEqual(titles, expectedTitles, "judul silabus Analisis Real berubah");
