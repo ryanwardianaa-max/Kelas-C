@@ -1,9 +1,700 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prinsip Induksi Kuat — Analisis Real</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f8fafc;color:#172033;font-family:Segoe UI,system-ui,sans-serif;overflow-x:hidden}.top-nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px max(16px,calc((100% - 860px)/2));background:rgba(255,255,255,.96);border-bottom:1px solid #e2e8f0}.top-nav a{color:#be3455;text-decoration:none;font-weight:700}.nav-meta{font-size:.82rem;color:#64748b}.page{max-width:860px;margin:auto;padding:24px 16px 56px}header{padding:18px 0 8px}.badge{display:inline-block;border-radius:999px;background:#ffe7ee;color:#a61f43;padding:5px 10px;font-weight:800;font-size:.78rem}h1{font-size:clamp(1.7rem,5vw,2.55rem);line-height:1.12;margin:12px 0}h2{font-size:1.28rem;margin:0 0 12px}h3{font-size:1.05rem;margin:18px 0 8px}p,li{line-height:1.72}.meta-info{display:flex;flex-wrap:wrap;gap:8px;color:#526078;font-size:.9rem}.meta-info span{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:7px 9px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:clamp(16px,4vw,24px);margin:16px 0}.formula{border-left:4px solid #db5874}.example{border-left:4px solid #2563eb}.warn{border-left:4px solid #e59a18;background:#fffaf0}.correct{border-left:4px solid #16a36a;background:#f3fff9}.reading{border-left:4px solid #7c3aed;background:#faf7ff}.math-step-box,.table-wrap{overflow-x:auto;overflow-y:hidden}.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}.steps{counter-reset:step;list-style:none;padding:0}.steps>li{counter-increment:step;position:relative;padding-left:42px;margin:14px 0}.steps>li:before{content:counter(step);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#db5874;color:#fff;font-weight:800}table{border-collapse:collapse;width:100%;min-width:580px}th,td{border:1px solid #dbe3ef;padding:10px;text-align:left;vertical-align:top}th{background:#f1f5f9}.cta{display:inline-block;background:#be3455;color:#fff!important;text-decoration:none;border-radius:9px;padding:11px 15px;font-weight:800}.source{font-size:.9rem;color:#64748b}@media(max-width:520px){.nav-meta{display:none}.page{padding-top:14px}.card{border-radius:11px}}
-</style></head><body><nav class="top-nav"><a href="/?course=KP21517004" onclick="handleGoBack(event)">← Kembali ke KelasKu</a><span class="nav-meta">KP21517004 · Analisis Real</span></nav><main class="page"><header><span class="badge">Bahan Baca · Pertemuan 06</span><h1>Prinsip Induksi Kuat</h1><p>Persiapan · Bartle 1.2.5 · Belum diklaim sebagai materi yang sudah diajarkan</p><div class="meta-info"><span><b>Dosen:</b> Linda Herawati, S.Pd., M.Pd.</span><span><b>Kelas:</b> C · 2 SKS</span><span><b>Rujukan:</b> Bartle–Sherbert, Edisi 4</span></div></header>
-<section class="card reading"><h2>Status materi</h2><p>Ini <b>bahan baca persiapan</b>, bukan catatan kuliah. Topik ditempatkan setelah 1.2.3–1.2.4 agar urutannya sama dengan buku.</p></section>
-<section class="card formula"><h2>1.2.5 Prinsip Induksi Kuat</h2><p>Misalkan \(S\subseteq\mathbb N\). Jika \(1\in S\), dan untuk setiap \(k\in\mathbb N\),</p><div class="math-step-box">\[\{1,2,\ldots,k\}\subseteq S\quad\Longrightarrow\quad k+1\in S,\]</div><p>maka \(S=\mathbb N\). Pada bentuk \(P(n)\), kita boleh memakai semua kasus \(P(1),\ldots,P(k)\) untuk membuktikan \(P(k+1)\).</p></section>
-<section class="card"><h2>Induksi biasa dan kuat</h2><div class="table-wrap"><table><thead><tr><th>Jenis</th><th>Hipotesis</th><th>Cocok untuk</th></tr></thead><tbody><tr><td>Biasa</td><td>Asumsikan \(P(k)\)</td><td>Kasus berikutnya bergantung langsung pada kasus sebelumnya</td></tr><tr><td>Kuat</td><td>Asumsikan \(P(1),\ldots,P(k)\)</td><td>Kasus berikutnya dapat bergantung pada beberapa kasus terdahulu</td></tr></tbody></table></div><p>Keduanya setara secara logis; kata “kuat” merujuk pada bentuk hipotesis yang lebih luas.</p></section>
-<section class="card example"><h2>Contoh: eksistensi faktorisasi prima</h2><p><b>Pernyataan:</b> setiap bilangan bulat \(n\ge2\) dapat ditulis sebagai hasil kali bilangan prima.</p><ol class="steps"><li>Basis \(n=2\): bilangan 2 sendiri prima.</li><li>Andaikan semua bilangan \(m\) dengan \(2\le m\le k\) mempunyai faktorisasi prima.</li><li>Periksa \(k+1\). Jika prima, selesai.</li><li>Jika komposit, \(k+1=ab\), dengan \(2\le a,b&lt;k+1\).</li><li>Hipotesis kuat berlaku pada \(a\) dan \(b\). Keduanya mempunyai faktorisasi prima; gabungkan faktor-faktornya untuk \(k+1\).</li></ol></section>
-<section class="card warn"><h2>Kapan induksi kuat diperlukan?</h2><p>Gunakan ketika \(P(k+1)\) tidak cukup diturunkan dari satu kasus \(P(k)\). Jangan memilihnya hanya karena tampak lebih canggih.</p></section>
-<section class="card"><h2>Latihan</h2><ol><li>Buktikan setiap \(n\ge2\) mempunyai faktor prima.</li><li>Dengan \(F_1=F_2=1\), buktikan \(F_n&lt;2^n\).</li><li>Jelaskan mengapa induksi kuat setara dengan induksi biasa.</li></ol><p class="source"><b>Sumber:</b> Bartle–Sherbert, edisi keempat, 1.2.5.</p></section></main><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script><script>function handleGoBack(e){if(window.opener&&!window.opener.closed){e.preventDefault();window.close()}}window.addEventListener('DOMContentLoaded',()=>{if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})</script></body></html>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catatan Perkuliahan Pertemuan 06: Sifat Aljabar di ℝ & Pembahasan Latihan Section 2.1 — Analisis Real</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px max(16px, calc((100% - 900px) / 2));
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .top-nav a {
+      color: #db2777;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-meta {
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .page {
+      max-width: 900px;
+      margin: auto;
+      padding: 24px 16px 64px;
+    }
+    header {
+      padding: 12px 0 20px;
+    }
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      background: #fce7f3;
+      color: #9d174d;
+      padding: 4px 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      line-height: 1.2;
+      color: #0f172a;
+      margin: 6px 0 10px;
+      font-weight: 800;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: #475569;
+      margin: 0 0 16px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .meta-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+    }
+    .meta-card b {
+      color: #0f172a;
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+    .download-banner {
+      background: linear-gradient(135deg, #fdf2f8, #fbcfe8);
+      border: 1px solid #f472b6;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin: 20px 0 28px;
+      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.08);
+    }
+    .download-banner h3 {
+      margin: 0 0 8px;
+      color: #831843;
+      font-size: 1.08rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .download-banner p {
+      margin: 0 0 12px;
+      font-size: 0.9rem;
+      color: #4c0519;
+    }
+    .file-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-file {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #db2777;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }
+    .btn-file:hover {
+      background: #be185d;
+      transform: translateY(-1px);
+    }
+    .btn-file.secondary {
+      background: #ffffff;
+      color: #9d174d;
+      border: 1px solid #f472b6;
+    }
+    .btn-file.secondary:hover {
+      background: #fdf2f8;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: clamp(16px, 3.5vw, 24px);
+      margin: 20px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .card h2 {
+      font-size: 1.3rem;
+      color: #0f172a;
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+    .card h3 {
+      font-size: 1.08rem;
+      color: #1e293b;
+      margin: 18px 0 8px;
+    }
+    .axiom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .axiom-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+    }
+    .axiom-box h4 {
+      margin: 0 0 6px;
+      color: #0369a1;
+      font-size: 0.92rem;
+    }
+    .critique-card {
+      background: #fffaf0;
+      border: 1px solid #fed7aa;
+      border-left: 5px solid #f97316;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 14px 0;
+    }
+    .critique-card.error {
+      background: #fff5f5;
+      border-color: #fecaca;
+      border-left-color: #ef4444;
+    }
+    .critique-card.correct {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      border-left-color: #22c55e;
+    }
+    .critique-card h4 {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
+      color: #9a3412;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .critique-card.error h4 { color: #b91c1c; }
+    .critique-card.correct h4 { color: #15803d; }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    table.proof-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    table.proof-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      padding: 8px 12px;
+      text-align: left;
+      border: 1px solid #cbd5e1;
+    }
+    table.proof-table td {
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    table.proof-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    table.proof-table td.step-no {
+      font-weight: 700;
+      color: #64748b;
+      text-align: center;
+      width: 44px;
+    }
+    table.proof-table td.math-cell {
+      font-weight: 500;
+      min-width: 220px;
+    }
+    table.proof-table td.just-cell {
+      color: #475569;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .qed {
+      text-align: right;
+      font-weight: 700;
+      color: #059669;
+      margin-top: 4px;
+    }
+    .summary-box {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-left: 5px solid #0284c7;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .exercise-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #6366f1;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="/?course=KP21517004" onclick="handleGoBack(event)">← Kembali ke KelasKu</a>
+  <span class="nav-meta">KP21517004 · Analisis Real</span>
+</nav>
+
+<main class="page">
+  <header>
+    <span class="badge">Pertemuan 06 · Catatan Kuliah Resmi</span>
+    <h1>Sifat Aljabar di ℝ (Bartle Section 2.1)</h1>
+    <div class="subtitle">Presentasi Kelompok 2 (Teorema 2.1.3), Telaah Kritis &amp; Koreksi Dosen, serta Pembahasan Lengkap Latihan Section 2.1</div>
+    
+    <div class="meta-grid">
+      <div class="meta-card">
+        <b>Dosen Pengampu</b>
+        Linda Herawati, S.Pd., M.Pd.
+      </div>
+      <div class="meta-card">
+        <b>Jadwal &amp; Ruang</b>
+        Kamis, 24 September 2026 · 07:00–08:40 WIB · K.D.2.4
+      </div>
+      <div class="meta-card">
+        <b>Tim Presenter</b>
+        Kelompok 2 (Dini, Meta, Gisni, Risty)
+      </div>
+      <div class="meta-card">
+        <b>Rujukan Utama</b>
+        R. G. Bartle &amp; D. R. Sherbert, <em>Introduction to Real Analysis (4th Ed)</em>, Sec. 2.1
+      </div>
+    </div>
+  </header>
+
+  <div class="download-banner">
+    <h3>📄 Berkas Tugas &amp; Bahan Perkuliahan Hari Ini</h3>
+    <p>Penyelesaian latihan soal nomor 1 sampai 6 telah selesai dikerjakan secara sistematis. Berkas PDF formal (dengan tipografi equation profesional) dan slide kelompok dapat langsung diakses di bawah:</p>
+    <div class="file-buttons">
+      <a class="btn-file" href="./232151098_Ryan_Wardiana_Analisis_Real_Section_2.1_No_2a_2b.pdf" target="_blank" download>
+        ⬇ Unduh Tugas No. 2a–2b (PDF Formal)
+      </a>
+      <a class="btn-file secondary" href="./232151098_Ryan_Wardiana_Analisis_Real_Latihan_Section_2.1_Bartle.pdf" target="_blank" download>
+        ⬇ Unduh Latihan Lengkap 1–6 (PDF 5 Hal)
+      </a>
+      <a class="btn-file secondary" href="./Kelompok_2_Analisis_Real.pdf" target="_blank" download>
+        ⬇ Slide Asli Kelompok 2 (PDF)
+      </a>
+    </div>
+  </div>
+
+  <!-- BAGIAN 1: Aksioma Lapangan -->
+  <section class="card">
+    <h2>1. Aksioma Lapangan Bilangan Real (ℝ, +, ·)</h2>
+    <p>Sistem bilangan real $\mathbb{R}$ dilengkapi dengan dua operasi biner, penjumlahan $(+)$ dan perkalian $(\cdot)$, yang memenuhi sembilan aksioma lapangan dasar berikut:</p>
+    
+    <div class="axiom-grid">
+      <div class="axiom-box">
+        <h4>Aksioma Penjumlahan</h4>
+        <ul>
+          <li><b>(A1) Komutatif:</b> $\forall a, b \in \mathbb{R},\ a + b = b + a$</li>
+          <li><b>(A2) Asosiatif:</b> $\forall a, b, c \in \mathbb{R},\ (a + b) + c = a + (b + c)$</li>
+          <li><b>(A3) Identitas Nol:</b> $\exists 0 \in \mathbb{R} \ni a + 0 = a,\ \forall a \in \mathbb{R}$</li>
+          <li><b>(A4) Invers Aditif:</b> $\forall a \in \mathbb{R},\ \exists (-a) \in \mathbb{R} \ni a + (-a) = 0$</li>
+        </ul>
+      </div>
+      <div class="axiom-box">
+        <h4>Aksioma Perkalian &amp; Distributif</h4>
+        <ul>
+          <li><b>(M1) Komutatif:</b> $\forall a, b \in \mathbb{R},\ a \cdot b = b \cdot a$</li>
+          <li><b>(M2) Asosiatif:</b> $\forall a, b, c \in \mathbb{R},\ (a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
+          <li><b>(M3) Identitas Satuan:</b> $\exists 1 \neq 0 \in \mathbb{R} \ni a \cdot 1 = a,\ \forall a \in \mathbb{R}$</li>
+          <li><b>(M4) Invers Multiplikatif:</b> $\forall a \neq 0,\ \exists (1/a) \in \mathbb{R} \ni a \cdot (1/a) = 1$</li>
+          <li><b>(D) Distributif:</b> $a \cdot (b + c) = a \cdot b + a \cdot c$</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Teorema 2.1.2 (Sifat Awal Lapangan):</b></p>
+    <ul>
+      <li>(a) Jika $z + a = a$, maka $z = 0$ (Ketunggalan elemen identitas 0).</li>
+      <li>(b) Jika $a + b = 0$, maka $b = -a$ (Ketunggalan elemen invers aditif).</li>
+      <li>(c) Untuk setiap $a \in \mathbb{R}$, berlaku $a \cdot 0 = 0$ (Perkalian dengan nol).</li>
+      <li>(d) Jika $u \cdot a = a$ untuk $a \neq 0$, maka $u = 1$ (Ketunggalan identitas 1).</li>
+      <li>(e) Jika $a \cdot b = 1$ untuk $a \neq 0$, maka $b = 1/a$ (Ketunggalan invers multiplikatif).</li>
+    </ul>
+  </section>
+
+  <!-- BAGIAN 2: Presentasi Kelompok 2 -->
+  <section class="card">
+    <h2>2. Materi Presentasi Kelompok 2 (Teorema 2.1.3 Bartle)</h2>
+    <p>Kelompok 2 (Dini Ardiningrum, Meta Ananta Aura, Gisni Siti Nuraeni, Risty Fahira Ramdhani) mempresentasikan <b>Teorema 2.1.3</b> mengenai konsekuensi aljabar lebih lanjut pada lapangan $\mathbb{R}$:</p>
+
+    <div class="axiom-box" style="background: #fdf2f8; border-color: #fbcfe8;">
+      <h4 style="color: #9d174d;">Pernyataan Teorema 2.1.3 Bartle</h4>
+      <p>Jika $a, b, c \in \mathbb{R}$, maka berlaku sifat-sifat berikut:</p>
+      <ol type="a">
+        <li>Jika $a \neq 0$, maka $\frac{1}{a} \neq 0$ dan $\frac{1}{1/a} = a$.</li>
+        <li>Jika $a \cdot b = a \cdot c$ dan $a \neq 0$, maka $b = c$ (Sifat Kanselasi Perkalian).</li>
+        <li>Jika $a \cdot b = 0$, maka $a = 0$ atau $b = 0$ (Lapangan $\mathbb{R}$ Bebas Pembagi Nol).</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- BAGIAN 3: Kritik & Catatan Kritis Dosen -->
+  <section class="card">
+    <h2>3. Telaah Kritis &amp; Catatan Perbaikan Dosen (Bu Linda Herawati)</h2>
+    <p>Pada sesi diskusi perkuliahan, Dosen Pengampu memberikan catatan kritis dan koreksi mendasar terhadap alur pembuktian yang disajikan Kelompok 2. Terdapat 3 catatan logis yang wajib diperbaiki:</p>
+
+    <!-- Catatan 1 -->
+    <div class="critique-card error">
+      <h4>⚠️ Catatan Kritis 1: Penalaran Melingkar (Circular Reasoning) pada Bukti $\frac{1}{1/a} = a$</h4>
+      <p><b>Kekeliruan Kelompok 2:</b> Dalam slide, kelompok menuliskan langkah pembuktian dari kesamaan $\left(\frac{1}{a}\right) \cdot a = 1$, lalu menuliskan keterangan <i>"kedua ruas dibagi $\frac{1}{a}$"</i> sehingga diperoleh $a = \frac{1}{1/a}$.</p>
+      <p><b>Koreksi Bu Linda:</b></p>
+      <ul>
+        <li>Pada aksioma lapangan $\mathbb{R}$, <b>operasi "pembagian" belum didefinisikan secara mandiri</b>. Pembagian $\frac{x}{y}$ didefinisikan sebagai perkalian dengan invers: $x \cdot \left(\frac{1}{y}\right)$.</li>
+        <li>Menulis "kedua ruas dibagi $\frac{1}{a}$" sama saja dengan mengalikan kedua ruas dengan $\frac{1}{1/a}$, yang mana merupakan objek yang <i>justru sedang ingin dibuktikan eksistensi dan kesamaannya</i>. Ini adalah <b>fallacy petitio principii</b> (penalaran melingkar).</li>
+      </ul>
+    </div>
+
+    <div class="critique-card correct">
+      <h4>✅ Pembuktian yang Sah (Berdasarkan Ketunggalan Invers Teorema 2.1.2(e)):</h4>
+      <p>Karena $a \neq 0$, maka menurut Aksioma (M4), ada elemen invers $\frac{1}{a}$ sedemikian sehingga:</p>
+      <div style="text-align: center; margin: 8px 0;">$\left(\frac{1}{a}\right) \cdot a = 1$</div>
+      <p>Persamaan di atas menyatakan bahwa jika elemen $\frac{1}{a}$ dikalikan dengan $a$, hasilnya adalah elemen identitas $1$.</p>
+      <p>Berdasarkan <b>Teorema 2.1.2(e) (Ketunggalan Invers Perkalian)</b>, invers dari elemen $\frac{1}{a}$ adalah tunggal dan dinotasikan dengan $\frac{1}{1/a}$. Karena $a$ memenuhi syarat perkalian menghasilkan $1$, maka menurut ketunggalan tersebut haruslah:</p>
+      <div style="text-align: center; margin: 8px 0; font-weight: bold; font-size: 1.05rem; color: #15803d;">$a = \frac{1}{1/a} \quad \text{atau} \quad \frac{1}{1/a} = a \quad \blacksquare$</div>
+    </div>
+
+    <!-- Catatan 2 -->
+    <div class="critique-card error">
+      <h4>⚠️ Catatan Kritis 2: Penyalahgunaan Simbol Ekuivalensi Logika ($\Leftrightarrow$)</h4>
+      <p><b>Kekeliruan Kelompok 2:</b> Kelompok menghubungkan setiap baris transformasi kesamaan aljabar dengan tanda panah dua arah $(\Leftrightarrow)$:</p>
+      <div style="text-align: center; margin: 6px 0; font-family: monospace;">$(a \cdot b = a \cdot c) \Leftrightarrow \left(\frac{1}{a} \cdot (a \cdot b) = \frac{1}{a} \cdot (a \cdot c)\right) \Leftrightarrow \dots$</div>
+      <p><b>Koreksi Bu Linda:</b></p>
+      <ul>
+        <li>Simbol $\Leftrightarrow$ adalah <b>konektif logika</b> yang menghubungkan dua proposisi pernyataan (bernilai benar atau salah).</li>
+        <li>Penurunan matematis kuantitas aljabar harus menggunakan <b>rantai kesamaan $(=)$</b> dengan justifikasi aksioma yang jelas di samping kanan, atau menggunakan tanda implikasi $(\Rightarrow)$ bila menghubungkan klaim antar premis.</li>
+      </ul>
+    </div>
+
+    <!-- Catatan 3 -->
+    <div class="critique-card error">
+      <h4>⚠️ Catatan Kritis 3: Redundansi pada Pembuktian Sifat Bebas Pembagi Nol</h4>
+      <p><b>Kekeliruan Kelompok 2:</b> Untuk membuktikan $a \cdot b = 0 \Rightarrow a = 0 \lor b = 0$, kelompok membuktikan dua arah: pertama mengasumsikan $a \neq 0$ lalu membuktikan $b = 0$; kedua mengasumsikan $b \neq 0$ lalu membuktikan $a = 0$.</p>
+      <p><b>Koreksi Bu Linda:</b></p>
+      <ul>
+        <li>Secara hukum logika proporsional, pernyataan disjungsi $P \lor Q$ secara ekuivalen bermakna $\neg P \Rightarrow Q$.</li>
+        <li>Cukup lakukan satu kasus: <i>Jika $a = 0$, maka pernyataan selesai (karena $0 = 0 \lor b = 0$ benar). Jika $a \neq 0$, maka $\frac{1}{a}$ ada; kalikan kedua ruas dengan $\frac{1}{a}$ sehingga $b = 0$.</i></li>
+        <li>Langkah kedua tidak diperlukan karena disjungsi sudah terbukti secara paripurna.</li>
+        <li>Selain itu, langkah $\frac{1}{a} \cdot 0 = 0$ wajib mengutip <b>Teorema 2.1.2(c)</b>, karena perkalian dengan nol bukan aksioma lapangan melainkan teorema turunan.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BAGIAN 4: Pembahasan Latihan Section 2.1 -->
+  <section class="card">
+    <h2>4. Pembahasan Lengkap Latihan Section 2.1 (Bartle Hal 31 No 1–6)</h2>
+    <p>Berikut adalah penyelesaian deduktif formal langkah demi langkah dengan rujukan aksioma lapangan secara ketat:</p>
+
+    <!-- SOAL 1 -->
+    <h3>Latihan 1: Sifat Negatif dan Invers Aditif</h3>
+    
+    <div class="exercise-box">
+      <p><b>1(a). Jika $a + b = 0$, buktikan $b = -a$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$b = b + 0$</td><td class="just-cell">Aksioma (A3) Eksistensi Identitas 0</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= b + (a + (-a))$</td><td class="just-cell">Aksioma (A4) Invers Aditif $a + (-a) = 0$</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$= (b + a) + (-a)$</td><td class="just-cell">Aksioma (A2) Sifat Asosiatif Penjumlahan</td></tr>
+            <tr><td class="step-no">4</td><td class="math-cell">$= (a + b) + (-a)$</td><td class="just-cell">Aksioma (A1) Sifat Komutatif Penjumlahan</td></tr>
+            <tr><td class="step-no">5</td><td class="math-cell">$= 0 + (-a)$</td><td class="just-cell">Diketahui hipotesis $a + b = 0$</td></tr>
+            <tr><td class="step-no">6</td><td class="math-cell">$= (-a) + 0$</td><td class="just-cell">Aksioma (A1) Sifat Komutatif Penjumlahan</td></tr>
+            <tr><td class="step-no">7</td><td class="math-cell">$= -a$</td><td class="just-cell">Aksioma (A3) Eksistensi Identitas 0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $b = -a$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box">
+      <p><b>1(b). Buktikan $-(-a) = a$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$(-a) + -(-a) = 0$</td><td class="just-cell">Aksioma (A4) diterapkan pada elemen $(-a)$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$(-a) + a = a + (-a) = 0$</td><td class="just-cell">Aksioma (A4) dan (A1) Komutatif</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$-(-a) = a$</td><td class="just-cell">Teorema 2.1.2(b) Ketunggalan Invers Aditif dari $(-a)$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $-(-a) = a$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box">
+      <p><b>1(c). Buktikan $(-1)a = -a$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$a + (-1)a = 1 \cdot a + (-1)a$</td><td class="just-cell">Aksioma (M3) Identitas Perkalian $a = 1 \cdot a$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= (1 + (-1))a$</td><td class="just-cell">Aksioma (D) Sifat Distributif Kanan</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$= 0 \cdot a = a \cdot 0$</td><td class="just-cell">Aksioma (A4) Invers Aditif $1 + (-1) = 0$ dan (M1)</td></tr>
+            <tr><td class="step-no">4</td><td class="math-cell">$= 0$</td><td class="just-cell">Teorema 2.1.2(c) Perkalian dengan Nol</td></tr>
+            <tr><td class="step-no">5</td><td class="math-cell">$(-1)a = -a$</td><td class="just-cell">Teorema 2.1.2(b) Ketunggalan Invers Aditif dari $a$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $(-1)a = -a$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box">
+      <p><b>1(d). Buktikan $(-1)(-1) = 1$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$(-1)(-1) = -(-1)$</td><td class="just-cell">Substitusi $a = -1$ ke dalam rumus terbukti 1(c): $(-1)a = -a$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$-(-1) = 1$</td><td class="just-cell">Substitusi $a = 1$ ke dalam rumus terbukti 1(b): $-(-a) = a$</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$(-1)(-1) = 1$</td><td class="just-cell">Sifat transitif kesamaan</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $(-1)(-1) = 1$. $\blacksquare$</div>
+    </div>
+
+    <!-- SOAL 2 -->
+    <h3 style="color: #db2777;">Latihan 2: Sifat Aljabar Lanjutan (Fokus Utama Tugas Mahasiswa)</h3>
+
+    <div class="exercise-box" style="border-left-color: #db2777;">
+      <p><b>2(a). Buktikan $-(a + b) = (-a) + (-b)$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$(a + b) + ((-a) + (-b)) = ((a + b) + (-a)) + (-b)$</td><td class="just-cell">Aksioma (A2) Sifat Asosiatif Penjumlahan</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= ((b + a) + (-a)) + (-b)$</td><td class="just-cell">Aksioma (A1) Sifat Komutatif Penjumlahan</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$= (b + (a + (-a))) + (-b)$</td><td class="just-cell">Aksioma (A2) Sifat Asosiatif Penjumlahan</td></tr>
+            <tr><td class="step-no">4</td><td class="math-cell">$= (b + 0) + (-b)$</td><td class="just-cell">Aksioma (A4) Invers Aditif $a + (-a) = 0$</td></tr>
+            <tr><td class="step-no">5</td><td class="math-cell">$= b + (-b)$</td><td class="just-cell">Aksioma (A3) Identitas Penjumlahan $b + 0 = b$</td></tr>
+            <tr><td class="step-no">6</td><td class="math-cell">$= 0$</td><td class="just-cell">Aksioma (A4) Invers Aditif $b + (-b) = 0$</td></tr>
+            <tr><td class="step-no">7</td><td class="math-cell">$(-a) + (-b) = -(a + b)$</td><td class="just-cell">Teorema 2.1.2(b) Ketunggalan Invers Aditif dari $(a + b)$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $-(a + b) = (-a) + (-b)$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box" style="border-left-color: #db2777;">
+      <p><b>2(b). Buktikan $(-a) \cdot (-b) = a \cdot b$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$(-a) \cdot (-b) = [(-1)a] \cdot [(-1)b]$</td><td class="just-cell">Teorema terbukti 1(c): $-x = (-1)x$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= [((-1)a) \cdot (-1)] \cdot b$</td><td class="just-cell">Aksioma (M2) Sifat Asosiatif Perkalian</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$= [(-1) \cdot ((-1)a)] \cdot b$</td><td class="just-cell">Aksioma (M1) Sifat Komutatif Perkalian</td></tr>
+            <tr><td class="step-no">4</td><td class="math-cell">$= [((-1) \cdot (-1)) \cdot a] \cdot b$</td><td class="just-cell">Aksioma (M2) Sifat Asosiatif Perkalian</td></tr>
+            <tr><td class="step-no">5</td><td class="math-cell">$= [1 \cdot a] \cdot b$</td><td class="just-cell">Teorema terbukti 1(d): $(-1)(-1) = 1$</td></tr>
+            <tr><td class="step-no">6</td><td class="math-cell">$= a \cdot b$</td><td class="just-cell">Aksioma (M3) Identitas Satuan $1 \cdot a = a$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $(-a) \cdot (-b) = a \cdot b$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box" style="border-left-color: #db2777;">
+      <p><b>2(c). Jika $a \neq 0$, buktikan $\frac{1}{-a} = -\left(\frac{1}{a}\right)$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$(-a) \cdot \left[-\left(\frac{1}{a}\right)\right] = a \cdot \left(\frac{1}{a}\right)$</td><td class="just-cell">Teorema terbukti 2(b): $(-x)(-y) = xy$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= 1$</td><td class="just-cell">Aksioma (M4) Invers Perkalian $a \cdot (1/a) = 1$</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$-\left(\frac{1}{a}\right) = \frac{1}{-a}$</td><td class="just-cell">Teorema 2.1.2(e) Ketunggalan Invers Perkalian dari $(-a)$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $\frac{1}{-a} = -\left(\frac{1}{a}\right)$. $\blacksquare$</div>
+    </div>
+
+    <div class="exercise-box" style="border-left-color: #db2777;">
+      <p><b>2(d). Jika $b \neq 0$, buktikan $-\left(\frac{a}{b}\right) = \frac{-a}{b}$.</b></p>
+      <div class="table-wrap">
+        <table class="proof-table">
+          <thead><tr><th>No</th><th>Persamaan</th><th>Alasan / Aksioma</th></tr></thead>
+          <tbody>
+            <tr><td class="step-no">1</td><td class="math-cell">$-\left(\frac{a}{b}\right) = -\left(a \cdot \frac{1}{b}\right)$</td><td class="just-cell">Definisi pembagian: $a/b := a \cdot (1/b)$</td></tr>
+            <tr><td class="step-no">2</td><td class="math-cell">$= (-1)\left(a \cdot \frac{1}{b}\right)$</td><td class="just-cell">Teorema terbukti 1(c): $-x = (-1)x$</td></tr>
+            <tr><td class="step-no">3</td><td class="math-cell">$= ((-1)a) \cdot \frac{1}{b}$</td><td class="just-cell">Aksioma (M2) Sifat Asosiatif Perkalian</td></tr>
+            <tr><td class="step-no">4</td><td class="math-cell">$= (-a) \cdot \frac{1}{b}$</td><td class="just-cell">Teorema terbukti 1(c): $(-1)a = -a$</td></tr>
+            <tr><td class="step-no">5</td><td class="math-cell">$= \frac{-a}{b}$</td><td class="just-cell">Definisi pembagian</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="qed">Terbukti: $-\left(\frac{a}{b}\right) = \frac{-a}{b}$. $\blacksquare$</div>
+    </div>
+
+    <!-- SOAL 3 -->
+    <h3>Latihan 3: Menyelesaikan Persamaan dengan Justifikasi Aksioma</h3>
+    <div class="exercise-box">
+      <p><b>3(a). $2x + 5 = 8$</b></p>
+      <p>Tambahkan $(-5)$ pada kedua ruas $\Rightarrow 2x + (5 + (-5)) = 8 + (-5) \Rightarrow 2x + 0 = 3 \Rightarrow 2x = 3$.<br>
+      Kalikan kedua ruas dengan $\frac{1}{2}$ $\Rightarrow \left(\frac{1}{2} \cdot 2\right)x = \frac{1}{2} \cdot 3 \Rightarrow 1 \cdot x = \frac{3}{2} \Rightarrow x = \frac{3}{2}$.</p>
+      
+      <p><b>3(b). $x^2 = 2x$</b></p>
+      <p>Tambahkan $(-2x)$ $\Rightarrow x^2 + (-2x) = 0 \Rightarrow x(x - 2) = 0$ (Distributif D).<br>
+      Berdasarkan Teorema 2.1.3(c) (Bebas Pembagi Nol), maka $x = 0$ atau $x - 2 = 0 \Rightarrow x \in \{0, 2\}$.</p>
+
+      <p><b>3(c). $x^2 - 1 = 3$</b></p>
+      <p>Tambahkan $1$ $\Rightarrow x^2 = 4 \Rightarrow x^2 - 4 = 0 \Rightarrow (x - 2)(x + 2) = 0$.<br>
+      Menurut Teorema 2.1.3(c), $x - 2 = 0$ atau $x + 2 = 0 \Rightarrow x \in \{2, -2\}$.</p>
+
+      <p><b>3(d). $(x - 1)(x + 2) = 0$</b></p>
+      <p>Menurut Teorema 2.1.3(c), berlaku $x - 1 = 0$ atau $x + 2 = 0 \Rightarrow x = 1$ atau $x = -2$.</p>
+    </div>
+
+    <!-- SOAL 4 -->
+    <h3>Latihan 4: Elemen Idempoten Lapangan ℝ</h3>
+    <div class="exercise-box">
+      <p><b>Buktikan jika $a \in \mathbb{R}$ memenuhi $a \cdot a = a$, maka $a = 0$ atau $a = 1$.</b></p>
+      <p><b>Bukti:</b></p>
+      <div style="margin-left: 12px;">
+        $a \cdot a = a \iff a \cdot a + (-a) = a + (-a) \iff a \cdot a + a \cdot (-1) = 0 \iff a(a - 1) = 0$.<br>
+        Berdasarkan Teorema 2.1.3(c) (Bebas Pembagi Nol), perkalian dua elemen bernilai nol mengimplikasikan salah satu faktornya haruslah nol:<br>
+        $a = 0 \quad \text{atau} \quad a - 1 = 0 \iff a = 1$.<br>
+        Jadi terbukti bahwa hanya $a = 0$ atau $a = 1$ yang memenuhi. $\blacksquare$
+      </div>
+    </div>
+
+    <!-- SOAL 5 -->
+    <h3>Latihan 5: Invers Multiplikatif dari Hasil Kali</h3>
+    <div class="exercise-box">
+      <p><b>Jika $a \neq 0$ dan $b \neq 0$, tunjukkan bahwa $\frac{1}{ab} = \left(\frac{1}{a}\right)\left(\frac{1}{b}\right)$.</b></p>
+      <p><b>Bukti:</b></p>
+      <div style="margin-left: 12px;">
+        Hitung hasil kali elemen $(ab)$ dengan $\left[\left(\frac{1}{a}\right)\left(\frac{1}{b}\right)\right]$:<br>
+        $$\begin{aligned}
+        (ab) \cdot \left[\left(\frac{1}{a}\right)\left(\frac{1}{b}\right)\right] &= \left[a \cdot \left(b \cdot \frac{1}{a}\right)\right] \cdot \frac{1}{b} && \text{[Asosiatif M2]} \\
+        &= \left[a \cdot \left(\frac{1}{a} \cdot b\right)\right] \cdot \frac{1}{b} && \text{[Komutatif M1]} \\
+        &= \left[\left(a \cdot \frac{1}{a}\right) \cdot b\right] \cdot \frac{1}{b} && \text{[Asosiatif M2]} \\
+        &= [1 \cdot b] \cdot \frac{1}{b} && \text{[Invers M4]} \\
+        &= b \cdot \frac{1}{b} && \text{[Identitas M3]} \\
+        &= 1 && \text{[Invers M4]}
+        \end{aligned}$$
+        Karena perkaliannya menghasilkan elemen satuan $1$, maka berdasarkan <b>Teorema 2.1.2(e) (Ketunggalan Invers Multiplikatif)</b>, invers dari $(ab)$ adalah tunggal, yaitu $\frac{1}{ab} = \left(\frac{1}{a}\right)\left(\frac{1}{b}\right)$. $\blacksquare$
+      </div>
+    </div>
+
+    <!-- SOAL 6 -->
+    <h3>Latihan 6: Ketakrasionalan $\sqrt{6} \notin \mathbb{Q}$</h3>
+    <div class="exercise-box">
+      <p><b>Gunakan argumen pada pembuktian Teorema 2.1.4 untuk menunjukkan tidak ada bilangan rasional $s$ sedemikian sehingga $s^2 = 6$.</b></p>
+      <p><b>Bukti (Kontradiksi):</b></p>
+      <div style="margin-left: 12px;">
+        Andaikan ada $s \in \mathbb{Q}$ sedemikian sehingga $s^2 = 6$. Karena $s$ rasional, $s$ dapat dituliskan dalam bentuk pecahan paling sederhana:
+        $$s = \frac{p}{q}, \quad p, q \in \mathbb{Z}, \ q \neq 0, \ \text{FPB}(p, q) = 1.$$
+        Maka:
+        $$\left(\frac{p}{q}\right)^2 = 6 \implies \frac{p^2}{q^2} = 6 \implies p^2 = 6q^2 = 2(3q^2).$$
+        Karena $p^2$ adalah kelipatan 2 (genap), maka $p$ haruslah bilangan genap (sebab kuadrat bilangan ganjil selalu ganjil).<br>
+        Misalkan $p = 2k$ untuk suatu $k \in \mathbb{Z}$. Substitusikan ke persamaan:
+        $$(2k)^2 = 6q^2 \implies 4k^2 = 6q^2 \implies 2k^2 = 3q^2.$$
+        Karena ruas kiri $2k^2$ genap, maka ruas kanan $3q^2$ juga harus genap. Karena 3 adalah ganjil, maka haruslah $q^2$ genap, yang mengimplikasikan $q$ juga genap.<br>
+        Karena $p$ genap dan $q$ genap, maka keduanya memiliki faktor persekutuan 2. Hal ini berkontradiksi dengan asumsi awal bahwa $\text{FPB}(p, q) = 1$.<br>
+        Pengandaian salah. Jadi, tidak ada bilangan rasional $s$ sedemikian sehingga $s^2 = 6$ (artinya $\sqrt{6}$ irasional). $\blacksquare$
+      </div>
+    </div>
+  </section>
+
+  <!-- BAGIAN 5: Ringkasan -->
+  <section class="card summary-box">
+    <h2>Ringkasan</h2>
+    <ul>
+      <li>Struktur aljabar bilangan real $\mathbb{R}$ dibangun atas 9 aksioma lapangan: 4 aksioma penjumlahan (A1–A4), 4 aksioma perkalian (M1–M4), dan 1 aksioma distributif (D).</li>
+      <li>Operasi pengurangan ($a - b := a + (-b)$) dan pembagian ($a / b := a \cdot (1/b)$) bukan operasi independen, melainkan didefinisikan melalui eksistensi invers aditif dan invers perkalian.</li>
+      <li>Teorema 2.1.3 menjamin sifat invers ganda $\frac{1}{1/a} = a$, sifat kanselasi perkalian, dan ketiadaan pembagi nol sejati di $\mathbb{R}$.</li>
+      <li>Dalam menyusun bukti formal, dilarang melakukan <i>circular reasoning</i> (seperti menulis "dibagi $1/a$"), dilarang menyalahgunakan konektif logika $\Leftrightarrow$ untuk rantai kesamaan kuantitas, dan wajib merujuk ketunggalan invers atau lema perkalian nol Teorema 2.1.2.</li>
+      <li>Catatan sejarah silabus: Materi Induksi Kuat (Bartle 1.2.5) dan Induksi Basis Tertentu (1.2.3–1.2.4) telah dituntaskan pada pertemuan sebelumnya sebagai prasyarat penalaran induktif.</li>
+    </ul>
+  </section>
+
+  <!-- BAGIAN 6: Latihan Mandiri -->
+  <section class="card">
+    <h2>Latihan Mandiri</h2>
+    <ol>
+      <li>Buktikan bahwa untuk setiap $a, b \in \mathbb{R}$, jika $a + b = a$, maka $b = 0$ (Ketunggalan identitas penjumlahan tanpa mengasumsikan invers sudah ada sebelumnya).</li>
+      <li>Tunjukkan dengan aksioma lapangan bahwa $(a + b)(c + d) = ac + ad + bc + bd$ untuk setiap $a, b, c, d \in \mathbb{R}$.</li>
+      <li>Buktikan bahwa jika $a \neq 0$ dan $b \neq 0$, maka $\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}$ menggunakan definisi pecahan $x/y = x \cdot (1/y)$ dan aksioma lapangan.</li>
+      <li>Gunakan metode kontradiksi yang serupa dengan Latihan 6 untuk membuktikan bahwa $\sqrt{3} + \sqrt{2}$ adalah bilangan irasional.</li>
+    </ol>
+  </section>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+function handleGoBack(e){
+  if (window.opener && !window.opener.closed) {
+    e.preventDefault();
+    window.close();
+  }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</body>
+</html>

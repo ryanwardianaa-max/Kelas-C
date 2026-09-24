@@ -16,7 +16,7 @@ const expectedTitles = [
   "Teorema De Morgan, Inklusi Ganda, dan Aljabar Himpunan",
   "Sifat Terurut Baik dan Prinsip Induksi Matematika",
   "Bahan Baca: Induksi dari Basis Tertentu dan Contoh (Bartle 1.2.3–1.2.4)",
-  "Bahan Baca: Induksi Kuat (Bartle 1.2.5)",
+  "Sifat Aljabar di ℝ (Bartle 2.1) & Pembahasan Latihan",
   "Bahan Baca: Himpunan Berhingga dan Tak Hingga (Bartle 1.3)",
   ...Array.from({ length: 9 }, (_, i) => `Pertemuan ${String(i + 8).padStart(2, "0")} (Belum diisi)`),
 ];
@@ -44,8 +44,8 @@ assert.match(p5, /1\.2\.3/);
 assert.match(p5, /1\.2\.4/);
 assert.match(p5, /Bahan Baca/);
 const p6 = readFileSync("public/materi/KP21517004/pertemuan-06/index.html", "utf8");
-assert.match(p6, /1\.2\.5/);
-assert.match(p6, /Bahan Baca/);
+assert.match(p6, /Teorema 2\.1\.3|Sifat Aljabar/);
+assert.match(p6, /Kelompok 2/);
 const p7 = readFileSync("public/materi/KP21517004/pertemuan-07/index.html", "utf8");
 assert.match(p7, /Bahan Baca/);
 assert.match(p7, /1\.3/);
