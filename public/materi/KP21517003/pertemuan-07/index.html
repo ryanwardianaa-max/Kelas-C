@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Pertemuan 07 — Catatan Kuliah Analisis Kompleks (KP21517003)</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #1e293b; --bg: #f8fafc; --paper: #ffffff;
+      --brand: #4338ca; --brand-dark: #312e81; --accent: #6558df;
+      --accent-soft: #f5f3ff; --line: #e2e8f0; --text-muted: #64748b;
+      --success: #10b981; --warning: #d97706; --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; max-width: 100vw; overflow-x: hidden;
+      background: var(--bg); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+    }
+    .page {
+      width: 100%; max-width: 880px; margin: 12px auto 50px; padding: 20px 16px;
+      background: var(--paper); border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05); border: 1px solid var(--line);
+    }
+    @media (min-width: 640px) { .page { margin: 20px auto 60px; padding: 32px 36px; } }
+
+    .top-nav {
+      position: sticky; top: 8px; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 14px; background: rgba(30, 27, 75, 0.96); backdrop-filter: blur(12px);
+      color: white; border-radius: 12px; margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16); border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .nav-back-btn {
+      display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
+      color: white; border: none; padding: 7px 14px; border-radius: 8px;
+      font-weight: 600; font-size: 0.82rem; cursor: pointer; text-decoration: none;
+      transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-back-btn:hover { background: #7c70e9; transform: translateX(-2px); }
+    .nav-title {
+      font-size: 0.78rem; color: #c7d2fe; font-weight: 500; text-align: right;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: 8px;
+    }
+
+    header {
+      padding: 22px 20px; background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
+      color: white; border-radius: 14px; margin-bottom: 24px;
+    }
+    header h1 { font-size: 1.35rem; line-height: 1.35; margin-bottom: 8px; }
+    header p { font-size: 0.9rem; color: #ddd6fe; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28);
+      padding: 3px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.04em; margin-bottom: 10px;
+    }
+    .badge-alert {
+      display: inline-block; background: #dc2626; color: white;
+      padding: 3px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+      margin-left: 8px;
+    }
+    .meta-info {
+      display: grid; gap: 4px; margin-top: 14px; padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.18); font-size: 0.82rem; color: #e0e7ff;
+    }
+
+    h2 {
+      font-size: 1.15rem; color: var(--brand-dark); margin: 34px 0 12px;
+      padding-bottom: 8px; border-bottom: 2px solid var(--accent-soft);
+    }
+    h3 {
+      font-size: 1.02rem; color: #1e1b4b; margin: 20px 0 8px;
+    }
+    p { margin-bottom: 14px; font-size: 0.94rem; color: #334155; }
+    ul, ol { margin: 10px 0 16px 22px; font-size: 0.93rem; color: #334155; }
+    li { margin-bottom: 6px; }
+
+    .card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 18px; margin: 18px 0; box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+    }
+    .card-highlight {
+      background: #f8fafc; border-left: 4px solid var(--brand);
+    }
+    .card-uts {
+      background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b;
+    }
+
+    .gallery {
+      display: grid; grid-template-columns: 1fr; gap: 14px; margin: 20px 0;
+    }
+    @media (min-width: 640px) { .gallery { grid-template-columns: 1fr 1fr; } }
+    .gallery-item {
+      border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+      background: #fafafa;
+    }
+    .gallery-item img {
+      width: 100%; height: auto; display: block; object-fit: cover;
+    }
+    .gallery-caption {
+      padding: 8px 12px; font-size: 0.78rem; color: var(--text-muted);
+      background: #ffffff; border-top: 1px solid var(--line); text-align: center;
+    }
+
+    .step-box {
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;
+      padding: 14px 16px; margin: 12px 0;
+    }
+    .step-tag {
+      font-size: 0.74rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--brand); margin-bottom: 4px; display: block;
+    }
+
+    .math-scroll {
+      overflow-x: auto; padding: 10px 4px; margin: 8px 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto; margin: 16px 0;
+    }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 0.88rem;
+    }
+    th, td {
+      border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top;
+    }
+    th {
+      background: #f1f5f9; color: var(--brand-dark); font-weight: 600;
+    }
+
+    .tool-cta {
+      display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 12px;
+      padding: 16px 18px; margin: 26px 0 16px;
+    }
+    @media (min-width: 640px) {
+      .tool-cta { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .tool-cta span { font-size: 0.88rem; color: #312e81; font-weight: 500; }
+    .tool-cta a {
+      background: var(--brand); color: white; text-decoration: none;
+      padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
+      white-space: nowrap; transition: 0.2s;
+    }
+    .tool-cta a:hover { background: #3730a3; }
+
+    footer.page-foot {
+      margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--line);
+      font-size: 0.8rem; color: var(--text-muted); text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="top-nav">
+    <a href="/?course=KP21517003" class="nav-back-btn" onclick="handleGoBack(event)">
+      &larr; Kembali ke KelasKu
+    </a>
+    <div class="nav-title">Analisis Kompleks (KP21517003) &middot; Pertemuan 07</div>
+  </div>
+
+  <header>
+    <span class="badge">PERTEMUAN 07 &middot; PRA-UTS</span>
+    <span class="badge-alert">KISI-KISI UTS TAHUN LALU</span>
+    <h1>Pembuktian Teorema De Moivre, Penarikan Akar Kompleks &amp; Bedah Soal UTS</h1>
+    <p>Dokumentasi resmi perkuliahan Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Penurunan aljabar trigonometri, penurunan formula akar ke-$n$ ($z^n = w$), interpretasi geometris poligon bidang Argand, dan solusi langkah demi langkah soal UTS tahun lalu.</p>
+    <div class="meta-info">
+      <div><strong>Dosen Pengampu:</strong> Vepi Apiati, S.Pd., M.Pd.</div>
+      <div><strong>Jadwal Perkuliahan:</strong> Senin, 28 September 2026 &middot; 07:00 – 08:40 WIB &middot; Ruang C.1.3</div>
+      <div><strong>Status Evaluasi:</strong> Pertemuan Terakhir Pra-UTS &middot; Ujian Tengah Semester: Senin, 05 Oktober 2026</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card card-uts">
+      <h3 style="color:#b45309; margin-top:0;">⚠️ Catatan Khusus Dosen Terkait Ujian Tengah Semester (UTS)</h3>
+      <p style="margin-bottom:0;">Pada pertemuan ini, Ibu Vepi menegaskan bahwa latihan soal yang diberikan di papan tulis diambil langsung dari <strong>soal riil UTS tahun sebelumnya</strong>. UTS Analisis Kompleks akan dilaksanakan pada hari <strong>Senin, 05 Oktober 2026</strong>. Mahasiswa wajib menguasai penalaran deduktif aljabar, pembuktian dengan Teorema De Moivre, serta teknik penarikan akar kompleks hingga ke koordinat poligon bidang Argand.</p>
+    </div>
+
+    <h2>1. Dokumentasi Foto Papan Tulis Kelas</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="papan_p07_teori_akar.jpg" alt="Papan Tulis Teori Penarikan Akar Kompleks">
+        <div class="gallery-caption"><strong>Papan 1:</strong> Penurunan Teorema Akar Bilangan Kompleks ($z^n = w$).</div>
+      </div>
+      <div class="gallery-item">
+        <img src="papan_p07_soal_uts.jpg" alt="Papan Tulis Soal UTS Tahun Lalu">
+        <div class="gallery-caption"><strong>Papan 2:</strong> Dua Soal UTS: $z^5 = -32$ dan $(-1 + i)^{1/3}$.</div>
+      </div>
+    </div>
+
+    <h2>2. Pembuktian Identitas Trigonometri Sudut Majemuk via De Moivre</h2>
+    <p>Sebelum masuk ke materi akar, perkuliahan diawali dengan membuktikan identitas trigonometri tingkat lanjut menggunakan Teorema De Moivre: $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$.</p>
+
+    <div class="card card-highlight">
+      <h3>Soal 1: Buktikan bahwa $\cos(5\theta) = 16\cos^5(\theta) - 20\cos^3(\theta) + 5\cos(\theta)$</h3>
+      
+      <div class="step-box">
+        <span class="step-tag">Langkah 1: Landasan Teorema De Moivre</span>
+        <p>Berdasarkan rumus De Moivre untuk $n = 5$:</p>
+        <div class="math-scroll">$$(\cos\theta + i\sin\theta)^5 = \cos(5\theta) + i\sin(5\theta)$$</div>
+        <p>Maka $\cos(5\theta)$ diperoleh dengan mengambil <strong>bagian real</strong> dari ekspansi binomial ruas kiri.</p>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 2: Ekspansi Binomial Newton</span>
+        <p>Misalkan $c = \cos\theta$ dan $s = \sin\theta$. Koefisien binomial Pascal $n=5$ adalah $1, 5, 10, 10, 5, 1$:</p>
+        <div class="math-scroll">$$(c + is)^5 = c^5 + 5c^4(is) + 10c^3(is)^2 + 10c^2(is)^3 + 5c(is)^4 + (is)^5$$</div>
+        <p>Hitung perpangkatan unit imajiner $i$ ($i^2 = -1, i^3 = -i, i^4 = 1, i^5 = i$):</p>
+        <div class="math-scroll">$$(c + is)^5 = c^5 + 5i c^4 s - 10c^3 s^2 - 10i c^2 s^3 + 5c s^4 + i s^5$$</div>
+        <p>Kelompokkan bagian real dan imajiner:</p>
+        <div class="math-scroll">$$(c + is)^5 = (c^5 - 10c^3 s^2 + 5c s^4) + i (5c^4 s - 10c^2 s^3 + s^5)$$</div>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 3: Ambil Bagian Real &amp; Substitusi Identitas Pythagoras</span>
+        <p>Karena kita mencari $\cos(5\theta)$, ambil bagian yang tidak memuat $i$:</p>
+        <div class="math-scroll">$$\cos(5\theta) = c^5 - 10c^3 s^2 + 5c s^4$$</div>
+        <p>Karena ruas kanan hanya berupa fungsi kosinus, ganti $s^2 = 1 - c^2$ dan $s^4 = (1 - c^2)^2 = 1 - 2c^2 + c^4$:</p>
+        <div class="math-scroll">$$\cos(5\theta) = c^5 - 10c^3(1 - c^2) + 5c(1 - 2c^2 + c^4)$$</div>
+        <p>Jabarkan perkalian distributif:</p>
+        <div class="math-scroll">$$\cos(5\theta) = c^5 - 10c^3 + 10c^5 + 5c - 10c^3 + 5c^5$$</div>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 4: Kumpulkan Suku Sejenis</span>
+        <ul>
+          <li>Derajat 5: $c^5 + 10c^5 + 5c^5 = 16c^5$</li>
+          <li>Derajat 3: $-10c^3 - 10c^3 = -20c^3$</li>
+          <li>Derajat 1: $+5c$</li>
+        </ul>
+        <div class="math-scroll">$$\cos(5\theta) = 16\cos^5(\theta) - 20\cos^3(\theta) + 5\cos(\theta) \quad \blacksquare \text{ (Terbukti)}$$</div>
+      </div>
+    </div>
+
+    <div class="card card-highlight">
+      <h3>Soal 2: Buktikan bahwa $\frac{\sin(5\theta)}{\sin(\theta)} = 16\cos^4(\theta) - 12\cos^2(\theta) + 1$ (untuk $\sin\theta \neq 0$)</h3>
+      
+      <div class="step-box">
+        <span class="step-tag">Langkah 1: Ambil Bagian Imajiner</span>
+        <p>Dari ekspansi binomial di atas, koefisien imajiner menyatakan nilai $\sin(5\theta)$:</p>
+        <div class="math-scroll">$$\sin(5\theta) = 5c^4 s - 10c^2 s^3 + s^5$$</div>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 2: Faktorkan $s = \sin\theta$ dan Bagi Kedua Ruas</span>
+        <p>Faktorkan $s$ keluar dari ketiga suku:</p>
+        <div class="math-scroll">$$\sin(5\theta) = s \cdot [5c^4 - 10c^2 s^2 + s^4]$$</div>
+        <p>Bagi dengan $\sin\theta$ untuk $\sin\theta \neq 0$:</p>
+        <div class="math-scroll">$$\frac{\sin(5\theta)}{\sin(\theta)} = 5c^4 - 10c^2 s^2 + s^4$$</div>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 3: Substitusi $s^2 = 1 - c^2$ dan Sederhanakan</span>
+        <div class="math-scroll">$$\frac{\sin(5\theta)}{\sin(\theta)} = 5c^4 - 10c^2(1 - c^2) + (1 - 2c^2 + c^4)$$</div>
+        <div class="math-scroll">$$\frac{\sin(5\theta)}{\sin(\theta)} = 5c^4 - 10c^2 + 10c^4 + 1 - 2c^2 + c^4$$</div>
+        <p>Kelompokkan suku sejenis:</p>
+        <ul>
+          <li>Suku derajat 4: $5c^4 + 10c^4 + 1c^4 = 16c^4$</li>
+          <li>Suku derajat 2: $-10c^2 - 2c^2 = -12c^2$</li>
+          <li>Konstanta: $+1$</li>
+        </ul>
+        <div class="math-scroll">$$\frac{\sin(5\theta)}{\sin(\theta)} = 16\cos^4(\theta) - 12\cos^2(\theta) + 1 \quad \blacksquare \text{ (Terbukti)}$$</div>
+      </div>
+    </div>
+
+    <h2>3. Teorema Penarikan Akar Bilangan Kompleks ($z^n = w$)</h2>
+    <p>Penurunan rumus di papan tulis Bu Vepi bermula dari definisi formal akar kompleks:</p>
+    
+    <div class="card">
+      <h3>Definisi &amp; Pemisalan Variabel Dosen</h3>
+      <p>Bilangan $z$ disebut sebagai <strong>akar ke-$n$ dari $w$</strong> jika memenuhi relasi:</p>
+      <div class="math-scroll">$$z^n = w$$</div>
+      <p>Misalkan bentuk polar masing-masing variabel:</p>
+      <ul>
+        <li><strong>Akar yang dicari:</strong> $z = \rho(\cos\phi + i\sin\phi)$ dengan modulus $\rho \ge 0$.</li>
+        <li><strong>Bilangan yang diakarkan:</strong> $w = r(\cos\theta + i\sin\theta)$ dengan modulus $r \ge 0$.</li>
+      </ul>
+
+      <div class="step-box">
+        <span class="step-tag">Tahap Penurunan Rumus</span>
+        <ol>
+          <li><strong>Pangkatkan $z$ dengan $n$ (De Moivre):</strong>
+            <div class="math-scroll">$$z^n = [\rho(\cos\phi + i\sin\phi)]^n = \rho^n(\cos n\phi + i\sin n\phi)$$</div>
+          </li>
+          <li><strong>Nyatakan $w$ dalam bentuk sudut periodik $2k\pi$:</strong>
+            <p>Karena putaran $2\pi$ kembali ke posisi yang sama di koordinat kutub:</p>
+            <div class="math-scroll">$$w = r[\cos(\theta + 2k\pi) + i\sin(\theta + 2k\pi)], \quad k \in \mathbb{Z}$$</div>
+            <p><em>Penting:</em> Tanpa penambahan $2k\pi$, pembagian sudut oleh $n$ hanya akan menghasilkan 1 akar. Penambahan $2k\pi$ inilah yang membongkar seluruh $n$ akar unik.</p>
+          </li>
+          <li><strong>Samakan Kedua Ruas ($z^n = w$):</strong>
+            <div class="math-scroll">$$\rho^n(\cos n\phi + i\sin n\phi) = r[\cos(\theta + 2k\pi) + i\sin(\theta + 2k\pi)]$$</div>
+            <p>Samakan modulus dan argumen secara terpisah:</p>
+            <div class="math-scroll">$$\rho^n = r \implies \rho = \sqrt[n]{r}$$</div>
+            <div class="math-scroll">$$n\phi = \theta + 2k\pi \implies \phi_k = \frac{\theta + 2k\pi}{n}$$</div>
+          </li>
+          <li><strong>Batasan Nilai $k \in \{0, 1, 2, \dots, n-1\}$:</strong>
+            <p>Ketika $k = n$, sudut $\phi_n = \frac{\theta + 2n\pi}{n} = \frac{\theta}{n} + 2\pi = \phi_0 + 2\pi$, yang berputar kembali tepat ke posisi $z_0$. Oleh karena itu, terdapat tepat <strong>$n$ buah akar berbeda</strong> untuk $k = 0, 1, 2, \dots, n-1$.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="card card-highlight">
+        <h4 style="color:var(--brand-dark); margin-bottom:6px;">Formula Baku Penarikan Akar Kompleks</h4>
+        <div class="math-scroll">
+          $$z_k = \sqrt[n]{r}\left[\cos\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\left(\frac{\theta + 2k\pi}{n}\right)\right], \quad k = 0, 1, \dots, n-1$$
+        </div>
+      </div>
+    </div>
+
+    <h3>Sifat Geometris Akar di Bidang Argand</h3>
+    <ul>
+      <li><strong>Satu Lingkaran:</strong> Semua titik akar berjarak konstan $R = \sqrt[n]{r}$ dari titik asal $(0,0)$.</li>
+      <li><strong>Beda Sudut Konstan:</strong> Jarak sudut antara dua akar bersebelahan selalu sebesar $\Delta\phi = \frac{360^\circ}{n}$ (atau $\frac{2\pi}{n}$ radian).</li>
+      <li><strong>Poligon Beraturan:</strong> Jika seluruh $n$ titik akar dihubungkan, terbentuk poligon segi-$n$ beraturan (segitiga sama sisi untuk $n=3$, persegi untuk $n=4$, pentagon untuk $n=5$).</li>
+    </ul>
+
+    <h2>4. Bedah Tuntas Dua Soal UTS Tahun Lalu</h2>
+
+    <div class="card card-uts">
+      <h3>Soal UTS 1: Tentukan semua nilai $z$ sehingga $z^5 = -32$</h3>
+      
+      <div class="step-box">
+        <span class="step-tag">Langkah 1: Identifikasi Komponen &amp; Konversi Polar</span>
+        <p>Diketahui $z^5 = -32 \implies n = 5$ dan $w = -32 + 0i$.</p>
+        <ul>
+          <li>Modulus $w$: $r = |-32| = 32$.</li>
+          <li>Argumen $w$: Titik $(-32, 0)$ berada di sumbu real negatif, sehingga $\theta = \pi = 180^\circ$.</li>
+          <li>Bentuk polar: $w = 32[\cos(\pi + 2k\pi) + i\sin(\pi + 2k\pi)]$.</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 2: Hitung Jari-Jari Akar &amp; Rumus Sudut</span>
+        <ul>
+          <li>Modulus akar: $\rho = \sqrt[5]{32} = 2$.</li>
+          <li>Rumus sudut: $\phi_k = \frac{\pi + 2k\pi}{5} = \frac{(2k + 1)\pi}{5}$ untuk $k = 0, 1, 2, 3, 4$.</li>
+          <li>Beda sudut antar-akar: $\frac{360^\circ}{5} = 72^\circ$.</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 3: Hitung Masing-Masing dari Kelima Akar</span>
+        <ul>
+          <li><strong>$k = 0$:</strong> $\phi_0 = \frac{\pi}{5} = 36^\circ \implies \mathbf{z_0 = 2[\cos(36^\circ) + i\sin(36^\circ)]}$</li>
+          <li><strong>$k = 1$:</strong> $\phi_1 = \frac{3\pi}{5} = 108^\circ \implies \mathbf{z_1 = 2[\cos(108^\circ) + i\sin(108^\circ)]}$</li>
+          <li><strong>$k = 2$:</strong> $\phi_2 = \frac{5\pi}{5} = 180^\circ \implies z_2 = 2[\cos(180^\circ) + i\sin(180^\circ)] = 2(-1) = \mathbf{-2}$
+            <br><small style="color:#15803d; font-weight:600;">(Cek uji balik: $(-2)^5 = -32 \checkmark$)</small>
+          </li>
+          <li><strong>$k = 3$:</strong> $\phi_3 = \frac{7\pi}{5} = 252^\circ \implies \mathbf{z_3 = 2[\cos(252^\circ) + i\sin(252^\circ)]}$</li>
+          <li><strong>$k = 4$:</strong> $\phi_4 = \frac{9\pi}{5} = 324^\circ \implies \mathbf{z_4 = 2[\cos(324^\circ) + i\sin(324^\circ)]}$</li>
+        </ul>
+        <p><strong>Bentuk Geometri:</strong> Membentuk <em>pentagon beraturan</em> berjari-jari 2 pada bidang Argand.</p>
+      </div>
+    </div>
+
+    <div class="card card-uts">
+      <h3>Soal UTS 2: Tentukan setiap akar dari $(-1 + i)^{1/3}$</h3>
+      
+      <div class="step-box">
+        <span class="step-tag">Langkah 1: Bentuk Persamaan &amp; Konversi Polar Sadar Kuadran</span>
+        <p>Persamaan: $z^3 = -1 + i \implies n = 3$ dan $w = -1 + i$.</p>
+        <ul>
+          <li>Modulus $w$: $r = \sqrt{(-1)^2 + 1^2} = \sqrt{2} = 2^{1/2}$.</li>
+          <li>Argumen $w$: Titik $(-1, 1)$ berada di <strong>Kuadran II</strong> ($x < 0, y > 0$).
+            <br>Sudut acuan: $\tan\alpha = \left|\frac{1}{-1}\right| = 1 \implies \alpha = 45^\circ$.
+            <br>Argumen utama: $\theta = 180^\circ - 45^\circ = 135^\circ = \frac{3\pi}{4}$.
+          </li>
+          <li>Bentuk polar: $w = \sqrt{2}\left[\cos\left(\frac{3\pi}{4} + 2k\pi\right) + i\sin\left(\frac{3\pi}{4} + 2k\pi\right)\right]$.</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 2: Hitung Jari-Jari Akar &amp; Rumus Sudut</span>
+        <ul>
+          <li>Modulus akar: $\rho = \sqrt[3]{\sqrt{2}} = \sqrt[3]{2^{1/2}} = 2^{1/6} = \sqrt[6]{2} \approx 1{,}1225$.</li>
+          <li>Rumus sudut: $\phi_k = \frac{\frac{3\pi}{4} + 2k\pi}{3} = \frac{3\pi + 8k\pi}{12} = \frac{(3 + 8k)\pi}{12}$ untuk $k = 0, 1, 2$.</li>
+          <li>Beda sudut antar-akar: $\frac{360^\circ}{3} = 120^\circ$ (atau $\frac{8\pi}{12}$).</li>
+        </ul>
+      </div>
+
+      <div class="step-box">
+        <span class="step-tag">Langkah 3: Hitung Ketiga Akar Lengkap</span>
+        <ul>
+          <li><strong>$k = 0$:</strong>
+            <br>$\phi_0 = \frac{3\pi}{12} = \frac{\pi}{4} = 45^\circ$
+            <br>$\mathbf{z_0 = \sqrt[6]{2}[\cos(45^\circ) + i\sin(45^\circ)]}$
+            <br><small>Bentuk aljabar: $2^{1/6}\left(\frac{1}{\sqrt{2}} + i\frac{1}{\sqrt{2}}\right) = 2^{-1/3}(1 + i) = \mathbf{\frac{1 + i}{\sqrt[3]{2}}}$</small>
+          </li>
+          <li style="margin-top:8px;"><strong>$k = 1$:</strong>
+            <br>$\phi_1 = \frac{(3 + 8)\pi}{12} = \frac{11\pi}{12} = 165^\circ \quad (45^\circ + 120^\circ)$
+            <br>$\mathbf{z_1 = \sqrt[6]{2}[\cos(165^\circ) + i\sin(165^\circ)]}$
+          </li>
+          <li style="margin-top:8px;"><strong>$k = 2$:</strong>
+            <br>$\phi_2 = \frac{(3 + 16)\pi}{12} = \frac{19\pi}{12} = 285^\circ \quad (165^\circ + 120^\circ)$
+            <br>$\mathbf{z_2 = \sqrt[6]{2}[\cos(285^\circ) + i\sin(285^\circ)]}$
+          </li>
+        </ul>
+        <p><strong>Bentuk Geometri:</strong> Ketiga akar membentuk <em>segitiga sama sisi</em> pada bidang Argand.</p>
+      </div>
+    </div>
+
+    <h2>5. Ringkasan Materi Lengkap UTS (Pertemuan 01 s.d. 07)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;">Pertemuan</th>
+            <th style="width:32%;">Topik Utama</th>
+            <th style="width:50%;">Formula Kunci &amp; Kompetensi Ujian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P03</strong></td>
+            <td>Sistem Bilangan Kompleks &amp; Aljabar Dasar</td>
+            <td>Definisi $z = a + bi$; penjumlahan aljabar; pembagian dengan mengalikan sekawan penyebut $\frac{z_1}{z_2} = \frac{z_1 \bar{z}_2}{|z_2|^2}$.</td>
+          </tr>
+          <tr>
+            <td><strong>P04</strong></td>
+            <td>Sifat Operasi Dasar &amp; Modulus</td>
+            <td>Sifat ketertutupan hingga invers aljabar; pembuktian konjugat ganda $\overline{(\bar{z})} = z$; identitas $|z|^2 = z\bar{z}$; pertidaksamaan segitiga $\|z_1| - |z_2\| \le |z_1 \pm z_2| \le |z_1| + |z_2|$.</td>
+          </tr>
+          <tr>
+            <td><strong>P05</strong></td>
+            <td>Geometri Vektor &amp; Bentuk Polar</td>
+            <td>Dot product $z_1 \cdot z_2 = x_1 x_2 + y_1 y_2$ dan cross product $z_1 \times z_2 = x_1 y_2 - x_2 y_1$; aturan 4 tahap argumen sadar kuadran $\text{atan2}(y, x)$; bentuk polar $z = r(\cos\theta + i\sin\theta)$.</td>
+          </tr>
+          <tr>
+            <td><strong>P06</strong></td>
+            <td>Rumus Euler, Perkalian &amp; Pembagian Polar</td>
+            <td>Derivasi deret Taylor $e^{i\theta} = \cos\theta + i\sin\theta$; teorema perkalian polar $z_1 z_2 = r_1 r_2 \, e^{i(\theta_1 + \theta_2)}$; teorema pembagian polar $\frac{z_1}{z_2} = \frac{r_1}{r_2} \, e^{i(\theta_1 - \theta_2)}$.</td>
+          </tr>
+          <tr>
+            <td><strong>P07</strong></td>
+            <td>De Moivre &amp; Teorema Penarikan Akar</td>
+            <td>Penurunan identitas sudut ganda dengan De Moivre $(\cos\theta + i\sin\theta)^n$; rumus penarikan $n$ akar $z_k = \sqrt[n]{r}\left[\cos\left(\frac{\theta+2k\pi}{n}\right) + i\sin\left(\frac{\theta+2k\pi}{n}\right)\right]$; keteraturan poligon segi-$n$ di bidang Argand.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>6. Latihan Mandiri Persiapan UTS</h2>
+    <div class="card card-highlight">
+      <ol>
+        <li><strong>Latihan De Moivre Pangkat 4:</strong> Buktikan dengan Teorema De Moivre bahwa $\cos(4\theta) = 8\cos^4(\theta) - 8\cos^2(\theta) + 1$.</li>
+        <li><strong>Latihan Akar Satuan (Roots of Unity):</strong> Tentukan seluruh akar pangkat 4 dari bilangan $z^4 = 1$. Buktikan bahwa keempat akar membentuk persegi di bidang Argand dengan koordinat $\{1, i, -1, -i\}$.</li>
+        <li><strong>Latihan Akar Kompleks Imajiner Murni:</strong> Tentukan ketiga akar dari $z^3 = 8i$. Gambarkan letak ketiga sudutnya pada lingkaran berjari-jari 2.</li>
+      </ol>
+    </div>
+
+    <div class="tool-cta">
+      <span>Gunakan aplikasi kalkulator pendamping untuk memeriksa hasil konversi polar, pemangkatan De Moivre, dan visualisasi akar poligon:</span>
+      <a href="/tools/kalkulator-polar-demoivre/index.html">Buka Kalkulator Polar &amp; De Moivre</a>
+    </div>
+  </main>
+
+  <footer class="page-foot">
+    Analisis Kompleks (KP21517003) &middot; FKIP Universitas Siliwangi &middot; Catatan Perkuliahan Pertemuan 07 (28 September 2026)
+  </footer>
+</div>
+
+<script>
+  function handleGoBack(e) {
+    if (window.opener && !window.opener.closed) {
+      if (e) e.preventDefault();
+      window.close();
+      return;
+    }
+    if (window.history.length > 1 && document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+      if (e) e.preventDefault();
+      window.history.back();
+      return;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>

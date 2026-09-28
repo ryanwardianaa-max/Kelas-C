@@ -113,14 +113,25 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-analisis-kompleks-pertemuan-06",
-    title: "Bahan Baca: Rumus De Moivre, Pemangkatan & Penarikan Akar Kompleks",
+    title: "Catatan Kuliah: Teorema Perkalian, Pembagian Polar, Derivasi Euler & De Moivre",
     courseCode: "KP21517003",
     meetingNo: 6,
     type: "Catatan",
     description:
-      "Bahan baca mandiri persiapan perkuliahan lanjutan dari bentuk polar. Mencakup aturan perkalian dan pembagian sudut polar, rumus De Moivre untuk pemangkatan zⁿ beserta bukti induksi, dan penarikan n akar kompleks yang membentuk segi-n beraturan di bidang Argand.",
+      "Catatan resmi kuliah Analisis Kompleks bersama Ibu Vepi Apiati, S.Pd., M.Pd. Mencakup penurunan deret Taylor rumus Euler, bukti aljabar teorema perkalian dan pembagian polar, serta pengantar rumus De Moivre dilengkapi animasi video MP4.",
     url: "/materi/KP21517003/pertemuan-06/index.html",
-    createdAt: "2026-09-07T07:00:00.000Z",
+    createdAt: "2026-09-21T07:00:00.000Z",
+  },
+  {
+    id: "mat-analisis-kompleks-pertemuan-07",
+    title: "Catatan Kuliah: Pembuktian De Moivre, Penarikan Akar Kompleks & Bedah Soal UTS",
+    courseCode: "KP21517003",
+    meetingNo: 7,
+    type: "Catatan",
+    description:
+      "Catatan resmi perkuliahan Analisis Kompleks Pertemuan 07 (28 September 2026) bersama Bu Vepi Apiati. Mencakup pembuktian identitas cos 5θ dan sin 5θ/sin θ via De Moivre, penurunan rumus akar kompleks zⁿ = w, sifat poligon di bidang Argand, serta pembahasan tuntas dua soal UTS tahun lalu (z⁵ = -32 dan (-1+i)¹/³).",
+    url: "/materi/KP21517003/pertemuan-07/index.html",
+    createdAt: "2026-09-28T09:30:00.000Z",
   },
   {
     id: "tool-kalkulator-polar-demoivre",
