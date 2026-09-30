@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pertemuan 06 — Studi Kasus Optimasi dan Pemodelan Matematika Ekonomi (Usaha Laundry)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(135deg,#e8eef8,#f8fafc);color:#1e293b;font:16px/1.75 system-ui,-apple-system,sans-serif}
+    .page{width:min(100% - 28px,1000px);margin:24px auto;background:#fff;border:1px solid #dbe4f0;border-radius:22px;box-shadow:0 20px 55px #0f172a14;overflow:hidden}
+    header{padding:52px clamp(24px,6vw,64px);color:#fff;background:radial-gradient(circle at 90% 15%,#38bdf855,transparent 28%),linear-gradient(130deg,#1e3a8a,#0284c7)}
+    header .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:#bae6fd;font-size:.8rem}
+    h1{font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.15;margin:.5rem 0 1rem;max-width:880px}
+    header p{max-width:780px;color:#dbeafe;margin:.35rem 0}
+    .content{padding:20px clamp(18px,6vw,64px) 60px}
+    .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0 34px}
+    .toc a{padding:12px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;text-align:center;font-size:.86rem;transition:.2s}
+    .toc a:hover{background:#dbeafe;transform:translateY(-1px)}
+    h2{margin:46px 0 14px;color:#172554;font-size:1.6rem;border-bottom:2px solid #dbeafe;padding-bottom:8px}
+    h3{color:#1e3a8a;margin-top:28px;font-size:1.2rem}
+    h4{color:#334155;margin:20px 0 8px;font-size:1.02rem}
+    .card,.example,.warning,.note,.problem{border:1px solid #dbe4f0;border-radius:14px;padding:18px 22px;margin:16px 0;background:#f8fafc;break-inside:avoid}
+    .example{border-left:5px solid #2563eb;background:#f8fbff}
+    .warning{border-left:5px solid #d97706;background:#fffbeb}
+    .note{border-left:5px solid #0891b2;background:#ecfeff}
+    .problem{border-left:5px solid #7c3aed;background:#f5f3ff}
+    .formula{overflow-x:auto;text-align:center;padding:10px 0;font-size:1.15rem;font-family:'Times New Roman',serif;font-weight:700;color:#0f172a}
+    .steps{counter-reset:st;list-style:none;padding-left:0}
+    .steps>li{position:relative;padding:4px 0 12px 44px;margin-bottom:8px}
+    .steps>li::before{counter-increment:st;content:counter(st);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:#2563eb;color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+    footer{margin-top:50px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.88rem;color:#64748b;text-align:center}
+    .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.78rem;font-weight:700;text-transform:uppercase}
+    .badge-blue{background:#dbeafe;color:#1e40af}
+    .badge-green{background:#dcfce7;color:#166534}
+    .badge-amber{background:#fef3c7;color:#92400e}
+    .badge-red{background:#fee2e2;color:#991b1b}
+    table{width:100%;border-collapse:collapse;margin:16px 0}
+    th,td{border:1px solid #cbd5e1;padding:10px 12px;text-align:left}
+    th{background:#f1f5f9;color:#1e293b}
+    .highlight-row{background:#f0fdf4!important;font-weight:bold}
+    .img-container{text-align:center;margin:20px 0}
+    .img-container img{max-width:100%;height:auto;border-radius:12px;border:1px solid #cbd5e1;box-shadow:0 8px 24px rgba(15,23,42,0.08)}
+  </style>
+</head>
+<body>
+<article class="page">
+  <nav style="padding:14px 20px;background:#eff6ff;border-bottom:1px solid #dbeafe">
+    <a href="/?course=KP21517007" style="color:#1e40af;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+      ← Kembali ke Dashboard Matematika Ekonomi
+    </a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">KP21517007 · Matematika Ekonomi · Kelas C</div>
+    <h1>Studi Kasus Optimasi dan Pemodelan Matematika Ekonomi (Usaha Laundry)</h1>
+    <p><strong>Pertemuan 06</strong> · Kamis, 17 September 2026 · Ruang FKIP C.3.1</p>
+    <p>Dosen Pengampu: <strong>Vepi Apiati, S.Pd., M.Pd.</strong> &bull; Penyusun: <strong>Ryan Wardiana (NIM 232151098)</strong></p>
+    <p>Integrasi komprehensif konsep fungsi permintaan linear, perumusan biaya total $TC$, fungsi penerimaan total $TR$, fungsi keuntungan kuadratik $\pi$, titik impas (BEP), elastisitas harga, serta pertimbangan strategi penetapan harga bisnis riil.</p>
+  </header>
+
+  <main class="content">
+    <nav class="toc">
+      <a href="#kasus">I. Deskripsi Kasus</a>
+      <a href="#permintaan">II. Model Permintaan</a>
+      <a href="#biaya-laba">III. Model Biaya &amp; Laba</a>
+      <a href="#grafik">IV. Visualisasi Grafik</a>
+      <a href="#simulasi">V. Simulasi Skenario</a>
+      <a href="#strategi">VI. Rekomendasi Strategi</a>
+      <a href="#analisis-kritis">VII. Analisis Kritis</a>
+      <a href="#latihan-mandiri">VIII. Latihan Mandiri</a>
+      <a href="#ringkasan">IX. Ringkasan</a>
+    </nav>
+
+    <!-- BAGIAN I -->
+    <section id="kasus">
+      <h2>I. Deskripsi Kasus &amp; Parameter Usaha Laundry</h2>
+      <div class="card">
+        <p>Sebuah usaha laundry mahasiswa menawarkan jasa cuci-kering dengan tarif dan volume operasional awal:</p>
+        <ul>
+          <li><strong>Harga Awal ($P_0$):</strong> $\text{Rp}10.000$ per kg.</li>
+          <li><strong>Volume Cucian Awal ($Q_0$):</strong> $150\text{ kg}$ per hari.</li>
+          <li><strong>Sensitivitas Pasar:</strong> Setiap kenaikan harga $\Delta P = \text{Rp}1.000$ per kg, kuantitas cucian berkurang $\Delta Q = 10\text{ kg}$ per hari.</li>
+        </ul>
+        <p><strong>Struktur Biaya Operasional:</strong></p>
+        <ul>
+          <li><strong>Biaya Tetap (Fixed Cost / $FC$):</strong> $\text{Rp}600.000$ per hari (sewa ruko, depresiasi mesin cuci &amp; pengering, gaji pokok operasional).</li>
+          <li><strong>Biaya Variabel Rata-rata (Variable Cost / $v$):</strong> $\text{Rp}4.000$ per kg cucian (deterjen, pewangi, listrik motor dinamo, air bersih, dan plastik packing).</li>
+        </ul>
+        <div class="note">
+          <strong>Tujuan Analisis:</strong> Membangun model matematika terpadu untuk memprediksi pengaruh perubahan harga terhadap kuantitas, omset penerimaan, biaya operasional, serta keuntungan bersih, guna menentukan keputusan bisnis yang optimal dan rasional di lingkungan kampus.
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN II -->
+    <section id="permintaan">
+      <h2>II. Pemodelan Fungsi Permintaan &amp; Domain Ekonomi</h2>
+      <div class="card">
+        <h3>1. Penentuan Kemiringan Kurva (Slope / Gradien)</h3>
+        <p>Gradien fungsi permintaan $m$ dihitung berdasarkan rasio perubahan kuantitas terhadap perubahan harga:</p>
+        <div class="formula">
+          $$m = \frac{\Delta Q}{\Delta P} = \frac{-10\text{ kg}}{+1.000\text{ Rp}} = -0{,}01\text{ kg/Rp} = -\frac{1}{100}$$
+        </div>
+
+        <h3>2. Perumusan Persamaan Garis Permintaan</h3>
+        <ol class="steps">
+          <li>
+            Menggunakan rumus garis melalui titik $(P_0, Q_0) = (10.000, 150)$:
+            $$Q - Q_0 = m \cdot (P - P_0)$$
+          </li>
+          <li>
+            Substitusikan nilai parameter:
+            $$Q - 150 = -0{,}01 \cdot (P - 10.000)$$
+            $$Q - 150 = -0{,}01P + 100 \implies Q = 250 - 0{,}01P$$
+          </li>
+          <li>
+            Bentuk fungsi permintaan invers (harga $P$ sebagai fungsi dari kuantitas $Q$):
+            $$0{,}01P = 250 - Q \implies P = 25.000 - 100Q$$
+          </li>
+        </ol>
+
+        <h3>3. Batasan Domain Kelayakan Ekonomi (Kuadran I)</h3>
+        <p>Dalam realitas bisnis, tingkat harga dan volume cucian tidak boleh bernilai negatif:</p>
+        <ul>
+          <li>Jika jasa digratiskan ($P = 0$), kapasitas serapan pasar maksimal adalah:
+            $$Q_{\max} = 250 - 0{,}01(0) = 250\text{ kg/hari}$$
+          </li>
+          <li>Jika kuantitas cucian turun hingga nol ($Q = 0$), harga tertinggi pemutus permintaan (*choke price*) adalah:
+            $$P_{\max} = 25.000 - 100(0) = \text{Rp}25.000/\text{kg}$$
+          </li>
+          <li><strong>Domain Kelayakan Ekonomi:</strong>
+            $$0 \le Q \le 250\text{ kg/hari} \quad \text{dan} \quad 0 \le P \le \text{Rp}25.000/\text{kg}$$
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BAGIAN III -->
+    <section id="biaya-laba">
+      <h2>III. Pemodelan Biaya Total ($TC$), Penerimaan Total ($TR$), dan Laba Bersih ($\pi$)</h2>
+      
+      <div class="card">
+        <h3>A. Fungsi Biaya Total (Total Cost &mdash; $TC$)</h3>
+        <p>Biaya total adalah penjumlahan Biaya Tetap ($FC$) dan Biaya Variabel Total ($VC = v \cdot Q$):</p>
+        <div class="formula">
+          $$TC(Q) = FC + v \cdot Q = 600.000 + 4.000Q$$
+        </div>
+        <p>Dinyatakan dalam fungsi variabel harga $P$ (substitusi $Q = 250 - 0{,}01P$):</p>
+        <div class="formula">
+          $$TC(P) = 600.000 + 4.000(250 - 0{,}01P) = 600.000 + 1.000.000 - 40P = 1.600.000 - 40P$$
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>B. Fungsi Penerimaan Total (Total Revenue &mdash; $TR$)</h3>
+        <p>Penerimaan total adalah hasil kali harga per satuan $P$ dengan jumlah kuantitas $Q$:</p>
+        <div class="formula">
+          $$TR(Q) = P \cdot Q = (25.000 - 100Q) \cdot Q = 25.000Q - 100Q^2$$
+        </div>
+        <p>Dinyatakan dalam variabel harga $P$:</p>
+        <div class="formula">
+          $$TR(P) = P \cdot Q = P \cdot (250 - 0{,}01P) = 250P - 0{,}01P^2$$
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>C. Fungsi Keuntungan Bersih (Profit &mdash; $\pi$)</h3>
+        <p>Laba bersih diperoleh dari selisih antara penerimaan total dan biaya total ($\pi = TR - TC$):</p>
+        <ol class="steps">
+          <li>
+            <strong>Fungsi Laba Berbasis Kuantitas $Q$:</strong>
+            $$\pi(Q) = (25.000Q - 100Q^2) - (600.000 + 4.000Q) = -100Q^2 + 21.000Q - 600.000$$
+          </li>
+          <li>
+            <strong>Fungsi Laba Berbasis Tingkat Harga $P$:</strong>
+            $$\pi(P) = (250P - 0{,}01P^2) - (1.600.000 - 40P) = -0{,}01P^2 + 290P - 1.600.000$$
+          </li>
+        </ol>
+
+        <div class="example">
+          <h4>Titik Optimal Teoritis (Laba Maksimum Berbasis Kalkulus)</h4>
+          <p>Karena koefisien kuadrat $a = -0{,}01 < 0$, fungsi laba merupakan parabola membuka ke bawah. Syarat perlu ekstremum:</p>
+          <div class="formula">
+            $$\frac{d\pi}{dP} = -0{,}02P + 290 = 0 \implies 0{,}02P = 290 \implies P^* = \text{Rp}14.500/\text{kg}$$
+          </div>
+          <p>Kuantitas pada titik laba optimal:</p>
+          <div class="formula">
+            $$Q^* = 250 - 0{,}01(14.500) = 250 - 145 = 105\text{ kg/hari}$$
+          </div>
+          <p>Nilai laba maksimum harian teoritis:</p>
+          <div class="formula">
+            $$\pi^* = -0{,}01(14.500)^2 + 290(14.500) - 1.600.000 = \text{Rp}502.500/\text{hari} \quad (\approx \text{Rp}15.075.000/\text{bulan})$$
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN IV -->
+    <section id="grafik">
+      <h2>IV. Visualisasi Grafik Model Ekonomi</h2>
+      <div class="card">
+        <p>Grafik berikut memvisualisasikan: (a) Kurva permintaan linear $P = 25.000 - 100Q$; (b) Kurva kuadratik penerimaan $TR$, garis linier biaya $TC$, area surplus laba $(\pi > 0)$, serta titik impas (Break-Even Point / BEP).</p>
+        <div class="img-container">
+          <img src="grafik_kasus_laundry.png" alt="Grafik Kurva Permintaan, Biaya, Penerimaan, dan Laba Usaha Laundry" loading="lazy">
+        </div>
+        <p style="font-size:0.9rem;color:#475569;text-align:center">
+          <em>Gambar 1: Kurva Permintaan, Penerimaan Total (TR), Biaya Total (TC), dan Daerah Keuntungan Usaha Laundry Mahasiswa.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- BAGIAN V -->
+    <section id="simulasi">
+      <h2>V. Simulasi Multi-Skenario Harga, Elastisitas &amp; Titik Impas (BEP)</h2>
+      <div class="card">
+        <p>Tabel komparasi 5 skenario penetapan harga berdasarkan formulasi model matematika:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Skenario</th>
+              <th>Harga ($P$)<br>(Rp/kg)</th>
+              <th>Volume ($Q$)<br>(kg/hari)</th>
+              <th>Penerimaan ($TR$)<br>(Rp/hari)</th>
+              <th>Biaya Total ($TC$)<br>(Rp/hari)</th>
+              <th>Laba Bersih ($\pi$)<br>(Rp/hari)</th>
+              <th>Margin Laba<br>($\pi / TR$)</th>
+              <th>Karakteristik &amp; Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Kondisi Awal</strong></td>
+              <td>Rp10.000</td>
+              <td>150 kg</td>
+              <td>Rp1.500.000</td>
+              <td>Rp1.200.000</td>
+              <td>Rp300.000</td>
+              <td>20,0%</td>
+              <td><span class="badge badge-amber">Baseline</span></td>
+            </tr>
+            <tr>
+              <td><strong>2. Kenaikan Ringan</strong></td>
+              <td>Rp11.000</td>
+              <td>140 kg</td>
+              <td>Rp1.540.000</td>
+              <td>Rp1.160.000</td>
+              <td>Rp380.000</td>
+              <td>24,7%</td>
+              <td><span class="badge badge-blue">Konservatif</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>3. Pertumbuhan Seimbang</strong></td>
+              <td><strong>Rp12.000</strong></td>
+              <td><strong>130 kg</strong></td>
+              <td><strong>Rp1.560.000</strong></td>
+              <td><strong>Rp1.120.000</strong></td>
+              <td><strong>Rp440.000</strong></td>
+              <td><strong>28,2%</strong></td>
+              <td><span class="badge badge-green">Rekomendasi Utama</span></td>
+            </tr>
+            <tr>
+              <td><strong>4. Laba Maks. Teoritis</strong></td>
+              <td>Rp14.500</td>
+              <td>105 kg</td>
+              <td>Rp1.522.500</td>
+              <td>Rp1.020.000</td>
+              <td>Rp502.500</td>
+              <td>33,0%</td>
+              <td><span class="badge badge-blue">Kalkulus Murni</span></td>
+            </tr>
+            <tr>
+              <td><strong>5. Premium / Skimming</strong></td>
+              <td>Rp16.000</td>
+              <td>90 kg</td>
+              <td>Rp1.440.000</td>
+              <td>Rp960.000</td>
+              <td>Rp480.000</td>
+              <td>33,3%</td>
+              <td><span class="badge badge-red">Laba Mulai Turun</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Analisis Titik Impas (Break-Even Point / BEP)</h3>
+        <p>Kondisi titik impas terjadi saat $\pi = 0$ atau $TR = TC$:</p>
+        <div class="formula">
+          $$-0{,}01P^2 + 290P - 1.600.000 = 0 \iff P^2 - 29.000P + 160.000.000 = 0$$
+        </div>
+        <p>Dengan rumus kuadratik $P = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ diperoleh:</p>
+        <ul>
+          <li><strong>Titik Impas Bawah ($P_{\text{BEP1}}$):</strong> $\approx \text{Rp}7.411/\text{kg}$ (kuantitas $Q \approx 175{,}9\text{ kg}$). Jika harga di bawah ini, omset tidak mampu menutupi biaya operasional.</li>
+          <li><strong>Titik Impas Atas ($P_{\text{BEP2}}$):</strong> $\approx \text{Rp}21.589/\text{kg}$ (kuantitas $Q \approx 34{,}1\text{ kg}$). Jika harga di atas ini, volume pelanggan terlalu rendah sehingga biaya tetap tidak tertutupi.</li>
+          <li><strong>Zona Profitabilitas:</strong> Usaha menghasilkan keuntungan positif bila harga ditetapkan pada interval $\text{Rp}7.411 < P < \text{Rp}21.589$.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BAGIAN VI -->
+    <section id="strategi">
+      <h2>VI. Rekomendasi Strategi Penetapan Harga Bisnis Riil</h2>
+      <div class="card">
+        <p><strong>Keputusan Strategis: <span class="badge badge-green" style="font-size:0.95rem">HARGA MODERAT Rp12.000 PER KG</span></strong></p>
+        <p>Meskipun laba puncak teoritis tercapai pada $\text{Rp}14.500$, dalam bisnis kampus riil, menaikkan harga langsung ke $\text{Rp}14.500$ (+45%) sangat berbahaya. Penetapan harga $\text{Rp}12.000/\text{kg}$ (+20%) adalah pilihan paling bijak dengan 4 pertimbangan nyata:</p>
+        <ol class="steps">
+          <li>
+            <strong>Lonjakan Laba Bersih yang Signifikan (+46,7%):</strong>
+            Laba harian meningkat dari $\text{Rp}300.000$ menjadi $\text{Rp}440.000/\text{hari}$ (tambahan laba bersih $\text{Rp}4.200.000$ per bulan). Selisih keuntungan dengan skenario teoritis hanya $\text{Rp}62.500/\text{hari}$, namun risikonya jauh lebih aman.
+          </li>
+          <li>
+            <strong>Mitigasi Risiko Kehilangan Pelanggan (Customer Churn):</strong>
+            Konsumen mahasiswa memiliki elastisitas silang tinggi terhadap kompetitor. Kenaikan harga Rp2.000 masih dalam toleransi psikologis uang saku, sehingga volume cucian hanya turun tipis dari 150 kg menjadi 130 kg (penurunan hanya 13,3%).
+          </li>
+          <li>
+            <strong>Utilisasi Kapasitas Mesin Optimal:</strong>
+            Volume 130 kg per hari menjaga utilisasi mesin cuci dan pengering tetap pada beban kerja efisien tanpa memaksa mesin bekerja lembur malam.
+          </li>
+          <li>
+            <strong>Peningkatan Margin Kontribusi:</strong>
+            Margin per kg meningkat tajam dari $(10.000 - 4.000) = \text{Rp}6.000/\text{kg}$ menjadi $(12.000 - 4.000) = \text{Rp}8.000/\text{kg}$ (+33,3%), mempercepat titik balik modal harian.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- BAGIAN VII -->
+    <section id="analisis-kritis">
+      <h2>VII. Analisis Kritis: Apakah Harga Tertinggi Selalu Memberikan Laba Tertinggi?</h2>
+      <div class="warning">
+        <h3 style="margin-top:0;color:#92400e">JAWABAN: TIDAK. Harga yang semakin tinggi TIDAK selalu memberikan keuntungan yang lebih tinggi.</h3>
+        <p>Ada dua landasan ilmiah yang membuktikannya:</p>
+        <ol>
+          <li>
+            <strong>Landasan Matematis (Sifat Parabola Kuadrat):</strong>
+            Fungsi laba $\pi(P) = -0{,}01P^2 + 290P - 1.600.000$ berkoefisien $a = -0{,}01 < 0$, membentuk parabola membuka ke bawah dengan puncak tunggal di $P = \text{Rp}14.500$. Untuk setiap $P > \text{Rp}14.500$, nilai turunan $\frac{d\pi}{dP} < 0$, artinya setiap kenaikan harga justru memangkas keuntungan bersih.
+          </li>
+          <li>
+            <strong>Landasan Ekonomi (Trade-Off Efek Harga vs Efek Volume):</strong>
+            <ul>
+              <li><em>Efek Harga (Price Effect):</em> Kenaikan harga menaikkan pendapatan per satuan barang.</li>
+              <li><em>Efek Volume (Volume Effect):</em> Kenaikan harga menurunkan kuantitas cucian yang masuk.</li>
+            </ul>
+            Di atas harga $\text{Rp}14.500$, penurunan volume pelanggan mendominasi kenaikan harga. Pada harga ekstrim $P = \text{Rp}25.000$, pelanggan menjadi nol ($Q = 0$), pendapatan menjadi nol ($TR = 0$), dan pengusaha mengalami kerugian total sebesar Biaya Tetap ($-\text{Rp}600.000/\text{hari}$).
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- BAGIAN VIII -->
+    <section id="latihan-mandiri">
+      <h2>Latihan Mandiri</h2>
+      <div class="problem">
+        <h4>Soal 1 (Simulasi Kebijakan Diskon Promo Mahasiswa):</h4>
+        <p>Jika pemilik laundry mengadakan program promo khusus awal semester dengan memberikan harga promosi $\text{Rp}9.000/\text{kg}$, hitung:</p>
+        <ol type="a">
+          <li>Jumlah volume cucian yang diharapkan masuk per hari ($Q$).</li>
+          <li>Penerimaan total ($TR$) dan Biaya total ($TC$).</li>
+          <li>Keuntungan bersih ($\pi$) yang diperoleh. Apakah strategi ini menguntungkan secara ekonomi?</li>
+        </ol>
+      </div>
+
+      <div class="problem">
+        <h4>Soal 2 (Pengaruh Kenaikan Biaya Tetap / Sewa Tempat):</h4>
+        <p>Misalkan pemilik ruko menaikkan sewa tempat sehingga Biaya Tetap ($FC$) naik dari $\text{Rp}600.000$ menjadi $\text{Rp}800.000$ per hari, sementara biaya variabel tetap $\text{Rp}4.000/\text{kg}$:</p>
+        <ol type="a">
+          <li>Apakah tingkat harga optimal teoritis ($P^*$) berubah? Jelaskan alasan matematisnya!</li>
+          <li>Berapa keuntungan maksimum baru yang dapat diraih?</li>
+          <li>Hitung rentang titik impas (BEP) yang baru!</li>
+        </ol>
+      </div>
+
+      <div class="problem">
+        <h4>Soal 3 (Efisiensi Penghematan Biaya Variabel):</h4>
+        <p>Jika pengusaha laundry berhasil menegosiasikan harga deterjen curah sehingga biaya variabel turun dari $\text{Rp}4.000$ menjadi $\text{Rp}3.000/\text{kg}$:</p>
+        <ol type="a">
+          <li>Tentukan fungsi laba $\pi(P)$ yang baru!</li>
+          <li>Hitung harga optimal $P^*$, kuantitas optimal $Q^*$, dan laba maksimum barunya!</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- BAGIAN IX -->
+    <section id="ringkasan">
+      <h2>Ringkasan</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Fungsi Permintaan:</strong> $Q = 250 - 0{,}01P$ atau $P = 25.000 - 100Q$ dengan batas ekonomi $0 \le Q \le 250$ dan $0 \le P \le 25.000$.</li>
+          <li><strong>Fungsi Biaya Total:</strong> $TC(P) = 1.600.000 - 40P$ atau $TC(Q) = 600.000 + 4.000Q$.</li>
+          <li><strong>Fungsi Penerimaan:</strong> $TR(P) = 250P - 0{,}01P^2$ dengan puncak penerimaan pada $P = \text{Rp}12.500$.</li>
+          <li><strong>Fungsi Laba:</strong> $\pi(P) = -0{,}01P^2 + 290P - 1.600.000$ dengan puncak laba matematis pada $P^* = \text{Rp}14.500/\text{kg}$ ($\pi^* = \text{Rp}502.500/\text{hari}$).</li>
+          <li><strong>Zona Impas (BEP):</strong> $\text{Rp}7.411 < P < \text{Rp}21.589$.</li>
+          <li><strong>Keputusan Nyata:</strong> Harga terbaik terpilih adalah <strong>Rp12.000/kg</strong> (laba melonjak +46,7%, volume stabil di 130 kg/hari, meminimalkan risiko kaburnya pelanggan mahasiswa).</li>
+          <li><strong>Hukum Ekonomi:</strong> Harga setinggi mungkin tidak selalu menghasilkan laba tertinggi karena adanya trade-off antara efek harga positif dan efek penurunan kuantitas negatif.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>KelasKu &bull; Modul Matematika Ekonomi KP21517007 &bull; Fakultas Keguruan dan Ilmu Pendidikan &bull; Universitas Siliwangi</p>
+  </footer>
+</article>
+</body>
+</html>

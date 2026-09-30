@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Latihan Soal: Metode Regula Falsi Klasik — f(x) = x³ + 2x² + 10x - 20 = 0</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1e293b; background: #f8fafc; margin: 0; padding: 24px 16px; }
+    .container { max-width: 960px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 32px 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+    h1 { font-size: 1.75rem; color: #0f172a; margin-top: 0; margin-bottom: 8px; }
+    .badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; }
+    .card { background: #f1f5f9; border-left: 4px solid #3b82f6; padding: 16px 20px; border-radius: 6px; margin: 20px 0; }
+    .card-warn { background: #fefce8; border-left-color: #eab308; color: #854d0e; }
+    .card-success { background: #f0fdf4; border-left-color: #22c55e; color: #15803d; }
+    .table-container { overflow-x: auto; margin: 24px 0; border: 1px solid #cbd5e1; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.9rem; }
+    th { background: #1e293b; color: #ffffff; padding: 12px 8px; font-weight: 600; border: 1px solid #334155; }
+    td { padding: 10px 8px; border: 1px solid #e2e8f0; }
+    tr:nth-child(even) { background: #f8fafc; }
+    tr:hover { background: #eff6ff; }
+    .math-box { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px 16px; margin: 12px 0; overflow-x: auto; }
+    ol.steps > li { margin-bottom: 24px; font-weight: 600; color: #0f172a; }
+    ol.steps > li > div, ol.steps > li > p { font-weight: 400; color: #334155; }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError : false
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="container">
+  <span class="badge">Latihan Mandiri · Metode Numerik</span>
+  <h1>Penyelesaian Persamaan Nirlanjar: Metode Regula Falsi Klasik</h1>
+  <p>Pembahasan terverifikasi dan langkah demi langkah (<em>step-by-step</em>) untuk menyelesaikan soal latihan perkuliahan Metode Numerik menggunakan tabel lelaran lengkap.</p>
+
+  <div class="card">
+    <strong>Soal Lengkap:</strong><br>
+    Tentukan akar persamaan $f(x) = x^3 + 2x^2 + 10x - 20 = 0$ dengan menggunakan <strong>Metode Regula-Falsi Klasik</strong> pada interval $[1,\ 1.5]$ dengan toleransi galat $\varepsilon = 10^{-6}$.
+  </div>
+
+  <h2>1. Landasan Rumus dan Kriteria Pengujian</h2>
+  <ol>
+    <li>
+      <strong>Uji Nilai Awal Selang:</strong><br>
+      Fungsi harus bernilai beda tanda pada kedua batas selang: $f(a) \cdot f(b) < 0$.
+    </li>
+    <li>
+      <strong>Rumus Titik Potong Interpolasi Linear (Posisi Palsu / Regula Falsi):</strong>
+      <div class="math-box">
+        $$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)} = b - \frac{f(b)(b - a)}{f(b) - f(a)}$$
+      </div>
+    </li>
+    <li>
+      <strong>Evaluasi Tanda dan Pembaruan Selang Baru (sb):</strong>
+      <ul>
+        <li>Jika $f(a) \cdot f(c) < 0$, maka akar berada di antara $a$ dan $c$. Selang baru = $[a, c]$, batas baru: $a_{baru} = a$ dan $b_{baru} = c$.</li>
+        <li>Jika $f(a) \cdot f(c) > 0$, maka akar berada di antara $c$ dan $b$. Selang baru = $[c, b]$, batas baru: $a_{baru} = c$ dan $b_{baru} = b$.</li>
+        <li>Jika $f(a) \cdot f(c) = 0$, maka $c$ adalah akar eksak.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Lebar Selang:</strong>
+      <div class="math-box">$$\text{lebar} = |b_{baru} - a_{baru}|$$</div>
+    </li>
+    <li>
+      <strong>Kriteria Berhenti:</strong> Iterasi berhenti jika $|f(c)| \le \varepsilon = 10^{-6}$.
+    </li>
+  </ol>
+
+  <h2>2. Tabel Iterasi Regula Falsi Klasik</h2>
+  <p>Berikut adalah tabel lengkap sesuai format parameter kolom: <code>r, a, c, b, f(a), f(c), f(b), selang baru (sb), dan lebar</code>.</p>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>r</th>
+          <th>a</th>
+          <th>c</th>
+          <th>b</th>
+          <th>f(a)</th>
+          <th>f(c)</th>
+          <th>f(b)</th>
+          <th>selang baru (sb)</th>
+          <th>lebar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>1.000000</td>
+          <td>1.354430</td>
+          <td>1.500000</td>
+          <td>-7.000000</td>
+          <td>-0.302055</td>
+          <td>+2.875000</td>
+          <td>[1.354430, 1.500000]</td>
+          <td>0.145570</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>1.354430</td>
+          <td>1.368270</td>
+          <td>1.500000</td>
+          <td>-0.302055</td>
+          <td>-0.011345</td>
+          <td>+2.875000</td>
+          <td>[1.368270, 1.500000]</td>
+          <td>0.131730</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>1.368270</td>
+          <td>1.368788</td>
+          <td>1.500000</td>
+          <td>-0.011345</td>
+          <td>-0.000424</td>
+          <td>+2.875000</td>
+          <td>[1.368788, 1.500000]</td>
+          <td>0.131212</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>1.368788</td>
+          <td>1.368807</td>
+          <td>1.500000</td>
+          <td>-0.000424</td>
+          <td>-0.000016</td>
+          <td>+2.875000</td>
+          <td>[1.368807, 1.500000]</td>
+          <td>0.131193</td>
+        </tr>
+        <tr style="background:#dcfce7; font-weight:600;">
+          <td><strong>5</strong></td>
+          <td>1.368807</td>
+          <td>1.368808</td>
+          <td>1.500000</td>
+          <td>-0.000016</td>
+          <td><strong>-0.000001</strong></td>
+          <td>+2.875000</td>
+          <td>[1.368808, 1.500000]</td>
+          <td>0.131192</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-success">
+    <strong>Kondisi Berhenti Terpenuhi:</strong><br>
+    Pada lelaran ke-5 ($r = 5$), nilai mutlak fungsi adalah $|f(c)| = |-0.00000059| \approx 5.91 \times 10^{-7} < 10^{-6}$. Dengan demikian, toleransi galat $\varepsilon$ telah tercapai dan proses lelaran selesai!
+  </div>
+
+  <h2>3. Pembahasan Rinci Perhitungan Setiap Lelaran (Step by Step)</h2>
+  <ol class="steps">
+    <li>
+      Lelaran 1 (r = 1)
+      <div>
+        <p>Batas awal: $a = 1.000000$ dan $b = 1.500000$.</p>
+        <p><strong>1. Evaluasi Nilai Fungsi:</strong></p>
+        <div class="math-box">
+          $$\begin{aligned}
+          f(a) = f(1.0) &= (1)^3 + 2(1)^2 + 10(1) - 20 = 1 + 2 + 10 - 20 = -7.000000 \\
+          f(b) = f(1.5) &= (1.5)^3 + 2(1.5)^2 + 10(1.5) - 20 = 3.375 + 4.5 + 15 - 20 = +2.875000
+          \end{aligned}$$
+        </div>
+        <p>Periksa tanda: $f(a) \cdot f(b) = (-7)(2.875) = -20.125 < 0$ (terdapat akar di dalam selang).</p>
+        
+        <p><strong>2. Hitung Titik Interpolasi c:</strong></p>
+        <div class="math-box">
+          $$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)} = \frac{1(2.875) - 1.5(-7)}{2.875 - (-7)} = \frac{2.875 + 10.5}{9.875} = \frac{13.375}{9.875} \approx 1.354430$$
+        </div>
+
+        <p><strong>3. Evaluasi Nilai Fungsi f(c):</strong></p>
+        <div class="math-box">
+          $$f(c) = (1.354430)^3 + 2(1.354430)^2 + 10(1.354430) - 20 = 2.484732 + 3.668961 + 13.544304 - 20 = -0.302055$$
+        </div>
+
+        <p><strong>4. Penentuan Selang Baru dan Lebar:</strong></p>
+        <p>Perkalian tanda: $f(a) \cdot f(c) = (-7.000000) \times (-0.302055) = +2.114385 > 0$.<br>
+        Karena bertanda sama ($> 0$), akar tidak berada di selang kiri $[a, c]$, melainkan di selang kanan $[c, b]$.<br>
+        Maka selang baru (sb) adalah <strong>$[1.354430,\ 1.500000]$</strong>.<br>
+        Lebar selang baru $= 1.500000 - 1.354430 = \mathbf{0.145570}$.</p>
+      </div>
+    </li>
+
+    <li>
+      Lelaran 2 (r = 2)
+      <div>
+        <p>Batas baru dari lelaran 1: $a = 1.354430$ dan $b = 1.500000$.</p>
+        <p>Nilai fungsi batas: $f(a) = -0.302055$ dan $f(b) = +2.875000$.</p>
+        
+        <p><strong>1. Hitung Titik c:</strong></p>
+        <div class="math-box">
+          $$c = \frac{1.354430(2.875000) - 1.500000(-0.302055)}{2.875000 - (-0.302055)} = \frac{3.893986 - (-0.453083)}{3.177055} = \frac{4.347069}{3.177055} \approx 1.368270$$
+        </div>
+
+        <p><strong>2. Evaluasi Nilai Fungsi f(c):</strong></p>
+        <div class="math-box">
+          $$f(1.368270) = (1.368270)^3 + 2(1.368270)^2 + 10(1.368270) - 20 \approx -0.011345$$
+        </div>
+
+        <p><strong>3. Penentuan Selang Baru dan Lebar:</strong></p>
+        <p>$f(a) \cdot f(c) = (-0.302055) \times (-0.011345) > 0$.<br>
+        Selang baru (sb) adalah <strong>$[1.368270,\ 1.500000]$</strong>.<br>
+        Lebar selang baru $= 1.500000 - 1.368270 = \mathbf{0.131730}$.</p>
+      </div>
+    </li>
+
+    <li>
+      Lelaran 3 (r = 3)
+      <div>
+        <p>Batas baru: $a = 1.368270$ dan $b = 1.500000$.</p>
+        <p>Nilai fungsi batas: $f(a) = -0.011345$ dan $f(b) = +2.875000$.</p>
+        
+        <p><strong>1. Hitung Titik c:</strong></p>
+        <div class="math-box">
+          $$c = \frac{1.368270(2.875000) - 1.500000(-0.011345)}{2.875000 - (-0.011345)} = \frac{3.933776 - (-0.017018)}{2.886345} = \frac{3.950794}{2.886345} \approx 1.368788$$
+        </div>
+
+        <p><strong>2. Evaluasi Nilai Fungsi f(c):</strong></p>
+        <div class="math-box">
+          $$f(1.368788) \approx -0.000424$$
+        </div>
+
+        <p><strong>3. Penentuan Selang Baru dan Lebar:</strong></p>
+        <p>$f(a) \cdot f(c) = (-0.011345) \times (-0.000424) > 0$.<br>
+        Selang baru (sb) adalah <strong>$[1.368788,\ 1.500000]$</strong>.<br>
+        Lebar selang baru $= 1.500000 - 1.368788 = \mathbf{0.131212}$.</p>
+      </div>
+    </li>
+
+    <li>
+      Lelaran 4 (r = 4)
+      <div>
+        <p>Batas baru: $a = 1.368788$ dan $b = 1.500000$.</p>
+        <p>Nilai fungsi batas: $f(a) = -0.000424$ dan $f(b) = +2.875000$.</p>
+        
+        <p><strong>1. Hitung Titik c:</strong></p>
+        <div class="math-box">
+          $$c = \frac{1.368788(2.875000) - 1.500000(-0.000424)}{2.875000 - (-0.000424)} = \frac{3.935266 - (-0.000636)}{2.875424} = \frac{3.935902}{2.875424} \approx 1.368807$$
+        </div>
+
+        <p><strong>2. Evaluasi Nilai Fungsi f(c):</strong></p>
+        <div class="math-box">
+          $$f(1.368807) \approx -0.000016$$
+        </div>
+
+        <p><strong>3. Penentuan Selang Baru dan Lebar:</strong></p>
+        <p>$f(a) \cdot f(c) = (-0.000424) \times (-0.000016) > 0$.<br>
+        Selang baru (sb) adalah <strong>$[1.368807,\ 1.500000]$</strong>.<br>
+        Lebar selang baru $= 1.500000 - 1.368807 = \mathbf{0.131193}$.</p>
+      </div>
+    </li>
+
+    <li>
+      Lelaran 5 (r = 5) — Iterasi Terakhir
+      <div>
+        <p>Batas baru: $a = 1.368807$ dan $b = 1.500000$.</p>
+        <p>Nilai fungsi batas: $f(a) = -0.000016$ dan $f(b) = +2.875000$.</p>
+        
+        <p><strong>1. Hitung Titik c:</strong></p>
+        <div class="math-box">
+          $$c = \frac{1.368807(2.875000) - 1.500000(-0.000016)}{2.875000 - (-0.000016)} = \frac{3.935320 - (-0.000024)}{2.875016} = \frac{3.935344}{2.875016} \approx \mathbf{1.368808}$$
+        </div>
+
+        <p><strong>2. Evaluasi Nilai Fungsi f(c):</strong></p>
+        <div class="math-box">
+          $$f(1.368808) = (1.368808)^3 + 2(1.368808)^2 + 10(1.368808) - 20 \approx \mathbf{-0.00000059} = -5.91 \times 10^{-7}$$
+        </div>
+
+        <p><strong>3. Uji Kriteria Berhenti:</strong></p>
+        <div class="math-box">
+          $$|f(c)| = |-5.91 \times 10^{-7}| = 5.91 \times 10^{-7} \le 10^{-6} \quad (\text{TERPENUHI})$$
+        </div>
+        <p>Selang baru (sb) adalah <strong>$[1.368808,\ 1.500000]$</strong> dengan lebar $\mathbf{0.131192}$.</p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="card card-warn">
+    <strong>Catatan Teoretis Penting (Stagnasi Titik Diam pada Regula Falsi Klasik):</strong><br>
+    Perhatikan kolom <code>b</code> dan <code>lebar</code> pada tabel! Nilai $b = 1.500000$ tidak pernah bergeser sejak lelaran 1 hingga 5, dan lebar selang berhenti menyusut di kisaran $0.131192$. Fenomena ini dinamakan <em>stagnasi titik diam</em> (terjadi karena fungsi cembung/cekung searah pada selang tersebut). Inilah alasan mengapa pada Regula Falsi Klasik, kriteria penghentian yang valid adalah <strong>$|f(c)| < \varepsilon$</strong> atau selisih antar-taksiran <strong>$|c_{r} - c_{r-1}| < \varepsilon$</strong>, dan <em>bukan</em> lebar selang $|b - a| < \varepsilon$.
+  </div>
+
+  <h2>4. Kesimpulan Akhir</h2>
+  <div class="card card-success">
+    Akar hampiran persamaan $x^3 + 2x^2 + 10x - 20 = 0$ pada interval $[1,\ 1.5]$ dengan toleransi $\varepsilon = 10^{-6}$ menggunakan Metode Regula-Falsi Klasik adalah:
+    <div style="font-size:1.25rem; font-weight:700; margin-top:8px;">
+      $$x \approx 1.368808$$
+    </div>
+    dengan nilai evaluasi fungsi $f(1.368808) \approx -5.91 \times 10^{-7}$ yang telah memenuhi $|f(x)| \le 10^{-6}$ dalam <strong>5 lelaran</strong>.
+  </div>
+</div>
+</body>
+</html>

@@ -71,38 +71,39 @@ const metodeNumerikMeetings: SyllabusMeeting[] = [
   },
   {
     meeting: 4,
-    title: 'Solusi Sistem Persamaan Nirlanjar (Harapan Materi - Kelompok 3)',
+    title: 'Metode Terbuka: Newton-Raphson dan Secant (Kelompok 3)',
     kind: 'Teori',
-    summary: 'Rencana bahasan silabus: sistem persamaan nirlanjar (SPNL multivariabel), metode Newton multivariabel, dan matriks Jacobian oleh Kelompok 3.',
-    activity: 'Harapan materi: menelaah materi perkiraan sebelum presentasi Kelompok 3 berlangsung.'
-  },
+    summary: 'Metode Newton-Raphson dan secant untuk mencari akar persamaan nirlanjar, termasuk pemilihan nilai awal, kriteria berhenti, dan risiko gagal konvergen.',
+    activity: 'Menelaah langkah hitung Newton-Raphson dan secant dari soal perkuliahan.'
+  }
+  ,
   {
     meeting: 5,
-    title: 'Sistem Persamaan Lanjar: Eliminasi Gauss Modifikasi & Dekomposisi LU Doolittle',
+    title: 'Sistem Persamaan Lanjar: Gauss Modifikasi, Pivoting, Penskalaan, dan LU',
     kind: 'Teori',
-    summary: 'Sistem persamaan lanjar dengan eliminasi Gauss yang dimodifikasi (partial pivoting) dan dekomposisi LU Gauss / Doolittle sebagai pondasi materi sebelum Crout & Cholesky.',
-    activity: 'Mempelajari konsep poros nol, pivoting sebagian, dan substitusi dua tahap L y = b lalu U x = y.'
+    summary: 'Materi SPL yang sudah dibahas: eliminasi Gauss, pivoting sebagian/lengkap, penskalaan, tiga kemungkinan solusi, dekomposisi LU Gauss, dan substitusi maju-mundur.',
+    activity: 'Mengulang soal SPL sebelumnya dan memeriksa pivot, jenis solusi, faktor LU, serta residu.'
   },
   {
     meeting: 6,
-    title: 'Dekomposisi LU Reduksi Crout dan Cholesky (Kelompok 4 - Ryan, Najla, Nabila)',
+    title: 'Persiapan UTS — Kumpulan Soal dan Pembahasan Lengkap',
     kind: 'Teori',
-    summary: 'Faktorisasi matriks dekomposisi LU reduksi Crout (u_ii = 1) dan dekomposisi Cholesky (A = L L^T) untuk matriks simetris definit positif dipresentasikan oleh Kelompok 4.',
-    activity: 'Presentasi utama Kelompok 4 (Ryan, Najla, Nabila) serta pengujian live web kalkulator numerik Crout & Cholesky.'
+    summary: 'Pembahasan step-by-step seluruh soal yang sudah dikumpulkan: deret Taylor dan Maclaurin (soal Ibu), akar persamaan nirlanjar (soal Kelompok 2), serta sistem persamaan lanjar Gauss dan dekomposisi LU (soal Kelompok 3).',
+    activity: 'Mengerjakan ulang soal lama dan memahami tiap langkah pembahasan sebagai bekal UTS.'
   },
   {
     meeting: 7,
-    title: 'Interpolasi Polinom dan Lagrange (Harapan Materi - Kelompok 6)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: konsep dasar interpolasi, interpolasi linier, kuadratik, dan interpolasi polinomial Lagrange.',
-    activity: 'Harapan materi: estimasi kurva data diskret menggunakan fungsi polinomial.'
+    title: 'Ujian Tengah Semester (UTS)',
+    kind: 'UTS',
+    summary: 'UTS Metode Numerik. Cakupan Pertemuan 1–6: deret Taylor dan analisis galat, solusi nirlanjar (metode tertutup dan terbuka), serta sistem persamaan lanjar (Gauss, pivoting, penskalaan, dekomposisi LU, Crout, Cholesky).',
+    activity: 'Mengerjakan ujian tengah semester.'
   },
   {
     meeting: 8,
-    title: 'Interpolasi Newton dan Newton-Gregory (Harapan Materi - Kelompok 7)',
+    title: 'Presentasi Kelompok 4: Dekomposisi LU Reduksi Crout dan Cholesky',
     kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: interpolasi beda terbagi Newton serta interpolasi selisih maju dan mundur Newton-Gregory untuk data berjarak seragam.',
-    activity: 'Harapan materi: menyusun tabel beda terbagi dan menghitung nilai interpolasi.'
+    summary: 'Presentasi Kelompok 4 (Ryan, Najla, Nabila) setelah UTS: faktorisasi matriks dekomposisi LU reduksi Crout (u_ii = 1) dan dekomposisi Cholesky (A = LL^T) untuk matriks simetris definit positif.',
+    activity: 'Menyimak presentasi Kelompok 4 dan menelaah langkah hitung Crout serta Cholesky.'
   },
   {
     meeting: 9,
@@ -167,7 +168,8 @@ const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:3,title:'Pajak, Subsidi, dan Keseimbangan Pasar Dua Macam Barang',kind:'Teori',summary:'Membentuk fungsi dari dua titik, keseimbangan pasar, pajak spesifik dan proporsional, subsidi, pembagian beban pajak konsumen-produsen, serta pasar dua macam barang. Kamis, 27 Agustus 2026.',activity:'Mengerjakan hitungan dari transkripsi sepuluh foto catatan tulis tangan.'},
 {meeting:4,title:'Fungsi Biaya, Penerimaan, Laba, dan Titik Impas',kind:'Teori',summary:'Biaya tetap, variabel, total, rata-rata, dan marginal; penerimaan total; fungsi laba; serta titik impas (BEP). Kamis, 03 September 2026.',activity:'Mengikuti contoh soal lalu mengerjakan latihan biaya-penerimaan-laba.'},
 {meeting:5,title:'Penerapan Fungsi Non-Linear dalam Ekonomi',kind:'Teori',summary:'Fungsi permintaan dan penawaran kuadrat, keseimbangan pasar non-linear, pengaruh pajak dan subsidi spesifik pada model kuadrat, serta kurva transformasi produksi (PPF). Kamis, 10 September 2026.',activity:'Mempelajari materi pengantar dan mengerjakan latihan keseimbangan pasar non-linear.'},
-...blank(6,16)
+{meeting:6,title:'Studi Kasus Optimasi dan Pemodelan Matematika Ekonomi (Usaha Laundry)',kind:'Teori',summary:'Pemodelan linear fungsi permintaan, perumusan biaya total dan penerimaan, fungsi keuntungan kuadratik, penentuan titik impas (BEP), serta simulasi strategi harga usaha laundry mahasiswa.',activity:'Menganalisis skenario penetapan harga, trade-off volume vs margin, dan menghitung laba optimal.'},
+...blank(7,16)
 ]
 /* Skripsi: tahapan diambil dari berkas yang benar-benar ada di folder skripsi
    (Form NUIR 2026, draf proposal, revisi bimbingan pertama, studi pendahuluan,
