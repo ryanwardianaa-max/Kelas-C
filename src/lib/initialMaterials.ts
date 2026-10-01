@@ -47,13 +47,24 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-mateko-pertemuan-06",
-    title: "Catatan Kuliah: Studi Kasus Optimasi dan Pemodelan Matematika Ekonomi (Usaha Laundry)",
+    title: "Catatan Kuliah: Modul Ringkasan Lengkap Persiapan UTS Matematika Ekonomi (Open Book - 6 Halaman)",
     courseCode: "KP21517007",
     meetingNo: 6,
     type: "Catatan",
     description:
-      "Studi kasus pemodelan ekonomi terbuka (open-ended problem): Penurunan fungsi permintaan, perumusan biaya total TC, penerimaan total TR, fungsi laba kuadratik, visualisasi grafik, simulasi 5 skenario harga, analisis titik impas (BEP), dan rekomendasi penetapan harga bisnis riil.",
+      "Modul komprehensif persiapan UTS (Open Book 6 Halaman Padat): Pasar linear & keseimbangan, kebijakan pajak & subsidi, fungsi biaya, penerimaan, BEP, maksimasi laba, model non-linear (parabola & hiperbola), PPF & utilitas, studi kasus optimasi laundry, serta master cheat sheet formula & panduan grafik.",
     url: "/materi/KP21517007/pertemuan-06/index.html",
+    createdAt: "2026-10-01T00:00:00.000Z",
+  },
+  {
+    id: "tugas-mateko-pertemuan-06-laundry",
+    title: "Tugas Mandiri: Studi Kasus Optimasi dan Pemodelan Matematika Ekonomi (Usaha Laundry)",
+    courseCode: "KP21517007",
+    meetingNo: 6,
+    type: "Dokumen",
+    description:
+      "Studi kasus pemodelan ekonomi terbuka (open-ended problem): Penurunan fungsi permintaan, perumusan biaya total TC, penerimaan total TR, fungsi laba kuadratik, visualisasi grafik, simulasi 5 skenario harga, analisis titik impas (BEP), dan rekomendasi penetapan harga bisnis riil.",
+    url: "/materi/KP21517007/pertemuan-06/studi-kasus-laundry.html",
     createdAt: "2026-09-17T09:30:00.000Z",
   },
   {

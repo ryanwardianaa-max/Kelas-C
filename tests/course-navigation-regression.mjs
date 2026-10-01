@@ -19,6 +19,7 @@ for (const path of [
   "public/materi/KP21517004/pertemuan-03/index.html",
   "public/materi/KP21517007/pertemuan-02/index.html",
   "public/materi/KP21517007/pertemuan-03/index.html",
+  "public/materi/KP21517007/pertemuan-06/index.html",
 ]) {
   const html = readFileSync(path, "utf8");
   const code = path.match(/KP\d+/)?.[0];
