@@ -15,6 +15,7 @@ assert.match(app, /useState<Course \| null>\(initialCourse\)/, "detail matkul ha
 
 for (const path of [
   "public/materi/KP21517003/pertemuan-03/index.html",
+  "public/materi/KP21517003/persiapan-uts/index.html",
   "public/materi/KP21517004/pertemuan-02/index.html",
   "public/materi/KP21517004/pertemuan-03/index.html",
   "public/materi/KP21517007/pertemuan-02/index.html",

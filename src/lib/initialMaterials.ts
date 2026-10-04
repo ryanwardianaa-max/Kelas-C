@@ -156,6 +156,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-28T09:30:00.000Z",
   },
   {
+    id: "mat-analisis-kompleks-persiapan-uts-10hal",
+    title: "Modul Ringkasan Lengkap Persiapan UTS Analisis Kompleks (10 Halaman Padat)",
+    courseCode: "KP21517003",
+    meetingNo: 8,
+    type: "Catatan",
+    description:
+      "Modul komprehensif 10 halaman padat persiapan UTS Analisis Kompleks (Pertemuan 01–07) dosen Ibu Vepi Apiati, S.Pd., M.Pd. Mencakup fondasi aljabar & pangkat i, konjugat & pembagian, 6 aksioma lapangan, modulus & pertidaksamaan segitiga, geometri vektor & dot/cross product, bentuk polar 4 kuadran, derivasi rumus Euler, teorema perkalian/pembagian polar, teorema De Moivre (termasuk pembuktian identitas sin³θ whiteboard), teorema penarikan akar kompleks poligon Argand, serta bedah tuntas soal papan tulis Bu Vepi (z⁵ = -32 dan (-1+i)¹/³) dan bank soal prediksi UTS.",
+    url: "/materi/KP21517003/persiapan-uts/index.html",
+    createdAt: "2026-10-01T10:00:00.000Z",
+  },
+  {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",
