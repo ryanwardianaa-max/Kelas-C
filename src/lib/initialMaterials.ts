@@ -167,6 +167,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-10-01T10:00:00.000Z",
   },
   {
+    id: "mat-analisis-kompleks-pertemuan-09",
+    title: "Catatan Kuliah: Persamaan Cauchy-Riemann, Keanalitikan, & Fungsi Harmonik",
+    courseCode: "KP21517003",
+    meetingNo: 9,
+    type: "Catatan",
+    description:
+      "Catatan resmi perkuliahan Analisis Kompleks Pertemuan 09 (12 Oktober 2026) perdana pasca-UTS bersama Bu Vepi Apiati. Menjelaskan syarat Cauchy-Riemann (ux = vy dan uy = -vx), pembuktian identitas Laplace tingkat dua untuk fungsi analitik, serta bedah tuntas dua soal papan tulis f(z) = (1+i)z² dan f(z) = z⁴.",
+    url: "/materi/KP21517003/pertemuan-09/index.html",
+    createdAt: "2026-10-12T07:45:00.000Z",
+  },
+  {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",
