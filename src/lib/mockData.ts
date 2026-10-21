@@ -110,60 +110,12 @@ const metodeNumerikMeetings: SyllabusMeeting[] = [
   },
   {
     meeting: 9,
-    title: 'Integrasi Numerik Metode Pias (Harapan Materi - Kelompok 8)',
+    title: 'Rencana: Determinan, Kondisi Buruk, dan Metode Lelaran Jacobi & Gauss-Seidel (Belum pasti)',
     kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: integrasi numerik pendekatan pias (kaidah segi empat, kaidah trapesium, dan kaidah titik tengah).',
-    activity: 'Harapan materi: komputasi hampiran luas area di bawah kurva fungsi kontinu.'
+    summary: 'Masih planning. Topik pastinya belum terkonfirmasi (lupa arahan Bu Linda di kelas), formatnya masih presentasi kelompok. Kandidat terkuat: lanjutan Rinaldi Munir Bab 4 setelah LU/Crout, yaitu §4.6 Determinan, §4.7–4.8 Kondisi Buruk & Bilangan Kondisi, dan §4.9 Lelaran Jacobi & Gauss-Seidel.',
+    activity: 'Konfirmasi topik ke teman/grup kelas, lalu baca catatan planning dan buku Munir Bab 4.'
   },
-  {
-    meeting: 10,
-    title: 'Integrasi Numerik Metode Newton-Cotes (Harapan Materi - Kelompok 9)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: kaidah integrasi Newton-Cotes berderajat tinggi (kaidah Simpson 1/3, kaidah Simpson 3/8, dan aturan komposit).',
-    activity: 'Harapan materi: komparasi orde ketelitian dan estimasi galat pemotongan integral.'
-  },
-  {
-    meeting: 11,
-    title: 'Integrasi Romberg dan Kuadratur Gauss (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: ekstrapolasi Richardson / integrasi Romberg dan metode kuadratur Gauss-Legendre n-titik bobot efisien.',
-    activity: 'Harapan materi: menghitung integral dengan jumlah evaluasi fungsi seminimal mungkin.'
-  },
-  {
-    meeting: 12,
-    title: 'Diferensiasi Numerik Beda Hingga (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: diferensiasi numerik selisih maju, selisih mundur, selisih pusat, serta turunan kedua dengan deret Taylor.',
-    activity: 'Harapan materi: penentuan laju perubahan diskret dan evaluasi galat pemotongan O(h^2).'
-  },
-  {
-    meeting: 13,
-    title: 'Solusi PDB: Metode Euler dan Heun (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: persoalan nilai awal persamaan diferensial biasa (PDB) orde satu dengan metode Euler dan metode Euler modifikasi (Heun).',
-    activity: 'Harapan materi: penelusuran trayektori solusi numerik dari kondisi nilai batas awal.'
-  },
-  {
-    meeting: 14,
-    title: 'Solusi PDB: Runge-Kutta Orde 4 (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: metode Runge-Kutta klasik orde empat (RK4) untuk persamaan diferensial tunggal dan sistem PDB berderajat banyak.',
-    activity: 'Harapan materi: simulasi numerik berpresisi tinggi dengan bobot gradien bertingkat.'
-  },
-  {
-    meeting: 15,
-    title: 'Penerapan Kasus Nyata & Studi Pemodelan Matematika (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: studi kasus pemodelan matematika rekayasa, optimasi numerik, dan penyelesaian masalah fenomena fisika/ekonomi riil.',
-    activity: 'Harapan materi: penyusunan laporan pemodelan komputasi numerik kelompok.'
-  },
-  {
-    meeting: 16,
-    title: 'Evaluasi Akhir Semester & Sintesis Komprehensif (Harapan Materi)',
-    kind: 'Teori',
-    summary: 'Rencana silabus Bu Linda: evaluasi terpadu seluruh metode numerik (akar, SPL, interpolasi, integrasi, dan PDB) serta kriteria pemilihan metode optimal.',
-    activity: 'Harapan materi: review akhir komprehensif persiapan Ujian Akhir Semester.'
-  }
+  ...blank(10,16)
 ];
 const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:1,title:'Pertemuan 01 (Belum diisi)',kind:'Teori',summary:'Belum ada catatan atau bahan materi yang terverifikasi.',activity:'Isi setelah materi perkuliahan diketahui.'},

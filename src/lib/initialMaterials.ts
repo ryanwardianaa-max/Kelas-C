@@ -443,6 +443,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-02T16:00:00.000Z",
   },
   {
+    id: "mat-metode-numerik-planning-p09",
+    title: "Planning Pertemuan 09 (Belum Pasti): Lanjutan SPL — Determinan, Kondisi Buruk, Jacobi & Gauss-Seidel",
+    courseCode: "KP21517001",
+    meetingNo: 9,
+    type: "Catatan",
+    description:
+      "Planning setelah presentasi Kelompok 4 (Crout & Cholesky). Topik P09 belum dikonfirmasi, formatnya masih presentasi. Berisi posisi materi di Rinaldi Munir Bab 4, tiga kandidat topik, daftar hal yang perlu dikonfirmasi, preview determinan lewat LU, kondisi buruk, lelaran Jacobi & Gauss-Seidel dengan tabel iterasi, serta checklist persiapan.",
+    url: "/materi/KP21517001/planning-p09/index.html",
+    createdAt: "2026-10-21T08:00:00.000Z",
+  },
+  {
     id: "tool-lab-metode-numerik",
     title: "Laboratorium Metode Numerik Lengkap: Langkah, Tabel & Grafik",
     courseCode: "KP21517001",
