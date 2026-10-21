@@ -110,10 +110,10 @@ const metodeNumerikMeetings: SyllabusMeeting[] = [
   },
   {
     meeting: 9,
-    title: 'Rencana: Determinan, Kondisi Buruk, dan Metode Lelaran Jacobi & Gauss-Seidel (Belum pasti)',
+    title: 'Interpolasi Polinom: Lanjar, Kuadratik, Lagrange, dan Newton',
     kind: 'Teori',
-    summary: 'Masih planning. Topik pastinya belum terkonfirmasi (lupa arahan Bu Linda di kelas), formatnya masih presentasi kelompok. Kandidat terkuat: lanjutan Rinaldi Munir Bab 4 setelah LU/Crout, yaitu §4.6 Determinan, §4.7–4.8 Kondisi Buruk & Bilangan Kondisi, dan §4.9 Lelaran Jacobi & Gauss-Seidel.',
-    activity: 'Konfirmasi topik ke teman/grup kelas, lalu baca catatan planning dan buku Munir Bab 4.'
+    summary: 'Presentasi kelompok tentang interpolasi polinom (Rinaldi Munir Bab 5): interpolasi lanjar dan kuadratik, polinom Lagrange, polinom Newton dengan tabel selisih terbagi, serta galat interpolasi.',
+    activity: 'Mengikuti contoh ln 9,2 dan data (1,2),(2,3),(4,11) pada tiap metode, lalu mengerjakan latihan √6.'
   },
   ...blank(10,16)
 ];

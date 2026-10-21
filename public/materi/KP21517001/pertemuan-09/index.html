@@ -1,11 +1,321 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pertemuan 09 — Interpolasi Polinom Lagrange</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><link rel="stylesheet" href="../shared.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script></head>
-<body><div class="page"><nav class="top-nav"><a class="back" href="/?course=KP21517001" onclick="handleGoBack(event)">← Kembali ke Metode Numerik</a><span>Pertemuan 09/16</span></nav>
-<header><span class="badge">Bahan Belajar · Pertemuan 09</span><h1>Interpolasi Polinom Lagrange</h1><p>Data diskrit berupa pasangan titik dapat digunakan untuk memperkirakan nilai yang tidak tercantum di tabel. Mengikuti Bab 5 Rinaldi Munir, pertemuan ini membangun polinom yang melalui tepat semua titik data dengan bentuk Lagrange. Bahan belajar menekankan makna basis, prosedur hitung, verifikasi, serta batas antara interpolasi dan ekstrapolasi.</p><div class="meta"><span><strong>Mata kuliah:</strong> Metode Numerik (KP21517001)</span><span><strong>Dosen:</strong> Linda Herawati, S.Pd., M.Pd.</span><span><strong>SKS / Kelas:</strong> 3 SKS / Kelas C</span><span><strong>Rujukan:</strong> Buku Metode Numerik — Rinaldi Munir, STEI ITB</span></div></header>
-<main><aside class="notice"><strong>Status materi:</strong> bahan belajar terstruktur, bukan klaim catatan kuliah yang sudah berlangsung. Sesuaikan dengan penjelasan dosen di kelas.</aside><section><h2>1. Masalah Interpolasi dan Syarat Data</h2><p>Diberikan n+1 titik (x_i,y_i) dengan semua absis berbeda. Interpolasi mencari polinom P_n berderajat paling tinggi n yang memenuhi P_n(x_i)=y_i pada setiap titik. Untuk syarat tersebut terdapat tepat satu polinom.</p><p>Interpolasi menaksir nilai di dalam rentang data. Penaksiran di luar rentang disebut ekstrapolasi dan lebih berisiko karena tidak dikendalikan oleh titik data pada sisi luar.</p><p>Absis harus diperiksa sebelum menghitung. Dua ordinat berbeda pada absis yang sama tidak dapat diwakili sebagai fungsi tunggal y=f(x), dan penyebut basis Lagrange akan nol.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$P_n(x_i)=y_i,\quad i=0,1,\ldots,n$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$P_n(x)=a_0+a_1x+\cdots+a_nx^n$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$x_i\ne x_j\quad\text{untuk }i\ne j$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Apakah data (0,1), (1,3), dan (2,2) mempunyai polinom interpolasi kuadrat?</p><ol class="steps"><li>Ada tiga titik, sehingga derajat maksimum interpolan adalah 3-1=2.</li><li>Absis 0, 1, dan 2 semuanya berbeda.</li><li>Syarat keberadaan dan ketunggalan interpolan terpenuhi.</li></ol><p class="answer"><strong>Jawaban:</strong> Ya. Terdapat tepat satu polinom P_2(x) berderajat paling tinggi dua yang melalui ketiga titik.</p></div><div class="card warn"><strong>Hati-hati:</strong> Interpolasi wajib melewati semua titik; pencocokan kurva atau regresi boleh memiliki residual pada titik data.</div></section><section><h2>2. Basis Lagrange</h2><p>Basis ke-i dirancang bernilai satu pada x_i dan nol pada semua absis lainnya. Karena sifat ini, ketika x=x_i hanya suku y_i L_i(x) yang tetap memberikan kontribusi.</p><p>Pembilang memuat faktor yang membuat basis nol di titik lain. Penyebut menormalkan hasil agar L_i(x_i)=1. Jarak antartitik tidak harus seragam, tetapi absis wajib berbeda.</p><p>Polinom akhir adalah jumlah seluruh ordinat yang dikalikan basisnya. Identitas jumlah semua basis sama dengan satu berguna sebagai pemeriksaan hitung.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$L_i(x)=\prod_{\substack{j=0\\j\ne i}}^n\frac{x-x_j}{x_i-x_j}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$L_i(x_j)=\begin{cases}1,&amp;i=j,\\0,&amp;i\ne j,\end{cases}$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$P_n(x)=\sum_{i=0}^n y_iL_i(x)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$\sum_{i=0}^nL_i(x)=1$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Bangun basis Lagrange untuk absis 0, 1, dan 2.</p><ol class="steps"><li>L_0(x)=\frac{(x-1)(x-2)}{(0-1)(0-2)}=\frac{(x-1)(x-2)}{2}.</li><li>L_1(x)=\frac{x(x-2)}{(1-0)(1-2)}=-x(x-2).</li><li>L_2(x)=\frac{x(x-1)}{(2-0)(2-1)}=\frac{x(x-1)}{2}.</li><li>Pemeriksaan pada x=1 memberi L_0(1)=0, L_1(1)=1, dan L_2(1)=0.</li></ol><p class="answer"><strong>Jawaban:</strong> Basisnya ialah L_0(x)=\frac{(x-1)(x-2)}{2}, L_1(x)=-x(x-2), dan L_2(x)=\frac{x(x-1)}{2}.</p></div><div class="card warn"><strong>Hati-hati:</strong> Pasangan faktor pembilang dan penyebut harus memakai indeks yang sama. Kesalahan urutan pada (x_i-x_j) sering mengubah tanda basis.</div></section><section><h2>3. Evaluasi dan Bentuk Polinom</h2><p>Untuk satu nilai sasaran x*, hitung setiap basis pada x*, kalikan dengan ordinat terkait, lalu jumlahkan. Pengembangan ke bentuk pangkat tidak diperlukan dan sering menambah kesalahan aljabar.</p><p>Jika polinom akan dievaluasi berkali-kali, bentuk basis dapat dikembangkan menjadi bentuk standar. Kebenarannya diverifikasi dengan memasukkan seluruh absis asli dan memastikan residual y_i-P_n(x_i) sama dengan nol.</p><p>Derajat aktual dapat lebih rendah dari n apabila koefisien pangkat tertinggi saling menghapus. Istilah derajat paling tinggi n tidak berarti derajatnya harus tepat n.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$P_n(x^*)=\sum_{i=0}^ny_iL_i(x^*)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$r_i=y_i-P_n(x_i)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$P_n(x_i)=y_i$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Untuk data (0,1), (1,3), (2,2), hitung P_2(1,5) dan bentuk pangkatnya.</p><ol class="steps"><li>L_0(1{,}5)=-0{,}125,\quad L_1(1{,}5)=0{,}75,\quad L_2(1{,}5)=0{,}375.</li><li>Jumlah basis -0{,}125+0{,}75+0{,}375=1.</li><li>P_2(1{,}5)=1(-0{,}125)+3(0{,}75)+2(0{,}375)=2{,}875.</li><li>Pengembangan memberi P_2(x)=-1{,}5x^2+3{,}5x+1; substitusi x=0,1,2 mengembalikan 1,3,2.</li></ol><p class="answer"><strong>Jawaban:</strong> Nilai interpolasi P_2(1{,}5)=2{,}875 dan polinomnya P_2(x)=-1{,}5x^2+3{,}5x+1.</p></div><div class="card warn"><strong>Hati-hati:</strong> Jangan membulatkan nilai basis terlalu awal. Pertahankan pecahan atau cukup banyak angka desimal sampai penjumlahan akhir.</div></section><section><h2>4. Galat dan Pemilihan Titik</h2><p>Jika data berasal dari fungsi halus f, galat interpolasi bergantung pada turunan orde n+1 dan hasil kali jarak titik evaluasi terhadap semua simpul. Rumus galat menjelaskan mengapa lokasi titik penting.</p><p>Menambah titik tidak selalu memperbaiki hasil. Polinom berderajat tinggi pada titik berjarak sama dapat berosilasi di ujung interval, dikenal sebagai fenomena Runge.</p><p>Gunakan titik dekat lokasi evaluasi, derajat secukupnya, dan hindari ekstrapolasi jauh. Untuk data banyak, interpolasi potongan seperti spline sering lebih stabil.</p><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$f(x)-P_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^n(x-x_i)$$</div></div><div class="card formula"><div class="formula-label">Rumus</div><div class="math-step-box">$$|f(x)-P_n(x)|\le\frac{M}{(n+1)!}\left|\prod_{i=0}^n(x-x_i)\right|$$</div></div><div class="card example"><div class="formula-label">Contoh bertahap</div><p><strong>Soal:</strong> Batasi galat interpolasi linear e^x pada x_0=0, x_1=1, dan x=0,5.</p><ol class="steps"><li>Untuk n=1 diperlukan f&#x27;&#x27;(x)=e^x.</li><li>Pada [0,1], ambil M=e.</li><li>|(0{,}5-0)(0{,}5-1)|=0{,}25.</li><li>|E_1(0{,}5)|\le\frac{e}{2!}(0{,}25)=\frac{e}{8}\approx0{,}3398.</li></ol><p class="answer"><strong>Jawaban:</strong> Batas galat teoritisnya |E_1(0{,}5)|\le e/8\approx0{,}3398; galat aktual tidak harus sebesar batas itu.</p></div><div class="card warn"><strong>Hati-hati:</strong> Jika fungsi asal atau batas turunannya tidak diketahui, jangan mengarang galat teoritis hanya dari tabel data.</div></section>
-<section><h2>Ringkasan</h2><div class="card summary"><ul><li>Lagrange menghasilkan satu polinom yang melalui semua titik berabsis berbeda.</li><li>Basis L_i bernilai satu di simpulnya dan nol di simpul lain.</li><li>Interpolan dapat dievaluasi tanpa mengembangkan bentuk pangkat.</li><li>Jumlah basis sama dengan satu dan residual di titik data harus nol.</li><li>Ekstrapolasi serta derajat tinggi memerlukan kehati-hatian.</li></ul></div></section>
-<section><h2>Latihan Mandiri</h2><div class="card exercise"><ol><li>Bangun polinom Lagrange untuk (1,2), (2,5), (4,17), lalu hitung P(3).</li><li>Untuk (-1,4), (0,1), (2,3), tulis semua L_i(x) dan buktikan jumlahnya satu.</li><li>Interpolasikan f(x)=\ln x pada x=1,2,4, lalu taksir \ln 3.</li><li>Jelaskan mengapa data (0,1), (0,2), (1,4) tidak memenuhi syarat interpolasi fungsi.</li><li>Cari batas galat interpolasi linear f(x)=\sin x pada [0,\pi/2] di x=\pi/4.</li><li>Bandingkan interpolasi di x=1,5 dan ekstrapolasi di x=4 untuk data (0,1), (1,2), (2,5).</li></ol></div></section>
-<div class="tool-cta"><div><strong>Coba dengan angka sendiri</strong><p>Laboratorium menampilkan langkah, tabel iterasi, hasil, dan grafik.</p></div><a href="/tools/lab-metode-numerik/index.html">Buka Laboratorium</a></div>
-<section><h2>Berikutnya</h2><p>Pertemuan 10 membangun polinom yang sama melalui tabel beda terbagi Newton, lalu memperkenalkan spline sebagai interpolasi potongan dan membedakan tujuan interpolasi dari regresi linear.</p></section>
-<section class="sources"><h2>Sumber</h2><ol><li>[1] <a href="https://informatika.stei.itb.ac.id/~rinaldi.munir/Buku/Metode%20Numerik/pdf/BAb-%2005%20Interpolasi%20Polinom.pdf" target="_blank" rel="noreferrer">Bab 05 — Interpolasi Polinom — Rinaldi Munir</a></li></ol></section><nav class="pager"><a href="/materi/KP21517001/pertemuan-08/index.html">← Pertemuan 08</a><a href="/materi/KP21517001/pertemuan-10/index.html">Pertemuan 10 →</a></nav></main>
-<footer>Disusun untuk belajar Metode Numerik Kelas C · Rumus dirender dengan KaTeX</footer></div><script>function handleGoBack(e){if(history.length>1){e.preventDefault();history.back()}}document.addEventListener('DOMContentLoaded',()=>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}],throwOnError:false}));</script></body></html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P09 · Interpolasi Polinom</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#2f5bd3; --accent-soft:#eaf0ff; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3;
+  }
+  html{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .meta{font-size:14px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.2;margin:8px 0 10px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:24px;margin:56px 0 6px;scroll-margin-top:16px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  h3{font-size:18px;margin:28px 0 8px}
+  .lead{color:var(--muted);margin-top:0}
+  nav{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  nav b{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  nav ol{margin:8px 0 0;padding-left:22px}
+  nav a{color:var(--accent);text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  .box{border-radius:12px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);background:var(--paper)}
+  .box.key{background:var(--accent-soft);border-color:transparent}
+  .box.ok{background:var(--ok-soft);border-color:transparent}
+  .box.warn{background:var(--warn-soft);border-color:transparent}
+  .box .tag{display:block;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .key .tag{color:var(--accent)} .ok .tag{color:var(--ok)} .warn .tag{color:var(--warn)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:18px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 52px;border-left:2px solid var(--line);margin-left:16px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+  ol.steps>li>b:first-child{display:block}
+
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;margin:16px 0;background:var(--paper)}
+  th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left}
+  th{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  table.dd td,table.dd th{text-align:center}
+  table.dd td.hl{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  svg text{font-family:"Segoe UI",system-ui,sans-serif}
+  details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 18px;margin:12px 0}
+  summary{cursor:pointer;font-weight:600}
+  details[open] summary{margin-bottom:8px}
+  footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media print{
+    body{font-size:12pt} nav{display:none}
+    details{border:none;padding:0} details>summary{display:none}
+    h2{break-after:avoid} .box,ol.steps>li{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Metode Numerik · Pertemuan 9 · Dosen: Linda Herawati, S.Pd., M.Pd.</div>
+  <h1>Interpolasi Polinom</h1>
+  <p>Cara menaksir nilai di antara data tabel: lanjar, kuadratik, Lagrange, dan Newton.</p>
+</header>
+
+<nav>
+  <b>Isi catatan</b>
+  <ol>
+    <li><a href="#ide">Idenya</a></li>
+    <li><a href="#lanjar">Interpolasi lanjar (2 titik)</a></li>
+    <li><a href="#kuadratik">Interpolasi kuadratik (3 titik)</a></li>
+    <li><a href="#lagrange">Polinom Lagrange</a></li>
+    <li><a href="#newton">Polinom Newton</a></li>
+    <li><a href="#galat">Galat dan memilih titik</a></li>
+    <li><a href="#ringkas">Ringkasan &amp; latihan</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="ide"><span class="no">1</span>Idenya</h2>
+<p>Kita punya data berupa tabel, tetapi rumus fungsinya tidak diketahui. Contohnya:</p>
+<div class="scroll"><table>
+  <tr><th>\(x\)</th><td class="num">8,0</td><td class="num">9,0</td><td class="num">9,5</td></tr>
+  <tr><th>\(\ln x\)</th><td class="num">2,0794</td><td class="num">2,1972</td><td class="num">2,2513</td></tr>
+</table></div>
+<p>Berapa \( \ln 9{,}2 \)? Nilainya tidak ada di tabel. <b>Interpolasi</b> adalah membuat polinom \( p(x) \) yang <b>melewati semua titik data</b>, lalu memakai \( p(9{,}2) \) sebagai taksirannya.</p>
+
+<svg viewBox="0 0 520 220" width="100%" role="img" aria-label="Kurva polinom melewati tiga titik data dan titik taksiran di antaranya">
+  <line x1="40" y1="190" x2="500" y2="190" stroke="#c9c5ba"/>
+  <line x1="40" y1="20" x2="40" y2="190" stroke="#c9c5ba"/>
+  <path d="M60,170 C160,110 280,70 480,40" fill="none" stroke="#2f5bd3" stroke-width="2.5"/>
+  <circle cx="90" cy="153" r="6" fill="#1d1f24"/>
+  <circle cx="300" cy="78" r="6" fill="#1d1f24"/>
+  <circle cx="420" cy="52" r="6" fill="#1d1f24"/>
+  <circle cx="380" cy="60" r="6" fill="#fff" stroke="#1f8a5b" stroke-width="3"/>
+  <line x1="380" y1="66" x2="380" y2="190" stroke="#1f8a5b" stroke-dasharray="4 4"/>
+  <text x="380" y="208" text-anchor="middle" font-size="13" fill="#1f8a5b">nilai yang ditaksir</text>
+  <text x="300" y="104" text-anchor="middle" font-size="13" fill="#5f6470">data</text>
+  <text x="470" y="30" text-anchor="end" font-size="13" fill="#2f5bd3">p(x)</text>
+</svg>
+
+<div class="box key">
+  <span class="tag">Fakta kunci</span>
+  Dari \( n+1 \) titik data dengan \( x \) berbeda, ada <b>tepat satu</b> polinom berderajat paling tinggi \( n \) yang melewati semuanya.
+  2 titik menghasilkan garis (derajat 1), dan 3 titik menghasilkan parabola (derajat 2).
+  Lagrange dan Newton hanyalah <b>cara berbeda menulis polinom yang sama</b>.
+</div>
+
+<div class="box warn">
+  <span class="tag">Interpolasi vs ekstrapolasi</span>
+  Menaksir nilai <b>di dalam</b> rentang data disebut interpolasi dan hasilnya bisa dipercaya.
+  Menaksir <b>di luar</b> rentang data disebut ekstrapolasi, dan hasilnya bisa meleset jauh.
+</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="lanjar"><span class="no">2</span>Interpolasi lanjar (2 titik)</h2>
+<p class="lead">Hubungkan dua titik dengan garis lurus.</p>
+
+<ol class="steps">
+  <li><b>Kemiringan garis</b> dari \( (x_0,y_0) \) ke \( (x_1,y_1) \) harus sama di mana pun:
+    \[ \frac{p(x) - y_0}{x - x_0} = \frac{y_1 - y_0}{x_1 - x_0}. \]
+  </li>
+  <li><b>Pindahkan ruas</b>, sehingga didapat rumusnya:
+    \[ \boxed{p_1(x) = y_0 + \frac{y_1 - y_0}{x_1 - x_0}\,(x - x_0)} \]
+  </li>
+  <li><b>Contoh \( \ln 9{,}2 \).</b> Ambil dua titik terdekat, \( (9{,}0;\ 2{,}1972) \) dan \( (9{,}5;\ 2{,}2513) \):
+    \[ p_1(9{,}2) = 2{,}1972 + \frac{2{,}2513 - 2{,}1972}{9{,}5 - 9{,}0}\,(9{,}2 - 9{,}0) = 2{,}1972 + 0{,}1082 \times 0{,}2 = 2{,}21884. \]
+    Nilai sebenarnya \( \ln 9{,}2 = 2{,}21920 \), jadi galatnya sekitar \( 0{,}00036 \).
+  </li>
+</ol>
+
+<!-- ============ 3 ============ -->
+<h2 id="kuadratik"><span class="no">3</span>Interpolasi kuadratik (3 titik)</h2>
+<p class="lead">Garis lurus tidak bisa mengikuti lengkungan, jadi pakai parabola \( p_2(x) = a_0 + a_1x + a_2x^2 \).</p>
+
+<p>Supaya hitungannya mudah diikuti, pakai data sederhana ini (dipakai lagi di Bagian 4 dan 5):</p>
+<div class="scroll"><table>
+  <tr><th>\(x\)</th><td class="num">1</td><td class="num">2</td><td class="num">4</td></tr>
+  <tr><th>\(y\)</th><td class="num">2</td><td class="num">3</td><td class="num">11</td></tr>
+</table></div>
+<p>Kita ingin menaksir nilai di \( x = 3 \).</p>
+
+<ol class="steps">
+  <li><b>Masukkan tiap titik</b> ke \( a_0 + a_1x + a_2x^2 \):
+    \[ \begin{aligned}
+      a_0 + a_1 + a_2 &= 2\\
+      a_0 + 2a_1 + 4a_2 &= 3\\
+      a_0 + 4a_1 + 16a_2 &= 11
+    \end{aligned} \]
+  </li>
+  <li><b>Eliminasi \( a_0 \).</b> Kurangi persamaan (2)−(1) dan (3)−(2):
+    \[ a_1 + 3a_2 = 1, \qquad 2a_1 + 12a_2 = 8 \;\Rightarrow\; a_1 + 6a_2 = 4. \]
+  </li>
+  <li><b>Selesaikan.</b> Kurangkan keduanya: \( 3a_2 = 3 \), jadi \( a_2 = 1 \), lalu \( a_1 = -2 \) dan \( a_0 = 3 \).
+    \[ p_2(x) = x^2 - 2x + 3, \qquad p_2(3) = 9 - 6 + 3 = 6. \]
+  </li>
+</ol>
+
+<div class="box">
+  <span class="tag">Masalahnya</span>
+  Cara ini harus menyelesaikan SPL. Untuk 3 titik masih ringan, tetapi untuk 5–10 titik menjadi berat.
+  Lagrange dan Newton memberi polinom yang sama <b>tanpa</b> menyelesaikan SPL.
+</div>
+
+<!-- ============ 4 ============ -->
+<h2 id="lagrange"><span class="no">4</span>Polinom Lagrange</h2>
+<p class="lead">Idenya: buat satu "saklar" untuk tiap titik.</p>
+
+<ol class="steps">
+  <li><b>Buat basis \( L_i(x) \)</b> yang bernilai <b>1 di titiknya sendiri</b> dan <b>0 di titik lain</b>:
+    \[ L_i(x) = \prod_{j \ne i} \frac{x - x_j}{x_i - x_j}. \]
+    Pembilang membuat \( L_i \) bernilai 0 di titik lain, sedangkan penyebut membuatnya bernilai 1 di \( x_i \).
+  </li>
+  <li><b>Gabungkan</b> dengan bobot \( y_i \):
+    \[ \boxed{p_n(x) = y_0 L_0(x) + y_1 L_1(x) + \cdots + y_n L_n(x)} \]
+    Di \( x = x_i \), hanya \( L_i \) yang bernilai 1, sehingga hasilnya tepat \( y_i \).
+  </li>
+  <li><b>Contoh data \( (1,2),(2,3),(4,11) \) di \( x = 3 \).</b>
+    \[ \begin{aligned}
+      L_0(3) &= \frac{(3-2)(3-4)}{(1-2)(1-4)} = \frac{-1}{3}\\[4pt]
+      L_1(3) &= \frac{(3-1)(3-4)}{(2-1)(2-4)} = \frac{-2}{-2} = 1\\[4pt]
+      L_2(3) &= \frac{(3-1)(3-2)}{(4-1)(4-2)} = \frac{2}{6} = \frac{1}{3}
+    \end{aligned} \]
+  </li>
+  <li><b>Hitung.</b>
+    \[ p_2(3) = 2\left(-\tfrac{1}{3}\right) + 3(1) + 11\left(\tfrac{1}{3}\right) = \frac{-2 + 9 + 11}{3} = 6. \;\checkmark \]
+    Hasilnya sama dengan Bagian 3, tanpa SPL.
+  </li>
+</ol>
+
+<div class="box">
+  <span class="tag">Cek cepat</span>
+  Jumlah semua \( L_i(x) \) selalu 1: \( -\tfrac13 + 1 + \tfrac13 = 1 \). Kalau tidak 1, ada salah hitung.
+</div>
+
+<!-- ============ 5 ============ -->
+<h2 id="newton"><span class="no">5</span>Polinom Newton (selisih terbagi)</h2>
+<p class="lead">Kelemahan Lagrange: kalau ada titik baru, semua \( L_i \) harus dihitung ulang. Newton cukup <b>menambah satu suku</b>.</p>
+
+<ol class="steps">
+  <li><b>Bentuk polinomnya</b> bertingkat:
+    \[ p_n(x) = a_0 + a_1(x-x_0) + a_2(x-x_0)(x-x_1) + \cdots \]
+    Koefisien \( a_0, a_1, a_2, \dots \) diambil dari <b>tabel selisih terbagi</b>.
+  </li>
+  <li><b>Selisih terbagi</b> artinya "selisih atas dibagi selisih \( x \)":
+    \[ f[x_0,x_1] = \frac{y_1 - y_0}{x_1 - x_0}, \qquad f[x_0,x_1,x_2] = \frac{f[x_1,x_2] - f[x_0,x_1]}{x_2 - x_0}. \]
+    Penyebutnya selalu \( x \) paling kanan dikurangi \( x \) paling kiri yang terlibat.
+  </li>
+  <li><b>Buat tabel</b> untuk data \( (1,2),(2,3),(4,11) \):
+    <div class="scroll"><table class="dd">
+      <tr><th>\(x\)</th><th>\(y\)</th><th>orde 1</th><th>orde 2</th></tr>
+      <tr><td>1</td><td class="hl">2</td><td class="hl">\(\frac{3-2}{2-1}=1\)</td><td class="hl">\(\frac{4-1}{4-1}=1\)</td></tr>
+      <tr><td>2</td><td>3</td><td>\(\frac{11-3}{4-2}=4\)</td><td></td></tr>
+      <tr><td>4</td><td>11</td><td></td><td></td></tr>
+    </table></div>
+    Koefisiennya adalah <b>baris paling atas</b>: \( a_0 = 2,\ a_1 = 1,\ a_2 = 1 \).
+  </li>
+  <li><b>Susun polinomnya.</b>
+    \[ p_2(x) = 2 + 1(x-1) + 1(x-1)(x-2), \qquad p_2(3) = 2 + 2 + 2 = 6. \;\checkmark \]
+    Kalau dijabarkan, hasilnya \( x^2 - 2x + 3 \), sama persis dengan Bagian 3.
+  </li>
+  <li><b>Tambah titik baru \( (5, 20) \)?</b> Cukup tambah satu baris di tabel, sehingga didapat \( a_3 = \tfrac16 \):
+    \[ p_3(x) = \underbrace{p_2(x)}_{\text{sudah ada}} + \tfrac{1}{6}(x-1)(x-2)(x-4), \qquad p_3(3) = 6 - \tfrac13 \approx 5{,}667. \]
+    Perhitungan lama tidak perlu diulang.
+  </li>
+</ol>
+
+<h3>Kembali ke \( \ln 9{,}2 \) dengan 3 titik</h3>
+<p>Tabel selisih terbagi dari \( (8;\ 2{,}0794),\ (9;\ 2{,}1972),\ (9{,}5;\ 2{,}2513) \) memberi \( a_0 = 2{,}0794,\ a_1 = 0{,}1178,\ a_2 = -0{,}0064 \).</p>
+\[ p_2(9{,}2) = 2{,}0794 + 0{,}1178(1{,}2) - 0{,}0064(1{,}2)(0{,}2) = 2{,}21922. \]
+
+<div class="scroll"><table>
+  <tr><th>Cara</th><th style="text-align:right">Taksiran \( \ln 9{,}2 \)</th><th style="text-align:right">Galat</th></tr>
+  <tr><td>Lanjar (9 dan 9,5)</td><td class="num">2,21884</td><td class="num">0,00036</td></tr>
+  <tr><td>Kuadratik (8; 9; 9,5)</td><td class="num">2,21922</td><td class="num">0,00002</td></tr>
+  <tr><td>Nilai sebenarnya</td><td class="num">2,21920</td><td class="num">–</td></tr>
+</table></div>
+<p>Menambah satu titik membuat galatnya turun sekitar 18 kali lipat.</p>
+
+<!-- ============ 6 ============ -->
+<h2 id="galat"><span class="no">6</span>Galat dan memilih titik</h2>
+
+<p>Kalau fungsi aslinya \( f \) diketahui, galat interpolasi derajat \( n \) adalah</p>
+\[ E(x) = f(x) - p_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}\,(x-x_0)(x-x_1)\cdots(x-x_n), \]
+<p>dengan \( c \) suatu titik di antara data.</p>
+
+<div class="box ok">
+  <span class="tag">Cek pada contoh lanjar</span>
+  \( f(x) = \ln x \) memberi \( f''(x) = -\tfrac{1}{x^2} \), dan nilai terbesarnya di \( [9;\ 9{,}5] \) adalah \( \tfrac{1}{81} \).
+  \[ |E(9{,}2)| \le \frac{1/81}{2}\,\big|(9{,}2-9)(9{,}2-9{,}5)\big| = \frac{0{,}06}{162} \approx 0{,}00037. \]
+  Galat sebenarnya \( 0{,}00036 \), jadi masih di bawah batasnya.
+</div>
+
+<p>Dari rumus itu muncul tiga aturan praktis:</p>
+<ol class="steps">
+  <li><b>Pilih titik yang dekat dengan \( x \).</b> Faktor \( (x - x_i) \) jadi kecil. Pada contoh \( \ln \), garis dari titik 8 dan 9,5 memberi 2,21692, yang galatnya 6 kali lebih besar daripada garis dari 9 dan 9,5.</li>
+  <li><b>Derajat lebih tinggi biasanya lebih teliti</b>, asalkan fungsinya mulus.</li>
+  <li><b>Jangan berlebihan.</b> Polinom berderajat sangat tinggi dengan titik berjarak sama bisa berosilasi liar di tepi data (fenomena Runge).</li>
+</ol>
+
+<!-- ============ 7 ============ -->
+<h2 id="ringkas"><span class="no">7</span>Ringkasan</h2>
+<div class="scroll"><table>
+  <tr><th>Cara</th><th>Rumus inti</th><th>Kelebihan</th></tr>
+  <tr><td>Lanjar</td><td>\( y_0 + \frac{y_1-y_0}{x_1-x_0}(x-x_0) \)</td><td>Paling cepat, cukup 2 titik</td></tr>
+  <tr><td>SPL langsung</td><td>\( a_0 + a_1x + \cdots + a_nx^n \)</td><td>Langsung memberi koefisien</td></tr>
+  <tr><td>Lagrange</td><td>\( \sum y_i L_i(x) \)</td><td>Tanpa SPL, rumusnya rapi</td></tr>
+  <tr><td>Newton</td><td>\( a_0 + a_1(x-x_0) + \cdots \)</td><td>Mudah menambah titik</td></tr>
+</table></div>
+
+<h3>Latihan</h3>
+
+<details>
+  <summary>1. Diketahui \( \sqrt4 = 2 \) dan \( \sqrt9 = 3 \). Taksir \( \sqrt6 \) dengan interpolasi lanjar.</summary>
+  \[ p_1(6) = 2 + \frac{3-2}{9-4}(6-4) = 2 + 0{,}4 = 2{,}4. \]
+  <p>Nilai sebenarnya \( 2{,}4495 \), jadi galatnya sekitar \( 0{,}05 \).</p>
+</details>
+
+<details>
+  <summary>2. Tambahkan \( \sqrt{16} = 4 \). Taksir \( \sqrt6 \) dengan Lagrange derajat 2.</summary>
+  \[ \begin{aligned}
+    L_0(6) &= \frac{(6-9)(6-16)}{(4-9)(4-16)} = \frac{30}{60} = \frac12, \quad
+    L_1(6) = \frac{(6-4)(6-16)}{(9-4)(9-16)} = \frac{-20}{-35} = \frac47,\\[4pt]
+    L_2(6) &= \frac{(6-4)(6-9)}{(16-4)(16-9)} = \frac{-6}{84} = -\frac1{14}.
+  \end{aligned} \]
+  \[ p_2(6) = 2\cdot\tfrac12 + 3\cdot\tfrac47 + 4\cdot\left(-\tfrac1{14}\right) = 1 + \tfrac{12}{7} - \tfrac{2}{7} = \tfrac{17}{7} \approx 2{,}4286. \]
+  <p>Galatnya turun menjadi sekitar \( 0{,}02 \).</p>
+</details>
+
+<details>
+  <summary>3. Ulangi soal 2 dengan Newton, lalu pastikan hasilnya sama.</summary>
+  <div class="scroll"><table class="dd">
+    <tr><th>\(x\)</th><th>\(y\)</th><th>orde 1</th><th>orde 2</th></tr>
+    <tr><td>4</td><td class="hl">2</td><td class="hl">\(\frac{1}{5}\)</td><td class="hl">\(\frac{1/7 - 1/5}{12} = -\frac{1}{210}\)</td></tr>
+    <tr><td>9</td><td>3</td><td>\(\frac{1}{7}\)</td><td></td></tr>
+    <tr><td>16</td><td>4</td><td></td><td></td></tr>
+  </table></div>
+  \[ p_2(6) = 2 + \tfrac15(2) - \tfrac{1}{210}(2)(-3) = 2 + 0{,}4 + \tfrac{1}{35} = \tfrac{17}{7}. \;\checkmark \]
+</details>
+
+<footer>
+  Catatan Pertemuan 9 Metode Numerik (Kelas C). Rujukan: Rinaldi Munir, <i>Metode Numerik</i>, Bab 5 Interpolasi Polinom.
+</footer>
+
+</main>
+</body>
+</html>

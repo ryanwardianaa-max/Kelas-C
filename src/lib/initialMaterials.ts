@@ -364,11 +364,12 @@ export const INITIAL_MATERIALS: Material[] = [
   },
   {
     id: "mat-metnum-pertemuan-09",
-    title: "Bahan Belajar Pertemuan 09 — Integrasi Numerik Metode Pias (Harapan Materi - Kelompok 8)",
+    title: "Catatan Kuliah: Interpolasi Polinom — Lanjar, Kuadratik, Lagrange, dan Newton",
     courseCode: "KP21517001",
     meetingNo: 9,
     type: "Catatan",
-    description: "Materi perkiraan silabus resmi Bu Linda: integrasi numerik pendekatan pias (kaidah segi empat, kaidah trapesium, dan kaidah titik tengah).",
+    description: "Interpolasi polinom (Rinaldi Munir Bab 5) step by step: interpolasi lanjar, kuadratik lewat SPL, polinom Lagrange, polinom Newton dengan tabel selisih terbagi, contoh taksiran ln 9,2, galat interpolasi, dan latihan √6 dengan pembahasan.",
+    updatedAt: "2026-10-21T09:00:00.000Z",
     url: "/materi/KP21517001/pertemuan-09/index.html",
     createdAt: "2026-09-02T09:00:00.000Z",
   },
@@ -441,17 +442,6 @@ export const INITIAL_MATERIALS: Material[] = [
     description: "Materi perkiraan silabus resmi Bu Linda: evaluasi terpadu seluruh metode komputasi numerik dan persiapan UAS.",
     url: "/materi/KP21517001/pertemuan-16/index.html",
     createdAt: "2026-09-02T16:00:00.000Z",
-  },
-  {
-    id: "mat-metode-numerik-planning-p09",
-    title: "Planning Pertemuan 09 (Belum Pasti): Lanjutan SPL — Determinan, Kondisi Buruk, Jacobi & Gauss-Seidel",
-    courseCode: "KP21517001",
-    meetingNo: 9,
-    type: "Catatan",
-    description:
-      "Planning setelah presentasi Kelompok 4 (Crout & Cholesky). Topik P09 belum dikonfirmasi, formatnya masih presentasi. Berisi posisi materi di Rinaldi Munir Bab 4, tiga kandidat topik, daftar hal yang perlu dikonfirmasi, preview determinan lewat LU, kondisi buruk, lelaran Jacobi & Gauss-Seidel dengan tabel iterasi, serta checklist persiapan.",
-    url: "/materi/KP21517001/planning-p09/index.html",
-    createdAt: "2026-10-21T08:00:00.000Z",
   },
   {
     id: "tool-lab-metode-numerik",
