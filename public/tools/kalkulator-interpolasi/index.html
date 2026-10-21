@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkulator Interpolasi</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#2f5bd3; --accent-soft:#eaf0ff; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3; --bad:#c0392b;
+  }
+  html{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:860px;margin:0 auto;padding:32px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:24px}
+  .meta{font-size:13px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:30px;line-height:1.2;margin:6px 0 6px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:20px;margin:32px 0 10px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  label{font-weight:600;font-size:14px}
+  input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;width:100%;min-width:0}
+  input[type=text]:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+  button{font:inherit;font-size:14px;padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{color:#fff;filter:brightness(1.1)}
+  button.ghost{border:none;color:var(--muted);padding:4px 8px}
+  button.ghost:hover{color:var(--bad)}
+  table.pts{border-collapse:collapse;width:100%;max-width:420px}
+  table.pts th{font-size:13px;color:var(--muted);text-align:left;padding:4px 6px;text-transform:uppercase}
+  table.pts td{padding:3px 6px}
+  table.pts td:first-child{width:28px;color:var(--muted);font-size:13px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:560px){.grid2{grid-template-columns:1fr}}
+  .hint{font-size:13px;color:var(--muted)}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0}
+  .tabs button[aria-selected=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+  .result{background:var(--ok-soft);border-radius:12px;padding:14px 18px;margin:14px 0}
+  .result .big{font-size:22px;font-weight:700;color:var(--ok)}
+  .msg{border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px}
+  .msg.warn{background:var(--warn-soft);color:var(--warn)}
+  .msg.err{background:#fdecea;color:var(--bad)}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:12px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:2px 0 16px 48px;border-left:2px solid var(--line);margin-left:15px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-16px;top:0;width:30px;height:30px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+  ol.steps>li>b:first-child{display:block}
+  .m{overflow-x:auto;overflow-y:hidden;padding:2px 0}
+  .scroll{overflow-x:auto}
+  table.dd{border-collapse:collapse;margin:8px 0;font-variant-numeric:tabular-nums}
+  table.dd th,table.dd td{border-bottom:1px solid var(--line);padding:6px 12px;text-align:center;white-space:nowrap}
+  table.dd th{font-size:13px;color:var(--muted)}
+  table.dd td.hl{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  table.cmp{border-collapse:collapse;width:100%}
+  table.cmp th,table.cmp td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left}
+  table.cmp td.num{text-align:right;font-variant-numeric:tabular-nums}
+  svg{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin-top:6px}
+  .legend span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor}
+  footer{margin-top:48px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Metode Numerik · Alat Bantu Pertemuan 9</div>
+  <h1>Kalkulator Interpolasi Polinom</h1>
+  <p>Masukkan titik data dan nilai \(x\) yang ditaksir. Langkahnya ditampilkan sama seperti di catatan.</p>
+</header>
+
+<div class="card">
+  <div class="row" style="justify-content:space-between">
+    <label>Contoh cepat</label>
+    <div class="row">
+      <button data-preset="catatan">Data catatan (1,2), (2,3), (4,11)</button>
+      <button data-preset="ln">ln x</button>
+      <button data-preset="akar">√x</button>
+    </div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <label>Titik data</label>
+    <table class="pts">
+      <thead><tr><th>#</th><th>x</th><th>y</th><th></th></tr></thead>
+      <tbody id="pts"></tbody>
+    </table>
+    <div class="row" style="margin-top:8px"><button id="add">+ Tambah titik</button></div>
+    <p class="hint">Desimal boleh pakai koma atau titik, misalnya 9,5.</p>
+  </div>
+  <div class="card">
+    <label for="xt">Taksir di \(x =\)</label>
+    <input type="text" id="xt" inputmode="decimal">
+    <div style="height:12px"></div>
+    <label for="fx">Fungsi asli \(f(x)\) <span class="hint">(opsional, untuk menghitung galat)</span></label>
+    <input type="text" id="fx" placeholder="mis. ln(x), sqrt(x), x^2 - 2*x + 3">
+    <p class="hint">Fungsi yang dikenal: sin, cos, tan, exp, ln, log, sqrt, abs, pi, e.</p>
+    <div style="height:4px"></div>
+    <button class="primary" id="go">Hitung</button>
+  </div>
+</div>
+
+<div id="msgs"></div>
+
+<div id="out" hidden>
+  <div class="result">
+    <div class="hint" id="resLabel"></div>
+    <div class="big" id="resVal"></div>
+    <div class="m" id="resPoly"></div>
+    <div id="resErr" class="hint"></div>
+  </div>
+
+  <h2>Grafik</h2>
+  <div class="card">
+    <div id="plot"></div>
+    <div class="legend">
+      <span style="color:#2f5bd3">polinom interpolasi</span>
+      <span style="color:#9aa1ad">fungsi asli</span>
+      <span style="color:#1f8a5b">titik taksiran</span>
+    </div>
+  </div>
+
+  <h2>Langkah penyelesaian</h2>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="lanjar">Lanjar</button>
+    <button role="tab" data-tab="lagrange">Lagrange</button>
+    <button role="tab" data-tab="newton">Newton</button>
+    <button role="tab" data-tab="banding">Bandingkan</button>
+  </div>
+  <div class="card" id="steps"></div>
+</div>
+
+<footer>
+  Pasangan dari <a href="/materi/KP21517001/pertemuan-09/index.html">Catatan P09 Interpolasi Polinom</a>. Rujukan: Rinaldi Munir, <i>Metode Numerik</i>, Bab 5.
+</footer>
+
+</main>
+
+<script>
+const PRESETS = {
+  catatan: { pts: [[1,2],[2,3],[4,11]], x: 3, f: "" },
+  ln:      { pts: [[8,2.0794],[9,2.1972],[9.5,2.2513]], x: 9.2, f: "ln(x)" },
+  akar:    { pts: [[4,2],[9,3],[16,4]], x: 6, f: "sqrt(x)" },
+};
+let tab = "lagrange";
+let last = null;
+
+const $ = (id) => document.getElementById(id);
+const num = (s) => {
+  s = String(s).trim().replace(/\s/g, "").replace(/−/g, "-");
+  if (s === "") return NaN;
+  if (s.includes(",") && !s.includes(".")) s = s.replace(",", ".");
+  return /^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s) ? Number(s) : NaN;
+};
+
+// ---------- angka ----------
+function fmt(v, d = 6) {
+  if (!isFinite(v)) return "—";
+  if (Math.abs(v - Math.round(v)) < 1e-10) return String(Math.round(v)).replace("-", "−");
+  let s = Number(v.toFixed(d)).toString();
+  if (s.includes("e")) s = v.toPrecision(6);
+  return s.replace(".", ",").replace("-", "−");
+}
+const tex = (v) => fmt(v).replace("−", "-").replace(",", "{,}");
+const texP = (v) => (v < 0 ? `(${tex(v)})` : tex(v));
+const texSub = (a, b) => `${tex(a)}-${texP(b)}`;
+
+function renderTex(el, s, display = true) {
+  try { katex.render(s, el, { displayMode: display, throwOnError: false }); }
+  catch { el.textContent = s; }
+}
+function M(s) { const d = document.createElement("div"); d.className = "m"; renderTex(d, s); return d; }
+function inline(s) { const sp = document.createElement("span"); renderTex(sp, s, false); return sp.outerHTML; }
+
+// ---------- fungsi asli (parser aman) ----------
+const NAMES = { sin:"Math.sin", cos:"Math.cos", tan:"Math.tan", exp:"Math.exp", ln:"Math.log", log:"Math.log10",
+  sqrt:"Math.sqrt", abs:"Math.abs", pi:"Math.PI", e:"Math.E", x:"x" };
+function parseF(src) {
+  src = src.trim();
+  if (!src) return null;
+  const body = src.replace(/,/g, ".").replace(/\^/g, "**").replace(/[a-z]+/gi, (w) => {
+    const k = w.toLowerCase();
+    if (!(k in NAMES)) throw new Error(`"${w}" tidak dikenal`);
+    return NAMES[k];
+  });
+  if (/[^0-9x+\-*/().\sA-Za-z]/.test(body.replace(/Math\.[A-Za-z0-9]+/g, ""))) throw new Error("ada karakter yang tidak diizinkan");
+  const f = new Function("x", `return (${body});`);
+  if (typeof f(1) !== "number") throw new Error("hasilnya bukan angka");
+  return f;
+}
+
+// ---------- metode ----------
+function dividedDiff(X, Y) {
+  const t = [Y.slice()];
+  for (let k = 1; k < X.length; k++)
+    t.push(t[k - 1].slice(1).map((_, i) => (t[k - 1][i + 1] - t[k - 1][i]) / (X[i + k] - X[i])));
+  return t;
+}
+function newtonCoef(X, Y) { return dividedDiff(X, Y).map((col) => col[0]); }
+function newtonEval(X, a, x) { let p = a[a.length - 1]; for (let k = a.length - 2; k >= 0; k--) p = p * (x - X[k]) + a[k]; return p; }
+// koefisien bentuk baku c0 + c1 x + ... dari bentuk Newton
+function expand(X, a) {
+  let c = [a[a.length - 1]];
+  for (let k = a.length - 2; k >= 0; k--) {
+    const n = new Array(c.length + 1).fill(0);
+    c.forEach((ci, i) => { n[i + 1] += ci; n[i] -= X[k] * ci; });
+    n[0] += a[k]; c = n;
+  }
+  return c;
+}
+function polyTex(c) {
+  let s = "";
+  for (let i = c.length - 1; i >= 0; i--) {
+    const v = Math.abs(c[i]) < 1e-12 ? 0 : c[i];
+    if (v === 0) continue;
+    const sign = v < 0 ? "-" : (s ? "+" : "");
+    const a = Math.abs(v);
+    const coef = (a === 1 && i > 0) ? "" : tex(a);
+    const pw = i === 0 ? "" : i === 1 ? "x" : `x^{${i}}`;
+    s += `${sign}${s ? " " : ""}${coef}${pw} `;
+  }
+  return s.trim() || "0";
+}
+function pickLinear(P, x) {
+  const s = [...P].sort((a, b) => a[0] - b[0]);
+  for (let i = 0; i < s.length - 1; i++) if (x >= s[i][0] && x <= s[i + 1][0]) return [s[i], s[i + 1], false];
+  return x < s[0][0] ? [s[0], s[1], true] : [s[s.length - 2], s[s.length - 1], true];
+}
+
+// ---------- input ----------
+function addRow(x = "", y = "") {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td></td><td><input type="text" inputmode="decimal" value="${x}"></td><td><input type="text" inputmode="decimal" value="${y}"></td><td><button class="ghost" title="Hapus titik">✕</button></td>`;
+  tr.querySelector("button").onclick = () => { tr.remove(); renumber(); };
+  $("pts").appendChild(tr); renumber();
+}
+function renumber() { [...$("pts").rows].forEach((r, i) => (r.cells[0].textContent = i)); }
+function loadPreset(k) {
+  const p = PRESETS[k];
+  $("pts").innerHTML = "";
+  p.pts.forEach(([x, y]) => addRow(fmt(x), fmt(y)));
+  $("xt").value = fmt(p.x); $("fx").value = p.f;
+  compute();
+}
+
+function compute() {
+  const msgs = [];
+  const P = [...$("pts").rows].map((r) => [num(r.cells[1].firstChild.value), num(r.cells[2].firstChild.value)]);
+  const bad = P.findIndex(([x, y]) => isNaN(x) || isNaN(y));
+  const xt = num($("xt").value);
+  let f = null;
+  try { f = parseF($("fx").value); } catch (e) { msgs.push(["warn", `Fungsi asli diabaikan: ${e.message}.`]); }
+
+  const err = (m) => { showMsgs([["err", m], ...msgs]); $("out").hidden = true; last = null; };
+  if (P.length < 2) return err("Butuh minimal 2 titik data.");
+  if (bad >= 0) return err(`Titik #${bad} belum terisi angka yang valid.`);
+  if (isNaN(xt)) return err("Isi nilai x yang ingin ditaksir.");
+  const X = P.map((p) => p[0]), Y = P.map((p) => p[1]);
+  if (new Set(X).size !== X.length) return err("Ada nilai x yang sama. Setiap titik harus punya x berbeda.");
+
+  const lo = Math.min(...X), hi = Math.max(...X);
+  if (xt < lo || xt > hi) msgs.push(["warn", `x = ${fmt(xt)} berada di luar rentang data [${fmt(lo)}, ${fmt(hi)}]. Ini ekstrapolasi, jadi hasilnya kurang bisa dipercaya.`]);
+  if (P.length > 7) msgs.push(["warn", `Derajat polinom ${P.length - 1} cukup tinggi. Hati-hati osilasi di tepi data (fenomena Runge).`]);
+
+  const a = newtonCoef(X, Y);
+  last = { P, X, Y, xt, f, a, c: expand(X, a), val: newtonEval(X, a, xt) };
+  showMsgs(msgs);
+  $("out").hidden = false;
+  drawSummary(); drawPlot(); drawSteps();
+}
+function showMsgs(list) { $("msgs").innerHTML = list.map(([t, m]) => `<div class="msg ${t}">${m}</div>`).join(""); }
+
+// ---------- tampilan ----------
+function drawSummary() {
+  const { P, xt, f, c, val } = last;
+  $("resLabel").textContent = `Polinom derajat ${P.length - 1} melalui ${P.length} titik`;
+  $("resVal").innerHTML = inline(`p(${tex(xt)}) \\approx ${tex(val)}`);
+  $("resPoly").innerHTML = ""; $("resPoly").appendChild(M(`p(x) = ${polyTex(c)}`));
+  if (f) {
+    const t = f(xt);
+    $("resErr").innerHTML = isFinite(t)
+      ? `Nilai asli ${inline(`f(${tex(xt)}) = ${tex(t)}`)}, galat ${inline(`|f - p| = ${fmt(Math.abs(t - val), 8).replace(",", "{,}")}`)}`
+      : "Fungsi asli tidak terdefinisi di titik ini.";
+  } else $("resErr").textContent = "";
+}
+
+function drawPlot() {
+  const { X, Y, xt, f, a, val } = last;
+  const W = 640, H = 320, L = 46, R = 16, T = 16, B = 34;
+  let x0 = Math.min(...X, xt), x1 = Math.max(...X, xt);
+  const pad = (x1 - x0) * 0.08 || 1; x0 -= pad; x1 += pad;
+  const N = 240, xs = Array.from({ length: N + 1 }, (_, i) => x0 + (x1 - x0) * i / N);
+  const ps = xs.map((x) => newtonEval(X, a, x));
+  const fs = f ? xs.map((x) => { const v = f(x); return isFinite(v) ? v : NaN; }) : [];
+  const base = [...Y, val];
+  let y0 = Math.min(...base), y1 = Math.max(...base);
+  const span = (y1 - y0) || 1;
+  // batasi sumbu y agar osilasi ekstrem tidak menenggelamkan data
+  const lim0 = y0 - span * 0.6, lim1 = y1 + span * 0.6;
+  [...ps, ...fs].forEach((v) => { if (isFinite(v)) { y0 = Math.min(y0, Math.max(v, lim0)); y1 = Math.max(y1, Math.min(v, lim1)); } });
+  const yp = (y1 - y0) * 0.08 || 1; y0 -= yp; y1 += yp;
+  const sx = (x) => L + (x - x0) / (x1 - x0) * (W - L - R);
+  const sy = (y) => T + (y1 - y) / (y1 - y0) * (H - T - B);
+  const path = (vals) => {
+    let d = "", pen = false;
+    vals.forEach((v, i) => {
+      if (!isFinite(v) || v < y0 || v > y1) { pen = false; return; }
+      d += `${pen ? "L" : "M"}${sx(xs[i]).toFixed(1)},${sy(v).toFixed(1)}`; pen = true;
+    });
+    return d;
+  };
+  const ticks = (lo, hi) => { const n = 5; return Array.from({ length: n + 1 }, (_, i) => lo + (hi - lo) * i / n); };
+  let g = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafik polinom interpolasi">`;
+  ticks(x0, x1).forEach((t) => { g += `<line x1="${sx(t)}" y1="${T}" x2="${sx(t)}" y2="${H - B}" stroke="#f0eee8"/><text x="${sx(t)}" y="${H - 12}" font-size="12" text-anchor="middle" fill="#5f6470">${fmt(t, 2)}</text>`; });
+  ticks(y0, y1).forEach((t) => { g += `<line x1="${L}" y1="${sy(t)}" x2="${W - R}" y2="${sy(t)}" stroke="#f0eee8"/><text x="${L - 6}" y="${sy(t) + 4}" font-size="12" text-anchor="end" fill="#5f6470">${fmt(t, 3)}</text>`; });
+  g += `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="none" stroke="#c9c5ba"/>`;
+  if (f) g += `<path d="${path(fs)}" fill="none" stroke="#9aa1ad" stroke-width="2" stroke-dasharray="6 5"/>`;
+  g += `<path d="${path(ps)}" fill="none" stroke="#2f5bd3" stroke-width="2.5"/>`;
+  X.forEach((x, i) => { g += `<circle cx="${sx(x)}" cy="${sy(Y[i])}" r="5" fill="#1d1f24"><title>(${fmt(x)}, ${fmt(Y[i])})</title></circle>`; });
+  if (val >= y0 && val <= y1) g += `<line x1="${sx(xt)}" y1="${sy(val)}" x2="${sx(xt)}" y2="${H - B}" stroke="#1f8a5b" stroke-dasharray="4 4"/><circle cx="${sx(xt)}" cy="${sy(val)}" r="6" fill="#fff" stroke="#1f8a5b" stroke-width="3"><title>p(${fmt(xt)}) ≈ ${fmt(val)}</title></circle>`;
+  $("plot").innerHTML = g + "</svg>";
+}
+
+function li(title, ...nodes) {
+  const el = document.createElement("li");
+  el.innerHTML = `<b>${title}</b>`;
+  nodes.forEach((n) => (typeof n === "string" ? el.insertAdjacentHTML("beforeend", n) : el.appendChild(n)));
+  return el;
+}
+
+function stepsLanjar(ol) {
+  const { P, xt, f } = last;
+  const [[x0, y0], [x1, y1], out] = pickLinear(P, xt);
+  const m = (y1 - y0) / (x1 - x0), v = y0 + m * (xt - x0);
+  ol.append(
+    li("Pilih dua titik", out ? `<p>\\(x\\) di luar data, jadi dipakai dua titik paling tepi yang terdekat.</p>` : `<p>Dua titik yang mengapit \\(x = ${tex(xt)}\\).</p>`,
+      M(`(x_0, y_0) = (${tex(x0)},\\ ${tex(y0)}), \\qquad (x_1, y_1) = (${tex(x1)},\\ ${tex(y1)})`)),
+    li("Hitung kemiringan", M(`\\frac{y_1 - y_0}{x_1 - x_0} = \\frac{${texSub(y1, y0)}}{${texSub(x1, x0)}} = ${tex(m)}`)),
+    li("Masukkan ke rumus lanjar", M(`p_1(${tex(xt)}) = ${tex(y0)} + ${texP(m)}\\,(${texSub(xt, x0)}) = ${tex(v)}`)),
+  );
+  if (f && isFinite(f(xt))) ol.append(li("Galat", M(`|f(${tex(xt)}) - p_1(${tex(xt)})| = |${tex(f(xt))} - ${texP(v)}| = ${tex(Math.abs(f(xt) - v))}`)));
+  if (P.length > 2) ol.insertAdjacentHTML("beforeend", `<p class="hint">Lanjar hanya memakai 2 titik. Hasil di kotak hijau di atas memakai semua ${P.length} titik.</p>`);
+  renderAll(ol);
+}
+
+function stepsLagrange(ol) {
+  const { X, Y, xt, val } = last;
+  const n = X.length;
+  const Ls = X.map((xi, i) => X.reduce((p, xj, j) => (j === i ? p : p * (xt - xj) / (xi - xj)), 1));
+  ol.append(li("Rumus", M(`p(x) = \\sum_{i=0}^{${n - 1}} y_i L_i(x), \\qquad L_i(x) = \\prod_{j \\ne i} \\frac{x - x_j}{x_i - x_j}`)));
+  const basis = li(`Hitung tiap basis di \\(x = ${tex(xt)}\\)`);
+  X.forEach((xi, i) => {
+    const num_ = X.map((xj, j) => (j === i ? "" : `(${texSub(xt, xj)})`)).join("");
+    const den_ = X.map((xj, j) => (j === i ? "" : `(${texSub(xi, xj)})`)).join("");
+    const nv = X.reduce((p, xj, j) => (j === i ? p : p * (xt - xj)), 1);
+    const dv = X.reduce((p, xj, j) => (j === i ? p : p * (xi - xj)), 1);
+    basis.appendChild(M(`L_{${i}}(${tex(xt)}) = \\frac{${num_}}{${den_}} = \\frac{${tex(nv)}}{${tex(dv)}} = ${tex(Ls[i])}`));
+  });
+  ol.append(basis);
+  const terms = Y.map((y, i) => `${texP(y)}\\cdot${texP(Ls[i])}`).join(" + ");
+  ol.append(li("Gabungkan dengan bobot \\(y_i\\)", M(`p(${tex(xt)}) = ${terms} = ${tex(val)}`)));
+  const sum = Ls.reduce((s, v) => s + v, 0);
+  ol.append(li("Cek cepat", M(`\\sum L_i = ${Ls.map(texP).join(" + ")} = ${tex(sum)}`),
+    Math.abs(sum - 1) < 1e-9 ? `<p>Jumlahnya 1, jadi perhitungan basis sudah benar.</p>` : `<p>Jumlahnya tidak 1, ada pembulatan atau salah input.</p>`));
+  renderAll(ol);
+}
+
+function stepsNewton(ol) {
+  const { X, Y, xt, a, c, val } = last;
+  const t = dividedDiff(X, Y), n = X.length;
+  let h = `<div class="scroll"><table class="dd"><tr><th>i</th><th>x</th><th>y</th>${t.slice(1).map((_, k) => `<th>orde ${k + 1}</th>`).join("")}</tr>`;
+  for (let i = 0; i < n; i++) {
+    h += `<tr><td>${i}</td><td>${fmt(X[i])}</td>`;
+    for (let k = 0; k < n; k++) h += k <= n - 1 - i ? `<td class="${i === 0 ? "hl" : ""}">${fmt(t[k][i])}</td>` : "<td></td>";
+    h += "</tr>";
+  }
+  h += "</table></div>";
+  ol.append(li("Buat tabel selisih terbagi", `<p>Tiap sel = (sel kanan-bawah − sel kiri) dibagi selisih \\(x\\) paling jauh yang terlibat.</p>`, h,
+    `<p>Koefisien diambil dari <b>baris paling atas</b>: ${a.map((v, k) => `\\(a_{${k}} = ${tex(v)}\\)`).join(", ")}.</p>`));
+  if (n > 1) {
+    const ex = M(`f[x_0,x_1] = \\frac{${texSub(Y[1], Y[0])}}{${texSub(X[1], X[0])}} = ${tex(t[1][0])}`);
+    ol.append(li("Contoh satu sel", ex));
+  }
+  const form = a.map((v, k) => k === 0 ? texP(v) : `${texP(v)}${X.slice(0, k).map((xj) => `(x-${texP(xj)})`).join("")}`).join(" + ");
+  ol.append(li("Susun polinom Newton", M(`p(x) = ${form}`)));
+  let prod = 1; const vals = a.map((v, k) => { if (k > 0) prod *= xt - X[k - 1]; return v * prod; });
+  ol.append(li(`Masukkan \\(x = ${tex(xt)}\\)`, M(`p(${tex(xt)}) = ${vals.map(texP).join(" + ")} = ${tex(val)}`)));
+  ol.append(li("Bentuk baku (dijabarkan)", M(`p(x) = ${polyTex(c)}`), `<p>Ini polinom yang sama dengan hasil Lagrange.</p>`));
+  renderAll(ol);
+}
+
+function stepsBanding(box) {
+  const { P, X, Y, xt, f, a } = last;
+  const t = f ? f(xt) : NaN;
+  const [[x0, y0], [x1, y1]] = pickLinear(P, xt);
+  const rows = [["Lanjar (2 titik terdekat)", y0 + (y1 - y0) / (x1 - x0) * (xt - x0)]];
+  for (let k = 3; k <= P.length; k++) {
+    const idx = X.map((x, i) => i).sort((i, j) => Math.abs(X[i] - xt) - Math.abs(X[j] - xt)).slice(0, k);
+    const Xs = idx.map((i) => X[i]), Ys = idx.map((i) => Y[i]);
+    rows.push([`Derajat ${k - 1} (${k} titik terdekat)`, newtonEval(Xs, newtonCoef(Xs, Ys), xt)]);
+  }
+  box.innerHTML = `<p>Taksiran di \\(x = ${tex(xt)}\\) dengan jumlah titik yang makin banyak.${f ? "" : " Isi fungsi asli untuk melihat galatnya."}</p>
+  <div class="scroll"><table class="cmp"><tr><th>Cara</th><th style="text-align:right">p(x)</th>${f ? '<th style="text-align:right">Galat</th>' : ""}</tr>
+  ${rows.map(([n, v]) => `<tr><td>${n}</td><td class="num">${fmt(v)}</td>${f ? `<td class="num">${isFinite(t) ? fmt(Math.abs(t - v), 8) : "—"}</td>` : ""}</tr>`).join("")}
+  ${f && isFinite(t) ? `<tr><td><b>Nilai asli</b></td><td class="num"><b>${fmt(t)}</b></td><td></td></tr>` : ""}
+  </table></div><p class="hint">Lagrange dan Newton memberi angka yang sama untuk titik yang sama. Bedanya hanya cara menghitung.</p>`;
+  renderAll(box);
+}
+
+function renderAll(root) {
+  root.querySelectorAll("p, td, th").forEach((el) => {
+    el.innerHTML = el.innerHTML.replace(/\\\((.+?)\\\)/g, (_, s) => inline(s));
+  });
+  root.querySelectorAll("li > b:first-child").forEach((el) => {
+    el.innerHTML = el.innerHTML.replace(/\\\((.+?)\\\)/g, (_, s) => inline(s));
+  });
+}
+
+function drawSteps() {
+  document.querySelectorAll("[data-tab]").forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  const box = $("steps"); box.innerHTML = "";
+  if (tab === "banding") return stepsBanding(box);
+  const ol = document.createElement("ol"); ol.className = "steps"; box.appendChild(ol);
+  ({ lanjar: stepsLanjar, lagrange: stepsLagrange, newton: stepsNewton })[tab](ol);
+}
+
+// ---------- event ----------
+window.addEventListener("load", () => {
+  renderAll(document.querySelector("header")); renderAll(document.querySelector(".grid2"));
+  document.querySelectorAll("label").forEach((el) => (el.innerHTML = el.innerHTML.replace(/\\\((.+?)\\\)/g, (_, s) => inline(s))));
+  document.querySelectorAll("[data-preset]").forEach((b) => (b.onclick = () => loadPreset(b.dataset.preset)));
+  document.querySelectorAll("[data-tab]").forEach((b) => (b.onclick = () => { tab = b.dataset.tab; if (last) drawSteps(); }));
+  $("add").onclick = () => addRow();
+  $("go").onclick = compute;
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.tagName === "INPUT") compute(); });
+  loadPreset("catatan");
+});
+</script>
+</body>
+</html>

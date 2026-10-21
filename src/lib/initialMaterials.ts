@@ -444,6 +444,16 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-09-02T16:00:00.000Z",
   },
   {
+    id: "tool-kalkulator-interpolasi",
+    title: "Aplikasi Bantuan: Kalkulator Interpolasi Polinom (Lanjar, Lagrange, Newton)",
+    courseCode: "KP21517001",
+    meetingNo: 9,
+    type: "Dokumen",
+    description: "Masukkan titik data dan nilai x, lalu lihat taksirannya lengkap dengan langkah lanjar, basis Lagrange, tabel selisih terbagi Newton, polinom bentuk baku, grafik, galat terhadap fungsi asli, dan perbandingan derajat polinom.",
+    url: "/tools/kalkulator-interpolasi/index.html",
+    createdAt: "2026-10-21T10:00:00.000Z",
+  },
+  {
     id: "tool-lab-metode-numerik",
     title: "Laboratorium Metode Numerik Lengkap: Langkah, Tabel & Grafik",
     courseCode: "KP21517001",
