@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P09 · Bunga Sederhana &amp; Majemuk</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#2f5bd3; --accent-soft:#eaf0ff; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3;
+  }
+  html{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .meta{font-size:14px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.2;margin:8px 0 10px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:24px;margin:56px 0 6px;scroll-margin-top:16px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  h3{font-size:18px;margin:28px 0 8px}
+  .lead{color:var(--muted);margin-top:0}
+  nav{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  nav b{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  nav ol{margin:8px 0 0;padding-left:22px}
+  nav a{color:var(--accent);text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  .box{border-radius:12px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);background:var(--paper)}
+  .box.key{background:var(--accent-soft);border-color:transparent}
+  .box.ok{background:var(--ok-soft);border-color:transparent}
+  .box.warn{background:var(--warn-soft);border-color:transparent}
+  .box .tag{display:block;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .key .tag{color:var(--accent)} .ok .tag{color:var(--ok)} .warn .tag{color:var(--warn)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:18px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 52px;border-left:2px solid var(--line);margin-left:16px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+  ol.steps>li>b:first-child{display:block}
+
+  .soal{border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:18px 0}
+  .soal>.q{font-weight:600;margin:0 0 6px}
+  .ans{display:inline-block;background:var(--ok-soft);color:var(--ok);font-weight:700;border-radius:8px;padding:2px 10px}
+
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+  table{width:100%;border-collapse:collapse;margin:16px 0;background:var(--paper)}
+  th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left}
+  th{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .scroll{overflow-x:auto}
+  footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media print{
+    body{font-size:12pt} nav{display:none}
+    h2{break-after:avoid} .box,.soal,ol.steps>li{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Matematika Ekonomi · Pertemuan 9 · Kamis, 8 Oktober 2026</div>
+  <h1>Bunga Sederhana, Potongan Sederhana &amp; Bunga Majemuk</h1>
+  <p>Dosen tidak hadir dan memberikan tugas dari PPT "MAT EKO REVISI"; tugas dibahas pada pertemuan berikutnya. Catatan ini berisi ringkasan materi dan jawaban lengkap tugasnya.</p>
+</header>
+
+<nav>
+  <b>Isi catatan</b>
+  <ol>
+    <li><a href="#konsep">Apa itu bunga?</a></li>
+    <li><a href="#sederhana">Bunga sederhana</a></li>
+    <li><a href="#potongan">Potongan sederhana (nilai sekarang)</a></li>
+    <li><a href="#majemuk">Bunga majemuk</a></li>
+    <li><a href="#frekuensi">Bunga majemuk m kali setahun</a></li>
+    <li><a href="#pv">Nilai sekarang bunga majemuk</a></li>
+    <li><a href="#tugas">Jawaban tugas (5 soal)</a></li>
+    <li><a href="#ringkas">Ringkasan rumus</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="konsep"><span class="no">1</span>Apa itu bunga?</h2>
+<p><b>Bunga</b> adalah balas jasa yang dibayarkan karena kita menggunakan uang. Bunga bisa dilihat dari dua sisi:</p>
+<ul>
+  <li><b>Pendapatan</b>, bagi orang yang menabung atau meminjamkan uang.</li>
+  <li><b>Biaya</b>, bagi orang yang meminjam uang.</li>
+</ul>
+
+<table>
+  <tr><th>Jenis</th><th>Bunga periode lalu ikut dibungakan?</th></tr>
+  <tr><td><b>Bunga sederhana</b></td><td>Tidak. Bunga selalu dihitung dari modal awal saja.</td></tr>
+  <tr><td><b>Bunga majemuk</b></td><td>Ya. Bunga ditambahkan ke modal, lalu ikut berbunga ("bunga berbunga").</td></tr>
+</table>
+
+<div class="box key">
+  <span class="tag">Simbol yang dipakai</span>
+  \( P \) = modal awal / nilai sekarang &nbsp;·&nbsp;
+  \( i \) = tingkat bunga per tahun (desimal, mis. 6% = 0,06) &nbsp;·&nbsp;
+  \( n \) = lama waktu <b>dalam tahun</b> &nbsp;·&nbsp;
+  \( I \) = besar bunga &nbsp;·&nbsp;
+  \( F_n \) = nilai masa datang
+</div>
+
+<div class="box warn">
+  <span class="tag">Jebakan paling sering</span>
+  \( n \) harus dalam <b>tahun</b> karena \( i \) per tahun. Kalau soal memberi bulan, ubah dulu:
+  \[ n = \frac{\text{jumlah bulan}}{12}, \qquad\text{mis. } 18 \text{ bulan} = \tfrac{18}{12} = 1{,}5 \text{ tahun},\quad 8\text{ bulan} = \tfrac{8}{12} = \tfrac{2}{3}\text{ tahun}. \]
+</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="sederhana"><span class="no">2</span>Bunga sederhana</h2>
+<p class="lead">Bunga hanya dihitung dari nilai awal. Bunga tahun ini tidak ikut dibungakan tahun depan.</p>
+
+<ol class="steps">
+  <li><b>Bunga satu tahun.</b> Modal \( P \) dengan bunga \( i \) menghasilkan \( P\,i \) per tahun.</li>
+  <li><b>Bunga \( n \) tahun.</b> Karena tiap tahun bunganya sama, kalikan saja dengan \( n \):
+    \[ \boxed{I = P\,i\,n} \]
+  </li>
+  <li><b>Nilai masa datang.</b> Modal awal ditambah seluruh bunga:
+    \[ F_n = P + P\,i\,n = \boxed{P\,(1 + i\,n)} \]
+  </li>
+</ol>
+
+<div class="box">
+  <span class="tag">Contoh kecil</span>
+  \( P = 1.000.000,\ i = 10\%,\ n = 3 \): bunganya \( I = 1.000.000 \times 0{,}1 \times 3 = 300.000 \), sehingga \( F_3 = 1.300.000 \).
+  Tiap tahun bunganya tetap Rp 100.000.
+</div>
+
+<!-- ============ 3 ============ -->
+<h2 id="potongan"><span class="no">3</span>Potongan sederhana</h2>
+<p class="lead">Kebalikan dari bunga sederhana: diketahui nilai masa datang \( F_n \), kita cari nilai sekarang \( P \).</p>
+
+<ol class="steps">
+  <li><b>Mulai dari rumus nilai masa datang.</b> \( F_n = P\,(1 + i\,n) \)</li>
+  <li><b>Bagi kedua ruas dengan \( (1 + i\,n) \).</b>
+    \[ \boxed{P = \frac{F_n}{1 + i\,n}} \]
+  </li>
+</ol>
+<p>Artinya: "Supaya nanti punya \( F_n \), berapa yang harus saya punya <b>sekarang</b>?"</p>
+
+<!-- ============ 4 ============ -->
+<h2 id="majemuk"><span class="no">4</span>Bunga majemuk</h2>
+<p class="lead">Bunga tiap tahun ditambahkan ke modal, dan modal baru itu yang dibungakan tahun berikutnya.</p>
+
+<ol class="steps">
+  <li><b>Akhir tahun ke-1.</b> Bunga \( P\,i \), jadi nilainya
+    \[ P + P\,i = P(1+i). \]
+  </li>
+  <li><b>Akhir tahun ke-2.</b> Modal awal tahun ke-2 adalah \( P(1+i) \), bunganya \( P(1+i)\,i \):
+    \[ P(1+i) + P(1+i)\,i = P(1+i)(1+i) = P(1+i)^2. \]
+  </li>
+  <li><b>Akhir tahun ke-3.</b> Dengan cara yang sama:
+    \[ P(1+i)^2 + P(1+i)^2\,i = P(1+i)^2(1+i) = P(1+i)^3. \]
+  </li>
+  <li><b>Pola umum.</b> Tiap tahun nilainya dikali \( (1+i) \), jadi setelah \( n \) tahun:
+    \[ \boxed{F_n = P\,(1+i)^n} \]
+  </li>
+</ol>
+
+<div class="box">
+  <span class="tag">Bandingkan dengan contoh Bagian 2</span>
+  \( P = 1.000.000,\ i = 10\%,\ n = 3 \) secara majemuk: \( F_3 = 1.000.000 \times 1{,}1^3 = 1.331.000 \).
+  Hasilnya lebih besar Rp 31.000 dari bunga sederhana, karena bunga ikut berbunga.
+</div>
+
+<!-- ============ 5 ============ -->
+<h2 id="frekuensi"><span class="no">5</span>Bunga majemuk \( m \) kali setahun</h2>
+<p class="lead">Bunga sering dibayarkan lebih dari sekali dalam setahun.</p>
+
+<table>
+  <tr><th>Pembayaran bunga</th><th>\( m \)</th></tr>
+  <tr><td>Tahunan</td><td>1</td></tr>
+  <tr><td>Semesteran</td><td>2</td></tr>
+  <tr><td>Kuartalan</td><td>4</td></tr>
+  <tr><td>Bulanan</td><td>12</td></tr>
+  <tr><td>Harian</td><td>365</td></tr>
+</table>
+
+<ol class="steps">
+  <li><b>Bunga per periode.</b> Bunga tahunan \( i \) dibagi rata ke \( m \) periode: \( \dfrac{i}{m} \).</li>
+  <li><b>Banyaknya periode.</b> Dalam \( n \) tahun ada \( m \times n \) kali pembungaan.</li>
+  <li><b>Masukkan ke rumus majemuk.</b>
+    \[ \boxed{F_n = P\left(1 + \frac{i}{m}\right)^{mn}} \]
+  </li>
+</ol>
+
+<!-- ============ 6 ============ -->
+<h2 id="pv"><span class="no">6</span>Nilai sekarang dari bunga majemuk</h2>
+<p class="lead">Sama seperti potongan sederhana: balik rumusnya untuk mencari \( P \).</p>
+\[ P = \frac{F_n}{(1+i)^n} = F_n\left(\frac{1}{1+i}\right)^n
+\qquad\text{dan untuk } m \text{ kali setahun:}\qquad
+P = \frac{F_n}{\left(1 + \frac{i}{m}\right)^{mn}}. \]
+
+<!-- ============ 7 ============ -->
+<h2 id="tugas"><span class="no">7</span>Jawaban tugas</h2>
+<p class="lead">Lima soal latihan dari PPT. Tiap jawaban ditulis rumus, angka yang dimasukkan, lalu hasil.</p>
+
+<!-- Soal 1 -->
+<h3>Soal 1 — Pengeluaran perusahaan pupuk</h3>
+<p>Pengeluaran perusahaan pupuk untuk mengatasi polusi udara tahun 1995 sebesar Rp 125.000 dan diasumsikan naik 6% per tahun.</p>
+
+<div class="soal">
+  <p class="q">a. Berapa pengeluaran tahunan pada tahun 2000?</p>
+  <ol class="steps">
+    <li><b>Kenali polanya.</b> Naik 6% dari tahun sebelumnya berarti tiap tahun dikali \( 1{,}06 \). Ini pola <b>bunga majemuk</b>, dengan \( P = 125.000 \) dan \( i = 0{,}06 \).</li>
+    <li><b>Tentukan \( n \).</b> Dari 1995 ke 2000: \( n = 2000 - 1995 = 5 \).</li>
+    <li><b>Hitung.</b>
+      \[ F_5 = 125.000\,(1{,}06)^5 = 125.000 \times 1{,}3382255776 = 167.278{,}20 \]
+    </li>
+  </ol>
+  <p><span class="ans">Pengeluaran tahun 2000 ≈ Rp 167.278,20</span></p>
+</div>
+
+<div class="soal">
+  <p class="q">b. Berapa total biaya dari tahun 1995 sampai 2000?</p>
+  <ol class="steps">
+    <li><b>Tulis pengeluaran tiap tahun.</b> Ada 6 tahun (1995, 1996, …, 2000):
+      \[ 125.000,\ 125.000(1{,}06),\ 125.000(1{,}06)^2,\ \dots,\ 125.000(1{,}06)^5. \]
+      Ini <b>deret geometri</b> dengan suku pertama \( a = 125.000 \), rasio \( r = 1{,}06 \), dan banyak suku 6.
+    </li>
+    <li><b>Pakai rumus jumlah deret geometri.</b>
+      \[ S_6 = a\,\frac{r^6 - 1}{r - 1} = 125.000 \times \frac{1{,}06^6 - 1}{0{,}06}. \]
+    </li>
+    <li><b>Hitung.</b> \( 1{,}06^6 = 1{,}4185191 \), jadi
+      \[ S_6 = 125.000 \times \frac{0{,}4185191}{0{,}06} = 125.000 \times 6{,}9753185 = 871.914{,}82. \]
+    </li>
+    <li><b>Cek dengan tabel.</b>
+      <div class="scroll"><table>
+        <tr><th>Tahun</th><th>Rumus</th><th style="text-align:right">Pengeluaran (Rp)</th></tr>
+        <tr><td>1995</td><td>\(125.000\)</td><td class="num">125.000,00</td></tr>
+        <tr><td>1996</td><td>\(125.000(1{,}06)\)</td><td class="num">132.500,00</td></tr>
+        <tr><td>1997</td><td>\(125.000(1{,}06)^2\)</td><td class="num">140.450,00</td></tr>
+        <tr><td>1998</td><td>\(125.000(1{,}06)^3\)</td><td class="num">148.877,00</td></tr>
+        <tr><td>1999</td><td>\(125.000(1{,}06)^4\)</td><td class="num">157.809,62</td></tr>
+        <tr><td>2000</td><td>\(125.000(1{,}06)^5\)</td><td class="num">167.278,20</td></tr>
+        <tr><td colspan="2"><b>Total</b></td><td class="num"><b>871.914,82</b></td></tr>
+      </table></div>
+    </li>
+  </ol>
+  <p><span class="ans">Total biaya 1995–2000 ≈ Rp 871.914,82</span></p>
+</div>
+
+<!-- Soal 2 -->
+<h3>Soal 2 — Pendapatan bunga sederhana</h3>
+<p>Rumus: \( I = P\,i\,n \), dengan \( n \) dalam tahun.</p>
+
+<div class="soal">
+  <p class="q">a. \( P = \) Rp 200.000; \( n = 2 \) tahun; \( i = 5\% \)</p>
+  \[ I = 200.000 \times 0{,}05 \times 2 = 20.000 \]
+  <p><span class="ans">I = Rp 20.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( P = \) Rp 500.000; \( n = 18 \) bulan; \( i = 13\% \)</p>
+  <p>Ubah waktu: \( n = \tfrac{18}{12} = 1{,}5 \) tahun.</p>
+  \[ I = 500.000 \times 0{,}13 \times 1{,}5 = 97.500 \]
+  <p><span class="ans">I = Rp 97.500</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. \( P = \) Rp 450.000; \( n = 3 \) tahun; \( i = 10\% \)</p>
+  \[ I = 450.000 \times 0{,}10 \times 3 = 135.000 \]
+  <p><span class="ans">I = Rp 135.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. \( P = \) Rp 300.000; \( n = 8 \) bulan; \( i = 9\% \)</p>
+  <p>Ubah waktu: \( n = \tfrac{8}{12} = \tfrac{2}{3} \) tahun.</p>
+  \[ I = 300.000 \times 0{,}09 \times \tfrac{2}{3} = 27.000 \times \tfrac{2}{3} = 18.000 \]
+  <p><span class="ans">I = Rp 18.000</span></p>
+</div>
+
+<!-- Soal 3 -->
+<h3>Soal 3 — Nilai masa datang pinjaman jangka pendek</h3>
+<p>Pinjaman jangka pendek memakai bunga sederhana: \( F_n = P\,(1 + i\,n) \).</p>
+
+<div class="soal">
+  <p class="q">a. \( P = \) Rp 150.000; \( n = 6 \) bulan; \( i = 12\% \)</p>
+  <p>\( n = \tfrac{6}{12} = 0{,}5 \), jadi \( i\,n = 0{,}12 \times 0{,}5 = 0{,}06 \).</p>
+  \[ F_n = 150.000\,(1 + 0{,}06) = 150.000 \times 1{,}06 = 159.000 \]
+  <p><span class="ans">F = Rp 159.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( P = \) Rp 425.000; \( n = 8 \) bulan; \( i = 15\% \)</p>
+  <p>\( i\,n = 0{,}15 \times \tfrac{8}{12} = 0{,}10 \).</p>
+  \[ F_n = 425.000 \times 1{,}10 = 467.500 \]
+  <p><span class="ans">F = Rp 467.500</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. \( P = \) Rp 600.000; \( n = 3 \) bulan; \( i = 10\% \)</p>
+  <p>\( i\,n = 0{,}10 \times \tfrac{3}{12} = 0{,}025 \).</p>
+  \[ F_n = 600.000 \times 1{,}025 = 615.000 \]
+  <p><span class="ans">F = Rp 615.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. \( P = \) Rp 500.000; \( n = 4 \) bulan; \( i = 18\% \)</p>
+  <p>\( i\,n = 0{,}18 \times \tfrac{4}{12} = 0{,}06 \).</p>
+  \[ F_n = 500.000 \times 1{,}06 = 530.000 \]
+  <p><span class="ans">F = Rp 530.000</span></p>
+</div>
+
+<!-- Soal 4 -->
+<h3>Soal 4 — Modal awal pinjaman</h3>
+<p>Diketahui \( F_n \), dicari \( P \). Pakai potongan sederhana: \( P = \dfrac{F_n}{1 + i\,n} \).</p>
+
+<div class="soal">
+  <p class="q">a. \( F_n = \) Rp 4.450.000; \( n = 18 \) bulan; \( i = 7{,}5\% \)</p>
+  <p>\( 1 + i\,n = 1 + 0{,}075 \times 1{,}5 = 1 + 0{,}1125 = 1{,}1125 \).</p>
+  \[ P = \frac{4.450.000}{1{,}1125} = 4.000.000 \]
+  <p><span class="ans">P = Rp 4.000.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( F_n = \) Rp 885.000; \( n = 18 \) bulan; \( i = 12\% \)</p>
+  <p>\( 1 + i\,n = 1 + 0{,}12 \times 1{,}5 = 1{,}18 \).</p>
+  \[ P = \frac{885.000}{1{,}18} = 750.000 \]
+  <p><span class="ans">P = Rp 750.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. \( F_n = \) Rp 5.375.000; \( n = 9 \) bulan; \( i = 10\% \)</p>
+  <p>\( 1 + i\,n = 1 + 0{,}10 \times \tfrac{9}{12} = 1 + 0{,}075 = 1{,}075 \).</p>
+  \[ P = \frac{5.375.000}{1{,}075} = 5.000.000 \]
+  <p><span class="ans">P = Rp 5.000.000</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. \( F_n = \) Rp 2.200.000; \( n = 8 \) bulan; \( i = 15\% \)</p>
+  <p>\( 1 + i\,n = 1 + 0{,}15 \times \tfrac{8}{12} = 1 + 0{,}10 = 1{,}10 \).</p>
+  \[ P = \frac{2.200.000}{1{,}10} = 2.000.000 \]
+  <p><span class="ans">P = Rp 2.000.000</span></p>
+</div>
+<div class="box">
+  <span class="tag">Cara cek</span>
+  Kalikan balik: misalnya soal a, \( 4.000.000 \times 1{,}1125 = 4.450.000 \). Cocok dengan \( F_n \) yang diketahui.
+</div>
+
+<!-- Soal 5 -->
+<h3>Soal 5 — Tabungan Rp 2.000.000 selama 5 tahun, bunga majemuk 6%</h3>
+<p>Rumus: \( F_n = P\left(1 + \dfrac{i}{m}\right)^{mn} \) dengan \( P = 2.000.000,\ i = 0{,}06,\ n = 5 \).</p>
+
+<div class="soal">
+  <p class="q">a. Tahunan (\( m = 1 \))</p>
+  \[ F_5 = 2.000.000\,(1 + 0{,}06)^{5} = 2.000.000 \times 1{,}3382256 = 2.676.451{,}16 \]
+  <p><span class="ans">≈ Rp 2.676.451,16</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. Semesteran (\( m = 2 \))</p>
+  <p>Bunga per semester \( \tfrac{0{,}06}{2} = 0{,}03 \), banyak periode \( 2 \times 5 = 10 \).</p>
+  \[ F_5 = 2.000.000\,(1{,}03)^{10} = 2.000.000 \times 1{,}3439164 = 2.687.832{,}76 \]
+  <p><span class="ans">≈ Rp 2.687.832,76</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. Kuartalan (\( m = 4 \))</p>
+  <p>Bunga per kuartal \( \tfrac{0{,}06}{4} = 0{,}015 \), banyak periode \( 4 \times 5 = 20 \).</p>
+  \[ F_5 = 2.000.000\,(1{,}015)^{20} = 2.000.000 \times 1{,}3468550 = 2.693.710{,}01 \]
+  <p><span class="ans">≈ Rp 2.693.710,01</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. Bulanan (\( m = 12 \))</p>
+  <p>Bunga per bulan \( \tfrac{0{,}06}{12} = 0{,}005 \), banyak periode \( 12 \times 5 = 60 \).</p>
+  \[ F_5 = 2.000.000\,(1{,}005)^{60} = 2.000.000 \times 1{,}3488502 = 2.697.700{,}31 \]
+  <p><span class="ans">≈ Rp 2.697.700,31</span></p>
+</div>
+
+<div class="box key">
+  <span class="tag">Kesimpulan soal 5</span>
+  <div class="scroll"><table>
+    <tr><th>Pembungaan</th><th>\( m \)</th><th style="text-align:right">Nilai akhir (Rp)</th></tr>
+    <tr><td>Tahunan</td><td>1</td><td class="num">2.676.451,16</td></tr>
+    <tr><td>Semesteran</td><td>2</td><td class="num">2.687.832,76</td></tr>
+    <tr><td>Kuartalan</td><td>4</td><td class="num">2.693.710,01</td></tr>
+    <tr><td>Bulanan</td><td>12</td><td class="num">2.697.700,31</td></tr>
+  </table></div>
+  Makin sering bunga dibayarkan (\( m \) makin besar), makin besar nilai akhirnya, karena bunga lebih cepat ikut berbunga. Tetapi kenaikannya makin kecil.
+</div>
+
+<!-- ============ 8 ============ -->
+<h2 id="ringkas"><span class="no">8</span>Ringkasan rumus</h2>
+<div class="scroll"><table>
+  <tr><th>Yang dicari</th><th>Bunga sederhana</th><th>Bunga majemuk</th></tr>
+  <tr><td>Besar bunga</td><td>\( I = P\,i\,n \)</td><td>\( I = F_n - P \)</td></tr>
+  <tr><td>Nilai masa datang</td><td>\( F_n = P(1 + i\,n) \)</td><td>\( F_n = P\left(1+\frac{i}{m}\right)^{mn} \)</td></tr>
+  <tr><td>Nilai sekarang</td><td>\( P = \dfrac{F_n}{1 + i\,n} \)</td><td>\( P = \dfrac{F_n}{\left(1+\frac{i}{m}\right)^{mn}} \)</td></tr>
+</table></div>
+<p>(Untuk majemuk tahunan, pakai \( m = 1 \).)</p>
+
+<div class="box key">
+  <span class="tag">Cara memilih rumus</span>
+  Kata "sederhana" atau "pinjaman jangka pendek" berarti pakai \( 1 + i\,n \).
+  Kata "majemuk", "naik … % per tahun", "semesteran/kuartalan/bulanan" berarti pakai pangkat \( (1 + \tfrac{i}{m})^{mn} \).
+  Diketahui nilai akhir dan ditanya modal berarti <b>bagi</b>, bukan kali.
+</div>
+
+<footer>
+  Catatan Pertemuan 9 Matematika Ekonomi (Kelas C), dosen Vepi Apiati, S.Pd., M.Pd. Sumber: PPT "MAT EKO REVISI" (Bunga Sederhana, Potongan Sederhana, Bunga Majemuk, Nilai Sekarang dengan Bunga Majemuk).
+</footer>
+
+</main>
+</body>
+</html>

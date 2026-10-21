@@ -172,7 +172,9 @@ const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:4,title:'Fungsi Biaya, Penerimaan, Laba, dan Titik Impas',kind:'Teori',summary:'Biaya tetap, variabel, total, rata-rata, dan marginal; penerimaan total; fungsi laba; serta titik impas (BEP). Kamis, 03 September 2026.',activity:'Mengikuti contoh soal lalu mengerjakan latihan biaya-penerimaan-laba.'},
 {meeting:5,title:'Penerapan Fungsi Non-Linear dalam Ekonomi',kind:'Teori',summary:'Fungsi permintaan dan penawaran kuadrat, keseimbangan pasar non-linear, pengaruh pajak dan subsidi spesifik pada model kuadrat, serta kurva transformasi produksi (PPF). Kamis, 10 September 2026.',activity:'Mempelajari materi pengantar dan mengerjakan latihan keseimbangan pasar non-linear.'},
 {meeting:6,title:'Persiapan UTS — Modul Ringkasan Lengkap Matematika Ekonomi (Open Book)',kind:'Teori',summary:'Modul komprehensif 6 halaman: pasar linear, kebijakan pajak & subsidi, teori biaya & BEP, model kuadratik & hiperbola non-linear, PPF & utilitas, studi kasus optimasi laundry, serta master formula & panduan grafik.',activity:'Mempelajari rangkuman materi, simulasi latihan soal, dan persiapan menghadapi ujian open book.'},
-...blank(7,16)
+...blank(7,8),
+{meeting:9,title:'Bunga Sederhana, Potongan Sederhana, dan Bunga Majemuk (Tugas)',kind:'Teori',summary:'Dosen tidak hadir dan memberikan tugas dari PPT MAT EKO REVISI: bunga sederhana I = Pin dan Fn = P(1+in), potongan sederhana, bunga majemuk Fn = P(1+i/m)^(mn), dan nilai sekarang. Tugas dibahas pada pertemuan berikutnya.',activity:'Mengerjakan lima soal latihan PPT; jawaban step by step tersedia di catatan.'},
+...blank(10,16)
 ]
 /* Skripsi: tahapan diambil dari berkas yang benar-benar ada di folder skripsi
    (Form NUIR 2026, draf proposal, revisi bimbingan pertama, studi pendahuluan,

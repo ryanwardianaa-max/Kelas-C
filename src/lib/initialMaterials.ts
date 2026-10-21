@@ -189,6 +189,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-10-19T07:45:00.000Z",
   },
   {
+    id: "mat-matematika-ekonomi-pertemuan-09",
+    title: "Catatan & Jawaban Tugas: Bunga Sederhana, Potongan Sederhana, dan Bunga Majemuk",
+    courseCode: "KP21517007",
+    meetingNo: 9,
+    type: "Catatan",
+    description:
+      "Catatan Matematika Ekonomi Pertemuan 09 (8 Oktober 2026). Dosen tidak hadir dan memberikan tugas dari PPT MAT EKO REVISI. Berisi rumus bunga sederhana I = Pin, potongan sederhana, penurunan bunga majemuk Fn = P(1+i)^n, pembungaan m kali setahun, nilai sekarang, serta jawaban step by step kelima soal latihan.",
+    url: "/materi/KP21517007/pertemuan-09/index.html",
+    createdAt: "2026-10-08T02:35:00.000Z",
+  },
+  {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",
