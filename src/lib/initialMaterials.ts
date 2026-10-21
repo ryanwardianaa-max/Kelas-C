@@ -178,6 +178,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-10-12T07:45:00.000Z",
   },
   {
+    id: "mat-analisis-kompleks-pertemuan-10",
+    title: "Catatan Kuliah: Turunan Fungsi Kompleks Elementer (eᶻ, sin, cos, tan)",
+    courseCode: "KP21517003",
+    meetingNo: 10,
+    type: "Catatan",
+    description:
+      "Catatan perkuliahan Analisis Kompleks Pertemuan 10 (19 Oktober 2026) bersama Bu Vepi Apiati. Pembuktian step by step (eᶻ)' = eᶻ, (sin z)' = cos z, dan (cos z)' = -sin z lewat persamaan Cauchy-Riemann, (tan z)' = sec² z lewat aturan hasil bagi, bonus cot/sec/csc, cek fungsi harmonik, ringkasan, dan latihan.",
+    url: "/materi/KP21517003/pertemuan-10/index.html",
+    createdAt: "2026-10-19T07:45:00.000Z",
+  },
+  {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",

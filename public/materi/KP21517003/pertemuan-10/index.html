@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P10 · Turunan Fungsi Kompleks</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+  :root{
+    --bg:#fbfaf7; --paper:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#2f5bd3; --accent-soft:#eaf0ff; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14161a; --paper:#1b1e24; --ink:#e7e9ee; --muted:#9aa1ad; --line:#2c3039;
+      --accent:#8fb0ff; --accent-soft:#1f2a44; --ok:#5fd3a0; --ok-soft:#173328;
+      --warn:#f0a85a; --warn-soft:#3a2a17;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .meta{font-size:14px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.2;margin:8px 0 10px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:24px;margin:56px 0 6px;scroll-margin-top:16px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  h3{font-size:18px;margin:28px 0 8px}
+  .lead{color:var(--muted);margin-top:0}
+  nav{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  nav b{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  nav ol{margin:8px 0 0;padding-left:22px}
+  nav a{color:var(--accent);text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  .box{border-radius:12px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);background:var(--paper)}
+  .box.key{background:var(--accent-soft);border-color:transparent}
+  .box.ok{background:var(--ok-soft);border-color:transparent}
+  .box.warn{background:var(--warn-soft);border-color:transparent}
+  .box .tag{display:block;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .key .tag{color:var(--accent)} .ok .tag{color:var(--ok)} .warn .tag{color:var(--warn)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:18px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 52px;border-left:2px solid var(--line);margin-left:16px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+  @media (prefers-color-scheme: dark){ ol.steps>li::before{color:#14161a} }
+  ol.steps>li>b:first-child{display:block}
+
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+  table{width:100%;border-collapse:collapse;margin:16px 0;background:var(--paper);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left}
+  th{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none}
+  .qed{text-align:right;font-weight:700;color:var(--ok)}
+  details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 18px;margin:12px 0}
+  summary{cursor:pointer;font-weight:600}
+  details[open] summary{margin-bottom:8px}
+  footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media print{
+    body{font-size:12pt;background:#fff} nav{display:none}
+    details{border:none;padding:0} details>summary{display:none}
+    h2{break-after:avoid} .box,ol.steps>li{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Analisis Kompleks · Pertemuan 10 · Senin, 19 Oktober 2026</div>
+  <h1>Turunan Fungsi Kompleks Elementer</h1>
+  <p>Membuktikan \( (e^z)'=e^z \), \( (\sin z)'=\cos z \), \( (\cos z)'=-\sin z \), dan \( (\tan z)'=\sec^2 z \) memakai persamaan Cauchy–Riemann.</p>
+</header>
+
+<nav>
+  <b>Isi catatan</b>
+  <ol>
+    <li><a href="#alat">Alat yang dipakai (ingat Pertemuan 9)</a></li>
+    <li><a href="#exp">Bukti \( (e^z)' = e^z \)</a></li>
+    <li><a href="#bekal">Bekal: memecah \( \sin z \) dan \( \cos z \)</a></li>
+    <li><a href="#sin">Bukti \( (\sin z)' = \cos z \)</a></li>
+    <li><a href="#cos">Bukti \( (\cos z)' = -\sin z \)</a></li>
+    <li><a href="#tan">Bukti \( (\tan z)' = \sec^2 z \)</a></li>
+    <li><a href="#bonus">Bonus: \( \cot z,\ \sec z,\ \csc z \)</a></li>
+    <li><a href="#harmonik">Cek harmonik</a></li>
+    <li><a href="#ringkas">Ringkasan &amp; latihan</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="alat"><span class="no">1</span>Alat yang dipakai</h2>
+<p class="lead">Semua bukti di sini memakai satu teorema dari Pertemuan 9, jadi kuasai ini dulu.</p>
+
+<p>Tulis \( z = x + iy \) dan pecah fungsinya menjadi bagian real dan bagian imajiner:</p>
+\[ f(z) = u(x,y) + i\,v(x,y). \]
+
+<div class="box key">
+  <span class="tag">Teorema (syarat cukup analitik)</span>
+  Jika turunan parsial pertama \( u_x, u_y, v_x, v_y \) <b>ada dan kontinu</b> di suatu daerah, dan memenuhi
+  <b>persamaan Cauchy–Riemann (C–R)</b>
+  \[ u_x = v_y \qquad\text{dan}\qquad u_y = -v_x, \]
+  maka \( f \) <b>analitik</b> di daerah itu dan turunannya
+  \[ f'(z) = u_x + i\,v_x. \]
+</div>
+
+<p>Jadi setiap bukti cukup mengikuti <b>resep 4 langkah</b> ini:</p>
+<ol class="steps">
+  <li><b>Pecah</b> \( f(z) \) menjadi \( u + iv \).</li>
+  <li><b>Hitung</b> empat turunan parsial: \( u_x, u_y, v_x, v_y \).</li>
+  <li><b>Cek</b> C–R terpenuhi dan turunan parsialnya kontinu, sehingga \( f \) analitik.</li>
+  <li><b>Rakit</b> \( f'(z) = u_x + i v_x \), lalu kenali hasilnya sebagai fungsi yang kita tuju.</li>
+</ol>
+
+<div class="box">
+  <span class="tag">Pengingat kecil</span>
+  \( \cosh y = \dfrac{e^{y}+e^{-y}}{2},\quad \sinh y = \dfrac{e^{y}-e^{-y}}{2},\quad
+  \dfrac{d}{dy}\cosh y = \sinh y,\quad \dfrac{d}{dy}\sinh y = \cosh y. \)
+</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="exp"><span class="no">2</span>Bukti \( \dfrac{d}{dz}\,e^z = e^z \)</h2>
+<p class="lead">Bukti paling penting, karena turunan sin, cos, dan tan nanti berdiri di atasnya.</p>
+
+<ol class="steps">
+  <li><b>Pecah \( e^z \).</b>
+    Dengan rumus Euler \( e^{iy} = \cos y + i\sin y \):
+    \[ e^z = e^{x+iy} = e^x\,e^{iy} = e^x(\cos y + i\sin y) = \underbrace{e^x\cos y}_{u} + i\,\underbrace{e^x \sin y}_{v}. \]
+    Jadi \( u = e^x\cos y \) dan \( v = e^x \sin y \).
+  </li>
+  <li><b>Hitung turunan parsial.</b>
+    \[ \begin{aligned}
+      u_x &= e^x\cos y, & u_y &= -e^x\sin y,\\
+      v_x &= e^x\sin y, & v_y &= e^x\cos y.
+    \end{aligned} \]
+    (Saat menurunkan terhadap \( x \), \( y \) dianggap konstanta, dan sebaliknya.)
+  </li>
+  <li><b>Cek C–R.</b>
+    \[ u_x = e^x\cos y = v_y \;\checkmark \qquad u_y = -e^x\sin y = -v_x \;\checkmark \]
+    Keempat turunan parsial hanya memuat \( e^x, \cos y, \sin y \), yang kontinu di mana-mana.
+    Jadi \( e^z \) analitik di <b>seluruh bidang kompleks</b> (fungsi <i>entire</i>).
+  </li>
+  <li><b>Rakit turunannya.</b>
+    \[ \frac{d}{dz}e^z = u_x + i v_x = e^x\cos y + i\,e^x\sin y = e^x(\cos y + i\sin y) = e^z. \]
+  </li>
+</ol>
+<div class="box ok"><span class="tag">Hasil</span>\[ \frac{d}{dz}\,e^z = e^z \quad\text{untuk semua } z\in\mathbb C. \]</div>
+
+<div class="box">
+  <span class="tag">Akibat yang langsung dipakai</span>
+  Dengan aturan rantai, untuk konstanta \( a \): \( \dfrac{d}{dz}e^{az} = a\,e^{az} \). Khususnya
+  \[ \frac{d}{dz}e^{iz} = i\,e^{iz}, \qquad \frac{d}{dz}e^{-iz} = -i\,e^{-iz}. \]
+</div>
+
+<!-- ============ 3 ============ -->
+<h2 id="bekal"><span class="no">3</span>Bekal: memecah \( \sin z \) dan \( \cos z \)</h2>
+<p class="lead">Di bilangan kompleks, sin dan cos <b>didefinisikan</b> lewat eksponen:</p>
+\[ \sin z = \frac{e^{iz} - e^{-iz}}{2i}, \qquad \cos z = \frac{e^{iz} + e^{-iz}}{2}. \]
+<p>Supaya bisa memakai C–R, kita butuh bentuk \( u + iv \). Hitung dulu \( e^{iz} \) dan \( e^{-iz} \).</p>
+
+<ol class="steps">
+  <li><b>Hitung \( iz \) dan \( -iz \).</b>
+    \[ iz = i(x+iy) = -y + ix, \qquad -iz = y - ix. \]
+  </li>
+  <li><b>Pakai Euler.</b>
+    \[ e^{iz} = e^{-y}(\cos x + i\sin x), \qquad e^{-iz} = e^{y}(\cos x - i\sin x). \]
+  </li>
+  <li><b>Bentuk \( \cos z \): jumlahkan, lalu bagi 2.</b>
+    \[ \begin{aligned}
+      e^{iz}+e^{-iz} &= \cos x\,(e^{-y}+e^{y}) + i\sin x\,(e^{-y}-e^{y}) \\
+      &= 2\cos x\cosh y - 2i\sin x\sinh y.
+    \end{aligned} \]
+    \[ \boxed{\cos z = \cos x\cosh y - i\,\sin x\sinh y} \]
+  </li>
+  <li><b>Bentuk \( \sin z \): kurangkan, lalu bagi \( 2i \).</b>
+    \[ \begin{aligned}
+      e^{iz}-e^{-iz} &= \cos x\,(e^{-y}-e^{y}) + i\sin x\,(e^{-y}+e^{y}) \\
+      &= -2\cos x\sinh y + 2i\sin x\cosh y.
+    \end{aligned} \]
+    Bagi \( 2i \), dengan memakai \( \dfrac{1}{i} = -i \):
+    \[ \frac{-2\cos x\sinh y}{2i} = i\cos x \sinh y, \qquad \frac{2i\sin x\cosh y}{2i} = \sin x\cosh y. \]
+    \[ \boxed{\sin z = \sin x\cosh y + i\,\cos x\sinh y} \]
+  </li>
+</ol>
+
+<div class="box key">
+  <span class="tag">Simpan dua bentuk ini</span>
+  \[ \sin z = \underbrace{\sin x\cosh y}_{u} + i\,\underbrace{\cos x\sinh y}_{v}, \qquad
+     \cos z = \underbrace{\cos x\cosh y}_{u} + i\,\underbrace{(-\sin x\sinh y)}_{v}. \]
+  Cek cepat: kalau \( y = 0 \), maka \( \cosh 0 = 1 \) dan \( \sinh 0 = 0 \), sehingga keduanya kembali menjadi \( \sin x \) dan \( \cos x \) biasa.
+</div>
+
+<!-- ============ 4 ============ -->
+<h2 id="sin"><span class="no">4</span>Bukti \( \dfrac{d}{dz}\sin z = \cos z \)</h2>
+
+<h3>Cara 1: Cauchy–Riemann</h3>
+<ol class="steps">
+  <li><b>Pecah.</b> \( u = \sin x\cosh y,\quad v = \cos x\sinh y. \)</li>
+  <li><b>Turunan parsial.</b>
+    \[ \begin{aligned}
+      u_x &= \cos x\cosh y, & u_y &= \sin x\sinh y,\\
+      v_x &= -\sin x\sinh y, & v_y &= \cos x\cosh y.
+    \end{aligned} \]
+  </li>
+  <li><b>Cek C–R.</b>
+    \[ u_x = \cos x\cosh y = v_y\;\checkmark \qquad u_y = \sin x\sinh y = -(-\sin x\sinh y) = -v_x\;\checkmark \]
+    Semua turunan parsialnya kontinu, jadi \( \sin z \) entire.
+  </li>
+  <li><b>Rakit.</b>
+    \[ \frac{d}{dz}\sin z = u_x + i v_x = \cos x\cosh y - i\,\sin x\sinh y. \]
+    Bandingkan dengan bekal di Bagian 3: ini <b>persis</b> bentuk \( \cos z \).
+  </li>
+</ol>
+<div class="box ok"><span class="tag">Hasil</span>\[ \frac{d}{dz}\sin z = \cos z. \]</div>
+
+<h3>Cara 2: dari turunan \( e^z \) (lebih singkat)</h3>
+<p>Karena \( e^{iz} \) dan \( e^{-iz} \) analitik, turunkan definisinya langsung:</p>
+\[ \frac{d}{dz}\sin z = \frac{1}{2i}\Big(i e^{iz} - (-i)e^{-iz}\Big) = \frac{i\,(e^{iz}+e^{-iz})}{2i} = \frac{e^{iz}+e^{-iz}}{2} = \cos z. \]
+<p>Dua cara, hasilnya sama. Cara 1 menunjukkan <i>mengapa</i> \( \sin z \) analitik, sedangkan Cara 2 lebih cepat dipakai.</p>
+
+<!-- ============ 5 ============ -->
+<h2 id="cos"><span class="no">5</span>Bukti \( \dfrac{d}{dz}\cos z = -\sin z \)</h2>
+
+<h3>Cara 1: Cauchy–Riemann</h3>
+<ol class="steps">
+  <li><b>Pecah.</b> \( u = \cos x\cosh y,\quad v = -\sin x\sinh y. \)</li>
+  <li><b>Turunan parsial.</b>
+    \[ \begin{aligned}
+      u_x &= -\sin x\cosh y, & u_y &= \cos x\sinh y,\\
+      v_x &= -\cos x\sinh y, & v_y &= -\sin x\cosh y.
+    \end{aligned} \]
+  </li>
+  <li><b>Cek C–R.</b>
+    \[ u_x = -\sin x\cosh y = v_y\;\checkmark \qquad u_y = \cos x\sinh y = -(-\cos x\sinh y) = -v_x\;\checkmark \]
+    Turunan parsialnya kontinu, jadi \( \cos z \) entire.
+  </li>
+  <li><b>Rakit.</b>
+    \[ \frac{d}{dz}\cos z = u_x + i v_x = -\sin x\cosh y - i\cos x\sinh y = -\big(\sin x\cosh y + i\cos x\sinh y\big). \]
+    Isi kurungnya adalah \( \sin z \).
+  </li>
+</ol>
+<div class="box ok"><span class="tag">Hasil</span>\[ \frac{d}{dz}\cos z = -\sin z. \]</div>
+
+<h3>Cara 2: dari turunan \( e^z \)</h3>
+\[ \frac{d}{dz}\cos z = \frac{i e^{iz} - i e^{-iz}}{2} = \frac{i\,(e^{iz}-e^{-iz})}{2}
+   = \frac{i\cdot i\,(e^{iz}-e^{-iz})}{2i} = -\,\frac{e^{iz}-e^{-iz}}{2i} = -\sin z. \]
+<p>(Triknya: kalikan pembilang dan penyebut dengan \( i \), lalu pakai \( i^2 = -1 \).)</p>
+
+<!-- ============ 6 ============ -->
+<h2 id="tan"><span class="no">6</span>Bukti \( \dfrac{d}{dz}\tan z = \sec^2 z \)</h2>
+<p class="lead">Memecah \( \tan z \) menjadi \( u+iv \) itu panjang dan berantakan. Lebih rapi kalau kita pakai hasil Bagian 4 dan 5 bersama aturan hasil bagi.</p>
+
+<div class="box">
+  <span class="tag">Kenapa aturan hasil bagi boleh dipakai?</span>
+  Kalau \( f \) dan \( g \) analitik dan \( g(z)\neq 0 \), maka \( f/g \) analitik dan
+  \( \left(\dfrac{f}{g}\right)' = \dfrac{f'g - fg'}{g^2} \). Buktinya sama persis dengan kalkulus real, karena hanya memakai definisi limit.
+  Kita sudah membuktikan \( \sin z \) dan \( \cos z \) analitik (lewat C–R), jadi syaratnya terpenuhi.
+</div>
+
+<ol class="steps">
+  <li><b>Tulis definisinya.</b>
+    \[ \tan z = \frac{\sin z}{\cos z}, \qquad \text{berlaku untuk } \cos z \neq 0. \]
+  </li>
+  <li><b>Pakai aturan hasil bagi</b> dengan \( (\sin z)' = \cos z \) dan \( (\cos z)' = -\sin z \).
+    \[ \frac{d}{dz}\tan z = \frac{(\cos z)(\cos z) - (\sin z)(-\sin z)}{\cos^2 z} = \frac{\cos^2 z + \sin^2 z}{\cos^2 z}. \]
+  </li>
+  <li><b>Buktikan \( \sin^2 z + \cos^2 z = 1 \) juga berlaku di kompleks.</b>
+    Jangan langsung dianggap benar. Ini buktinya:
+    \[ \begin{aligned}
+      \sin^2 z &= \frac{(e^{iz}-e^{-iz})^2}{(2i)^2} = -\frac{e^{2iz} - 2 + e^{-2iz}}{4},\\[4pt]
+      \cos^2 z &= \frac{(e^{iz}+e^{-iz})^2}{4} = \frac{e^{2iz} + 2 + e^{-2iz}}{4}.
+    \end{aligned} \]
+    Jumlahkan. Suku \( e^{2iz} \) dan \( e^{-2iz} \) saling hilang:
+    \[ \sin^2 z + \cos^2 z = \frac{-e^{2iz} + 2 - e^{-2iz} + e^{2iz} + 2 + e^{-2iz}}{4} = \frac{4}{4} = 1. \]
+    (Ingat \( e^{iz}\cdot e^{-iz} = e^0 = 1 \), itulah asal angka 2 di tengah.)
+  </li>
+  <li><b>Sederhanakan.</b>
+    \[ \frac{d}{dz}\tan z = \frac{1}{\cos^2 z} = \sec^2 z. \]
+  </li>
+</ol>
+<div class="box ok"><span class="tag">Hasil</span>\[ \frac{d}{dz}\tan z = \sec^2 z, \qquad \text{untuk } \cos z \neq 0. \]</div>
+
+<div class="box warn">
+  <span class="tag">Di mana \( \tan z \) tidak analitik?</span>
+  Di titik-titik saat \( \cos z = 0 \). Dari bentuk di Bagian 3,
+  \[ |\cos z|^2 = \cos^2 x\cosh^2 y + \sin^2 x\sinh^2 y = \cos^2 x + \sinh^2 y. \]
+  Ini nol hanya jika \( \cos x = 0 \) <b>dan</b> \( \sinh y = 0 \), yaitu \( y = 0 \) dan \( x = \tfrac{\pi}{2} + k\pi \).
+  Jadi \( \tan z \) analitik di mana-mana <b>kecuali</b> di \( z = \tfrac{\pi}{2} + k\pi,\ k\in\mathbb Z \). Titik-titik ini sama dengan tempat \( \tan x \) tak terdefinisi di kalkulus real; tidak ada titik masalah tambahan di luar sumbu real.
+  <br><small>(Langkah tengah: \( \cosh^2 y = 1 + \sinh^2 y \), sehingga \( \cos^2x(1+\sinh^2 y) + \sin^2 x\sinh^2 y = \cos^2 x + \sinh^2 y \).)</small>
+</div>
+
+<!-- ============ 7 ============ -->
+<h2 id="bonus"><span class="no">7</span>Bonus: \( \cot z,\ \sec z,\ \csc z \)</h2>
+<p class="lead">Polanya sama: tulis sebagai hasil bagi, lalu pakai aturan hasil bagi atau aturan rantai.</p>
+
+<h3>\( \cot z = \dfrac{\cos z}{\sin z} \), untuk \( \sin z \neq 0 \)</h3>
+\[ \frac{d}{dz}\cot z = \frac{(-\sin z)\sin z - \cos z\cos z}{\sin^2 z} = -\frac{\sin^2 z+\cos^2 z}{\sin^2 z} = -\frac{1}{\sin^2 z} = -\csc^2 z. \]
+
+<h3>\( \sec z = (\cos z)^{-1} \), untuk \( \cos z \neq 0 \)</h3>
+\[ \frac{d}{dz}\sec z = -(\cos z)^{-2}\cdot(-\sin z) = \frac{\sin z}{\cos^2 z} = \frac{1}{\cos z}\cdot\frac{\sin z}{\cos z} = \sec z\tan z. \]
+
+<h3>\( \csc z = (\sin z)^{-1} \), untuk \( \sin z \neq 0 \)</h3>
+\[ \frac{d}{dz}\csc z = -(\sin z)^{-2}\cdot\cos z = -\frac{1}{\sin z}\cdot\frac{\cos z}{\sin z} = -\csc z\cot z. \]
+
+<!-- ============ 8 ============ -->
+<h2 id="harmonik"><span class="no">8</span>Cek harmonik</h2>
+<p class="lead">Dari Pertemuan 9: kalau \( f = u + iv \) analitik, maka \( u \) dan \( v \) <b>harmonik</b>, yaitu \( u_{xx} + u_{yy} = 0 \). Mari kita cek pada fungsi-fungsi tadi sebagai konfirmasi.</p>
+
+<table>
+  <tr><th>Fungsi</th><th>\( u \)</th><th>\( u_{xx} \)</th><th>\( u_{yy} \)</th><th>Jumlah</th></tr>
+  <tr><td>\( e^z \)</td><td>\( e^x\cos y \)</td><td>\( e^x\cos y \)</td><td>\( -e^x\cos y \)</td><td>\( 0\;\checkmark \)</td></tr>
+  <tr><td>\( \sin z \)</td><td>\( \sin x\cosh y \)</td><td>\( -\sin x\cosh y \)</td><td>\( \sin x\cosh y \)</td><td>\( 0\;\checkmark \)</td></tr>
+  <tr><td>\( \cos z \)</td><td>\( \cos x\cosh y \)</td><td>\( -\cos x\cosh y \)</td><td>\( \cos x\cosh y \)</td><td>\( 0\;\checkmark \)</td></tr>
+</table>
+<p>Bagian imajiner \( v \) juga harmonik. Contohnya untuk \( e^z \): \( v = e^x\sin y \) memberi \( v_{xx} + v_{yy} = e^x\sin y - e^x\sin y = 0 \). Hasil ini cocok dengan teorema: fungsinya analitik, jadi \( u \) dan \( v \) pasti harmonik.</p>
+
+<div class="box">
+  <span class="tag">Kenapa selalu nol?</span>
+  Dari C–R: \( u_{xx} = (v_y)_x = v_{yx} \) dan \( u_{yy} = (-v_x)_y = -v_{xy} \).
+  Karena \( v_{xy} = v_{yx} \) (turunan campuran kontinu), jumlahnya \( 0 \).
+</div>
+
+<!-- ============ 9 ============ -->
+<h2 id="ringkas"><span class="no">9</span>Ringkasan</h2>
+<table>
+  <tr><th>\( f(z) \)</th><th>\( f'(z) \)</th><th>Analitik di</th></tr>
+  <tr><td>\( e^z \)</td><td>\( e^z \)</td><td>semua \( z \)</td></tr>
+  <tr><td>\( \sin z \)</td><td>\( \cos z \)</td><td>semua \( z \)</td></tr>
+  <tr><td>\( \cos z \)</td><td>\( -\sin z \)</td><td>semua \( z \)</td></tr>
+  <tr><td>\( \tan z \)</td><td>\( \sec^2 z \)</td><td>\( z \neq \tfrac{\pi}{2}+k\pi \)</td></tr>
+  <tr><td>\( \cot z \)</td><td>\( -\csc^2 z \)</td><td>\( z \neq k\pi \)</td></tr>
+  <tr><td>\( \sec z \)</td><td>\( \sec z\tan z \)</td><td>\( z \neq \tfrac{\pi}{2}+k\pi \)</td></tr>
+  <tr><td>\( \csc z \)</td><td>\( -\csc z\cot z \)</td><td>\( z \neq k\pi \)</td></tr>
+</table>
+
+<div class="box key">
+  <span class="tag">Inti pertemuan ini</span>
+  Rumus turunannya <b>sama</b> dengan kalkulus real. Bedanya, di kompleks kita wajib <b>membuktikan dulu bahwa fungsinya analitik</b> (lewat C–R) sebelum boleh menurunkan. Alur bukti: \( e^z \) dengan C–R, lalu \( \sin z \) dan \( \cos z \), lalu \( \tan z \) dengan aturan hasil bagi.
+</div>
+
+<h3>Latihan</h3>
+
+<details>
+  <summary>1. Buktikan dengan C–R bahwa \( \dfrac{d}{dz}\cosh z = \sinh z \).</summary>
+  <p>Petunjuk: \( \cosh z = \cosh x\cos y + i\,\sinh x\sin y \) dan \( \sinh z = \sinh x\cos y + i\cosh x\sin y \).</p>
+  <ol class="steps">
+    <li>\( u = \cosh x\cos y,\quad v = \sinh x\sin y \).</li>
+    <li>\( u_x = \sinh x\cos y,\ u_y = -\cosh x\sin y,\ v_x = \cosh x\sin y,\ v_y = \sinh x\cos y \).</li>
+    <li>\( u_x = v_y\ \checkmark,\quad u_y = -v_x\ \checkmark \), semua kontinu, jadi entire.</li>
+    <li>\( f' = u_x + iv_x = \sinh x\cos y + i\cosh x\sin y = \sinh z \).</li>
+  </ol>
+  <p class="qed">∎</p>
+</details>
+
+<details>
+  <summary>2. Tentukan \( \dfrac{d}{dz}\, e^{z^2} \) dan \( \dfrac{d}{dz}\sin(3z) \).</summary>
+  <p>Aturan rantai berlaku seperti di kalkulus real:</p>
+  \[ \frac{d}{dz}e^{z^2} = e^{z^2}\cdot 2z = 2z\,e^{z^2}, \qquad \frac{d}{dz}\sin(3z) = 3\cos(3z). \]
+</details>
+
+<details>
+  <summary>3. Apakah \( f(z) = \tan z \) analitik di \( z = i \)?</summary>
+  <p>Ya. Masalah hanya muncul jika \( \cos z = 0 \), yang terjadi hanya di \( z = \tfrac{\pi}{2}+k\pi \) (di sumbu real).
+  Di \( z = i \): \( \cos i = \cosh 1 \approx 1{,}543 \neq 0 \). Jadi \( \tan z \) analitik di sana, dan
+  \( (\tan z)'\big|_{z=i} = \sec^2 i = \dfrac{1}{\cosh^2 1} \approx 0{,}42 \).</p>
+</details>
+
+<footer>
+  Catatan Pertemuan 10 Analisis Kompleks (Kelas C), dosen Vepi Apiati, S.Pd., M.Pd. Melanjutkan Pertemuan 9 (Persamaan Cauchy–Riemann &amp; Fungsi Harmonik).
+</footer>
+
+</main>
+</body>
+</html>
