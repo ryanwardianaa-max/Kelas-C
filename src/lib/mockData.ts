@@ -19,7 +19,9 @@ const analisisRealMeetings:SyllabusMeeting[]=[
 {meeting:4,title:'Sifat Terurut Baik dan Prinsip Induksi Matematika',kind:'Teori',summary:'Bartle 1.2.1–1.2.2: Sifat Terurut Baik, prinsip induksi, pembuktian, dan latihan nomor 4.',activity:'Mengikuti bukti kontradiksi dan menyusun bukti induksi langkah demi langkah.'},
 {meeting:5,title:'Latihan Induksi & Sifat Aljabar di ℝ',kind:'Teori',summary:'Pembahasan Latihan Section 1.2 No 1–11, sembilan aksioma lapangan (A1–A4, M1–M4, D), dan Teorema 2.1.2 Kelompok 1.',activity:'Menelaah deduksi induksi dan aksioma dasar lapangan.'},
 {meeting:6,title:'Sifat Aljabar di ℝ & Pembahasan Latihan 2.1',kind:'Teori',summary:'Presentasi Kelompok 2 (Teorema 2.1.3), telaah kritis/koreksi dosen, serta penyelesaian formal Latihan Section 2.1 No 1–6.',activity:'Menelaah bukti aksiomatis lapangan, menganalisis koreksi dosen, dan memeriksa solusi latihan.'},
-...blank(7,16)
+...blank(7,8),
+{meeting:9,title:'Sifat Urutan pada Bilangan Real',kind:'Teori',summary:'Presentasi Kelompok 4 (Bartle 2.1.5–2.1.8): kepositifan P, trikotomi, definisi ketaksamaan, sifat transitif, a ≥ b ∧ b ≥ a ⇒ a = b, serta pelengkap a² > 0 dan 1 > 0.',activity:'Menerjemahkan ketaksamaan ke keanggotaan P, mengikuti bukti langkah demi langkah, dan mengerjakan latihan diskusi.'},
+...blank(10,16)
 ]
 const analisisKompleksMeetings:SyllabusMeeting[]=[
 {meeting:1,title:'Pertemuan 01 (Libur / penyesuaian jadwal)',kind:'Teori',summary:'Catatan Pertemuan 03 mencatat pertemuan 1 dan 2 sebagai libur atau penyesuaian jadwal awal perkuliahan.',activity:'Tidak ada materi yang tercatat.'},
@@ -110,10 +112,10 @@ const metodeNumerikMeetings: SyllabusMeeting[] = [
   },
   {
     meeting: 9,
-    title: 'Interpolasi Polinom: Lanjar, Kuadratik, Lagrange, dan Newton',
+    title: 'Presentasi Kelompok 5: Interpolasi Lanjar, Kuadratik, Kubik, dan Lagrange',
     kind: 'Teori',
-    summary: 'Presentasi kelompok tentang interpolasi polinom (Rinaldi Munir Bab 5): interpolasi lanjar dan kuadratik, polinom Lagrange, polinom Newton dengan tabel selisih terbagi, serta galat interpolasi.',
-    activity: 'Mengikuti contoh ln 9,2 dan data (1,2),(2,3),(4,11) pada tiap metode, lalu mengerjakan latihan √6.'
+    summary: 'Presentasi Kelompok 5 (Dini, Revana, Abdul Rojab) tentang interpolasi polinom (Rinaldi Munir Bab 5): interpolasi lanjar, kuadratik, kubik, dan polinom Lagrange. Polinom Newton belum dibahas.',
+    activity: 'Mengikuti contoh penduduk AS, ln 9,2, kubik (0,1)–(3,13), dan cos x, lalu mengerjakan 3 latihan soal Kelompok 5.'
   },
   ...blank(10,16)
 ];

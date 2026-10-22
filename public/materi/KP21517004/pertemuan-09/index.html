@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P09 · Sifat Urutan di ℝ</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#c23b5e; --accent-soft:#fdecf1; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3;
+  }
+  html{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .meta{font-size:14px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.2;margin:8px 0 10px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:24px;margin:56px 0 6px;scroll-margin-top:16px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  h3{font-size:18px;margin:28px 0 8px}
+  .lead{color:var(--muted);margin-top:0}
+  nav{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  nav b{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  nav ol{margin:8px 0 0;padding-left:22px}
+  nav a{color:var(--accent);text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  .box{border-radius:12px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);background:var(--paper)}
+  .box.key{background:var(--accent-soft);border-color:transparent}
+  .box.ok{background:var(--ok-soft);border-color:transparent}
+  .box.warn{background:var(--warn-soft);border-color:transparent}
+  .box .tag{display:block;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .key .tag{color:var(--accent)} .ok .tag{color:var(--ok)} .warn .tag{color:var(--warn)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:18px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 52px;border-left:2px solid var(--line);margin-left:16px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+  ol.steps>li>b:first-child{display:block}
+
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+  .tbl{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;margin:16px 0;background:var(--paper)}
+  th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none}
+  .qed{text-align:right;font-weight:700;color:var(--ok)}
+  details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 18px;margin:12px 0}
+  summary{cursor:pointer;font-weight:600}
+  details[open] summary{margin-bottom:8px}
+  footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media print{
+    body{font-size:12pt;background:#fff} nav{display:none}
+    details{border:none;padding:0} details>summary{display:none}
+    h2{break-after:avoid} .box,ol.steps>li{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Analisis Real · Pertemuan 09 · Presentasi Kelompok 4 · Bartle §2.1</div>
+  <h1>Sifat Urutan pada Bilangan Real</h1>
+  <p>Kepositifan \( \mathbb{P} \), definisi ketaksamaan, dan bukti teorema-teorema urutan, dibahas langkah demi langkah.
+  Kelompok 4: Desi Amelia Putri, Dandi Ridiansah, Laila Zahra, Adinda Amelia Agustin.</p>
+</header>
+
+<nav>
+  <b>Isi catatan</b>
+  <ol>
+    <li><a href="#ringkasan">Rangkuman satu halaman</a></li>
+    <li><a href="#posisi">Di mana materi ini berada</a></li>
+    <li><a href="#positif">Kepositifan: himpunan \( \mathbb{P} \) (Bartle 2.1.5)</a></li>
+    <li><a href="#definisi">Definisi \( >,\ \ge,\ <,\ \le \) (Bartle 2.1.6)</a></li>
+    <li><a href="#transitif">Teorema (a): sifat transitif</a></li>
+    <li><a href="#antisimetri">Teorema (b): \( a\ge b \) dan \( b\ge a \Rightarrow a=b \)</a></li>
+    <li><a href="#lanjutan">Pelengkap Bartle 2.1.7–2.1.8 (belum dibahas kelompok)</a></li>
+    <li><a href="#koreksi">Catatan koreksi untuk makalah kelompok</a></li>
+    <li><a href="#diskusi">Bahan pertanyaan diskusi &amp; latihan</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="ringkasan"><span class="no">1</span>Rangkuman satu halaman</h2>
+<p class="lead">Baca bagian ini dulu. Sisanya menjelaskan setiap baris di sini.</p>
+
+<div class="box key">
+  <span class="tag">Inti materi</span>
+  <ol style="margin:0;padding-left:20px">
+    <li>Ada himpunan tak kosong \( \mathbb{P}\subseteq\mathbb{R} \) (bilangan real <b>positif</b>) yang memenuhi tiga aksioma:
+      tertutup terhadap \( + \), tertutup terhadap \( \cdot \), dan <b>trikotomi</b>.</li>
+    <li>Semua tanda ketaksamaan <b>didefinisikan</b> lewat \( \mathbb{P} \):
+      \( a>b \iff a-b\in\mathbb{P} \). Jadi membuktikan \( a>b \) sama dengan menunjukkan \( a-b\in\mathbb{P} \).</li>
+    <li>Pola bukti hampir selalu sama: <b>terjemahkan</b> ketaksamaan ke \( \mathbb{P} \) → <b>pakai</b> aksioma urutan
+      (dan aksioma aljabar A1–M4, D) → <b>terjemahkan balik</b> ke ketaksamaan.</li>
+    <li>Teorema yang dibahas kelompok:
+      (a) \( a>b,\ b>c \Rightarrow a>c \) (transitif);
+      (b) \( a\ge b,\ b\ge a \Rightarrow a=b \) (lewat kontradiksi + trikotomi).</li>
+    <li>Pelengkap dari buku: \( a>b \Rightarrow a+c>b+c \); \( a>b,\ c>0 \Rightarrow ca>cb \);
+      \( a>b,\ c<0 \Rightarrow ca<cb \); \( a\ne0 \Rightarrow a^2>0 \); \( 1>0 \); \( n\in\mathbb{N}\Rightarrow n>0 \).</li>
+  </ol>
+</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="posisi"><span class="no">2</span>Di mana materi ini berada</h2>
+<p class="lead">Lanjutan langsung dari Kelompok 1 dan 2 (sifat aljabar di \( \mathbb{R} \)).</p>
+
+<p>Bartle membangun \( \mathbb{R} \) dari tiga kelompok sifat:</p>
+<div class="tbl"><table>
+  <tr><th>Kelompok sifat</th><th>Isi</th><th>Dibahas</th></tr>
+  <tr><td>Sifat aljabar</td><td>A1–A4, M1–M4, D (aksioma lapangan)</td><td>P05–P06, Kelompok 1 &amp; 2</td></tr>
+  <tr><td><b>Sifat urutan</b></td><td>Kepositifan \( \mathbb{P} \), ketaksamaan</td><td><b>P09, Kelompok 4</b></td></tr>
+  <tr><td>Sifat kelengkapan</td><td>Supremum dan infimum</td><td>Nanti (§2.3)</td></tr>
+</table></div>
+
+<p>Kenapa perlu? Sifat aljabar saja hanya memberi tahu cara menjumlah dan mengali. Sifat aljabar <b>tidak</b> bisa
+membedakan mana yang "lebih besar". Itu tugas sifat urutan.</p>
+
+<div class="box">
+  <span class="tag">Pengingat aksioma aljabar yang dipakai nanti</span>
+  (A2) asosiatif \( (a+b)+c=a+(b+c) \) · (A3) \( a+0=a \) · (A4) \( a+(-a)=0 \) ·
+  (M3) \( a\cdot1=a \) · (D) \( a(b+c)=ab+ac \) · serta \( (-1)a=-a \) dan \( (-a)(-b)=ab \) dari Teorema 2.1.3.
+</div>
+
+<!-- ============ 3 ============ -->
+<h2 id="positif"><span class="no">3</span>Kepositifan: himpunan \( \mathbb{P} \)</h2>
+<p class="lead">Bartle 2.1.5 <i>The Order Properties of \( \mathbb{R} \)</i>.</p>
+
+<div class="box key">
+  <span class="tag">Aksioma urutan</span>
+  Terdapat himpunan tak kosong \( \mathbb{P}\subseteq\mathbb{R} \), disebut himpunan bilangan real positif, yang memenuhi:
+  <ol style="margin:6px 0 0;padding-left:22px">
+    <li><b>(i) Tertutup terhadap penjumlahan:</b> \( a,b\in\mathbb{P} \Rightarrow a+b\in\mathbb{P} \).</li>
+    <li><b>(ii) Tertutup terhadap perkalian:</b> \( a,b\in\mathbb{P} \Rightarrow ab\in\mathbb{P} \).</li>
+    <li><b>(iii) Trikotomi:</b> untuk setiap \( a\in\mathbb{R} \), <b>tepat satu</b> yang benar:
+      \[ a\in\mathbb{P},\qquad a=0,\qquad -a\in\mathbb{P}. \]</li>
+  </ol>
+</div>
+
+<h3>Cara memahaminya langkah demi langkah</h3>
+<ol class="steps">
+  <li><b>\( \mathbb{P} \) adalah aksioma, bukan hasil hitungan.</b>
+    Kita tidak "membuktikan" bahwa 5 positif dari \( 5>0 \). Justru sebaliknya: \( 5>0 \) <i>artinya</i> \( 5\in\mathbb{P} \).</li>
+  <li><b>Sifat (i) dan (ii) menjamin positif tetap positif.</b>
+    Positif + positif = positif, positif × positif = positif. Contoh di makalah \( 2+3=5 \) dan \( 2\cdot3=6 \) hanyalah ilustrasi.</li>
+  <li><b>Trikotomi membagi \( \mathbb{R} \) menjadi tiga bagian yang saling lepas.</b>
+    \[ \mathbb{R} = \underbrace{\mathbb{P}}_{\text{positif}} \;\cup\; \{0\} \;\cup\; \underbrace{\{a : -a\in\mathbb{P}\}}_{\text{negatif}} \]
+    Kata kuncinya <b>"tepat satu"</b>: tidak ada bilangan yang sekaligus positif dan negatif, dan 0 bukan keduanya.</li>
+</ol>
+
+<h3>Empat istilah yang lahir dari \( \mathbb{P} \)</h3>
+<div class="tbl"><table>
+  <tr><th>Syarat</th><th>Ditulis</th><th>Dibaca</th><th>Contoh</th></tr>
+  <tr><td>\( a\in\mathbb{P} \)</td><td>\( a>0 \)</td><td>positif</td><td>\( 5 \)</td></tr>
+  <tr><td>\( a\in\mathbb{P}\cup\{0\} \)</td><td>\( a\ge0 \)</td><td>tak negatif</td><td>\( 5 \) atau \( 0 \)</td></tr>
+  <tr><td>\( -a\in\mathbb{P} \)</td><td>\( a<0 \)</td><td>negatif</td><td>\( -4 \), sebab \( -(-4)=4\in\mathbb{P} \)</td></tr>
+  <tr><td>\( -a\in\mathbb{P}\cup\{0\} \)</td><td>\( a\le0 \)</td><td>tak positif</td><td>\( -4 \) atau \( 0 \)</td></tr>
+</table></div>
+
+<details>
+  <summary>Contoh dari makalah: kenapa \( a=-4 \) negatif?</summary>
+  <ol class="steps">
+    <li><b>Hitung lawannya.</b> \( -a = -(-4) = 4 \).</li>
+    <li><b>Cek keanggotaan.</b> \( 4\in\mathbb{P} \), jadi \( -a\in\mathbb{P} \).</li>
+    <li><b>Simpulkan.</b> Menurut definisi, \( -a\in\mathbb{P} \) berarti \( a<0 \). Jadi \( -4<0 \), dan otomatis \( -4\le0 \).</li>
+  </ol>
+</details>
+
+<!-- ============ 4 ============ -->
+<h2 id="definisi"><span class="no">4</span>Definisi ketaksamaan</h2>
+<p class="lead">Bartle 2.1.6. Semua perbandingan dua bilangan dikembalikan ke \( \mathbb{P} \).</p>
+
+<div class="box key">
+  <span class="tag">Definisi 2.1.6</span>
+  Misalkan \( a,b\in\mathbb{R} \).
+  <ol style="margin:6px 0 0;padding-left:22px">
+    <li>(a) Jika \( a-b\in\mathbb{P} \), ditulis \( a>b \) atau \( b<a \).</li>
+    <li>(b) Jika \( a-b\in\mathbb{P}\cup\{0\} \), ditulis \( a\ge b \) atau \( b\le a \).</li>
+  </ol>
+  Notasi rangkap:
+  \( a<b<c \) berarti \( a<b \) <b>dan</b> \( b<c \);
+  \( a\le b\le c \) berarti \( a\le b \) dan \( b\le c \);
+  \( a\le b<c \) berarti \( a\le b \) dan \( b<c \).
+</div>
+
+<div class="box ok">
+  <span class="tag">Kamus penerjemah (kunci semua bukti)</span>
+  \[ a>b \;\Longleftrightarrow\; a-b\in\mathbb{P} \qquad\qquad a\ge b \;\Longleftrightarrow\; a-b\in\mathbb{P}\ \text{atau}\ a-b=0 \]
+</div>
+
+<p>Akibat langsung dari trikotomi: untuk sembarang \( a,b \), terapkan trikotomi pada bilangan \( a-b \).
+Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\in\mathbb{P} \). Dengan kamus di atas:</p>
+\[ \text{tepat satu dari}\quad a>b,\qquad a=b,\qquad a<b\quad\text{yang berlaku.} \]
+<p>Kalimat ini akan dipakai di bukti Teorema (b).</p>
+
+<!-- ============ 5 ============ -->
+<h2 id="transitif"><span class="no">5</span>Teorema (a): sifat transitif</h2>
+<p class="lead">Bartle 2.1.7(a). Jika \( a>b \) dan \( b>c \), maka \( a>c \).</p>
+
+<div class="box">
+  <span class="tag">Strategi</span>
+  Yang diketahui dan yang ditanya sama-sama ketaksamaan. Terjemahkan ke \( \mathbb{P} \), gabungkan dengan sifat (i), lalu terjemahkan balik.
+</div>
+
+<ol class="steps">
+  <li><b>Tulis yang diketahui.</b> \( a,b,c\in\mathbb{R} \) dengan \( a>b \) dan \( b>c \).</li>
+  <li><b>Terjemahkan ke \( \mathbb{P} \)</b> (Definisi 2.1.6(a)).
+    \[ a>b \Rightarrow a-b\in\mathbb{P}, \qquad b>c \Rightarrow b-c\in\mathbb{P}. \]</li>
+  <li><b>Pakai ketertutupan penjumlahan</b> (Sifat 2.1.5(i)). Dua anggota \( \mathbb{P} \) dijumlah tetap di \( \mathbb{P} \):
+    \[ (a-b)+(b-c)\in\mathbb{P}. \]</li>
+  <li><b>Sederhanakan dengan aksioma aljabar.</b>
+    \[ \begin{aligned}
+      (a-b)+(b-c) &= a+\big((-b)+b\big)+(-c) && \text{(A2, asosiatif)}\\
+      &= a+0+(-c) && \text{(A4, invers penjumlahan)}\\
+      &= a-c && \text{(A3, identitas)}
+    \end{aligned} \]
+    Jadi \( a-c\in\mathbb{P} \).</li>
+  <li><b>Terjemahkan balik</b> (Definisi 2.1.6(a)). \( a-c\in\mathbb{P} \) berarti \( a>c \).</li>
+</ol>
+<p class="qed">Terbukti ∎</p>
+
+<!-- ============ 6 ============ -->
+<h2 id="antisimetri"><span class="no">6</span>Teorema (b): \( a\ge b \) dan \( b\ge a \) ⇒ \( a=b \)</h2>
+<p class="lead">Bukti dengan kontradiksi. Di Bartle ini muncul sebagai akibat trikotomi tepat setelah Definisi 2.1.6.</p>
+
+<div class="box">
+  <span class="tag">Strategi</span>
+  Kita ingin menunjukkan \( a=b \). Andaikan tidak, lalu tunjukkan trikotomi dilanggar.
+</div>
+
+<ol class="steps">
+  <li><b>Tulis yang diketahui.</b> \( a\ge b \) dan \( b\ge a \), yaitu
+    \[ a-b\in\mathbb{P}\cup\{0\} \qquad\text{dan}\qquad b-a\in\mathbb{P}\cup\{0\}. \]</li>
+  <li><b>Andaikan \( a\ne b \).</b> Maka \( a-b\ne0 \) dan juga \( b-a\ne0 \).</li>
+  <li><b>Buang kemungkinan nol.</b> Karena \( a-b\ne0 \), dari langkah 1 tersisa \( a-b\in\mathbb{P} \).
+    Dengan cara sama, \( b-a\in\mathbb{P} \).</li>
+  <li><b>Tulis ulang \( b-a \).</b> \( b-a = -(a-b) \). Jadi sekarang
+    \[ a-b\in\mathbb{P} \qquad\text{dan}\qquad -(a-b)\in\mathbb{P} \quad\text{sekaligus}. \]</li>
+  <li><b>Temukan kontradiksi.</b> Trikotomi (2.1.5(iii)) untuk bilangan \( x=a-b \) menyatakan <b>tepat satu</b> dari
+    \( x\in\mathbb{P} \), \( x=0 \), \( -x\in\mathbb{P} \) yang benar. Langkah 4 membuat dua sekaligus benar. Kontradiksi.</li>
+  <li><b>Simpulkan.</b> Pengandaian \( a\ne b \) salah, jadi \( a=b \).</li>
+</ol>
+<p class="qed">Terbukti ∎</p>
+
+<div class="box warn">
+  <span class="tag">Bagian yang perlu diperjelas di makalah</span>
+  Makalah menulis "\( a>b \) dan \( b>a \), kontradiksi dengan \( a\ge b \) dan \( b\ge a \)". Sebenarnya \( a>b \) <b>tidak</b>
+  bertentangan dengan \( a\ge b \). Yang bertentangan adalah \( a-b\in\mathbb{P} \) dan \( b-a\in\mathbb{P} \) yang muncul
+  <b>bersamaan</b>, karena melanggar kata "tepat satu" pada trikotomi. Langkah 3–5 di atas menunjukkan alurnya dengan lengkap.
+</div>
+
+<!-- ============ 7 ============ -->
+<h2 id="lanjutan"><span class="no">7</span>Pelengkap Bartle 2.1.7–2.1.8</h2>
+<p class="lead">Teorema berikut ada di buku pada bagian yang sama tapi belum masuk makalah. Kemungkinan besar ditanyakan dosen.</p>
+
+<h3>2.1.7(b): \( a>b \Rightarrow a+c>b+c \)</h3>
+<ol class="steps">
+  <li><b>Terjemahkan.</b> \( a>b \) berarti \( a-b\in\mathbb{P} \).</li>
+  <li><b>Hitung selisih yang ditanya.</b> \( (a+c)-(b+c) = a+c-b-c = a-b \) (A1, A2, A4, A3).</li>
+  <li><b>Simpulkan.</b> \( (a+c)-(b+c)=a-b\in\mathbb{P} \), jadi \( a+c>b+c \). <span class="qed">∎</span></li>
+</ol>
+
+<h3>2.1.7(c): \( a>b,\ c>0 \Rightarrow ca>cb \), dan \( a>b,\ c<0 \Rightarrow ca<cb \)</h3>
+<ol class="steps">
+  <li><b>Kasus \( c>0 \).</b> \( c\in\mathbb{P} \) dan \( a-b\in\mathbb{P} \). Ketertutupan perkalian (ii): \( c(a-b)\in\mathbb{P} \).
+    Dengan distributif (D), \( c(a-b)=ca-cb \). Jadi \( ca-cb\in\mathbb{P} \), yaitu \( ca>cb \).</li>
+  <li><b>Kasus \( c<0 \).</b> Sekarang \( -c\in\mathbb{P} \). Dengan (ii): \( (-c)(a-b)\in\mathbb{P} \).
+    Hitung: \( (-c)(a-b) = -ca+cb = cb-ca \). Jadi \( cb-ca\in\mathbb{P} \), yaitu \( cb>ca \) atau \( ca<cb \). <span class="qed">∎</span></li>
+</ol>
+<div class="box">
+  <span class="tag">Makna</span>
+  Inilah alasan resmi kenapa tanda ketaksamaan <b>dibalik</b> saat dikali bilangan negatif.
+</div>
+
+<h3>2.1.8(a): jika \( a\ne0 \), maka \( a^2>0 \)</h3>
+<ol class="steps">
+  <li><b>Pakai trikotomi.</b> Karena \( a\ne0 \), tersisa dua kasus: \( a\in\mathbb{P} \) atau \( -a\in\mathbb{P} \).</li>
+  <li><b>Kasus \( a\in\mathbb{P} \).</b> Dengan (ii), \( a\cdot a=a^2\in\mathbb{P} \).</li>
+  <li><b>Kasus \( -a\in\mathbb{P} \).</b> Dengan (ii), \( (-a)(-a)\in\mathbb{P} \). Menurut Teorema 2.1.3, \( (-a)(-a)=a^2 \). Jadi \( a^2\in\mathbb{P} \).</li>
+  <li><b>Simpulkan.</b> Pada kedua kasus \( a^2>0 \). <span class="qed">∎</span></li>
+</ol>
+
+<h3>2.1.8(b): \( 1>0 \)</h3>
+<ol class="steps">
+  <li><b>Tulis \( 1 \) sebagai kuadrat.</b> \( 1=1^2 \) (M3).</li>
+  <li><b>Pastikan \( 1\ne0 \).</b> Ini bagian dari aksioma M3 di Bartle.</li>
+  <li><b>Pakai 2.1.8(a).</b> \( 1^2>0 \), jadi \( 1>0 \). <span class="qed">∎</span></li>
+</ol>
+<div class="box">
+  <span class="tag">Kenapa \( 1>0 \) harus dibuktikan?</span>
+  Karena dalam sistem aksiomatik, "1 positif" bukan fakta bawaan. Aksioma hanya bilang \( \mathbb{P} \) tak kosong, tanpa menyebut anggotanya.
+</div>
+
+<h3>2.1.8(c): jika \( n\in\mathbb{N} \), maka \( n>0 \)</h3>
+<ol class="steps">
+  <li><b>Basis.</b> \( n=1 \): sudah terbukti \( 1>0 \).</li>
+  <li><b>Langkah induksi.</b> Andaikan \( k\in\mathbb{P} \). Karena \( 1\in\mathbb{P} \), sifat (i) memberi \( k+1\in\mathbb{P} \).</li>
+  <li><b>Simpulkan</b> dengan Prinsip Induksi Matematika (P04): \( n>0 \) untuk semua \( n\in\mathbb{N} \). <span class="qed">∎</span></li>
+</ol>
+
+<!-- ============ 8 ============ -->
+<h2 id="koreksi"><span class="no">8</span>Catatan koreksi untuk makalah kelompok</h2>
+<p class="lead">Berguna kalau ingin bertanya atau memberi masukan saat sesi diskusi.</p>
+
+<div class="tbl"><table>
+  <tr><th>Di makalah</th><th>Sebaiknya</th><th>Alasan</th></tr>
+  <tr><td>Rantai \( (a-b)+(b-c) \Leftrightarrow a+(-b+b)-c \Leftrightarrow \dots \)</td>
+      <td>Pakai tanda \( = \)</td>
+      <td>\( \Leftrightarrow \) menghubungkan <i>pernyataan</i>, sedangkan ini kesamaan dua <i>bilangan</i>.</td></tr>
+  <tr><td>\( -(a-b)\in\mathbb{P} = b-a\in\mathbb{P} \)</td>
+      <td>\( -(a-b) = b-a\in\mathbb{P} \)</td>
+      <td>Tanda \( = \) diletakkan di antara bilangan, bukan di antara pernyataan keanggotaan.</td></tr>
+  <tr><td>Contoh "\( 2+3=5>0 \)" sebagai bukti sifat (i)</td>
+      <td>Sebut sebagai ilustrasi</td>
+      <td>Sifat (i) adalah aksioma. Contoh angka tidak membuktikan dan memakai \( >0 \) yang justru didefinisikan dari \( \mathbb{P} \).</td></tr>
+  <tr><td>Kontradiksi di Teorema (b)</td>
+      <td>Tunjukkan \( a-b \) dan \( -(a-b) \) sama-sama di \( \mathbb{P} \)</td>
+      <td>Itulah yang melanggar trikotomi (lihat bagian 6).</td></tr>
+  <tr><td>Notasi \( R \) dan \( P \) (miring)</td>
+      <td>\( \mathbb{R} \) dan \( \mathbb{P} \)</td>
+      <td>Konsistensi notasi dengan buku Bartle.</td></tr>
+  <tr><td>Teorema yang dibahas hanya (a) dan (b)</td>
+      <td>Tambahkan 2.1.7(b),(c) dan 2.1.8</td>
+      <td>Bagian buku yang sama, dan 2.1.7(c) dipakai terus di bab berikutnya.</td></tr>
+</table></div>
+
+<!-- ============ 9 ============ -->
+<h2 id="diskusi"><span class="no">9</span>Bahan pertanyaan diskusi &amp; latihan</h2>
+<p class="lead">Coba jawab sendiri dulu, baru buka kuncinya.</p>
+
+<details>
+  <summary>1. Apa bedanya \( \mathbb{P} \) dengan \( \mathbb{N} \)?</summary>
+  \( \mathbb{P} \) memuat <b>semua</b> bilangan real positif, termasuk \( \tfrac12 \) dan \( \sqrt2 \). \( \mathbb{N}\subseteq\mathbb{P} \)
+  (Teorema 2.1.8(c)), tetapi tidak sebaliknya.
+</details>
+
+<details>
+  <summary>2. Apakah 0 anggota \( \mathbb{P} \)?</summary>
+  Tidak. Trikotomi menyatakan tepat satu dari \( 0\in\mathbb{P} \), \( 0=0 \), \( -0\in\mathbb{P} \) yang benar. Karena \( 0=0 \) jelas benar,
+  dua lainnya salah, jadi \( 0\notin\mathbb{P} \).
+</details>
+
+<details>
+  <summary>3. Buktikan: jika \( a>b \) dan \( c>d \), maka \( a+c>b+d \).</summary>
+  <ol class="steps">
+    <li>\( a-b\in\mathbb{P} \) dan \( c-d\in\mathbb{P} \).</li>
+    <li>Sifat (i): \( (a-b)+(c-d)\in\mathbb{P} \).</li>
+    <li>\( (a-b)+(c-d) = (a+c)-(b+d) \), jadi \( a+c>b+d \). <span class="qed">∎</span></li>
+  </ol>
+</details>
+
+<details>
+  <summary>4. Buktikan: jika \( 0<a<b \), maka \( a^2<b^2 \). (Latihan khas Bartle 2.1)</summary>
+  <ol class="steps">
+    <li>Tulis \( b^2-a^2 = (b-a)(b+a) \) (D, A1).</li>
+    <li>\( b-a\in\mathbb{P} \) karena \( a<b \). Lalu \( a,b\in\mathbb{P} \) memberi \( b+a\in\mathbb{P} \) lewat sifat (i).</li>
+    <li>Sifat (ii): \( (b-a)(b+a)\in\mathbb{P} \). Jadi \( b^2-a^2\in\mathbb{P} \), yaitu \( a^2<b^2 \). <span class="qed">∎</span></li>
+  </ol>
+</details>
+
+<details>
+  <summary>5. Buktikan: jika \( a>0 \), maka \( \tfrac1a>0 \).</summary>
+  <ol class="steps">
+    <li>\( a\ne0 \), jadi \( \tfrac1a \) ada dan \( \tfrac1a\ne0 \) (sebab \( a\cdot\tfrac1a=1\ne0 \)).</li>
+    <li>Andaikan \( \tfrac1a<0 \). Dengan 2.1.7(c) (kalikan \( a>0 \) dengan \( \tfrac1a<0 \)): \( a\cdot\tfrac1a < 0\cdot\tfrac1a \), yaitu \( 1<0 \).</li>
+    <li>Ini bertentangan dengan \( 1>0 \) (trikotomi). Jadi \( \tfrac1a>0 \). <span class="qed">∎</span></li>
+  </ol>
+</details>
+
+<div class="box ok">
+  <span class="tag">Resep umum bukti sifat urutan</span>
+  <ol style="margin:0;padding-left:20px">
+    <li>Tulis setiap ketaksamaan yang diketahui sebagai "sesuatu \( \in\mathbb{P} \)".</li>
+    <li>Tulis yang ingin dibuktikan juga sebagai "sesuatu \( \in\mathbb{P} \)".</li>
+    <li>Hubungkan keduanya dengan sifat (i), (ii), atau trikotomi, dibantu aksioma aljabar.</li>
+    <li>Kalau buntu, coba kontradiksi: andaikan kebalikannya, lalu cari pelanggaran trikotomi.</li>
+  </ol>
+</div>
+
+<footer>
+  Sumber: makalah Kelompok 4 "Sifat Urutan pada Bilangan Real" dan Bartle &amp; Sherbert, <i>Introduction to Real Analysis</i>, §2.1 (2.1.5–2.1.8).
+  Bagian 7–9 adalah pelengkap dari buku untuk persiapan diskusi.
+</footer>
+
+</main>
+</body>
+</html>
