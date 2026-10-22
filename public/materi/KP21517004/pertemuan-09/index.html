@@ -81,7 +81,7 @@
     <li><a href="#ringkasan">Rangkuman satu halaman</a></li>
     <li><a href="#posisi">Di mana materi ini berada</a></li>
     <li><a href="#positif">Kepositifan: himpunan \( \mathbb{P} \) (Bartle 2.1.5)</a></li>
-    <li><a href="#definisi">Definisi \( >,\ \ge,\ <,\ \le \) (Bartle 2.1.6)</a></li>
+    <li><a href="#definisi">Definisi \( >,\ \ge,\ \lt ,\ \le \) (Bartle 2.1.6)</a></li>
     <li><a href="#transitif">Teorema (a): sifat transitif</a></li>
     <li><a href="#antisimetri">Teorema (b): \( a\ge b \) dan \( b\ge a \Rightarrow a=b \)</a></li>
     <li><a href="#lanjutan">Pelengkap Bartle 2.1.7–2.1.8 (belum dibahas kelompok)</a></li>
@@ -108,7 +108,7 @@
       (a) \( a>b,\ b>c \Rightarrow a>c \) (transitif);
       (b) \( a\ge b,\ b\ge a \Rightarrow a=b \) (lewat kontradiksi + trikotomi).</li>
     <li>Pelengkap dari buku: \( a>b \Rightarrow a+c>b+c \); \( a>b,\ c>0 \Rightarrow ca>cb \);
-      \( a>b,\ c<0 \Rightarrow ca<cb \); \( a\ne0 \Rightarrow a^2>0 \); \( 1>0 \); \( n\in\mathbb{N}\Rightarrow n>0 \).</li>
+      \( a>b,\ c\lt 0 \Rightarrow ca\lt cb \); \( a\ne0 \Rightarrow a^2>0 \); \( 1>0 \); \( n\in\mathbb{N}\Rightarrow n>0 \).</li>
   </ol>
 </div>
 
@@ -164,7 +164,7 @@ membedakan mana yang "lebih besar". Itu tugas sifat urutan.</p>
   <tr><th>Syarat</th><th>Ditulis</th><th>Dibaca</th><th>Contoh</th></tr>
   <tr><td>\( a\in\mathbb{P} \)</td><td>\( a>0 \)</td><td>positif</td><td>\( 5 \)</td></tr>
   <tr><td>\( a\in\mathbb{P}\cup\{0\} \)</td><td>\( a\ge0 \)</td><td>tak negatif</td><td>\( 5 \) atau \( 0 \)</td></tr>
-  <tr><td>\( -a\in\mathbb{P} \)</td><td>\( a<0 \)</td><td>negatif</td><td>\( -4 \), sebab \( -(-4)=4\in\mathbb{P} \)</td></tr>
+  <tr><td>\( -a\in\mathbb{P} \)</td><td>\( a\lt 0 \)</td><td>negatif</td><td>\( -4 \), sebab \( -(-4)=4\in\mathbb{P} \)</td></tr>
   <tr><td>\( -a\in\mathbb{P}\cup\{0\} \)</td><td>\( a\le0 \)</td><td>tak positif</td><td>\( -4 \) atau \( 0 \)</td></tr>
 </table></div>
 
@@ -173,7 +173,7 @@ membedakan mana yang "lebih besar". Itu tugas sifat urutan.</p>
   <ol class="steps">
     <li><b>Hitung lawannya.</b> \( -a = -(-4) = 4 \).</li>
     <li><b>Cek keanggotaan.</b> \( 4\in\mathbb{P} \), jadi \( -a\in\mathbb{P} \).</li>
-    <li><b>Simpulkan.</b> Menurut definisi, \( -a\in\mathbb{P} \) berarti \( a<0 \). Jadi \( -4<0 \), dan otomatis \( -4\le0 \).</li>
+    <li><b>Simpulkan.</b> Menurut definisi, \( -a\in\mathbb{P} \) berarti \( a\lt 0 \). Jadi \( -4\lt 0 \), dan otomatis \( -4\le0 \).</li>
   </ol>
 </details>
 
@@ -185,13 +185,13 @@ membedakan mana yang "lebih besar". Itu tugas sifat urutan.</p>
   <span class="tag">Definisi 2.1.6</span>
   Misalkan \( a,b\in\mathbb{R} \).
   <ol style="margin:6px 0 0;padding-left:22px">
-    <li>(a) Jika \( a-b\in\mathbb{P} \), ditulis \( a>b \) atau \( b<a \).</li>
+    <li>(a) Jika \( a-b\in\mathbb{P} \), ditulis \( a>b \) atau \( b\lt a \).</li>
     <li>(b) Jika \( a-b\in\mathbb{P}\cup\{0\} \), ditulis \( a\ge b \) atau \( b\le a \).</li>
   </ol>
   Notasi rangkap:
-  \( a<b<c \) berarti \( a<b \) <b>dan</b> \( b<c \);
+  \( a\lt b\lt c \) berarti \( a\lt b \) <b>dan</b> \( b\lt c \);
   \( a\le b\le c \) berarti \( a\le b \) dan \( b\le c \);
-  \( a\le b<c \) berarti \( a\le b \) dan \( b<c \).
+  \( a\le b\lt c \) berarti \( a\le b \) dan \( b\lt c \).
 </div>
 
 <div class="box ok">
@@ -201,7 +201,7 @@ membedakan mana yang "lebih besar". Itu tugas sifat urutan.</p>
 
 <p>Akibat langsung dari trikotomi: untuk sembarang \( a,b \), terapkan trikotomi pada bilangan \( a-b \).
 Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\in\mathbb{P} \). Dengan kamus di atas:</p>
-\[ \text{tepat satu dari}\quad a>b,\qquad a=b,\qquad a<b\quad\text{yang berlaku.} \]
+\[ \text{tepat satu dari}\quad a>b,\qquad a=b,\qquad a\lt b\quad\text{yang berlaku.} \]
 <p>Kalimat ini akan dipakai di bukti Teorema (b).</p>
 
 <!-- ============ 5 ============ -->
@@ -271,12 +271,12 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
   <li><b>Simpulkan.</b> \( (a+c)-(b+c)=a-b\in\mathbb{P} \), jadi \( a+c>b+c \). <span class="qed">∎</span></li>
 </ol>
 
-<h3>2.1.7(c): \( a>b,\ c>0 \Rightarrow ca>cb \), dan \( a>b,\ c<0 \Rightarrow ca<cb \)</h3>
+<h3>2.1.7(c): \( a>b,\ c>0 \Rightarrow ca>cb \), dan \( a>b,\ c\lt 0 \Rightarrow ca\lt cb \)</h3>
 <ol class="steps">
   <li><b>Kasus \( c>0 \).</b> \( c\in\mathbb{P} \) dan \( a-b\in\mathbb{P} \). Ketertutupan perkalian (ii): \( c(a-b)\in\mathbb{P} \).
     Dengan distributif (D), \( c(a-b)=ca-cb \). Jadi \( ca-cb\in\mathbb{P} \), yaitu \( ca>cb \).</li>
-  <li><b>Kasus \( c<0 \).</b> Sekarang \( -c\in\mathbb{P} \). Dengan (ii): \( (-c)(a-b)\in\mathbb{P} \).
-    Hitung: \( (-c)(a-b) = -ca+cb = cb-ca \). Jadi \( cb-ca\in\mathbb{P} \), yaitu \( cb>ca \) atau \( ca<cb \). <span class="qed">∎</span></li>
+  <li><b>Kasus \( c\lt 0 \).</b> Sekarang \( -c\in\mathbb{P} \). Dengan (ii): \( (-c)(a-b)\in\mathbb{P} \).
+    Hitung: \( (-c)(a-b) = -ca+cb = cb-ca \). Jadi \( cb-ca\in\mathbb{P} \), yaitu \( cb>ca \) atau \( ca\lt cb \). <span class="qed">∎</span></li>
 </ol>
 <div class="box">
   <span class="tag">Makna</span>
@@ -367,11 +367,11 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
 </details>
 
 <details>
-  <summary>4. Buktikan: jika \( 0<a<b \), maka \( a^2<b^2 \). (Latihan khas Bartle 2.1)</summary>
+  <summary>4. Buktikan: jika \( 0\lt a\lt b \), maka \( a^2\lt b^2 \). (Latihan khas Bartle 2.1)</summary>
   <ol class="steps">
     <li>Tulis \( b^2-a^2 = (b-a)(b+a) \) (D, A1).</li>
-    <li>\( b-a\in\mathbb{P} \) karena \( a<b \). Lalu \( a,b\in\mathbb{P} \) memberi \( b+a\in\mathbb{P} \) lewat sifat (i).</li>
-    <li>Sifat (ii): \( (b-a)(b+a)\in\mathbb{P} \). Jadi \( b^2-a^2\in\mathbb{P} \), yaitu \( a^2<b^2 \). <span class="qed">∎</span></li>
+    <li>\( b-a\in\mathbb{P} \) karena \( a\lt b \). Lalu \( a,b\in\mathbb{P} \) memberi \( b+a\in\mathbb{P} \) lewat sifat (i).</li>
+    <li>Sifat (ii): \( (b-a)(b+a)\in\mathbb{P} \). Jadi \( b^2-a^2\in\mathbb{P} \), yaitu \( a^2\lt b^2 \). <span class="qed">∎</span></li>
   </ol>
 </details>
 
@@ -379,7 +379,7 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
   <summary>5. Buktikan: jika \( a>0 \), maka \( \tfrac1a>0 \).</summary>
   <ol class="steps">
     <li>\( a\ne0 \), jadi \( \tfrac1a \) ada dan \( \tfrac1a\ne0 \) (sebab \( a\cdot\tfrac1a=1\ne0 \)).</li>
-    <li>Andaikan \( \tfrac1a<0 \). Dengan 2.1.7(c) (kalikan \( a>0 \) dengan \( \tfrac1a<0 \)): \( a\cdot\tfrac1a < 0\cdot\tfrac1a \), yaitu \( 1<0 \).</li>
+    <li>Andaikan \( \tfrac1a\lt 0 \). Dengan 2.1.7(c) (kalikan \( a>0 \) dengan \( \tfrac1a\lt 0 \)): \( a\cdot\tfrac1a \lt  0\cdot\tfrac1a \), yaitu \( 1\lt 0 \).</li>
     <li>Ini bertentangan dengan \( 1>0 \) (trikotomi). Jadi \( \tfrac1a>0 \). <span class="qed">∎</span></li>
   </ol>
 </details>
@@ -434,12 +434,12 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
 
 <details>
   <summary>Pertanyaan 4. "Kenapa tanda ketaksamaan berbalik kalau dikali bilangan negatif? Bisa dibuktikan dengan \( \mathbb{P} \)?"</summary>
-  <p><b>Jawaban singkat:</b> Bisa. Ini Teorema 2.1.7(c): jika \( a>b \) dan \( c<0 \), maka \( ca<cb \).</p>
+  <p><b>Jawaban singkat:</b> Bisa. Ini Teorema 2.1.7(c): jika \( a>b \) dan \( c\lt 0 \), maka \( ca\lt cb \).</p>
   <ol class="steps">
-    <li><b>Terjemahkan yang diketahui.</b> \( a>b \) berarti \( a-b\in\mathbb{P} \). \( c<0 \) berarti \( -c\in\mathbb{P} \).</li>
+    <li><b>Terjemahkan yang diketahui.</b> \( a>b \) berarti \( a-b\in\mathbb{P} \). \( c\lt 0 \) berarti \( -c\in\mathbb{P} \).</li>
     <li><b>Kalikan dua anggota \( \mathbb{P} \)</b> (sifat (ii)). \( (-c)(a-b)\in\mathbb{P} \).</li>
     <li><b>Sederhanakan dengan distributif.</b> \( (-c)(a-b) = -ca+cb = cb-ca \).</li>
-    <li><b>Terjemahkan balik.</b> \( cb-ca\in\mathbb{P} \) berarti \( cb>ca \), yaitu \( ca<cb \). <span class="qed">∎</span></li>
+    <li><b>Terjemahkan balik.</b> \( cb-ca\in\mathbb{P} \) berarti \( cb>ca \), yaitu \( ca\lt cb \). <span class="qed">∎</span></li>
   </ol>
   <div class="box"><span class="tag">Inti jawabannya</span>Tandanya "berbalik" karena urutan pengurangan berbalik: dari \( ca-cb \) menjadi \( cb-ca \).
   Untuk \( c>0 \), bukti yang sama memberi \( c(a-b)=ca-cb\in\mathbb{P} \), jadi tanda tidak berbalik.</div>
@@ -478,7 +478,7 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
     <li><b>Pakai \( z=i \).</b> \( i\ne0 \), jadi \( i^2=-1\in\mathbb{P} \).</li>
     <li><b>Pakai \( z=1 \).</b> \( 1=1^2\in\mathbb{P} \).</li>
     <li><b>Temukan kontradiksi.</b> Sekarang \( 1\in\mathbb{P} \) dan \( -1\in\mathbb{P} \) sekaligus. Trikotomi untuk bilangan \( 1 \) menyatakan tepat satu dari \( 1\in\mathbb{P} \), \( 1=0 \), \( -1\in\mathbb{P} \) yang benar, tetapi dua sudah benar. Kontradiksi.</li>
-    <li><b>Simpulkan.</b> \( \mathbb{C} \) tidak bisa dijadikan lapangan terurut. Karena itu di Analisis Kompleks tidak pernah ada "\( z_1<z_2 \)"; yang dibandingkan adalah modulusnya, \( |z_1|<|z_2| \). <span class="qed">∎</span></li>
+    <li><b>Simpulkan.</b> \( \mathbb{C} \) tidak bisa dijadikan lapangan terurut. Karena itu di Analisis Kompleks tidak pernah ada "\( z_1\lt z_2 \)"; yang dibandingkan adalah modulusnya, \( |z_1|\lt |z_2| \). <span class="qed">∎</span></li>
   </ol>
   <div class="box ok"><span class="tag">Kenapa pertanyaan ini bagus</span>Menunjukkan bahwa aksioma urutan bukan hal sepele: ada lapangan (seperti \( \mathbb{C} \)) yang memenuhi semua sifat aljabar tetapi tidak punya urutan.</div>
 </details>
