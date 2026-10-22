@@ -255,9 +255,12 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
 
 <div class="box warn">
   <span class="tag">Bagian yang perlu diperjelas di makalah</span>
-  Makalah menulis "\( a>b \) dan \( b>a \), kontradiksi dengan \( a\ge b \) dan \( b\ge a \)". Sebenarnya \( a>b \) <b>tidak</b>
-  bertentangan dengan \( a\ge b \). Yang bertentangan adalah \( a-b\in\mathbb{P} \) dan \( b-a\in\mathbb{P} \) yang muncul
-  <b>bersamaan</b>, karena melanggar kata "tepat satu" pada trikotomi. Langkah 3–5 di atas menunjukkan alurnya dengan lengkap.
+  Ide makalah sudah benar, tetapi ada dua hal yang belum eksplisit.
+  (1) Dari trikotomi diperoleh \( a-b\in\mathbb{P} \) <b>atau</b> \( b-a\in\mathbb{P} \), lalu kalimat berikutnya memakai keduanya dengan "dan".
+  Sebaiknya dipecah menjadi dua kasus.
+  (2) Makalah hanya menulis "kontradiksi dengan \( a\ge b \) dan \( b\ge a \)" tanpa menyebut pasangannya.
+  \( a>b \) bertentangan dengan \( b\ge a \), bukan dengan \( a\ge b \). Alasannya: \( a-b\in\mathbb{P} \) bersama \( b-a=-(a-b)\in\mathbb{P} \)
+  melanggar kata "tepat satu" pada trikotomi. Kasus \( b>a \) berlaku simetris. Langkah 3–5 di atas menunjukkan alurnya dengan lengkap.
 </div>
 
 <!-- ============ 7 ============ -->
@@ -311,33 +314,36 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
 
 <!-- ============ 8 ============ -->
 <h2 id="koreksi"><span class="no">8</span>Catatan koreksi untuk makalah kelompok</h2>
-<p class="lead">Berguna kalau ingin bertanya atau memberi masukan saat sesi diskusi.</p>
+<p class="lead">Berguna kalau ingin bertanya atau memberi masukan saat sesi diskusi. Diurutkan dari yang paling penting.
+Secara umum isi makalah sudah benar; yang dikoreksi kebanyakan cara penulisan dan alasan.</p>
 
 <div class="tbl"><table>
   <tr><th>Di makalah</th><th>Sebaiknya</th><th>Alasan</th></tr>
+  <tr><td>Teorema (b): "\( a-b\in\mathbb{P} \) <b>atau</b> \( b-a\in\mathbb{P} \)", lalu "\( a>b \) <b>dan</b> \( b>a \)", kontradiksi dengan "\( a\ge b \) dan \( b\ge a \)"</td>
+      <td>Pecah dua kasus. Kasus \( a>b \): bertentangan dengan \( b\ge a \). Kasus \( b>a \): bertentangan dengan \( a\ge b \).</td>
+      <td>Idenya sudah benar, tetapi "atau" tiba-tiba menjadi "dan", dan tidak disebut kenapa bertentangan:
+        \( a-b\in\mathbb{P} \) dan \( b-a=-(a-b)\in\mathbb{P} \) melanggar trikotomi (lihat bagian 6).</td></tr>
+  <tr><td>Contoh Definisi 4 (\( a=0 \)): "\( a\le0 \) karena \( 0\le0 \)"</td>
+      <td>\( a\ge0 \) karena \( a=0\in\mathbb{P}\cup\{0\} \), dan \( a\le0 \) karena \( -a=-0=0\in\mathbb{P}\cup\{0\} \)</td>
+      <td>Kesimpulan "dua kondisi terpenuhi" (\( a\ge0 \) dan \( a\le0 \)) sudah benar. Yang kurang hanya alasannya: "\( 0\le0 \)" adalah hal yang mau ditunjukkan, jadi tidak bisa dipakai sebagai alasan. Alasan yang sah selalu kembali ke definisi, yaitu keanggotaan \( \mathbb{P}\cup\{0\} \).</td></tr>
+  <tr><td>Contoh angka: "\( 2+3=5>0 \)", "\( 5\in\mathbb{P} \) karena \( 5>0 \)", "\( 4>0 \), sehingga \( -a\in\mathbb{P} \)"</td>
+      <td>Boleh sebagai ilustrasi, tetapi jangan dijadikan alasan</td>
+      <td>\( 5>0 \) hanyalah cara lain menulis \( 5\in\mathbb{P} \), jadi "\( 5\in\mathbb{P} \) karena \( 5>0 \)" sama dengan "\( 5\in\mathbb{P} \) karena \( 5\in\mathbb{P} \)".
+        Bahwa \( 1,2,3,\dots \) positif baru terbukti di Teorema 2.1.8.</td></tr>
   <tr><td>Rantai \( (a-b)+(b-c) \Leftrightarrow a+(-b+b)-c \Leftrightarrow \dots \)</td>
       <td>Pakai tanda \( = \)</td>
       <td>\( \Leftrightarrow \) menghubungkan <i>pernyataan</i>, sedangkan ini kesamaan dua <i>bilangan</i>.</td></tr>
   <tr><td>\( -(a-b)\in\mathbb{P} = b-a\in\mathbb{P} \)</td>
       <td>\( -(a-b) = b-a\in\mathbb{P} \)</td>
       <td>Tanda \( = \) diletakkan di antara bilangan, bukan di antara pernyataan keanggotaan.</td></tr>
-  <tr><td>Contoh "\( 2+3=5>0 \)" sebagai bukti sifat (i)</td>
-      <td>Sebut sebagai ilustrasi</td>
-      <td>Sifat (i) adalah aksioma. Contoh angka tidak membuktikan dan memakai \( >0 \) yang justru didefinisikan dari \( \mathbb{P} \).</td></tr>
-  <tr><td>Kontradiksi di Teorema (b)</td>
-      <td>Tunjukkan \( a-b \) dan \( -(a-b) \) sama-sama di \( \mathbb{P} \)</td>
-      <td>Itulah yang melanggar trikotomi (lihat bagian 6).</td></tr>
-  <tr><td>Contoh Definisi 4 (\( a=0 \)): "\( a\le0 \) karena \( 0\le0 \)"</td>
-      <td>\( a\ge0 \) karena \( a=0\in\mathbb{P}\cup\{0\} \), dan \( a\le0 \) karena \( -a=-0=0\in\mathbb{P}\cup\{0\} \)</td>
-      <td>Kesimpulan "dua kondisi terpenuhi" (\( a\ge0 \) dan \( a\le0 \)) sudah benar. Yang kurang hanya alasannya: "\( 0\le0 \)" adalah hal yang mau ditunjukkan, jadi tidak bisa dipakai sebagai alasan. Alasan yang sah selalu kembali ke definisi, yaitu keanggotaan \( \mathbb{P}\cup\{0\} \).</td></tr>
-  <tr><td>"Sifat urutan dibagi dua: kepositifan dan ketaksamaan"</td>
-      <td>Aksiomanya hanya kepositifan \( \mathbb{P} \); ketaksamaan adalah definisi</td>
-      <td>Ketaksamaan tidak menambah aksioma baru, ia hanya cara menulis keanggotaan \( \mathbb{P} \).</td></tr>
-  <tr><td>Notasi \( R \) dan \( P \) (miring)</td>
-      <td>\( \mathbb{R} \) dan \( \mathbb{P} \)</td>
+  <tr><td>Notasi bercampur: \( \mathrm{P} \), \( P \) (miring), dan \( \mathbb{P} \); juga \( R \) di samping \( \mathbb{R} \)</td>
+      <td>Seragamkan menjadi \( \mathbb{P} \) dan \( \mathbb{R} \)</td>
       <td>Konsistensi notasi dengan buku Bartle.</td></tr>
+  <tr><td>"Sifat urutan dibagi dua: kepositifan dan ketaksamaan"</td>
+      <td>Tidak salah sebagai pembagian materi. Bisa ditambah: aksiomanya hanya kepositifan \( \mathbb{P} \)</td>
+      <td>Ketaksamaan tidak menambah aksioma baru; ia definisi, yaitu cara menulis keanggotaan \( \mathbb{P} \).</td></tr>
   <tr><td>Teorema yang dibahas hanya (a) dan (b)</td>
-      <td>Tambahkan 2.1.7(b),(c) dan 2.1.8</td>
+      <td>Saran: tambahkan 2.1.7(b),(c) dan 2.1.8</td>
       <td>Bagian buku yang sama, dan 2.1.7(c) dipakai terus di bab berikutnya.</td></tr>
 </table></div>
 
@@ -447,7 +453,7 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
 
 <details>
   <summary>Pertanyaan 5. "Di bukti (b), kalian dapat \( a-b\in\mathbb{P} \) <i>atau</i> \( b-a\in\mathbb{P} \). Kenapa kemudian dipakai dua-duanya?"</summary>
-  <p><b>Jawaban singkat:</b> Itu celah logika. Trikotomi hanya memberi <b>salah satu</b>, jadi bukti harus dipecah per kasus.</p>
+  <p><b>Jawaban singkat:</b> Idenya sudah benar, tetapi penulisannya perlu dirapikan. Trikotomi hanya memberi <b>salah satu</b>, jadi bukti sebaiknya dipecah per kasus.</p>
   <ol class="steps">
     <li><b>Andaikan \( a\ne b \).</b> Trikotomi pada \( a-b \) memberi: \( a-b\in\mathbb{P} \) <b>atau</b> \( b-a\in\mathbb{P} \).</li>
     <li><b>Kasus 1: \( a-b\in\mathbb{P} \).</b> Diketahui \( b\ge a \), jadi \( b-a\in\mathbb{P}\cup\{0\} \). Karena \( a\ne b \), \( b-a\ne0 \), sehingga \( b-a\in\mathbb{P} \).
@@ -455,7 +461,7 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
     <li><b>Kasus 2: \( b-a\in\mathbb{P} \).</b> Diketahui \( a\ge b \), jadi \( a-b\in\mathbb{P}\cup\{0\} \), dan karena \( a\ne b \), \( a-b\in\mathbb{P} \). Melanggar trikotomi lagi.</li>
     <li><b>Simpulkan.</b> Kedua kasus mustahil, jadi pengandaian salah dan \( a=b \). <span class="qed">∎</span></li>
   </ol>
-  <div class="box warn"><span class="tag">Catatan</span>"\( a>b \)" sendiri tidak bertentangan dengan "\( a\ge b \)". Yang bertentangan adalah \( a-b\in\mathbb{P} \) bersama \( b-a\in\mathbb{P} \).</div>
+  <div class="box warn"><span class="tag">Catatan</span>Sebut pasangannya dengan tepat: "\( a>b \)" bertentangan dengan "\( b\ge a \)", bukan dengan "\( a\ge b \)". Intinya, \( a-b\in\mathbb{P} \) bersama \( b-a\in\mathbb{P} \) melanggar trikotomi.</div>
 </details>
 
 <details>
