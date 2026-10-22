@@ -87,6 +87,7 @@
     <li><a href="#lanjutan">Pelengkap Bartle 2.1.7–2.1.8 (belum dibahas kelompok)</a></li>
     <li><a href="#koreksi">Catatan koreksi untuk makalah kelompok</a></li>
     <li><a href="#diskusi">Bahan pertanyaan diskusi &amp; latihan</a></li>
+    <li><a href="#tanya">7 pertanyaan untuk Kelompok 4 + solusi</a></li>
   </ol>
 </nav>
 
@@ -326,6 +327,12 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
   <tr><td>Kontradiksi di Teorema (b)</td>
       <td>Tunjukkan \( a-b \) dan \( -(a-b) \) sama-sama di \( \mathbb{P} \)</td>
       <td>Itulah yang melanggar trikotomi (lihat bagian 6).</td></tr>
+  <tr><td>Contoh Definisi 4: "karena \( a=0 \), maka <b>dua kondisi</b> terpenuhi" dan "\( a\le0 \) karena \( 0\le0 \)"</td>
+      <td>Hanya "\( a=0 \)" yang benar; \( a\le0 \) karena \( -a=0\in\mathbb{P}\cup\{0\} \)</td>
+      <td>Trikotomi berkata <b>tepat satu</b>. Alasan "\( 0\le0 \)" berputar-putar karena itulah yang mau ditunjukkan.</td></tr>
+  <tr><td>"Sifat urutan dibagi dua: kepositifan dan ketaksamaan"</td>
+      <td>Aksiomanya hanya kepositifan \( \mathbb{P} \); ketaksamaan adalah definisi</td>
+      <td>Ketaksamaan tidak menambah aksioma baru, ia hanya cara menulis keanggotaan \( \mathbb{P} \).</td></tr>
   <tr><td>Notasi \( R \) dan \( P \) (miring)</td>
       <td>\( \mathbb{R} \) dan \( \mathbb{P} \)</td>
       <td>Konsistensi notasi dengan buku Bartle.</td></tr>
@@ -387,9 +394,98 @@ Tepat satu yang benar: \( a-b\in\mathbb{P} \), \( a-b=0 \), atau \( -(a-b)=b-a\i
   </ol>
 </div>
 
+<!-- ============ 10 ============ -->
+<h2 id="tanya"><span class="no">10</span>7 pertanyaan untuk Kelompok 4 + solusi</h2>
+<p class="lead">Urut dari yang aman sampai yang menantang. Nomor 3, 4, dan 7 paling bagus untuk diajukan saat sesi tanya jawab.</p>
+
+<details>
+  <summary>Pertanyaan 1. "Apakah 0 termasuk \( \mathbb{P} \)? Bagaimana membuktikannya dari aksioma?"</summary>
+  <p><b>Jawaban singkat:</b> Tidak, \( 0\notin\mathbb{P} \).</p>
+  <ol class="steps">
+    <li><b>Terapkan trikotomi pada \( a=0 \).</b> Tepat satu yang benar: \( 0\in\mathbb{P} \), \( 0=0 \), \( -0\in\mathbb{P} \).</li>
+    <li><b>Cari yang pasti benar.</b> Pernyataan \( 0=0 \) jelas benar.</li>
+    <li><b>Pakai kata "tepat satu".</b> Karena satu sudah benar, dua lainnya pasti salah. Jadi \( 0\notin\mathbb{P} \). <span class="qed">∎</span></li>
+  </ol>
+  <div class="box"><span class="tag">Akibatnya</span>\( 0>0 \) salah, sehingga \( a>a \) juga selalu salah (karena \( a-a=0 \)). Tetapi \( a\ge a \) benar.</div>
+</details>
+
+<details>
+  <summary>Pertanyaan 2. "Di contoh \( 2+3=5>0 \), dari mana kita tahu 2 dan 3 positif?"</summary>
+  <p><b>Jawaban singkat:</b> Belum bisa diketahui dari aksioma saja. Harus dibuktikan dulu bahwa \( 1>0 \), lalu dibangun naik.</p>
+  <ol class="steps">
+    <li><b>Aksioma hanya bilang \( \mathbb{P} \) tak kosong.</b> Aksioma tidak menyebut anggota \( \mathbb{P} \) satu per satu.</li>
+    <li><b>Buktikan \( 1\in\mathbb{P} \)</b> (lihat Pertanyaan 3).</li>
+    <li><b>Bangun dengan sifat (i).</b> \( 2=1+1\in\mathbb{P} \), lalu \( 3=2+1\in\mathbb{P} \), dan seterusnya. Secara umum ini Teorema 2.1.8(c), \( n\in\mathbb{N}\Rightarrow n>0 \).</li>
+    <li><b>Kesimpulan.</b> Contoh "\( 2+3=5>0 \)" boleh sebagai ilustrasi, tetapi bukan alasan dalam bukti. <span class="qed">∎</span></li>
+  </ol>
+</details>
+
+<details>
+  <summary>Pertanyaan 3. "Bagaimana membuktikan \( 1>0 \), padahal aksioma tidak menyebut 1 positif?"</summary>
+  <p><b>Jawaban singkat:</b> Buktikan dulu \( a\ne0\Rightarrow a^2>0 \), lalu pakai \( 1=1^2 \).</p>
+  <ol class="steps">
+    <li><b>Lema: jika \( a\ne0 \), maka \( a^2\in\mathbb{P} \).</b> Dari trikotomi, \( a\in\mathbb{P} \) atau \( -a\in\mathbb{P} \).
+      Jika \( a\in\mathbb{P} \), sifat (ii) memberi \( a\cdot a\in\mathbb{P} \).
+      Jika \( -a\in\mathbb{P} \), sifat (ii) memberi \( (-a)(-a)\in\mathbb{P} \), dan \( (-a)(-a)=a^2 \) (Teorema 2.1.3).</li>
+    <li><b>Pastikan \( 1\ne0 \).</b> Ini termuat dalam aksioma M3.</li>
+    <li><b>Terapkan lema pada \( a=1 \).</b> \( 1=1\cdot1=1^2\in\mathbb{P} \). Jadi \( 1>0 \). <span class="qed">∎</span></li>
+  </ol>
+</details>
+
+<details>
+  <summary>Pertanyaan 4. "Kenapa tanda ketaksamaan berbalik kalau dikali bilangan negatif? Bisa dibuktikan dengan \( \mathbb{P} \)?"</summary>
+  <p><b>Jawaban singkat:</b> Bisa. Ini Teorema 2.1.7(c): jika \( a>b \) dan \( c<0 \), maka \( ca<cb \).</p>
+  <ol class="steps">
+    <li><b>Terjemahkan yang diketahui.</b> \( a>b \) berarti \( a-b\in\mathbb{P} \). \( c<0 \) berarti \( -c\in\mathbb{P} \).</li>
+    <li><b>Kalikan dua anggota \( \mathbb{P} \)</b> (sifat (ii)). \( (-c)(a-b)\in\mathbb{P} \).</li>
+    <li><b>Sederhanakan dengan distributif.</b> \( (-c)(a-b) = -ca+cb = cb-ca \).</li>
+    <li><b>Terjemahkan balik.</b> \( cb-ca\in\mathbb{P} \) berarti \( cb>ca \), yaitu \( ca<cb \). <span class="qed">∎</span></li>
+  </ol>
+  <div class="box"><span class="tag">Inti jawabannya</span>Tandanya "berbalik" karena urutan pengurangan berbalik: dari \( ca-cb \) menjadi \( cb-ca \).
+  Untuk \( c>0 \), bukti yang sama memberi \( c(a-b)=ca-cb\in\mathbb{P} \), jadi tanda tidak berbalik.</div>
+</details>
+
+<details>
+  <summary>Pertanyaan 5. "Di bukti (b), kalian dapat \( a-b\in\mathbb{P} \) <i>atau</i> \( b-a\in\mathbb{P} \). Kenapa kemudian dipakai dua-duanya?"</summary>
+  <p><b>Jawaban singkat:</b> Itu celah logika. Trikotomi hanya memberi <b>salah satu</b>, jadi bukti harus dipecah per kasus.</p>
+  <ol class="steps">
+    <li><b>Andaikan \( a\ne b \).</b> Trikotomi pada \( a-b \) memberi: \( a-b\in\mathbb{P} \) <b>atau</b> \( b-a\in\mathbb{P} \).</li>
+    <li><b>Kasus 1: \( a-b\in\mathbb{P} \).</b> Diketahui \( b\ge a \), jadi \( b-a\in\mathbb{P}\cup\{0\} \). Karena \( a\ne b \), \( b-a\ne0 \), sehingga \( b-a\in\mathbb{P} \).
+      Sekarang \( a-b \) dan \( -(a-b) \) sama-sama di \( \mathbb{P} \). Ini melanggar trikotomi.</li>
+    <li><b>Kasus 2: \( b-a\in\mathbb{P} \).</b> Diketahui \( a\ge b \), jadi \( a-b\in\mathbb{P}\cup\{0\} \), dan karena \( a\ne b \), \( a-b\in\mathbb{P} \). Melanggar trikotomi lagi.</li>
+    <li><b>Simpulkan.</b> Kedua kasus mustahil, jadi pengandaian salah dan \( a=b \). <span class="qed">∎</span></li>
+  </ol>
+  <div class="box warn"><span class="tag">Catatan</span>"\( a>b \)" sendiri tidak bertentangan dengan "\( a\ge b \)". Yang bertentangan adalah \( a-b\in\mathbb{P} \) bersama \( b-a\in\mathbb{P} \).</div>
+</details>
+
+<details>
+  <summary>Pertanyaan 6. "Apakah \( a\ge b \) dan \( b>c \) cukup untuk menyimpulkan \( a>c \)?"</summary>
+  <p><b>Jawaban singkat:</b> Ya. Pecah \( a\ge b \) menjadi dua kasus.</p>
+  <ol class="steps">
+    <li><b>Kasus \( a=b \).</b> Maka \( a-c=b-c\in\mathbb{P} \), jadi \( a>c \).</li>
+    <li><b>Kasus \( a>b \).</b> Maka \( a>b \) dan \( b>c \). Dengan Teorema (a) (transitif), \( a>c \).</li>
+    <li><b>Simpulkan.</b> Pada kedua kasus \( a>c \). <span class="qed">∎</span></li>
+  </ol>
+  <div class="box"><span class="tag">Bandingkan</span>\( a\ge b \) dan \( b\ge c \) hanya memberi \( a\ge c \), tidak \( a>c \). Contoh: \( a=b=c=0 \).</div>
+</details>
+
+<details>
+  <summary>Pertanyaan 7 (menantang). "Bisakah bilangan kompleks \( \mathbb{C} \) diurutkan dengan aksioma yang sama?"</summary>
+  <p><b>Jawaban singkat:</b> Tidak bisa. Tidak ada himpunan \( \mathbb{P}\subseteq\mathbb{C} \) yang memenuhi ketiga aksioma urutan.</p>
+  <ol class="steps">
+    <li><b>Andaikan ada \( \mathbb{P}\subseteq\mathbb{C} \)</b> yang memenuhi sifat (i), (ii), dan trikotomi.</li>
+    <li><b>Lema kuadrat tetap berlaku.</b> Buktinya (Pertanyaan 3) hanya memakai aksioma lapangan dan aksioma urutan, jadi berlaku juga di \( \mathbb{C} \): jika \( z\ne0 \), maka \( z^2\in\mathbb{P} \).</li>
+    <li><b>Pakai \( z=i \).</b> \( i\ne0 \), jadi \( i^2=-1\in\mathbb{P} \).</li>
+    <li><b>Pakai \( z=1 \).</b> \( 1=1^2\in\mathbb{P} \).</li>
+    <li><b>Temukan kontradiksi.</b> Sekarang \( 1\in\mathbb{P} \) dan \( -1\in\mathbb{P} \) sekaligus. Trikotomi untuk bilangan \( 1 \) menyatakan tepat satu dari \( 1\in\mathbb{P} \), \( 1=0 \), \( -1\in\mathbb{P} \) yang benar, tetapi dua sudah benar. Kontradiksi.</li>
+    <li><b>Simpulkan.</b> \( \mathbb{C} \) tidak bisa dijadikan lapangan terurut. Karena itu di Analisis Kompleks tidak pernah ada "\( z_1<z_2 \)"; yang dibandingkan adalah modulusnya, \( |z_1|<|z_2| \). <span class="qed">∎</span></li>
+  </ol>
+  <div class="box ok"><span class="tag">Kenapa pertanyaan ini bagus</span>Menunjukkan bahwa aksioma urutan bukan hal sepele: ada lapangan (seperti \( \mathbb{C} \)) yang memenuhi semua sifat aljabar tetapi tidak punya urutan.</div>
+</details>
+
 <footer>
   Sumber: makalah Kelompok 4 "Sifat Urutan pada Bilangan Real" dan Bartle &amp; Sherbert, <i>Introduction to Real Analysis</i>, §2.1 (2.1.5–2.1.8).
-  Bagian 7–9 adalah pelengkap dari buku untuk persiapan diskusi.
+  Bagian 7–10 adalah pelengkap dari buku untuk persiapan diskusi.
 </footer>
 
 </main>
