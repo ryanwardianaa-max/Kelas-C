@@ -128,7 +128,9 @@ const matematikaEkonomiMeetings:SyllabusMeeting[]=[
 {meeting:6,title:'Persiapan UTS — Modul Ringkasan Lengkap Matematika Ekonomi (Open Book)',kind:'Teori',summary:'Modul komprehensif 6 halaman: pasar linear, kebijakan pajak & subsidi, teori biaya & BEP, model kuadratik & hiperbola non-linear, PPF & utilitas, studi kasus optimasi laundry, serta master formula & panduan grafik.',activity:'Mempelajari rangkuman materi, simulasi latihan soal, dan persiapan menghadapi ujian open book.'},
 ...blank(7,8),
 {meeting:9,title:'Bunga Sederhana, Potongan Sederhana, dan Bunga Majemuk (Tugas)',kind:'Teori',summary:'Dosen tidak hadir dan memberikan tugas dari PPT MAT EKO REVISI: bunga sederhana I = Pin dan Fn = P(1+in), potongan sederhana, bunga majemuk Fn = P(1+i/m)^(mn), dan nilai sekarang. Tugas dibahas pada pertemuan berikutnya.',activity:'Mengerjakan lima soal latihan PPT; jawaban step by step tersedia di catatan.'},
-...blank(10,16)
+...blank(10,10),
+{meeting:11,title:'Elastisitas dan Penerapan Diferensial dalam Ekonomi (Belajar Mandiri Bab 5)',kind:'Teori',summary:'Dosen mengikuti kegiatan universitas; mahasiswa mempelajari Bab 5: elastisitas permintaan, penawaran, dan produksi (rumus busur dan titik, 5 kategori), biaya dan penerimaan marginal, laba maksimum MR = MC, penerimaan pajak maksimum, serta pajak dalam pasar monopoli. Kamis, 22 Oktober 2026.',activity:'Mengerjakan 13 latihan soal Bab 5 secara mandiri; jawaban step by step tersedia di catatan.'},
+...blank(12,16)
 ]
 /* Skripsi: tahapan diambil dari berkas yang benar-benar ada di folder skripsi
    (Form NUIR 2026, draf proposal, revisi bimbingan pertama, studi pendahuluan,

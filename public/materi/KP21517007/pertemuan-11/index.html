@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P11 · Elastisitas &amp; Diferensial Ekonomi</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+  :root{
+    --bg:#ffffff; --paper:#ffffff; --ink:#1d1f24; --muted:#5f6470; --line:#e4e1d8;
+    --accent:#2f5bd3; --accent-soft:#eaf0ff; --ok:#1f8a5b; --ok-soft:#e6f5ee;
+    --warn:#b4610e; --warn-soft:#fdf1e3;
+  }
+  html{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.7 "Segoe UI",system-ui,-apple-system,sans-serif}
+  main{max-width:780px;margin:0 auto;padding:40px 16px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .meta{font-size:14px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:34px;line-height:1.2;margin:8px 0 10px}
+  header p{margin:0;color:var(--muted)}
+  h2{font-size:24px;margin:56px 0 6px;scroll-margin-top:16px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  h3{font-size:18px;margin:28px 0 8px;scroll-margin-top:16px}
+  .lead{color:var(--muted);margin-top:0}
+  nav{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  nav b{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  nav ol{margin:8px 0 0;padding-left:22px}
+  nav a{color:var(--accent);text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  .box{border-radius:12px;padding:16px 20px;margin:18px 0;border:1px solid var(--line);background:var(--paper)}
+  .box.key{background:var(--accent-soft);border-color:transparent}
+  .box.ok{background:var(--ok-soft);border-color:transparent}
+  .box.warn{background:var(--warn-soft);border-color:transparent}
+  .box .tag{display:block;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .key .tag{color:var(--accent)} .ok .tag{color:var(--ok)} .warn .tag{color:var(--warn)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:18px 0}
+  ol.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 52px;border-left:2px solid var(--line);margin-left:16px}
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:-17px;top:0;width:32px;height:32px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+  ol.steps>li>b:first-child{display:block}
+
+  .soal{border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:18px 0}
+  .soal>.q{font-weight:600;margin:0 0 6px}
+  .ans{display:inline-block;background:var(--ok-soft);color:var(--ok);font-weight:700;border-radius:8px;padding:2px 10px}
+
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0;position:relative}
+  .scroll{position:relative}
+  table{width:100%;border-collapse:collapse;margin:16px 0;background:var(--paper)}
+  th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .scroll{overflow-x:auto}
+  td .katex-html{white-space:nowrap}
+
+  .curves{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:18px 0}
+  .curves figure{margin:0;border:1px solid var(--line);border-radius:12px;padding:10px 10px 8px;text-align:center}
+  .curves svg{width:100%;max-width:150px;height:auto}
+  .curves figcaption{font-size:14px;line-height:1.4}
+  .curves figcaption small{display:block;color:var(--muted)}
+
+  footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media print{
+    body{font-size:12pt} nav{display:none}
+    h2{break-after:avoid} .box,.soal,ol.steps>li,.curves figure{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="meta">Matematika Ekonomi · Pertemuan 11 · Kamis, 22 Oktober 2026</div>
+  <h1>Bab 5: Elastisitas &amp; Penerapan Diferensial dalam Ekonomi</h1>
+  <p>Dosen tidak hadir karena mengikuti kegiatan universitas. Tugas: pelajari Bab 5 tentang elastisitas dan kerjakan latihannya secara mandiri. Catatan ini merangkum Bab 5 (buku Vepi Apiati, hlm. 82–107) dengan bahasa sederhana, lalu menjawab ke-13 latihan soal langkah demi langkah.</p>
+</header>
+
+<div class="box warn">
+  <span class="tag">Pesan dosen (grup kelas)</span>
+  "Utk kelas C hari ini ibu masih mengikuti kegiatan di universitas. Utk pertemuan hari ini pelajari bab 5 tentang Elastisitas. Dan coba kerjakan latihannya secara mandiri saja ya. Mohon maaf 🙏👍"
+</div>
+
+<nav>
+  <b>Isi catatan</b>
+  <ol>
+    <li><a href="#ide">Ide besar: turunan = "marginal"</a></li>
+    <li><a href="#elastisitas">Elastisitas itu apa?</a></li>
+    <li><a href="#permintaan">Elastisitas permintaan + 5 kategorinya</a></li>
+    <li><a href="#penawaran">Elastisitas penawaran</a></li>
+    <li><a href="#produksi">Elastisitas produksi</a></li>
+    <li><a href="#biaya">Biaya total, rata-rata, marginal</a></li>
+    <li><a href="#penerimaan">Penerimaan total, rata-rata, marginal</a></li>
+    <li><a href="#laba">Laba maksimum (MR = MC)</a></li>
+    <li><a href="#pajak">Penerimaan pajak maksimum</a></li>
+    <li><a href="#monopoli">Pajak dalam pasar monopoli</a></li>
+    <li><a href="#latihan">Jawaban latihan soal (13 nomor)</a></li>
+    <li><a href="#ringkas">Ringkasan rumus &amp; resep</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<h2 id="ide"><span class="no">1</span>Ide besar bab ini</h2>
+<p class="lead">Seluruh Bab 5 hanya memakai dua alat dari kalkulus: turunan pertama dan turunan kedua.</p>
+
+<p>Di ekonomi, kata <b>marginal</b> artinya "tambahan akibat naik satu unit". Biaya marginal = tambahan biaya kalau produksi naik 1 unit. Tambahan itu persis yang diukur turunan:</p>
+\[ \text{marginal} = \frac{d(\text{total})}{dQ}. \]
+
+<div class="scroll"><table>
+  <tr><th>Alat</th><th>Dipakai untuk</th></tr>
+  <tr><td>Turunan pertama \( f'(Q) \)</td><td>Laju perubahan (marginal), dan mencari titik puncak/lembah: samakan dengan nol.</td></tr>
+  <tr><td>Turunan kedua \( f''(Q) \)</td><td>Mengecek jenis titiknya: \( f'' \gt 0 \) berarti <b>minimum</b> (lembah), \( f'' \lt 0 \) berarti <b>maksimum</b> (puncak).</td></tr>
+</table></div>
+
+<div class="box key">
+  <span class="tag">Resep optimasi (dipakai berulang di bab ini)</span>
+  <ol style="margin:4px 0 0;padding-left:22px">
+    <li>Tulis fungsi yang mau dioptimalkan (AC, TR, laba, pajak, …) dalam satu variabel \( Q \).</li>
+    <li>Turunkan, lalu samakan dengan nol: \( f'(Q) = 0 \). Selesaikan \( Q \) (ambil yang positif, karena jumlah barang tidak mungkin negatif).</li>
+    <li>Cek turunan kedua di \( Q \) tadi: positif = minimum, negatif = maksimum.</li>
+    <li>Masukkan \( Q \) ke fungsi asal untuk mendapat nilai minimum/maksimumnya.</li>
+  </ol>
+</div>
+
+<!-- ============ 2 ============ -->
+<h2 id="elastisitas"><span class="no">2</span>Elastisitas itu apa?</h2>
+<p class="lead">Elastisitas mengukur seberapa "peka" jumlah barang terhadap perubahan harga.</p>
+
+<p>Bayangkan karet gelang. Karet yang elastis memanjang jauh walau ditarik sedikit. Begitu juga permintaan: kalau harga naik sedikit lalu pembeli langsung kabur banyak, permintaannya <b>elastis</b>. Kalau harga naik tapi orang tetap membeli hampir sama banyak, permintaannya <b>inelastis</b> (tidak peka).</p>
+
+<p>Elastisitas dihitung dengan <b>persen</b>, bukan angka mentah, supaya adil. Naik Rp 1.000 itu besar untuk permen, tapi kecil untuk motor. Persentase menyamakan ukurannya:</p>
+\[ E = \frac{\text{persentase perubahan jumlah}}{\text{persentase perubahan harga}}. \]
+
+<p>Buku membagi elastisitas harga menjadi dua: <b>elastisitas permintaan</b> (\( E_d \), d = <i>demand</i>) dan <b>elastisitas penawaran</b> (\( E_s \), s = <i>supply</i>). Ditambah satu lagi: <b>elastisitas produksi</b>.</p>
+
+<!-- ============ 3 ============ -->
+<h2 id="permintaan"><span class="no">3</span>Elastisitas permintaan</h2>
+
+<h3>Dari definisi ke rumus</h3>
+<ol class="steps">
+  <li><b>Persentase perubahan jumlah.</b> Jumlah awal \( Q \) berubah sebesar \( \Delta Q \), jadi persentasenya \( \dfrac{\Delta Q}{Q} \).</li>
+  <li><b>Persentase perubahan harga.</b> Harga awal \( P \) berubah sebesar \( \Delta P \), jadi persentasenya \( \dfrac{\Delta P}{P} \).</li>
+  <li><b>Bagi keduanya, lalu susun ulang.</b>
+    \[ E_d = \frac{\Delta Q / Q}{\Delta P / P} = \frac{\Delta Q}{Q}\cdot\frac{P}{\Delta P} = \boxed{\frac{\Delta Q}{\Delta P}\cdot\frac{P}{Q}} \]
+    Ini <b>elastisitas busur</b>: dipakai kalau diberi dua titik (harga lama dan harga baru).
+  </li>
+  <li><b>Perubahan dibuat sangat kecil.</b> Kalau \( \Delta P \to 0 \), pecahan \( \frac{\Delta Q}{\Delta P} \) menjadi turunan \( \frac{dQ}{dP} \):
+    \[ E_d = \boxed{\frac{dQ}{dP}\cdot\frac{P}{Q}} = \frac{1}{dP/dQ}\cdot\frac{P}{Q} \]
+    Ini <b>elastisitas titik</b>: dipakai kalau diberi fungsi dan satu titik harga.
+  </li>
+</ol>
+
+<div class="box warn">
+  <span class="tag">Soal tanda minus</span>
+  Untuk permintaan normal, harga naik membuat jumlah turun, jadi \( \frac{dQ}{dP} \) negatif dan \( E_d \) bernilai negatif. Untuk menentukan kategori, yang dilihat adalah <b>besarnya saja</b> (nilai mutlak \( |E_d| \)). Contoh: \( E_d = -\tfrac{3}{7} \) berarti \( |E_d| = \tfrac{3}{7} \lt 1 \), jadi inelastis. Buku menulis "\( E_d \lt 1 \)" dengan maksud nilai mutlak ini.
+</div>
+
+<h3>Lima kategori elastisitas permintaan</h3>
+<div class="scroll"><table>
+  <tr><th>Kategori</th><th>Nilai</th><th>Artinya</th><th>Contoh barang</th></tr>
+  <tr><td><b>Inelastis</b></td><td>\( |E_d| \lt 1 \)</td><td>Harga berubah banyak, jumlah yang dibeli berubah sedikit. Kurva curam.</td><td>Barang mewah (menurut buku)</td></tr>
+  <tr><td><b>Elastis uniter</b></td><td>\( |E_d| = 1 \)</td><td>Persen perubahan harga = persen perubahan jumlah.</td><td>Kebutuhan primer/pokok</td></tr>
+  <tr><td><b>Elastis</b></td><td>\( |E_d| \gt 1 \)</td><td>Harga berubah sedikit, jumlah berubah banyak. Kurva landai.</td><td>Kebutuhan sekunder</td></tr>
+  <tr><td><b>Inelastis sempurna</b></td><td>\( E_d = 0 \)</td><td>Berapa pun harganya, jumlah yang dibeli tetap. Kurva tegak (vertikal).</td><td>Minyak bumi</td></tr>
+  <tr><td><b>Elastis sempurna</b></td><td>\( E_d = \infty \)</td><td>Pada satu harga tetap, jumlah bisa berapa saja. Kurva mendatar (horizontal).</td><td>Air minum</td></tr>
+</table></div>
+
+<div class="curves" aria-label="Bentuk kurva permintaan untuk 5 kategori">
+  <figure>
+    <svg viewBox="0 0 140 110"><path d="M20 8V95H134" fill="none" stroke="#1d1f24" stroke-width="1.5"/><text x="8" y="16" font-size="11" font-style="italic">P</text><text x="126" y="108" font-size="11" font-style="italic">Q</text><line x1="48" y1="14" x2="64" y2="92" stroke="#2f5bd3" stroke-width="3"/></svg>
+    <figcaption><b>Inelastis</b><small>curam, \( |E_d| \lt 1 \)</small></figcaption>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 140 110"><path d="M20 8V95H134" fill="none" stroke="#1d1f24" stroke-width="1.5"/><text x="8" y="16" font-size="11" font-style="italic">P</text><text x="126" y="108" font-size="11" font-style="italic">Q</text><line x1="20" y1="24" x2="98" y2="95" stroke="#2f5bd3" stroke-width="3"/></svg>
+    <figcaption><b>Elastis uniter</b><small>sedang, \( |E_d| = 1 \)</small></figcaption>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 140 110"><path d="M20 8V95H134" fill="none" stroke="#1d1f24" stroke-width="1.5"/><text x="8" y="16" font-size="11" font-style="italic">P</text><text x="126" y="108" font-size="11" font-style="italic">Q</text><line x1="20" y1="44" x2="128" y2="76" stroke="#2f5bd3" stroke-width="3"/></svg>
+    <figcaption><b>Elastis</b><small>landai, \( |E_d| \gt 1 \)</small></figcaption>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 140 110"><path d="M20 8V95H134" fill="none" stroke="#1d1f24" stroke-width="1.5"/><text x="8" y="16" font-size="11" font-style="italic">P</text><text x="126" y="108" font-size="11" font-style="italic">Q</text><line x1="72" y1="14" x2="72" y2="95" stroke="#2f5bd3" stroke-width="3"/></svg>
+    <figcaption><b>Inelastis sempurna</b><small>vertikal, \( E_d = 0 \)</small></figcaption>
+  </figure>
+  <figure>
+    <svg viewBox="0 0 140 110"><path d="M20 8V95H134" fill="none" stroke="#1d1f24" stroke-width="1.5"/><text x="8" y="16" font-size="11" font-style="italic">P</text><text x="126" y="108" font-size="11" font-style="italic">Q</text><line x1="20" y1="50" x2="128" y2="50" stroke="#2f5bd3" stroke-width="3"/></svg>
+    <figcaption><b>Elastis sempurna</b><small>horizontal, \( E_d = \infty \)</small></figcaption>
+  </figure>
+</div>
+
+<div class="box key">
+  <span class="tag">Cara cepat mengingat</span>
+  Bandingkan angka elastisitas dengan <b>1</b>. Lebih dari 1 = pembeli "lebay" terhadap harga (elastis). Kurang dari 1 = pembeli "cuek" (inelastis). Tepat 0 atau tak hingga adalah dua kasus ekstrem.
+</div>
+
+<h3>Contoh 1 (buku): elastisitas titik</h3>
+<div class="soal">
+  <p class="q">Fungsi permintaan \( Q = 150 + 3P \). Berapa elastisitasnya pada \( P = 40 \)?</p>
+  <ol class="steps">
+    <li><b>Cari \( Q \) di titik itu.</b> \( Q = 150 + 3(40) = 270 \).</li>
+    <li><b>Turunkan \( Q \) terhadap \( P \).</b> \( \dfrac{dQ}{dP} = 3 \).</li>
+    <li><b>Masukkan ke rumus titik.</b>
+      \[ E_d = \frac{dQ}{dP}\cdot\frac{P}{Q} = 3\cdot\frac{40}{270} = \frac{120}{270} = \frac{4}{9}. \]
+    </li>
+    <li><b>Simpulkan.</b> \( \tfrac{4}{9} \approx 0{,}44 \lt 1 \), jadi inelastis.</li>
+  </ol>
+  <p><span class="ans">\( E_d = \tfrac{4}{9} \) → inelastis</span></p>
+</div>
+
+<h3>Contoh 2 (buku): elastisitas busur</h3>
+<div class="soal">
+  <p class="q">Harga wortel naik dari Rp 6.000 menjadi Rp 7.000 per kg, permintaan turun dari 700 kg menjadi 650 kg. Hitung elastisitasnya.</p>
+  <ol class="steps">
+    <li><b>Hitung perubahannya.</b> \( \Delta Q = 650 - 700 = -50 \) dan \( \Delta P = 7.000 - 6.000 = 1.000 \).</li>
+    <li><b>Pakai harga dan jumlah awal.</b> \( P = 6.000 \), \( Q = 700 \).</li>
+    <li><b>Masukkan ke rumus busur.</b>
+      \[ E_d = \frac{\Delta Q}{\Delta P}\cdot\frac{P}{Q} = \frac{-50}{1.000}\cdot\frac{6.000}{700} = -\frac{1}{20}\cdot\frac{60}{7} = -\frac{3}{7}. \]
+    </li>
+    <li><b>Simpulkan.</b> \( |E_d| = \tfrac{3}{7} \approx 0{,}43 \lt 1 \), inelastis. Harga naik 16,7% tapi permintaan hanya turun 7,1%.</li>
+  </ol>
+  <p><span class="ans">\( E_d = -\tfrac{3}{7} \) → inelastis</span></p>
+</div>
+
+<!-- ============ 4 ============ -->
+<h2 id="penawaran"><span class="no">4</span>Elastisitas penawaran</h2>
+<p class="lead">Sama persis dengan permintaan, hanya sekarang \( Q \) adalah jumlah yang <b>ditawarkan</b> produsen.</p>
+\[ E_s = \frac{\Delta Q}{\Delta P}\cdot\frac{P}{Q} \quad\text{(busur)}, \qquad E_s = \frac{dQ}{dP}\cdot\frac{P}{Q} \quad\text{(titik)}. \]
+<p>Penawaran normal naik kalau harga naik, jadi \( E_s \) biasanya positif. Kategorinya juga lima:</p>
+
+<div class="scroll"><table>
+  <tr><th>Kategori</th><th>Nilai</th><th>Bentuk kurva</th><th>Artinya</th></tr>
+  <tr><td><b>Inelastis</b></td><td>\( E_s \lt 1 \)</td><td>Curam</td><td>Harga naik banyak, produsen menambah barang sedikit.</td></tr>
+  <tr><td><b>Elastis uniter</b></td><td>\( E_s = 1 \)</td><td>Garis lewat titik asal</td><td>Persen perubahan penawaran = persen perubahan harga.</td></tr>
+  <tr><td><b>Elastis</b></td><td>\( E_s \gt 1 \)</td><td>Landai</td><td>Harga naik sedikit, penawaran naik banyak.</td></tr>
+  <tr><td><b>Inelastis sempurna</b></td><td>\( E_s = 0 \)</td><td>Vertikal</td><td>Jumlah yang ditawarkan tetap pada harga berapa pun.</td></tr>
+  <tr><td><b>Elastis sempurna</b></td><td>\( E_s = \infty \)</td><td>Horizontal</td><td>Perubahan harga sangat kecil sudah menggeser penawaran sangat besar.</td></tr>
+</table></div>
+
+<!-- ============ 5 ============ -->
+<h2 id="produksi"><span class="no">5</span>Elastisitas produksi</h2>
+<p class="lead">Seberapa peka hasil produksi \( P \) terhadap tambahan faktor produksi (input) \( X \).</p>
+<p>Hati-hati: di subbab ini huruf \( P \) berarti <b>jumlah produk</b>, bukan harga. Fungsinya \( P = f(X) \), dan</p>
+\[ \eta_P = \frac{\%\,\Delta P}{\%\,\Delta X} = \frac{dP}{dX}\cdot\frac{X}{P}. \]
+<p>Polanya sama: turunan dikali "nilai di bawah dibagi nilai di atas". Contoh: \( \eta_P = 1 \) berarti input naik 1% membuat output naik 1% juga.</p>
+
+<div class="soal">
+  <p class="q">Contoh buku: \( P = 6X^2 - X^3 \). Hitung elastisitas produksi pada \( X = 3 \) dan \( X = 7 \).</p>
+  <ol class="steps">
+    <li><b>Turunkan.</b> \( \dfrac{dP}{dX} = 12X - 3X^2 \).</li>
+    <li><b>Di \( X = 3 \).</b> \( \dfrac{dP}{dX} = 36 - 27 = 9 \) dan \( P = 54 - 27 = 27 \), sehingga
+      \[ \eta_P = 9\cdot\frac{3}{27} = 1. \]</li>
+    <li><b>Di \( X = 7 \).</b> \( \dfrac{dP}{dX} = 84 - 147 = -63 \) dan \( P = 294 - 343 = -49 \), sehingga
+      \[ \eta_P = (-63)\cdot\frac{7}{-49} = 9. \]</li>
+  </ol>
+  <p><span class="ans">\( \eta_P(3) = 1,\quad \eta_P(7) = 9 \)</span></p>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Catatan kritis: di \( X = 7 \) output \( P \) bernilai negatif, yang secara ekonomi tidak mungkin. Hitungan buku benar secara aljabar, tetapi wilayah fungsi yang masuk akal hanya \( 0 \lt X \lt 6 \).</p>
+</div>
+
+<!-- ============ 6 ============ -->
+<h2 id="biaya"><span class="no">6</span>Biaya total, rata-rata, dan marginal</h2>
+
+<div class="scroll"><table>
+  <tr><th>Nama</th><th>Rumus</th><th>Arti sehari-hari</th></tr>
+  <tr><td>Biaya total</td><td>\( TC = TFC + TVC \)</td><td>Semua biaya. TFC = biaya tetap (sewa, gaji tetap), tidak tergantung \( Q \). TVC = biaya variabel (bahan baku), ikut naik dengan \( Q \).</td></tr>
+  <tr><td>Biaya rata-rata</td><td>\( AC = \dfrac{TC}{Q} \)</td><td>Biaya per satu unit.</td></tr>
+  <tr><td>Biaya marginal</td><td>\( MC = \dfrac{dTC}{dQ} = TC' \)</td><td>Tambahan biaya untuk membuat 1 unit lagi.</td></tr>
+  <tr><td>Biaya rata-rata marginal</td><td>\( MAC = \dfrac{dAC}{dQ} \)</td><td>Perubahan biaya rata-rata kalau output naik 1 unit.</td></tr>
+</table></div>
+
+<div class="box key">
+  <span class="tag">Cara memisahkan TFC dan TVC</span>
+  Pada \( TC \) berbentuk polinom, <b>suku tanpa \( Q \)</b> (konstanta) adalah TFC. Sisanya, semua suku yang mengandung \( Q \), adalah TVC. Lalu \( AVC = \dfrac{TVC}{Q} \).
+</div>
+
+<div class="soal">
+  <p class="q">Contoh buku: \( TC = 0{,}2Q^2 + 500Q + 8.000 \). Cari AC, \( Q \) saat AC minimum, dan AC minimumnya.</p>
+  <ol class="steps">
+    <li><b>Fungsi AC.</b> Bagi setiap suku dengan \( Q \):
+      \( AC = 0{,}2Q + 500 + \dfrac{8.000}{Q} \).</li>
+    <li><b>Turunan pertama = 0.</b>
+      \[ \frac{dAC}{dQ} = 0{,}2 - \frac{8.000}{Q^2} = 0 \;\Rightarrow\; Q^2 = 40.000 \;\Rightarrow\; Q = 200. \]
+    </li>
+    <li><b>Cek turunan kedua.</b> \( \dfrac{d^2AC}{dQ^2} = \dfrac{16.000}{Q^3} \gt 0 \) untuk \( Q = 200 \), jadi minimum.</li>
+    <li><b>Nilai minimumnya.</b> \( AC = 0{,}2(200) + 500 + \dfrac{8.000}{200} = 40 + 500 + 40 = 580 \).</li>
+  </ol>
+  <p><span class="ans">\( Q = 200 \) unit, \( AC_{\min} = \text{Rp } 580 \)</span></p>
+</div>
+
+<!-- ============ 7 ============ -->
+<h2 id="penerimaan"><span class="no">7</span>Penerimaan total, rata-rata, dan marginal</h2>
+
+<div class="scroll"><table>
+  <tr><th>Nama</th><th>Rumus</th><th>Arti</th></tr>
+  <tr><td>Penerimaan total</td><td>\( TR = P\cdot Q \)</td><td>Harga × banyak barang terjual.</td></tr>
+  <tr><td>Penerimaan rata-rata</td><td>\( AR = \dfrac{TR}{Q} \)</td><td>Penerimaan per unit. Karena \( TR = PQ \), maka \( AR = P \).</td></tr>
+  <tr><td>Penerimaan marginal</td><td>\( MR = \dfrac{dTR}{dQ} = TR' \)</td><td>Tambahan penerimaan dari menjual 1 unit lagi.</td></tr>
+</table></div>
+
+<div class="box warn">
+  <span class="tag">Langkah pertama yang sering terlupa</span>
+  Kalau soal memberi fungsi <b>permintaan</b> \( P = \dots \), ubah dulu menjadi \( TR \) dengan mengalikan \( Q \): \( TR = P\cdot Q \). Baru setelah itu diturunkan.
+</div>
+
+<div class="soal">
+  <p class="q">Contoh buku: permintaan \( P = 18 - 3Q \). Cari penerimaan total maksimum dan gambarkan kurvanya.</p>
+  <ol class="steps">
+    <li><b>Bentuk TR.</b> \( TR = (18 - 3Q)Q = 18Q - 3Q^2 \).</li>
+    <li><b>Turunan pertama = 0.</b> \( MR = 18 - 6Q = 0 \Rightarrow Q = 3 \).</li>
+    <li><b>Cek turunan kedua.</b> \( \dfrac{d^2TR}{dQ^2} = -6 \lt 0 \), jadi maksimum. (Buku menulis \( d^2AC \), maksudnya \( d^2TR \).)</li>
+    <li><b>Nilai maksimum.</b> \( TR = 18(3) - 3(9) = 54 - 27 = 27 \).</li>
+    <li><b>Titik potong sumbu Q.</b> \( 0 = Q(18 - 3Q) \Rightarrow Q = 0 \) atau \( Q = 6 \). Kurvanya parabola terbuka ke bawah dengan puncak \( (3, 27) \).</li>
+  </ol>
+  <svg viewBox="0 0 560 340" role="img" aria-label="Kurva TR = 18Q − 3Q²" style="width:100%;max-width:560px;height:auto;display:block;margin:12px auto"><line x1="54" x2="540" y1="296" y2="296" stroke="#eceae3"/><text x="46" y="300" font-size="12" text-anchor="end" fill="#5f6470">0</text><line x1="54" x2="540" y1="215.8709677419355" y2="215.8709677419355" stroke="#eceae3"/><text x="46" y="219.8709677419355" font-size="12" text-anchor="end" fill="#5f6470">9</text><line x1="54" x2="540" y1="135.74193548387098" y2="135.74193548387098" stroke="#eceae3"/><text x="46" y="139.74193548387098" font-size="12" text-anchor="end" fill="#5f6470">18</text><line x1="54" x2="540" y1="55.61290322580645" y2="55.61290322580645" stroke="#eceae3"/><text x="46" y="59.61290322580645" font-size="12" text-anchor="end" fill="#5f6470">27</text><text x="127.63636363636364" y="314" font-size="12" text-anchor="middle" fill="#5f6470">1</text><text x="201.27272727272728" y="314" font-size="12" text-anchor="middle" fill="#5f6470">2</text><text x="274.90909090909093" y="314" font-size="12" text-anchor="middle" fill="#5f6470">3</text><text x="348.54545454545456" y="314" font-size="12" text-anchor="middle" fill="#5f6470">4</text><text x="422.1818181818182" y="314" font-size="12" text-anchor="middle" fill="#5f6470">5</text><text x="495.81818181818187" y="314" font-size="12" text-anchor="middle" fill="#5f6470">6</text><line x1="54" x2="540" y1="296" y2="296" stroke="#1d1f24" stroke-width="1.5"/><line x1="54" x2="54" y1="20" y2="296" stroke="#1d1f24" stroke-width="1.5"/><text x="540" y="288" font-size="13" text-anchor="end" fill="#1d1f24" font-style="italic">Q</text><text x="62" y="30" font-size="13" fill="#1d1f24" font-style="italic">TR</text><polyline points="54.0,296.0 57.7,288.1 61.4,280.2 65.0,272.6 68.7,265.0 72.4,257.6 76.1,250.3 79.8,243.2 83.5,236.2 87.1,229.3 90.8,222.5 94.5,215.9 98.2,209.5 101.9,203.1 105.5,196.9 109.2,190.8 112.9,184.9 116.6,179.1 120.3,173.4 124.0,167.9 127.6,162.5 131.3,157.2 135.0,152.0 138.7,147.0 142.4,142.2 146.0,137.4 149.7,132.8 153.4,128.3 157.1,124.0 160.8,119.8 164.5,115.7 168.1,111.8 171.8,108.0 175.5,104.3 179.2,100.8 182.9,97.3 186.5,94.1 190.2,90.9 193.9,87.9 197.6,85.1 201.3,82.3 205.0,79.7 208.6,77.2 212.3,74.9 216.0,72.7 219.7,70.6 223.4,68.7 227.0,66.9 230.7,65.2 234.4,63.7 238.1,62.3 241.8,61.0 245.5,59.9 249.1,58.9 252.8,58.0 256.5,57.3 260.2,56.7 263.9,56.2 267.5,55.9 271.2,55.7 274.9,55.6 278.6,55.7 282.3,55.9 286.0,56.2 289.6,56.7 293.3,57.3 297.0,58.0 300.7,58.9 304.4,59.9 308.0,61.0 311.7,62.3 315.4,63.7 319.1,65.2 322.8,66.9 326.5,68.7 330.1,70.6 333.8,72.7 337.5,74.9 341.2,77.2 344.9,79.7 348.5,82.3 352.2,85.1 355.9,87.9 359.6,90.9 363.3,94.1 367.0,97.3 370.6,100.8 374.3,104.3 378.0,108.0 381.7,111.8 385.4,115.7 389.0,119.8 392.7,124.0 396.4,128.3 400.1,132.8 403.8,137.4 407.5,142.2 411.1,147.0 414.8,152.0 418.5,157.2 422.2,162.5 425.9,167.9 429.5,173.4 433.2,179.1 436.9,184.9 440.6,190.8 444.3,196.9 448.0,203.1 451.6,209.5 455.3,215.9 459.0,222.5 462.7,229.3 466.4,236.2 470.0,243.2 473.7,250.3 477.4,257.6 481.1,265.0 484.8,272.6 488.5,280.2 492.1,288.1 495.8,296.0" fill="none" stroke="#2f5bd3" stroke-width="2.5"/><text x="370.6363636363636" y="100.12903225806453" font-size="13" fill="#2f5bd3" font-weight="700">TR = 18Q − 3Q²</text><line x1="274.90909090909093" x2="274.90909090909093" y1="55.61290322580645" y2="296" stroke="#9aa0ab" stroke-dasharray="4 4"/><line x1="54" x2="274.90909090909093" y1="55.61290322580645" y2="55.61290322580645" stroke="#9aa0ab" stroke-dasharray="4 4"/><circle cx="274.90909090909093" cy="55.61290322580645" r="4.5" fill="#1d1f24"/><text x="282.90909090909093" y="47.61290322580645" font-size="13" fill="#1d1f24">(3, 27) puncak</text></svg>
+  <p><span class="ans">\( TR_{\max} = 27 \) pada \( Q = 3 \)</span></p>
+</div>
+
+<!-- ============ 8 ============ -->
+<h2 id="laba"><span class="no">8</span>Laba maksimum</h2>
+<p class="lead">Laba = penerimaan dikurangi biaya: \( \pi = TR - TC \).</p>
+
+<ol class="steps">
+  <li><b>Syarat pertama: turunan laba = 0.</b>
+    \[ \frac{d\pi}{dQ} = \frac{dTR}{dQ} - \frac{dTC}{dQ} = 0 \;\Longleftrightarrow\; \boxed{MR = MC}. \]
+    Artinya: terus produksi selama tambahan penerimaan masih lebih besar dari tambahan biaya. Berhenti tepat saat keduanya sama.
+  </li>
+  <li><b>Syarat kedua: turunan kedua laba negatif.</b>
+    \[ \frac{d^2\pi}{dQ^2} \lt 0 \;\Longleftrightarrow\; \frac{d^2TR}{dQ^2} \lt \frac{d^2TC}{dQ^2}. \]
+    Ini memastikan titiknya puncak, bukan lembah.
+  </li>
+</ol>
+
+<div class="soal">
+  <p class="q">Contoh buku: \( P = 557 - 0{,}2Q \) dan \( TC = 0{,}05Q^3 - 0{,}2Q^2 + 17Q + 7.000 \).</p>
+  <ol class="steps">
+    <li><b>TR.</b> \( TR = (557 - 0{,}2Q)Q = 557Q - 0{,}2Q^2 \).</li>
+    <li><b>Laba.</b> Kurangkan TC (hati-hati tanda di dalam kurung):
+      \[ \pi = 557Q - 0{,}2Q^2 - 0{,}05Q^3 + 0{,}2Q^2 - 17Q - 7.000 = -0{,}05Q^3 + 540Q - 7.000. \]
+    </li>
+    <li><b>Turunan = 0.</b> \( -0{,}15Q^2 + 540 = 0 \Rightarrow Q^2 = 3.600 \Rightarrow Q = 60 \).</li>
+    <li><b>Cek.</b> \( \pi'' = -0{,}3Q = -18 \lt 0 \), maksimum.</li>
+    <li><b>Hasil lainnya.</b>
+      \( \pi = -0{,}05(216.000) + 32.400 - 7.000 = 14.600 \);
+      \( P = 557 - 12 = 545 \);
+      \( TC = 10.800 - 720 + 1.020 + 7.000 = 18.100 \);
+      \( TR = 33.420 - 720 = 32.700 \). Cek: \( 32.700 - 18.100 = 14.600 \) ✓.
+    </li>
+  </ol>
+  <p><span class="ans">\( Q = 60,\ \pi_{\max} = 14.600,\ P = 545,\ TC = 18.100,\ TR = 32.700 \)</span></p>
+</div>
+
+<!-- ============ 9 ============ -->
+<h2 id="pajak"><span class="no">9</span>Penerimaan maksimum dari pajak</h2>
+<p class="lead">Pemerintah ingin memilih besar pajak per unit \( t \) supaya total pajak yang terkumpul paling besar.</p>
+<p>Total pajak \( T = t\cdot Q_t \), dengan \( Q_t \) jumlah keseimbangan setelah pajak. Dilemanya: pajak besar memang menaikkan \( t \), tetapi membuat orang membeli lebih sedikit, sehingga \( Q_t \) turun. Turunan membantu mencari titik tengah terbaiknya.</p>
+
+<div class="soal">
+  <p class="q">Contoh buku: permintaan \( P = 17 - Q \), penawaran \( P = \tfrac{Q}{4} + 2 \). Cari \( t \) dan pajak maksimumnya.</p>
+  <ol class="steps">
+    <li><b>Penawaran setelah pajak.</b> Pajak menaikkan harga yang diminta produsen: \( P_s = \tfrac{Q}{4} + 2 + t \).</li>
+    <li><b>Keseimbangan \( P_d = P_s \), lalu nyatakan \( t \) dalam \( Q \).</b>
+      \[ 17 - Q = \tfrac{Q}{4} + 2 + t \;\Rightarrow\; t = 15 - \tfrac{5}{4}Q. \]
+    </li>
+    <li><b>Total pajak.</b> \( T = tQ = 15Q - \tfrac{5}{4}Q^2 \).</li>
+    <li><b>Turunan = 0.</b> \( 15 - \tfrac{5}{2}Q = 0 \Rightarrow Q = 6 \). Turunan kedua \( -\tfrac{5}{2} \lt 0 \), maksimum.</li>
+    <li><b>Hitung \( t \) dan \( T \).</b> \( t = 15 - \tfrac{5}{4}(6) = 7{,}5 \) dan \( T = 7{,}5 \times 6 = 45 \).</li>
+  </ol>
+  <p><span class="ans">\( t = \tfrac{30}{4} = 7{,}5 \) per unit, \( T_{\max} = 45 \)</span></p>
+</div>
+
+<!-- ============ 10 ============ -->
+<h2 id="monopoli"><span class="no">10</span>Pengaruh pajak dalam pasar monopoli</h2>
+<p class="lead">Monopoli = hanya ada satu penjual dan tidak ada barang pengganti. Bagaimana pajak mengubah keputusan si monopolis?</p>
+
+<div class="scroll"><table>
+  <tr><th>Jenis pajak</th><th>Yang berubah</th><th>Laba</th></tr>
+  <tr><td><b>Pajak per unit</b> \( t \)</td><td>Setiap unit kena biaya tambahan \( t \): \( TC_t = TC + tQ \)</td><td>\( \pi = TR - TC - tQ \)</td></tr>
+  <tr><td><b>Pajak penjualan</b> \( r \) (persen)</td><td>Harga yang dibayar konsumen \( P_t = P(1 + r) \), tetapi produsen tetap menerima \( P = \dfrac{P_t}{1+r} \)</td><td>\( \pi = \left(\dfrac{P_t}{1+r}\right)Q - TC \)</td></tr>
+</table></div>
+
+<div class="soal">
+  <p class="q">Contoh buku: \( P = 557 - 0{,}2Q \), \( TC = 0{,}05Q^3 - 0{,}2Q^2 + 17Q + 7.000 \), pajak \( t = \text{Rp }165 \) per unit.</p>
+  <ol class="steps">
+    <li><b>Biaya setelah pajak.</b> \( TC_t = 0{,}05Q^3 - 0{,}2Q^2 + 182Q + 7.000 \) (karena \( 17 + 165 = 182 \)).</li>
+    <li><b>Laba.</b> \( \pi = 557Q - 0{,}2Q^2 - TC_t = -0{,}05Q^3 + 375Q - 7.000 \).</li>
+    <li><b>Optimasi.</b> \( -0{,}15Q^2 + 375 = 0 \Rightarrow Q = 50 \); \( \pi'' = -15 \lt 0 \).</li>
+    <li><b>Hasil.</b> \( P = 557 - 10 = 547 \) dan \( \pi = -6.250 + 18.750 - 7.000 = 5.500 \).</li>
+    <li><b>Kalau diganti pajak penjualan 25%.</b> \( P_t = 1{,}25(557 - 0{,}2Q) = 696{,}25 - 0{,}25Q \). Penerimaan produsen \( \tfrac{P_t}{1{,}25}Q = 557Q - 0{,}2Q^2 \), sama seperti tanpa pajak, jadi \( Q = 60 \) (hasil Bagian 8). Harga yang dibayar konsumen \( P_t = 696{,}25 - 15 = 681{,}25 \) dan laba produsen tetap \( 14.600 \).</li>
+  </ol>
+  <p><span class="ans">Pajak per unit: \( Q = 50,\ P = 547,\ \pi = 5.500 \). Pajak penjualan 25%: \( Q = 60,\ P_t = 681{,}25 \)</span></p>
+</div>
+
+<div class="box key">
+  <span class="tag">Pelajaran dari contoh ini</span>
+  Pajak per unit memangkas laba monopolis (14.600 → 5.500) dan menaikkan harga (545 → 547). Pajak penjualan persentase pada model buku ini seluruhnya ditanggung konsumen lewat harga yang lebih tinggi, karena produsen tetap menerima harga lamanya.
+</div>
+
+<!-- ============ 11 ============ -->
+<h2 id="latihan"><span class="no">11</span>Jawaban latihan soal</h2>
+<p class="lead">Ke-13 latihan dari akhir Bab 5. Nomor 1–2 tentang elastisitas (fokus pertemuan ini), nomor 3–13 memakai resep optimasi yang sama. Semua angka sudah dicek ulang dengan komputer.</p>
+
+<!-- Soal 1 -->
+<h3 id="s1">Soal 1 — Elastisitas permintaan bentuk pangkat</h3>
+<div class="soal">
+  <p class="q">a. \( Q = \dfrac{9}{P^3} \)</p>
+  <ol class="steps">
+    <li><b>Tulis sebagai pangkat negatif.</b> \( Q = 9P^{-3} \).</li>
+    <li><b>Turunkan.</b> \( \dfrac{dQ}{dP} = 9\cdot(-3)P^{-4} = -27P^{-4} \).</li>
+    <li><b>Masukkan ke rumus titik.</b>
+      \[ E_d = \frac{dQ}{dP}\cdot\frac{P}{Q} = -27P^{-4}\cdot\frac{P}{9P^{-3}} = \frac{-27}{9}\cdot P^{-4+1+3} = -3. \]
+    </li>
+    <li><b>Simpulkan.</b> \( P \) hilang, jadi elastisitasnya sama di semua harga. \( |E_d| = 3 \gt 1 \): elastis.</li>
+  </ol>
+  <p><span class="ans">\( E_d = -3 \) (elastis, konstan)</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( Q = \dfrac{8}{P^{3/2}} \)</p>
+  <ol class="steps">
+    <li><b>Pangkat negatif.</b> \( Q = 8P^{-3/2} \), sehingga \( \dfrac{dQ}{dP} = -12P^{-5/2} \).</li>
+    <li><b>Rumus titik.</b>
+      \[ E_d = -12P^{-5/2}\cdot\frac{P}{8P^{-3/2}} = -\frac{12}{8}\,P^{-5/2+1+3/2} = -\frac{3}{2}. \]
+    </li>
+  </ol>
+  <p><span class="ans">\( E_d = -1{,}5 \) (elastis, konstan)</span></p>
+</div>
+<div class="box ok">
+  <span class="tag">Pola yang bisa dihafal</span>
+  Untuk \( Q = kP^{-n} \), elastisitasnya selalu \( E_d = -n \). Pangkatnya langsung menjadi elastisitas.
+</div>
+
+<!-- Soal 2 -->
+<h3 id="s2">Soal 2 — Elastisitas harga pada satu titik</h3>
+<div class="box warn">
+  <span class="tag">Perhatikan soalnya</span>
+  Soal menyebut "fungsi penawaran", tetapi kelima fungsi a, b, c, e, f kemiringannya negatif (harga turun ketika \( Q \) naik), sehingga bentuknya seperti fungsi permintaan. Rumus yang dipakai sama, \( E = \dfrac{1}{dP/dQ}\cdot\dfrac{P}{Q} \), jadi hasilnya bertanda negatif. Kategori ditentukan dari nilai mutlaknya.
+</div>
+<p>Langkah untuk setiap butir: (1) hitung \( P \) di \( Q \) yang diberikan, (2) cari \( \dfrac{dP}{dQ} \) lalu dibalik menjadi \( \dfrac{dQ}{dP} \), (3) kalikan dengan \( \dfrac{P}{Q} \).</p>
+
+<div class="soal">
+  <p class="q">a. \( P = 32 - 0{,}004Q \) di \( Q = 5.000 \)</p>
+  <p>\( P = 32 - 20 = 12 \). \( \dfrac{dP}{dQ} = -0{,}004 \Rightarrow \dfrac{dQ}{dP} = -250 \).
+  \[ E = -250\cdot\frac{12}{5.000} = -0{,}6. \]</p>
+  <p><span class="ans">\( E = -0{,}6 \) → inelastis</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( P = 70 - 0{,}02Q \) di \( Q = 800 \)</p>
+  <p>\( P = 70 - 16 = 54 \). \( \dfrac{dQ}{dP} = \dfrac{1}{-0{,}02} = -50 \).
+  \[ E = -50\cdot\frac{54}{800} = -3{,}375. \]</p>
+  <p><span class="ans">\( E = -3{,}375 \) → elastis</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. \( P = 360 - 5Q \) di \( Q = 40 \)</p>
+  <p>\( P = 360 - 200 = 160 \). \( \dfrac{dQ}{dP} = -\dfrac{1}{5} \).
+  \[ E = -\frac{1}{5}\cdot\frac{160}{40} = -0{,}8. \]</p>
+  <p><span class="ans">\( E = -0{,}8 \) → inelastis</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. \( P = 32 \) di \( Q = 400 \)</p>
+  <p>Harga tetap 32 berapa pun \( Q \)-nya: grafiknya garis <b>horizontal</b>. Di sini \( \dfrac{dP}{dQ} = 0 \), sehingga \( \dfrac{dQ}{dP} = \dfrac{1}{0} \) tak hingga.</p>
+  <p><span class="ans">\( E = \infty \) → elastis sempurna</span></p>
+</div>
+<div class="soal">
+  <p class="q">e. \( P = 100 - Q \) di \( Q = 30 \)</p>
+  <p>\( P = 70 \). \( \dfrac{dQ}{dP} = -1 \).
+  \[ E = -1\cdot\frac{70}{30} = -\frac{7}{3} \approx -2{,}33. \]</p>
+  <p><span class="ans">\( E = -\tfrac{7}{3} \) → elastis</span></p>
+</div>
+<div class="soal">
+  <p class="q">f. \( P = 700 - 0{,}2Q \) di \( Q = 1.000 \)</p>
+  <p>\( P = 700 - 200 = 500 \). \( \dfrac{dQ}{dP} = \dfrac{1}{-0{,}2} = -5 \).
+  \[ E = -5\cdot\frac{500}{1.000} = -2{,}5. \]</p>
+  <p><span class="ans">\( E = -2{,}5 \) → elastis</span></p>
+</div>
+
+<!-- Soal 3 -->
+<h3 id="s3">Soal 3 — Biaya rata-rata minimum</h3>
+<div class="soal">
+  <p class="q">\( TC = \tfrac{1}{50}Q^2 + 6Q + 200 \)</p>
+  <ol class="steps">
+    <li><b>AC.</b> \( AC = \dfrac{Q}{50} + 6 + \dfrac{200}{Q} \).</li>
+    <li><b>Turunan = 0.</b> \( \dfrac{1}{50} - \dfrac{200}{Q^2} = 0 \Rightarrow Q^2 = 10.000 \Rightarrow Q = 100 \).</li>
+    <li><b>Cek.</b> \( AC'' = \dfrac{400}{Q^3} \gt 0 \), minimum.</li>
+    <li><b>Nilai.</b> \( AC = 2 + 6 + 2 = 10 \).</li>
+  </ol>
+  <p><span class="ans">\( Q = 100,\ AC_{\min} = 10 \)</span></p>
+</div>
+
+<!-- Soal 4 -->
+<h3 id="s4">Soal 4 — AC minimum dengan biaya kubik</h3>
+<div class="soal">
+  <p class="q">\( TC = Q^3 - 30Q^2 + 325Q + 65.000 \)</p>
+  <ol class="steps">
+    <li><b>a. Fungsi AC.</b> \( AC = Q^2 - 30Q + 325 + \dfrac{65.000}{Q} \).</li>
+    <li><b>b. Turunan = 0.</b>
+      \[ \frac{dAC}{dQ} = 2Q - 30 - \frac{65.000}{Q^2} = 0. \]
+      Kalikan kedua ruas dengan \( Q^2 \), lalu bagi 2:
+      \[ 2Q^3 - 30Q^2 - 65.000 = 0 \;\Rightarrow\; Q^3 - 15Q^2 - 32.500 = 0. \]
+      Persamaan ini tidak punya akar bulat, jadi diselesaikan secara numerik (coba-coba/kalkulator):
+      \( Q = 37 \) memberi \( -2.382 \), \( Q = 38 \) memberi \( +712 \). Akarnya di antara keduanya, \( Q \approx 37{,}78 \).
+    </li>
+    <li><b>Cek.</b> \( AC'' = 2 + \dfrac{130.000}{Q^3} \gt 0 \), minimum.</li>
+    <li><b>c. Nilai.</b> \( AC(37{,}78) \approx 1.427{,}0 - 1.133{,}3 + 325 + 1.720{,}7 \approx 2.339{,}4 \).</li>
+  </ol>
+  <p><span class="ans">\( Q \approx 37{,}78 \) unit, \( AC_{\min} \approx 2.339{,}42 \)</span></p>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Kalau jawaban harus bulat: \( AC(38) \approx 2.339{,}53 \) dan \( AC(37) \approx 2.340{,}76 \), jadi produksi 38 unit paling dekat dengan minimum.</p>
+</div>
+
+<!-- Soal 5 -->
+<h3 id="s5">Soal 5 — TVC, TFC, dan AVC minimum</h3>
+<p>Resepnya: konstanta = TFC, sisanya = TVC. \( AVC = \dfrac{TVC}{Q} \) berbentuk parabola \( aQ^2 + bQ + c \), minimum di \( Q = -\dfrac{b}{2a} \) (sama dengan menyamakan turunannya dengan nol).</p>
+<div class="scroll"><table>
+  <tr><th>Butir</th><th>TVC</th><th>TFC</th><th>AVC</th><th>Q min</th><th>AVC<sub>min</sub></th></tr>
+  <tr><td>a</td><td>\( 0{,}6Q^3 - 24Q^2 + 410Q \)</td><td class="num">1.500</td><td>\( 0{,}6Q^2 - 24Q + 410 \)</td><td class="num">20</td><td class="num"><b>170</b></td></tr>
+  <tr><td>b</td><td>\( 2Q^3 - 30Q^2 + 200Q \)</td><td class="num">100</td><td>\( 2Q^2 - 30Q + 200 \)</td><td class="num">7,5</td><td class="num"><b>87,5</b></td></tr>
+  <tr><td>c</td><td>\( 0{,}3Q^3 - 12Q^2 + 180Q \)</td><td class="num">700</td><td>\( 0{,}3Q^2 - 12Q + 180 \)</td><td class="num">20</td><td class="num"><b>60</b></td></tr>
+  <tr><td>d</td><td>\( 0{,}004Q^3 - Q^2 + 80Q \)</td><td class="num">1.600</td><td>\( 0{,}004Q^2 - Q + 80 \)</td><td class="num">125</td><td class="num"><b>17,5</b></td></tr>
+</table></div>
+<div class="soal">
+  <p class="q">Contoh rinci butir a</p>
+  <ol class="steps">
+    <li><b>Pisahkan.</b> TFC = 1.500, TVC = \( 0{,}6Q^3 - 24Q^2 + 410Q \).</li>
+    <li><b>AVC.</b> \( AVC = 0{,}6Q^2 - 24Q + 410 \).</li>
+    <li><b>Turunan = 0.</b> \( 1{,}2Q - 24 = 0 \Rightarrow Q = 20 \); turunan kedua \( 1{,}2 \gt 0 \).</li>
+    <li><b>Nilai.</b> \( AVC = 0{,}6(400) - 480 + 410 = 240 - 480 + 410 = 170 \).</li>
+  </ol>
+  <p style="margin-bottom:0">Butir b: \( 4Q - 30 = 0 \Rightarrow Q = 7{,}5 \), \( AVC = 112{,}5 - 225 + 200 = 87{,}5 \).
+  Butir c: \( 0{,}6Q - 12 = 0 \Rightarrow Q = 20 \), \( AVC = 120 - 240 + 180 = 60 \).
+  Butir d: \( 0{,}008Q - 1 = 0 \Rightarrow Q = 125 \), \( AVC = 62{,}5 - 125 + 80 = 17{,}5 \).</p>
+</div>
+
+<!-- Soal 6 -->
+<h3 id="s6">Soal 6 — TR maksimum dan grafik</h3>
+<div class="soal">
+  <p class="q">Permintaan \( P = 36 - 3Q^2 \).</p>
+  <ol class="steps">
+    <li><b>a. Bentuk TR.</b> \( TR = (36 - 3Q^2)Q = 36Q - 3Q^3 \).</li>
+    <li><b>MR = 0.</b> \( MR = 36 - 9Q^2 = 0 \Rightarrow Q^2 = 4 \Rightarrow Q = 2 \).</li>
+    <li><b>Cek.</b> \( TR'' = -18Q = -36 \lt 0 \), maksimum.</li>
+    <li><b>Nilai.</b> \( TR = 72 - 24 = 48 \), dengan harga \( P = 36 - 12 = 24 \).</li>
+    <li><b>b. Titik penting untuk grafik.</b>
+      Permintaan memotong sumbu P di 36 dan sumbu Q di \( Q = \sqrt{12} \approx 3{,}46 \).
+      MR mulai dari 36, bernilai nol di \( Q = 2 \), lalu negatif.
+      TR bernilai nol di \( Q = 0 \) dan \( Q \approx 3{,}46 \), puncaknya \( (2, 48) \).
+    </li>
+  </ol>
+  <svg viewBox="0 0 560 340" role="img" aria-label="Kurva permintaan, MR, dan TR untuk P = 36 − 3Q²" style="width:100%;max-width:560px;height:auto;display:block;margin:12px auto"><line x1="54" x2="540" y1="296" y2="296" stroke="#eceae3"/><text x="46" y="300" font-size="12" text-anchor="end" fill="#5f6470">-30</text><line x1="54" x2="540" y1="246.7142857142857" y2="246.7142857142857" stroke="#eceae3"/><text x="46" y="250.7142857142857" font-size="12" text-anchor="end" fill="#5f6470">-15</text><line x1="54" x2="540" y1="197.42857142857144" y2="197.42857142857144" stroke="#eceae3"/><text x="46" y="201.42857142857144" font-size="12" text-anchor="end" fill="#5f6470">0</text><line x1="54" x2="540" y1="158" y2="158" stroke="#eceae3"/><text x="46" y="162" font-size="12" text-anchor="end" fill="#5f6470">12</text><line x1="54" x2="540" y1="118.57142857142857" y2="118.57142857142857" stroke="#eceae3"/><text x="46" y="122.57142857142857" font-size="12" text-anchor="end" fill="#5f6470">24</text><line x1="54" x2="540" y1="79.14285714285714" y2="79.14285714285714" stroke="#eceae3"/><text x="46" y="83.14285714285714" font-size="12" text-anchor="end" fill="#5f6470">36</text><line x1="54" x2="540" y1="39.71428571428571" y2="39.71428571428571" stroke="#eceae3"/><text x="46" y="43.71428571428571" font-size="12" text-anchor="end" fill="#5f6470">48</text><text x="181.89473684210526" y="215.42857142857144" font-size="12" text-anchor="middle" fill="#5f6470">1</text><text x="309.7894736842105" y="215.42857142857144" font-size="12" text-anchor="middle" fill="#5f6470">2</text><text x="437.6842105263158" y="215.42857142857144" font-size="12" text-anchor="middle" fill="#5f6470">3</text><line x1="54" x2="540" y1="197.42857142857144" y2="197.42857142857144" stroke="#1d1f24" stroke-width="1.5"/><line x1="54" x2="54" y1="20" y2="296" stroke="#1d1f24" stroke-width="1.5"/><text x="540" y="189.42857142857144" font-size="13" text-anchor="end" fill="#1d1f24" font-style="italic">Q</text><text x="62" y="30" font-size="13" fill="#1d1f24" font-style="italic">P, MR, TR</text><polyline points="54.0,197.4 57.7,194.0 61.4,190.6 65.1,187.2 68.8,183.8 72.5,180.4 76.2,177.0 79.8,173.6 83.5,170.2 87.2,166.9 90.9,163.5 94.6,160.2 98.3,156.9 102.0,153.6 105.7,150.3 109.4,147.0 113.1,143.8 116.8,140.5 120.5,137.3 124.1,134.2 127.8,131.0 131.5,127.9 135.2,124.8 138.9,121.8 142.6,118.8 146.3,115.8 150.0,112.8 153.7,109.9 157.4,107.0 161.1,104.2 164.8,101.4 168.5,98.6 172.1,95.9 175.8,93.3 179.5,90.7 183.2,88.1 186.9,85.6 190.6,83.1 194.3,80.7 198.0,78.3 201.7,76.0 205.4,73.8 209.1,71.6 212.8,69.5 216.4,67.4 220.1,65.4 223.8,63.4 227.5,61.6 231.2,59.8 234.9,58.0 238.6,56.3 242.3,54.7 246.0,53.2 249.7,51.8 253.4,50.4 257.1,49.1 260.8,47.9 264.4,46.7 268.1,45.6 271.8,44.7 275.5,43.8 279.2,43.0 282.9,42.2 286.6,41.6 290.3,41.1 294.0,40.6 297.7,40.2 301.4,40.0 305.1,39.8 308.7,39.7 312.4,39.7 316.1,39.9 319.8,40.1 323.5,40.4 327.2,40.8 330.9,41.4 334.6,42.0 338.3,42.8 342.0,43.6 345.7,44.6 349.4,45.7 353.1,46.9 356.7,48.2 360.4,49.6 364.1,51.1 367.8,52.8 371.5,54.6 375.2,56.5 378.9,58.5 382.6,60.7 386.3,63.0 390.0,65.4 393.7,67.9 397.4,70.6 401.0,73.4 404.7,76.3 408.4,79.4 412.1,82.6 415.8,86.0 419.5,89.5 423.2,93.1 426.9,96.9 430.6,100.8 434.3,104.8 438.0,109.0 441.7,113.4 445.4,117.9 449.0,122.6 452.7,127.4 456.4,132.3 460.1,137.4 463.8,142.7 467.5,148.1 471.2,153.7 474.9,159.5 478.6,165.4 482.3,171.5 486.0,177.7 489.7,184.1 493.3,190.7 497.0,197.4" fill="none" stroke="#2f5bd3" stroke-width="2.5"/><text x="188.28947368421055" y="66" font-size="13" fill="#2f5bd3" font-weight="700">TR</text><polyline points="54.0,79.1 57.7,79.2 61.4,79.2 65.1,79.2 68.8,79.3 72.5,79.3 76.2,79.4 79.8,79.5 83.5,79.7 87.2,79.8 90.9,80.0 94.6,80.1 98.3,80.3 102.0,80.5 105.7,80.8 109.4,81.0 113.1,81.2 116.8,81.5 120.5,81.8 124.1,82.1 127.8,82.4 131.5,82.8 135.2,83.1 138.9,83.5 142.6,83.9 146.3,84.3 150.0,84.7 153.7,85.1 157.4,85.6 161.1,86.1 164.8,86.5 168.5,87.0 172.1,87.6 175.8,88.1 179.5,88.6 183.2,89.2 186.9,89.8 190.6,90.4 194.3,91.0 198.0,91.6 201.7,92.3 205.4,93.0 209.1,93.6 212.8,94.3 216.4,95.0 220.1,95.8 223.8,96.5 227.5,97.3 231.2,98.1 234.9,98.9 238.6,99.7 242.3,100.5 246.0,101.4 249.7,102.2 253.4,103.1 257.1,104.0 260.8,104.9 264.4,105.8 268.1,106.8 271.8,107.7 275.5,108.7 279.2,109.7 282.9,110.7 286.6,111.7 290.3,112.8 294.0,113.8 297.7,114.9 301.4,116.0 305.1,117.1 308.7,118.3 312.4,119.4 316.1,120.6 319.8,121.7 323.5,122.9 327.2,124.1 330.9,125.3 334.6,126.6 338.3,127.8 342.0,129.1 345.7,130.4 349.4,131.7 353.1,133.0 356.7,134.4 360.4,135.7 364.1,137.1 367.8,138.5 371.5,139.9 375.2,141.3 378.9,142.8 382.6,144.2 386.3,145.7 390.0,147.2 393.7,148.7 397.4,150.2 401.0,151.7 404.7,153.3 408.4,154.8 412.1,156.4 415.8,158.0 419.5,159.7 423.2,161.3 426.9,162.9 430.6,164.6 434.3,166.3 438.0,168.0 441.7,169.7 445.4,171.4 449.0,173.2 452.7,175.0 456.4,176.7 460.1,178.5 463.8,180.4 467.5,182.2 471.2,184.0 474.9,185.9 478.6,187.8 482.3,189.7 486.0,191.6 489.7,193.5 493.3,195.5 497.0,197.4" fill="none" stroke="#1f8a5b" stroke-width="2.5"/><text x="380.1315789473684" y="125.14285714285714" font-size="13" fill="#1f8a5b" font-weight="700">P (permintaan)</text><polyline points="54.0,79.1 56.9,79.2 59.8,79.2 62.7,79.3 65.5,79.4 68.4,79.5 71.3,79.7 74.2,79.9 77.1,80.1 80.0,80.4 82.9,80.6 85.7,81.0 88.6,81.3 91.5,81.7 94.4,82.1 97.3,82.5 100.2,83.0 103.1,83.5 106.0,84.0 108.8,84.6 111.7,85.2 114.6,85.8 117.5,86.4 120.4,87.1 123.3,87.8 126.2,88.6 129.0,89.3 131.9,90.1 134.8,90.9 137.7,91.8 140.6,92.7 143.5,93.6 146.4,94.6 149.2,95.5 152.1,96.6 155.0,97.6 157.9,98.7 160.8,99.8 163.7,100.9 166.6,102.0 169.4,103.2 172.3,104.5 175.2,105.7 178.1,107.0 181.0,108.3 183.9,109.6 186.8,111.0 189.7,112.4 192.5,113.8 195.4,115.3 198.3,116.8 201.2,118.3 204.1,119.9 207.0,121.4 209.9,123.1 212.7,124.7 215.6,126.4 218.5,128.1 221.4,129.8 224.3,131.6 227.2,133.4 230.1,135.2 232.9,137.0 235.8,138.9 238.7,140.8 241.6,142.8 244.5,144.7 247.4,146.7 250.3,148.8 253.1,150.8 256.0,152.9 258.9,155.1 261.8,157.2 264.7,159.4 267.6,161.6 270.5,163.9 273.3,166.1 276.2,168.4 279.1,170.8 282.0,173.1 284.9,175.5 287.8,177.9 290.7,180.4 293.6,182.9 296.4,185.4 299.3,187.9 302.2,190.5 305.1,193.1 308.0,195.8 310.9,198.4 313.8,201.1 316.6,203.9 319.5,206.6 322.4,209.4 325.3,212.2 328.2,215.1 331.1,217.9 334.0,220.8 336.8,223.8 339.7,226.7 342.6,229.7 345.5,232.8 348.4,235.8 351.3,238.9 354.2,242.0 357.0,245.2 359.9,248.4 362.8,251.6 365.7,254.8 368.6,258.1 371.5,261.4 374.4,264.7 377.3,268.0 380.1,271.4 383.0,274.9 385.9,278.3 388.8,281.8 391.7,285.3 394.6,288.8 397.5,292.4 400.3,296.0" fill="none" stroke="#b4610e" stroke-width="2.5" stroke-dasharray="6 5"/><text x="405.7105263157895" y="269.7142857142857" font-size="13" fill="#b4610e" font-weight="700">MR</text><line x1="309.7894736842105" x2="309.7894736842105" y1="39.71428571428571" y2="197.42857142857144" stroke="#9aa0ab" stroke-dasharray="4 4"/><line x1="54" x2="309.7894736842105" y1="39.71428571428571" y2="39.71428571428571" stroke="#9aa0ab" stroke-dasharray="4 4"/><circle cx="309.7894736842105" cy="39.71428571428571" r="4.5" fill="#1d1f24"/><text x="317.7894736842105" y="31.714285714285708" font-size="13" fill="#1d1f24">(2, 48) TR maks</text></svg>
+  <p><span class="ans">\( TR_{\max} = 48 \) pada \( Q = 2 \) (harga 24)</span></p>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Perhatikan hubungannya: TR mencapai puncak tepat saat MR memotong sumbu Q (MR = 0).</p>
+</div>
+
+<!-- Soal 7 -->
+<h3 id="s7">Soal 7 — Biaya marginal minimum</h3>
+<p>MC berbentuk parabola terbuka ke atas, jadi minimum di \( \dfrac{dMC}{dQ} = 0 \), yaitu \( Q = -\dfrac{b}{2a} \).</p>
+<div class="scroll"><table>
+  <tr><th>Butir</th><th>MC</th><th>\( \frac{dMC}{dQ} = 0 \)</th><th>Q</th><th>MC<sub>min</sub></th></tr>
+  <tr><td>a</td><td>\( 0{,}1Q^2 - 6Q + 170 \)</td><td>\( 0{,}2Q - 6 = 0 \)</td><td class="num">30</td><td class="num">90 − 180 + 170 = <b>80</b></td></tr>
+  <tr><td>b</td><td>\( 3Q^2 - 54Q + 400 \)</td><td>\( 6Q - 54 = 0 \)</td><td class="num">9</td><td class="num">243 − 486 + 400 = <b>157</b></td></tr>
+  <tr><td>c</td><td>\( 0{,}05Q^2 - 5Q + 224 \)</td><td>\( 0{,}1Q - 5 = 0 \)</td><td class="num">50</td><td class="num">125 − 250 + 224 = <b>99</b></td></tr>
+  <tr><td>d</td><td>\( 3Q^2 - 180Q + 2.900 \)</td><td>\( 6Q - 180 = 0 \)</td><td class="num">30</td><td class="num">2.700 − 5.400 + 2.900 = <b>200</b></td></tr>
+</table></div>
+
+<!-- Soal 8 -->
+<h3 id="s8">Soal 8 — Laba maksimum</h3>
+<div class="soal">
+  <p class="q">\( TR = 1.000Q - 2Q^2 \) dan \( TC = Q^3 - 59Q^2 + 1.315Q + 2.000 \)</p>
+  <ol class="steps">
+    <li><b>Laba.</b>
+      \[ \pi = 1.000Q - 2Q^2 - Q^3 + 59Q^2 - 1.315Q - 2.000 = -Q^3 + 57Q^2 - 315Q - 2.000. \]
+    </li>
+    <li><b>Turunan = 0.</b> \( -3Q^2 + 114Q - 315 = 0 \Rightarrow Q^2 - 38Q + 105 = 0 \Rightarrow (Q - 3)(Q - 35) = 0 \).</li>
+    <li><b>Pilih yang maksimum.</b> \( \pi'' = -6Q + 114 \). Di \( Q = 3 \): \( +96 \) (itu titik minimum). Di \( Q = 35 \): \( -96 \lt 0 \), maksimum. Jadi \( Q = 35 \).</li>
+    <li><b>b. Laba.</b> \( \pi = -42.875 + 69.825 - 11.025 - 2.000 = 13.925 \).</li>
+    <li><b>c. Harga.</b> \( P = \dfrac{TR}{Q} = 1.000 - 2Q = 930 \).</li>
+    <li><b>d. Biaya total.</b> \( TC = 42.875 - 72.275 + 46.025 + 2.000 = 18.625 \).</li>
+    <li><b>e. Penerimaan total.</b> \( TR = 35.000 - 2.450 = 32.550 \). Cek: \( 32.550 - 18.625 = 13.925 \) ✓.</li>
+  </ol>
+  <p><span class="ans">\( Q = 35,\ \pi = 13.925,\ P = 930,\ TC = 18.625,\ TR = 32.550 \)</span></p>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Pelajaran: turunan pertama bisa memberi dua akar. Turunan kedua yang menentukan mana puncak dan mana lembah.</p>
+</div>
+
+<!-- Soal 9 -->
+<h3 id="s9">Soal 9 — Fungsi MC dan MC minimum</h3>
+<p>Langkah: \( MC = TC' \), lalu \( MC' = 0 \) untuk mencari \( Q \), lalu masukkan ke MC.</p>
+<div class="scroll"><table>
+  <tr><th>Butir</th><th>b. Q</th><th>c. MC<sub>min</sub></th><th>a. MC = TC′, lalu MC′ = 0</th></tr>
+  <tr><td>a</td><td class="num">0</td><td class="num"><b>12</b></td><td>\( MC = 2Q + 12 \)<br>\( MC' = 2 \ne 0 \)</td></tr>
+  <tr><td>b</td><td class="num">20</td><td class="num"><b>−1.215</b></td><td>\( MC = 3Q^2 - 120Q - 15 \)<br>\( 6Q - 120 = 0 \)</td></tr>
+  <tr><td>c</td><td class="num">40</td><td class="num"><b>−2.700</b></td><td>\( MC = 3Q^2 - 240Q + 2.100 \)<br>\( 6Q - 240 = 0 \)</td></tr>
+  <tr><td>d</td><td class="num">105</td><td class="num"><b>−6.075</b></td><td>\( MC = 3Q^2 - 630Q + 27.000 \)<br>\( 6Q - 630 = 0 \)</td></tr>
+</table></div>
+<div class="box warn">
+  <span class="tag">Catatan untuk soal 9</span>
+  <b>Butir a:</b> MC berupa garis naik (\( MC' = 2 \gt 0 \)), jadi tidak punya titik balik. Untuk \( Q \ge 0 \), MC terkecil ada di \( Q = 0 \), yaitu 12.<br>
+  <b>Butir b, c, d:</b> hitungannya benar, tetapi MC minimumnya negatif (b: \( 1.200 - 2.400 - 15 \); c: \( 4.800 - 9.600 + 2.100 \); d: \( 33.075 - 66.150 + 27.000 \)). Secara ekonomi biaya tambahan tidak mungkin negatif, jadi angka soalnya kemungkinan hanya latihan aljabar.
+</div>
+
+<!-- Soal 10 -->
+<h3 id="s10">Soal 10 — AC minimum dan bukti MC = AC</h3>
+<p>Langkah: cari \( Q \) dari \( AC' = 0 \). Lalu bentuk \( TC = AC\cdot Q \), turunkan menjadi MC, dan cek nilainya di \( Q \) yang sama.</p>
+<div class="soal">
+  <p class="q">a. \( AC = 25 - 8Q + Q^2 \)</p>
+  <p>\( AC' = -8 + 2Q = 0 \Rightarrow Q = 4 \), \( AC = 25 - 32 + 16 = 9 \).<br>
+  \( TC = 25Q - 8Q^2 + Q^3 \Rightarrow MC = 25 - 16Q + 3Q^2 \), \( MC(4) = 25 - 64 + 48 = 9 \) ✓.</p>
+  <p><span class="ans">\( AC_{\min} = 9 = MC \) di \( Q = 4 \)</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( AC = 3Q + 5 + 6Q^{-1} \)</p>
+  <p>\( AC' = 3 - 6Q^{-2} = 0 \Rightarrow Q^2 = 2 \Rightarrow Q = \sqrt{2} \approx 1{,}414 \).
+  \( AC = 3\sqrt2 + 5 + \dfrac{6}{\sqrt2} = 3\sqrt2 + 5 + 3\sqrt2 = 5 + 6\sqrt2 \approx 13{,}49 \).<br>
+  \( TC = 3Q^2 + 5Q + 6 \Rightarrow MC = 6Q + 5 \), \( MC(\sqrt2) = 5 + 6\sqrt2 \) ✓.</p>
+  <p><span class="ans">\( AC_{\min} = 5 + 6\sqrt2 \approx 13{,}49 = MC \)</span></p>
+</div>
+<div class="soal">
+  <p class="q">c. \( AC = 2Q + 5 + 18Q^{-1} \)</p>
+  <p>\( AC' = 2 - 18Q^{-2} = 0 \Rightarrow Q^2 = 9 \Rightarrow Q = 3 \), \( AC = 6 + 5 + 6 = 17 \).<br>
+  \( TC = 2Q^2 + 5Q + 18 \Rightarrow MC = 4Q + 5 \), \( MC(3) = 17 \) ✓.</p>
+  <p><span class="ans">\( AC_{\min} = 17 = MC \) di \( Q = 3 \)</span></p>
+</div>
+<div class="soal">
+  <p class="q">d. \( AC = 6Q + 7 + 36Q^{-1} \)</p>
+  <p>\( AC' = 6 - 36Q^{-2} = 0 \Rightarrow Q^2 = 6 \Rightarrow Q = \sqrt6 \approx 2{,}449 \).
+  \( AC = 6\sqrt6 + 7 + \dfrac{36}{\sqrt6} = 7 + 12\sqrt6 \approx 36{,}39 \).<br>
+  \( TC = 6Q^2 + 7Q + 36 \Rightarrow MC = 12Q + 7 \), \( MC(\sqrt6) = 7 + 12\sqrt6 \) ✓.</p>
+  <p><span class="ans">\( AC_{\min} = 7 + 12\sqrt6 \approx 36{,}39 = MC \)</span></p>
+</div>
+<div class="box ok">
+  <span class="tag">Kenapa MC selalu sama dengan AC di titik minimum?</span>
+  Dari \( AC = \dfrac{TC}{Q} \), aturan hasil bagi memberi \( AC' = \dfrac{MC - AC}{Q} \). Di titik minimum \( AC' = 0 \), jadi \( MC - AC = 0 \), atau \( MC = AC \). Intuisinya: kalau unit tambahan (MC) lebih murah dari rata-rata, rata-rata turun; kalau lebih mahal, rata-rata naik. Rata-rata berhenti turun tepat saat MC = AC.
+</div>
+
+<!-- Soal 11 -->
+<h3 id="s11">Soal 11 — Penerimaan total maksimum</h3>
+<p>Untuk \( TR = bQ - aQ^2 \): \( MR = b - 2aQ = 0 \Rightarrow Q = \dfrac{b}{2a} \). Butir b berbentuk kubik, dihitung tersendiri.</p>
+<div class="scroll"><table>
+  <tr><th>Butir</th><th>TR</th><th>MR = 0</th><th>Q</th><th>TR<sub>max</sub></th></tr>
+  <tr><td>a</td><td>\( -0{,}0016Q^2 + 0{,}04Q \)</td><td>\( -0{,}0032Q + 0{,}04 = 0 \)</td><td class="num">12,5</td><td class="num"><b>0,25</b></td></tr>
+  <tr><td>b</td><td>\( -0{,}02Q^3 + 24Q \)</td><td>\( -0{,}06Q^2 + 24 = 0 \)</td><td class="num">20</td><td class="num">−160 + 480 = <b>320</b></td></tr>
+  <tr><td>c</td><td>\( -0{,}03Q^2 + 81Q \)</td><td>\( -0{,}06Q + 81 = 0 \)</td><td class="num">1.350</td><td class="num"><b>54.675</b></td></tr>
+  <tr><td>d</td><td>\( 57Q - 0{,}2Q^2 \)</td><td>\( 57 - 0{,}4Q = 0 \)</td><td class="num">142,5</td><td class="num"><b>4.061,25</b></td></tr>
+  <tr><td>e</td><td>\( 12Q - 0{,}04Q^2 \)</td><td>\( 12 - 0{,}08Q = 0 \)</td><td class="num">150</td><td class="num"><b>900</b></td></tr>
+  <tr><td>f</td><td>\( 450Q - 3Q^2 \)</td><td>\( 450 - 6Q = 0 \)</td><td class="num">75</td><td class="num"><b>16.875</b></td></tr>
+</table></div>
+<p>Semua turunan keduanya negatif (\( -2a \) untuk bentuk kuadrat, dan \( -0{,}12Q = -2{,}4 \) untuk butir b), jadi semuanya maksimum. Contoh hitung butir c: \( TR = -0{,}03(1.350)^2 + 81(1.350) = -54.675 + 109.350 = 54.675 \).</p>
+
+<!-- Soal 12 -->
+<h3 id="s12">Soal 12 — Laba maksimum monopolis</h3>
+<p>Langkah tiap butir: \( TR = P\cdot Q \); kalau yang diberi AC, ubah dulu \( TC = AC\cdot Q \); bentuk \( \pi = TR - TC \); lalu \( \pi' = 0 \).</p>
+<div class="scroll"><table>
+  <tr><th>Butir</th><th>Q</th><th>P</th><th>\( \pi_{\max} \)</th><th>Laba \( \pi(Q) \) dan \( \pi' = 0 \)</th></tr>
+  <tr><td>a</td><td class="num">1,5</td><td class="num">13,5</td><td class="num"><b>13,5</b></td><td>\( (24Q - 7Q^2) - (6Q - Q^2) = 18Q - 6Q^2 \)<br>\( 18 - 12Q = 0 \)</td></tr>
+  <tr><td>b</td><td class="num">\( \tfrac43 \)</td><td class="num">\( \tfrac{62}{3} \approx 20{,}67 \)</td><td class="num"><b>\( \tfrac{302}{9} \approx 33{,}56 \)</b></td><td>\( (26Q - 3Q^3) - (3Q^2 + 2Q - 14) \)<br>\( = -3Q^3 - 3Q^2 + 24Q + 14 \)<br>\( -9Q^2 - 6Q + 24 = 0 \)</td></tr>
+  <tr><td>c</td><td class="num">\( \tfrac23 \)</td><td class="num">\( \tfrac{28}{3} \approx 9{,}33 \)</td><td class="num"><b>\( \tfrac43 \approx 1{,}33 \)</b></td><td>\( (12Q - 4Q^2) - (8Q - Q^2) = 4Q - 3Q^2 \)<br>\( 4 - 6Q = 0 \)</td></tr>
+  <tr><td>d</td><td class="num">\( \tfrac13 \)</td><td class="num">\( \tfrac{31}{3} \approx 10{,}33 \)</td><td class="num"><b>1</b></td><td>\( (12Q - 5Q^2) - (6Q + 4Q^2) = 6Q - 9Q^2 \)<br>\( 6 - 18Q = 0 \)</td></tr>
+  <tr><td>e</td><td class="num">3</td><td class="num">20</td><td class="num"><b>27</b></td><td>\( (26Q - 2Q^2) - (Q^2 + 8Q) = 18Q - 3Q^2 \)<br>\( 18 - 6Q = 0 \)</td></tr>
+  <tr><td>f</td><td class="num">1,94</td><td class="num">153</td><td class="num"><b>6,18</b></td><td>\( (250Q - 50Q^2) - (182 + 56Q) \)<br>\( = -50Q^2 + 194Q - 182 \)<br>\( 194 - 100Q = 0 \)</td></tr>
+  <tr><td>g</td><td class="num">\( \tfrac23 \)</td><td class="num">\( \tfrac{26}{3} \approx 8{,}67 \)</td><td class="num"><b>\( \tfrac{112}{27} \approx 4{,}15 \)</b></td><td>\( (12Q - 5Q^2) - (Q^3 + 3Q^2) \)<br>\( = -Q^3 - 8Q^2 + 12Q \)<br>\( -3Q^2 - 16Q + 12 = 0 \)</td></tr>
+  <tr><td>h</td><td class="num">20</td><td class="num">156</td><td class="num"><b>1.080</b></td><td>\( (216Q - 3Q^2) - (0{,}08Q^3 - 3Q^2 + 120Q + 200) \)<br>\( = -0{,}08Q^3 + 96Q - 200 \)<br>\( -0{,}24Q^2 + 96 = 0 \)</td></tr>
+  <tr><td>i</td><td class="num">\( \tfrac{8.000}{7} \approx 1.142{,}86 \)</td><td class="num">\( \tfrac{650}{7} \approx 92{,}86 \)</td><td class="num"><b>≈ 90.628,57</b></td><td>\( (150Q - 0{,}05Q^2) - (0{,}02Q^2 - 10Q + 800) \)<br>\( = -0{,}07Q^2 + 160Q - 800 \)<br>\( 160 - 0{,}14Q = 0 \)</td></tr>
+</table></div>
+<div class="soal">
+  <p class="q">Contoh rinci butir b (yang paling rumit)</p>
+  <ol class="steps">
+    <li><b>Bentuk laba.</b> \( TR = (26 - 3Q^2)Q = 26Q - 3Q^3 \). Kurangkan TC: \( \pi = -3Q^3 - 3Q^2 + 24Q + 14 \).</li>
+    <li><b>Turunan = 0.</b> \( -9Q^2 - 6Q + 24 = 0 \). Bagi dengan \( -3 \): \( 3Q^2 + 2Q - 8 = 0 \), atau \( (3Q - 4)(Q + 2) = 0 \). Jadi \( Q = \tfrac43 \) (yang \( -2 \) dibuang).</li>
+    <li><b>Cek.</b> \( \pi'' = -18Q - 6 = -30 \lt 0 \), maksimum.</li>
+    <li><b>Nilai.</b> \( \pi = -3\cdot\tfrac{64}{27} - 3\cdot\tfrac{16}{9} + 32 + 14 = -\tfrac{64}{9} - \tfrac{48}{9} + 46 = \tfrac{302}{9} \approx 33{,}56 \).</li>
+  </ol>
+  <p style="margin-bottom:0">Butir g sama caranya: \( 3Q^2 + 16Q - 12 = 0 \Rightarrow (3Q - 2)(Q + 6) = 0 \Rightarrow Q = \tfrac23 \), lalu \( \pi = -\tfrac{8}{27} - \tfrac{32}{9} + 8 = \tfrac{112}{27} \).</p>
+</div>
+
+<!-- Soal 13 -->
+<h3 id="s13">Soal 13 — Paket lengkap: Q, laba, harga, TC, TR</h3>
+<div class="soal">
+  <p class="q">a. \( TC = 50 + 20Q \) dan \( P = 100 - \tfrac12 Q - \tfrac12 Q^2 \)</p>
+  <ol class="steps">
+    <li><b>TR dan laba.</b> \( TR = 100Q - \tfrac12Q^2 - \tfrac12Q^3 \), sehingga \( \pi = -\tfrac12Q^3 - \tfrac12Q^2 + 80Q - 50 \).</li>
+    <li><b>Turunan = 0.</b> \( -\tfrac32Q^2 - Q + 80 = 0 \Rightarrow 3Q^2 + 2Q - 160 = 0 \).
+      \[ Q = \frac{-2 + \sqrt{4 + 1.920}}{6} = \frac{-2 + \sqrt{1.924}}{6} \approx \frac{-2 + 43{,}863}{6} \approx 6{,}977. \]
+    </li>
+    <li><b>Cek.</b> \( \pi'' = -3Q - 1 \lt 0 \), maksimum.</li>
+    <li><b>Nilai lainnya.</b> \( P = 100 - 3{,}489 - 24{,}340 \approx 72{,}17 \); \( TR = P\cdot Q \approx 503{,}55 \); \( TC = 50 + 139{,}54 \approx 189{,}54 \); \( \pi \approx 314{,}01 \).</li>
+  </ol>
+  <p><span class="ans">\( Q \approx 6{,}98,\ \pi \approx 314{,}01,\ P \approx 72{,}17,\ TC \approx 189{,}54,\ TR \approx 503{,}55 \)</span></p>
+</div>
+<div class="soal">
+  <p class="q">b. \( TC = \tfrac12Q^2 + 29Q + 100 \) dan \( P = 50 - Q \)</p>
+  <ol class="steps">
+    <li><b>Laba.</b> \( \pi = (50Q - Q^2) - (\tfrac12Q^2 + 29Q + 100) = -\tfrac32Q^2 + 21Q - 100 \).</li>
+    <li><b>Turunan = 0.</b> \( -3Q + 21 = 0 \Rightarrow Q = 7 \); \( \pi'' = -3 \lt 0 \).</li>
+    <li><b>Nilai.</b> \( P = 43 \); \( TR = 301 \); \( TC = 24{,}5 + 203 + 100 = 327{,}5 \); \( \pi = 301 - 327{,}5 = -26{,}5 \).</li>
+  </ol>
+  <p><span class="ans">\( Q = 7,\ \pi = -26{,}5,\ P = 43,\ TC = 327{,}5,\ TR = 301 \)</span></p>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:0">Labanya negatif: perusahaan tetap rugi. \( Q = 7 \) adalah titik <b>rugi paling kecil</b>. Biaya tetap 100 terlalu besar dibanding pasar ini.</p>
+</div>
+<div class="soal">
+  <p class="q">c. \( TC = 100 + 20Q \) dan \( P = 100 - \tfrac{1}{10}Q \)</p>
+  <ol class="steps">
+    <li><b>Laba.</b> \( \pi = (100Q - 0{,}1Q^2) - (100 + 20Q) = -0{,}1Q^2 + 80Q - 100 \).</li>
+    <li><b>Turunan = 0.</b> \( -0{,}2Q + 80 = 0 \Rightarrow Q = 400 \); \( \pi'' = -0{,}2 \lt 0 \).</li>
+    <li><b>Nilai.</b> \( P = 100 - 40 = 60 \); \( TR = 24.000 \); \( TC = 100 + 8.000 = 8.100 \); \( \pi = 15.900 \).</li>
+  </ol>
+  <p><span class="ans">\( Q = 400,\ \pi = 15.900,\ P = 60,\ TC = 8.100,\ TR = 24.000 \)</span></p>
+</div>
+
+<!-- ============ 12 ============ -->
+<h2 id="ringkas"><span class="no">12</span>Ringkasan rumus &amp; resep</h2>
+<div class="scroll"><table>
+  <tr><th>Topik</th><th>Rumus kunci</th><th>Syarat optimum</th></tr>
+  <tr><td>Elastisitas (titik)</td><td>\( E = \dfrac{dQ}{dP}\cdot\dfrac{P}{Q} \)</td><td>Bandingkan \( |E| \) dengan 1</td></tr>
+  <tr><td>Elastisitas (busur)</td><td>\( E = \dfrac{\Delta Q}{\Delta P}\cdot\dfrac{P}{Q} \)</td><td>Pakai \( P, Q \) awal</td></tr>
+  <tr><td>Elastisitas produksi</td><td>\( \eta = \dfrac{dP}{dX}\cdot\dfrac{X}{P} \)</td><td>—</td></tr>
+  <tr><td>Biaya</td><td>\( AC = \dfrac{TC}{Q},\ MC = TC' \)</td><td>AC min: \( AC' = 0 \) (di situ \( MC = AC \))</td></tr>
+  <tr><td>Penerimaan</td><td>\( TR = PQ,\ MR = TR' \)</td><td>TR maks: \( MR = 0 \)</td></tr>
+  <tr><td>Laba</td><td>\( \pi = TR - TC \)</td><td>\( MR = MC \) dan \( \pi'' \lt 0 \)</td></tr>
+  <tr><td>Pajak maksimum</td><td>\( T = t\,Q_t \), dengan \( t \) dari \( P_d = P_s + t \)</td><td>\( T' = 0 \)</td></tr>
+  <tr><td>Monopoli + pajak</td><td>\( \pi = TR - TC - tQ \) atau \( \pi = \tfrac{P_t}{1+r}Q - TC \)</td><td>\( \pi' = 0 \)</td></tr>
+</table></div>
+
+<div class="box key">
+  <span class="tag">Kesalahan yang paling sering</span>
+  <ol style="margin:4px 0 0;padding-left:22px">
+    <li>Lupa mengubah fungsi permintaan menjadi \( TR = P\cdot Q \) sebelum diturunkan.</li>
+    <li>Lupa membalik \( \dfrac{dP}{dQ} \) menjadi \( \dfrac{dQ}{dP} \) saat menghitung elastisitas dari fungsi \( P = f(Q) \).</li>
+    <li>Salah tanda ketika mengurangkan TC: semua suku di dalam kurung ikut berganti tanda.</li>
+    <li>Tidak mengecek turunan kedua, padahal \( \pi' = 0 \) bisa menghasilkan titik minimum (lihat soal 8).</li>
+    <li>Kalau yang diberi AC, kalikan \( Q \) dulu untuk mendapat TC.</li>
+  </ol>
+</div>
+
+<footer>
+  Catatan Pertemuan 11 Matematika Ekonomi (Kelas C), dosen Vepi Apiati, S.Pd., M.Pd. Sumber: buku <i>Penerapan Matematika dalam Bidang Ekonomi</i> (Vepi Apiati), Bab 5 "Penerapan Diferensial dalam Bidang Ekonomi", hlm. 82–107, berbentuk foto PDF dari teman sekelas. Pertemuan ini belajar mandiri karena dosen mengikuti kegiatan universitas.
+</footer>
+
+</main>
+</body>
+</html>

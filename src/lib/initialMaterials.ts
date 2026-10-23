@@ -200,6 +200,17 @@ export const INITIAL_MATERIALS: Material[] = [
     createdAt: "2026-10-08T02:35:00.000Z",
   },
   {
+    id: "mat-matematika-ekonomi-pertemuan-11",
+    title: "Catatan & Jawaban Latihan Bab 5: Elastisitas dan Penerapan Diferensial dalam Ekonomi",
+    courseCode: "KP21517007",
+    meetingNo: 11,
+    type: "Catatan",
+    description:
+      "Catatan Matematika Ekonomi Pertemuan 11 (22 Oktober 2026). Dosen mengikuti kegiatan universitas dan menugaskan belajar mandiri Bab 5 tentang elastisitas. Berisi penjelasan sederhana elastisitas permintaan, penawaran, dan produksi beserta 5 kategorinya, biaya/penerimaan marginal, laba maksimum MR = MC, pajak maksimum, pajak monopoli, serta jawaban step by step ke-13 latihan soal.",
+    url: "/materi/KP21517007/pertemuan-11/index.html",
+    createdAt: "2026-10-22T02:35:00.000Z",
+  },
+  {
     id: "tool-kalkulator-polar-demoivre",
     title: "Aplikasi Bantuan: Kalkulator Polar, De Moivre & Akar Kompleks",
     courseCode: "KP21517003",
